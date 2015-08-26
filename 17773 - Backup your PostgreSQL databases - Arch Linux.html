@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is __________ (fill in blank)-->
+
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>17773-Backup your PostgreSQL databases - Arch Linux</title>
+<style>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">PostgreSQL, Backups</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-backup-postgresql-databases-on-an-ubuntu-vps, https://www.digitalocean.com/community/tutorials/how-to-backup-postgresql-databases-on-an-ubuntu-vps</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#Arch Linux;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">2</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">1</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17773</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:ArticleStatus msdt:dt="string">Not started</mso:ArticleStatus>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+
+<mso:Sample msdt:dt="string">z</mso:Sample>
+
+<mso:HoursDraftingEstimated msdt:dt="string">0.300000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.100000000000000</mso:HoursEditingEstimated>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Tom Taylor</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:DeliveryTarget msdt:dt="string"></mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+<mso:AssignedTo1 msdt:dt="string">12</mso:AssignedTo1>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+<p>Setting up backup of PostgreSQL database in Arch Linux, PostgreSQL, Ruby, Rails</p>
+<h1>Backup your PostgreSQL databases - Arch Linux</h1>
+
+<p><strong>Difficulty:</strong> <em>1</em></p>
+<p><strong>Time:</strong> <em>15 mins</em></p>
+
+<p>In this article, we are going to make a backup of PostgreSQL database that will be used for scaling Ruby on Rails (RoR) application. To perform this task, we are assuming that the user has sudo privileges.</p>
+
+<h2>Prerequisites: </h2>
+
+<p>To install Ruby and PostgreSQL,  please visit <a href="#"> 17537 - Install Ruby on Rails using RVM - Arch Linux</a> and <a href="#">17527- Use PostgreSQL with your Ruby on Rails Application - Arch Linux</a> links respectively.</p>
+
+<h2>Back up a PostgreSQL database </h2>
+<ol>
+<li><code>Pg_dump</code> is the utility which is used to dump database information into a file for backup purposes. Login with the <code>postgres  user</code>  and run the following command to create a database back up file.
+
+	<div class="hacker">sudo su - postgres</div>
+
+	<div class="hacker">pg_dump  database_name >  backup_file</div>
+</li> 
+<li>If you want  to perform back up on a remote system, you can pass the <code>-h</code> flag for specifying the remote host, and the <code>-p</code> flag to give the remote port.
+
+	<div class="hacker">pg_dump -h remote_host -p remote_port database_name > 	backup_file</div>
+</li>    
+<li>If you want to specify a different user, then <code>-U</code> is necessary.
+	<div class="hacker">pg_dump -U user_name -h remote_host -p remote_port database_name > backup_file</div>
+</li>
+</ol>
+
+<h2>Restore data dumps </h2>
+<ol>
+<li>Create an empty database to store the <code>backup_file.</code>
+	<div class="hacker">createdb -T template0 restored_database_name</div>
+</li>    
+<li>Restore a backup created by <code>pg_dump.</code>
+	<div class="hacker">Psql  restored_database_name < backup_file</div>
+</li>    
+<li>If the user <code>test_user</code>  owns a table in the database, then create a <code>test_user</code> before restorating the system.
+	<div class="hacker">createuser test_user</div>
+	<div class="hacker">Psql  restored_database_name < backup_file</div>
+</li>    
+</ol>    
+
+<h2>Dealing with restoration errors</h2>
+<ol>
+<li>Stop any backup error in PostgreSQL using the following command:
+	<div class="hacker">psql --set ON_ERROR_STOP=on restored_database_name < 	backup_file</div>
+</li>    
+<li>Restore all databases in a single transaction.
+	<div class="hacker">psql -1 restored_database_name < backup_file</div>
+<p>The difference between <code>Psql -1</code> and the <code>ON_ERROR_STOP</code> setting is that this will either succeed completely or not import anything.</p>
+</li>
+</ol>
+
+<h2>Backup and restore all databases in PostgreSQL</h2>
+<ol>
+<li>To save time, you can use <code>pg_dumpall</code> utility to create backup for all the databases in the system.
+	<div class="hacker">pg_dumpall > backup_file</div>
+</li>
+<li>Restore the databases with the default database.
+	 <div class="hacker">psql -f backup_file postgres</div>
+</li> 
+</ol> 
+
+<h2>Next Steps</h2>
+<p>In this article, we reviewed the steps involved in backing up the PostgreSQL databases on Arch Linux.</p>
+
+</body>
+</html>

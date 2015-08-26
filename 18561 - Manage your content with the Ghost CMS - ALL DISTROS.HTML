@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is __________ (fill in blank)-->
+
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>Manage your content with the Ghost CMS - ALL DISTROS</title>
+<style type="text/css">
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Ghost</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-manage-content-using-the-ghost-blogging-platform, https://www.digitalocean.com/community/tutorials/how-to-manage-content-using-the-ghost-blogging-platform</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#ALL DISTROS;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">6</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">3</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">18561</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:ArticleStatus msdt:dt="string">Not started</mso:ArticleStatus>
+
+
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string">Phase 1</mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">3</mso:PrereqOrdering>
+<mso:AssignedTo1 msdt:dt="string">12</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Tom Taylor</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:Week msdt:dt="string">5.00000000000000</mso:Week>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+<p>Manage your content with Ghost CMS - ALL DISTROS - CMS, Ghost</p>
+    <h1>Manage your content with Ghost CMS - ALL DISTROS </h1>
+    
+    <p><strong>Difficulty</strong>: <em>3</em><br/>
+        <strong>Time</strong>: <em>1.5 hrs</em></p>
+
+    <p>The Ghost blogging platform is a powerful blogging platform. Besides simplicity in setup, it is also characterized with a powerful user interface that allows users to manage their content with ease. This article provides introduction to various content management options provided by the Ghost blogging platform. 
+</p>
+	<h2>Prerequisites</h2>
+	<p>This article assumes that the host machine has a Ghost blogging platform deployed and running. For detailed steps, see:</p>
+	<ul>
+	<li><a href="#">18132 - Install and configure Ghost with NGINX – Ubuntu </a></li>
+	<li><a href="#">18133 - Install and configure Ghost with NGINX - CentOS, Fedora</a> </li>
+	<li><a href="#">18134 - Install and configure Ghost with NGINX - Arch Linux</a></li>
+	<li><a href="#">00030 - Install and configure Ghost with NGINX - Debian</a></li>
+	</ul>
+<p>The following steps work in the same way for all of the above mentioned platforms.</p>
+
+    <h2>Ensure Ghost is running</h2>
+<ol>	
+	<li>Ensure that Ghost is running and available via browser. For this, type the IP address or the associated domain name in the browser.
+		<div class="hacker">http://192.169.170.227:2368</div>
+		<p>Or</p>
+		<div class="hacker">http://coolexample.com</div>
+		<br/>
+		<img src="images/18561 - 1.png" alt="18561 - 1.png"/>
+			</li>
+	</ol>
+	<h2>Start a new blog with Ghost</h2>
+	<ol>
+	<li>Open the blog setup page by typing the following in the browser: 
+		<div class="hacker">http://192.169.170.227:2368/ghost/setup/</div>
+	  </li>
+	<li>Provide the required details in the blog setup page.
+	<br/><img src="images/18561 - 2.png" alt="18561 - 2.png"/>
+	</li>
+	
+	<li>Once registration is complete, the content tab will be visible, showing the sample pre-configured blog “Welcome to Ghost”.
+	<br/>
+	<img src="images/18561 - 3.png" alt="18561 - 3.png"/>
+	</li>
+	</ol>
+	
+	<h2>Create a new post</h2>
+	<ol>
+	<li>New posts can be created using the “New Post” icon on the top left corner.
+	<br/>
+	<img src="images/18561 - 4.png" alt="18561 - 4.png"/>
+	</li>
+	
+	<li>The title for the post and the content can be typed in or pasted in the provided windows. While putting content, the preview of the post is simultaneously visible in the preview window.
+	<br/>
+	<img src="images/18561 - 5.png" alt="18561 - 5.png"	/>
+	</li>
+	
+	<li>For formatting the content, Ghost uses its own markup language called markdown, which uses simple markdowns for formatting content. Help regarding this can be accessed via the small icon on the top right corner of the Markdown window (the content editing window).
+	<br/>
+	<img src="images/18561 - 6.png" alt="18561 - 6.png"/>
+	</li>
+	<li>The Markdown Help window shows all the options for additional formatting of text, like bold, emphasize, links and so on.
+	<br/>
+	<img src="images/18561 - 7.png" alt="18561 - 7.png"/>
+	</li>
+	<li>Option for adding tags is available in the bottom left corner.
+	<br/>
+	<img src="images/18561 - 8.png" alt="18561 - 8.png"/>
+	</li>
+	<li>Option to publish the draft, save the draft or delete the post are available in the bottom right corner of the window. 
+	<br/>
+	<img src="images/18561 - 9.png" alt="18561 - 9.png"/>
+	</li>
+		<li>Additional post settings like post URL, publish dates, author name and other meta data can be accessed using the ‘Settings’ icon, next to the SAVE DRAFT button in the bottom right corner.
+	<br/>
+	<img src="images/18561 - 10.png" alt="18561 - 10.png"/>
+	</li>
+	</ol>
+	
+	<h2>Additional Blog Settings and Information</h2>
+	<ol>
+	<li>The ‘Settings’ tab provides additional blog settings, which includes the following:
+	<ul>
+		<li><strong>General:</strong> General information about the blog, like title, description, logo, cover images, email address, number of posts per page, permanent links with dates and blog themes.</li>
+		<li><strong>Users:</strong> List of active users of the blog.</li>
+		<li><strong>Tags:</strong> Tags applied across all the articles in the blog.</li>
+		<li><strong>Navigation: </strong>Additional navigation options besides Home. </li>
+		<li><strong>Code Injection:</strong> Adds external code into the top and bottom of blog theme, without editing the theme files.</li>
+		<li><strong>Labs:</strong> A testing ground for experimental features.</li>
+		<li><strong>About:</strong> Information about Ghost version, environment, database, mail and other additional information.
+		<br/>
+		<img src="images/18561 - 11.png" alt="18561 - 11.png"/>
+		</li>
+		
+	</ul>
+	
+	</li>
+	<li>Additional help options can be viewed via the question-mark icon, next to the User Name at the top right corner. 
+	<br/>
+	<img src="images/18561 - 12.png" alt="18561 - 12.png"/>
+	</li>
+	</ol>
+	
+	<h2>Conclusion</h2>
+    <p>Ghost blogging platform provides easy to use options to manage the content. Most options being self-explanatory, allows users to create posts, edit posts, publish and manage them by themselves, without having any need to additional training. </p>
+   
+</body>
+</html>
