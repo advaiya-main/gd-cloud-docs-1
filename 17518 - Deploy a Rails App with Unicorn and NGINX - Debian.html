@@ -4,9 +4,8 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
+<!--Article Number is 17518-->
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>17518 - Deploy Rails App with Unicorn and NGINX - Debian</title>
@@ -71,32 +70,33 @@ p.note {
 
 <body>
 <p>Setting up Rails application with Unicorn and NGINX in Debian, Ruby, Rails, NGINX</p>
-    <h1>Deploy a Rails App with Unicorn and NGINX – Debian</h1>
+<h1>Deploy a Rails App with Unicorn and NGINX – Debian</h1>
     
-    <p><strong>Difficulty</strong>: <em>2</em><br/>
+    <p><strong>Difficulty</strong>: <em>2</em><br />
         <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>In this article, we will be configuring a multi-layer deployment installation to host Rails based Ruby web applications. To do this, we will use the powerful, flexible, and extremely successful Unicorn application server running behind Nginx.</p> 
-<p class="note">Note: We assume that you are logged in as a sudo user.</p>
-    <h2>Prerequisites</h2>
+<p>In this article, we will be configuring a multi-layer deployment installation to host Rails based Ruby web applications. To do this, we will use the powerful, flexible, and extremely successful Unicorn application server running behind NGINX.</p> 
+<p class="note">We assume that you are logged in as a sudo user.</p>
+
+<h2>Prerequisites</h2>
   In this article, we assume that you have already installed Ruby on Rails with rbenv and your Rails application uses PostgreSQL. If not, please visit:
-    <ol>
-	<li><a href="#">17523-Install Ruby on Rails with rbenv – Debain</a>
+    <ul>
+	<li><a href="17523 - Install Ruby on Rails with rbenv - Debian">Install Ruby on Rails with rbenv – Debian</a>
 	 </li>
-	<li><a href="#">17528-Use PostgreSQL with your Ruby on Rails application - Debian</a>
+	<li><a href="17528 - Use PostgreSQL with your Ruby on Rails application - Debian">Use PostgreSQL with your Ruby on Rails application - Debian</a>
 	 </li>
-</ol>
+</ul>
 	 
-	 <h2>Prepare the deployment Server</h2>
+	 <h2>Prepare the deployment server</h2>
     <ol> 
 	<li>Install the bundle of development tools and update the operating system using the following command:
 	<div class='hacker'>sudo apt-get install build-essential</div>
 	<div class='hacker'>sudo apt-get update</div>
     </li>
-	<li>Install Nginx.
+	<li>Install NGINX.
 	<div class='hacker'>sudo apt-get install nginx</div>
 	</li>
-	<li>Start the Nginx service.
+	<li>Start the NGINX service.
 	<div class='hacker'>sudo service nginx start</div>
 	</li>
 	<li>Install Unicorn and bundle all gems.
@@ -105,7 +105,8 @@ p.note {
 	</li>
 	</ol>
 	
-	<h2>Setup a Rails Application </h2>
+	<h2>Set up a Rails application </h2>
+  <!--This procedure is too long. Break it into shorter procedures of no more than 6-7 steps. Anywhere you have a "save and close" step is often a good place to start a new procedure.  You can use h3 headings if you don't think that the new section is at the same level as "Set up a Rails application."-->
     <ol>
 	<li>Create a new directory. 
 	<div class='hacker'>sudo mkdir –p /var/www</div>
@@ -135,7 +136,7 @@ p.note {
 	<li>Enter the new password and logout using the following command:
 	<div class='hacker'>\q</div>
     </li>
-	<li>To setup a database connection, move to your application directory:  
+	<li>To setup a database connection, move to your application directory.  
 	<div class='hacker'>Cd /var/www/HelloWorld</div>
 	<div class='hacker'>sudo  vim config/database.yml</div>
 	</li>
@@ -145,7 +146,7 @@ p.note {
 </div>
     </li>
 	
-	<li>Notice the production section at the bottom of the file:
+	<li>Locate the production section at the bottom of the file.
 	<div class='hacker'>username: username
 </div>
 <div class='hacker'>password: &lt;%= ENV[HelloWorld_DATABASE_PASSWORD'] %&gt;
@@ -182,7 +183,7 @@ p.note {
 </div>
 </li>
 <li>Save and exit.</li>
-<li>Now, export the secret key and the database password.
+<li>Export the secret key and the database password.
 	<div class='hacker'>rbenv vars
 </div>
 <p>Export them manually if required.</p>
@@ -194,7 +195,7 @@ p.note {
 	<li>Generate a scaffold controller to manage the database.
 	<div class='hacker'>rails generate scaffold Task title:string note:text</div>
 	</li>
-	<li>Update  the  production database.
+	<li>Update the production database.
 	<div class='hacker'>RAILS_ENV=production  rake db:migrate</div>
 	</li>
 	<li>Run your application from the application directory.
@@ -204,10 +205,11 @@ p.note {
 	<li>For binding to web browser, run the following command:
 	<div class='hacker'>rails server --binding=[your droplet's IP]</div>
 	</li>
-	<li>You should now be able to access it on any browser by visiting:<em> http://[your droplet's IP]:3000/tasks</em>
+	<li>You should now be able to access it on any browser by visiting: <strong>http://<em><u>your droplet's IP</u></em>:3000/tasks.</strong>.
 	</li>
-	<li>Upload source code here:
-	<a href="#">17414-Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTROS</a>
+	<li>Upload source code here:<br />
+	<a href="17414-Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTROS">Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTROS</a>
+  <!--What is the purpose of this upload?-->
 	</li>
 	</ol>
 	
@@ -245,11 +247,11 @@ p.note {
 	# Set master PID location
 	pid "#{shared_dir}/pids/unicorn.pid"
 </pre>
-</div>
-Save and exit.
+</div></li>
+<li>Save and exit.
 	</li>
 		
-	<li>Now create the directories that were referred in the configuration file. 
+	<li>Create the directories that were referred in the configuration file. 
 	<div class='hacker'>sudo mkdir -p shared/pids shared/sockets shared/log</div>
     </li>
 	
@@ -349,7 +351,7 @@ Save and exit.
 
 	</li>
 	
-	<li>Configure Nginx and enable it to communicate with Unicorn. To do this, you need to edit the default configuration file: <code>default.conf </code>and leave <code>nginx.conf</code>
+	<li>Configure NGINX and enable it to communicate with Unicorn. To do this, you need to edit the default configuration file: <code>default.conf </code>and leave <code>nginx.conf</code>
 	<div class='hacker'>sudo vim /etc/nginx/sites-available/default</div>
 	</li>
 	
@@ -382,10 +384,9 @@ location @app {
 	keepalive_timeout 10;
 	}
 </pre>
-	</div>
-	 Save and exit.
-	</li>
-	<li>Restart the Nginx service.
+	</div></li>
+	 <li>Save and exit.</li>
+	<li>Restart the NGINX service.
 	<div class='hacker'>sudo service nginx restart</div>
 	</li>
 	</ol>
@@ -393,19 +394,18 @@ location @app {
 	 <h2>Manage the servers</h2>
 
     <ol>
-	<li>Once we finish configuring both the servers, initiate Unicorn and run it as a daemon by using the configuration file. Ensure that you are inside the application directory and run the following command:
+	<li>After you finish configuring both the servers, initiate Unicorn and run it as a daemon by using the configuration file. Ensure that you are inside the application directory and run the following command:
 	
 	<div class='hacker'>unicorn_rails -c config/unicorn.rb –Ds</div>
 	</li>
 	
 	<li>Test your droplet's IP address or the domain name associated to it.
-	<div class='hacker'>http://[Your droplet's IP address]/tasks
-</div>
+	<strong>http://<em><u>Your droplet's IP address</u></em> tasks</strong>.
 	</li>
 	
 </ol>
-    <h2>Next Step</h2>
-<p> By using all of the above steps, we will be able to deploy your Rails application with Unicorn and Nginx on Debian. 
+    <h2>Conclusion</h2>
+<p> By using all of the above steps, we will be able to deploy your Rails application with Unicorn and NGINX on Debian. 
 </p>   
 </body>
 </html>
