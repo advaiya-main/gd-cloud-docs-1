@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is 17650 (fill in blank)-->
+
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>Set up SSL Certificate with phpMyAdmin and Apache - Arch Linux</title>
+<style>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Security, Apache, MySQL, SSL</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-set-up-ssl-certificates-with-phpmyadmin-on-an-ubuntu-12-04-vps, https://www.digitalocean.com/community/tutorials/how-to-set-up-ssl-certificates-with-phpmyadmin-on-an-ubuntu-12-04-vps</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#Arch Linux;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">2</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string">Follow up from Install and Secure phpmyadmin on Apache. Fork specific, reference Ubuntu instructions using appropriate comands for RHEL and Arch forks. Leave out the following sections since they are addressed in other articles - Install phpmyadmin, configure apache to load phpmyadmin, set up .htaccess for phpmyadmin. All else remains in the article.</mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">2</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17650</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:ArticleStatus msdt:dt="string">Drafting in progress</mso:ArticleStatus>
+<mso:HoursDraftingEstimated msdt:dt="string">3.00000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.250000000000000</mso:HoursEditingEstimated>
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string">Phase 2</mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Pooja Nadubettu</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+
+<mso:PrereqOrdering msdt:dt="string">1</mso:PrereqOrdering>
+<mso:Week msdt:dt="string">8.00000000000000</mso:Week>
+<mso:AssignedTo1 msdt:dt="string">17</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Crystal Smithwick</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:ReviewedBy msdt:dt="string">42</mso:ReviewedBy>
+<mso:ReviewComments msdt:dt="string"></mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+<mso:TransitionedToGitHub msdt:dt="string">0</mso:TransitionedToGitHub>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+<p>This article describes the Apache configuration steps required to make your phpMyAdmin implementation use SSL</p>
+    <h1>Set up SSL Certificate with phpMyAdmin and Apache - Arch Linux</h1>
+
+    <p>
+        <strong>Difficulty</strong>: <em><u>2</u></em><br />
+        <strong>Time</strong>: <em><u>20</u></em>
+    </p>
+    <p>phpMyAdmin is an open source tool that enables users to perform MySQL database operations like create, delete or modify MySQL databases or execute SQL statements, by providing a user interface. An essential way to help safeguard your data is to encrypt traffic between the web server client and your phpMyAdmin implementation. This article describes how to use SSL certificate to allow phpMyAdmin traffic to be encrypted. </p>
+    <h2>Pre-requisites</h2>
+    You need to have the following installed on your server:
+    <ul>
+        <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux.html">LAMP</a>
+        <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17650 - Install and secure phpMyAdmin with Apache - Arch Linux">Install and Secure phpMyAdmin on Fedora</a>
+        <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17454 - Install an SSL Certificate on Apache – Arch Linux">Install an SSL Certificate</a></li>
+    </ul>
+    <h2>Forcing phpMyAdmin to your SSL server</h2>
+    <p>Once you have all the prerequisites in place, the only thing to do is to force phpMyAdmin to use SSL instead of http.</p>
+    <ol>
+        <li>
+            Open the phpMyAdmin configuration file.
+            <div class="hacker">sudo vim /etc/webapps/phpmyadmin/config.inc.php</div>
+        </li>
+        <li>
+            Add the following line towards the end of the file.
+            <div class="hacker">$cfg['ForceSSl'] = TRUE;</div>
+            Save and exit the file.
+        </li>
+        <li>When you go to your browser and navigate to <strong>http://<em><u>yourdomainname.com</u></em>/phpmyadmin</strong> , after you enter your user credentials, you will see in the address bar, that it uses <strong>https://</strong></li>
+
+    </ol>
+
+
+    <h2>Conclusion</h2>
+    <p>Access to phpMyAdmin will now be limited to <strong>https://<em><u>yourdomainname.com</u></em></strong> only.</p>
+
+</body>
+</html>
