@@ -4,13 +4,12 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 18706-->
 
 
-<title>Install and configure a Jabber XMPP server - Ubuntu, Debian</title>
-<style>
+
+<title>Install and configure a Jabber XMPP server - Debian, Ubuntu</title>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -75,40 +74,41 @@ p.note {
 <p><strong>Difficulty:</strong> <em>2</em></p>
 <p><strong>Time:</strong> <em>20 Minutes</em></p>
 
-<p>Ejabberd is written in Erlang and known as a high performing Jabber/XMPP server. It has its own web-based management interface. This article explains the installation of Jabber XAMPP server in Ubuntu and Debian. You’ll need access to root privileges to complete these steps.</p>
+<p>Ejabberd is written in Erlang and known as a high performing Jabber/XMPP server. It has its own web-based management interface. This article explains the installation of Jabber XAMPP server in Ubuntu and Debian. You'll need access to root privileges to complete these steps.</p>
 
-<h2>Installation </h2>
+<!--Include an explanation that Jabber is a messaging system.  If XMPP is an acronym, please define.-->
+
+<h2>Install Ejabberd </h2> <!--Procedure headings should have a verb.-->
 <ol>
-<li>Use following command to install the server along with its component.
+<li>Use following command to install the Jabber server along with its components.
 	<div class="hacker">sudo apt-get install ejabberd</div>
-</li>
-<li>We have installed the server but we need to change a few configuration settings.</li>
-</ol>
+</li></ol>
+<p>You have installed the server, but we need to change a few configuration settings.</p>
 
-<h2>Configuration Settings</h2>
+<h2>Configure Ejabberd</h2>
 <ol>
-<li>We need to edit the configuration file. It resides at /etc/ejabberd/ejabberd.cfg. Use any editor and open this file.
+<li>Edit the configuration file. Open <code>/etc/ejabberd/ejabberd.cfg</code> in any editor.
 </li>
-<li>We need to add the host name we want server to use , so swap
+<li>Add the host name you want server to use. Update this line:
 		    <div class="hacker"> {hosts, ["localhost"]} </div>
-<p>with </p>
+<p>with this line: </p>
       <div class="hacker">{hosts, ["localhost","myserver.com"]}</div>
 </li>      
-<li>Now we need to create an admin user so swap
+<li>Create an admin user. Update this line:
 	<div class="hacker">{acl, admin, {user, "", "localhost"}}</div>
-	<p>with </p>
+	<p>with this line: </p>
      <div class="hacker"> {acl, admin, {user, "my_admin", "myserver.com"}}</div>
 </li>      
-<li>Now restart the service with following command
+<li>Restart the service.
 	<div class="hacker">sudo service ejabberd restart</div>
 </li>
-<li>To set password for admin user use following command
+<li>To set password for admin user, use following command:
 	<div class="hacker">sudo ejabberdctl register my_admin myserver.com password</div>
 </li>    
 </ol>
 
-<h2>Next Steps</h2>
-<p>In this article, we reviewed the steps involved with the installation and configuration of jabberd server. To change any other configurations you’ll need to log in to the web-based management panel. In your browser you can go to http:// myserver.com:5280/admin and enter admin credentials.</p>
+<h2>Next steps</h2>
+<p>In this article, we reviewed the steps involved with the installation and configuration of jabberd server. To change any other configurations you’ll need to log into the web-based management panel. In your browser, go to <strong>http://<em>myserver.com</em>:5280/admin</strong> and enter admin credentials.</p>
 
 </body>
 </html>
