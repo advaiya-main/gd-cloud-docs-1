@@ -181,7 +181,7 @@ p.note {
 
         <p>For more on <code>psycopg2</code>, you can visit <a href="http://initd.org/psycopg/docs/faq.html">http://initd.org/psycopg/docs/faq.html</a>.</p>
 
-            <p class=note>Please note: These commands ready PostgreSQL for Django but does not give you a fully configured installation. If you choose to work
+            <p class="note">Please note: These commands ready PostgreSQL for Django but does not give you a fully configured installation. If you choose to work
             with PostgreSQL and you need further instructions on Django, you may wish to visit the following DigitalOcean tutorial on the exact subject by clicking here.
             Below we are using an SQLite database. You should also modify that setting to work with your PostgreSQL installation if you decide to use it. </p>
 
@@ -342,95 +342,34 @@ p.note {
 
                                 if settings.DEBUG:  <br />
                                     urlpatterns += patterns('',  <br />
-                                    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', <br />
+                                    url(r'^media/(?P&lt;path&gt;.*)$', 'django.views.static.serve', <br />
                                         {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}), v
                                     url(r'', include('django.contrib.staticfiles.urls')), <br />
                                 ) + urlpatterns   </div>
 
 
-              <p></p>
-            <div class="hacker">
-             </div>
+        <p>Please note that the last conditional created in the above snippet slightly differs from the Django CMS introductory settings, whereby <code>urlpatterns = patterns(</code> is replaced with <code>urlpatterns += patterns(</code> to fix the problem of overriding <code> urlpatterns </code>set above. <br />
+           Again press CTRL+X and type Y to save and close. <br />
+           Execute the following commands to synchronise database according to our settings: </p>
+
+            <div class="hacker">project_cms$ python manage.py syncdb --all <br />
+                                project_cms$ python manage.py migrate --fake </div>
 
 
-              <p></p>
-            <div class="hacker">
-             </div>
+        <p>If you see "Installation okay", it means everything is fine and we can try it on the test server before continuing with building on our Django CMS project. <br />
+            Let's run the server again:</p>
+
+            <div class="hacker"> project_cms$ python manage.py cms check</div>
 
 
-              <p></p>
-            <div class="hacker">
-             </div>
+        <p>If you see "Installation okay", it means everything is fine and we can try it on the test server before continuing with building on our Django CMS project.  <br />
+           Let's run the server again:  </p>
+
+           <div class="hacker">project_cms$ python manage.py runserver 0.0.0.0:8000</div>
 
 
-              <p></p>
-            <div class="hacker">
-             </div>
+        <p>For further instructions, tutorials and documentation you can visit <a href="http://docs.django-cms.org/en/2.4.2/">http://docs.django-cms.org/en/2.4.2/</a>. To get more support on Django CMS, you can visit the support page located at <a href="https://www.django-cms.org/en/suppor">https://www.django-cms.org/en/support/</a>.</p>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <code> </code>
-
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-
-    <p>Include any of the following elements as needed:</p>
-
-   <div class="hacker">command (Put each command on a separate line.)</div>
-                <p class="warning">warning</p>
-     <p class="note">note</p>
-
-
-              <p>Bulleted list with intro:</p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
-   
 </body>
 </html>
