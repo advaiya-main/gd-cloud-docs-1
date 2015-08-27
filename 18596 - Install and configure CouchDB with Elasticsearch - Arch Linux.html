@@ -4,11 +4,8 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
-
+<!--Article Number is 18569-->
+ 
 <title>Install and configure CouchDB with Elasticsearch - Arch Linux</title>
 <style type='text/css'>
 div.hacker {
@@ -75,107 +72,108 @@ p.note {
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>1.5 hrs</em></p>
 
-    <p>CouchDB is often categorized as a “NoSQL” database and it is store data in JSON (JavaScript Object Notation). It is a lightweight data-interchange format that provides Master-Master replication. Elasticsearch is a popular search server based on Lucene. It is well developed in Java and is available to all while using Elasticsearch with CouchDB. This article covers the steps to install and configure CouchDB with Elasticsearch.</p> 
+    <p>CouchDB is often categorized as a “NoSQL” database and it is store data in JSON (JavaScript Object Notation). It is a lightweight data-interchange format that provides Master-Master replication. Elasticsearch is a popular search server based on Lucene. It is well developed in Java and is available to all while using Elasticsearch with CouchDB.</p>
+<p>This article covers the steps to install and configure CouchDB with Elasticsearch.</p> <!--Are there any prerequesites for linking?--> 
 
     <h2>Prepare the system</h2>
   
     <ol>
-	<li>Update the Arch Linux machine
+	<li>Update the Arch Linux machine.
 	<div class='hacker'>sudo pacman -Syu</div>
 	 </li>
 	
-	<li>Install Erlang. CouchDB is written in Erlang language
-	<div class='hacker'>sudo pacman –S erlang </div>
-	<p>Upon provided options for repository, choose option 1, mesa-libgl</p>
-    </li>
+	<li>Install Erlang. CouchDB is written in Erlang language.
+	<div class='hacker'>sudo pacman –S erlang </div></li>
+	<li>Upon provided options for repository, choose <code>option 1, mesa-libgl</code>.</li>
 	</ol>
 	
 	<h2>Install and configure CouchDB</h2>
     <ol>
-	<li>Install CouchDB
+	<li>Install CouchDB.
 	<div class='hacker'>pacman -S couchdb</div>
 	</li>
-	<li>Start CouchDB
+	<li>Start CouchDB.
 	<div class='hacker'>systemctl start couchdb.service</div>
 	
     </li>
 	
-	<li>Run following command to test CouchDB
+	<li>Run the following command to test CouchDB:
 	<div class='hacker'>curl -XGET http://127.0.0.1:5984/</div>
    
 	<p>Successful run of CouchDB will show the following message </p>
    
 	<img src="images/18596 - 1.png" alt="18596 - 1.png"/> </li>
 	
-	<li>Edit the config file
+	<li>Edit the config file.
 	<div class='hacker'>vim /etc/couchdb/local.ini</div>
 	</li>
-	<li>Modify and uncomment this line
-	<div class='hacker'>#Before <br/>
+	<li>Modify and uncomment this line:
+	<div class='hacker'>#Before <br />
 ;bind_address = 127.0.0.1
 </div>
-	<div class='hacker'>#After <br/>
+	<div class='hacker'>#After <br />
 bind_address = 192.169.169.122</div>
     </li>
-	<li>Start the CouchDB database server again
+	<li>Start the CouchDB database server again.
 	<div class='hacker'>systemctl start couchdb.service</div>
 	</li>
 	
 	</ol>
 	
 <h2>Install Elasticsearch </h2>
-
+<!--This procedure has too many steps. Break it into smaller sections with a maximum of 7 steps.  Use h3. You can also combine some commands into the same step, with seperate div.  If they logically go together with no output between.  For example, you could "Install and check Java version" -->
     <ol>
-	<li>Install Java 
+	<li>Install Java. 
 	<div class='hacker'>pacman -S jre8-openjdk</div>
 	</li>
 	<li>To check Java version, use the following command
 	<div class='hacker'>java -version</div>
     </li>
 	
-	<li>Install the Elasticsearch's deb packages (These step would install the version 1.7.1. For later versions, visit <em><u>elasticsearch.org/download</u></em>) 
+	<li>Install the Elasticsearch's deb packages. These steps install version 1.7.1. For current versions, visit <strong>elasticsearch.org/download</strong>. 
 	<div class='hacker'>wget</div>
 	<div class='hacker'>https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz</div>
 	<div class='hacker'>sudo tar xzf elasticsearch-1.7.1.tar.gz</div>
 	<div class='hacker'>mv elasticsearch-1.7.1 /usr/share/elasticsearch</div>
 	</li>
 		
-	<li>Open the Elasticsearch configuration file 
+	<li>Open the Elasticsearch configuration file. 
 	<div class='hacker'>cd /usr/share/elasticsearch</div>
 	<div class='hacker'>sudo vim config/elasticsearch.yml</div>
     </li>
 	
-	<li>Locate the below code in the file (usually under the Section ‘Network And HTTP’)
+	<li>Locate the code below in the file. It is usually under the section <code>Network And HTTP</code>.
 	<div class='hacker'>#network.bind_host:</div>
 	</li>
 	
-	<li>Uncomment this code (by removing #), and enter the IP address of the server 
+	<li>Uncomment this code (by removing #), and enter the IP address of the server. 
 	<div class='hacker'>network.bind_host: 127.0.0.1</div>
 	</li>
 	
-	<li>Locate and uncomment the following code (by removing #)
+	<li>Locate and uncomment the following code (by removing #).
 	<div class='hacker'>network.publish_host: 127.0.0.1 </div>
 	</li>
 	
-	<li>Insert following line anywhere under the section ‘Security’ (usually at the end of the file)  
+	<li>Insert following line anywhere under the section ‘Security’ (usually at the end of the file).  
 	<div class='hacker'>script.disable_dynamic: true</div>
 	</li>
 	
-	<li>Save the file and exit, by pressing ESC key, and pressing :wq
+	<li>Save the file and exit, by pressing the <strong>ESC</strong> key, and pressing <strong>:wq</strong>.
 	
 	</li>
 	
-	<li>Restart the Elasticsearch service for change get effect with sudo
+	<li>Restart the Elasticsearch service for change get effect with sudo <!--This makes no sense. Can you make it less jargony?-->
 	<div class='hacker'>./bin/elasticsearch</div>
 	<p>Upon successful start, it would show a ‘Started’ message.</p>
 	<img src="images/18596 - 2.png" alt="18596 - 2.png"/>
+  <!--The image is too wide.  According to the guidelines, 600px max.-->
 	</li>
 	
-	<li>Open a new terminal (or connect to the machine using another client), and Test Elasticsearch using the following command 
+	<li>Open a new terminal (or connect to the machine using another client), and test Elasticsearch using the following command: 
 	<div class='hacker'>curl <u>http://127.0.0.1:9200</u></div>
 	</li>
 	
-	<li>Successful execution would show the following display 
+	<li>A successful execution would show the following display:
 	<div class='hacker'>
 	<pre>
 	{
@@ -194,54 +192,57 @@ bind_address = 192.169.169.122</div>
 </pre>
 	</div>
 	<img src="images/18596 - 3.png" alt="18596 - 3.png"/>
+    <!--The image is too wide.  According to the guidelines, 600px max.-->
+  
 	</li>
 	</ol>
 	 
 	 <h2>Test CounchDB with Elasticsearch</h2>
 
     <ol>
-	<li>Stop ElasticSearch by pressing CTRL + C  (in the terminal where Elasticsearch was started)
+	<li>Stop ElasticSearch by pressing <strong>CTRL+C</strong>  (in the terminal where Elasticsearch was started). <!--This is an awkward sentence.-->
 	<img src="images/18596 - 4.png" alt="18596 - 4.png"/>
+    <!--The image is too wide.  According to the guidelines, 600px max.-->
 	</li>
 	
-	<li>Create new directory for change ElasticSearch Stores Indices
+	<li>Create new directory for change ElasticSearch Stores Indices.
 	<div class='hacker'>vim /usr/share/elasticsearch/config/elasticsearch.yml</div>
 	</li>
 	
-	<li>Locate the following command (under the Paths section)
+	<li>Locate the following command (under the Paths section).
 	<div class='hacker'>#Path to where plugins are installed:
-<br/>#
-<br/>#path.plugins: /path/to/plugins
+<br />#
+<br />#path.plugins: /path/to/plugins
 </div>
 	</li>
 	
-	<li>Update it to following
+	<li>Update it <!--What is it?--> to following:
 	<div class='hacker'>#Path to where plugins are installed:
-<br/>#
-<br/>path.plugins: /usr/share/elasticsearch/plugins
+<br />#
+<br />path.plugins: /usr/share/elasticsearch/plugins
 </div>
 	</li>
 	
 	
-	<li>Install the elasticsearch-river-couchdb plugin
+	<li>Install the elasticsearch-river-couchdb plug in.
 	<div class='hacker'>cd /usr/share/elasticsearch/bin</div>
 	<div>sh plugin install elasticsearch/elasticsearch-river-couchdb/2.6.0</div>
 	</li>
 	
 	
-	<li>Restart the Elasticsearch
+	<li>Restart the Elasticsearch.
 	<div class='hacker'>./elasticsearch
 </div>
 	</li></ol>
 <h2>Create CouchDB database and Elasticsearch Index</h2>
 <ol>
-<li>Open a new terminal (or connect to the machine using another client), and test Elasticsearch using the following command 
+<li>Open a new terminal (or connect to the machine using another client), and test Elasticsearch using the following command: 
 <div class='hacker'>curl -X PUT <u>http://127.0.0.1:5984/mydb</u></div>
 <p>Successful execution would show the following message:</p>
 <div class='hacker'>{"ok":true}</div>
 </li>
 
-<li>Create the sample documents
+<li>Create the sample documents.
 <div class='hacker'>
 <pre>
 curl -X PUT 'http://127.0.0.1:5984/mydb/1' -d '{"name":"Name 1"}' 
@@ -252,13 +253,13 @@ curl -X PUT 'http://127.0.0.1:5984/mydb/4' -d '{"name":"Name 4"}'
 	</div>
 	</li>
 	
-	<li>Setup ElasticSearch with the CouchDB database by creating index
+	<li>Set up ElasticSearch with the <strong>CouchDB</strong> database by creating an index.
 	<div class='hacker'>
 curl -X PUT '127.0.0.1:9200/_river/mydb/_meta' -d '{ "type" : "couchdb", "couchdb" : { "host" : "localhost", "port" : 5984, "db" : "mydb", "filter" : null }, "index" : { "index" : "mydb", "type" : "mydb", "bulk_size" : "100", "bulk_timeout" : "10ms" } }'
 	</div>
 	</li>
 	
-	<li>Test the index by firing a query
+	<li>Test the index by firing a query.
 	<div class='hacker'>curl http://127.0.0.1:9200/mydb/mydb/_search?pretty=true</div>
 	<p>Successful execution of query would result into following output</p>
 	<div class='hacker'>
