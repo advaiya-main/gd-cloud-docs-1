@@ -4,9 +4,6 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>17772-Backup your PostgreSQL databases - CentOS, Fedora</title>
@@ -71,35 +68,32 @@ p.note {
 </head>
 
 <body>
+<!--Please format all variables properly, using <em><u></u></em> tags. See editorial guidelines. cj -->
+
 <p>Setting up backup of PostgreSQL database in CentOS and Fedora, PostgreSQL, Ruby, Rails</p>
-<h1>Backup your PostgreSQL databases - CentOS, Fedora</h1>
+<h1>Back Up Your PostgreSQL Databases - CentOS, Fedora</h1>
 
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>15 mins</em></p>
 
-<p>In this article, we are going to make a backup of PostgreSQL database that will be used for scaling Ruby on Rails (RoR) application. To perform this task, we are assuming that the user has sudo privileges.</p>
-
-<h2>Prerequisites: </h2>
-<p>To install Ruby and PostgreSQL,  please visit <a href="#"> 17536 - Install Ruby on Rails using RVM - CentOS</a> and <a href="#">17526- Use PostgreSQL with your Ruby on Rails Application - CentOS</a> links repectively.</p>
-
+<p>In this article, we'll make a backup of a PostgreSQL database to use for scaling a Ruby on Rails (RoR) application. These instructions assume that you have <code>sudo</code> privileges.</p>
+<p>Before starting, make sure that <a href="17536 - Install Ruby on Rails using RVM - CentOS">Ruby on Rails is installed</a> and that <a href="17526- Use PostgreSQL with your Ruby on Rails Application - CentOS">PostgreSQL is installed</a>.</p>
 <h2>Back up a PostgreSQL database </h2>
-<ol>
-<li><code>Pg_dump</code> is the utility which is used to dump database information into a file for backup purposes. Login with the <code>postgres  user</code>  and run the following command to create a database back up file:
-
-	<div class="hacker">sudo su - postgres</div>
+<ul>
+  <li> Log in with the <code>postgres  user, </code>and create a database backup file.
+    <div class="hacker">sudo su - postgres</div>
 
 	<div class="hacker">pg_dump  database_name >  backup_file</div>
- </li>
-<li>If you want  to perform back up on a remote system, you can pass the <code>-h</code> flag for specifying the remote host, and the <code>-p</code> flag to give the remote port.
+  <code>Pg_dump</code> is the utility used to dump database information into a file for backup purposes. <br />
+  If you want  to perform the backup on a remote system, you can pass the <code>-h</code> flag for specifying the remote host, and the <code>-p</code> flag to give the remote port.
 
 	<div class="hacker">pg_dump -h remote_host -p remote_port database_name > 	backup_file</div>
-</li>    
-<li>If you want to specify a different user, then <code>-U</code> is necessary.
+  If you want to specify a different user, then <code>-U</code> is necessary.
 	<div class="hacker">pg_dump -U user_name -h remote_host -p remote_port database_name > backup_file</div>
-</li>
-</ol>
+  </li>
+</ul>
 
-<h2>Restore Data Dumps </h2>
+<h2>Restore data dumps </h2>
 <ol>
 <li>Create an empty database to store the <code>backup_file.</code>
 	<div class="hacker">createdb -T template0 restored_database_name</div>
@@ -107,26 +101,26 @@ p.note {
 <li>Restore a backup created by <code>pg_dump.</code>
 	<div class="hacker">Psql  restored_database_name < backup_file</div>
 </li>    
-<li>If the user <code>test_user</code>  owns a table in the database, then create a <code>test_user</code> before restorating the system.
+<li>If the user <code>test_user</code> owns a table in the database, then create a <code>test_user</code> before restorating the system.<!--Is test_user an example? Will the user know if test_user owns a table in the database? cj -->
 	<div class="hacker">createuser test_user</div>
 	<div class="hacker">Psql  restored_database_name < backup_file</div>
 </li>    
 </ol>    
 
-<h2>Dealing with restoration errors</h2>
+<h2>Handle restoration errors</h2>
 <ol>
-<li>Stop any backup error in PostgreSQL using the following command.
+<li>Stop any backup error in PostgreSQL.
 	<div class="hacker">psql --set ON_ERROR_STOP=on restored_database_name < 	backup_file</div>
 </li>    
 <li>Restore all the database in a single transaction.
 	<div class="hacker">psql -1 restored_database_name < backup_file</div>
-<p>The difference between <code>Psql -1</code> and the <code>ON_ERROR_STOP</code> setting is that this will either succeed completely or not import anything.</p>
+<p>The difference between <code>Psql -1</code> and the <code>ON_ERROR_STOP</code> setting is that this <!--What does "this" refer to? cj -->will either succeed completely or not import anything.<!--Unclear if the user needs to do only one of these commands or both. cj --></p>
 </li>
 </ol>
 
-<h2>Backup and restore all databases in PostgreSQL</h2>
+<h2>Back up and restore all databases in PostgreSQL</h2>
 <ol>
-<li>To save time, you can use <code>pg_dumpall</code> utility to create backup for all the databases in the system.
+<li>To save time,  use the <code>pg_dumpall</code> utility to create a backup for all the databases in the system.
 	<div class="hacker">pg_dumpall > backup_file</div>
 </li>
 <li>Restore the databases with the default database.
@@ -134,8 +128,8 @@ p.note {
 </li> 
 </ol>
  
-<h2>Next Steps</h2>
-<p>In this article, we reviewed the steps involved in backing up the PostgreSQL databases on CentOS and Fedora.</p>
+<h2>Next steps</h2>
+<p>In this article, we reviewed the steps involved in backing up the PostgreSQL databases on CentOS and Fedora. <!--What might the user do next? The intro says that this procedure is for scaling an application, which provides a clue. cj --></p>
 
 </body>
 </html>
