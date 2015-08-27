@@ -1,4 +1,6 @@
-[![Stories in Ready](https://badge.waffle.io/gnakan/gd-cloud-docs.png?label=ready&title=Ready)](https://waffle.io/gnakan/gd-cloud-docs)
+## Issue Status
+
+(https://badge.waffle.io/gnakan/gd-cloud-docs.png?label=Drafting&title=Drafting)
 # gd-cloud-docs
 
 ## Links
