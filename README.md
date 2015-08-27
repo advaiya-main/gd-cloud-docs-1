@@ -1,6 +1,6 @@
 ## Issue Status
 
-[![Articles in Drafting](https://badge.waffle.io/gnakan/gd-cloud-docs.png?label=Drafting&title=Drafting)
+![Articles in Drafting](https://badge.waffle.io/gnakan/gd-cloud-docs.png?label=Drafting&title=Drafting)
 # gd-cloud-docs
 
 ## Links
