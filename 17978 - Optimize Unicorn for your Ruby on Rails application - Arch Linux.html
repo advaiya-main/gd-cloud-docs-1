@@ -4,9 +4,8 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
+<!--Article Number is 17978-->
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Optimize Unicorn for your Ruby on Rails application - Arch Linux</title>
@@ -77,22 +76,23 @@ p.note {
         <strong>Time</strong>: <em>1.5 hrs</em></p>
 
     <p>Rails is a nice web framework, but over past few years, it has grown into a complex system. Particularly when using Unicorn, Rails apps tend to consume a lot of memory. Understanding its operational details and optimizing its performance can be a critical factor for success any Rails developer. This article will assist you with few simple things that can be done to enhance the performance of Unicorn for your Rails applications. </p>
-	<p class="note">Note: It is assumed that you are logged in as a sudo user and <a href="#">deployed a Rails App with Unicorn and NGINX – Arch Linux</a></p> 
+	<p class="note">It is assumed that you are logged in as a sudo user and <a href="#">deployed a Rails App with Unicorn and NGINX – Arch Linux</a></p> <!--Include the article number in the link for future linking-->
 
     <h2>Set Unicorn as a default option</h2>
     <p>By default, Rails uses the “Webrick” server to run applications. It is fast, but unfortunately, it can not handle concurrent connection requests. For optimized performance, Unicorn must be set as the default server for Rails. Unicorn is a multi-threaded web server, capable of handling multiple requests simultaneously, thus optimizing the performance 2 to 3 times.</p>
     
        <h2>Upgrade to 2.0</h2>
-    <p>In case you are using ruby 1.9 or earlier, it is recommended to upgrade to 2.0. Because ruby 1.9 and earlier versions do not support automated garbage collection, and thus are unable to take benefits of Copy-on-Write (CoW) feature.</p>
-	<p>You can check your Ruby version using <code>“ruby -v” </code> command.<br/>
+    <p>In case you are using ruby 1.9 or earlier, it is recommended to upgrade to 2.0. Because Ruby 1.9 and earlier versions do not support automated garbage collection, and thus are unable to take benefits of Copy-on-Write (CoW) feature.</p>
+	<p>You can check your Ruby version using <code>“ruby -v” </code> command.<br />
 If your version is >=2.0, you are on right track, but in case it is 1.9 or earlier, you should upgrade to >=2.0 
 </p>
 
 
        <h2>Fine tuning the configuration settings</h2>
      	 	<p>To boost the performance of Unicorn, some configuration settings can be checked. These are available in the Unicorn’s default configuration file 
-		<code>config/unicorn.rb.</code><br/>
-		Upon a new install, this configuration file might not be available on your machine. GitHub do provide a <em><u>sample unicorn.rb configuration file. </u></em>Checking out the 	following configurations can help improving the performance:</p>
+		<code>config/unicorn.rb.</code><br />
+		Upon a new install, this configuration file might not be available on your machine. GitHub provides a sample <strong>unicorn.rb</strong> configuration file.</p> 
+<p>The following configurations can help improving the performance:</p>
 
 		<h3>Worker_process</h3>
 		<p>Worker process defines the total number of concurrent worker to be launched. This ideally depends upon the memory available to the processes to execute. So depending upon your application and the availability of memory, you can set the number of concurrent worker process to run. For example, to allow 5 concurrent connections, you can set the value to 5 workers.<br/>
@@ -100,7 +100,7 @@ The default value is 3.</p>
  <div class='hacker'>worker_processes 3 </div>
 
 	<h3>Timeout</h3>
-		<p>Timeout defines the time duration to wait before the worker times out. It is usually preferred to keep a lower base value for timeout to avoid holding back a long queue. So ideally 15 to 30 is considered as a rational value, but depending upon the nature of applications, this can be changed accordingly.<br/>
+		<p>Timeout defines the time duration to wait before the worker times out. It is usually preferred to keep a lower base value for timeout to avoid holding back a long queue. So ideally 15 to 30 is considered as a rational value, but depending upon the nature of applications, this can be changed accordingly.<br />
 The default value is 60 seconds.
 </p>
  <div class='hacker'>timeout 60</div>
@@ -123,6 +123,7 @@ When workers are forked, any associated connection (like database connections or
 Here are the steps for using unicorn-worker-killer:</p>
  
 	<h3>Installation</h3>
+ <!--Single step procedures should be a bulleted list.--> 
 		<p>To install worker killer fire below command</p>
  <div class='hacker'>gem install unicorn-worker-killer</div>
  
@@ -153,11 +154,11 @@ require ::File.expand_path('../config/environment',  __FILE__)
 run YourApp::Application
 
 </pre></div> 
-	<p>max_requests_min and max_requests_max defines the minimum and the maximum number of requests per worker. To prevent all workers getting dead simultaneously, a random number between <code>max_requests_min </code> and <code> max_requests_max </code>is defined as the actual limit. Once the number exceeds the limit, that worker is automatically restarted.
+	<p><code>max_requests_min</code>  and <code>max_requests_max</code> defines the minimum and the maximum number of requests per worker. To prevent all workers getting dead simultaneously<!--what does this mean?-->, a random number between <code>max_requests_min </code> and <code> max_requests_max </code>is defined as the actual limit. Once the number exceeds the limit, that worker is automatically restarted.  <!--This paragraph gets lost after a long code sample. Make it part of the introduction -->
 	</p>
 	
     <h2>Conclusion</h2>
-    <p>Unicorn is an efficient way to enhance performance and achieve concurrency in your Rails apps whether used with thread safe or not. It provide essential stability to Rails Apps. Unicorn worker killer gracefully restart your application and resolve memory leaks.</p>
+    <p>Unicorn is an efficient way to enhance performance and achieve concurrency in your Rails apps whether used with thread safe or not. It provide essential stability to Rails Apps. Unicorn worker killer gracefully restarts your application and resolves memory leaks.</p>
    
 </body>
 </html>

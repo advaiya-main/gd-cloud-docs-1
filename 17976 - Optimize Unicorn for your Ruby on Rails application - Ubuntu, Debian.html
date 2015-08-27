@@ -158,7 +158,7 @@ Here are the steps for using unicorn-worker-killer:
    run YourApp::Application
 </pre>
 		</div> <!--This paragraph seems lost here. Try moving the paragraph as an introduction under "Set up Unicorn Worker Killer."-->
-		max_requests_min and max_requests_max defines the minimum and the maximum number of requests per worker. To prevent all workers getting dead simultaneously, a random number between max_requests_min and max_requests_max is defined as the actual limit. Once the number exceeds the limit, that worker is automatically restarted.
+		max_requests_min and max_requests_max defines the minimum and the maximum number of requests per worker. To prevent all workers getting dead <!--What does "getting dead" mean?--> simultaneously, a random number between max_requests_min and max_requests_max is defined as the actual limit. Once the number exceeds the limit, that worker is automatically restarted.
 	</li>
 </ol>
 <h2>Conclusion</h2>
