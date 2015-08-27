@@ -4,13 +4,11 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Configure and Maintain Ghost via command line - ALL DISTROS</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -39,6 +37,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -77,23 +85,22 @@ p.note {
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>30 mins</em></p>
 
-<p>Ghost provides a blogging platform that one can easily get started as beginner. This article will assist you in configuring and maintaining Ghost using the command line in various flavors. Ghost is built on Node.js and requires the most stable version</p>
+<p>Ghost provides a blogging platform that one can easily get started as beginner. This article will assist you in configuring and maintaining <!--The article covers installing and configuring. cj -->Ghost using the command line. Ghost is built on <code>Node.js</code> and requires the most stable version<!--Most stable version of what? cj --></p>
 
 <h2>Install Ghost in Ubuntu or Debian</h2>
 <ol>
-<li>Update Ubuntu using following command
-<div class="hacker">sudo apt-get update</div>
+<li>Update Ubuntu.
+  <div class="hacker">sudo apt-get update</div>
 <div class="hacker">sudo apt-get upgrade -y</div>
 <div class="hacker">sudo aptitude install -y zip vim wget</div>
 </li>
-<li>Install node.js with following command
-
+<li>Install <code>node.js</code>.
 <div class="hacker">sudo curl -sL https://deb.nodesource.com/setup | sudo bash -</div>
 <div class="hacker">sudo apt-get install -y nodejs</div>
 </li>	
-<li>Download and install ghost with following commands
-
-<div class="hacker"><pre>sudo mkdir -p /var/www/
+<li>Download and install Ghost.
+<!--Use a separate div for each command. (See editorial guidelines.) Same issue in each of the installation sections below. cj -->
+  <div class="hacker"><pre>sudo mkdir -p /var/www/
 cd /var/www/
 sudo wget https://ghost.org/zip/ghost-latest.zip
 sudo unzip -d ghost ghost-latest.zip
@@ -104,26 +111,25 @@ sudo npm install --production</pre></div>
 
 <h2>Install Ghost in CentOS</h2>
 <ol>
-<li>Update Ubuntu using following command
-<div class="hacker">Sudo yum update</div>
+<li>Update Ubuntu.
+  <div class="hacker">Sudo yum update</div>
 <div class="hacker">Sudo yum upgrade -y</div>
 <div class="hacker">sudo yum install -y zip vim wget</div>
 </li>
-<li>Install node.js with following command
-
+<li>Install <code>node.js</code>.
 <div class="hacker">curl -sL https://deb.nodesource.com/setup | sudo bash -</div>
 <div class="hacker">sudo yum install -y nodejs</div>
 </li>
-<li>Download and install ghost with following commands
+<li>Download and install Ghost.
 
-<div class="hacker"><pre>sudo mkdir -p /var/www/
+  <div class="hacker"><pre>sudo mkdir -p /var/www/
 cd /var/www/
 sudo wget https://ghost.org/zip/ghost-latest.zip
 sudo unzip -d ghost ghost-latest.zip
 cd ghost/
 sudo npm install --production</pre></div>
 
-<p class="note">Note: If you get an error saying "npm command not found", use the following command</p>
+If you receive the error  "npm command not found", use the following command<!--What does the command do? cj -->:
 	
 <div class="hacker">sudo yum -y install  nodejs npm</div>
 </li>
@@ -131,37 +137,36 @@ sudo npm install --production</pre></div>
 
 <h2>Install Ghost in Arch Linux</h2>
 <ol>
-<li>Update Ubuntu using following command
-<div class="hacker">Sudo pacman -Sy</div>
+<li>Update Ubuntu.
+  <div class="hacker">Sudo pacman -Sy</div>
 <div class="hacker">sudo pacman -S zip </div>
 <div class="hacker">sudo pacman -S wget</div>
 <div class="hacker">sudo pacman -S vim </div>
 </li>
-<li>Install node.js with following command
-
+<li>Install <code>node.js</code>.
 <div class="hacker">sudo pacman -S nodejs</div>
 </li>	
-<li>Download and install ghost with following commands
+<li>Download and install Ghost.
 
-<div class="hacker"><pre>sudo mkdir -p /var/www/
+  <div class="hacker"><pre>sudo mkdir -p /var/www/
 cd /var/www/
 sudo wget https://ghost.org/zip/ghost-latest.zip
 sudo unzip -d ghost ghost-latest.zip
 cd ghost/
 sudo npm install --production</pre></div>
 
-<p class="note">Note: If you get an error saying "unzip command not found ", use following command</p>
+If you receive the error  "unzip command not found", use following command:<!--What does the command do? cj -->
 	<div class="hacker">sudo pacman -S unzip</div>
 </li>    
 </ol>   
  
 <h2>Install Ghost in Fedora</h2>
 <ol>
-<li>Use following command to install npm,ngix and supervisor
-	<div class="hacker">yum install npm nginx supervisor</div>
+  <li> Install npm, Nginx, and Supervisor.
+    <div class="hacker">yum install npm nginx supervisor</div>
 </li>
-<li>Download and install ghost
-<div class="hacker"><pre>mkdir -p /var/www/
+<li>Download and install Ghost.
+  <div class="hacker"><pre>mkdir -p /var/www/
 cd /var/www/  
 curl -L -O https://ghost.org/zip/ghost-latest.zip  
 unzip -d ghost ghost-latest.zip  
@@ -172,25 +177,38 @@ sudo npm install --production</pre></div>
 
 <h2>Configure Ghost</h2>
 
-<p>First time when you run ghost, you'll notice that both "config.js" and "index.js" are located in the home directory of ghost. Configurations related to environment settings like database, URL and mail configuration settings are done in this file. If you haven't run ghost for first time, you won't find this file. You can create a new one by copying the config.example.js file and name it config.js. You will need to setup the URL and mail settings as part of installing Ghost.</p>
-<p>Ghost provides numerous ways to configure settings that can be changed to the way Ghost works. To configure your Ghost settings, open config.js in any editor and start making changes.</p>
-<strong>URL</strong>
-<p>First of all, you need to set URL for your blog in "config.js". Even if you don't set this URL, your blog will run, however, external links such as emails and RSS feeds will be incorrect. This should be set to full URL of your blog including "http://" or "https://" </p>
-<strong>Mail</strong>
-<p>This mail address is used to reset your password.</p>
-<strong>SSL</strong>
-<p>First time when your blog is configured for SSL, leave the "URL" beginning with "http:// ". Ghost will accept requests made through HTTPS in a secure way and skip the plain HTTP requests. So you can access your blog using both secure and insecure methods without any redirection.</p>
-<p>If you configure SSL and change URL to "https://" ghost will accept all request securely. All request sent through plain HTTP will be redirected to HTTPS.</p>
-<p>To save only admin panel (i.e. /ghost/) via SSL, you can leave you URL as "https://" and set the following option true:</p>
-           <div class="hacker">forceAdminSSL: true</div>
-<p>This will redirect any HTTP request at admin site to HTTPS. You can reject insecure requests rather than redirect using </p>
+<p>Configurations related to environment settings such as database, URL, and mail configuration settings are handled in the <code>config.js</code> file.</p>
+<ol>
+  <li> Open <code>config.js</code> in a text editor.
+
+<ul>
+  <li>If you've run Ghost, this file is located in the Ghost home direcoty.</li>
+  <li>If you haven't yet run Ghost, you can copy the <code>config.example.js</code> file
+    <!--Where is this example file located? cj -->
+and name it &quot;config.js&quot;.</li>
+</ul>
+
+  <li>Make changes as desired. See options below.</li>
+  <li>Save and close the file.</li>
+</ol>
+<h3>URL </h3>
+<p>Set the URL for your blog. If you don't set this URL, your blog still runs, but external links such as email messages and RSS feeds will be incorrect. Set to full URL of your blog including "http://" or "https://" </p>
+<h3>Mail </h3>
+<p>This email address is used to reset your password.</p>
+<h3>SSL </h3>
+<p>The first time  your blog is configured for SSL, leave the URL that begins with <code>http://</code> . Ghost  accepts requests made through HTTPS securely and skips the plain HTTP requests. So you can access your blog using both secure and insecure methods without any redirection.</p>
+<p>If you configure SSL and changethe URL to "https://", Ghost  accepts all requests securely. All requests sent through plain HTTP are redirected to HTTPS.</p>
+<p>To save only the admin panel (that is, /ghost/) via SSL, you can leave the URL as "https://" and set the following option true:</p>
+<div class="hacker">forceAdminSSL: true</div>
+<p>This setting redirects any HTTP requests at the admin site to HTTPS. </p>
+<p>You can reject insecure requests rather than redirecting with the following:</p>
 		<div class="hacker">forceAdminSSL: {redirect:false}</div>
-<p>If you want to serve SSL verstion of your blog from different URL to one configured in "URL" you can configure alternative.</p>
+<p>If you want to serve SSL versions of your blog from different URLs to the one configured in <code>URL</code>, you can configure an alternative.</p>
 <div class="hacker"><pre>url: http://myblog.com,
 urlSSL: https://secure.myblog.com</pre></div>
 
-<strong>Database </strong>
-<p>SQLite is default configuration in Ghost, which require no configuration.MySQL can be configured as shown </p>
+<h3>Database </h3>
+<p>SQLite, the default configuration in Ghost,  requires no configuration. You can configure MySQL like this:</p>
 
 <div class="hacker"><pre>database: {
   client: 'mysql',
@@ -203,7 +221,7 @@ urlSSL: https://secure.myblog.com</pre></div>
   }
 }</pre></div>
 
-<p>By pool settings you can limit simultaneous connections</p>
+<p>With  pool settings, you can limit simultaneous connections:</p>
 <div class="hacker"><pre>database: {
   client: ...,
   connection: { ... },
@@ -213,22 +231,22 @@ urlSSL: https://secure.myblog.com</pre></div>
   }
 }</pre></div>
 
- <p>Ghost also runs with PostgreSQL but its support is not official yet.</p>
-<strong>Server</strong>
-<p>Ghost will listen only the server host IP address and port number for requests. In general, requests are routed from port 80 to Ghost by either Nginx (recommended) or apache.</p>
+ <p>Ghost also runs with PostgreSQL, but support is unofficial.</p>
+<h3>Server </h3>
+<p>Ghost  listens only to the server host IP address and port number for requests. In general, requests are routed from port 80 to Ghost by either Nginx (recommended) or Apache.</p>
 <div class="hacker"><pre>server: {
     host: '127.0.0.1',
     port: '2368'
 }</pre></div>
 
 
-<strong>Unix Socket</strong>
-<p>By making changes to the server configuration, Ghost can also be setup to listen on a unix socket </p>
+<h3>Unix Socket </h3>
+<p>By making changes to the server configuration, Ghost can also be se tup to listen on a unix socket .</p>
 <div class="hacker"><pre>server: {
     socket: 'path/to/socket.sock'
 }</pre></div>
 
-<p>Although 0660 is the default permitted value, but this can also be setup as follows:</p>
+<p>Although 0660 is the default permitted value,  this can also be set up as follows:</p>
 
 <div class="hacker"><pre>server: {
     socket: {
@@ -237,16 +255,16 @@ urlSSL: https://secure.myblog.com</pre></div>
    }
 }</pre></div>
 
-<strong>Gzip Compression</strong>
-<div class="hacker">By default, gzip compression is enabled that helps in improving the page load speed. You may turn off this feature using:</div>
+<h3>Gzip Compression </h3>
+By default, gzip compression is enabled, helping to improve the page-load speed. You may turn off this feature using this setting:
 <div class="hacker">compress: false</div>
-<strong>Privacy</strong>
-<p>The configuration options are turned on by default in the PRIVACY.md file, however, users may disable them to protect their privacy.</p>
-<p>To turn off all of these features add the following to your config.js (please note this will override all other settings):</p>
+<h3>Privacy </h3>
+<p>The configuration options in the <code>PRIVACY.md</code> file are turned on by default. However, you can disable them.</p>
+<p>To turn off all of these options, add the following <!--Does the user add this to the PRIVACY.md file (if so, where is that file?) or to the config.js file? cj -->  (Note that this setting overrides all other<!--I added "privacy". Please verify that that is correct. If it isn't correct, please clarify which settings are overriden. cj --> privacy settings):</p>
 <div class="hacker"><pre>privacy: {
     useTinfoil: true,
 }</pre></div>
-<p>To configure all the features individually: </p>
+<p>To turn off all the options individually: </p>
 <div class="hacker"><pre>privacy: {
     useUpdateCheck: false,
     useGoogleFonts: false,
@@ -255,59 +273,67 @@ urlSSL: https://secure.myblog.com</pre></div>
     useStructuredData: false
 }</pre></div>
 
-<strong>Update Check</strong>
-<p>Ghost 0.4 checks for updates auto automatically to disable this use following</p>
-<div class="hacker"><pre>privacy: {
-  	  useUpdateCheck: false
-}</pre></div>
+<p>The following table describes the privacy options:</p>
+<table width="504" border="1">
+  <tr>
+    <th width="120" scope="col">Option</th>
+    <th width="201" scope="col">Description</th>
+    <th width="161" scope="col">Notes</th>
+  </tr>
+  <tr>
+    <td>useUpdateCheck</td>
+    <td>Update Check</td>
+    <td><p>Ghost 0.4
+      <!--Is this the only version that checks? Is it the most recent version and new functionality? cj-->
+    checks for updates automatically. </p></td>
+  </tr>
+  <tr>
+    <td>useGoogleFonts</td>
+    <td><p>Google Fonts</p></td>
+    <td><!--What does the option do? cj -->&nbsp;</td>
+  </tr>
+  <tr>
+    <td> useGravatar</td>
+    <td>Gravatar</td>
+    <td><!--What does the option do? cj -->&nbsp;</td>
+  </tr>
+  <tr>
+    <td>useRpcPing </td>
+    <td>RPC Ping</td>
+    <td><!--What does the option do? cj -->&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td>useStructuredData</td>
+    <td>Structured Data</td>
+    <td><!--What does the option do? cj -->&nbsp;</td>
+  </tr>
+</table>
 
-<strong>Google Fonts</strong>
-<p>To disable google fonts use following</p>
-<div class="hacker"><pre>privacy: {
-    useGoogleFonts: false
-}</pre></div>
 
-<strong>Gravatar</strong>
-<p>To disable use:</p>
-<div class="hacker"><pre>privacy: {
-    useGravatar: false
-}</pre></div>
-
-<strong>RPC Ping</strong>
-<p>To disable RPC ping use:</p>
-<div class="hacker"><pre>privacy: {
-    useRpcPing: false
-}</pre></div>
-
-<strong>Structured Data</strong>
-<p>To disable use:</p>
-<div class="hacker"><pre>privacy: {
-    useStructuredData: false
-}</pre></div>
-
-<strong>File Storage</strong>
-<p>Few platforms don't have persistent file system like "Heroku". So any image that is uploaded might get missed out at some point. To disable Ghost's file storage:</p>
+<h3>File Storage </h3>
+<p>Few platforms don't have persistent file system like "Heroku". So any image that is uploaded might get missed out at some point.</p>
+<p> To disable Ghost's file storage: <!-- This looks like a rewrite of http://support.ghost.org/config/#privacy but is missing words and doesn't make sense. Please clarify. cj --></p>
 <div class="hacker">fileStorage: false</div>
 
 <p>In case when you disable the file storage, Ghost's image will upload tools will ask you to enter a URL by default. This will help in preventing you from uploading files that might go missing.</p>
 
-<strong>Paths</strong>
-<p>To use a content directory not in Ghost folder you can specify a paths object with new content path</p>
+<h3>Paths </h3>
+<p>To use a content directory not in the Ghost folder, you can specify a paths object with a new content path.</p>
 
 <div class="hacker"><pre>paths: {
     contentPath: path.join(__dirname, '/path/to/content/dir/')
 },</pre></div>
 
-<strong>Using Environments</strong>
-
-<p>If you want the Ghost to run under a different environment, you need to use an environment variable. For example if you normally start Ghost with node index.js you would use:</p>
+<h2>Using Environments </h2>
+<p>If you want  Ghost to run under a different environment, you need to use an environment variable. For example, if you normally start Ghost with node <code>index.js,</code> you'd use <!--The user just installed Ghost. They don't run it yet. Please clarify what we are trying to teach the user. Also, these examples are very close to those used in http://support.ghost.org/config/#privacy.  cj -->:</p>
 <div class="hacker">NODE_ENV=production node index.js</div>
-<p>Or, you can use forever:</p>
+<p>Or, you can use <code>forever</code>:</p>
 <div class="hacker">NODE_ENV=production forever start index.js</div>
-<p>Or, in case, you're using npm start, then use the following command:</p>
+<p>Or if you use <code>npm start</code>,  use the following command:</p>
 <div class="hacker">npm start --production</div>
-<h2>Next Steps</h2>
-<p>In this article, we reviewed the steps involved in configuring and maintaining Ghost via the command line on all DISTROS.</p>
+<h2>Conclusion</h2>
+<p>In this article, you learned to configure and maintain Ghost via the command line.</p>
 
 </body>
 </html>
