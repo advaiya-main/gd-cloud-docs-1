@@ -4,12 +4,11 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 18594-->
 
 
-<title>Install and configure CouchDB with Elasticsearch - Ubuntu, Debian</title>
+
+<title>Install and configure CouchDB with Elasticsearch - Debian, Ubuntu</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -70,47 +69,50 @@ p.note {
 
 <body>
 <p>Install and configure CouchDB with Elasticsearch –Ubuntu, Debian, NoSQL</p>
-    <h1>Install and configure CouchDB with Elasticsearch - Ubuntu, Debian  </h1>
+    <h1>Install and configure CouchDB with Elasticsearch - Debian, Ubuntu  </h1>
     
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>1.5 hours</em></p>
 
-    <p>CouchDB is often categorized as a “NoSQL” database and it stores data in JSON (JavaScript Object Notation) format. It is a lightweight data-interchange format that provides Master-Master replication. Elasticsearch is a popular search server based on Lucene. It is developed in Java language. This article covers the steps to install and configure CouchDB with Elasticsearch on Ubuntu or Debian machine.</p>
+    <p>CouchDB is often categorized as a “NoSQL” database and it stores data in JSON (JavaScript Object Notation) format. It is a lightweight data-interchange format that provides Master-Master replication. Elasticsearch is a popular search server based on Lucene. It is developed in Java language. </p>
+<p>This article covers the steps to install and configure CouchDB with Elasticsearch on Debian or Ubuntu machine.</p>
 <p class="note">This article assumes that user is logged in with sudo user privileges.</p>
 
     <h2>Prepare the system</h2>
    
                 <ol>
-               <li>Update the machine
+               <li>Update the machine.
+               <!--Use periods or colons at the end of instructions.-->
 			   <div class="hacker">sudo apt-get update</div>
 			   </li>
-               <li>Install CouchDB dependencies
+               <li>Install CouchDB dependencies.
 			   <div class="hacker">sudo apt-get build-dep erlang</div>
 			   </li>
-               <li>Install Erlang. CouchDB is written in Erlang language
+               <li>Install Erlang. CouchDB is written in Erlang language.
 			   <div class="hacker">apt-get install -y erlang-base erlang-dev erlang-nox erlang-eunit</div>
 			   </li>
-               <li>Install other dependencies (libraries) required by CouchDB 
+               <li>Install other dependencies (libraries) required by CouchDB. 
 			   <div class="hacker">apt-get install -y libmozjs185-dev libicu-dev libcurl4-gnutls-dev libtool</div>
 			   </li>
                </ol>
              
               <h2>Download and install CouchDB</h2>
               <ol>
-               <li>Navigate to the src directory
+               <li>Navigate to the <code>src</code> directory.
+               <!--Directories are tagged as code.-->
 			   <div class="hacker">cd /usr/local/src</div>
 			   </li>
-               <li>Download the CouchDB source code
+               <li>Download the CouchDB source code.
 			   <div class="hacker">curl -O http://apache.mirrors.tds.net/couchdb/source/1.5.0/apache-couchdb-1.5.0.tar.gz</div>
 			   </li>
-               <li>Change the ownership permissions
+               <li>Change the ownership permissions.
 			   <div class="hacker">chown -R username *</div>
 			   </li>
-               <li>Un-tar downloaded source code
+               <li>Un-tar (unpack) downloaded source code
 			   <div class="hacker">sudo tar xvzf apache-couchdb-1.5.0.tar.gz</div>
 			   </li> 
 		   
-		       <li>Navigate to the un-tared directory of CouchDB 
+		       <li>Navigate to the un-tarred directory of CouchDB. 
 			   <div class="hacker">cd apache-couchdb-1.5.0</div>
 			   </li>
                <li>Install CouchDB 
@@ -123,10 +125,11 @@ p.note {
            
 		   
 		     <h2>Configure CouchDB</h2>
+         <!-- Break this procedure into smaller sections of no more than 7 steps. Use h3 headings, as needed.-->
               <ol>
-			    <li>Create a CouchDB user and create directory 
+			    <li>Create a CouchDB user and create a directory. 
 			   <div class="hacker">mkdir -p /usr/local/var/lib/couchdb &amp;&amp; adduser --system --home /usr/local/var/lib/couchdb --no-create-home --shell /bin/bash --group --gecos "CouchDB" couchdb</div>
-			   <p>When asked for, provide the required information about the user, including full name, id phone and home etc. and press yes.</p>
+			   <p>When asked for, provide the required information about the user, including full name, id phone and home etc. and press <strong>yes</strong>.</p>
 			   </li>
                <li>Change the ownership permission of CouchDB in different directory with recursive order
 			   <div class="hacker">sudo mkdir -p /usr/local/var/log/couchdb</div>
@@ -168,6 +171,7 @@ p.note {
            
 		   
 		      <h2>Installing Elasticsearch </h2>
+          <!--Break into shorter sections of less than 7 steps. Use h3 headings.-->
               <ol>
                <li>Install the latest java development kit from apt-get command
 			   <div class="hacker">sudo apt-get install openjdk-7-jre-headless</div>
@@ -188,9 +192,9 @@ p.note {
                <li>Insert following line anywhere in the file 
 			   <div class="hacker">script.disable_dynamic: true</div>
 			   </li>
-               <li>Save this file and exit, by pressing ESC key, and then “:wq”
+               <li>Save this file and exit, by pressing <strong>ESC</strong> key, and then <strong>:wq</strong>.
 			   </li>
-			    <li>Restart the Elasticsearch service for change get effect with sudo
+			    <li>Restart the Elasticsearch service for change to take effect with sudo.
 			   <div class="hacker">sudo service elasticsearch restart</div>
 			   </li>
                <li>To check Elasticsearch is running run command 
@@ -302,6 +306,7 @@ p.note {
                </ol>
 			             
     <h2>Conclusion</h2>
+    <!--boilerplate was left in this section.-->
     <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task.With the combination of CouchDB with Elasticsearch, full text queries on data can be done using Elasticsearch. This reduces the dependency on map-reduce. Also, when using Elasticsearch with CouchDB, user need not know the document ID, which further enhances the efficiency. </p>
    
 </body>
