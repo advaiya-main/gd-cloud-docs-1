@@ -6,7 +6,6 @@
 
 <!--Article Number is 18569 -->
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Install CouchDB From Source - CentOS, Fedora</title>
@@ -72,22 +71,22 @@ p.note {
 <p>Setting up CouchDB from source on CentOS &amp; Fedora, Erlang, and Spider Monkey.</p>
     <h1>Install CouchDB from Source - CentOS, Fedora</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>4</u></em><br/>
+    <p><strong>Difficulty</strong>: <em><u>4</u></em><br />
         <strong>Time</strong>: <em><u>30 minutes</u></em></p>
 
     <p>CouchDB database is known to embrace the entire web and belongs to NoSQL family. This article will 
-assist you to install CouchDB from source on CentOS and Fedora. 
+assist you to install CouchDB from source on CentOS and Fedora. <!--What is the benefit or main function of CouchDB? Shouldn't the introduction include information on Spider Monkey and Erlang? -->
 </p>
 <h2>Install build tools and dependencies</h2>
 <ol>
 	<li>Update all packages.
 	<div class="hacker">sudo yum -y  update</div>
 	</li>
-	<li>Install development-tool.
+	<li>Install development tools.
 	<div class="hacker">sudo yum -y groupinstall "Development Tools"</div>
-	</li>
 	
-	<div class="hacker">sudo yum -y install libicu-devel curl-devel ncurses-devel libtool libxslt fop java-1.6.0-openjdk java-1.6.0-openjdk-devel unixODBC unixODBC-devel openssl-devel</div>
+	
+	<div class="hacker">sudo yum -y install libicu-devel curl-devel ncurses-devel libtool libxslt fop java-1.6.0-openjdk java-1.6.0-openjdk-devel unixODBC unixODBC-devel openssl-devel</div> </li>
 	
 	<li>Install EPEL repository using the following commands:
 	<div class="hacker">sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-	release-7-5.noarch.rpm</div>
@@ -96,7 +95,7 @@ assist you to install CouchDB from source on CentOS and Fedora.
 </ol>
 <h2>Install Erlang</h2>
 <ol>
-	<li>Firstly create a new directory.
+	<li>Create a new directory.
 		<div class="hacker">sudo mkdir Install_couchDB</div>
 	</li>
 	<li>Go to that directory and compile Erlang from source.
@@ -127,11 +126,11 @@ assist you to install CouchDB from source on CentOS and Fedora.
 		<div class="hacker">sudo tar -xvf apache-couchdb-1.6.1.tar.gz</div>
 		<div class="hacker">cd apache-couchdb-1.6.1</div>
 	</li>
-	<li>Now, export the path of Erlang using the following commands:
+	<li>Export the path of Erlang using the following commands:
 	<div class="hacker"> export ERL_TOP='pwd'</div>
 		<div class="hacker">export PATH=$ERL_TOP/bin:$PATH</div>
 	</li>
-	<li>Now, compile the CouchDB.
+	<li>Compile the CouchDB.
 	<div class="hacker"> sudo ./configure --with-erlang=/usr/lib64/erlang/erts-5.10.4/include</div>
 		<div class="hacker">sudo make &amp;&amp; make install</div>
 	</li>
@@ -158,17 +157,16 @@ assist you to install CouchDB from source on CentOS and Fedora.
 	bind_address = 0.0.0.0
 </pre></div>
 	</li>
-	<li>Now, restart the CouchDB services.
+	<li>Restart the CouchDB services.
 	<div class="hacker">sudo service couchdb restart</div>
 	</li>
-	<li>To test CouchDB is running successfully, go to any web browser and type:
-	<p><em>http:Your public Ip:5984</em></p>
+	<li>To test that CouchDB is running successfully, go to any web browser and type:
+	<strong>http://<em>Your public Ip</em>:5984</strong>.
 	</li>
-	<li>Once the server is up and running, you can access it in your browser at: 
-	<p><em>http:Your public IP:5984/utils/</em></p>
+	<li>After the server is up and running, you can access it in your browser at <strong>http://<em>Your public IP</em>:5984/utils/</strong>.
 	</li>
 </ol>
-<h2>Next Steps</h2>
-<p>In this article we reviewed the steps involved with the installation of CouchDB on CentOS and Fedora.</p>
+<h2>Conclusion</h2>
+<p>In this article, we reviewed the steps involved with the installation of CouchDB on CentOS and Fedora.</p>
 </body>
 </html>
