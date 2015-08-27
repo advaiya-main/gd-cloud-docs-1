@@ -4,9 +4,7 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17995-->
 
 
 <title>Deploy Rails app with Puma and NGINX - CentOS, Fedora</title>
@@ -69,30 +67,37 @@ p.note {
 </head>
 
 <body>
-<p>Configuring a Rails application with Puma and Nginx on CentOS and Fedora, PostgreSQL, Deployment, Ruby, Rails, NGINX</p>
+<p>Configuring a Rails application with Puma and NGINX on CentOS and Fedora, PostgreSQL, Deployment, Ruby, Rails, NGINX</p>
 <h1>Deploy a Rails app with Puma and NGINX – CentOS, Fedora</h1>
 <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
-<p>Puma is a simple, fast, and highly concurrent HTTP 1.1 server for Ruby web applications. It is designed for running Rack apps. This article will help you to deploy a Rails application with default database PostgreSQL, using Puma and Nginx on CentOS and Fedora.</p> 
+<p>Puma is a simple, fast, and highly concurrent HTTP 1.1 server for Ruby web applications. It is designed for running Rack apps. This article will help you to deploy a Rails application with default database PostgreSQL, using Puma and NGINX on CentOS and Fedora.</p> 
 
 
 <h2>Prerequisites</h2>
-	<p>Please refer the following links to prepare your deployment environment:</p>
-	<ol>
+	<p>Refer the following links to prepare your deployment environment:</p>
 
-	<li><a href="#">17521 - Install Ruby on Rails with rbenv – CentOS</a></li>
-	<li><a href="#">17520 - Install Ruby on Rails with rbenv – Fedora</a></li>
-	<li><a href="#">17526 - Use PostgreSQL with your Ruby on Rails Application – CentOS</a></li>
-	<li><a href="#">17525 - Use PostgreSQL with your Ruby on Rails Application - Fedora</a>
+<p>For CentOS:</p>
+   <ul>
+	<li><a href="17521 - Install Ruby on Rails with rbenv - CentOS">Install Ruby on Rails with rbenv - CentOS</a></li>
+	<li><a href="17526 - Use PostgreSQL with your Ruby on Rails Application">Use PostgreSQL with your Ruby on Rails Application - CentOS</a></li> 
+	</ul>
+ 
+<p>For Fedora:</p>
+ <ul>	<li><a href="17520 - Install Ruby on Rails with rbenv - Fedora">Install Ruby on Rails with rbenv - Fedora</a></li>
+	<li><a href="17525 - Use PostgreSQL with your Ruby on Rails Application">Use PostgreSQL with your Ruby on Rails Application - Fedora</a>
 	</li>
-	</ol>
-	<h2>Change PostgreSQL Configuration</h2>
+	</ul>
+  
+  
+  
+	<h2>Change PostgreSQL configuration</h2>
 <ol>
 <li>Open the configuration file.
 <div class="hacker">sudo vim /var/lib/pgsql/9.4/data/pg_hba.conf
 </div>
 </li>
-<li>Look for the line that says <code>Database administrative</code> at the end of the file and replace the existing one with the below configuration.
+<li>Look for the line <code>Database administrative</code> at the end of the file, and then replace the existing line with the following.
 <div class="hacker">
 <pre>
 # Database administrative login by Unix domain socket
@@ -128,16 +133,16 @@ host    all             all             ::1/128                 md5
 <li>Type the following command in the PostgreSQL prompt. 
 <div class="hacker">\password myapp</div>
 </li>
-<li>When prompted for the password, enter a desired password and confirm the same. Press \q to exit.
+<li>When prompted for the password, enter a desired password, and then confirm it. Press <strong>\q</strong> to exit.
 <div class="hacker">\q # for exit</div>
 </li>
-<li>Make sure that you are in Rails application’s root directory. If not, then change the directory to Rails application directory.
+<li>Make sure that you are in Rails application’s root directory. If not, then change the directory.
 <div class="hacker">cd /path/to/myapp</div>
 </li>
-<li>Open the database configuration file i.e. <code>database.yml.</code>
+<li>Open the database configuration file: <code>database.yml.</code>
 <div class="hacker">sudo vim config/database.yml</div>
 </li>
-<li>Find <strong>pool: 5 </strong>in the default section of <code>database.yml</code> file. Just below the <strong>pool: 5</strong> line, add database connection string to connect.
+<li>Find <strong>pool: 5 </strong>in the default section of <code>database.yml</code> file. Just below the <strong>pool: 5</strong> line, add the <strong>database</strong> connection string to connect.
 <div class="hacker">
 <pre>
 pool: 5
@@ -159,25 +164,24 @@ database section , type your database name here
 </pre>
 </div>
 
-<p>In the username section, check if the user is similar to what you have created earlier. If not, then change it as per your requirement.
-</p>
+<p>In the <code>username</code> section, check if the user is the same as what you created earlier. If not, then change it to match.</p>
 </li>
 </ol>
 
 
-<h2>Install the Pluggin for rbenv-vars</h2>
-<p>You should set a secret key and a database password by using environment variable before you deploy Rails application in production. Here we are describing a way to manage environment variables by using rbenv-vars plugin that loads password and a secret key at the runtime. Next, we are going to install and configure rbenv-vars for our application.</p>
+<h2>Install the plug-in for rbenv-vars</h2>
+<p>You should set a secret key and a database password by using environment variable before you deploy Rails application in production. Here we are describing a way to manage environment variables by using rbenv-vars plug-in that loads password and a secret key at the runtime. Next, we are going to install and configure rbenv-vars for our application.</p>
 <ol>
-<li>Setup the <code>rbenv-vars</code> by changing directory to <code>.rbenv/plugins</code>, using the following command and clone the repository of <code>rbenv-var</code> from github.
+<li>Set up the <code>rbenv-vars</code> by changing directory to <code>.rbenv/plugins</code>. Use the following command and clone the repository of <code>rbenv-var</code> from GitHub.
 <div class="hacker">cd ~/.rbenv/plugins </div>
 <div class="hacker">git clone https://github.com/sstephenson/rbenv-vars.git</div>
-<p class="note">Ensure that you’ve configured / installed rbenv in your machine correctly.</p>
+<p class="note">Ensure that you’ve configured/installed rbenv in your machine correctly.</p>
 </li>
-<li>Set the environment variable by changing your directory to application directory and generate the secret key.
+<li>Set the environment variable by changing your directory to the application directory, and then generate the secret key.
 <div class="hacker">cd ~/myapp</div>
 <div class="hacker">rake secret</div>
 </li>
-<li>Once you have generated the secret key, you will find a token key. Copy and replace that key. To do this, open <code>.rbenv-vars</code> file into your favorite editor and replace your key with your_generated_secret key.
+<li>Once you have generated the secret key, you will find a token key. Copy and replace that key. To do this, open <code>.rbenv-vars</code> file into your favorite editor and replace your key with your generated secret key.
 <div class="hacker">vim .rbenv-vars</div>
 <div class="hacker">SECRET_KEY_BASE=your_generated_secret </div>
 <p class="note">Environment variable that you set in this file will be read by your Rails application.</p>
@@ -185,39 +189,39 @@ database section , type your database name here
 <li>Set the database password for connection.
 <div class="hacker">MYAPP_DATABASE_PASSWORD=production_database_password</div>
 </li>
-<li>Set your database environment variable similar to the one that is defined in the database configuration file i.e <code>database.yml.</code></li>
+<li>Set your database environment variable similar to the one that is defined in the database configuration file, <code>database.yml.</code></li>
 <li>Save and Exit. </li>
-<li>Check the environment variables list that you have set in file by using the following command:
+<li>To check the environment variables list that you set in the file, use the following command:
 <div class="hacker">rbenv vars</div>
 </li>
 </ol>
 
-<h2>Setup production database</h2>
+<h2>Set up production database</h2>
 <ol>
-<li>Once your application is able to communicate with the PostgreSQL database, create the production database.
+<li>Now that your application can communicate with the <strong>PostgreSQL</strong> database, create the <code>Production</code> database.
 <div class="hacker">RAILS_ENV=production rake db:create</div>
-<p class="note">Note: If you could not connect with database, please export all environment manually that are in <code>rbenv vars</code></p>
+<p class="note">If you could not connect with the database, manually export  of the environments that are in <code>rbenv vars</code></p>
 </li>
 <li>Generate the controller and database migration using following command:
 <div class="hacker">rails generate scaffold Task title:string note:text</div>
 </li>
-<li>Migrate to the production database using following command:
+<li>Migrate to the <code>Production</code> database using following command:
 <div class="hacker">RAILS_ENV=production rake db:migrate</div>
 </li>
-<li>Precompile the assets.
+<li>Pre-compile the assets.
 <div class="hacker">RAILS_ENV=production rake assets:precompile</div>
 </li>
 <li>Test the application environments, where you can bind your public IP too.
 <div class="hacker">RAILS_ENV=production rails server --binding=server_public_IP</div>
 </li>
-<li>Now open the browser and type the below mentioned in the address bar
+<li>Open the browser, and then in the address bar type the following text:
 <em>http://server_public_IP:3000/tasks</em></li>
-<li>You will see the following output on the browser:
-<img src="images/17995 - 1.png" alt="17995 - 1.png"/> </li>
+<li>You will see the following output on the browser:<br />
+<img src="images/17995 - 1.png" alt="Listing Tasks"/> </li>
 </ol>
  <h2>Install Puma</h2>
  <ol>
-<li>Go back to your Rails application server and terminate it by using ctrl+c.</li>
+<li>Go back to your Rails application server, and terminate it by pressing <strong>Command/CTRL+C</strong>.</li>
 <li>Open the <code>Gemfile.</code>
 <div class="hacker">vim Gemfile</div>
 </li>
@@ -227,22 +231,20 @@ database section , type your database name here
 </li>
 <li>Save and exit from the editor.
 </li>
-<li>To install Puma and its dependencies use the bundler command.
+<li>To install Puma and its dependencies, use the <code>bundler</code> command.
 <div class="hacker">bundle install</div>
-</li>
-<li>This will take some time for installation.
-</li>
+The installation will take some time.</li>
 </ol>
 
 <h2>Configure Puma</h2>
 <ol>
-<li>Check the CPU cores before you proceed to configure the Puma server. This will help us to set workers and other process assignment.
+<li>Check the CPU cores before you proceed to configure the Puma server. This will help you to set workers and other process assignment.
 <div class="hacker">grep -c processor /proc/cpuinfo</div>
 </li>
 <li>Open the Puma configuration file.
 <div class="hacker">vim config/puma.rb</div>
 </li>
-<li>Copy and paste below configuration in the Puma file.
+<li>Copy and paste the following configuration into the Puma file.
 
 <div class="hacker">
 <pre>
@@ -292,39 +294,46 @@ activate_control_app 'unix:///home/imuser/myapp/tmp/sockets/pumactl.sock'
 </pre>
 </div>
 </li>
-<li>Once you have pasted the configuration lines, change the workers as per your CPU cores. Save your changes and exit.
+<li>After you pasted the configuration lines, change the workers as per your CPU cores. </li>
+<li>
+Save your changes and exit.
 </li>
 </ol>
 
-<h2>Start, Stop and Restart commands for Puma</h2>
- <ol>
-<li>Below are the commands to start/stop and restart the Puma services. Puma server must me running to execute rails application on browser using Nginx. 
-<div class="hacker">cd ~/myapp</div>
-<div class="hacker">mkdir tmp/sockets tmp/pids</div>
-</li>
-<li>To start:  
-<div class="hacker">
-<pre>
+<h2>Start, stop, and restart commands for Puma</h2>
+
+<p>Below are the commands to start, stop, and restart the Puma services.</p> 
+<ul>
+  <li>Puma server must be running to execute rails application on browser using NGINX. 
+  <div class="hacker">cd ~/myapp</div>
+  <div class="hacker">mkdir tmp/sockets tmp/pids</div>
+    <ul>
+      <li>To start:  
+      <div class="hacker">
+      <pre>
 bundle exec puma -C config/puma.rb -d --pidfile=tmp/pids/puma.pid
 -d is for Daemonizing...
-</pre>
-</div>
+      </pre>
+      </div>
+      </li>
+      <li>To stop:
+        <div class="hacker">kill -s SIGTERM `cat tmp/pids/puma.pid`</div>
+        </li>
+        <li>To restart:
+          <div class="hacker">kill -s SIGUSR2`cat tmp/pids/puma.pid`</div>
+         </li>
+      </ul>
 </li>
-<li>To Stop:
-<div class="hacker">kill -s SIGTERM `cat tmp/pids/puma.pid`</div>
-</li>
-<li>To Restart:
-<div class="hacker">kill -s SIGUSR2`cat tmp/pids/puma.pid`</div>
-</li>
-</ol>
+</ul>
 
 
-<h2>Install and Configure Nginx</h2>
+
+<h2>Install and Configure NGINX</h2>
  <ol>
-<li>Install Nginx using yum.
+<li>Install NGINX using yum.
 <div class="hacker">sudo yum install nginx</div>
 </li>
-<li>Now open the default server block with a text editor.
+<li>Open the default server block with a text editor.
 <div class="hacker">
 <pre>
 cd /etc/nginx/conf.d/
@@ -332,7 +341,7 @@ sudo rails_app.conf
 </pre>
 </div>
 </li>
-<li>Add following in the configuration file:
+<li>Add the following text to the configuration file:
 <div class="hacker">
 <pre>
 upstream myapp {
@@ -358,14 +367,14 @@ server {
 </pre>
 </div>
 </li>
-<li>Restart Nginx to put the changes into effect.
+<li>Restart NGINX to put the changes into effect.
 <div class="hacker">sudo service nginx restart</div>
 </li>
-<li>You can now access the production environment of your Rails application using the public IP address or FQDN of the server. Visit the application server in a web browser to access the tasks controller.
-<div class="hacker">http://server_public_IP/tasks</div>
+<li>You can now access the production environment of your Rails application using the public IP address or fully qualified domain name (FQDN) of the server. Visit the application server in a web browser to access the tasks controller.
+<strong>http://<em><u>server_public_IP</u></em>/tasks</strong>
 </li>
 </ol>
 <h2>Conclusion</h2>
-    <p>In this article, we reviewed the steps involved in deploying Rails application using Nginx and Puma on CentOS and Fedora server.</p>
+    <p>In this article, we reviewed the steps involved in deploying Rails application using NGINX and Puma on a CentOS or Fedora server.</p>
 </body>
 </html>
