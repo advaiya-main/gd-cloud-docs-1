@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>18801</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <style type="text/css">
+    div.hacker {
+        background-color: #666;
+        border: 1px solid #ccc;
+        color: #fff;
+        font-family: "Lucida Console", "Courier New", Courier, fixed;
+        font-size: 95%;
+        line-height: 160%;
+        margin-bottom: 1.5em;
+        padding: 10px;
+    }
+    
+    p.note {
+        background-color: #ffffe6;
+        border: 1px solid #eee;
+        color: #666;
+        padding: .8em 1.6em;
+        margin: 15px 0;
+    }
+    
+    .warning {
+        border: 1px #d25100 solid;
+        padding: .5em 1em .5em 4em;
+        margin: 10px 20px 15px 20px;
+        background-image: url('@{help-img-path}/img_warning.gif');
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-color: #ededed;
+        -moz-border-radius: 0.8em;
+        -webkit-border-radius: 0.8em;
+        /* -moz-border-bottom-radius: 0;9 */
+        -webkit-border-bottom-radius: 0;
+        padding-top: 14px;
+        padding-bottom: 15px;
+    }
+	.red-text{
+		color:#FF8080;
+	}
+	.command{
+		font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
+	}
+    </style>
+</head>
+<body>
+	<p>Security, SSH</p>
+	<h1>Install and configure Monkeysphere - Ubuntu, Debian</h1>
+	<p><strong>Difficulty: </strong> 2</p>
+	<p><strong>Time: </strong> 3 hrs</p>
+	<p>
+		This article will assist you to install and configure monkeysphere on Ubuntu and Debian. Monkeysphere is an opensouce project that leverages OpenPGP trust for OpenSSH and TLS connections. It validates the agent for TLS connection and helps in authenticating a remote user. Below are the steps for monkeyphere installation, configurations and prerequisites.
+		
+		Monkeyphere project provides easy user management and trust model between machines or instances on web
+	</p>
+	<h2>Prerequisites</h2>
+	<p>Make your system is updated and dependencies are installed to execute the process smoothly. You should logged in as a root or sudo user.</p>
+	<p>Type the following commands to update your system and install the dependencies</p>
+	<div class="hacker">
+		<p>sudo apt-get install update</p>
+		<p>sudo apt-get git</p>
+	</div>
+	<p>Choose any three machines to setup keying. The following defines why we require three machines</p>
+	<div>
+		<p><b>Server.machine.com:</b> SSH server which is required to validate the client</p>
+		<p><b>Administrator.machine.com:</b> Administrator machine that will be required for configuring access. For this purpose, we can use any computer such as a home computer</p>
+		<p><b>Client.machine.com:</b> To test validation and to check login to prevent host warning from linux</p>
+	</div>
+	
+	<h2>Step 1 - Installation</h2>
+	<ol>
+		<li>
+			<p>Run the below mentioned command in terminal to install Monkeyphere</p>
+			<div class="hacker">sudo apt-get install monkeysphere</div>
+			</li>
+	</ol>
+
+	<h2>Step 2 - Create Keys using GPG</h2>
+	<ol>
+		<li>
+			<p>GPG keys are installed on Ubuntu machine by default so we don't need to install.</p>
+			<p>Now we will create GPG keys on both client and administrator machine. These keys are associated with one user and can be used to identify a user on the web. GPG keys are required to login in ssh server as indentity of user machine. This helps in building trust on the web.</p>
+		</li>
+		<li>
+			<h3> Create GPG keys</h3>
+			<p>Now we will create GPG key on client and administator machine.</p>
+			<p>Run following command on both the machine.</p>
+			<div class="hacker">gpg --gen-key</div>
+			<p>Press enter. Next it will prompt you the key selection type as below</p>
+			<div class="hacker">Please select what kind of key you want:
+			   (1) RSA and RSA (default)
+			   (2) DSA and Elgamal
+			   (3) DSA (sign only)
+			   (4) RSA (sign only)
+			   Your selection? 1 [press 1]
+			</div>
+		</li>
+		<li>
+			<p>Once you press 1, it will show the below message</p>
+			<div class="hacker">RSA keys may be between 1024 and 4096 bits long.
+				What keysize do you want? (2048)
+			</div>
+			<p class="note">Please select default value or you can choose 1024 to 4096.</p>
+		</li>
+		<li>
+			<p>Next steps is key validity. Please specify how long the key should be valid.</p>
+			<div class="hacker">
+				0 = key does not expire<br/>
+				&lt;n&gt;  = key expires in n days<br/>
+				&lt;n&gt;w = key expires in n weeks<br/>
+				&lt;n&gt;m = key expires in n months<br/>
+				&lt;n&gt;y = key expires in n years
+			</div>
+			<p>Please select the expiry time. Press 0 at this level</p>
+			<p class="note">Tips : good to selection expire time for security.</p>
+		</li>
+		<li>
+			<p>After that GPG will popup the following message</p>
+			<div class="hacker">
+				Key does not expire at all
+				Is this correct? (y/N)
+			</div>
+			<p>Press y [enter]</p>
+		</li>
+		<li>
+			<p>Now its time to give our identity. GPG will show the message of enter real name:</p>
+			<div class="hacker">
+				Real name:
+			</div>
+			<p>Type your name, It more better we give our instance which will help us to find quick. So here we given 'Admin' as first name and press enter.</p>
+			<p>After enter name, GPG ask for email address.</p>
+			<div class="hacker">
+				Email Address:
+			</div>
+			<p>Type your email address here.After enter email address it will ask for enter comment</p>
+			<div class="hacker">
+				Comment:
+			</div>
+			<p>We can add any in comment, we can also put blank comment</p>
+			<p>Last it ask for confirmation as below</p>
+			<div class="hacker">Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? [Press O] </div>
+		</li>
+		<li>
+			<p>After confirmation it ask for to enter passphrase</p>
+			<div class="hacker">
+				Enter passphrase:
+			</div>
+			<p>We can enter any passphrase here.It ask two times to enter passphrase. It will take sometime to create key. Basically GPG uses entropy,The computer will now create the key using random pieces of data collected from the system. This is called "entropy" and is used to create a truly random key.</p>
+		</li>
+		<li>
+			<p>After generating GPG key it stored within you GPG keyring. You can check using following command</p>
+			<div class="hacker">gpg --list-keys</div>
+			<p>&nbsp;</p>
+			<div class="hacker">
+			    /root/.gnupg/pubring.gpg<br />
+				------------------------<br />
+				pub   2048R/<b>08D014B3</b> 2014-03-14<br />
+				uid                  client &lt;client@mydomain.com&gt;<br />
+				sub   2048R/4C73683E 2014-03-14<br />
+				</div>
+				<p>In above output bold part is shortened key ID. We can use hash to refer this key.</p>
+		</li>
+		<li>
+			<p>Now it's time to upload keys to keyserver. The Key server is replicated around the world and allow any to pull their keys information. THis is exact what we want,  it allows our two users and the SSH server to interact with each other and establish trust relationships. </p>
+			<p>To upload our keys to keyservers, on our client and admin computers, we will need to type something like this. We will need the key ID that we mentioned above: [please change words here]</p>
+			<div class="hacker">gpg --send-key key_id</div>
+			<p>Below is example command</p>
+			<div class="hacker">gpg --send-key 08D014B3</div>
+		</li>
+	</ol>
+	<h2>Step 3 - Signing the Keys</h2>
+	<ul>
+		<li>
+			<p>Now we administrator and client have GPG keys has pushed key to world keyservers, it will begin to  publicize with other keyserver across the world. It will take some time to being copy to each server available on world. So wait for few minutes till finish.</p>
+			<p>Now we are going to sing in using this keys, means that it varified and valid key to verify person identify for what we are trying to.</p>
+			<p>To make sure that you got the correct keys, we will do by simple way by specifying exact key  by its fingerprint.</p>
+			<p>To make sure that you got the correct keys, we will do by simple way by specifying exact key  by its fingerprint.</p>
+			
+		</li>
+		<li>
+			<p>On your client server, get the fingerprint of your GPG key by typing this. The "client" is the name or email address you selected when building your key:</p>
+			<div class="hacker">gpg --with-colons --fingerprint client</div>
+			<p>&nbsp;</p>
+			<div class="hacker">tru::1:1394819815:0:3:1:5<br/>
+pub:u:2048:1:4B3F73E208D014B3:2014-03-14:::u:client &lt;client@mydomain.com&gt;::scESC:<br/>
+fpr:::::::::<b>85ECDB498FB0CAB5F02989E64B3F73E208D014B3:</b><br/>
+sub:u:2048:1:254105194C73683E:2014-03-14::::::e:<br/></div>
+			<p>The portion of the output that is bold above is the fingerprint that you are looking for.</p>
+			<p>Now that we have fingerprint, now on administrator machine we can order GPG to search fingerprint and sync or pull down to current/local machine. See below command </p>
+			<div class="hacker">gpg --recv-keys 85ECDB498FB0CAB5F02989E64B3F73E208D014B3</div>
+			<p>In above command it tell GPG default key server to identify the key and transferred to local machine.</p>
+		</li>
+		<li>
+			<p>Now we got access for the key, we can sign it to as administator, trust the key that belongs to the client</p>
+			<div class="hacker">gpg --sign-key 85ECDB498FB0CAB5F02989E64B3F73E208D014B3</div>
+		</li>
+		<li>
+			<p>Now, our local system signed with key. Now we should send clients key back to the keyserver. The keyserver update its information the client key that administrator logged in using this key is valid.</p>
+			<p>Execute below command to send signed back to keyserver:</p>
+			<div class="hacker">gpg --send-key 85ECDB498FB0CAB5F02989E64B3F73E208D014B3</div>
+			<p>The keyserver has both client and administrator machine key,as before. The difference is that the keyserver has update its information with signature from administator key on client key.</p>
+		</li>
+		<li>
+			<p>Next steps is to do opposite of that administator has client key.</p>
+			<p>To perform this we will goto client machine and administrator key fingerprint</p>
+			<p>Execute below command in terminal</p>
+			<div class="hacker">gpg --with-colons --fingerprint admin</div>
+		</li>
+		<li>
+			<p>Now goto the client machine, we use the fingerprint that we collected from the output to pull down, sign, and then upload the administrator's key.</p>
+			<div class="hacker">gpg --recv-keys 7C873BB244245CB13BFEFC31F7C66E2FF945A061<br/>
+gpg --sign-key 7C873BB244245CB13BFEFC31F7C66E2FF945A061<br/>
+gpg --send-key 7C873BB244245CB13BFEFC31F7C66E2FF945A061<br/></div>
+		</li>
+		<li>
+			<p>Then after we will refresh key on both machine. Why to refresh ? Because each machine has signed key  but not signature on their machine so we need to do.You will want to wait a few minutes here to let your changes propagate.</p>
+			<div class="hacker">gpg --refresh-keys</div>
+			<p>Now we need to verify that process was updated. Output will one liner "new signatures: 1" if you could not found this outpur, try again till success</p>
+			<p>Now both machine has signed keys</p>
+		</li>
+	</ul>
+	<h2>Step 4 - Trusting the Administrator's Judgement[change words]</h2>
+	<ul>
+		<li><p>First, we can see the current settings on our client by typing:</p>
+			<div class="hacker">gpg --check-trustdb</div>
+			<p>&nbsp;</p>
+			<div class="hacker">
+			gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model<br/>
+			gpg: depth: 0  valid:   1  signed:   1  trust: 0-, 0q, 0n, 0m, 0f, 1u<br/>
+			gpg: depth: 1  valid:   1  signed:   0  trust: 1-, 0q, 0n, 0m, 0f, 0u<br/>
+			</div>
+			<p>Don't get confused ! in above output, we had explain it next.</p>
+			<p>If the key is signed by one user, that trustful and also consider the is valid. Same way key signed by 3 user we only minimal trust.</p>
+			<p>In second line, 'depth 0' is trust level, this basically information about our key we consider as signed and valid key. In the trust portion it shows "u" category , it means that it has ultimately trusted.</p>
+			<p>In third line, 'depth 1' is shows that we had personally signed. In the trust portion it shows "u" category , it means that it has ultimately trusted.We can see that we consider one key valid (we signed the admin key to make it valid), and that the admin key has not signed any additional keys that we care about.</p>
+			<p>In the trust section of that line, we have a field that has "1-". This means that the one key that we have at this level (the admin key) has not been given a trust setting. We don't know what level of trust to put in this key.</p>
+		</li>
+		<li>
+			<p>To make admin key as trust.This way, any key that the admin signs (like the SSH server we are trying to verify the identity of) will be considered legitimate by us. To make it trustful update trusted database on client machine</p>
+			<div class="hacker">gpg --update-trustdb</div>
+		</li>
+		<li>
+			<p>You will asked to assign a trust rating to any key you've signed that does not currently have a trust value. It will look like this:</p>
+			<div class="hacker">
+			gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model<br/>
+gpg: depth: 0  valid:   1  signed:   1  trust: 0-, 0q, 0n, 0m, 0f, 1u<br/>
+No trust value assigned to:<br/>
+2048R/49E95F19 2014-03-14<br/>
+      "admin &lt;admin@fakedomain.com&gt;"<br/>
+ Primary key fingerprint: A612 56B8 5307 B7ED 9AD8  D93E 9E06 881E 49E9 5F19<br/>
+
+Please decide how far you trust this user to correctly verify other users' keys<br/>
+(by looking at passports, checking fingerprints from different sources, etc.)<br/>
+
+  1 = I don't know or won't say<br/>
+  2 = I do NOT trust<br/>
+  3 = I trust marginally<br/>
+  4 = I trust fully<br/>
+  s = skip this key<br/>
+  q = quit<br/>
+<br/>
+Your decision?<br/>
+<p>To make it fully trusted , type "4".</p>
+			</div>
+		</li>
+	</ul>
+	<h2>Step 5 - Configure SSH on monkeyphere</h2>
+	<ul>
+		<li>
+			<p>Now we will use utility and commands of monkeyphere, so wait to use it ;)</p>
+			<p>As now we have enough component to join together, on ssh server we will generate special GPG key using monkeyphere utility. The key will be base of ssh_host_rsa_key which will help to identify server clients.</p>
+			<p>Run below command on ssh server / server.mydomain.com </p>
+			<div class="hacker">monkeysphere-host import-key /etc/ssh/ssh_host_rsa_key ssh://server.mydomain.com</div>
+			<p>The second component indicate the SSH server's domain. It help clients to find the correct server key when trying to verify the server connection.</p>
+		</li>
+		<li>
+			<p> Now we will again upload key to public key server. Again we use wrapper utility of monkeyphere</p>
+			<div class="hacker">monkeysphere-host publish-key</div>
+			<p>Above command will upload your key on global and make available to that client who wants to connect.</p>
+		</li>
+	</ul>
+	<h2>Step 6 - Validating Key for server</h2>
+	<ul>
+		<li>
+			<p>Now our ssh server key has been publicized on world's keyserver, Might be you have question why it require ?</p>
+			<p>Well, the way that GPG works is through establishing what it calls a "web of trust". Simply put, it works by establishing a personal network of people that you know and whose identity you can verify to a high degree of certainty. It then uses those trust relationships to allow you to offload the responsibility for knowing information onto people you trust.</p>
+			<p>On the SSH server, get the GPG fingerprint by typing:</p>
+			<div class="hacker">monkeysphere-host show-key</div>
+			<p>&nbsp;</p>
+			<div class="hacker">pub   2048R/0D281337 2014-03-14<br/>
+uid                  ssh://mydomain.com<br/>
+OpenPGP fingerprint: E06A426459E584F272DB708AD2D462790D281337<br/>
+ssh fingerprint: 2048 61:1e:a7:66:1d:04:64:80:3f:27:81:34:31:78:8d:df (RSA)<br/></div>
+<p>The "OpenPGP fingerprint" is the same as our GPG fingerprint. This is what we will use to pull down the key to our administrator's computer and sign it.</p>
+		</li>
+		<li><p>On our administrator's computer, type this to obtain the SSH server's key. Again, you may need to wait a few minutes:</p>
+			<div class="hacker">gpg --recv-key E06A426459E584F272DB708AD2D462790D281337</div>
+		</li>
+		<li>
+			<p>We will be signing the key, just as we did above with the client key:</p>
+			<div class="hacker">gpg --sign-key E06A426459E584F272DB708AD2D462790D281337</div>
+		</li>
+		<li>
+			<p>Finally, we need to remember to upload the signed key back to the keyserver:</p>
+			<div class="hacker">gpg --send-key E06A426459E584F272DB708AD2D462790D281337</div>
+		</li>
+	</ul>
+	<h2>Step 7 - Verify the ssh server indentity from client</h2>
+	<ul>
+		<li>
+			<p>Now everything one place to validate from client machine.To perform this we have to use ssh command in monkeyphere utility.</p>
+			<p>This will order to our client machine to use monkeyphere utility to check GPG key of ssh server in which we are trying to connect.It will then see if we trust anyone who's confirmed that the server is valid.</p>
+			<p>First time we are doing it manually so we can get what happens,Then after we do automated. </p>
+			<p>Type below command in terminal</p>
+			<div class="hacker">ssh -oProxyCommand='monkeysphere ssh-proxycommand %h %p' server.mydomain.com</div>
+			<p>-------------------- Monkeysphere warning -------------------<br/>
+Monkeysphere found OpenPGP keys for this hostname, but none had full validity.<br/>
+An OpenPGP key matching the ssh key offered by the host was found:<br/>
+
+pub   2048R/0D281337 2014-03-14<br/>
+uid       [ unknown] ssh://server.mydomain.com<br/>
+sig!3        0D281337 2014-03-14  ssh://mydomain.com<br/>
+RSA key fingerprint is 61:1e:a7:66:1d:04:64:80:3f:27:81:34:31:78:8d:df.<br/>
+
+-------------------- ssh continues below --------------------<br/>
+The authenticity of host 'server.example.com (&lt;no hostip for proxy command&gt;)' can't be established.<br/>
+ECDSA key fingerprint is 78:50:80:60:2a:a3:51:51:37:9d:25:8b:d4:0c:d1:15.<br/>
+Are you sure you want to continue connecting (yes/no)?<br/></p>
+<div class="hacker">Type "No"</div>
+<p>You surprised why we type "no" here, because we have not fix problem and verify identity of the server so we type no here.So we must protect ourself from connect to wrong host</p>
+<p>While connecting time we find here another section with "Monkeyphere warning". It's tells that it was able to find keys but not able verify server trusted relationship.</p>
+		</li>
+		<li>If we look at our keys in the client computer's key chain, we will notice that we now have the SSH server's key:</li>
+		<div class="hacker">gpg --list-keys</div>
+		<p>In ouput of this command you find that ssh key, we need to just resfresh it. </p>
+		<div class="hacker">gpg --refresh-keys</div>
+	</ul>
+	<h2>Step 7 - List signature</h2>
+	<ul>
+		<li>
+				<p>You should again see a line that says "new signatures: 1". We can see this by checking the signatures available on the SSH server's key:</p>
+				<div class="hacker">gpg --list-sigs ssh://server.mydomain.com</div>
+				<div class="hacker">pub   2048R/0D281337 2014-03-14<br/>
+uid                  ssh://server.mydomain.com<br/>
+sig 3        0D281337 2014-03-14  ssh://server.mydomain.com<br/>
+sig          54AD641F 2014-03-14  admin &lt;admin@mydomain.com&gt;<br/></div>
+		</li>
+		<li>
+			<p>As you can see, we now see a "sig" line listing the administrator's key. Since our client trusts the administrator, we can now, by proxy, trust the SSH server.</p>
+		</li>
+	</ul>
+	<h2>Step 8 - Relogin to ssh server</h2>
+	<ul>
+		<li>
+				<p>Let's try our command again:</p>
+				<div class="hacker">ssh -oProxyCommand='monkeysphere ssh-proxycommand %h %p' server.example.com</div>
+				<div class="hacker">root@server.example.com's password:</div>
+		</li>
+		<li>
+			<p>As you can see, we now see a "sig" line listing the administrator's key. Since our client trusts the administrator, we can now, by proxy, trust the SSH server.</p>
+		</li>
+	</ul>
+	<h2>Step 9 - Automated command </h2>
+	<ul>
+		<li>
+				<p>To avoid having to type this long command in every time we want to SSH into the server, we add this to our configuration file on our client computer:</p>
+				<div class="hacker">sudo vim ~/.ssh/config</div>
+				<p>Add following lined in config after doing required changes</p>
+				<div class="hacker">Host *<br/>
+ProxyCommand monkeysphere ssh-proxycommand %h %p<br/></div>
+		</li>
+		<li>
+			<p>This will allow us to connect through SSH as normal, and will do all of the monkeysphere verifying in the background:</p>
+			<div class="hacker">ssh server.mydomain.com</div>
+		</li>
+		<li>
+			<p>Let's cross verify that working correct or not:</p>
+			<div class="hacker">rm ~/.ssh/known_hosts</div>
+		</li>
+		<li>
+			<p>Now, retry the ssh command::</p>
+			<div class="hacker">ssh server.mydomain.com</div>
+		</li>
+		<li>
+			<p>You'll be logged in or prompted for a password, never asking if you accept the host. You can also see that the known_hosts file has been recreated automatically and that host has been added:</p>
+			<div class="hacker">more ~/.ssh/known_hosts</div>
+			<div class="hacker">server.mydomain.com ssh-rsa AAAB3NzaC1yc2EAAAADAQABAAABAQC9aTHZmHZSgwNtwichF0AqDI74bCMtI29kqPDZaNn2r86NGIElRUlQiRImmZXs5oEjF0o8VaW6s1cIj0hC5ziDPShJ3VzZTWz9RmJ9xfPPcAPw2JbV1c1Q1bplstQqCZmFcRZyofztnP55HqOiJ4htLMxH+a9lM4AydDZtGHhzU+usxUjHniVbxCUVntpunlwtMk+Mtk9eysVdnJCJyV02/W89HExiO9QRpv+EugKN1eCQYrGvNbKWQKq4gSJ0RDwOSKNgkY/Ii0MsGJ2HuioO9np6IEdeZdgSGHPA23+zZe8asrN62iLUBADDkyIR6FAonCvfh99hbFxpNz2N8Mdb MonkeySphere2014-03-21T21:30:44</div>
+		</li>
+		
+	</ul>
+	<h2>Next Step</h2>
+	<p>We will discuss how to use monkeysphere to validate your users to the SSH server.</p>
+	<h2>Conclusion</h2>
+	<p>If you configure your organization to use monkeysphere for SSH, SSH users will never have to question the legitimacy of a host within your organization. Once your users trust the server administrators and have configured their SSH to rely on monkeysphere, and assuming the administrators are vigilant about signing new hosts, your users should never be asked to verify a hosts identity.
+
+Blindly accepting hosts as valid is a huge risk and most users will not have the capabilities to legitimately check the identity of a server without the administrators help anyways. So using Monkeysphere, we can cut out this entire process for the safety of the entire organization.
+
+This might seem like a lot of work, but setting up a trust network will become less work as you go and will allow you to avoid dangerous man-in-the-middle style attacks.</p>
+
+
+	</body>
+</html>

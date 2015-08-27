@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+    <title>17841</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <style type="text/css">
+    div.hacker {
+        background-color: #666;
+        border: 1px solid #ccc;
+        color: #fff;
+        font-family: "Lucida Console", "Courier New", Courier, fixed;
+        font-size: 95%;
+        line-height: 160%;
+        margin-bottom: 1.5em;
+        padding: 10px;
+    }
+    
+    p.note {
+        background-color: #ffffe6;
+        border: 1px solid #eee;
+        color: #666;
+        padding: .8em 1.6em;
+        margin: 15px 0;
+    }
+    
+    .warning {
+        border: 1px #d25100 solid;
+        padding: .5em 1em .5em 4em;
+        margin: 10px 20px 15px 20px;
+        background-image: url('@{help-img-path}/img_warning.gif');
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-color: #ededed;
+        -moz-border-radius: 0.8em;
+        -webkit-border-radius: 0.8em;
+        /* -moz-border-bottom-radius: 0;9 */
+        -webkit-border-bottom-radius: 0;
+        padding-top: 14px;
+        padding-bottom: 15px;
+    }
+    </style>
+</head>
+
+<body>
+    <p>Configuring Apache Subversion (SVN) in Ubuntu and Debian, Version Control, Apache</p>
+    <h1>Install and configure Apache Subversion (SVN) - Ubuntu, Debian</h1>
+    <p><strong>Difficulty</strong>: <em>2</em></p>
+    <p><strong>Time</strong>: <em>30 minutes</em></p>
+    <p>Subversion (SVN), is an open-source project for version control system. This article will help in installing and configuring SVN in Ubuntu and Debian instance by allowing access for different protocols such as <em>http://, https://</em> and many more.</p>
+	<h2>Prerequisites</h2>
+	<p>For more information on using version control on WordPress, please refer <a href="#">18715 - Using Version Control to Install and Update WordPress - Ubuntu, Debian</a></p>
+	<ol>
+	<li>Before we proceed with the installation and configuration of SVN, we need to update the repository using the following command
+	<div class='hacker'>sudo apt-get update
+	</div>
+	</li>
+	<li>Install the subversion and mod apache
+	<div class='hacker'>sudo apt-get install apache2 subversion subversion-tools libapache2-svn apache2-mpm-prefork </div>
+	</li>
+	</ol>
+
+   <h2>Create a SVN directory</h2>
+   	<ol>		
+	  <li>Here we need to create project repository directory where all the repositories will be housed. We can choose any directory for housing the repositories
+   		  <div class='hacker'>sudo mkdir -p /home/svn/projects</div>
+   		  <p class='note'>Note: We have taken /home/svn/projects. It can be changed as per the requirement.</p>
+	  </li>
+   </ol>
+    <h2>Create a Test Repository</h2>
+     <ol>
+		<li>Create a test repository
+			<div class='hacker'>cd /home/svn/projects</div>
+				<div class='hacker'>sudo mkdir ~/test</div>
+				<div class='hacker'>sudo svnadmin create /home/svn/projects/test</div>
+		</li>
+		<li>Add files to the repository
+			<div class='hacker'>cd ~/test</div>
+			<div class='hacker'>sudo mkdir trunk tags branches</div>
+		</li>
+		<li>Import these directories into test repositories using the following command
+			<div class='hacker'>sudo svn import ~/test file:///home/svn/projects/test -m 'Initial project directories'</div>
+		</li>
+		<li>Grant SVN access with Apache
+			<div class='hacker'>sudo chown -R www-data:www-data /home/svn/projects</div>
+		</li>
+</ol>
+		
+   <h2>Using http:// protocol</h2>
+   <h3>Configure Apache + SVN</h3>
+    <ol>
+        <li>Enable dav_svn
+            <div class='hacker'>sudo a2enmod dav_svn</div>
+		</li>
+        <li>Update the apache configuration file 
+            <div class='hacker'>sudo vim /etc/apache2/mods-available/dav_svn.conf</div>
+      </li>
+        <li>Add the following lines at the bottom of the file 
+          <div class='hacker'>
+		  <pre>
+ &lt;Location /svn&gt;
+  DAV svn
+  SVNParentPath /home/svn/projects
+  AuthType Basic
+  AuthName "Subversion Repository"
+  AuthUserFile /etc/svn-auth
+  &lt;LimitExcept GET PROPFIND OPTIONS REPORT&gt;
+   Require valid-user
+  &lt;/LimitExcept&gt;
+ &lt;/Location&gt;
+</pre>
+</div>
+		</li>
+        <li>Restart the Apache service to implement the changes by using the following command
+            <div class='hacker'>sudo service apache2 restart</div>
+        </li>
+		<li>Create a new authenticated user by using the following command
+			<div class='hacker'>sudo htpasswd -cm /etc/svn-auth svnuser</div>
+			<p>It will prompt for the password. Enter the password.</p>
+		</li>
+		<li>Open the browser and hit http://your_ip_address/svn/test. After hitting we will find three empty directories.
+		</li>
+</ol>
+		<h3>Checkout the Repository and Commit files</h3>
+       <ol> 
+	   <li>Create a directory 
+            <div class='hacker'>cd ~</div>
+			<div class='hacker'>mkdir test2</div>
+			<div class='hacker'>svn checkout http://127.0.0.1/svn/test/trunk test2</div>
+        </li>
+        <li>Once the files have been created, we must perform the SVN add command, and pass in individual filenames as further arguments 
+            <div class='hacker'>touch index.php</div>
+			  <div class='hacker'>svn add index.php</div>
+			  <div class='hacker'>svn add *</div>
+        </li>
+		<li>Once we are finished with adding all the necessary files, these may be committed using <strong>svn commit -m 'commit message'</strong> 
+	    </li>
+		<li>The server may be updated using the SVN up command. Upon keying this command, SVN prompts for the password, type correct credentials which we used while creating users of SVN.
+        </li>
+</ol>
+		   
+		<h2>Using https:// protocol</h2>
+       <ol>
+	    <li>To use https, follow the below commands and enable SSL modules and default SSL web site
+            <div class='hacker'>sudo a2enmod ssl</div>
+			<div class='hacker'>sudo a2ensite default-ssl</div>
+			<div class='hacker'>sudo service apache2 restart</div>
+			<div class='hacker'>sudo nano /etc/apache2/sites-available/default-ssl</div>
+        </li>
+        <li>Add the following snippets to the file and restart the server:
+		<div class='hacker'>
+		<pre>
+  &lt;Location /svn&gt;
+  	DAV svn
+ 	SVNParentPath /home/svn/projects
+  	AuthType Basic
+  	AuthName "Subversion Repository"
+ 	#AuthUserFile /etc/apache2/dav_svn.passwd
+ 	AuthUserFile /etc/svn-auth
+  &lt;LimitExcept GET PROPFIND OPTIONS REPORT&gt;
+    Require valid-user
+  &lt;/LimitExcept&gt;
+  &lt;/Location&gt;
+</pre>
+	</div>
+     </li>
+	 <li>Restart the server using the below command
+            <div class='hacker'>/etc/init.d/apache2 restart</div>
+			<div class='hacker'>svn co --username svnuser https://127.0.0.1/svn/test /home/somedir</div>
+        </li>
+</ol>
+	<h2>Next Steps</h2>
+		In this article, we reviewed the steps involved in installation and configuration of the Apache SVN and securely accessing them via both http:// and https:// protocols in Ubuntu and Debian.
+</body>
+
+</html>

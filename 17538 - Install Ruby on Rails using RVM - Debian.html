@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+    <title>17538</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <style type="text/css">
+    div.hacker {
+        background-color: #666;
+        border: 1px solid #ccc;
+        color: #fff;
+        font-family: "Lucida Console", "Courier New", Courier, fixed;
+        font-size: 95%;
+        line-height: 160%;
+        margin-bottom: 1.5em;
+        padding: 10px;
+    }
+    
+    p.note {
+        background-color: #ffffe6;
+        border: 1px solid #eee;
+        color: #666;
+        padding: .8em 1.6em;
+        margin: 15px 0;
+    }
+    
+    .warning {
+        border: 1px #d25100 solid;
+        padding: .5em 1em .5em 4em;
+        margin: 10px 20px 15px 20px;
+        background-image: url('@{help-img-path}/img_warning.gif');
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-color: #ededed;
+        -moz-border-radius: 0.8em;
+        -webkit-border-radius: 0.8em;
+        /* -moz-border-bottom-radius: 0;9 */
+        -webkit-border-bottom-radius: 0;
+        padding-top: 14px;
+        padding-bottom: 15px;
+    }
+    </style>
+</head>
+
+<body>
+
+<p>Steps to install Ruby on Rails using Ruby Version Manager (RVM) in Debian, Ruby, Rails</p>
+<h1>Install Ruby on Rails using RVM - Debian</h1>
+
+<p><strong>Difficulty:</strong> <em>1</em></p>
+<p><strong>Time:</strong> <em>30 minutes</em></p>
+
+<p>Ruby on Rails is a well-known open source stack for web application development. The Ruby Version Manager (RVM) lets you easily manage multiple Ruby application environments and switch between them in the most efficient way. This article will assist on how to install Ruby on Rails in Debain VPS using RVM.</p>
+
+<p>To get started, we will need the following prerequisites:</p>
+<ul>
+<li>RVM (Ruby Version Manager)</li>
+<li>SQLite</li>
+<li>MySQL (Optional)</li>
+<li>Apache2 (Optional)</li>
+</ul>
+
+<ol>
+<li>To install RVM, run the following commands: 
+	<div class='hacker'>sudo apt-get install libgdbm-dev libncurses5-dev automake libtool bison libffi-dev</div>
+	<div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable</div>
+</li>
+<li>Once we have run the above command, there is one more dependency that needs to be fixed. For that run the following command: 
+	<div class='hacker'>sudo curl -sSL https://rvm.io/mpapis.asc | gpg --import -</div>
+	<div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable</div>
+	<div class='hacker'>source ~/.rvm/scripts/rvm	</div>
+	<div class='hacker'>rvm install ruby</div>
+	<div class='hacker'>ruby -v</div>
+</li>
+<li>Ruby tends to install the contents for all the packages. So to inhibit this, type the following command:
+	<div class='hacker'>sudo echo "gem: --no-ri --no-rdoc" > ~/.gemrc</div>
+</li>
+<li>Then install the bundler
+	<div class='hacker'>gem install bundler</div>
+</li>
+<li>To prevent any dependencies of Rails libraries, let us install NodeJS by typing: 
+	<div class='hacker'>sudo add-apt-repository ppa:chris-lea/node.js</div>
+	<div class='hacker'>sudo apt-get update</div>
+	<div class='hacker'>sudo apt-get install nodejs</div>
+</li>
+<li>Install Rails 
+	<div class='hacker'>gem install rails </div>
+      <p>This will take some time. Once completed, the environment is created.</p>
+</li>       
+<li>To check you rails version, type:
+        <div class='hacker'>rails -v</div>
+</li>
+<li>Create the project directory for your Rail project by typing the following command:
+	<div class='hacker'>sudo mkdir –p /usr/local/src/rail_project</div>
+</li>
+<li>Move to the newly created directory and grant all the required access using the following commands:
+	<div class='hacker'>cd  /usr/local/src/rail_project</div>
+	<div class='hacker'>sudo chmod 777 /usr/local/src/rail_project</div>
+	<div class='hacker'>rails new HelloWorld</div>
+	<div class='hacker'>cd HelloWorld</div>
+	<div class='hacker'>rails server </div>
+	<p>Ensure the Rails server is running.</p>
+</li>
+<li>You can bind the Rails application using the following command:
+	<div class='hacker'>rails server --binding=[your public IP]</div>
+ </li>
+</ol>
+ 
+<p>The new application is ready and can be accessed by visiting your_public_IP_or_domain:3000 (3000 is default port).</p>
+
+<h2>Next Steps</h2>
+<p>In this article, we reviewed the steps involved in setting up Ruby on Rails using RVM for the web application in Debian distribution.</p>
+
+</body>
+</html>
