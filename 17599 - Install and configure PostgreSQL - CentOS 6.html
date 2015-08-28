@@ -10,7 +10,7 @@
 
 
 <title>Install and configure PostgreSQL - CentOS 6</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -70,78 +70,58 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Setting up installation and configuration of PostgreSQL in CentOS 6, Databases, and PostgreSQL.</p>
+    <h1>Install and configure PostgreSQL - CentOS 6</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em>1</em><br/>
+        <strong>Time</strong>: <em>15 minutes</em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
-
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
-
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
+    <p>This article provides information about installation and configuration of PostgreSQL on CentOS 6.
+PostgreSQL is an open-source relational database management system. PostgreSQL uses the Structured Query Language (SQL) to manipulate data. To perform this task, we are assuming that the user has <code>sudo</code> privileges.
+</p>
+    <h2>Install PostgreSQL</h2>
+<ol> 
+<li>Update all the packages of the operating system
+   <div class="hacker">sudo yum –y update</div>
+   </li>
+   <li>Install PostgreSQL package and its necessary dependencies
+   <div class="hacker">sudo yum -y install postgresql postgresql-libs postgresql-plperl </div>
+   <div class="hacker">postgresql-plpython postgresql-server</div>
+   </li>
+   <li>Initialize the database and data directories
+   <div class="hacker">sudo service postgresql initdb</div>
+   </li>
+   <li>Configure PostgreSQL to start up upon server boot
+   <div class="hacker">sudo chkconfig postgresql on</div>
+   </li>
+   <li>Start PostgreSQL service
+   <div class="hacker">sudo service postgresql start</div>
+   </li>
    
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
+  </ol>
+
+<h2>Connect to PostgreSQL</h2>
+<ol> 
+<li>Once PostgreSQL is installed completely, <code>Postgres</code> system user and database will be automatically created.
+   <div class="hacker"></div>
+   </li>
+   <li>Log in by <code>Postgres</code> user
+   <div class="hacker">sudo su – postgres</div>
+   </li>
+   <li>Login into database using the following command
+   <div class="hacker">Psql</div>
+   </li>
+   <li>You will see the <code>Postgres=# </code>prompt. To exit from the prompt, type
+   <div class="hacker">\q</div>
+   </li>
+   <li>Logout from the <code>Postgres</code> system user
+   <div class="hacker">exit</div>
+   </li>
+  
+  </ol>
+           
+    <h2>Next Steps</h2>
+    <p>This article covers the steps to install and configure PostgreSQL. Now you are ready to create your own database for your applications. For more details see <a href="#">17526 - Use PostgreSQL with your Ruby on Rails Application - CentOS</a></p>
    
 </body>
 </html>
