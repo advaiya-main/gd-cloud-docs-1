@@ -10,7 +10,7 @@
 
 
 <title>Install and secure phpMyAdmin with Apache - CentOS 7</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -125,17 +125,17 @@ PN- Broken section, images linked</mso:ReviewComments>
         <li>
             By default in the <code>IfModule</code> blocks, you will see the IP address 127.0.0.1.You will most likely find it in four places. Replace it with the IP address of the computer with which you will access the application.
             <div class="hacker">
-<pre>
-    &lt;RequireAny>
-       Require ip 127.0.0.1
-       [...]
-       Allow from 127.0.0.1
-       [...]
-       Require ip 127.0.0.1
-       [...]
-       Allow from 127.0.0.1
-       [...]
-</pre>
+
+                &lt;RequireAny&gt;      <br />
+                Require ip 127.0.0.1    <br />
+                [...]                   <br />
+                Allow from 127.0.0.1    <br />
+                [...]                   <br />
+                Require ip 127.0.0.1    <br />
+                [...]                   <br />
+                Allow from 127.0.0.1    <br />
+                [...]
+
             </div>
             Save and exit the file.
         </li>
@@ -167,16 +167,16 @@ PN- Broken section, images linked</mso:ReviewComments>
         <li>
             Include the <code>AllowOverride All</code> directive inside the <code> &lt;Directory /usr/share/phpmyadmin></code> module of the configuration file.
             <div class="hacker">
-                <pre>
-&lt;Directory /usr/share/phpmyadmin>
-[...]
-AllowOverride All
-&lt;IfModule mod_authz_core.c=mod_authz_core.c>
-[.....]
-</pre>
+
+                    &lt;Directory /usr/share/phpmyadmin&gt;     <br />
+                    [...]                                       <br />
+                    AllowOverride All                            <br />
+                    &lt;IfModule mod_authz_core.c=mod_authz_core.c&gt; <br />
+                    [.....]  <br />
+
             </div>
         </li>
-        Save and close the file.
+    <li>Save and close the file.</li>
         <li>
             Restart Apache for the changes to  take effect.
 
@@ -192,12 +192,12 @@ AllowOverride All
         <li>
             Enter the below block of text into the file.
             <div class="hacker">
-                <pre>
-AuthType Basic
-AuthName "Restricted. Only authorized users permitted."
-AuthUserFile /etc/httpd/pass_file
-Require valid-user
-</pre>
+
+                AuthType Basic    <br />
+                AuthName "Restricted. Only authorized users permitted."     <br />
+                AuthUserFile /etc/httpd/pass_file       <br />
+                Require valid-user            <br />
+
             </div>
               Save and close the file.
         </li>
