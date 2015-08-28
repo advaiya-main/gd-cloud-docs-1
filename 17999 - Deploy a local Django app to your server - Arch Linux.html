@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is 17999 -->
+
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>Deploy a local Django app to your server - Arch Linux</title>
+<style type='text/css'>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Django, NGINX, Python, Frameworks, Deployment</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-deploy-a-local-django-app-to-a-vps, https://www.digitalocean.com/community/tutorials/how-to-deploy-a-local-django-app-to-a-vps</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#Arch Linux;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">3</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">1</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17999</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:ArticleStatus msdt:dt="string">Editing in progress</mso:ArticleStatus>
+<mso:HoursDraftingEstimated msdt:dt="string">1.50000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.100000000000000</mso:HoursEditingEstimated>
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string">Phase 2</mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+<mso:Week msdt:dt="string">7.00000000000000</mso:Week>
+<mso:AssignedTo1 msdt:dt="string">39</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Conrad James</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:ReviewComments msdt:dt="string">Completed XHTML vailidation complete: skj</mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Carla  Johnson</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+        <p>Describes how to install Apache, MySQL, PHP (LAMP) stack on Ubuntu and Debian Linux.</p>
+    <h1>Build a LAMP stack for Python -  Ubuntu, Debian Linux</h1>
+
+        <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
+        <strong>Time</strong>: <em><u>4.00</u></em></p>
+
+        <p>The LAMP stack is a group of open source software used to get web servers up and running. The acronym stands for Linux, Apache, MySQL, and PHP. Ubuntu and Debian Linux uses the <code>apt-get</code> installer, which can update the system and install all of the required packages for each part of the LAMP stack. The steps in this article require the user to have root privileges.</p>
+
+    <h2>Step One - Install Apache</h2>
+
+
+        <p>Before installing any of the LAMP programs, we should update the package manager:</p>
+            <div class="hacker">sudo apt-get update</div>
+
+        <p>Once the update is complete, we can install Apache:</p>
+             <div class="hacker">sudo apt-get install apache2</div>
+
+
+       <p>Please make sure Apache is installed, bring up a Internet browser to your server's IP address (i.e. http://12.34.56.789). You should get the screen shot below if everything went good.</p>
+
+   <!--  Image File needs to be added  -->
+
+    <p>Image (PNG only). See editorial guidelines for more information. </p>
+
+
+<h2>Install MySQL</h2>
+
+    <ol>
+        <li>Run the <code>apt-get</code> update to ensure your server is up-to-date on all of its apt packages.
+            <div class="hacker">sudo apt-get update</div></li>
+
+        <li>Install MySQL.
+            <div class="hacker">sudo apt-get install mysql-server php5-mysql</div></li>
+
+        <li>Activate MySQL.
+            <div class="hacker">sudo mysql_install_db</div>
+        MySQL will ask you for a db admin password. Skip this step for now.</li>
+
+        <li>Secure your database server.
+          <div class="hacker">sudo /usr/bin/mysql_secure_installation</div> </li> </ol>
+
+     The prompt will request the answer to a number of questions.<br />
+     The following table contains the remainder of the questions you will be asked, the recommended response and some remarks regarding the consequences of not following the recommendation. <br />   <br />
+
+
+<table>
+    <tr>
+        <th >Question</th>
+        <th>Suggested Answer</th>
+        <th>Why / Why not?</th>
+    </tr>
+
+    <tr>
+        <td >Enter current password for root:</td>
+        <td>Press <strong>Enter</strong> for none.</td>
+        <td>Do not enter a password. If you do so, MySQL will not have sufficient access to system resources to function as a database server.</td>
+    </tr>
+
+    <tr>
+        <td>Do you want to change the root password?</td>
+        <td><center>y</center></td>
+        <td>A password is needed to secure MySQL. Enter a strong password and write it down.</td>
+    </tr>
+
+    <tr>
+        <td>Remove anonymous users?</td>
+        <td><center>y</center></td>
+        <td>The anonymous user allows anyone to login without requiring an account created by an admin. A hacker attempting to compromise your database server may try logging in as this user. </td>
+    </tr>
+
+    <tr>
+        <td> Disallow root login remotely?</td>
+        <td><center>y</center></td>
+        <td>It is more secure to create a non-root user with admin permissions. Answer "no," if you need more flexibility to manage your db server.</td>
+
+    </tr>
+
+    <tr>
+        <td >Remove test database and access to it?</td>
+        <td><center>y</center></td>
+        <td>If you have a reason to keep a test database, answer "no." </td>
+    </tr>
+
+    <tr>
+        <td >Reload privilege tables now?</td>
+        <td><center>y</center></td>
+        <td>Why wait?</td>
+    </tr>
+</table>
+
+<h2>Step Three - Install PHP</h2>
+
+        <p>PHP is an open source web scripting language that is widely used to build dynamic webpages.</p>
+
+        <p>To install PHP, in the same terminal type in these commands:</p>
+             <div class="hacker">sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt</div>
+
+
+        <p>PHP should also be added to the apache configuration file:  </p>
+            <div class="hacker">sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt</div>
+
+       <p>Paste in this text block within the config.</p>
+
+    <h2>Next steps</h2>
+        <p>Congratulations! You now have a LAMP stack on your Ubuntu Linux server, you can now set up phpMyAdmin, Install WordPress, go on to do more with MySQL (A Basic MySQL Tutorial), Create an SSL Certificate, or Install an FTP Server. </p>
+
+</body>
+</html>
