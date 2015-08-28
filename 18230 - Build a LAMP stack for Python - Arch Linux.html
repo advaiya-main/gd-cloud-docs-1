@@ -101,26 +101,26 @@ Moved to github</mso:ReviewComments>
 
         <div class="hacker">sudo pacman -Syu</div></li>
 
-<<<<<<< HEAD
+
         <li>Install Apache.
         <div class="hacker">sudo pacman -S apache</div></li>
      </ol>
-        <p>After Apache is installed, you need to make a couple of changes in the configuration.</p>       
+        <p>After Apache is installed, you need to make a couple of changes in the configuration.</p>
      
      <h3>Configure Apache</h3>
 <ol>
 <li> Open the Apache configuration file.
         <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div></li>
 
-        <li>Comment out the <code.unique_id_module</code> (Use CTRL-W to find it quickly). Make sure there is a pound(#) at the beginning of the line: 
-        <div class="hacker">#LoadModule unique_id_module<br> modules/mod_unique_id.so</div></li>
+        <li>Comment out the <code>unique_id_module</code> (Use CTRL-W to find it quickly). Make sure there is a pound(#) at the beginning of the line:
+        <div class="hacker">#LoadModule unique_id_module<br /> modules/mod_unique_id.so</div></li>
 
 <li>Restart Apache
         <div class="hacker">sudo systemctl restart httpd</div></li>
     
-        <p>Next</p> <!--What does this step do?-->
-=======
-        <p>After Apache is installed, we need to make a couple of changes in the configuration. </p>
+        <li>Next</li> <!--What does this step do?-->
+
+        <li>After Apache is installed, we need to make a couple of changes in the configuration. </li> </ol>
  <!--Conrad, make this a new procedure with an <h3> heading "Configure Apache"-->
      
      <h3>Configure Apache</h3>
@@ -134,7 +134,7 @@ Moved to github</mso:ReviewComments>
         <div class="hacker">sudo systemctl restart httpd</div>
 
         <p>Next</p>
->>>>>>> de8d8364847b51c8c501cc2927b71f96c2abf4eb
+
         <div class="hacker">sudo vim /etc/hosts</div>
 
         <p>Add your hostname to the end of the line beginning with <code>127.0.0.1</code>.</p>
@@ -149,7 +149,7 @@ Moved to github</mso:ReviewComments>
 	<div class="hacker">:: There are 2 providers available for mysql:<br/> :: Repository extra<br/> 1) mariadb<br/> :: Repository community<br/> 2) percona-server}</div>
 
         <p class="note">Press <strong>Enter</strong>, unless you know you do not want the defaults.</p>
- 
+
         <p>MariaDB is now the default database solution for Arch Linux.) MariaDB is an open source drop-in replacement for MySQL, and all system commands that reference MySql are compatible with it.</p>
         
         <p>Install the MariaDB data directory.</p>
@@ -165,13 +165,14 @@ Moved to github</mso:ReviewComments>
 <li>Run the MySQL set up script.
         <div class="hacker">sudo mysql_secure_installation</div></li>
 
-        <p>During this process it will ask you for your current MySQL root password (not to be confused with your server password) and, since it has not yet been set, simply press enter.</p>
-<<<<<<< HEAD
-        <p>When prompted, “Set root password?” type Y, and afterwards enter in your new MySQL root password.<br> Once root password is set just say YES to the remaining options as seen below:</p>     
-=======
-        <p>When prompted, “Set root password?” type Y, and afterwards enter in your new MySQL root password.<br /> Once root password is set just say YES to the remaining options as seen below:</p>
+        <li>During this process it will ask you for your current MySQL root password (not to be confused with your server password) and, since it has not yet been set, simply press enter.</li>
+
+        <li>When prompted, “Set root password?” type Y, and afterwards enter in your new MySQL root password. </li>
+        <li> Once root password is set just say YES to the remaining options as seen below:</li>
+
+        <li>When prompted, “Set root password?” type Y, and afterwards enter in your new MySQL root password. </li>
+        <li>Once root password is set just say YES to the remaining options as seen below:</li>       </ol>
  <!--Conrad - this would be better as a table. Susan can help.-->
->>>>>>> de8d8364847b51c8c501cc2927b71f96c2abf4eb
 <table style="width:100%;">
             <tr style ='font-weight: bold;'>
                 <td width='60%'>Prompt</td>
@@ -224,39 +225,38 @@ Moved to github</mso:ReviewComments>
         <p>All done!  If you've completed all of the above steps, your MariaDB installation should now be secure.</p>
 
         <p>After you're done installing MySQL <!--MariaDB?-->, finish the LAMP stack by installing PHP.</p>
-</ol>
+
 
 <h2>Install PHP</h2>
 
   
         <p>PHP is an open source web scripting language that is widely used to build dynamic webpages.</p>
       <ol>
-<<<<<<< HEAD
+
         <li>To install PHP, in the same terminal, type in these commands:
         <div class="hacker">sudo pacman -S php php-apache</div></li>
-        
+
         <li>Add PHP to the Apache configuration file.
         <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div></li>
-        
+
         <li>Paste in this text of block within the config file.
-         <div class="hacker"># Use for PHP 5.x:<br>
+         <div class="hacker"># Use for PHP 5.x:<br />
 LoadModule php5_module       modules/libphp5.so
-<br>AddHandler php5-script php<br>
+<br />AddHandler php5-script php<br />
 Include conf/extra/php5_module.conf</div></li>
        </ol>
-=======
-        <li><b>To install PHP, in the same terminal type in these commands:</b>
-        <div class="hacker">sudo pacman -S php php-apache</div>  </li>
-        <li><b>PHP should also be added to the apache configuration file:</b>
-        <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div></li>
-        <li><b>Paste in this text block within the config.</b></li>
+       <ol>
+                <li><b>To install PHP, in the same terminal type in these commands:</b>
+                <div class="hacker">sudo pacman -S php php-apache</div>  </li>
+                <li><b>PHP should also be added to the apache configuration file:</b>
+                <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div></li>
+                <li><b>Paste in this text block within the config.</b></li>
        </ol>
 
         <div class="hacker"># Use for PHP 5.x:<br />
 LoadModule php5_module       modules/libphp5.so
 <br />AddHandler php5-script php<br />
 Include conf/extra/php5_module.conf</div>
->>>>>>> de8d8364847b51c8c501cc2927b71f96c2abf4eb
 
         <h2>Next steps</h2>
         <p>Congratulations! You now have a LAMP stack on your Arch Linux server, you can now set up phpMyAdmin, Install WordPress, go on to do more with MySQL (A Basic MySQL Tutorial), Create an SSL Certificate, or Install an FTP Server.</p>
