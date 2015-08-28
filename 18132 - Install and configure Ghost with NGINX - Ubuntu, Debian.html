@@ -70,24 +70,24 @@ p.note {
 
 <body>
 <p>Install and configure Ghost with NGINX - Ubuntu, CMS, Ghost, NGINX</p>
-    <h1>Install and configure Ghost with NGINX - Ubuntu</h1>
+    <h1>Install and configure Ghost with Nginx - Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>1.0 hrs</em></p>
 
-    <p>Ghost is simple blogging platform, fast to setup and easy to setup. Besides, it provides good customization options to the users. This article will assist you with the steps to set up a Ghost blogging platform with nginx on your Ubuntu platform. </p>
-<p class="note">Note: It is assumed that you are logged in as a root user.</p> 
+    <p>Ghost is simple blogging platform that is fast and easy to set up. It provides good customization options. This article  will help you  to set up a Ghost blogging platform with Nginx on  Ubuntu. </p>
+<p class="note">These procedures assume that you are logged in as a root user.</p> 
 
-    <h2>Step 1: Prepare the machine</h2>
-    Login into the Ubuntu machine and perform these steps using the commands described here. It is assumed that you have the root or sudo user privileges when performing the following tasks:
+    <h2>Prepare the machine</h2>
+    It is assumed that you have the root or sudo user privileges when performing the following tasks.
     <ol>
 	<li>Update your Ubuntu server (for the interactive installations, you might need to respond regarding the confirmation for installation)
 	<div class='hacker'>apt-get update</div>
 	<div class='hacker'>apt-get upgrade</div>
     </li>
 	
-	<li>Install dependencies, including python and nodejs
-	<div class='hacker'>apt-get install unzip</div>
+	<li>Install dependencies, including <code>python</code> and <code>nodejs</code>.
+	  <div class='hacker'>apt-get install unzip</div>
 	<div class='hacker'>apt-get install python-software-properties python g++ make</div>
 	<div class='hacker'>add-apt-repository ppa:chris-lea/node.js</div>
 	<div class='hacker'>apt-get update</div>
@@ -95,32 +95,32 @@ p.note {
     </li>
 	</ol>
 	
-	<h2>Step 2: Install and Configure Ghost</h2>
+	<h2>Install and configure Ghost</h2>
     <ol>
-	<li>Download the latest version of Ghost from the site Ghost.org
-	<div class='hacker'>curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip</div>
+	<li>Download the latest version of Ghost from the  <code>Ghost.org</code> site.
+	  <div class='hacker'>curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip</div>
 	</li>
-	<li>Unzip the Ghost to some suitable folder location (Recommended location is  /var/www/ghost)
-	<div class='hacker'>mkdir –p /var/www</div>
+	<li>Unzip the file to a suitable folder location such as <code>/var/www/ghost</code>.
+      <div class='hacker'>mkdir –p /var/www</div>
 	<div class='hacker'>unzip -uo ghost.zip -d /var/www/ghost</div>
     </li>
 	
-	<li>Install the Ghost in the new ghost directory
-	<div class='hacker'>cd /var/www/ghost &amp;&amp; npm install --production</div>
+	<li>Install  Ghost in the new ghost directory.
+	  <div class='hacker'>cd /var/www/ghost &amp;&amp; npm install --production</div>
     </li>
-	<li>Start the Ghost (production environment) using the following command
-	<div class='hacker'>npm start --production</div>
+	<li>Start  Ghost (production environment).
+	  <div class='hacker'>npm start --production</div>
 	The default port used by Ghost is 127.0.0.1:2368.
-	<p>When it starts, it should give a message “your blog is now available on <code> http://&lt;provided URL&gt;.</code> This value of URL can be updated in the config file <code>config.js.</code></p>
+	<p>When  starting, Ghost displays the message “Your blog is now available on <code> http://<em><u>provided URL</u></em>.</code>&quot; This value of URL can be updated in the config file <code>config.js.</code></p>
    
 	<img src="images/18132-Ubuntu-GhostServerStart.png" alt="18132-Ubuntu-GhostServerStart.png"/> </li>
 	</ol>
 	
-<h2>Step 3: Install and Configure nginx</h2>
+<h2>Install and configure Nginx</h2>
 Nginx, an open-source, high performance HTTP Server, is used to enable connections from the outside on port 80 to connect through to the port that Ghost is running on, so that people can see your blog.
     <ol>
-	<li>Install nginx using the following command
-	<div class='hacker'>apt-get install nginx</div>
+	<li>Install Nginx.
+	  <div class='hacker'>apt-get install nginx</div>
 	</li>
 	<li>To configure nginx, you need to remove all the default files and create new configuration files
 	<div class='hacker'>cd /etc/nginx/</div>
@@ -193,7 +193,7 @@ In your browser, open the page (red highlighted text needs to be updated)<br/>
 <img src="images/18132-Ubuntu-GhostOnBrowser.png" alt="18132-Ubuntu-GhostOnBrowser"/>
 	</li>
 	</ol>
-	<h2>Step 4: Configure Upstart</h2>
+	<h2>Configure Upstart</h2>
 	Once the ghost blog is up and running, you can create an Upstart task to handle the Ghost. This ensures that in case the server get turned off at any time, Ghost will get kicked back on. 
     <ol>
 	<li>Create a new Upstart configuration file using the following command
