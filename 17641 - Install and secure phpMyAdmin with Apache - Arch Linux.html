@@ -10,7 +10,7 @@
 
 
 <title>Install and secure phpMyAdmin with Apache - Arch Linux</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -39,7 +39,10 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+
 </style>
+
 
 
 <!--[if gte mso 9]><xml>
@@ -92,9 +95,9 @@ p.note {
     <p>phpMyAdmin is an open source tool that enables users to perform MySQL database operations like create, delete or modify MySQL databases or execute SQL statements, by providing a user interface.</p>
 
     <h2>Prerequisites</h2>
-  
-    Make sure that you have LAMP( Linux, Apache, MySQL and PHP) installed. In case you haven't , here's how you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux.html">Install LAMP</a>
-    
+
+   <p> Make sure that you have LAMP( Linux, Apache, MySQL and PHP) installed. In case you haven't , here's how you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux.html">Install LAMP</a>   </p>
+
 
     <h2>Install phpMyAdmin</h2>
     <ol>
@@ -112,10 +115,10 @@ p.note {
             <div class="hacker">sudo vim /etc/php/php.ini</div>
             Uncomment the following lines:
             <div class="hacker">
-                <pre>
-extension=mysqli.so
-extension=mcrypt.so
-</pre>
+
+extension=mysqli.so   <br/>
+extension=mcrypt.so    <br/>
+
             </div>
         </li>
         <li>
@@ -136,15 +139,15 @@ extension=mcrypt.so
         <li>
             Add the below code in the opened file.
             <div class="hacker">
-                <pre>
- Alias /phpmyadmin "/usr/share/webapps/phpMyAdmin"
-&lt;Directory="/usr/share/webapps/phpMyAdmin">
-    DirectoryIndex index.php
-    AllowOverride All
-    Options FollowSymlinks
-    Require all granted
-&lt;/Directory>
-</pre>
+
+ Alias /phpmyadmin "/usr/share/webapps/phpMyAdmin"  <br/>
+&lt;Directory="/usr/share/webapps/phpMyAdmin">   <br/>
+    DirectoryIndex index.php  <br/>
+    AllowOverride All        <br/>
+    Options FollowSymlinks   <br/>
+    Require all granted    <br/>
+&lt;/Directory>        <br/>
+
             </div>
         </li>
 
@@ -155,9 +158,9 @@ extension=mcrypt.so
         <li>
             Add the below code  under the <code>Supplemental configuration </code>section.
             <div class="hacker">
-                <pre>
-# phpMyAdmin configuration
-Include conf/extra/phpmyadmin.conf</pre>
+
+# phpMyAdmin configuration  <br/>
+Include conf/extra/phpmyadmin.conf  <br/>
             </div>
             Save and close the file.
         </li>
