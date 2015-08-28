@@ -9,7 +9,7 @@
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>Basic Queries in MySQL and MariaDB - ALL DISTROS</title>
+<title>18893-Basic Queries in MySQL and MariaDB - ALL DISTROS</title>
 <style>
 div.hacker {
 background-color:#666;
@@ -71,78 +71,73 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
-    
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+<p>Basic Queries in MySQL and MariaDB - ALL DISTROS, Getting Started, MySQL</p>
+<h1>Basic Queries in MySQL and MariaDB - ALL DISTROS</h1>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+<h2>What are MySQL and MariaDB?</h2>
+<p>MySQL and MariaDB are relational databases. These tools are used to handle large volumes of data for different kind application programs. Both uses SQL query language to retrieve the information from different tables and databases. Both MySQL and MariaDB support Virtual Private Server (VPS) or cloud to manage your data.</p>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
+<h2>Perquisites </h2>
+<p>In this article, you can use Ubuntu (or any other distros), MariaDB and MySQL.  MariaDB and MySQL can be used to query database for various filters or search criteria. </p>
 
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
-   
+<h2>Fetch Information from MariaDB and MySQL</h2>
+
+<p>You can tell the database server to fetch information from the <code>datatables</code> table by using the following query:</p>
+<div class="hacker">SELECT selected_fied1 FROM datatables WHERE search_crietaria;</div>
+
+<h2>Select data source</h2>
+<ol>
+<li>You can use the default <code>mysql</code> database to form queries.
+<div class="hacker">USE mysql;</div>
+</li>
+<li>Once you have executed the above command, the database will prompt the following message:
+<div class="hacker">Database changed</div>
+</li>
+<li>To view the list of tables within MySQL database and to know the data sources, use the below query:
+<div class="hacker">SHOW TABLES;</div>
+<p class="note"> Notice that there is a semicolon after every command, to indicate that the engine query ends here.</p>
+<p>Output of the above query will be similar to what is shown below:</p>
+ <p><img src="images/18893 - 1.png" alt="18893" /></p>
+<p>Ubuntu will return 24 results for MySQL installation.</p>
+</li>
+<li>Change the selection for query results to <code>"user"</code> to get an idea of which categories you can select from and view the table column headers.
+<div class="hacker">SHOW COLUMNS FROM user;</div>
+  <p><img src="images/18893 - 2.png" alt="18893" /></p>
+<p>The values shown in the <code>"Field"</code> column are headings for the <code>"user"</code> table.</p>
+</li>
+</ol>
+
+<h2>Create a basic query in MySQL and MariaDB</h2>
+<p>To select some information for the users:</p>
+<div class="hacker">SELECT user,password,host FROM user;</div>
+ <p><img src="images/18893 - 3.png" alt="18893" /></p>
+<p>The above query will show result for the three fields which you have selected in the <code>SELECT</code> query. In this query, each of the fields are separated with a comma.</p>
+
+<h2>Wildcard usage in MySQL and MariaDB queries</h2>
+
+<p>By using the SELECT query in the above example, you can use specific fields to retrieve data. If you want to return all the information from the <code>"user"</code> table, then you can use asterisk <code>'*'</code>.</p>
+<div class="hacker">SELECT * FROM user;</div>
+
+<h2>Filter result in MySQL and MariaDB</h2>
+
+<p>You can apply filter for results that you want should meet a specific criteria by using the <code>where</code> keyword. In the example given below, if you want the query to show <code>user, password</code> and <code>host</code> that has a value set as <code>"root"</code> for <code>user</code>, then use the following query:</p>
+<div class="hacker">SELECT user,password,host FROM user WHERE user = "root";</div>
+ <p><img src="images/18893 - 4.png" alt="18893" /></p>
+<p>Same way you can apply filter for different fields. In the given example below, the result will show <code>user, password</code> and <code>host</code> from the <code>user</code> table which has a value named <code>localhost</code> for <code>host</code>: </p>
+<div class="hacker">SELECT user,password,host FROM user WHERE host = "localhost";</div>
+ <p><img src="images/18893 - 4.png" alt="18893" /></p>
+<h2>Like comparison operator</h2>
+
+<p>The "Like" operator compares the value from the right side of the expression, in this example <code>l%</code>. The below query will fetch user, password and host fields from user table where the criteria host is LIKE <code>l%</code>. So, this will result in an output with all the respective fields starting with letter <code>"l"</code>. </p>
+<div class="hacker">SELECT user,password,host FROM user WHERE host LIKE "l%";</div>
+ <p><img src="images/18893 - 5.png" alt="18893" /></p>
+<p>Here you can also apply <code>and</code> or <code>or</code> for equality comparison.</p>
+<div class="hacker">SELECT user,password,host FROM user WHERE host LIKE "l%" or host LIKE "127%";  </div>
+  <p><img src="images/18893 - 6.png" alt="18893" /></p>
+<p>The above query will match each record and return result with filter condition that matches the criteria i.e host starting from either l or 127.</p>
+
+<h2>Conclusion</h2>
+<p>In this article, we reviewed the queries that provide a basic understanding of how to retrieve data from databases. There are several other queries that have not been covered in this article, but the list that is given here is a good start on how to retrieve information in MySQL and MariaDB. </p>
+
 </body>
 </html>
