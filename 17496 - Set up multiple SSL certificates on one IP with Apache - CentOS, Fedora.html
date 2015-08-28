@@ -71,8 +71,8 @@ p.note {
 </head>
 
 <body>
-  <p>This article walks through setting up two SSL certificates on a single IP address with Apache on a server using CentOS or Fedora.</p>
- <h1>Set up multiple SSL certificates on one IP with Apache - CentOS, Fedora</h1>
+  <p>Set up two SSL certificates on a single IP address with Apache on a server using CentOS or Fedora.</p>
+ <h1>Set Up Multiple SSL Certificates on One IP with Apache - CentOS, Fedora</h1>
  <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>15 minutes</u></em></p>
     <p> This article walks you through the installation of multiple SSL certificates on a single IP address on a CentOS or Fedora server running Apache. This installation can be accomplished through Server Name Indication (SNI). This protocol extension allows a web server to provide separate SSL certificates for corresponding sites using virtual hosts.  </p>
@@ -80,7 +80,7 @@ p.note {
    <a href="/article/17344?prog_id =PROG_ID">CentOS 7 server</a>. You can ignore the instructions for MySQL and PHP, as you do not need it for this article.</p>   
 
 <h2>Activate the SSL module</h2>
-    <p>If you already have Apache running on a Debian or Ubuntu server, SSL support is already a part of it. You need only  to activate it to get started.</p>  
+    <p>If you already have Apache running on a CentOS or Fedora server, SSL support is already a part of it. You need only  to activate it to get started.</p>  
 <ol>
     <li>Create a directory for each of the domain names. You will later store the certificate and the key in this directory.
       <div class="hacker"> sudo mkdir -p /etc/httpd/ssl/yourdomainname1.com</div>
@@ -95,16 +95,17 @@ p.note {
 </ol>
     
 <h2>Obtain the certificates</h2>    
-    <p>
-Here's how you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17452 - Install an SSL Certificate on Apache - CentOS, Fedora"> install an SSL certificate.</a> </p>
-    <p>After you download your certificates, make sure that you copy the certificate and the key to its corresponding directory. In other words, if <em><u>gdcert1</u></em> is the certificate and the <em><u>certkey1</u></em> is the key for <em><u>yourdomainname1.com</u></em>, then move them to the directory <code>/etc/httpd/ssl/yourdomainname1.com</code>.
-
-    </p>
-
-<h2>Create virtual host files</h2>
-Now that you have obtained the certificates, you are ready to create and edit two virtual host files to store configuration information.
     <ol>
-        <li> Create and open the first file for editing.
+      <li>
+        Download the certificates. For help, refer to <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17452 - Install an SSL Certificate on Apache - CentOS, Fedora"> Install an SSL Certificate on Apache - CentOS, Fedora.</a> </li>
+      <li>Move each certificate and  key to its corresponding directory. For example, if <em><u>gdcert1</u></em> is the certificate and the <em><u>certkey1</u></em> is the key for <em><u>yourdomainname1.com</u></em>,  move them to  <code>/etc/httpd/ssl/yourdomainname1.com</code>.
+        
+      </li>
+    </ol>
+<h2>Create virtual host files</h2>
+<p>Now that you have obtained the certificates, you are ready to create and edit two virtual host files to store configuration information. </p>
+<ol>
+    <li> Create and open the first file for editing.
           <div class="hacker">sudo vim /etc/httpd/conf.d/yourdomainname1.com.conf</div>
         </li>
         <li>
@@ -139,13 +140,13 @@ Now that you have obtained the certificates, you are ready to create and edit tw
 </pre>
             </div>
         </li>
-        <li>Do the same with the other configuration file. </li>
-    <li>You need to make changes in the existing configuration file to include the newly created Virtual host files. Open the .conf file.
-        <div class="hacker">sudo vim  /etc/httpd/conf/httpd.conf</div>
+        <li>Repeat for the other configuration file. </li>
+    <li>Open the <code>.conf</code> file. You need to make changes in the existing configuration file to include the newly created virtual host files. 
+      <div class="hacker">sudo vim  /etc/httpd/conf/httpd.conf</div>
         </li>
         <li>
-            Add the <code>Include</code> directives under the <code>Dynamic Shared Object (DSO) Support</code> Section for the .conf files.
-            <div class="hacker">
+            Add the <code>Include</code> directives under the <code>Dynamic Shared Object (DSO) Support</code> Section for the <code>.conf</code> files.
+<div class="hacker">
 Include conf.d/yourdomainname1.com.conf<br />
 Include conf.d/yourdomainname2.com.conf
 </div>
