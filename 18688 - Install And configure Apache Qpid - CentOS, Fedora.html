@@ -4,9 +4,8 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
+<!--Article Number is 18688 (fill in blank)-->
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Install And configure Apache Qpid - CentOS, Fedora</title>
@@ -75,11 +74,13 @@ p.note {
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>This article explains how to install and configure Apache Qpid on CentOS and Fedora. Apache Qpid is an open source messaging system to send and receive messages between application and processes, it implements <strong>Advanced Message Queuing Protocol</strong>. </p>
-	<p>To send and receive message between process and applications we need a third party program to provide an interface. These third party programs are called message brokers.</p>
-    <h2>Advanced Message Queuing Protocol (AMQP) Overview</h2>
+    <p>This article explains how to install and configure Apache Qpid&trade; on CentOS and Fedora&trade;. Apache Qpid is an open source messaging system to send and receive messages between the application and processes. It implements <strong>Advanced Message Queuing Protocol</strong> (AMQP). </p>
+	<p>To send and receive message between process and applications we need a third party program to provide an interface. These third-party programs are called message brokers.</p>
+  
+  
+<h2>Advanced Message Queuing Protocol (AMQP) Overview</h2>
        
-    <p>It is a well-known open source standard used for transferring messages. It provides a common ground to many applications and message brokers to operate without issues caused by individual’s design or development.</p>
+    <p>AMQP is a well-known open source standard used for transferring messages. It provides a common ground to many applications and message brokers to operate without issues caused by an individual’s design or development.</p>
  
  	<h2>Install Apache Qpid</h2>
 	<ol>
@@ -89,20 +90,22 @@ p.note {
 	<li>Qpid Client libraries (e.g. Qpid Python) </li>
 	</ul>
 	</li>
-	<li>First of all update the droplet.
+	<li>Update the droplet.
 	<div class="hacker">sudo yum –y update</div>
 	</li>
-	<li>To download C++ server and its tools, execute the following command:
+	<li>To download C++ server and its tools, run the following command:
 	<div class="hacker">sudo yum install -y qpid-cpp-server qpid-tools  </div>
 	</li>
-	<li>To install Qpid’s language bindings, execute the following command:
+	<li>To install Qpid’s language bindings, run the following command:
 	<div class="hacker">sudo yum install -y python-qpid</div>
 	</li>
 	</ol>
 	
 	<h2>Managing Qpid</h2>
 <ul>
-<li>To start, stop, restart, check the status and reload, you can use following command:
+<li>To start, stop, restart, check the status, and reload, you can use following commands:
+<!-- This would be easier to read as a table.  TASK | COMMAND-->
+
 <div class="hacker">	
 <pre>
 # To start the service:
@@ -123,12 +126,12 @@ sudo /sbin/service qpidd force-reload
 </div></li>
 </ul>
 <h2>Explore Qpid</h2>
-	<p>Once you have configured Qpid and its Python language binding, let us explore how it works.</p>
+	<p>After you have configured Qpid and its Python language binding, we can explore how it works.</p>
 	<ol>
 	<li>Create a <code>qpid_test.py</code> file with any editor.
 	</li>
 	
-	<li>Paste the following code (explained in comments) into the file, save it and exit.
+	<li>Paste the following code (explained in comments) into the file, save it, and exit.
 	<div class="hacker">
 	<pre>
 # Import the modules we need
@@ -169,14 +172,15 @@ finally:
 	</div>
 	</li>
 	
-	<li>Now run the above script. 
+	<li>Run the following script: 
 	<div class="hacker">python qpid_test.py</div>
-	<p>You will see following message.</p>
+	<p>You will see following message:</p>
 	<div class="hacker"># Hello world!</div>
 	</li>
 	</ol>
-	<h2>Next Step</h2>
-    After following all these steps you will be able to install qpid. You can similarly install other language bindings if you need. 
+	<h2>Next step</h2>
+    After following all these steps you will be able to install Qpid. You can similarly install other language bindings if you need. 
+    <!--Are there links to the other bindings or refer to the procedure in this article.-->
    
 </body>
 </html>
