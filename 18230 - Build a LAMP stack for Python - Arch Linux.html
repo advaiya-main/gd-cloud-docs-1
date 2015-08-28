@@ -88,7 +88,7 @@ Moved to github</mso:ReviewComments>
         <p>Describes how to install Apache, MySQL, PHP (LAMP) stack on Arch Linux.</p>
     <h1>Build a LAMP stack for Python -  Arch Linux</h1>
     
-        <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
+        <p><strong>Difficulty</strong>: <em><u>3</u></em><br />
         <strong>Time</strong>: <em><u>4 minutes</u></em></p>
      
 
@@ -97,12 +97,12 @@ Moved to github</mso:ReviewComments>
         
     <h2>Install Apache</h2>
  <ol>
-        <li>Before installing any of the LAMP programs, update the package manager:
+        <li>Before installing any of the LAMP programs, update the package manager.
 
         <div class="hacker">sudo pacman -Syu</div></li>
 
 
-        <li>Install Apache.
+        <li>Use this command to install Apache:
         <div class="hacker">sudo pacman -S apache</div></li>
      </ol>
         <p>After Apache is installed, you need to make a couple of changes in the configuration.</p>
@@ -112,28 +112,25 @@ Moved to github</mso:ReviewComments>
 <li> Open the Apache configuration file.
         <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div></li>
 
-        <li>Comment out the <code>unique_id_module</code> (Use CTRL-W to find it quickly). Make sure there is a pound(#) at the beginning of the line:
+        <li>Use <strong>Control/CTRL+W</strong> to find <code>unique_id_module</code>. Add a number sign (#) at the beginning of the line to comment out the line.
         <div class="hacker">#LoadModule unique_id_module<br /> modules/mod_unique_id.so</div></li>
 
-<li>Restart Apache
+<li>Restart Apache.
         <div class="hacker">sudo systemctl restart httpd</div></li>
     
-        <li>Next</li> <!--What does this step do?-->
+        <li>Next</li> <!--What does this step do?  Can it be deleted?-->
 
-        <li>After Apache is installed, we need to make a couple of changes in the configuration. </li> </ol>
- <!--Conrad, make this a new procedure with an <h3> heading "Configure Apache"-->
+        <li>After Apache is installed, you need to make a couple of changes in the configuration. </li> </ol>
      
-     <h3>Configure Apache</h3>
-        <p>Open up the apache configuration file: </p>
+<h3>Configure Apache</h3><!--Except for the last step. This section looks like a copy and paste issue.-->
+        <p>Open up the Apache configuration file. </p>
         <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
 
-        <p>Comment out the<code> unique_id_module</code> (you can use CTRL-W to find it quickly), make sure there is a pound(#) at the beginning of the line:</p>
+        <p>Use <strong>CTRL+W</strong> to find <code> unique_id_module</code>. Add a  a number sign(#) at the beginning of the line to comment it out.</p>
         <div class="hacker">#LoadModule unique_id_module<br /> modules/mod_unique_id.so</div>
 
-        <p>Restart Apache:</p>
+        <p>Restart Apache.</p>
         <div class="hacker">sudo systemctl restart httpd</div>
-
-        <p>Next</p>
 
         <div class="hacker">sudo vim /etc/hosts</div>
 
@@ -141,38 +138,38 @@ Moved to github</mso:ReviewComments>
         <div class="hacker">127.0.0.1 localhost.localdomain localhost &lt;hostname&gt;</div>
 
     <h2>Install MySQL</h2>  
-    
-        <p>To install MySQL, in the same terminal type in these commands:</p>
-        <div class="hacker">sudo pacman -S mysql</div>
+      <ol>
+        <li>To install MySQL, in the same terminal type in these commands:
+        <div class="hacker">sudo pacman -S mysql</div></li>
 
-        <p>If it ask you anything like what is seen below:</p>
-	<div class="hacker">:: There are 2 providers available for mysql:<br/> :: Repository extra<br/> 1) mariadb<br/> :: Repository community<br/> 2) percona-server}</div>
+        <li>If it ask you anything like what is seen below:
+	<div class="hacker">:: There are 2 providers available for mysql:<br /> :: Repository extra<br /> 1) mariadb<br /> :: Repository community<br /> 2) percona-server}</div></li>
 
-        <p class="note">Press <strong>Enter</strong>, unless you know you do not want the defaults.</p>
+        <li>Press <strong>Enter</strong>, unless you are sure that you do not want the defaults.</li>
+        </ol>
 
-        <p>MariaDB is now the default database solution for Arch Linux.) MariaDB is an open source drop-in replacement for MySQL, and all system commands that reference MySql are compatible with it.</p>
         
-        <p>Install the MariaDB data directory.</p>
-
+<h3>Install and start the MariaDB data directory.</h3>
+<p>MariaDB is now the default database solution for Arch Linux. MariaDB is an open source drop-in replacement for MySQL, and all system commands that reference MySql are compatible with it.</p>
+<ol>
+<li>Install MariaDB with this command:</li>
         <div class="hacker">sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql</div>
 
-        <p>After you have installed MySQL, start it up:</p>
-        <div class="hacker">sudo systemctl start mysqld</div>
+        <li>After you have installed MySQL, start it up:
+        <div class="hacker">sudo systemctl start mysqld</div></li>
+        </ol>
 
 <h3>Set up MySQL</h3>
-<!--You made the heading, but forgot to make the steps.  Here's a start.-->
 <ol>
 <li>Run the MySQL set up script.
         <div class="hacker">sudo mysql_secure_installation</div></li>
 
-        <li>During this process it will ask you for your current MySQL root password (not to be confused with your server password) and, since it has not yet been set, simply press enter.</li>
+        <li>During this process it will ask you for your current MySQL root password (not to be confused with your server password) and, since it has not yet been set, simply press <strong>Enter</strong>.</li>
 
-        <li>When prompted, “Set root password?” type Y, and afterwards enter in your new MySQL root password. </li>
-        <li> Once root password is set just say YES to the remaining options as seen below:</li>
-
-        <li>When prompted, “Set root password?” type Y, and afterwards enter in your new MySQL root password. </li>
-        <li>Once root password is set just say YES to the remaining options as seen below:</li>       </ol>
- <!--Conrad - this would be better as a table. Susan can help.-->
+        <li>When prompted with <code>Set root password?</code>, type <strong>Y</strong>, and then enter in your new MySQL root password. </li>
+        <li>After the root password is set, respond <strong>YES</strong> to the remaining options  as seen in the following section:</li>
+ </ol>
+ 
 <table style="width:100%;">
             <tr style ='font-weight: bold;'>
                 <td width='60%'>Prompt</td>
@@ -180,8 +177,8 @@ Moved to github</mso:ReviewComments>
                 <td>Success Message</td>
             </tr>
                 <tr>
-                    <td><div class='hacker'>You should remove them before moving into a production environment. Remove anonymous users?</div></td>
-                    <!--The reader can see the text. Just include the questions.-->
+                    <td><div class='hacker'>Remove anonymous users?</div></td>
+                    
                 
                     <td style="vertical-align: top; text-align:center;"><strong>y</strong></td>
                     <td style="vertical-align: top;">Success!</td>
@@ -193,9 +190,9 @@ Moved to github</mso:ReviewComments>
                     <td style="vertical-align: top; text-align:center;">y</td>
                     <td style="vertical-align: top;">Success!</td>
                 </tr>
-<!--Continue the rest of the table.  Just leave the question.  Tag the anseer as <strong>.-->
+
                 <tr>
-                    <td><div class='hacker'>By default, MySQL comes with a database named 'test' that anyone can access. This is also intended only for testing, and should be removed before moving into a production environment. Remove test database and access to it? [Y/n]</div></td>
+                    <td><div class='hacker'>Remove test database and access to it? [Y/n]</div></td>
                 
                     <td style="vertical-align: top; text-align:center;">y</td>
                     <td style="vertical-align: top;">Dropping test database... ... Success!</td>
@@ -209,7 +206,7 @@ Moved to github</mso:ReviewComments>
                 </tr>
 
                 <tr>
-                    <td><div class='hacker'>Reloading the privilege tables will ensure that all changes made so far will take effect immediately. Reload privilege tables now? [Y/n]</div></td>
+                    <td><div class='hacker'>Reload privilege tables now?</div></td>
                     <td style="vertical-align: top; text-align:center;">y</td>
                     <td style="vertical-align: top;">Success!</td>
                 </tr>
@@ -245,10 +242,11 @@ LoadModule php5_module       modules/libphp5.so
 <br />AddHandler php5-script php<br />
 Include conf/extra/php5_module.conf</div></li>
        </ol>
+       <h3>MISSING HEADING</h3><!--Missing heading-->
        <ol>
-                <li><b>To install PHP, in the same terminal type in these commands:</b>
+          <li><b>To install PHP in the same terminal, type these commands:</b>
                 <div class="hacker">sudo pacman -S php php-apache</div>  </li>
-                <li><b>PHP should also be added to the apache configuration file:</b>
+                <li><b>PHP should also be added to the Apache configuration file:</b>
                 <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div></li>
                 <li><b>Paste in this text block within the config.</b></li>
        </ol>
