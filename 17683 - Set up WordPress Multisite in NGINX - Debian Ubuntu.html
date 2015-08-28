@@ -90,9 +90,9 @@ td:nth-child(1) {font-weight:bold;}
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-    <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as youíd otherwise have to log into different WordPress accounts.</p> 
+    <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you‚Äôd otherwise have to log into different WordPress accounts.</p> 
 
-<p>For this article, weíll walk through setting up WordPress multisite for a primary domain and its subdomains. 
+<p>For this article, we‚Äôll walk through setting up WordPress multisite for a primary domain and its subdomains. 
 We'll set up WordPress on an Ubuntu&reg; (14.04, 14.10) or Debian system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
 <p>We'll use these example sites: </p>
 <table>
@@ -116,11 +116,11 @@ aboutus.coolexample.com</td>
 
 You'll need a Linux, Nginx&reg;, MySQL, and PHP (LEMP) stack configured. Make sure that Nginx, MySQL, and PHP are up and running. For instructions, see the following:
 <ul>
-<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17347%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Ubuntu.html"> Build a LEMP stack (Linux, NGINX, MySQL, PHP) ñ Ubuntu</a></li>
-<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html"> Build a LEMP stack (Linux, NGINX, MySQL, PHP) ñ Debian</a></li>
+<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17347%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Ubuntu.html"> Build a LEMP stack (Linux, NGINX, MySQL, PHP) ‚Äì Ubuntu</a></li>
+<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html"> Build a LEMP stack (Linux, NGINX, MySQL, PHP) ‚Äì Debian</a></li>
 </ul>
 
-<p>As you install the software, make a note of your MySQL root account (administrator) password. Youíll need it for these tasks.</p> 
+<p>As you install the software, make a note of your MySQL root account (administrator) password. You‚Äôll need it for these tasks.</p> 
 
 You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wilcard DNS</a>  if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.
 <h2>Create the Wordpress configuration file</h2>
@@ -154,17 +154,17 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
 <div class="hacker">mysql -u root -p</div>
                      </li>
     <li>At the prompt, enter your MySQL root password.  </li>
-    <li>At the MySQL prompt, create your WordPress database. For this article, weíll use the database name ìwordpress.î
+    <li>At the MySQL prompt, create your WordPress database. For this article, we‚Äôll use the database name ‚Äúwordpress.‚Äù
   <div class="hacker">CREATE DATABASE wordpress;</div></li>
-<li>Create the database administrator account, and set the userís credentials. Weíll use ìwordpressadminî as the example user name, and ìpasswordî as the password.
+<li>Create the database administrator account, and set the user‚Äôs credentials. We‚Äôll use ‚Äúwordpressadmin‚Äù as the example user name, and ‚Äúpassword‚Äù as the password.
   <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'password';</div>
-  As a best security practice, create a strong password. Keep your user name and password handy, as youíll need them later.</li>
+  As a best security practice, create a strong password. Keep your user name and password handy, as you‚Äôll need them later.</li>
  <li>Give, or grant, your admin permissions to the database.   
 <div class="hacker">GRANT ALL PRIVILEGES ON wordpress.* TO wordpressadmin@localhost;</div>
 <code>GRANT</code> is one of the account management statements that the MySQL server notices and loads into memory right away. Therefore, a manual reload/restart should not be necessary. However, if you like, you can check the permissions using <code>SHOW GRANTS:</code>
 <div class="hacker">SHOW GRANTS FOR 'wordpressadmin'@'localhost';</div>
 </li>
-<li>If the privileges donít take, flush the privileges to activate the user. <span class="hacker"><code>FLUSH</code></span> forces a reload of the cache.
+<li>If the privileges don‚Äôt take, flush the privileges to activate the user. <span class="hacker"><code>FLUSH</code></span> forces a reload of the cache.
 <div class="hacker">FLUSH PRIVILEGES;</div>  </li>
 
 <li> Exit MySQL to return to your normal command prompt.
@@ -210,11 +210,11 @@ This command creates a directory called "wordpress" in your home directory.</li>
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17385/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="Install WordPress Welcome screen" /> </li>
 
   <li>On the next screen, fill in your WordPress MySQL database credentials.
-You can leave the Database Host as is (localhost), since thatís what we defined, and Table Prefix as wp_. </li>
+You can leave the Database Host as is (localhost), since that‚Äôs what we defined, and Table Prefix as wp_. </li>
   <li>Click <strong>Submit</strong>.<br />
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
   <br />
-  The following page displays   the error message &quot;Sorry, but I canít write the wp-config.php file.&quot; Not to worry! Letís create our <code>wp-config</code> file now.<br />
+  The following page displays   the error message &quot;Sorry, but I can‚Äôt write the wp-config.php file.&quot; Not to worry! Let‚Äôs create our <code>wp-config</code> file now.<br />
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
 </li>
       </ol>
@@ -226,7 +226,9 @@ You can leave the Database Host as is (localhost), since thatís what we defined,
    <li>Back in the terminal, navigate to your WordPress document root.
      <div class="hacker">cd /var/www/html</div></li>
 
- <li>List files using <code>ls</code> to make sure that <code>wp-config-sample.php</code> is among them.<!--What do they do if it's not there?  cj --> </li>   
+ <li>List files using <code>ls</code> to make sure that <code>wp-config-sample.php</code> is among them.<!--What do they do if it's not there?  cj --> 
+<!--CT (to Carla): Since this is a fresh install, it'll be there. Want to revise the line? Or I feel comfortable removing this line if you think it's confusing-->
+</li>   
 
  <li>Copy the sample configuration file.
    <div class="hacker">sudo cp wp-config-sample.php wp-config.php</div></li>
@@ -259,7 +261,9 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 <h3>Continue setup in WordPress web interface</h3>
       
       <ol>
-        <li>Return to your  browser to continue the WordPress web installation. You should be taken to this screen.<!--What do they do to be taken to this screen? cj --><br />
+        <li>Return to your  browser to continue the WordPress web installation. You should be taken to this screen.<!--What do they do to be taken to this screen? cj -->
+<!--CT (to Carla): It should load to this screen. They can reload the page if not-->
+<br />
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
         <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
         <li>Click <strong>Install WordPress</strong>.</li>
@@ -275,12 +279,12 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
   </li>
   
-  <li>Because weíre working with sub-domains, choose <strong>sub-domains</strong><!--I can't see the image, but where do they choose this from? Is there a section header or menu? cj --> and change your Network Title if you like. Click <strong>Install</strong>.<br />
+  <li>Because we‚Äôre working with sub-domains, choose <strong>sub-domains</strong><!--I can't see the image, but where do they choose this from? Is there a section header or menu? cj --> and change your Network Title if you like. Click <strong>Install</strong>.<br />
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-screen5.png" alt="install wordpress multisite network" />  
 </li> 
 
  <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.
-   <p class="note">For Nginx, thereís no <code>htaccess</code> file. We'll ignore the <code>.htaccess</code> code.</p>
+   <p class="note">For Nginx, there‚Äôs no <code>htaccess</code> file. We'll ignore the <code>.htaccess</code> code.</p>
  
  <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-setup-screen6" alt="install wordpress multisite network setup" /><br/>
  
@@ -307,9 +311,12 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 
 <ol>       
 <li>Back in your  browser, reload the WordPress page. (Log back in if your password isn't saved.) <br />
-  At the top, there's now a <strong>&quot;Network Admin: (your domain name)<!--Does it really say this or is this a variable? If a variable, it needs proper formatting. cj -->&quot;</strong> option in the menu bar.</li>
+  At the top, there's now a <strong>&quot;Network Admin: <code><em><u>(your domain name)</u></em></code><!--Does it really say this or is this a variable? If a variable, it needs proper formatting. cj -->&quot;</strong> option in the menu bar.</li>
+<!--CT (to Carla): "your domain name" is a variable. Added tags-->
 
-<li> Go to <strong>My Sites</strong> --> <strong>Network Admin</strong>--> <strong>Sites</strong>.<!--This formatting is a little unconventional, but I can't see the image to know what it should be. Is this a menu command? cj -->
+<li> Go to <strong>My Sites</strong>, then <strong>Network Admin</strong>, then <strong>Sites</strong>.<!--This formatting is a little unconventional, but I can't see the image to know what it should be. Is this a menu command? cj -->
+<!--CT (to Carla): Yup, they're menu commands. I've changed it to remove arrows so that it's written out. I can email you the image-->
+
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
 
 <li>On the main screen, next to Sites, click <strong>Add New</strong>.</li>
@@ -326,7 +333,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
  <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. <br />
 
  There's much you can do from here. One option is to map your sub-domains to external domains. See     <br />
- <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00034%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20-%20Debian,%20Ubuntu.html">Set up WordPress Domain Mapping ñ Debian, Ubuntu</a> for instructions. </p>
+ <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00034%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20-%20Debian,%20Ubuntu.html">Set up WordPress Domain Mapping ‚Äì Debian, Ubuntu</a> for instructions. </p>
 
  </body>
  </html>
