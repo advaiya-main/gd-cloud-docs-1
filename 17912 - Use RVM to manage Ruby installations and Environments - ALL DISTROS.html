@@ -4,9 +4,9 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
+<!--Article Number is 17912-->
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
 
 
 <title>17912 - Use RVM to manage Ruby installations and environments - ALL DISTROS</title>
@@ -72,12 +72,12 @@ p.note {
 <body>
 <p>Managing Ruby installations and  environments using RVM, Ruby, Rails</p>
     <h1>Use RVM to manage Ruby installations and environments - ALL DISTROS</h1>
-    
+   
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>3 hours</em></p>
 
-    <p>Ruby is a very popular object-oriented, general-purpose programming language that has Ruby on Rails or simply Rails, which is written in Ruby. Rails are an open source Ruby framework for developing database-backed web applications.</p>
-	<p>Generally there is a need for different versions of Ruby installed in the same server for different projects. We can achieve this with the help of RVM (Ruby Version Manager).</p>
+    <p>Ruby&reg; is a very popular object-oriented, general-purpose programming language that has Ruby on Rails&trade; or simply Rails, which is written in Ruby. Rails are an open source Ruby framework for developing database-backed web applications.</p>
+	<p>Generally there is a need for different versions of Ruby installed in the same server for different projects. We can achieve this with the help of Ruby Version Manager (RVM).</p>
 	<p>In this article, we will be discussing on managing Ruby installations using RVM. We will continue assuming that you have already installed RVM on server.</p>
 	<p>As a prerequisite, you may refer the following links:</p>
 	<ul>
@@ -86,14 +86,17 @@ p.note {
 <li>	<a href="#">Install Ruby on Rails using RVM - CentOS</a></li>
 <li>	<a href="#">Install Ruby on Rails using RVM - Arch Linux</a></li>
 <li>	<a href="#">Install Ruby on Rails using RVM - Debian</a></li>
+<!-- Include the article number in the href="#" tag-->
 </ul>
     <h2>RVM Command</h2>
     
-    <p>Once RVM is installed in server, you will have 'rvm' command to manage the same.</p>
+    <p>After RVM is installed in server, you will have <code>rvm</code> command to manage the same.</p> 
  <p><strong>Syntax:</strong></p>
    <div class="hacker">rvm command_options command ruby_to_act_on</div>
 	<div class="hacker">Eg: rvm install ruby</div>
+  
 	<h2>Commands and their purpose</h2>
+  <!--This would make a better table    TASK | COMMAND-->
 	<ol>
 	<li>To get the list of different command options available:
 	<div class="hacker">rvm help</div>
@@ -115,7 +118,8 @@ p.note {
 	<div class="hacker">[[ -r $rvm_path/scripts/completion ]] &amp;&amp; . $rvm_path/scripts/completion</div>
 	</li>
 	</ol>
-	<h2>Install and Uninstall Rubies using RVM</h2>
+	<h2>Install and uninstall Rubies using RVM</h2>
+  <!--Better as a table.  TASK | COMMAND -->
 	<ol>
 	<li>To get the list of available Rubies to install:
 	<div class="hacker">rvm list known</div>
@@ -146,14 +150,16 @@ p.note {
 	</li>
 	</ol>
 	<h2>Managing Gemsets with RVM</h2>
-	<p>Gems are packages which contains package information along with files to install. 'gem' command is used to build and install Gem packages. Gemset is a set of gems collected together.</p>
-	<p>When we install Ruby using RVM, it comes with two gemsets:</p>
+	<p>Gems are packages which contains package information along with files to install. The <code>gem</code> command is used to build and install Gem packages. Gemset is a set of gems collected together.</p>
+	<p>When you install Ruby using RVM, it comes with two gemsets:</p>
+  <!--Use the second person. "You" not "We," except when you are writing as the author.  "We used GoDaddy as the example. You will need to change it to your name."-->
 	<ol>
 	<li>Default : This gemset is used when no other gemset is specified</li>
 	<li>Global : This gemset is inherited by every other gemset that is used</li>
 	</ol>
-	
-	<h2>Commands for Managing Gemsets</h2>
+
+	<h2>Commands for managing Gemsets</h2>
+  <!--Better as a table -->
 	<ol>
 	<li>To see the available gemsets for current Ruby:
 	<div class="hacker">rvm gemset list</div>
@@ -181,10 +187,12 @@ p.note {
 	</li>
 	</ol> 
 	<h2>Configurations</h2>
+  <!--For a single step, use a bullet.-->
 	<p>RVM has its default configuration file in:</p>
 	<div class="hacker">$ ~/.rvm/config/db</div>
 	<p>If RVM is upgraded, then the customizations made to this file will be lost forever. Therefore custom configurations can be made in <code>'~/.rvm/user/db'</code> so that the settings will retain.</p>
-    <h2>Next steps</h2>
+  
+    <h2>Next steps</h2> <!--"Conclusion" if there are no next steps or links.-->
     <p>In this article, we reviewed the steps involved in managing Ruby using Ruby Version Manager. The above mentioned commands can be used on any Linux distributions.  </p>
    
 </body>
