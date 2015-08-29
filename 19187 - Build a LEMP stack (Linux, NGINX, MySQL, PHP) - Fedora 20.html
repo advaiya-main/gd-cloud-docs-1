@@ -158,9 +158,11 @@
               
       <div class="hacker">cgi.fix_pathinfo=0
       </div>       
-      </li>                 
-      <li>Configure <code>www.conf listen</code> directive. <code>listen</code> directive.<br />      
-      <p>   Open <code>/etc/php-fpm.d/www.conf.</code> and find the <code>listen</code> directive and verify/edit it as follows:
+      </li>
+      <li>Save and close.</li>   
+                                                     
+      <li>Configure the <code>www.conf listen</code> directive.<br />      
+      <p>   Open <code>/etc/php-fpm.d/www.conf</code> and find the <code>listen</code> directive and verify/edit it as follows:
       </p>           
       <div class="hacker">listen = /run/php-fpm/php-fpm.sock
       </div>
@@ -179,11 +181,8 @@ listen.mode&nbsp; = 0666</pre>
       </div>
       </li>                     
       <li>Change permissions and ownership on <code>php-fpm.sock</code>.<br />         
-      <div class="hacker">
-<pre>sudo chmod 666 /run/php-fpm/php-fpm.sock
-sudo chown nginx /run/php-fpm/php-fpm.sock
-            </pre> 
-      </div>     
+      <div class="hacker"><pre>sudo chmod 666 /run/php-fpm/php-fpm.sock
+sudo chown nginx /run/php-fpm/php-fpm.sock</pre></div>     
       </li>  
     </ol>
     <h2>Configure NGINX</h2>    
@@ -194,11 +193,13 @@ sudo chown nginx /run/php-fpm/php-fpm.sock
       <div class="hacker">index index.php index.html index.htm;<br />             
       </div>              
       </li>              
-      <li>Open <code>/etc/nginx/nginx.conf</code> and verify/modify it such that it includes the following lines in the server context:           
+      <li>In the same file, verify/modify it such that it includes the following lines in the server context:           
       <div class="hacker">include /etc/nginx/default.d/*.conf;                           
       </div>            
       <p>This line requests that any file with a <code>conf</code> extension be referenced at this point in the <code>nginx.conf</code> file.  If the unlikely event this line does not exist, add it.
       </p>            
+      </li>
+      <li>Save and close. 
       </li>        
       <li>Navigate to <code>/etc/nginx/default.d/php.conf</code> and edit it. If this file does not exist, create it. In any event, edit the file so the <code>PHP location</code> context looks like the example below:        
       <div class="hacker">
