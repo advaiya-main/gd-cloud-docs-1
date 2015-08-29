@@ -78,7 +78,7 @@ p.note {
         <strong>Time</strong>: <em>30 minutes</em></p>
 
     <p>Ruby is a pure, object-oriented language like PERL and Python, and Rails is a framework for web application development written in Ruby. In this article, you will learn to install Ruby on Rails on CentOS with the help of rbenv.  rbenv is a new lightweight Ruby version management tool.</p> 
-	<p class="note">User should have sudo privileges to run the following commands.</p> 
+	<p class="note">This article assumes that you have sudo privileges.</p> 
     <h2>Prerequisites</h2>
 	<p>To setup the CentOS server, refer to the articles: <a href="#17323">Initial Server Setup - CentOS</a> or <a href="#17368">Install Git - CentOS</a>.</p>
   
@@ -87,7 +87,7 @@ p.note {
 			 <li>Before installing Ruby, you need to install rbenv and Ruby dependencies with yum.
 			 <div class='hacker'>sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel</div>
 			 </li>
-			 <li>Install rbenv and check for rbenv into <code>.rbenv</code> directory.
+			 <li>Install rbenv, and  then check for rbenv in the <code>.rbenv</code> directory.
 			 <div class='hacker'>cd</div>
 			 <div class='hacker'>git clone git://github.com/sstephenson/rbenv.git .rbenv</div></li>
 			 <li><p>Add a directory to your <code>$PATH</code> for accessing rbenv. </p>
@@ -96,7 +96,7 @@ p.note {
 			  <div class='hacker'>echo 'eval "$(rbenv init -)"' >> ~/.bash_profile</div>
 			  <div class='hacker'>exec $SHELL</div>
 			 </li>
-			 <li>These commands install the latest development version of ruby-build into the <code>~/.rbenv/plugins/ruby-build</code> directory.
+			 <li>Install the latest development version of ruby-build into the <code>~/.rbenv/plugins/ruby-build</code> directory.
 			 <div class='hacker'>  git clone git://github.com/sstephenson/ruby-build.git~/.rbenv/plugins/ruby-build</div>
 			 </li>
 			 <li>Add a directory to your <code>$PATH</code> for accessing Ruby. 
@@ -108,23 +108,23 @@ p.note {
 			 </p> 
 			 
 	<h2>Install Ruby</h2>
-		<p>Before you start using rbenv, make sure that you install the latest version of Ruby.</p>
+		<p>Before you start using rbenv, make sure that you install the latest version of Ruby and the dependencies.</p>
              <ol>
 			 <li>Install the dependency of Rails before you install Ruby by typing:
 			 <div class='hacker'>rbenv install -v <em>latest_version</em></div>
 			 </li>
-			 <li>This command will set the default version of Ruby that all of your shells will use.
+			 <li>Set the default version of Ruby that all of your shells will use.
 			 <div class='hacker'>rbenv global <em>latest_version</em></div>
 			 </li>
-			 <li>This will display which version of Ruby was installed properly.
+			 <li>Display which version of Ruby was installed.
 			  <div class='hacker'>ruby -v</div>
 			 </li>
 			 </ol>
 			 
 			 
 			 <h2>Install RubyGems</h2>
-		   <p>Documentation files will install by default while you install gems. You can stop the document step, which can save you time while installing RubyGems.
-       <p>The Bundler gem is an essential tool for managing gems when developing and running Rails applications.</p>
+		   <p>The Bundler gem is an essential tool for managing gems when developing and running Rails applications.</p>
+        <p>Documentation files will install by default when you install gems. By stopping the document installation step before you install gems, you can save time during the gems installation.</p>
        <ol>
 			 <li>Disable the document installation.
 			 <div class='hacker'>echo "gem: --no-document" > ~/.gemrc</div>
@@ -152,10 +152,10 @@ p.note {
 			 
 			 
 			  <h2>Install JavaScript Runtime</h2>
-		<p>A few Rails features, such as the Asset Pipeline, depend on a Javascript runtime. Install Node.js to ge this functionality.</p>
+		<p>A few Rails features, such as the Asset Pipeline, depend on a Javascript runtime. Install Node.js to get this functionality.</p>
              
-			 <p>Before you can install Node.js, you need to install the Extra Packages for Enterprise Linux (EPEL) yum repository, which allows you to install software packages which are not included in the official CentOS or Red Hat Enterprise Linux (RHEL) repositories.</p> 
-			  <ol><li>After installing the EPEL release.
+			 <p>However, before you can install Node.js, you need to install the Extra Packages for Enterprise Linux (EPEL) yum repository. This allows you to install software packages that are not included in the official CentOS or Red Hat Enterprise Linux (RHEL) repositories.</p> 
+			  <ol><li>Install the EPEL release.
         <div class='hacker'>sudo yum -y install epel-release</div>
 			 </li>
 			  <li>Install the Node.js package.
