@@ -85,7 +85,7 @@
 	<p class="note">
 		You will need access to sudo privileges to complete all steps.
 	</p>
-	<h2>Download the Ejabber installer</h2>
+	<h2>Download the Ejabberd installer</h2>
 	<ol>
 		<li>Run the following command to download Ejabber:
 			<div class="hacker">wget http://www.process-one.net/downloads/downloads-action.php?file=/ejabberd/14.12/ejabberd-14.12-linux-x86_64-installer.run -o ejabberd-14.12-linux-x86_64-installer.run</div>
@@ -100,12 +100,12 @@
 			<div class="hacker">d.	sudo ./ ejabberd-14.12-linux-x86_64-installer.run</div>
 		</li>
 	</ol>
-	<h2>Set up EJabber</h2>
+	<h2>Set up EJabberd</h2>
 	<ol>
 		<li>After starting the installer, it will ask for language. Select <strong>English language</strong> on <strong>Number [2]</strong>.
 		</li>
 
-	<li>Read and accept the end user license agreement for the Ejabber installer by pressing <strong>y</strong>.</li>
+	<li>Read and accept the end user license agreement for the Ejabberd installer by pressing <strong>y</strong>.</li>
 		<li>Press <strong>Enter</strong> to select the following installation directory:
 			<div class="hacker">
 					Installation Directory [/opt/ejabberd-14.12]: 
@@ -149,17 +149,17 @@
 			</div>
 			</li>
 	</ol>
-	<h2>Start the Ejabber services</h2>
+	<h2>Start the Ejabberd services</h2>
 	<ol>
 		<li>
-		Ejabber protocol is ready to be used. Use the following command to start the Ejabber protocol:
+		Ejabber protocol is ready to be used. Use the following command to start the Jabber protocol:
 			<div class="hacker">
 				 cd /opt/ejabberd-14.12/bin/
 				sudo ./ejabberdctl start
 
 			</div>
 		</li>
-		<li>Verify if the Ejabber service has been started by using the following command:
+		<li>Verify if the Ejabber serviced has been started by using the following command:
 			<div class="hacker">
 			sudo netstat -plunt | grep 5280
 			</div>
@@ -177,7 +177,7 @@ After successfully logging in, you will see this the screen.<br />
 				
 	</ol>
 <h2>Conclusion</h2>
-You have successuflly installed and setup Ejabber.
+You have successuflly installed and setup Ejabberd.
 	
 
 	</body>
