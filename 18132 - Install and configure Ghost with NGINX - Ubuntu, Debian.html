@@ -66,19 +66,19 @@ p.note {
 
 <body>
 <p>Install and configure Ghost with NGINX - Ubuntu, CMS, Ghost, NGINX</p>
-    <h1>Install and configure Ghost with Nginx - Ubuntu</h1>
+    <h1>Install and Configure Ghost with Nginx - Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>1.0 hrs</em></p>
 
-    <p>Ghost is simple blogging platform that is fast and easy to set up. It provides good customization options. This article  will help you  to set up a Ghost blogging platform with Nginx on  Ubuntu. </p>
+    <p>Ghost is simple blogging platform that is fast and easy to set up and provides good customization options. This article  will help you  to set up a Ghost blogging platform with Nginx on  Ubuntu. </p>
 <p class="note">These procedures assume that you are logged in as a root user.</p> 
 
     <h2>Prepare the machine</h2>
-    It is assumed that you have the root or sudo user privileges when performing the following tasks.
+    To perform the following tasks, make sure that you have  root or sudo user privileges.
     <ol>
-	<li>Update your Ubuntu server (for the interactive installations, you might need to respond regarding the confirmation for installation)
-	<div class='hacker'>apt-get update</div>
+	<li>Update your Ubuntu server. (For the interactive installations, you might need to respond regarding the confirmation for installation.<!--"might" is confusing. Can we provide something more definite? Also, what are the interactive installations? cj-->)
+	  <div class='hacker'>apt-get update</div>
 	<div class='hacker'>apt-get upgrade</div>
     </li>
 	
@@ -93,8 +93,8 @@ p.note {
 	
 	<h2>Install and configure Ghost</h2>
     <ol>
-	<li>Download the latest version of Ghost from the  <code>Ghost.org</code> site.
-	  <div class='hacker'>curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip</div>
+	<li>Download the latest version of Ghost from   <code>Ghost.org</code>.
+<div class='hacker'>curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip</div>
 	</li>
 	<li>Unzip the file to a suitable folder location such as <code>/var/www/ghost</code>.
       <div class='hacker'>mkdir –p /var/www</div>
@@ -107,27 +107,27 @@ p.note {
 	<li>Start  Ghost (production environment).
 	  <div class='hacker'>npm start --production</div>
 	The default port used by Ghost is 127.0.0.1:2368.
-	<p>When  starting, Ghost displays the message “Your blog is now available on <code> http://<em><u>provided URL</u></em>.</code>&quot; This URL value can be updated in the configuration file <code>config.js.</code></p>
+	<p>When  starting, Ghost displays the message “Your blog is now available on <code> http://<em><u>provided URL</u></em>.</code>&quot; You can update this URL value  in the configuration file <code>config.js.</code></p>
    
 	<img src="images/18132-Ubuntu-GhostServerStart.png" alt="18132-Ubuntu-GhostServerStart.png"/> </li>
 	</ol>
 	
 <h2>Install and configure Nginx</h2>
-Nginx, an open-source, high performance HTTP server, is used to enable connections from the outside on port 80 to connect through to the port that Ghost is running on, so that people can see your blog.
+Nginx is used to enable connections from the outside on port 80 to connect through to the port that Ghost is running on, so that people can see your blog.
     <ol>
 	<li>Install Nginx.
 	  <div class='hacker'>apt-get install nginx</div>
 	</li>
-	<li>To configure Nginx, you need to remove all the default files and create new configuration files
+	<li>Remove all the default files.
 	  <div class='hacker'>cd /etc/nginx/</div>
 	<div class='hacker'>rm sites-enabled/default</div>
     </li>
 	
-	<li>Create a new Ghost configuration file.
+	<li>Create a new Ghost configuration file.<!--and open it for editing? cj-->
       <div class='hacker'>cd sites-available</div>
 	<div class='hacker'>vi ghost</div>
     </li>
-	<li>Put the following code into the file, modifying it to adapt to your own configuration (the only thing you should need to change is the domain name):
+	<li>Put the following code into the file, modifying it to adapt to your own configuration (The only thing you should need to change is the domain name<!--Variables need to use proper formatting. cj -->):
 	  <div class='hacker'><pre>
 server {
     listen 0.0.0.0:80;
@@ -146,17 +146,17 @@ server {
 		</pre></div>
 	</li>
 	
-	<li>Also, you need to create a symlink from the file in sites-available to sites-enabled
-	<div class='hacker'>cd ..</div>
+	<li>Create a symlink from the file in <code>sites-available</code> to <code>sites-enabled</code>.
+<div class='hacker'>cd ..</div>
 	<div class='hacker'>ln -s sites-available/ghost sites-enabled/ghost</div>
     </li>
 	
-	<li>Open the ghost config file /var/www/ghost/config.js for editing
-	<div class='hacker'>vi /var/www/ghost/config.js</div>
+	<li>Open the Ghost configuration file <code>/var/www/ghost/config.js</code> for editing.
+      <div class='hacker'>vi /var/www/ghost/config.js</div>
     </li>
 	
-	<li>Put the following code into the Ghost file (content highlighted in red needs to be updated). The URL could be your domain name (http://your-domainname.com) or the public IP address of your droplet
-	<div class='hacker'><pre>
+	<li>Put the following code into the Ghost configuration file (content highlighted in red needs to be updated).<!--There is no red text. Also, variables need to be formatted with em and u tags. cj--> The URL can be your domain name (http://<em><u>your-domainname</u></em>.com) or the public IP address of your droplet.
+<div class='hacker'><pre>
 	production: {
         url: 'http://192.169.171.249',
         mail: {},
@@ -178,25 +178,25 @@ server {
 </pre></div>
     </li>
 	
-	<li>Start  Ghost (production environment) using the following command
-	<div class='hacker'>cd /var/www/ghost </div>
+	<li>Start  Ghost (production environment).
+	  <div class='hacker'>cd /var/www/ghost </div>
 	<div class='hacker'>npm start --production</div>
     </li>
 	
-	<li>Now the Ghost blog should be available on the web browser via the specified url. 
-In your browser, open the page (red highlighted text needs to be updated)<br/>
+	<li>In your browser, open the page (red highlighted text <!--No red text. cj -->needs to be updated). The Ghost blog should be available  via the specified URL. 
+<br/>
 <p><code>http://192.169.171.249:2368/ </code></p>
 <img src="images/18132-Ubuntu-GhostOnBrowser.png" alt="18132-Ubuntu-GhostOnBrowser"/>
 	</li>
-	</ol>
-	<h2>Configure Upstart</h2>
-	Once the Ghost blog is up and running, you can create an Upstart task to handle  Ghost. This ensures that in case the server get turned off at any time, Ghost is kicked back on. 
+</ol>
+<h2>Configure Upstart</h2>
+	Once the Ghost blog is up and running, you can create an Upstart task to handle  Ghost.  In case the server gets turned off, the Upstart task ensures that Ghost kicks back on. 
     <ol>
 	<li>Create a new Upstart configuration file, and open it for editing.
 	  <div class='hacker'>cd /etc/init</div>
 	<div class='hacker'>vi ghost.conf</div>
 	</li>
-	<li>Put the following code in the configuration file:
+	<li>Put the following code into the configuration file:<!--This code is copied from the Digital Ocean article. Please use something original. cj -->
 	  <div class='hacker'>
 	<pre>
 # ghost
@@ -216,10 +216,13 @@ end script
 	<li>Save and exit by pressing <strong>Esc</strong> and <strong>:wq</strong></li>
 	
 	</ol>
-<p>This  ensures that Ghost  starts whenever your server does, and allows you to easily control Ghost using service <code>ghost start</code>, <code>service ghost stop</code>, and <code>service ghost restart.</code></p>	
+<p>This  ensures that Ghost  starts whenever your server does and allows you to easily control Ghost using service <code>ghost start</code>, <code>service ghost stop</code>, and <code>service ghost restart</code>.
+<!--This sentence is  very close to the Digital Ocean article. If this is important information, how about moving it into the section intro and rearranging it. cj --> </code></p>	
 	      
     <h2>Conclusion</h2>
-<p> The Ghost blogging platform, with its ease of deployment and use, can help individuals and organizations setup and extend their content management infrastructure. When used with nginx, and with availability of options for setting up and supporting multiple environments like production, development or testing, it can be easily adapted for any environment. 
+<p> The Ghost blogging platform, with its ease of deployment and use, can help individuals and organizations setup and extend their content management infrastructure. When used with nginx, and with availability of options for setting up and supporting multiple environments like production, development or testing, it can be easily adapted for any environment. <!--This conclusion does not follow the ed guidelines. Please revise. Per ed guidelines, this section should:
+"Provide a brief synopsis of what user just completed; Provide direction for user to complete a related task (For help determining an appropriate link for another task, use your discretion/expertise.)"
+ cj -->
 </p>
 </body>
 </html>
