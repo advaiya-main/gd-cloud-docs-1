@@ -4,7 +4,7 @@
 
 <head>
 
-<!--Article Number is ___17640 (fill in blank)-->
+<!--Article Number is ___17640 -->
 
 
 
@@ -100,7 +100,7 @@ PN- Broken section, images linked</mso:ReviewComments>
 
     <h2>Prerequisites</h2>
 
-    Make sure that you have LAMP (Linux&trade;, Apache&trade;, MySQL, and PHP&trade;) installed. In case you haven't, refer to the article <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17344 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 7.html">Install LAMP</a>.
+    Make sure that you have LAMP (Linux&trade;, Apache&trade;, MySQL, and PHP&trade;) installed. In case you haven't, refer to the article: <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17344 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 7.html">Install LAMP</a>.
     <h3>Before you start</h3>
     <ol>
         <li>
@@ -108,7 +108,7 @@ PN- Broken section, images linked</mso:ReviewComments>
             <div class="hacker">sudo yum update</div>
         </li>
         <li>
-            Before you install the actual phpMyAdmin package you will have to install the EPEL repository as phpMyAdmin is not part of CentOS 7's default repository. EPEL stands for Extra Packages for Enterprise Linux. It contains several packages including the phpMyAdmin one.
+            Before you install the actual phpMyAdmin package, you will have to install the EPEL repository. phpMyAdmin is not part of CentOS 7's default repository. EPEL stands for Extra Packages for Enterprise Linux. It contains several packages including the phpMyAdmin one.
             <div class="hacker">sudo yum install epel-release</div>
         </li>
     </ol>
@@ -119,11 +119,11 @@ PN- Broken section, images linked</mso:ReviewComments>
             <div class="hacker">sudo yum install phpmyadmin</div>
         </li>
         <li>
-            During the installation, an apache config file was created. We need to make some changes in this file. Open the file.
+            During the installation, an Apache config file was created. We need to make some changes in this file. Open the file.
             <div class="hacker">sudo vim /etc/httpd/conf.d/phpMyAdmin.conf</div>
         </li>
         <li>
-            By default in the <code>IfModule</code> blocks, you will see the IP address 127.0.0.1.You will most likely find it in four places. Replace it with the IP address of the computer with which you will access the application.
+            By default in the <code>IfModule</code> blocks, you will see the IP address 127.0.0.1. You will most likely find it in four places. Replace it with the IP address of the computer with which you will access the application.
             <div class="hacker">
 
                 &lt;RequireAny&gt;      <br />
@@ -137,20 +137,21 @@ PN- Broken section, images linked</mso:ReviewComments>
                 [...]
 
             </div>
-            Save and exit the file.
+            
         </li>
-        <li><p class="note">Note: This IP address is NOT the IP address of your server but that of your work or home computer that you would be using to navigate to the phpmyadmin application from.</p> </li>
+        <li>Save and exit the file.</li>
+        <li><p class="note">This IP address is NOT the IP address of your server, but that of your work or home computer that you would be using to navigate to the phpmyadmin application.</p> </li>
       
         <li>
-            Restart apache.
+            Restart Apache.
             <div class="hacker">sudo systemctl restart httpd.service</div>
         </li>
         <li>
-            On your browser navigate to <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong> to see the web interface. You will see a <strong>Welcome to phpMyAdmin</strong> page.
+            On your browser, navigate to <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong> to see the web interface. You will see a <strong>Welcome to phpMyAdmin</strong> page.
             <img src='/images/00027/phpAdminpage1.png' alt='Welcome to phpMyAdmin' />
         </li>
         <li>
-            Log into the user interface using the username "root" and the MySQL/MariaDB root password. You can also use other valid MySQL/ MariaDB users. You will see the phpMyAdmin user interface.
+            Log into the user interface using the username <strong>root</strong> and the MySQL/MariaDB root password. You can also use other valid MySQL/ MariaDB users. You will see the phpMyAdmin user interface.
             <img src='/images/00027/phpAdminpage2.png' alt='phpMyAdmin user interface' />
         </li>
     </ol>
@@ -190,7 +191,7 @@ PN- Broken section, images linked</mso:ReviewComments>
             <div class="hacker">sudo vim /usr/share/phpMyAdmin/.htaccess</div>
         </li>
         <li>
-            Enter the below block of text into the file.
+            Enter the following block of text into the file.
             <div class="hacker">
 
                 AuthType Basic    <br />
@@ -202,7 +203,7 @@ PN- Broken section, images linked</mso:ReviewComments>
               Save and close the file.
         </li>
         <li>
-            Below is an explanation of what each of these mean :
+            Below is an explanation of what each of these directives mean :
 
             <table>
                 <tr>
@@ -240,10 +241,10 @@ PN- Broken section, images linked</mso:ReviewComments>
                 Restart Apache for changes to take effect.
                 <div class="hacker">sudo systemctl restart httpd.service</div>
             </li>
-            <li>Now when you navigate to the browser and type <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong> you will be presented with the username/password prompt. Enter the <em>newuser1</em> credentials that you included in the <code>htpasswd</code> file.</li>
+            <li>Now, when you navigate to the browser and type <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong>. You will be presented with the username/password prompt. Enter the <em>newuser1</em> credentials that you included in the <code>htpasswd</code> file.</li>
         </ol>
     <h2>Next steps</h2>
-    You have succesfully installed phpMyAdmin and provided additional security to accessing it. Now, you can<a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17649 - Set up SSL Certificate with phpMyAdmin and Apache - Fedora, CentOS.html">Set up SSL Certificate with phpMyAdmin</a>
+    You have succesfully installed phpMyAdmin and provided additional security to accessing it. Now, you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17649 - Set up SSL Certificate with phpMyAdmin and Apache - Fedora, CentOS.html">set up SSL Certificate with phpMyAdmin</a>
 
 </body>
 </html>

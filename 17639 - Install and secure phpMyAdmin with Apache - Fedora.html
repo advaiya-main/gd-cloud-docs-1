@@ -147,11 +147,11 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
         </li>
 
         <li>
-         In your browser, navigate to <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong> to see the web interface. You will see a "Welcome to phpMyAdmin" page.<br />
+         In your browser, navigate to <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong> to see the web interface. You will see a <strong>Welcome to phpMyAdmin</strong> page.<br />
             <img src='/images/00027/phpAdminpage1.png' alt='Welcome to phpMyAdmin' />
         </li>
         <li>
-            Log into the user interface using the username "root" and the MySQL/MariaDB root password. You can also use other valid MySQL/MariaDB users. You will see the phpMyAdmin user interface.<br />
+            Log into the user interface using the username <strong>root</strong>, and the MySQL/MariaDB root password. You can also use other valid MySQL/MariaDB users. You will see the phpMyAdmin user interface.<br />
             <img src='/images/00027/phpAdminpage2.png' alt='phpMyAdmin user interface' />
         </li>
     </ol>
@@ -190,7 +190,7 @@ AllowOverride All
             <div class="hacker">sudo vim /usr/share/phpMyAdmin/.htaccess</div>
         </li>
         <li>
-            Enter the below block of text into the file.
+            Enter the following block of text into the file.
             <div class="hacker">
                 <pre>
 AuthType Basic
@@ -201,7 +201,7 @@ Require valid-user
             </div>
         </li>
         <li>
-            Below is an explanation of what each of these mean:
+            Below is an explanation of what each of these directives mean:
 
             <table>
                 <tr>
@@ -238,7 +238,7 @@ Require valid-user
             Restart Apache for the changes to take effect.
             <div class="hacker">sudo service httpd restart</div>
         </li>
-        <li>Now when you navigate to the browser and type <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong>, you will be presented with the username/password prompt. Enter the <code>newuser1</code> credentials that you included in the <code>htpasswd</code> file.</li>
+        <li>Now, when you navigate to the browser and type <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong>, you will be presented with the username/password prompt. Enter the <code>newuser1</code> credentials that you included in the <code>htpasswd</code> file.</li>
     </ol>
     <h2>Next steps</h2>
     You have successfully installed phpMyAdmin and provided additional security to accessing it. Now, you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17649 - Set up SSL Certificate with phpMyAdmin and Apache - Fedora, CentOS.html">set up SSL Certificate with phpMyAdmin</a>.
