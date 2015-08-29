@@ -75,58 +75,52 @@
 <body>
 	<p>Setting up Jabber XMPP Server on CentOS and Fedora, XMPP</p>
 	<h1>Install and configure Jabber XMPP server - CentOS, Fedora</h1>
-	<p><strong>Difficulty: </strong> 2</p>
-	<p><strong>Time: </strong> 30 Minutes</p>
+	<p><strong>Difficulty: </strong><em>2</em><br />
+	<strong>Time: </strong><em>30 Minutes</em></p>
 	<p>
 		This article explains the installation and configuration of Ejabber on CentOS and Fedora.
 		
 	</p>
-	<p>Jabber is a simple, mature and powerful messaging protocol which was developed to collaborate in real-time between two or more people, based on the text typed. Jabber is used by enterprises for internal communication, developers for improving programming skills, hosting provider for high availability and stable communication services, and individuals for chatting.</p>
+	<p>Jabber is a simple, mature, and powerful messaging protocol that was developed to collaborate in real-time between two or more people, based on the text typed. Jabber is used by enterprises for internal communication, developers for programming skills improvement, hosting providers for high availability and stable communication services, and by individuals for chatting.</p>
 	<p class="note">
-		Note: You will need access to sudo privileges to complete all steps.
+		You will need access to sudo privileges to complete all steps.
 	</p>
 	<h2>Download the Ejabber installer</h2>
 	<ol>
-		<li> 
-		<p>Run the following command to download Ejabber:</p>
-			<div class="hacker"><p>wget http://www.process-one.net/downloads/downloads-action.php?file=/ejabberd/14.12/ejabberd-14.12-linux-x86_64-installer.run -o ejabberd-14.12-linux-x86_64-installer.run</p></div>
+		<li>Run the following command to download Ejabber:
+			<div class="hacker">wget http://www.process-one.net/downloads/downloads-action.php?file=/ejabberd/14.12/ejabberd-14.12-linux-x86_64-installer.run -o ejabberd-14.12-linux-x86_64-installer.run</div>
 
 		</li>
-		<li>
-			<p>Change the file name</p>
-			<div class="hacker">mv downloads-action.php\?file\=%2Fejabberd%2F14.12%2Fejabberd-14.12-linux-x86_64-installer.run ejabberd-14.12-linux-x86_64-installer.run</div>
-			<p>Change permissions</p>
+		<li>Change the file name.
+			<div class="hacker">mv downloads-action.php\?file\=%2Fejabberd%2F14.12%2Fejabberd-14.12-linux-x86_64-installer.run ejabberd-14.12-linux-x86_64-installer.run</div> </li>
+			<li>Change permissions.
 			<div class="hacker">sudo chmod +x ejabberd-14.12-linux-x86_64-installer.run</div>
 		</li>
-		<li>
-			<p>Execute the installer</p>
+		<li>Execute the installer.
 			<div class="hacker">d.	sudo ./ ejabberd-14.12-linux-x86_64-installer.run</div>
 		</li>
 	</ol>
-	<h2>Select language and accept the EULA</h2>
+	<h2>Set up EJabber</h2>
 	<ol>
-		<li>After starting the installer, it will ask for language. Select English language on Number [2]
+		<li>After starting the installer, it will ask for language. Select <strong>English language</strong> on <strong>Number [2]</strong>.
 		</li>
 
-	<li>Accept the end user license agreement for the Ejabber installer by pressing <code>Y</code></li>
-	</ol>	
-	<h2>Select the installation directory and domain </h2>
-	<ol>
-		<li>Press the Enter key to select the following installation directory
+	<li>Read and accept the end user license agreement for the Ejabber installer by pressing <strong>y</strong>.</li>
+		<li>Press <strong>Enter</strong> to select the following installation directory:
 			<div class="hacker">
 					Installation Directory [/opt/ejabberd-14.12]: 
 			</div>
-			<p class="note">Note: If you want to keep the default directory, then press the enter key. Else, you can specify a different path as per your convenience.</p>
+			<p class="note">If you want to keep the default directory, then press <strong>Enter</strong>. Otherwise, you can choose a different path.</p>
 		</li>
 	
-		<li>To selelct the domain, type FQDN or public IP or localhost or any internal IP from which we can access it
+		<li>To select the domain, type the fully qualified domain name (FQDN), public IP, localhost, or any internal IP from which we can access the domain.
 			<div class="hacker">
 					ejabberd server domain [domain_name-centos]
 			</div>
 			</li>
 	</ol>
 	
-	<h2>Setup administrator credentials</h2>
+	<h2>Set up administrator credentials</h2>
 	<ol>
 		<li>When prompted for the username, enter the username of your administrator. 
 			<div class="hacker">
@@ -135,34 +129,30 @@
 			
 		</li>
 		<li>
-			<p>After choosing the username, next it will prompt for password. Enter a carefully chosen password.</p>
+			<p>At the prompt for a password, enter a carefully chosen password.</p>
 		</li>
-	</ol>
-
-	<h2>Setup cluster</h2>
-	<ol>
-		<li>After submitting the password, installer will prompt for cluster. Press 'N' as we do not require it now.
+		<li>After submitting the password, installer will prompt for cluster. It is not required, press <strong>n</strong> to continue.
 			<div class="hacker">
 				promoted massage example Cluster [y/N]:N
 			</div>
 		</li>
 	
 
-		<li>To finalize the installation, press <code>Y</code>. The installer will start the installation process and it will take some time to finish it.
+		<li>To finalize the installation, press <strong>y</strong>. The installer will start the installation process. It will take some time to complete.
 			<div class="hacker">
 				 Do you want to continue?  
 			</div>
 		</li>
-		<li>Next it will prompt to the view the readme file. Press <code>Y</code> or <code>N</code>
+		<li>It will prompt you to view the Readme file. Press <strong>y</strong> to view it, or <strong>n</strong> to continue.
 			<div class="hacker">
 				 View Readme file? [Y/n]: n 
 			</div>
 			</li>
 	</ol>
-	<h2>Start the Ejabber services </h2>
+	<h2>Start the Ejabber services</h2>
 	<ol>
 		<li>
-		<p> Now our Ejabber protocol is ready to be used. Use the following command to start the Ejabber protocol:</p>
+		Ejabber protocol is ready to be used. Use the following command to start the Ejabber protocol:
 			<div class="hacker">
 				 cd /opt/ejabberd-14.12/bin/
 				sudo ./ejabberdctl start
@@ -174,19 +164,20 @@
 			sudo netstat -plunt | grep 5280
 			</div>
 		</li>
-		<li><p>If you get the output as shown below, then you have successfully installed the Jabber instant messaging service.</p>
+		<li>If you get the output as shown below, then you have successfully installed the Jabber instant messaging service.
 			<div class="hacker">
 		tcp        0      0 0.0.0.0:5280            0.0.0.0:*               LISTEN      27744/be
 			</div>
 		</li>
 
-		<li>
-		<p>Now open your browser and type <em>http://your_ip:5280/</em> and hit Enter. It will prompt for authentication credentials, enter those credentials which you have entered during installation time. After successfully logging in, it will show the screen as shown below</p>
-		<p><img src="images/18707_jabber_brwser_look.png" alt="18707_jabber_brwser_look.png" /></p>
+		<li>Open your browser and type <em>http://your_ip:5280/</em> and press <strong>Enter</strong>. It will prompt for authentication credentials. Enter the credentials that you entered during installation.<br /><br /> 
+After successfully logging in, you will see this the screen.<br />
+<img src="images/18707_jabber_brwser_look.png" alt="18707_jabber_brwser_look.png" />
 		</li>
 				
 	</ol>
-
+<h2>Conclusion</h2>
+You have successuflly installed and setup Ejabber.
 	
 
 	</body>
