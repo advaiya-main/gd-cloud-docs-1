@@ -5,8 +5,6 @@
 <head>
 
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
 
 <title>Set up WordPress Multisite in NGINX - Debian, Ubuntu</title>
 <style type='text/css'>
@@ -26,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em .<h1></h1>5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -85,7 +83,7 @@ td:nth-child(1) {font-weight:bold;}
 
 <body>
 <p>Installing Wordpress Multisite on a LEMP server for Debian and Ubuntu.</p>
-    <h1>Set up WordPress Multisite in Nginx - Debian, Ubuntu</h1>
+    <h1>Set Up WordPress Multisite in Nginx - Debian, Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
@@ -127,12 +125,12 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
      
 <p>After you configure WordPress, transfer the files to your root directory so that the application can serve content to your site visitors.</p>   
 
-<ol>                                                                        
+<ol>                             
 <li>Create the document root directory. We'll use <code>/var/www/html</code> for this article.
   <div class="hacker">sudo mkdir -p /var/www/html</div>
 </li>
 
- <li>Remove the default site from the sites-enabled directory.  (We'll be doing more with this folder later.)
+ <li>Remove the default site from the sites-enabled directory.  (We'll do more with this folder later.)
    <div class="hacker">sudo rm /etc/nginx/sites-enabled/default</div>  </li>
 
   <li>Run a configuration test to make sure that your file is good.
@@ -164,8 +162,8 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
 <code>GRANT</code> is one of the account management statements that the MySQL server notices and loads into memory right away. Therefore, a manual reload/restart should not be necessary. However, if you like, you can check the permissions using <code>SHOW GRANTS:</code>
 <div class="hacker">SHOW GRANTS FOR 'wordpressadmin'@'localhost';</div>
 </li>
-<li>If the privileges don’t take, flush the privileges to activate the user. <span class="hacker"><code>FLUSH</code></span> forces a reload of the cache.
-<div class="hacker">FLUSH PRIVILEGES;</div>  </li>
+<li>If the privileges don’t take effect, flush the privileges to activate the user. <span class="hacker"><code>FLUSH</code></span> forces a reload of the cache.
+  <div class="hacker">FLUSH PRIVILEGES;</div>  </li>
 
 <li> Exit MySQL to return to your normal command prompt.
   <div class="hacker">exit</div> </li>
@@ -179,7 +177,7 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
      <ol>
   <li>Download the WordPress files from the official site using <code>wget</code>:
 <div class="hacker">cd ~</div>
-<div class="hacker">wget http://wordpress.org/latest.tar.gz    </div>    <br />
+<div class="hacker">wget http://wordpress.org/latest.tar.gz    </div>   
  This URL  always links to a compressed file of the latest stable version of WordPress.   </li>
          
 <li>Extract, or untar, the application directory.
@@ -189,8 +187,8 @@ This command creates a directory called "wordpress" in your home directory.</li>
 <li>Move the files into the WordPress document root.
 <div class="hacker">sudo mv wordpress/* /var/www/html/</div></li>
 
-<li>Change ownership to the user <code>www-data</code> so that you'll be able to work with WordPress uploads, plugins, and themes.
-<div class="hacker">sudo chown -R www-data:www-data /var/www/html</div> </li>
+<li>Change ownership to the user <code>www-data</code> so that you're able to work with WordPress uploads, plugins, and themes.
+  <div class="hacker">sudo chown -R www-data:www-data /var/www/html</div> </li>
 
 </ol>
 
@@ -201,7 +199,7 @@ This command creates a directory called "wordpress" in your home directory.</li>
      <ol>
      <li>  In your web browser, enter your primary domain name. In our example, that's 
    <strong>http://coolexample.com</strong>.
-   (If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL.)<br/>
+   (If the Nginx default page displays, append <code>/wp-admin/</code> to your URL.)<br/>
    You should get this introductory page:<br />
   <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress multisite on your server welcome" />   </li>
      <li>Click <strong>Let's go!</strong> to continue.</li>
@@ -226,8 +224,7 @@ You can leave the Database Host as is (localhost), since that’s what we define
    <li>Back in the terminal, navigate to your WordPress document root.
      <div class="hacker">cd /var/www/html</div></li>
 
- <li>List files using <code>ls</code> to make sure that <code>wp-config-sample.php</code> is among them.<!--What do they do if it's not there?  cj --> 
-<!--CT (to Carla): Since this is a fresh install, it'll be there. Want to revise the line? Or I feel comfortable removing this line if you think it's confusing-->
+ <li>List files using <code>ls</code> to make sure that <code>wp-config-sample.php</code> is among them.
 </li>   
 
  <li>Copy the sample configuration file.
@@ -261,8 +258,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 <h3>Continue setup in WordPress web interface</h3>
       
       <ol>
-        <li>Return to your  browser to continue the WordPress web installation. You should be taken to this screen.<!--What do they do to be taken to this screen? cj -->
-<!--CT (to Carla): It should load to this screen. They can reload the page if not-->
+        <li>Return to your  browser to continue the WordPress web installation. You should be taken to this screen.
 <br />
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
         <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
@@ -275,11 +271,11 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
    
    <ol>
    
-  <li>In your  browser, continue the WordPress web installation. Go to <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.<!--How do you "go to" these locations? Do you click something? Choose something from a menu? cj --><br />
+  <li>In your  browser, continue the WordPress web installation. Go to <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.<br />
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
   </li>
   
-  <li>Because we’re working with sub-domains, choose <strong>sub-domains</strong><!--I can't see the image, but where do they choose this from? Is there a section header or menu? cj --> and change your Network Title if you like. Click <strong>Install</strong>.<br />
+  <li>Because we’re working with sub-domains, choose <strong>sub-domains</strong> and change your Network Title if you like. Click <strong>Install</strong>.<br />
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-screen5.png" alt="install wordpress multisite network" />  
 </li> 
 
@@ -302,7 +298,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
    <div class="hacker">sudo vim wp-config.php</div>
    
  </li>
-   <li>Find the section torwards the end of the file we were modifying, and paste the code you copied right before <code>/* That's all, stop editing! Happy blogging. */</code>.</li>
+   <li>Find the section torwards the end of the file you were modifying, and paste the code you copied right before <code>/* That's all, stop editing! Happy blogging. */</code>.</li>
     
   <li>Save and close the file.</li>
 </ol>  
@@ -311,11 +307,11 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 
 <ol>       
 <li>Back in your  browser, reload the WordPress page. (Log back in if your password isn't saved.) <br />
-  At the top, there's now a <strong>&quot;Network Admin: <code><em><u>(your domain name)</u></em></code><!--Does it really say this or is this a variable? If a variable, it needs proper formatting. cj -->&quot;</strong> option in the menu bar.</li>
-<!--CT (to Carla): "your domain name" is a variable. Added tags-->
+  At the top, there's now a <strong>&quot;Network Admin: <code><em><u>(your domain name)</u></em></code>&quot;</strong> option in the menu bar.</li>
 
-<li> Go to <strong>My Sites</strong>, then <strong>Network Admin</strong>, then <strong>Sites</strong>.<!--This formatting is a little unconventional, but I can't see the image to know what it should be. Is this a menu command? cj -->
-<!--CT (to Carla): Yup, they're menu commands. I've changed it to remove arrows so that it's written out. I can email you the image-->
+
+<li> Go to <strong>My Sites</strong>, then <strong>Network Admin</strong>, then <strong>Sites</strong>.<br />
+ 
 
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
 
