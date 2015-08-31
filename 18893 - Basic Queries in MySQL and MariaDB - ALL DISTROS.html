@@ -93,13 +93,13 @@ The database will confirm with the following message:
 <div class="hacker">SHOW TABLES;</div>
 <p class="note"> There is a semicolon after every command, which indicates that the engine query ends there.</p>
 <p>The output of this query is similar to the following example:</p>
- <p><img src="images/18893 - 1.png" alt="18893 - Results of the Show Tables query." /></p>
+ <p><img src="https://github.com/gnakan/gd-cloud-docs/tree/master/images/18893 - 1.png" alt="18893 - Results of the Show Tables query." /></p>
 <p class="Note">Ubuntu will return only twenty-four results for a MySQL installation.</p>
 </li>
 <li>To view the column headers for a specific table, such as <code>user</code> table, and to get an idea of which categories you can select from, use this command:
 <div class="hacker">SHOW COLUMNS FROM user;</div>
 <p>The values shown in the <code>Field</code> column are headings for the <code>user</code> table.</p>
-<p><img src="images/18893 - 2.png" alt="18893 - Results of the Show Columns From query" /></p>
+<p><img src="https://github.com/gnakan/gd-cloud-docs/tree/master/images/18893 - 2.png" alt="18893 - Results of the Show Columns From query" /></p>
 
 </li>
 </ul>
@@ -109,7 +109,7 @@ The database will confirm with the following message:
 <ul>
 <li>You can select specific information about a <em>user</em> with the following query:
 <div class="hacker">SELECT user,password,host FROM user;</div>
-<img src="images/18893 - 3.png" alt="18893 - Results of user query." /></li>
+<img src="https://github.com/gnakan/gd-cloud-docs/tree/master/images/18893 - 3.png" alt="18893 - Results of user query." /></li>
 </ul>
 
 
@@ -129,11 +129,11 @@ The database will confirm with the following message:
 <li>You can query for <code>user</code>, <code>password</code>, and <code>host</code>, and then filter for the <em>user</em> named <em>root</em>.
 
 <div class="hacker">SELECT user,password,host FROM user WHERE user = "root";</div>
-<img src="images/18893 - 4.png" alt="18893" /></li>
+<img src="https://github.com/gnakan/gd-cloud-docs/tree/master/images/18893 - 4.png" alt="18893" /></li>
  
 <li>You can apply a filter for different fields. In this example, the results will return <code>user</code>, <code>password</code>, and <code>host</code> from the <code>user</code> table which has a value named <code>localhost</code> for <code>host</code>: 
 <div class="hacker">SELECT user,password,host FROM user WHERE host = "localhost";</div>
-<img src="images/18893 - 4.png" alt="18893" /></li>
+<img src="https://github.com/gnakan/gd-cloud-docs/tree/master/images/18893 - 4.png" alt="18893" /></li>
 </ul>
  
  
@@ -144,11 +144,11 @@ The database will confirm with the following message:
 <li>The following query will fetch <em>user</em>, <em>password</em>, and <em>host</em> fields from <strong>user</strong> table where the criteria host is <code>LIKE l%</code>. 
 <div class="hacker">SELECT user,password,host FROM user WHERE host LIKE "l%";</div>
 This will result in an output with all the respective fields starting with letter <code>"l"</code>.
-<img src="images/18893 - 5.png" alt="18893 - Results of Like operator." /></li>
+<img src="https://github.com/gnakan/gd-cloud-docs/tree/master/images/18893 - 5.png" alt="18893 - Results of Like operator." /></li>
  
 <li>You can also apply <code>and</code> or <code>or</code> for equality comparison. The following query will match each record and return result with filter condition that matches the criteria, such as host starting from either <strong>l</strong> or <strong>127</strong>.
 <div class="hacker">SELECT user, password,host FROM user WHERE host LIKE "l%" or host LIKE <em>127%</em>.  </div>
-<img src="images/18893 - 6.png" alt="18893 - Results" />
+<img src="https://github.com/gnakan/gd-cloud-docs/tree/master/images/18893 - 6.png" alt="18893 - Results" />
 </li>
 </ul>
 
