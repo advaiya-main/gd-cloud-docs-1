@@ -112,11 +112,11 @@ p.note {
 <div class="hacker">vim blog1.conf</div>
 </li>
 <li>Update the value for the <code>server_name</code> parameter by adding the first domain name.
-<div class="hacker">&lt;xmp>server {
+<div class="hacker"><pre>server {
     listen 0.0.0.0:80;
-    server_name http://blog1.coolexample.com;
+    server_name <em><u>http://blog1.coolexample.com;</u></em>
 
-    access_log /var/log/nginx/blog1.log;
+    access_log <em><u>/var/log/nginx/blog1.log;</u></em>
 
     location / {
         proxy_set_header X-Real-IP $remote_addr;
@@ -126,18 +126,18 @@ p.note {
         proxy_pass http://127.0.0.1:2368;
         proxy_redirect off;
     }
-}&lt;/xmp></div>
+}</pre></div>
 </li>
 <li>Save and close by pressing <strong>ESC</strong> key and then <strong>:wq</strong>.</li>
 <li>Open the second configuration file.
 <div class="hacker">vim blog2.conf</div>
 </li>
 <li>Update the <code>server_name</code> parameter by adding the second domain name. For this configuration file, also update the value for <code>proxy_pass</code> parameter to <strong>2777</strong> (or simply replace the entire contents of the file with following content.):
-<div class="hacker">&lt;xmp>server {
+<div class="hacker"><pre>server {
     listen 0.0.0.0:80;
-    server_name http://blog2.coolexample.com;
+    server_name <em><u>http://blog2.coolexample.com;</u></em>
     
-    access_log /var/log/nginx/blog1.log;
+    access_log <em><u>/var/log/nginx/blog1.log;</u></em>
 
     location / {
         proxy_set_header X-Real-IP $remote_addr;
@@ -147,14 +147,14 @@ p.note {
         proxy_pass http://127.0.0.1:2777;
         proxy_redirect off;
     }
-}&lt;/xmp></div></li>
+}</pre></div></li>
 
 <li>Save and close by pressing <strong>ESC</strong> key and then <strong>:wq</strong>.</li>
+
 <li>Restart NGINX service.
 <div class="hacker">service nginx restart</div>
 </li>
 </ol>
-
 
 <h2>Change the Ghost configuration</h2>
 <ol>
@@ -173,9 +173,9 @@ p.note {
 <div class="hacker">vim /var/www/blog1.coolexample.com/ghost/config.js</div>
 </li>
 <li>Locate the string <code>product: {</code>, and update the parameter URL as described:
-<div class="hacker">&lt;xmp>production: {
+<div class="hacker"><pre>production: {
      url: 'http://blog1.coolexample.com'
-...&lt;/xmp></div>
+...</pre></div>
 </li>
 <li>Save and close by pressing <strong>ESC</strong> key and then <strong>:wq</strong>.</li>
 
@@ -183,8 +183,8 @@ p.note {
 <div class="hacker">vim /var/www/blog2.coolexample.com/ghost/config.js</div>
 </li>
 <li>Again locate the string <code>product: {</code>, and update the parameter URL  as well as the value for the port parameter.
-<div class="hacker">&lt;xmp>production: {
-        url: 'http://blog2.coolexample.com',
+<div class="hacker"><pre>production: {
+        url: '<em><u>http://blog2.coolexample.com</em></u>',
         mail: {},
         database: {
             client: 'sqlite3',
@@ -196,11 +196,11 @@ p.note {
 
         server: {
             // Host to be passed to node's `net.Server#listen()`
-            host: '192.169.168.98',
+            host: '<em><u>Your IP Address</u></em>',
             // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
             port: '2777'
         }
-    },&lt;/xmp></div>
+    },</pre></div>
 </li>
 <li>Save and close by pressing <strong>ESC</strong> key and then <strong>:wq</strong>.</li>
 </ol>
@@ -215,12 +215,12 @@ p.note {
 <div class="hacker">vim ghost-blog1.conf</div>
 </li>
 <li>Put the following content in this file.
-<div class="hacker">&lt;xmp># ghost-blog1
+<div class="hacker"><pre># ghost-blog1
 start on startup
 script
-    cd /var/www/blog1.coolexample.com/ghost
+    cd /var/www/<em><u>blog1.coolexample.com</em></u>/ghost
     npm start --production
-end script&lt;/xmp></div>
+end script</pre></div>
 
 <p>Save and close by pressing <strong>ESC</strong> key and then <strong>:wq</strong>.</p>
 
@@ -229,12 +229,12 @@ end script&lt;/xmp></div>
 <div class="hacker">vim ghost-blog2.conf</div>
 </li>
 <li>Put the following content in the file:
-<div class="hacker">&lt;xmp># ghost-blog2
+<div class="hacker"><pre># ghost-blog2
 start on startup
 script
-    cd /var/www/blog2.coolexample.com/ghost
+    cd /var/www/<em><u>blog2.coolexample.com</em></u>/ghost
     npm start --production
-end script&lt;/xmp></div>
+end script</pre></div>
  </li>
 <li>Save and close by pressing <strong>ESC</strong> key and then <strong>:wq</strong>.</li>
 <li>Start both the blog sites using the following commands:
