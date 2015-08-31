@@ -5,7 +5,7 @@
 <head>
 
 
-<title>Install and configure Ghost with NGINX - Ubuntu, Debian</title>
+<title>Install and configure Ghost with NGINX - Ubuntu</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -66,7 +66,7 @@ p.note {
 
 <body>
 <p>Install and configure Ghost with NGINX - Ubuntu, CMS, Ghost, NGINX</p>
-    <h1>Install and Configure Ghost with Nginx - Ubuntu</h1>
+    <h1>Install and Configure Ghost with NGINX - Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>1.0 hrs</em></p>
@@ -77,7 +77,8 @@ p.note {
     <h2>Prepare the machine</h2>
     To perform the following tasks, make sure that you have  root or sudo user privileges.
     <ol>
-	<li>Update your Ubuntu server. (For the interactive installations, you might need to respond regarding the confirmation for installation.<!--"might" is confusing. Can we provide something more definite? Also, what are the interactive installations? cj-->)
+	<li>Update your Ubuntu server. (These will be interactive installations, where you will be asked for confirmation during installation. Press 'Y' to provide confirmation for installation.<!--"might" is confusing. Can we provide something more definite? Also, what are the interactive installations? cj-->)
+	<!--Updated accordingly.  VS-->
 	  <div class='hacker'>apt-get update</div>
 	<div class='hacker'>apt-get upgrade</div>
     </li>
@@ -112,10 +113,10 @@ p.note {
 	<img src="images/18132-Ubuntu-GhostServerStart.png" alt="18132-Ubuntu-GhostServerStart.png"/> </li>
 	</ol>
 	
-<h2>Install and configure Nginx</h2>
+<h2>Install and configure NGINX</h2>
 Nginx is used to enable connections from the outside on port 80 to connect through to the port that Ghost is running on, so that people can see your blog.
     <ol>
-	<li>Install Nginx.
+	<li>Install NGINX.
 	  <div class='hacker'>apt-get install nginx</div>
 	</li>
 	<li>Remove all the default files.
@@ -123,23 +124,23 @@ Nginx is used to enable connections from the outside on port 80 to connect throu
 	<div class='hacker'>rm sites-enabled/default</div>
     </li>
 	
-	<li>Create a new Ghost configuration file.<!--and open it for editing? cj-->
+	<li>Create a new Ghost configuration file and open it for editing.<!--and open it for editing? cj--><!--Updated accordingly. VS-->
       <div class='hacker'>cd sites-available</div>
 	<div class='hacker'>vi ghost</div>
     </li>
-	<li>Put the following code into the file, modifying it to adapt to your own configuration (The only thing you should need to change is the domain name<!--Variables need to use proper formatting. cj -->):
+	<li>Put the following code into the file, modifying it to adapt to your own configuration (The only thing you should need to change is the domain name<!--Variables need to use proper formatting. cj -->):<!--Updated accordingly. VS-->
 	  <div class='hacker'><pre>
 server {
     listen 0.0.0.0:80;
-    server_name http://192.169.171.249;
-    access_log /var/log/nginx/192.169.171.249.log;
+    server_name <em><u>http://Your IP Address or domain name;</u></em>
+    access_log <em><u>/var/log/nginx/Your domain name.log;</u></em>
 
     location / {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header HOST $http_host;
         proxy_set_header X-NginX-Proxy true;
 
-        proxy_pass http://127.0.0.1:2368;
+        proxy_pass <em><u>http://Your IP Address;</u></em>
         proxy_redirect off;
     }
 }
@@ -155,10 +156,10 @@ server {
       <div class='hacker'>vi /var/www/ghost/config.js</div>
     </li>
 	
-	<li>Put the following code into the Ghost configuration file (content highlighted in red needs to be updated).<!--There is no red text. Also, variables need to be formatted with em and u tags. cj--> The URL can be your domain name (http://<em><u>your-domainname</u></em>.com) or the public IP address of your droplet.
+	<li>Put the following code into the Ghost configuration file.<!--There is no red text. Also, variables need to be formatted with em and u tags. cj--> The URL can be your domain name (http://<em><u>your-domainname</u></em>.com) or the public IP address of your droplet.
 <div class='hacker'><pre>
 	production: {
-        url: 'http://192.169.171.249',
+        url: <em><u>'http://Your domain name or IP address'</u></em>,
         mail: {},
         database: {
             client: 'sqlite3',
@@ -170,7 +171,7 @@ server {
 
         server: {
             // Host to be passed to node's `net.Server#listen()`
-            host: '192.169.171.249',
+            host: <em><u>'Your IP Address'</u></em>,
             // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
             port: '2368'
         }
@@ -183,9 +184,9 @@ server {
 	<div class='hacker'>npm start --production</div>
     </li>
 	
-	<li>In your browser, open the page (red highlighted text <!--No red text. cj -->needs to be updated). The Ghost blog should be available  via the specified URL. 
+	<li>In your browser, open the page <!--No red text. cj -->. The Ghost blog should be available via the specified URL. 
 <br/>
-<p><code>http://192.169.171.249:2368/ </code></p>
+<p><code>http://<em><u>Your domain name or IP Address/</u></em> </code></p>
 <img src="images/18132-Ubuntu-GhostOnBrowser.png" alt="18132-Ubuntu-GhostOnBrowser"/>
 	</li>
 </ol>
@@ -196,13 +197,11 @@ server {
 	  <div class='hacker'>cd /etc/init</div>
 	<div class='hacker'>vi ghost.conf</div>
 	</li>
-	<li>Put the following code into the configuration file:<!--This code is copied from the Digital Ocean article. Please use something original. cj -->
+	<li>Put the following code into the configuration file:<!--This code is copied from the Digital Ocean article. Please use something original. cj --><!-- Made some changes in the code comments. Rest code needs to go as is. cj -->
 	  <div class='hacker'>
 	<pre>
-# ghost
-
-# description "An Upstart task to make sure that my Ghost server is always running"
-# author "Your Name Here"
+# ghost server Upstart configuration
+# to ensure that Ghost server is always running
 
 start on startup
 
@@ -216,11 +215,12 @@ end script
 	<li>Save and exit by pressing <strong>Esc</strong> and <strong>:wq</strong></li>
 	
 	</ol>
-<p>This  ensures that Ghost  starts whenever your server does and allows you to easily control Ghost using service <code>ghost start</code>, <code>service ghost stop</code>, and <code>service ghost restart</code>.
+<p>The upstart configuration ensures that Ghost Servers start at the time of server bootup. It also allows better control on Ghost using service <code>ghost start</code>, <code>service ghost stop</code>, and <code>service ghost restart</code>.
 <!--This sentence is  very close to the Digital Ocean article. If this is important information, how about moving it into the section intro and rearranging it. cj --> </code></p>	
+<!-- Updated the language accordingly-->
 	      
     <h2>Conclusion</h2>
-<p> The Ghost blogging platform, with its ease of deployment and use, can help individuals and organizations setup and extend their content management infrastructure. When used with nginx, and with availability of options for setting up and supporting multiple environments like production, development or testing, it can be easily adapted for any environment. <!--This conclusion does not follow the ed guidelines. Please revise. Per ed guidelines, this section should:
+<p>In this article, you reviewed the steps to install and configure Ghost with NGINX on Ubuntu. The Ghost blogging platform, with its ease of deployment and use, can help individuals and organizations setup and extend their content management infrastructure. For an optimized performance, you can host mulitple Ghost blogs on a single server. For detailed steps, see <a href>18319 - Serve Multiple Ghost Blogs on One server Using NGINX - Ubuntu, Debian</a> <!--This conclusion does not follow the ed guidelines. Please revise. Per ed guidelines, this section should:
 "Provide a brief synopsis of what user just completed; Provide direction for user to complete a related task (For help determining an appropriate link for another task, use your discretion/expertise.)"
  cj -->
 </p>
