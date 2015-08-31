@@ -53,7 +53,7 @@
 	<h2>Prerequisites</h2>
 	<p> For more information on using version control in WordPress, please refer <a href="#">18716 - Using Version Control to Install and Update WordPress - CentOS, Fedora </a> link.</p>
 	<ol>
-	<li>Before we proceed with the installation and configuration of SVN, we need to update the repository by using the following command
+	<li>Update the repository before proceeding with the installation and configuration of SVN:
 	  <div class='hacker'>sudo yum update -y</div>
 	</li>
 	<li>Install subversion and mod apache
@@ -63,9 +63,9 @@
 
    <h2>Create a SVN directory</h2>
    	<ol>		
-		<li>Here we need to create a project repository directory where all the repositories will be housed. We can choose any directory for housing the repos
+		<li>Create a project repository directory where all the repositories will be housed. You can choose any directory for housing the repos
    		<div class='hacker'>sudo mkdir -p /home/svn/projects</div>
-		 <p class='note'>Note: We have taken /home/svn/projects. It can be changed as per the requirement.</p>
+		 <p class='note'>We have taken /home/svn/projects. It can be changed as per the requirement.</p>
 	  </li>
    </ol>
     <h2>Create a Test Repository</h2>
@@ -79,7 +79,7 @@
 			<div class='hacker'>cd ~/test</div>
 			<div class='hacker'>sudo mkdir trunk tags branches</div>
 		</li>
-		<li>Import these directories into test repositories using the following command
+		<li>Import these directories into the test repositories using the following command
 			<div class='hacker'>sudo svn import ~/test file:///home/svn/projects/test -m 'Initial project directories'</div>
 		</li>
 		<li>Grant SVN access with Apache
@@ -114,9 +114,9 @@
         </li>
 		<li>Create a new authenticated user using the following command
 			<div class='hacker'>sudo htpasswd -cm /etc/svn-auth svnuser</div>
-			<p>It will prompt for the password. Enter it.</p>
+			<p>When prompted for pasword, enter the password.</p>
 		</li>
-		<li>Open browser and hit <em>http://your_ip_address/svn/test.</em>After hitting we will find three empty directories
+		<li>Open browser and hit <em>http://your_ip_address/svn/test.</em> After hitting we will find three empty directories
 		</li>
 </ol>
 		<h3>Checkout the Repository and Commit files</h3>
@@ -131,9 +131,10 @@
 			  <div class='hacker'>svn add index.php</div>
 			  <div class='hacker'>svn add *</div>
         </li>
-		<li>Once we are finished with adding all the necessary files, these may be committed using <strong>svn commit -m 'commit message'</strong>.	  
+		<li>Once you are done with adding all the necessary files, these may be committed using:
+        <div class='hacker'>svn commit -m 'commit message'</div>	  
 		 </li>
-		<li>The server may be updated using the <code>SVN up</code> command. Upon keying this command, SVN prompts us for password, please type correct credentials which we used while creating users of SVN.
+		<li>The server may be updated using the <code>SVN up</code> command. Upon keying this command, SVN prompts for password, please enter correct credentials which were used while creating users of SVN.
         </li>
 </ol>
 		   

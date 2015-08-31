@@ -77,46 +77,46 @@ p.note {
 <p>In this article, we are going to make a backup of PostgreSQL database that will be used for scaling Ruby on Rails (RoR) application. To perform this task, we are assuming that the user has <code>sudo</code> privileges.</p>
 
 <h2>Prerequisites: </h2>
-<p>To install Ruby and PostgreSQL,  please visit <a href="#"> 17534 - Install Ruby on Rails using RVM - Ubuntu</a> and <a href="#">17524- Use PostgreSQL with your Ruby on Rails Application - Ubuntu</a> links respectively.</p>
+<p>To install Ruby and PostgreSQL,  please visit <a href="#"> 17534 - Install Ruby on Rails using RVM - Ubuntu</a> and <a href="#">17524 - Use PostgreSQL with your Ruby on Rails Application - Ubuntu</a> links respectively.</p>
 
 <h2>Back up a PostgreSQL database </h2>
 <ol>
-<li><code>Pg_dump</code> is the utility which is used to dump database information into a file for backup purposes. Login with the <code>postgres  user</code>  and run the following command to create a database back up file.
+<li><code>Pg_dump</code> is the utility which is used to dump database information into a file for backup purposes. Login with the <code>postgres</code> user and run the following command to create a database back up file.
 
 	<div class="hacker">sudo su - postgres</div>
 
-	<div class="hacker">pg_dump  database_name >  backup_file</div>
+	<div class="hacker">pg_dump  <em><u>database_name</u></em> >  <em><u>backup_file</u></em></div>
 </li> 
 <li>If you want to perform back up on a remote system, you can pass the <code>-h</code> flag for specifying the remote host, and the <code>-p</code> flag to give the remote port.
 
-	<div class="hacker">pg_dump -h remote_host -p remote_port database_name > 	backup_file</div>
+	<div class="hacker">pg_dump -h remote_host -p remote_port <em><u>database_name</u></em>> 	<em><u>backup_file</u></em></div>
 </li>    
 <li>If you want to specify a different user, then <code>-U</code> is necessary.
-	<div class="hacker">pg_dump -U user_name -h remote_host -p remote_port database_name > backup_file</div>
+	<div class="hacker">pg_dump -U user_name -h remote_host -p remote_port <em><u>database_name</u></em> > <em><u>backup_file</u></em></div>
 </li>
 </ol>
 
 <h2>Restore data dumps </h2>
 <ol>
-<li>Create an empty database to store the <code>backup_file.</code>
-	<div class="hacker">createdb -T template0 restored_database_name</div>
+<li>Create an empty database to store the <code><em><u>backup_file</u></em>.</code>
+	<div class="hacker">createdb -T template0 <em><u>restored_database_name</u></em></div>
 </li>    
 <li>Restore a backup created by <code>pg_dump.</code>
-	<div class="hacker">Psql  restored_database_name < backup_file</div>
+	<div class="hacker">Psql  <em><u>restored_database_name</u></em> < <em><u>backup_file</u></em></div>
 </li>    
-<li>If the user <code>test_user</code>  owns a table in the database, then create a <code>test_user</code> before restorating the system.
-	<div class="hacker">createuser test_user</div>
-	<div class="hacker">Psql  restored_database_name < backup_file</div>
+<li>If the user <em><u>test_user</u></em> owns a table in the database, then create a <em><u>test_user</u></em> before restorating the system.
+	<div class="hacker">createuser <em><u>test_user</u></em></div>
+	<div class="hacker">Psql  <em><u>restored_database_name</u></em> < <em><u>backup_file</u></em></div>
 </li>    
 </ol> 
    
 <h2>Deal with restoration errors</h2>
 <ol>
 <li>Stop any backup error in PostgreSQL using the following command:
-	<div class="hacker">psql --set ON_ERROR_STOP=on restored_database_name < 	backup_file</div>
+	<div class="hacker">psql --set ON_ERROR_STOP=on <em><u>restored_database_name</u></em> < 	<em><u>backup_file</u></em></div>
 </li>    
 <li>Restore all the database in a single transaction.
-<div class="hacker">psql -1 restored_database_name < backup_file</div>
+<div class="hacker">psql -1 <em><u>restored_database_name</u></em> < <em><u>backup_file</u></em></div>
 <p>The difference between <code>Psql -1</code> and the <code>ON_ERROR_STOP</code> setting is that this will either succeed completely or not import anything.</p>
 </li>
 </ol>
@@ -124,14 +124,14 @@ p.note {
 <h2>Backup and restore all databases in PostgreSQL</h2>
 <ol>
 <li>To save time, you can use <code>pg_dumpall</code> utility to create a backup for all the databases in the system.
-<div class="hacker">pg_dumpall > backup_file</div>
+<div class="hacker">pg_dumpall > <em><u>backup_file</u></em></div>
 </li>
 <li>Restore databases with the default database.
- <div class="hacker">psql -f backup_file postgres</div>
+ <div class="hacker">psql -f <em><u>backup_file</u></em> postgres</div>
  </li>
 </ol> 
 
-<h2>Next Steps</h2>
+<h2>Conclusion</h2>
 <p>In this article, we reviewed the steps involved in backing up the PostgreSQL databases on Ubuntu and Debian.</p>
 
 </body>

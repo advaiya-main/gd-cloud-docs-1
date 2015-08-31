@@ -78,15 +78,24 @@
 
 <body>
 
-<p>Install  and configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Ubuntu, Debian,  Logging</p>
-<h1>Install and Configure an EFK Stack  (Elasticsearch, Fluentd, Kibana) - Debian, Ubuntu</h1>
+
+
+<p>Install  and configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Debian, Ubuntu, Logging</p>
+<h1>Install and Configure an EFK Stack (Elasticsearch, Fluentd, Kibana) - Debian, Ubuntu</h1>
 
 <p><strong>Difficulty: </strong><em>2</em></p>
 <p><strong>Time: </strong> <em>2 hours</em></p>
 <!--This introduction needs to include the prerquisite mentioned in the Request Notes. cj -->
-
+<!--Added pre-requisite section. VS-->
 <p>Using Elasticsearch, Fluentd, and  Kibana (also known as an <em>EFK stack</em>) is a common way to deal with data  analysis. This combination lets you collect, index, search, and  visualize log data. In this article, you'll  learn how to install an EFK Stack   on  Debian or Ubuntu.</p>
-<p>These  tasks assume that you have  <code>sudo</code> user privileges.</p>
+
+<h2>Prerequisites</h2>
+<ul>
+<li>This article assumes that you have done the initial server setup for your host machine. For detailed steps, see <a href="17321 - Initial Server Setup - Ubuntu">Initial Server Setup - Ubuntu</a> or <a href="17325 - Initial Server Setup - Debian">Initial Server Setup - Debian</a>
+</li>
+</ul>
+
+<p class="note">These  tasks assume that you have  <code>sudo</code> user privileges.</p>
 <h2>Install and configure ElasticSearch</h2>
 <ol>
 	<li>Log into the Debian or Ubuntu machine.</li>
@@ -94,68 +103,73 @@
 		<div class="hacker">
         
         <!--pre tags are not needed in most of these divs. Use pre tags only if there are indentation issues. If there is more than one line, and no indentation issues, you can use <br /> at the end of each line. cj -->
-		<pre>sudo apt-get update</pre>
+		<!-- Updated the content accordingly at all instances. Hope this is fine. VS-->
+		sudo apt-get update
 		</div>
 	</li>
 	<li>Install Java.
 		<div class="hacker">
-		<pre>sudo apt-get install  default-jre</pre>
+		sudo apt-get install  default-jre
 		</div>
 		
-		<p>To check the Java  version, use the following command</p>
+		<p>To confirm the successful installation, check the Java version using the following command:</p>
         <!--Do they have to check the Java version? What do they do with this information? cj-->
+		<!-- Updated the content accordingly. Hope this is fine. VS-->
 		<div class="hacker">
-		<pre>java -version</pre>
+		java -version
 		</div> 
 	</li>
   <li>Install the Elasticsearch deb packages. 
   
- <p class="note">These commands are  for version 1.2.2. To obtain the latest version, visit the <a href="http://www.elasticsearch.org/download/" target="_top"> Elasticsearch download page</a>.)</p>
+ <p class="note">These commands are  for version 1.2.2. To obtain the latest version, visit the <a href="http://www.elasticsearch.org/download/" target="_top"> Elasticsearch download page</a></p>
     <!--The following should be two divs. Per editorial guidelines, use only one command per div. cj -->
+	<!--Updated Accordingly-->
 	  <div class="hacker">
-	    <pre>sudo wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.2.deb</pre>
-	    <pre>sudo dpkg -i elasticsearch-1.2.2.deb </pre>
+	    sudo wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.2.deb </div>
+	  <div class="hacker">
+	    sudo dpkg -i elasticsearch-1.2.2.deb
     </div>
   </li>
 	<li>Open  the  <code>elasticsearch.yml</code> file.<br />
 	  To make  Elasticseach accessible from the public Internet, its dynamic scripting needs to be  disabled so that it can be accessed by the Kibana dashboards.
 		<div class="hacker">
-		<pre>sudo vim /etc/elasticsearch/elasticsearch.yml</pre>
+		sudo vim /etc/elasticsearch/elasticsearch.yml
 		</div>
   </li>
   <li>Set the  variable <em><u><code>script.disable_dynamic</code></u></em> to <code>true</code> by appending the following code at  the end:
 	<div class="hacker">
-		<pre>script.disable_dynamic: true</pre>
+		script.disable_dynamic: true
 	</div>
   </li>
 	<li>Start Elasticsearch.
 	  <div class="hacker">
-	  <pre>sudo service elasticsearch start </pre>
+	  sudo service elasticsearch start
 	  </div>
 	  A successful startup shows an OK message.<br />
-	  <img src="17909-Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Ubuntu, Debian_clip_image002.jpg" alt="Starting Elasticsearch engine" width="624" height="58" /> 
+	  <img src="images/17909-Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Ubuntu, Debian_clip_image002.png" alt="Starting Elasticsearch engine" width="624" height="58" /> 
 	</li>
 </ol>
 <h2>Install and configure Kibana</h2>
 <p>Next, install Kibana in the home directory.</p>
 <ol>
-  <li> Move  to the home directory.
+  <li> Move to the home directory.
     <div class="hacker">
-	  <pre>cd ~</pre>
+	  cd ~
 	</div>
   </li>
-  <li> Install Kibana. <!--The following should be two divs. One command per div. cj -->
+  <li> Install Kibana. <!--The following should be two divs. One command per div. cj --> <!--Updated Accordingly-->
     <div class="hacker">
-    <pre>sudo curl -L https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz | tar xzf -</pre>
-  		<pre>sudo cp -r kibana-4.1.1* /usr/share/kibana-4.1.1</pre>
+		sudo curl -L https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz | tar xzf -</div>
+    <div class="hacker">
+  		sudo cp -r kibana-4.1.1* /usr/share/kibana-4.1.1
 	</div>
   </li>
-  <li>By default, Kibana is set to use  port 80 to interact with  Elasticsearch. To update this, update the Kibana’s config.js configuration file. <!--How does the user know if he needs to update this? Also, the command seems to reference a different file. Finally, the first sentence of a step needs to tell the user to do something, not be explanatory. cj -->
-  		<div class="hacker">
-		<pre>sudo vim /usr/share/kibana-4.1.1/config/kibana.yml</pre>
+  <li>Open Kibana's configuration file to change the port from default value 9200 to 80, which is used for interaction with Elasticsearch. <!--How does the user know if he needs to update this? Also, the command seems to reference a different file. Finally, the first sentence of a step needs to tell the user to do something, not be explanatory. cj --><!--Updated content accordingly-->
+  	<div class="hacker">
+		sudo vim /usr/share/kibana-4.1.1/config/kibana.yml
 	</div>
   </li>  
-  <li>Locate the following code, which is related to the port  setting:
+  <li>Locate the following code, which is related to the port setting:
 	  <div class="hacker"> 
 	  <pre>#default port value is 9200</pre>
 	  <pre>elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:9200&quot;,</pre>
@@ -167,16 +181,17 @@
 	  <pre>elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:80&quot;,</pre>
 	  </div>
   </li>
-  <li>Install Nginx.<br />
-    Nginx can be used as the proxy server. This  enable access to the Kibana dashboards from the Internet.
+  <li>Install NGINX, which can be used as the proxy server. This enable access to the Kibana dashboards from the Internet.
       <div class="hacker"> 
-	  <pre>sudo apt-get install nginx --yes</pre>
+	  sudo apt-get install nginx --yes
     </div>
   </li>
-  <li>Create the Nginx configuration file.<!--Use a separate div for each command. cj -->
+  <li>Create the NGINX configuration file.<!--Use a separate div for each command. cj --><!--Updated accordingly-->
 	  <div class="hacker"> 
-	  <pre>sudo rm /etc/nginx/sites-available/default</pre>
-	  <pre>sudo vim /etc/nginx/sites-available/default</pre> 
+		sudo rm /etc/nginx/sites-available/default
+	  </div>
+	  <div class="hacker"> 
+	  sudo vim /etc/nginx/sites-available/default
 	  </div>
   </li>
   <li>Put the following code into the Nginx configuration file:
@@ -255,29 +270,36 @@
 		  <pre>}</pre>
   	  </div>
   </li>
-  <li>Restart  Nginx.
+  <li>Restart NGINX.
 		<div class="hacker">
-		<pre>sudo service nginx restart</pre>
+			sudo service nginx restart
 		</div>
   		<p>A successful  restart displays an OK message:<br />
-      <img src="17909-Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Ubuntu, Debian_clip_image004.jpg" alt="Restarting Elasticsearch engine" width="624" height="53" /></p>
+      <img src="images/17909-Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Ubuntu, Debian_clip_image004.png" alt="Restarting Elasticsearch engine" width="624" height="53" /></p>
   </li>
 </ol>
 <h2>Install and configure Fluentd</h2>
 <ol>
   <li>Install  Fluentd.
 	  <div class="hacker">
-	  <pre>wget http://packages.treasuredata.com/2/ubuntu/trusty/pool/contrib/t/td-agent/td-agent_2.0.4-0_amd64.deb</pre>
-	  <pre>sudo dpkg -i td-agent_2.0.4-0_amd64.deb </pre>
-    </div>
+		wget http://packages.treasuredata.com/2/ubuntu/trusty/pool/contrib/t/td-agent/td-agent_2.0.4-0_amd64.deb
+	  </div>
+	  <div class="hacker">
+		sudo dpkg -i td-agent_2.0.4-0_amd64.deb
+	  </div>
   </li>
   <li>Install  additional plugins.
 	  
       <!--Put each command in its own div. cj -->
+	  <!-- Done-->
 	  <div class="hacker">
-		  <pre>sudo apt-get install make libcurl4-gnutls-dev --yes</pre>
-		  <pre>sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch</pre>
-		  <pre>sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-record-reformer </pre>
+		  sudo apt-get install make libcurl4-gnutls-dev --yes
+	  </div>
+	  <div class="hacker">  
+		  sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch
+	  </div>
+	  <div class="hacker">  
+		  sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-record-reformer
 	  </div> Basically there are two important plugins:
 	  <ul>
 		<li>out_elasticsearch - Allows Fluentd to stream  data to Elasticsearch</li>
@@ -288,62 +310,62 @@
    Open the the configuration file <code>td-agent.conf.<br />
     </code>To allow Fluentd to listen to the syslog  messages and then forward them to Elasticsearch, this file needs to be updated. 
 	  <div class="hacker"> 
-	  <pre>sudo vim /etc/td-agent/td-agent.conf</pre>
+	   sudo vim /etc/td-agent/td-agent.conf
 	  </div>
 	  <p>Add the following lines at the top of the  file:</p>
 	  <div class="hacker">
 		  <pre>&lt;source&gt;</pre>
-		  <pre> type syslog</pre>
-		  <pre> port 5140</pre>
-		  <pre> tag  system</pre>
+		  <pre>  type syslog</pre>
+		  <pre>  port 5140</pre>
+		  <pre>  tag  system</pre>
 		  <pre>&lt;/source&gt;</pre>
 		  <pre>&lt;match system.*.*&gt;</pre>
-		  <pre> type record_reformer</pre>
-		  <pre> tag elasticsearch</pre>
-		  <pre> facility ${tag_parts[1]}</pre>
-		  <pre> severity ${tag_parts[2]}</pre>
+		  <pre>  type record_reformer</pre>
+		  <pre>  tag elasticsearch</pre>
+		  <pre>  facility ${tag_parts[1]}</pre>
+		  <pre>  severity ${tag_parts[2]}</pre>
 		  <pre>&lt;/match&gt;</pre>
 		  <pre>&lt;match elasticsearch&gt;</pre>
-		  <pre> type copy</pre>
-		  <pre> &lt;store&gt;</pre>
-		  <pre>   type stdout</pre>
-		  <pre> &lt;/store&gt;</pre>
-		  <pre> &lt;store&gt;</pre>
-		  <pre> type elasticsearch</pre>
-		  <pre> logstash_format true</pre>
-		  <pre> flush_interval 5s #debug</pre>
-		  <pre> &lt;/store&gt;</pre>
+		  <pre>  type copy</pre>
+		  <pre>  &lt;store&gt;</pre>
+		  <pre>     type stdout</pre>
+		  <pre>  &lt;/store&gt;</pre>
+		  <pre>  &lt;store&gt;</pre>
+		  <pre>     type elasticsearch</pre>
+		  <pre>     logstash_format true</pre>
+		  <pre>     flush_interval 5s #debug</pre>
+		  <pre>  &lt;/store&gt;</pre>
 		  <pre>&lt;/match&gt; </pre>
 	  </div></li>
-  <li>Save and close the file using ‘:wq’<!--Don't include quotation marks unless the user is supposed to type them. Same comment in step 8 below. cj --></li>
+  <li>Save and close by pressing <strong>ESC</strong> key and then <strong>:wq</strong>.</li> <!--Don't include quotation marks unless the user is supposed to type them. Same comment in step 8 below. cj -->
+  <!-- Updated by taking reference from another validated article. VS-->
  
   <li>Start  Fluentd.
    		<div class="hacker">
-		<pre>sudo service td-agent start</pre>
+		sudo service td-agent start
 		</div>
   </li>
   <li>Redirect  traffic to Fluentd by updating the <code>rsyslog.conf</code> file.
     <div class="hacker">
-  	  <pre>sudo vim /etc/rsyslog.conf</pre>
+  	  sudo vim /etc/rsyslog.conf
   </div></li>
   <li>
 	  	Add the following line at the top of this file:
-	      <div class="hacker">
-	  	<pre>*.* @127.0.0.1:5140 </pre>
+	    <div class="hacker">
+	  	 *.* @127.0.0.1:5140 
 	  </div>
   </li>
-  <li>Save the file, and exit the editor by pressing the <strong>Esc</strong> key and typing ‘:wq’ </li> 
+  <li>Save and close by pressing <strong>ESC</strong> key and then <strong>:wq</strong>.</li> 
   <li>Restart   rsyslogd.
 	   <div class="hacker">
-	   <pre>sudo service rsyslog restart </pre>
+	     sudo service rsyslog restart
 	   </div>
   </li></ol>
   <h2>Next steps</h2>
-  <p>As an alternative to Fluentd, many users prefer to work with   Logstash. To learn more about the ELK (Elasticsearch, Logstash, and Kibana)  stack and its 
+  <p>As an alternative to Fluentd, many users prefer to work with Logstash. To learn more about the ELK (Elasticsearch, Logstash, and Kibana) stack and its 
     <!--Please add article number in link. cj -->
-  installation, see <a href="#">Install ELK stack (Elasticsearch, Logstash, Kibana)</a>. </p>
-
-
+	<!--Added appropriate articles and article numbers. VS -->
+  installation, see <a href="17852 - Install ELK stack (Elasticsearch, Logstash, Kibana) - Ubuntu">Install ELK stack (Elasticsearch, Logstash, Kibana) - Ubuntu</a> or <a href="17856 - Install ELK stack (Elasticsearch, Logstash, Kibana) - Debian">Install ELK stack (Elasticsearch, Logstash, Kibana) - Debian</a> </p>
 
 </body>
 </html>

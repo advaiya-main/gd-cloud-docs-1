@@ -88,7 +88,7 @@
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
     <p>In this article, we will be configuring a multi-layer deployment installation to host Rails based Ruby web applications. To do this, we will use the powerful, flexible, and extremely successful Unicorn application server running behind Nginx. </p>
-	 <p class='note'>Note: Assuming that we are logged in as a sudo user.</p>
+	 <p class='note'>Please make sure that you are logged in as a <code>sudo</code> user.</p>
    <h2>Prerequisites</h2>
    <p>Before we proceed, we need to install rbenv and PostgreSQL on our Ruby on Rails application. So please visit <a href="#">17520 - Install Ruby on Rails with rbenv – Fedora</a> and <a href="#">17525 - Use PostgreSQL with your Ruby on Rails Application - Fedora</a> links.
    <h2>Prepare the deployment Server</h2>
@@ -101,7 +101,7 @@
 			<div class='hacker'>sudo rpm -ivh epel-release-7-5.noarch.rpm</div>
 			<div class='hacker'>sudo yum –y update</div>
 		</li>
-		<li>Now, we need to install <code>curl-devel</code> and some other dependencies  by using  following command
+		<li>Install <code>curl-devel</code> and some other dependencies  by using  following command
 			<div class='hacker'>sudo yum install -y curl-devel nano sqlite-devel libyaml-devel</div>
 		</li>
 		<li>Install Nginx
@@ -130,7 +130,7 @@
           <div class='hacker'>rails new HelloWorld
 		 </div>
       </li>
-        <li>Now move to the application directory
+        <li>Move to the application directory
             <div class='hacker'>cd HelloWorld/</div>
         </li>
 		<li>Create a sample resource
@@ -151,7 +151,7 @@
 		<li>For binding to web browser, run the following command
             <div class='hacker'>rails server --binding=[your droplet's IP]</div>
         </li>
-		<li>We can now access it on any browser by visiting at <em>http://[your_droplet's_IP]:3000/tasks</em>
+		<li>You can now access it on any browser by visiting at <em>http://[your_droplet's_IP]:3000/tasks</em>
       </li>
 		<li>Upload source code from 
             <a href="#">Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTROS</a> link
@@ -194,9 +194,9 @@ listen "/tmp/unicorn.HelloWorld.sock"
 <br/>	timeout 30
 	</div>
 	<p>Save and exit.</p>
- 	<p class='note'>Note: Run the unicorn_rails inside the app directory to check the application.</p>
+ 	<p class='note'>Run the <code>unicorn_rails</code> inside the app directory to check the application.</p>
         </li>
-		<li>Configure Nginx and enable it to communicate with Unicorn. To do this, we need to edit the default configuration file: default.conf and leave nginx.conf 
+		<li>Configure Nginx and enable it to communicate with Unicorn. To do this, you need to edit the default configuration file <code>default.conf</code> and leave <code>nginx.conf</code> 
             <div class='hacker'>sudo vim /etc/nginx/nginx.conf.default</div>
         </li>
 		<li>Swap the file’s content with the following lines
@@ -232,7 +232,7 @@ listen "/tmp/unicorn.HelloWorld.sock"
 </ol>
 		
 		<h2>Manage the servers</h2>
-       <ol> <li>Once we finish configuring both the servers, initiate the Unicorn and run it as a daemon by using the configuration file. Ensure  we are inside the application directory and run the following command
+       <ol> <li>Once you finish configuring both the servers, initiate Unicorn and run it as a daemon by using the configuration file. Ensure that you are inside the application directory and run the following command
             <div class='hacker'>unicorn_rails -c config/unicorn.rb –D</div>
         </li>
         <li>Restart the Nginx service
@@ -241,7 +241,7 @@ listen "/tmp/unicorn.HelloWorld.sock"
 		 </li>
         <li>Test the droplet's IP address (or the domain name associated to it) at <em>http://[Your_droplet's_IP address]/tasks</em>
           </li></ol>
-		<h2>Next Step</h2>
+		<h2>Conclusion</h2>
 		By using all the above steps we will be able to deploy our Rails application with Unicorn and Nginx on Fedora.    
 </body>
 

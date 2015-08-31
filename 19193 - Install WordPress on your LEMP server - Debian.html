@@ -221,13 +221,13 @@ Open the new file for editing.
 
        <li> Modify the <code>try_files</code> code to look like this:<br/>
 
-         <div class="hacker">location &lt; <code>{</code><br/>
-                # try_files $uri $uri&lt; =404;<br/>try_files $uri $uri/ /index.php?q=$uri&amp;$args;<br/> <code>}</code></div>
+         <div class="hacker">location / <code>{</code><br/>
+                # try_files $uri $uri/ =404;<br/>try_files $uri $uri/ /index.php?q=$uri&amp;$args;<br/> <code>}</code></div>
 
                If the entire <code>try_files</code> part is missing, paste in this block after <code>server name</code>:
                <div class="hacker">
 
-                  location &lt; {        <br/>
+                  location / {        <br/>
                 try_files $uri $uri/ /index.php?q=$uri&amp;$args;<br/>
         } </div>
 
@@ -248,12 +248,12 @@ server {
 
         server_name <em><u>your IP or domain name</u></em>;
 
-        location &lt; {
+        location / {
                 # try_files $uri $uri/ =404;
                 <em><u>try_files $uri $uri/ /index.php?q=$uri&amp;$args;</u></em>
         }
 
-        location ~ &lt;.php$ {
+        location ~ /.php$ {
                 try_files $uri =404;
                 fastcgi_split_path_info ^(.+\.php)(/.+)$;
                 fastcgi_pass unix:/var/run/php5-fpm.sock;
