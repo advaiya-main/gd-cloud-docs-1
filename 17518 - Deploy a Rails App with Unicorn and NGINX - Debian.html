@@ -81,13 +81,13 @@ p.note {
 <h2>Prerequisites</h2>
   In this article, we assume that you have already installed Ruby on Rails with rbenv and your Rails application uses PostgreSQL. If not, please visit:
     <ul>
-	<li><a href="17523 - Install Ruby on Rails with rbenv - Debian">Install Ruby on Rails with rbenv – Debian</a>
+	<li><a href="#">17523 - Install Ruby on Rails with rbenv - Debian</a>
 	 </li>
-	<li><a href="17528 - Use PostgreSQL with your Ruby on Rails application - Debian">Use PostgreSQL with your Ruby on Rails application - Debian</a>
+	<li><a href="#">17528 - Use PostgreSQL with your Ruby on Rails application - Debian</a>
 	 </li>
 </ul>
 	 
-	 <h2>Prepare the deployment server</h2>
+	 <h2>Prepare the Deployment Server</h2>
     <ol> 
 	<li>Install the bundle of development tools and update the operating system using the following command:
 	<div class='hacker'>sudo apt-get install build-essential</div>
@@ -105,39 +105,41 @@ p.note {
 	</li>
 	</ol>
 	
-	<h2>Set up a Rails application </h2>
+	<h2>Set up a Rails Application </h2>
   <!--This procedure is too long. Break it into shorter procedures of no more than 6-7 steps. Anywhere you have a "save and close" step is often a good place to start a new procedure.  You can use h3 headings if you don't think that the new section is at the same level as "Set up a Rails application."-->
     <ol>
 	<li>Create a new directory. 
 	<div class='hacker'>sudo mkdir –p /var/www</div>
 	</li>
-	<li>Move to the directory and provide all the required permissions. 
-	<div class='hacker'>cd /var</div>
-	<div class='hacker'>sudo chmod 777  www/</div>
+	<li>Provide all the required permissions and move into that directory. 
+	<div class='hacker'>sudo chmod 777 -R /var/www/</div>
+	<div class='hacker'>cd /var/www/</div>
 
     </li>
 	
 	<li>Create a Rails application in this directory.
-	<div class='hacker'>rails new HelloWorld -d postgresql</div>
+	<div class='hacker'>rails new <em><u>HelloWorld</u></em> -d postgresql</div>
     </li>
 	
 	<li>Move to the newly created application directory. 
-	<div class='hacker'> cd HelloWorld/</div>
-	</li>
+	<div class='hacker'> cd <em><u>HelloWorld</u></em>/</div>
+	</li></ol>
+	<h2>Create Production Database User</h2>
+	<ol>
 	<li>Create a user for the production database. 
-	<div class='hacker'>sudo -u postgres createuser -s username
+	<div class='hacker'>sudo -u postgres createuser -s <em><u>username</u></em>
 </div>
     </li>
 	<li>To set database user password, run the following command:  
-	<div class='hacker'>sudo -u username psql</div>
-	<div class='hacker'>\password username</div>
+	<div class='hacker'>sudo -u <em><u>username</u></em> psql</div>
+	<div class='hacker'>\password <em><u>username</u></em></div>
 	</li>
 	
 	<li>Enter the new password and logout using the following command:
 	<div class='hacker'>\q</div>
     </li>
 	<li>To setup a database connection, move to your application directory.  
-	<div class='hacker'>Cd /var/www/HelloWorld</div>
+	<div class='hacker'>Cd /var/www/<em><u>HelloWorld</u></em></div>
 	<div class='hacker'>sudo  vim config/database.yml</div>
 	</li>
 	
@@ -147,29 +149,33 @@ p.note {
     </li>
 	
 	<li>Locate the production section at the bottom of the file.
-	<div class='hacker'>username: username
+	<div class='hacker'>username: <em><u>username</u></em>
 </div>
 <div class='hacker'>password: &lt;%= ENV[HelloWorld_DATABASE_PASSWORD'] %&gt;
 </div>
     </li>
 	<li>If your production username and the database user are not equal, then make the required changes to set them equal.
     </li>
-	<li>Save and exit.</li>
+	<li>Save and exit.
+	<div class ="hacker">wq!</div></li>
+	</ol>
+	<h2>Set up rbenv Plugins</h2>
+	<ol>
 	<li>Install the pluggin for rbenv-vars. 
-		<div class='hacker'>Cd .rbenv/plugins
+		<div class='hacker'>cd .rbenv/plugins
 </div>
 <div class='hacker'>git clone https://github.com/sstephenson/rbenv-vars.git</div>
     </li>
 	
 	<li>Set the environment variable by generating a secret key.
-	<div class='hacker'>cd /var/www/HelloWorld</div>
+	<div class='hacker'>cd /var/www/<em><u>HelloWorld</u></em></div>
 	<div class='hacker'>rake secret
 </div>
     </li>
 
-	<li>When you run this command, it might give some error. If the error is related to “bundle install”, then type:
+	<li>When you run this command, it might give some error. If the error is related to <code>Bundle install</code>, then type:
 	<div class='hacker'>Bundle Install</div>
-	<p>Else, if the error is related to “gem install pg”, then type the following command:</p>
+	<p>Else, if the error is related to <code>gem install pg</code>, then type the following command:</p>
 	<div class='hacker'>sudo apt-get install libpq-dev </div>
 	<div class='hacker'>rake secret</div>
 	</li>
@@ -182,42 +188,42 @@ p.note {
 <div class='hacker'>HelloWorld_DATABASE_PASSWORD=prod_db_pass
 </div>
 </li>
-<li>Save and exit.</li>
+<li>Save and exit.
+<div class ="hacker">wq!</div></li>
 <li>Export the secret key and the database password.
 	<div class='hacker'>rbenv vars
 </div>
 <p>Export them manually if required.</p>
 </li>
-<li>Create the production database for the Rails application.
+</ol>
+<h2>Create Production Database</h2>
+<ol>
+<li>Create the production database for the Rails application and generate a scaffold controller to manage the database..
 	<div class='hacker'>RAILS_ENV=production rake db:create</div>
+		<div class='hacker'>rails generate scaffold Task title:string note:text</div>
 	</li>
 
-	<li>Generate a scaffold controller to manage the database.
-	<div class='hacker'>rails generate scaffold Task title:string note:text</div>
-	</li>
-	<li>Update the production database.
+	
+	<li>Update the production database and run your application from the application directory. .
 	<div class='hacker'>RAILS_ENV=production  rake db:migrate</div>
-	</li>
-	<li>Run your application from the application directory.
 	<div class='hacker'>rails s</div>
 	<p>To terminate user, press CTRL+C.</p>
 	</li>
 	<li>For binding to web browser, run the following command:
-	<div class='hacker'>rails server --binding=[your droplet's IP]</div>
+	<div class='hacker'>rails server --binding=[<em><u>your droplet's IP</u></em>]</div>
 	</li>
-	<li>You should now be able to access it on any browser by visiting: <strong>http://<em><u>your droplet's IP</u></em>:3000/tasks.</strong>.
+	<li>You should now be able to access it on any browser by visiting: http://<em><u>your droplet's IP</u></em>:3000/tasks.
 	</li>
-	<li>Upload source code here:<br />
-	<a href="17414-Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTROS">Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTROS</a>
+	<li>Upload source code using following article:<br />
+	<a href="#">17414 - Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTROS</a>
   <!--What is the purpose of this upload?-->
 	</li>
 	</ol>
 	
-<h2>Configure Server </h2>
-
+<h2>Configure Unicorn server</h2>
     <ol>
 	<li>To configure Unicorn, move to your Rails application directory.
-	<div class='hacker'>Cd /var/www/HelloWorld</div>
+	<div class='hacker'>Cd /var/www/<em><u>HelloWorld</u></em></div>
 	</li>
 	<li>Create a blank <code>unicorn.rb </code>document.
 	<div class='hacker'>sudo vim config/unicorn.rb</div>
@@ -249,8 +255,11 @@ p.note {
 </pre>
 </div></li>
 <li>Save and exit.
+<div class="hacker">wq!</div>
 	</li>
-		
+	</ol>
+<h2>Connect Unicorn with Rails Application</h2>
+<ol>	
 	<li>Create the directories that were referred in the configuration file. 
 	<div class='hacker'>sudo mkdir -p shared/pids shared/sockets shared/log</div>
     </li>
@@ -279,8 +288,8 @@ p.note {
 	USAGE="Usage: $0 &lt;start|stop|restart|upgrade|rotate|force-	stop&gt;"
 
 	# app settings
-	USER="username"
-	APP_NAME="Helloworld"
+	USER="<em><u>username</u></em>"
+	APP_NAME="<em><u>Helloworld</u></em>"
 	APP_ROOT="/home/$USER/$APP_NAME"
 	ENV="production"
 
@@ -337,20 +346,22 @@ p.note {
 	</li>
 	
 	<li>Save and exit. 
-	</li>
+		<div class ="hacker">wq!</div></li>
 	
 	<li>This script will allow you to run <code>unicorn_HelloWorld</code> that will run and stop both your Unicorn and your Rails application.
 	</li>
 	
 	<li>Update the script's permissions and enable Unicorn to start on boot.
-		<div class='hacker'>sudo chmod 755 /etc/init.d/unicorn_HelloWorld</div>
+		<div class='hacker'>sudo chmod 755 -R /etc/init.d/unicorn_HelloWorld</div>
 	</li>
 	
 	<li>Start the Unicorn service.
 	<div class='hacker'>sudo service unicorn_HelloWorld start</div>
 
 	</li>
-	
+	</ol>
+	<h2>Configure NGINX Server</h2>
+	<ol>
 	<li>Configure NGINX and enable it to communicate with Unicorn. To do this, you need to edit the default configuration file: <code>default.conf </code>and leave <code>nginx.conf</code>
 	<div class='hacker'>sudo vim /etc/nginx/sites-available/default</div>
 	</li>
@@ -360,14 +371,14 @@ p.note {
 	<pre>
 upstream app {
    # Path to Unicorn SOCK file, as defined previously
-   server 	unix:/home/UserName/HelloWorld/shared/sockets/unicorn.sock 	fail_timeout=0;
+   server 	unix:/home/<em><u>UserName/HelloWorld</u></em>/shared/sockets/unicorn.sock 	fail_timeout=0;
 	}
 
 server {
 	listen 80;
 	server_name localhost;
 
-	root /home/UserName/HelloWorld/public;
+	root /home/<em><u>UserName/HelloWorld</u></em>/public;
 	
 	try_files $uri/index.html $uri @app;
 
@@ -385,13 +396,14 @@ location @app {
 	}
 </pre>
 	</div></li>
-	 <li>Save and exit.</li>
+	 <li>Save and exit.
+	 <div class ="hacker">wq!</div></li>
 	<li>Restart the NGINX service.
 	<div class='hacker'>sudo service nginx restart</div>
 	</li>
 	</ol>
 	 
-	 <h2>Manage the servers</h2>
+	 <h2>Manage Servers</h2>
 
     <ol>
 	<li>After you finish configuring both the servers, initiate Unicorn and run it as a daemon by using the configuration file. Ensure that you are inside the application directory and run the following command:
@@ -400,7 +412,7 @@ location @app {
 	</li>
 	
 	<li>Test your droplet's IP address or the domain name associated to it.
-	<strong>http://<em><u>Your droplet's IP address</u></em> tasks</strong>.
+	http://<em><u>Your droplet's IP address</u></em>/tasks.
 	</li>
 	
 </ol>
