@@ -76,53 +76,54 @@ p.note {
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>15 minutes</em></p>
 
-    <p>This article provides information about installation and configuration of PostgreSQL on Fedora.
-PostgreSQL is an open-source relational database management system. PostgreSQL uses the Structured Query Language (SQL) to manipulate data. To perform this task, we are assuming that the user has <code>sudo</code> privileges.
-</p>
+    <p>This article describes installation and configuration of PostgreSQL on Fedora.
+PostgreSQL is an open-source relational database management system. PostgreSQL uses the Structured Query Language (SQL) to manipulate data. </p>
+    <p>To perform these tasks, we  assume that the user has <code>sudo</code> privileges.
+    </p>
 
    <h2>Install PostgreSQL</h2>
 <ol> 
-<li>Update all the packages of the operating system
+<li>Update all the system packages.
    <div class="hacker">sudo yum –y update</div>
    </li>
-   <li>Install the PostgreSQL package and its necessary dependencies
-   <div class="hacker">sudo yum -y install postgresql postgresql-libs postgresql-plperl </div>
+   <li>Install the PostgreSQL package and its necessary dependencies.
+     <div class="hacker">sudo yum -y install postgresql postgresql-libs postgresql-plperl </div>
    <div class="hacker">postgresql-plpython postgresql-server</div>
    </li>
-   <li>Initialize the database and data directories
-   <div class="hacker">sudo service postgresql initdb</div>
+   <li>Initialize the database and data directories.
+     <div class="hacker">sudo service postgresql initdb</div>
    </li>
-   <li>Configure PostgreSQL to start up upon server boot
-   <div class="hacker">sudo chkconfig postgresql on</div>
+   <li>Configure PostgreSQL to start up upon server boot.
+     <div class="hacker">sudo chkconfig postgresql on</div>
    </li>
-   <li>Start the PostgreSQL service
-   <div class="hacker">sudo service postgresql start</div>
+   <li>Start the PostgreSQL service.
+     <div class="hacker">sudo service postgresql start</div>
+     Once PostgreSQL installs completely, the <code>Postgres</code> system user and database are automatically created.
    </li>
    
   </ol>
 
 <h2>Connect to PostgreSQL</h2>
 <ol> 
-<li>Once PostgreSQL is installed completely, <code>Postgres</code> system user and database will be automatically created.
-   </li>
-   <li>Log in by <code>Postgres</code> user
+<li>
+   Log in by <code>Postgres</code> user.
    <div class="hacker">sudo su – postgres</div>
    </li>
-   <li>Log into database using the following command
-   <div class="hacker">Psql</div>
+   <li>Log into the database.
+     <div class="hacker">Psql</div>
    </li>
-   <li>You will see the <code>Postgres=#</code> prompt. To exit from the prompt, type
-   <div class="hacker">\q</div>
+   <li>Exit from the <code>Postgres=#</code> prompt.
+     <div class="hacker">\q</div>
    </li>
-   <li>Logout the <code>Postgres</code> system user
-   <div class="hacker">exit</div>
+   <li>Log out the <code>Postgres</code> system user.
+     <div class="hacker">exit</div>
    </li>
   
   </ol>
 
              
-    <h2>Next Steps</h2>
-    <p>This article covers the steps to install and configure PostgreSQL. Now you are ready to create your own database for your applications. For more details see <a href="#">17525 - Use PostgreSQL with your Ruby on Rails Application - Fedora</a></p>
+<h2>Next Steps</h2>
+    <p>You have installed and configured PostgreSQL. Now you are ready to create your own database for your applications. See <a href="17525">Use PostgreSQL with your Ruby on Rails Application - Fedora</a>.</p>
    
 </body>
 </html>

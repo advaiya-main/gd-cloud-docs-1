@@ -4,7 +4,6 @@
 
 <head>
 
-<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
 
 <title>00030 - Install and configure Ghost with NGINX – Debian</title>
 <style type="text/css">
@@ -68,33 +67,33 @@ p.note {
 
 <body>
 <p>Install and configure Ghost with NGINX - Debian, CMS, Ghost, NGINX</p>
-    <h1>Install and configure Ghost with NGINX - Debian</h1>
+    <h1>Install and Configure Ghost with NGINX - Debian</h1>
     
-   <p>Ghost is a simple blogging platform, fast and easy to setup. In addition, it provides good customization options to the users. This article describes the steps to set up a Ghost blogging platform with Nginx on a Debian platform.</p> 
-	<p class="note">It is assumed that the user has sudo privileges user.</p> 
-    <h2>Prepare the machine</h2>
+   <p>Ghost is simple blogging platform that is fast and easy to set up and provides good customization options. This article will help you set up a Ghost blogging platform with Nginx on Debian.</p> 
+<p class="note">This article assumes that you have  sudo user privileges .</p> 
+<h2>Prepare the machine</h2>
              <ol>
-			 <li>Update the Debian machine
-			 <div class='hacker'>sudo apt-get update</div>
+			 <li>Update the Debian server.
+			   <div class='hacker'>sudo apt-get update</div>
 			 </li>
-			 <li>Install the additional dependencies 
-			 <div class='hacker'>sudo apt-get install unzip</div>
+			 <li>Install the additional dependencies. 
+			   <div class='hacker'>sudo apt-get install unzip</div>
 			 <div class='hacker'>sudo apt-get install git-core curl build-essential openssl libssl-dev</div>
 			 </li>
-			 <li>Download the <code>node.js</code> source
-			 <div class='hacker'>cd /tmp</div>
+			 <li>Download the <code>node.js</code> source.
+			   <div class='hacker'>cd /tmp</div>
 			 <div class='hacker'>git clone https://github.com/joyent/node.git</div>
 			 </li>
-			 <li>Select the appropriate version from the list of provided version numbers (in this article, version v0.12.7 is installed)
-			  <div class='hacker'>cd node</div>
+			 <li>Select the appropriate version from the list of provided version numbers. (In this example, version v0.12.7 is installed.)
+			   <div class='hacker'>cd node</div>
 			  <div class='hacker'>git tag</div>
 			  <div class='hacker'>git checkout v0.12.7</div>
 			  </li>
-			  <li>Compile <code>node.js</code> 
-			 <div class='hacker'>./configure &amp;&amp; make &amp;&amp;make install</div>
+			  <li>Compile <code>node.js</code>.
+			    <div class='hacker'>./configure &amp;&amp; make &amp;&amp;make install</div>
 			 </li>
-			 <li>Check the version numbers of the installations done
-			 <div class='hacker'>node -v</div>
+			 <li>Check the version numbers of the installations.<!--Is this a necessary step? What does the user do with the version information? cj -->
+			   <div class='hacker'>node -v</div>
 			 <div class='hacker'>npm –v</div>
 			 </li>
 			 </ol>
@@ -102,19 +101,19 @@ p.note {
 			
 			 <h2>Install Ghost</h2>
              <ol>  
-			 <li>Download the Ghost 
-			 <div class='hacker'>cd</div>
+			 <li>Download  Ghost.
+			   <div class='hacker'>cd</div>
 			  <div class='hacker'>wget https://ghost.org/zip/ghost-latest.zip</div>
 			   <div class='hacker'>unzip ghost-latest.zip</div>
 			 </li>
-			   <li>Install <code>npm</code> 
-			 <div class='hacker'>npm install –production</div>
+			   <li>Install <code>npm.</code>
+			     <div class='hacker'>npm install –production</div>
 			 </li>
-			  <li>Update the settings in the <code>config.js</code> file 
-			 <div class='hacker'>vim config.js</div>
+			  <li>Open the <code>config.js</code> file for editing. 
+			    <div class='hacker'>vim config.js</div>
 			 </li>
-			  <li>Locate the following code, and update the URL and host values with appropriate IP address (the url and the host ip address needs to be modified as per your settings)
-			 <div class='hacker'> 
+			  <li>Locate the following code, and update the URL and host values with appropriate IP address. (The URL and the host IP address need to be modified with your settings.)
+			    <div class='hacker'> 
 			 <pre>
 	    production: {
         url: 'http://192.169.169.114',
@@ -137,30 +136,30 @@ p.note {
 </pre>
 			 </div>
 			 </li>
-			 <li>Configure the tool <code>forever</code> as the node daemon tool 
-			 <div class='hacker'>npm install -g forever</div>
+			 <li>Configure the tool <code>forever</code> as the node daemon tool .
+			   <div class='hacker'>npm install -g forever</div>
 			 </li>
-			 <li>Start the Ghost server 
-			 <div class='hacker'>NODE_ENV=production forever start index.js</div>
+			 <li>Start the Ghost server.
+			   <div class='hacker'>NODE_ENV=production forever start index.js</div>
+			 Upon successful start, the Ghost blog is available on the browser as <strong>http://<em><u>192.169.169.114:2368/</u></em></strong>. (Replace the given IP address with the public IP address.)
+			   <br />
+			   <img src='images/00030- GhostOnBroowser.png' alt='00030- GhostOnBroowser.png'/>
 			 </li>
-			 <li>Upon successful start, the ghost blog should be available on the browser as <em>http://192.169.169.114:2368/</em> (replace the given ip address with the public IP address)
-			 <img src='images/00030- GhostOnBroowser.png' alt='00030- GhostOnBroowser.png'/>
-			 </li>
-			 <li>Stop the server
-			 <div class='hacker'>forever list</div>
+			 <li>Stop the server.
+			   <div class='hacker'>forever list</div>
 			  <div class='hacker'>forever stop 0 # if of Ghost process</div>
-			  <p>Or</p>
+			  <p>or</p>
 			   <div class='hacker'>forever stopall</div>
 			 </li>
 			 </ol>
 			 
-			<h2>NGINX setup</h2>
+<h2>Set up Nginx and Ghost</h2>
              <ol>
-			 <li>Install Nginx
-			 <div class='hacker'>apt-get install nginx</div>
+			 <li>Install Nginx.
+			   <div class='hacker'>apt-get install nginx</div>
 			 </li>
-			 <li>Configure the <code>nginx.conf</code> file by replacing the following content 
-			 <div class='hacker'>
+			 <li>Configure the <code>nginx.conf</code> file by replacing the following content: <!--Replacing it with what? cj -->
+			   <div class='hacker'>
 			 <pre>
 user www-data;
 worker_processes 4;
@@ -220,8 +219,8 @@ http {
 			 </div>
 			 </li>
 			 
-			 <li>Prepare the Ghost configuration file
-			 <div class='hacker'>
+			 <li>Prepare the Ghost configuration file.
+			   <div class='hacker'>
 			 <pre>
 server {
     listen         80;
@@ -258,14 +257,14 @@ server {
 </pre>
 			 </div>
 			 </li>
-			 <li>Restart the Nginx
-			 <div class='hacker'>sudo /etc/init.d/nginx start</div>
+			 <li>Restart  Nginx.
+			   <div class='hacker'>sudo /etc/init.d/nginx start</div>
 			 </li>
-			  <li>Setup the Ghost by typing the following in the browser as <em>http://192.169.169.114:2368/ghost/setup/</em>
+			  <li>Set up  Ghost by typing the following in the browser: <em>http://192.169.169.114:2368/ghost/setup/</em><!--Does simply loading this page set up Ghost? Or does the user now have to do something on this page? cj -->
 			 </li>
 			 </ol>
             
-    <h2>Conclusion</h2>
+    <h2>Conclusion</h2><!--This section needs to follow the editorial guidelines. It needs to "Provide a brief synopsis of what the user just completed;  Provide direction for the user to complete a related task (For help determining an appropriate link for another task, use your discretion/expertise." cj -->
    The Ghost blogging platform, with its ease of deployment and use, can help individuals and organizations setup and extend their content management infrastructure. When used with Nginx, and with availability of options for setting up and supporting multiple environments like production, development or testing, it can be easily adapted for any environment.
    
 </body>
