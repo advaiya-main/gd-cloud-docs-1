@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+    <title>17523 - Install Ruby on Rails with rbenv - Debian</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <style type="text/css">
+    div.hacker {
+        background-color: #666;
+        border: 1px solid #ccc;
+        color: #fff;
+        font-family: "Lucida Console", "Courier New", Courier, fixed;
+        font-size: 95%;
+        line-height: 160%;
+        margin-bottom: 1.5em;
+        padding: 10px;
+    }
+    
+    p.note {
+        background-color: #ffffe6;
+        border: 1px solid #eee;
+        color: #666;
+        padding: .8em 1.6em;
+        margin: 15px 0;
+    }
+    
+    .warning {
+        border: 1px #d25100 solid;
+        padding: .5em 1em .5em 4em;
+        margin: 10px 20px 15px 20px;
+        background-image: url('@{help-img-path}/img_warning.gif');
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-color: #ededed;
+        -moz-border-radius: 0.8em;
+        -webkit-border-radius: 0.8em;
+        /* -moz-border-bottom-radius: 0;9 */
+        -webkit-border-bottom-radius: 0;
+        padding-top: 14px;
+        padding-bottom: 15px;
+    }
+    </style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Ruby, Rails</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-debian-7-wheezy, https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-debian-7-wheezy</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#Debian;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string">Prereqs - Initial Server Setup. You will link to &#39;Install Git&#39; inside the option section.</mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">2</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17523</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:ArticleStatus msdt:dt="string">Edited and needs revision</mso:ArticleStatus>
+
+
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string"></mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+<mso:AssignedTo1 msdt:dt="string">12</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Tom Taylor</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:HoursDraftingEstimated msdt:dt="string">3.00000000000000</mso:HoursDraftingEstimated>
+<mso:ReviewComments msdt:dt="string">Please address the Request Notes.</mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Carla  Johnson</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+
+
+</head>
+
+<body>
+
+<p>Setting up RoR with rbenv on Debian, Ruby, Rails</p>
+<h1>Install Ruby on Rails with rbenv – Debian</h1>
+
+<p><strong>Difficulty:</strong> <em>2</em></p>
+<p><strong>Time:</strong> <em>30 mins</em></p>
+
+<p>Ruby on Rails (RoR) is an open source web-based framework that runs on Ruby. Rails is known for creating powerful web framework that helps in the rapid development with default MVC structure. Whereas, rbenv is a new lightweight Ruby version management tool for smooth ruby upgrades and reliable deployment with bundler. This article will help in creating the environment for Rails in Debian instance.</p>
+<h2>Prerequisites</h2>
+<p>To setup your Debian server, you may refer <a href=#>17325 - Initial Server Setup - Debian.</a></p>
+<h2>Install rbenv</h2>
+<ol>
+<li>To configure <code>rbenv</code>, you will need to install the dependency and libraries using the Debian package. So, to update repository, type:
+	<div class='hacker'>sudo apt-get update</div>
+</li>    
+<li>Install git tools to communicate with the git. Optionally, you may refer <a href=#>17370 - Install Git - Debian.</a>
+	<div class='hacker'>sudo apt-get install git-core</div>
+</li>    
+<li><p>It will prompt “Do you want to continue [Y/n]?”. Press Y</p></li>
+<li>rbenv does not provide the installer package so you will need to create a clone from github and install it.
+	<div class='hacker'>git clone https://github.com/sstephenson/rbenv.git ~/.rbenv</div>
+</li>    
+<li>Path is a Linux variable used by Debian. It searches the path whenever you run the <code>PATH</code> command. So, here you will need to add the path for rbenv to make it executable.
+	<div class='hacker'>echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc</div>
+</li>    
+<li><p>The <code>bashrc</code> command used in the above line, appends the path only once rather than appending it each time during login.</p>
+</li>
+<li>Add another command in <code>bashrc</code> for auto completion of rbenv.
+	<div class='hacker'>echo 'eval "$(rbenv init -)"' >> ~/.bashrc</div>
+</li>    
+<li><p>Restart the shell by either opening a new tab or closing the current terminal and starting again.</p>
+</li>
+<li>To succesfully install rbenv, run the below command in terminal, by typing:
+	<div class='hacker'>rbenv</div>
+</li>    
+<li>Install the <code>ruby-build</code> and plugin. 
+<div class='hacker'>git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</div>
+</li>
+<li>Whenever you install or uninstall gems, you will need to run the <code>rehash</code> command each time. To automate this task, you can install another rbenv plugin.
+<div class='hacker'>git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash</div>
+</li>
+</ol>
+<h2>Install Ruby</h2>
+<ol>
+<li>Install ruby and its dependency. But, first install all the required libraries and dependencies by using the below command:
+<div class='hacker'>sudo apt-get install build-essential libssl-dev libcurl4-openssl-dev libreadline-dev -y</div>
+</li>
+<li>In order to check the ruby version, use the below command:
+	<div class='hacker'>rbenv install --list</div>
+</li>    
+<li>To install ruby, execute the below command:
+	<div class='hacker'>rbenv install Ruby_version -k</div>
+<p>-k will keep ruby source, which may help to build gem in future.</p>
+</li>
+<li><p>As of now, you will need to set the ruby version which will be used each time whenever you execute the ruby command. </p>
+</li>
+<li>Ensure to delete any directory in the ruby environment that has <code>~/.rbenv/sources</code>, otherwise you may face problem while executing this command. Let's set the global ruby environment by using the below command:
+	<div class='hacker'>rbenv global 2.1.0 </div>
+</li>    
+<li>To verify the ruby version, use:
+	<div class='hacker'>ruby -v</div>
+</li>    
+<li>You will get the output like this:
+	<div class='hacker'>ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]</div>
+</li>
+</ol>    
+<h2>RoR Installation</h2>
+<p>Ruby on Rails provides command for creating application. This command will generate directory structure, gem dependencies and so on. Before you start it, you will need to make sure that all the dependencies are installed correctly.</p>
+<ol>
+<li>By default, Rails uses sqlite database, so install sqlite to execute the command smoothly
+	<div class='hacker'>sudo apt-get install sqlite3 libsqlite3-dev</div>
+</li>
+<li><p>Rails also require javascript runtime. There are couple of ways to install it. Here, we will use <code>nodejs</code> from Debian package system</p>
+</li>
+<li>Open the file where the Debian repositories are located:
+	<div class='hacker'>sudo nano /etc/apt/sources.list</div>
+</li>    
+<li>Add these lines at the end of the file:
+<div class='hacker'>
+<pre>deb http://ftp.us.debian.org/debian/ wheezy-backports main
+deb-src http://ftp.us.debian.org/debian/ wheezy-backports main</pre></div>
+</li>
+<li>After modifying the source list, update the repository
+	<div class='hacker'>sudo apt-get update</div>
+</li>
+<li>Install <code>nodejs</code> using the following command:
+	<div class='hacker'>sudo apt-get -t wheezy-backports install nodejs</div>
+</li>
+<li><p>It will prompt  - “Do you want to continue [Y/n]?” Press Y</p></li>
+<li>Install ruby on rails by using the below command:
+	<div class='hacker'>gem install rails</div>
+</li>    
+</ol>
+
+<h2>Create an Application on RoR</h2>
+<ol>
+<li>Now that the environment to run Rails web application is created, let us create the application.
+	<div class='hacker'>rails new myfirstapp</div>
+</li>    
+<li>It will automatically create mvc structure and install the required gems for the application. After creating, change the directory to <code>myfirstapp</code>
+	<div class='hacker'>cd myfirstapp</div>
+</li>    
+<li>Run this application using: 
+<div class='hacker'>rails s </div>
+ <p>Or</p>
+<div class='hacker'>rails server</div>
+</li>
+<li>Open the browser and type: <em>http://your_ip_address:3000</em>
+ </li>
+<li><p>You can now see the welcome screen of the Rails application.</p></li>
+</ol>
+
+<h2>Conclusion</h2>
+<p>In this article we reviewed the steps involved in installing Ruby on Rails with rbenv and tested it by creating RoR app in Debian. </p>
+
+
+</body>
+</html>

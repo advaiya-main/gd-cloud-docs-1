@@ -187,8 +187,8 @@ end</xmp></div>
 <li>Unzip Java policies compressed file.
 <div class="hacker">unzip /path/to/ jce_policy-8.zip</div>
 </li>
-<li>Copy the policies jar files to Java security folder group.
-cd UnlimitedJCEPolicyJDK8
+<li>Copy the jar file policies to Java security folder group.
+<div class="hacker">cd UnlimitedJCEPolicyJDK8</div>
 <div class="hacker">sudo cp *.jar /usr/lib/jvm/java-8-openjdk/jre/lib/security</div>
 </li>
 <li>Update the directory to point to the Rails application.
@@ -260,7 +260,7 @@ end</xmp></div>
 
 <h2>Deploy Rails application on Tomcat</h2>
 <ol>
-<li>Copy <code>.war</code> file to webapp of tomcat.
+<li>Copy <code>.war</code> file to webapp of Tomcat.
 <div class="hacker">cp ~/jsample/jsample.war ~/apache-tomcat-8.0.24/webapps/</div>
 </li>
 <li>Restart all the sessions.
@@ -275,7 +275,7 @@ end</xmp></div>
 <div class="hacker">~/apache-tomcat-8.0.24/bin/catalina.sh start</div>
 </li>
 <li>Go to the browser and type your public IP in address bar.
-<div class="hacker">http://<yourserver_ip>:8080/jsample</div>
+<div class="hacker">http://yourserver_ip:8080/jsample</div>
 </li>
 </ol>
 

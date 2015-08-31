@@ -10,7 +10,7 @@
 
 
 <title>Create Temporary and Permanent Redirects with Apache and Nginx - ALL DISTROS</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -68,78 +68,126 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Setting up permanent and temporary redirects, Apache, NGINX</p>
+    <h1>Create temporary and permanent Redirects with Apache and Nginx - ALL DISTROS</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em>2</em><br/>
+        <strong>Time</strong>: <em>45 minutes</em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+    <p>Redirects are required when you are moving to a new domain, expanding your domain or forcing SSL. This article explains how to create redirects with Apache and Nginx.</p>
+	<p class="note">You will need <code>sudo</code> privileges to complete these steps. </p>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
+     <h2>Methods for Redirects</h2>
+<ol> 
+<li><strong>Temporary redirects:</strong> These redirects come into play when your web content needs to be served from a different location for some time, e.g. during maintenance. These URLs inform the browser that content is temporarily at a different location but they can be attempted to access the original URL.
+  </li>
+   <li><strong>Permanent Redirects:</strong> These redirects are used when content is moved forever to some other location.
+   </li>
+</ol>
+  
+  <h2>Redirect in Apache </h2>
+
+<p>Apache uses different tools for redirect. The simplest way would be to redirect using<code> mod_alias</code> module. In case of extensive redirects,<code> mod_rewrite</code> is used. Redirects using<code> mod_rewrite</code> is out of scope of this article.</p>
+
+   <h3>With Redirect Directive </h3>
+   <p>This directive is included in the <code>mod_alias</code> module and is used for simple, single-page redirects. It takes two arguments - old and new URLs.</p>
+<ol> 
+   <li>Open the appropriate file depending on your distribution in any editor
+   <ul>
+   <li>For Ubuntu, open /etc/apache2/sites-available/000-default.conf
+   </li>
+     <li>For Debian, open /etc/apache2/sites-enabled/000-default
+   </li>
+     <li>For Fedora, open /etc/httpd/conf/httpd.conf
+   </li>
+     <li>For Arch Linux, open /etc/httpd/conf/httpd.conf
+   </li>
+     <li>For CentOS, open /etc/httpd/conf/httpd.conf
+   </li>
+   </ul>
+   </li>
+   <li>Add the following lines in<code> VirtualHost *:80 </code>block
+   <div class="hacker">
+<pre>
+&lt;VirtualHost *:80&gt;
+	…
+	…	
+	ServerName www.coolexample1.com
+	Redirect / http://coolexample2.com
+	…
+	…
+
+&lt;/VirtualHost&gt;
+</pre> 
+ </div>
+ <p>This redirect instructs browser to redirect all requests for <em><u>www.coolexample1.com</u></em> to <em><u>www.coolexample2.com</u></em>, but this is only for the single page, not for the entire site.</p>
+   </li>
+   <li><code>Redirect</code> directive creates 302 or temporary redirects. To create permanent, you can use any of following
+   <div class="hacker">Redirect 301 /coolexample1 http://www.coolexample2.com/newlocation</div>
+   <p>Or</p>
+   <div class="hacker">Redirect permanent /coolexample1 http://www. coolexample2.com/newlocation</div>
+   </li>
+  </ol>
+  
+  <h3>With RedirectMatch Directive</h3>
+  <p>This directive uses regular expression to allow redirect for entire directories. It matches patterns in parentheses and then references the matched text in the redirect using <code>$1</code>, 1 designates the first group of text. Sequential numbers are given to subsequent groups.</p>
+  <p>For example, if you want to match every request for anything within <code>/customers</code> directory to a subdomain. Let’s say <code>- customers.coolexample.com,</code> add the following lines in same file that you opened in the last step.</p>
+
+   <div class="hacker">
+<pre>
+&lt;VirtualHost *:80&gt;
+…
+RedirectMatch ^/ customers/(.*)$ http:// customers.coolexample.com/$1
+     	…
+&lt;/VirtualHost&gt;
+</pre>   
+</div>
  
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
-
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
+ 
+  <h2>Redirect in Nginx</h2>
+<ol> 
+<li>If you want to redirect requests from <code>coolexample1.com</code> to <code>coolexample2.com,</code> open the appropriate file based on your distribution in any editor
+<ul>
+<li>For Ubuntu -  <code>/etc/nginx/sites-available/default</code> 
+</li>
+<li>For Debian -  <code>/etc/nginx/sites-available/default </code>
+</li>
+<li>For Fedora - <code>/etc/nginx/nginx.conf</code>
+</li>
+<li>For Arch Linux - <code>/etc/nginx/nginx.conf</code>
+</li>
+<li>For CentOS - <code>/etc/nginx/nginx.conf</code>
+</li>
+</ul>   
+  </li>
+   <li>In the server block, add the following lines
+   <div class="hacker">server_name coolexample1.com.com;</div>
+   <div class="hacker">return 301 $scheme://coolexample2.com$request_uri;</div>
+   <p>Final block will look like</p>
+    <div class="hacker">
+<pre>
+server {
+	listen 80;
+…
+	server_name coolexample1.com.com;
+	return 301 $scheme:// coolexample2.com$request_uri;
+	…
+}
+</pre>
+	</div>
+   </li>
+   <li>For directory redirects, you can use the same “rewrite” directive as used in Apache
+   <div class="hacker">rewrite ^/customers/(.*)$ </div>
+   <div class="hacker">http://customers.coolexample.com/$1 redirect;</div>
+   </li>
+   <li>For permanent redirects, use the following
+   <div class="hacker">rewrite ^/customers/(.*)$ </div>
+   <div class="hacker">http://customers.coolexample.com/$1 permanent;</div>
+   </li>
+</ol>
+  
+    <h2>Conclusion</h2>
+    <p>You should use correct redirection type because improper use of temporary redirects may spoil your search ranking.</p>
    
 </body>
 </html>

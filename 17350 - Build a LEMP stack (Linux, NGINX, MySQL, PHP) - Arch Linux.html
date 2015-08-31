@@ -234,14 +234,14 @@ listen 80;
 root /usr/share/nginx/html;
 index  index.php index.html index.htm;
 server_name [yourservername]</pre></div></li>
-            <li>The default location <code> context</code> will look like this:    
+            <li>The default <code>location</code> context will look like this:    
  <div class="hacker"><pre>location / {
     root /usr/share/nginx/html;
     index index.php index.html index.htm;        
      }
                      </pre> </div>
             </li>      
-            <li>The default location <code> context</code> should look like this (remove <code>root</code> and <code>index</code> directives):    
+            <li>The default <code>location</code> should look like this (remove <code>root</code> and <code>index</code> directives):    
  <div class="hacker"><pre>location / {
    }</pre> </div>
             </li>

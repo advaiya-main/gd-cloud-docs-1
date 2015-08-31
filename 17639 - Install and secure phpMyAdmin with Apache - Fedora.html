@@ -56,7 +56,7 @@ td{border: 1px solid #b2b2b2
 <mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-with-apache-on-a-centos-7-server, https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-with-apache-on-a-centos-7-server</mso:Reference>
 <mso:LinuxDistributions msdt:dt="string">;#Fedora;#</mso:LinuxDistributions>
 <mso:ArticlePriority msdt:dt="string">2</mso:ArticlePriority>
-<mso:RequestNotes msdt:dt="string">Link to LAMP and Initial server setup articles at beginning as prereq. Link at end to Set up SSL certificate with phpMyAdmin</mso:RequestNotes>
+<mso:RequestNotes msdt:dt="string">Link to LAMP and Initial server setup articles at beginning as prereq. Link at end to Set up SSL certificate with phpMyAdmin</mso:RequestNotes>                            
 <mso:Difficulty msdt:dt="string">2</mso:Difficulty>
 <mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
 <mso:ArticleID msdt:dt="string">17639</mso:ArticleID>
@@ -103,7 +103,7 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
 
     <h2>Prerequisites</h2>
 
-<p>Make sure that you have LAMP (Linux&trade;, Apache&trade;, MySQL and PHP&trade;) installed. In case you haven't, this article explains how to <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17342 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 6, Fedora.html">install LAMP</a>.</p>
+<p>Make sure that you have LAMP (Linux&trade;, Apache&trade;, MySQL, and PHP&trade;) installed. In case you haven't, this article explains  <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17342 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 6, Fedora.html">how to install LAMP</a>.</p>
 
 
     <h2>Install phpMyAdmin</h2>
@@ -123,7 +123,8 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
             <div class="hacker">sudo vim /etc/httpd/conf.d/phpMyAdmin.conf</div>
         </li>
         <li>
-           By default in the <code>IfModule</code> blocks, you will see the IP address <code>127.0.0.1</code>. You will most likely find it in four places. Replace it with the IP address of the computer with which you will access the application.  
+           By default in the <code>IfModule</code> blocks, you will see the IP address <code>127.0.0.1</code>. You will most likely find it in four places. Replace it with the IP address of the computer with which you will access the application.
+             <p class="note">This IP address is NOT the IP address of your server, but that of your work or home computer that you would be using to navigate to the phpMYAdmin application. You can find your IP address by going to <strong>http://<em><u>whatismyipaddress.com/</u></em></strong>.</p>  
             <div class="hacker">
 <pre>
     &lt;RequireAny>
@@ -136,9 +137,9 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
        Allow from 127.0.0.1
        [...]
 </pre>
-            </div>
+            </div></li>
         <li>Save and exit the file.
-        <p class="note">This IP address is NOT the IP address of your server but that of your work or home computer that you would be using to navigate to the phpmyadmin application from. You can find your  IP address by going to <strong>http://<em><u>whatismyipaddress.com/</u></em></strong>.</p> </li>
+       </li>
       
          <li>
             Restart Apache.
@@ -146,12 +147,12 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
         </li>
 
         <li>
-         In your browser, navigate to <strong>http://<em><u>server-ip-address-or-your-domain-name/phpmyadmin</u></em></strong> to see the web interface. You will see a "Welcome to phpMyAdmin" page.<br />
-            <img src='/images/00027/phpAdminpage1.png' alt='Welcome to phpMyAdmin' />
+         In your browser, navigate to <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong> to see the web interface. You will see a <strong>Welcome to phpMyAdmin</strong> page.<br />
+            <img src='https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17639/082115/phpAdminpage1.png ' alt='Welcome to phpMyAdmin' />
         </li>
         <li>
-            Log into the user interface using the username "root" and the MySQL/MariaDB root password. You can also use other valid MySQL/MariaDB users. You will see the phpMyAdmin user interface.<br />
-            <img src='/images/00027/phpAdminpage2.png' alt='phpMyAdmin user interface' />
+            Log into the user interface using the username <strong>root</strong>, and the MySQL/MariaDB root password. You can also use other valid MySQL/MariaDB users. You will see the phpMyAdmin user interface.<br />
+            <img src='https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17639/082115/phpAdminpage2.png ' alt='phpMyAdmin user interface' />
         </li>
     </ol>
    
@@ -160,7 +161,7 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
 
     <ol>
         <li>
-            To allow the <code>.htaccess file</code> access the <code>phpMyAdmin</code> directory, you need to make some changes in the phpmyadmin configuration file.
+            To allow the <code>.htaccess file</code> access the <code>phpMyAdmin</code> directory, you need to make some changes in the phpMYAdmin configuration file.
 
             <div class="hacker">sudo vim /etc/httpd/conf.d/phpMyAdmin.conf </div>
         </li>
@@ -189,7 +190,7 @@ AllowOverride All
             <div class="hacker">sudo vim /usr/share/phpMyAdmin/.htaccess</div>
         </li>
         <li>
-            Enter the below block of text into the file.
+            Enter the following block of text into the file.
             <div class="hacker">
                 <pre>
 AuthType Basic
@@ -200,7 +201,7 @@ Require valid-user
             </div>
         </li>
         <li>
-            Below is an explanation of what each of these mean:
+            Below is an explanation of what each of these directives mean:
 
             <table>
                 <tr>
@@ -234,13 +235,13 @@ Require valid-user
             <div class="hacker">sudo htpasswd /etc/httpd/pass_file <em>newuser2</em></div>
         </li>
         <li>
-            Restart Apache for changes to take effect.
+            Restart Apache for the changes to take effect.
             <div class="hacker">sudo service httpd restart</div>
         </li>
-        <li>Now when you navigate to the browser and type <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong>. You will be presented with the username/password prompt. Enter the <code>newuser1</code> credentials that you included in the <code>htpasswd</code> file.</li>
+        <li>Now, when you navigate to the browser and type <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong>, you will be presented with the username/password prompt. Enter the <code>newuser1</code> credentials that you included in the <code>htpasswd</code> file.</li>
     </ol>
     <h2>Next steps</h2>
-    You have succesfully installed phpMyAdmin and provided additional security to accessing it. Now, you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17649 - Set up SSL Certificate with phpMyAdmin and Apache - Fedora, CentOS.html">Set up SSL Certificate with phpMyAdmin</a>.
+    You have successfully installed phpMyAdmin and provided additional security to accessing it. Now, you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17649 - Set up SSL Certificate with phpMyAdmin and Apache - Fedora, CentOS.html">set up SSL Certificate with phpMyAdmin</a>.
 
 </body>
 </html>

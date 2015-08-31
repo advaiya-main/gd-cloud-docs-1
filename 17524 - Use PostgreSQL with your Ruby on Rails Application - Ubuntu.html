@@ -86,27 +86,27 @@
 <p><strong>Difficulty:</strong> <em>2</em></p>
 <p><strong>Time:</strong> <em>30 mins</em></p>
 
-<p>In this article, we'll create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails application.  To perform these tasks, we  assume that you have sudo privileges.</p>
-
-To install Ruby on Rails, see <a href="17534">Install Ruby on Rails using RVM in Ubuntu</a>.</p>
+<p>In this article, we will create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails application.  To perform these tasks, we  assume that you have sudo privileges.</p>
+<h2>Prerequisites</h2>
+To install Ruby on Rails, see <a href="#">17534-Install Ruby on Rails using RVM - Ubuntu</a>.</p>
 
 <h2>Install PostgreSQL</h2>
 <ol>
 <li>At the terminal, type the following command:
 	<div class='hacker'>sudo apt-get install postgresql postgresql-contrib</div>
 </li>
-<li>Next install pgadmin3 for the administrator. pgadmin3 is an easy-to-access GUI for PostgresSQL. It's an optional installation but useful when used on a desktop.
+<li>Install <code>pgadmin3</code> for the administrator. <code>pgadmin3</code> is an easy-to-access GUI for PostgresSQL. It's an optional installation but useful when used on a desktop.
 	<div class='hacker'>sudo apt-get install pgadmin3</div>
 </li>
 </ol>
 <h2>Create database user</h2>
 <ol>
-<li>Log in with postgres system user, and create a user.
-		<div class='hacker'>sudo -u postgres createuser -s PostUser</div>
+<li>Log in with <code>postgres</code> system user, and create a user.
+		<div class='hacker'>sudo -u postgres createuser -s <em><u>UserName</u></em></div>
 </li>        
 <li>Set a password for the database user.
 		<div class='hacker'>sudo -u postgres psql</div>
-    		  <div class='hacker'>postgres=# \password PostUser</div>
+    		  <div class='hacker'>postgres=# \password <em><u>UserName</u></em></div>
 </li>              
 <li>Close the session.
 	<div class='hacker'>postgres=# \q</div>
@@ -120,41 +120,42 @@ To install Ruby on Rails, see <a href="17534">Install Ruby on Rails using RVM in
 <ol>
 <li>Move to the home directory to create a new Rails app. To set PostgreSQL as the database, use the<code> -d postgresql</code> option.
 <div class='hacker'>cd ~</div>
-<div class='hacker'>rails new HelloWorld -d postgresql</div>
+<div class='hacker'>rails new <em><u>HelloWorld</u></em> -d postgresql</div>
 </li>
 <li>Move to the application directory.
-  <div class='hacker'>cd HelloWorld</div>
+  <div class='hacker'>cd <em><u>HelloWorld</u></em></div>
  </li>
 <li>Open the following  file.
   <div class='hacker'>sudo vim config/database.yml</div>
  </li>
-<li>Look for "pool: 5" in the file, and add the following lines beneath it. Enter the username and password for the postgres  user.
+<li>Look for <code>pool: 5</code> in the file, and add the following lines beneath it. Enter the username and password for the <code>postgres</code>  user.
   <div class='hacker'>
 <pre>host: localhost
-username: PostUser
-password: postgres_password</pre></div>
+username: <em><u>UserName</u></em>
+password: <em><u>UserName_password</u></em></pre></div>
 </li>        
-<li>Save and close the file.</li>
+<li>Save and exit.
+<div class = "hacker">wq!</div></li>
 </ol>
 
 <h2>Create a database for  the application</h2>
 <ul>
 <li>Use the <code>rake</code> command to create the application's database in the application directory.
   <div class='hacker'>rake db:create</div>
-Two databases in PostgreSQL server are created. For example, if the application's name is HelloWorld, the command creates databases named HelloWorld _development and HelloWorld _test. 
+Two databases in PostgreSQL server are created. For example, if the application's name is <code>HelloWorld</code>, the command creates databases named <code>HelloWorld _development</code> and <code>HelloWorld _test</code>. 
 </li>
 </ul>
 
 <h2>Test the configuration</h2>
-<ul>
+<ol>
 <li>Test  the Rails application.
-  <div class='hacker'>Rails server</div>
- Now we can run the Rails application on our localhost on port 3000.  We can also access the application from a web browser if it is located on a remote server by assigning a public IP address.
-	<div class='hacker'>rails server --binding=server_public_IP</div>
+  <div class='hacker'>Rails server</div></li>
+ <li>Now we can run the Rails application on our localhost on port 3000.  We can also access the application from a web browser if it is located on a remote server by assigning a public IP address.
+	<div class='hacker'>rails server --binding=<em><u>server_public_IP</u></em></div>
 </li>
-</ul>
+</ol>
 
 <h2>Next steps</h2>
-<p>In this article, we set up a PostgreSQL with a Rails application in Ubuntu.  Next, see <a href="17514">Deploy a Rails App with Unicorn and Nginx</a>.</p>
+<p>In this article, we configured a PostgreSQL with a Rails application in Ubuntu. For further exploration, please visit, <a href="#">17514 - Deploy a Rails App with Unicorn and NGINX - Ubuntu</a>.</p>
 </body>
 </html>
