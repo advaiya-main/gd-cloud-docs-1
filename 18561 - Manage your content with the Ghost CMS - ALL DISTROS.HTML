@@ -4,9 +4,6 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Manage your content with the Ghost CMS - ALL DISTROS</title>
@@ -70,53 +67,61 @@ p.note {
 </head>
 
 <body>
+
+<!--Please review the checklist (https://github.com/gnakan/gd-cloud-docs/wiki/Checklist-for-Content-Creators). These items have not been addressed:
+
+- The first sentence of every step has an imperative statement. (The first two sections are correct. The others need revision.)
+- <em><u></u></em> tags are used for variables.
+
+Also, make sure that the Conclusion follows the editorial guidelines:
+
+- Provides a brief synopsis of what user just completed
+- Provides direction for user to complete a related task (For help determining an appropriate link for another task, use your discretion/expertise) 
+
+cj
+
+-->
+
+
 <p>Manage your content with Ghost CMS - ALL DISTROS - CMS, Ghost</p>
-    <h1>Manage your content with Ghost CMS - ALL DISTROS </h1>
+    <h1>Manage Your Content with Ghost CMS - ALL DISTROS </h1>
     
     <p><strong>Difficulty</strong>: <em>3</em><br/>
         <strong>Time</strong>: <em>1.5 hrs</em></p>
 
-    <p>The Ghost blogging platform is a powerful blogging platform. Besides simplicity in setup, it is also characterized with a powerful user interface that allows users to manage their content with ease. This article provides introduction to various content management options provided by the Ghost blogging platform. 
-</p>
+    <p> Ghost  is a powerful blogging platform. Besides simplicity in setup, it has a powerful user interface that lets you manage your content with ease. This article provides an introduction to various content management options provided by the Ghost blogging platform. </p>
 	<h2>Prerequisites</h2>
-	<p>This article assumes that the host machine has a Ghost blogging platform deployed and running. For detailed steps, see:</p>
+	<p>This article assumes that the host machine has a Ghost blogging platform deployed and running. For instructions, see one of the following:</p>
 	<ul>
-	<li><a href="#">18132 - Install and configure Ghost with NGINX – Ubuntu </a></li>
-	<li><a href="#">18133 - Install and configure Ghost with NGINX - CentOS, Fedora</a> </li>
-	<li><a href="#">18134 - Install and configure Ghost with NGINX - Arch Linux</a></li>
-	<li><a href="#">00030 - Install and configure Ghost with NGINX - Debian</a></li>
+	<li><a href="18132"> Install and configure Ghost with NGINX - Ubuntu </a></li>
+	<li><a href="18133"> Install and configure Ghost with NGINX - CentOS, Fedora</a> </li>
+	<li><a href="18134"> Install and configure Ghost with NGINX - Arch Linux</a></li>
+	<li><a href="00030"> Install and configure Ghost with NGINX - Debian</a>    </li>
 	</ul>
-<p>The following steps work in the same way for all of the above mentioned platforms.</p>
-
-    <h2>Ensure Ghost is running</h2>
-<ol>	
-	<li>Ensure that Ghost is running and available via browser. For this, type the IP address or the associated domain name in the browser.
-		<div class="hacker">http://192.169.170.227:2368</div>
-		<p>Or</p>
-		<div class="hacker">http://coolexample.com</div>
-		<br/>
+	<h2>Ensure that Ghost is running</h2>
+<ul>	
+	<li> In a browser, type the IP address or   domain name:
+<code>http://<em><u>192.169.170.227:2368</u></em> or http://<em><u>coolexample.com</u></em>.</code><br/>
 		<img src="images/18561 - 1.png" alt="18561 - 1.png"/>
 			</li>
-	</ol>
-	<h2>Start a new blog with Ghost</h2>
+	</ul>
+<h2>Start a new blog with Ghost</h2>
 	<ol>
-	<li>Open the blog setup page by typing the following in the browser: 
-		<div class="hacker">http://192.169.170.227:2368/ghost/setup/</div>
+	<li>Open the blog setup page  in the browser:
+	<code>http://<em><u>192.169.170.227:2368</u></em>/ghost/setup/</code>
 	  </li>
 	<li>Provide the required details in the blog setup page.
 	<br/><img src="images/18561 - 2.png" alt="18561 - 2.png"/>
-	</li>
-	
-	<li>Once registration is complete, the content tab will be visible, showing the sample pre-configured blog “Welcome to Ghost”.
+	<br />
+	Once registration is complete, the content tab shows the sample preconfigured blog, Welcome to Ghost.
 	<br/>
 	<img src="images/18561 - 3.png" alt="18561 - 3.png"/>
 	</li>
 	</ol>
 	
-	<h2>Create a new post</h2>
+<h2>Create a new post</h2>
 	<ol>
-	<li>New posts can be created using the “New Post” icon on the top left corner.
-	<br/>
+	<li>New posts can be created using the <strong>New Post</strong> icon on the top left corner. <br/>
 	<img src="images/18561 - 4.png" alt="18561 - 4.png"/>
 	</li>
 	
@@ -147,7 +152,7 @@ p.note {
 	</li>
 	</ol>
 	
-	<h2>Additional Blog Settings and Information</h2>
+	<h2>Additional blog settings and information</h2>
 	<ol>
 	<li>The ‘Settings’ tab provides additional blog settings, which includes the following:
 	<ul>
@@ -172,7 +177,7 @@ p.note {
 	</ol>
 	
 	<h2>Conclusion</h2>
-    <p>Ghost blogging platform provides easy to use options to manage the content. Most options being self-explanatory, allows users to create posts, edit posts, publish and manage them by themselves, without having any need to additional training. </p>
+    <p>The Ghost blogging platform provides easy to use options to manage the content. Most options being self-explanatory, allows users to create posts, edit posts, publish and manage them by themselves, without having any need to additional training. </p>
    
 </body>
 </html>
