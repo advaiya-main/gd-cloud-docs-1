@@ -9,7 +9,7 @@
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>17503-Configure Two-factor SSH Authentication with PAM - CentOS, Fedora</title>
+<title>17503 - Configure Two-factor SSH Authentication with PAM - CentOS, Fedora</title>
 <style>
 div.hacker {
 background-color:#666;
@@ -78,15 +78,17 @@ p.note {
 
 <p class="note"> If you configure this for any user other than root, you need to login as the said user and switch to root user. In this case, direct root login is not possible.</p>
 
-<h2>rerequisites</h2>
+<h2>Prerequisites</h2>
 <p>You need to install Google authenticator application in your smartphone. You can download this on your device from Google play, or get it from this link - Google Authenticato.r </p>
 
 <h2>Install dependencies</h2>
+<ul>
+<li>
 <p>Install the required dependencies:</p>
 <div class="hacker">sudo yum install epel-release</div>
 <div class="hacker">sudo yum update</div>
 <div class="hacker">sudo yum install qrencode*</div>
-<div class="hacker">sudo yum install ntp pam-devel google-authenticator</div>
+<div class="hacker">sudo yum install ntp pam-devel google-authenticator</div></li></ul>
 
 <h2>Configure Google authenticator</h2>
 <ol>
