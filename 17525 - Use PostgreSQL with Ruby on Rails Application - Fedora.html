@@ -87,15 +87,12 @@
 <p><strong>Difficulty:</strong> <em>2</em></p>
 <p><strong>Time:</strong> <em>30 mins</em></p>
 
-<p>In this article, we will assist you to create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails  application. To perform these tasks, we assume that you have sudo privileges.</p>
-  <h2>Prerequisites</h2>
-<p>To install Ruby on Rails, see <a href="#">17535 - Install Ruby on Rails using RVM in Fedora</a>. </p>
-
-<h2> Disable SELINUX</h2>
-<p>Make sure that <code>SELINUX</code> is disabled.</p>
-<ol><li>Open the following file, and disable <code>SELINUX</code>:
-<div class='hacker'>sudo vim /etc/selinux/config</div>
-<div class='hacker'><pre>SELINUX=disabled</pre></div>
+<p>In this article, you'll create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails  application. These tasks assume that you have <code>sudo</code> privileges and that  <a href="17535">Ruby on Rails is installed</a>. </p>
+<h2> Disable SELinux</h2>
+<ol>
+  <li>Open the following file, and disable <code>SELinx</code>:
+    <div class='hacker'>sudo vim /etc/selinux/config</div>
+<div class='hacker'>SELINUX=disabled</div>
 </li>
 <li>Save and exit.
 <div class="hacker">wq!</div></li></ol>
@@ -107,7 +104,7 @@
   <div class='hacker'>sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm</div>
 <div class='hacker'>sudo rpm -ivh epel-release-7-5.noarch.rpm</div>
 </li>
-<li>Set up a PostgreSQL server, and add its development related libraries.
+<li>Set up a PostgreSQL server, and add its development-related libraries.
 	<div class='hacker'>sudo yum install postgresql-server postgresql-contrib postgresql-devel</div>
 </li>
 <div class='hacker'>Initialize a new PostgreSQL database </div>
@@ -119,8 +116,8 @@
 <pre>host    all             all             127.0.0.1/32            ident
 host    all             all             ::1/128                 ident</pre></div>
 <li>Change <code>ident</code> to <code>md5</code>.</li>
-<li>Save and exit
-<div class ="hacker">wq!</div></li>
+<li>Save and exit the file.
+  <div class ="hacker">wq!</div></li>
 <li>Start and enable the PostgreSQL service.
   <div class='hacker'>sudo systemctl start postgresql</div>
 <div class='hacker'>sudo systemctl enable postgresql</div>
@@ -129,7 +126,7 @@ host    all             all             ::1/128                 ident</pre></div
 
 <h2>Create a database user</h2>
 <ol>
-<li>Log in with <code>postgres</code> system user.
+<li>Log in as <code>postgres</code> system user.
 		<div class='hacker'>sudo su - postgres</div>
 </li>        
 <li>Create a PostgreSQL super user.
@@ -147,8 +144,8 @@ host    all             all             ::1/128                 ident</pre></div
 
 <h2>Set up a Rails application</h2>
 <ol>
-<li>Move to the home directory to create a new Rails app. To set PostgreSQL as the database, use the <code>-d postgresql</code> option
-<div class='hacker'>cd ~</div>
+<li>Move to the home directory to create a new Rails application, and  set PostgreSQL as the database.
+  <div class='hacker'>cd ~</div>
 <div class='hacker'>rails new <em><u>HelloWorld</u></em> -d postgresql</div>
 </li>
 <li>Move to the application directory.
@@ -163,28 +160,28 @@ host    all             all             ::1/128                 ident</pre></div
 username: <em><u>UserName</u></em>
 password: <em><u>UserName_password</u></em></pre></div>
 </li>        
-<li>Save and exit.
-<div class ="hacker">wq!</div></li>
+<li>Save and exit the file.
+  <div class ="hacker">wq!</div></li>
 </ol>
 
 <h2>Create a database for the application</h2>
 <ul>
-<li>Use the <code>rake</code> command to create the application's databases in the application directory.
+<li>Create the application's databases in the application directory.
   <div class='hacker'>rake db:create</div>
 Two databases in the PostgreSQL server are created. For example, if the application's name is <code>HelloWorld</code>, the command creates  databases named <code>HelloWorld _development</code> and <code>HelloWorld _test</code>.
 </li>
 </ul>
 
 <h2>Test the configuration</h2>
-<ol>
+<ul>
 <li>Test the Rails application.
-  <div class='hacker'>Rails server</div></li>
- <li>You can run the Rails application on your localhost on port 3000. You can also access the application from web browser, if it is located on a remote server, by assigning a public IP address.
- <div class='hacker'>rails server --binding=<em><u>server_public_IP</u></em></div>
+  <div class='hacker'>Rails server</div>
+  You can run the Rails application on your localhost on port 3000. You can also access the application from a web browser, if it is located on a remote server, by assigning a public IP address.
+  <div class='hacker'>rails server --binding=<em><u>server_public_IP</u></em></div>
 </li>
-</ol>
+</ul>
 <h2>Next Steps</h2>
-<p>In this article, we  configured a PostgreSQL with a Rails application in Fedora. For further exploration, please visit <a href="#">17515 - Deploy a Rails App with Unicorn and NGINX - Fedora</a>.</p>
+<p>In this article, we  configured a PostgreSQL with a Rails application in Fedora. For further exploration,  visit <a href="17515"> Deploy a Rails App with Unicorn and Nginx - Fedora</a>.</p>
 
 
 </body>
