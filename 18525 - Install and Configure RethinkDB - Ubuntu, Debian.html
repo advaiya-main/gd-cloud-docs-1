@@ -9,7 +9,7 @@
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>18525-Install and Configure RethinkDB - Ubuntu, Debian</title>
+<title>18525 - Install and Configure RethinkDB - Ubuntu, Debian</title>
 <style>
 div.hacker {
 background-color:#666;
@@ -79,13 +79,11 @@ p.note {
 
 <h2>Prerequisites</h2>
 
-<p>In this tutorial, you will need a droplet running Ubuntu 14 or Debian 7, named rethinkdb.  You should setup a sudo user for each RethinkDB server.  </p>
-
-<p>Installing RethinkBD includes two main components, first the database itself and the other is the client driver which interacts with the database from your programming language.</p>
+<p>In this tutorial, you will need a droplet running Ubuntu 14 or Debian 7, named <strong>rethinkdb</strong>.  You should setup a sudo user for each RethinkDB server. Installing RethinkBD includes two main components, first the database itself and the other is the client driver which interacts with the database from your programming language.</p>
 
 <h2>Install RethinkDB Software</h2>
 <ol>
-<li>Add RethinkDB repositories to the list of your repositories as,
+<li>Add RethinkDB repositories to the list of your repositories as:
 <div class="hacker">source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list
 wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -</div>
 </li>
@@ -96,34 +94,32 @@ wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -</div
 </ol>
 
 <h2>Install Python Client Driver</h2>
-<p>In this tutorial you will be using Python as the desired programming language. Since you have already installed RethinkDB on this droplet, now you need to install client driver for connecting to database from Python.</p>
-
-<p>Python will already be installed on your droplet. You can use pip, Python Package Manager to install client driver for RethinkDB. It is a best practice to run Python applications in an isolated environment.</p>
+<p>In this tutorial you will be using Python as the desired programming language. Since you have already installed RethinkDB on this droplet, now you need to install client driver for connecting to database from Python. Python will already be installed on your droplet. You can use pip, Python Package Manager to install client driver for RethinkDB. It is a best practice to run Python applications in an isolated environment.</p>
 <ol>
-<li>Install the virtual environment
+<li>Install the virtual environment.
 <div class="hacker">sudo yum install python-virtualenv</div>
 <div class="hacker">mkdir rethink</div>
 <div class="hacker">cd rethink</div>
 </li>
-<li>Create virtual environment structure as,
+<li>Create virtual environment structure as:
 <div class="hacker">virtualenv venv</div>
 </li>
-<li>Activate the environment 
+<li>Activate the environment.
 <div class="hacker">source venv/bin/activate</div>
 <p>You can use deactivate to deactivate the current environment.</p>
 </li>
-<li>Install RethinkDB driver using pip
+<li>Install RethinkDB driver using pip.
 <div class="hacker">pip install rethinkdb</div>
-<p>This will install Python client drivers for RethinkDB</p>
+<p>This will install Python client drivers for RethinkDB.</p>
 </li>
 </ol>
 
 <h2>Start RethinkDB</h2>
 <ol>
-<li>Now you need to start RethinkDB to access it through web interface.
+<li>Start RethinkDB to access it through web interface.
 <div class="hacker">rethinkdb --bind all</div>
 </li>
-<li>You can start using the above command or you can make the necessary configuration changes and then start the service like,
+<li>You can start using the above command or you can make the necessary configuration changes and then start the service like:
 <div class="hacker">sudo cp /etc/rethinkdb/default.conf.sample /etc/rethinkdb/instances.d/instance.conf</div>
 <div class="hacker">sudo vi /etc/rethinkdb/instances.d/instance.conf</div>
 
@@ -132,7 +128,7 @@ wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -</div
 <p>Change it to:</p>
 <div class="hacker">server-name=rethinkdb	</div>
 </li>
-<li>Next important change is setting up the bind address.  By default it is accessible only on localhost (127.0.0.1). You need to change this so that it listens on all network interfaces:
+<li>Set up the bind address. By default, it is accessible only on localhost (127.0.0.1). You need to change this to make it listen on all network interfaces:
 <p>Search for :</p>
 <div class="hacker">bind=127.0.0.1</div>
 <p>Change it to:</p>
@@ -147,11 +143,11 @@ tcp6       0      0 :::29015    :::*     LISTEN      2181/rethinkdb</pre></div>
 
 <p>RethinkDB is now up and running</p>
 </li>
-<li>After completing above steps you can access RethinkDB web interface as,
+<li>After completing above steps you can access RethinkDB web interface as:
 
 <div class="hacker">your_server_ip_address:8080</div>
 
-<p> <img src="images/18525 - 1.jpg"  /></p>
+<p> <img src="images/18525 - 1.png"  /></p>
 
 <p>Using this Web interface you can manage creating database, tables and can configure RethinkDB cluster to manage table replication.</p>
 </li>
@@ -159,9 +155,9 @@ tcp6       0      0 :::29015    :::*     LISTEN      2181/rethinkdb</pre></div>
  
 <h2>Interact with RethinkDB from Python</h2>
 
-<p>In most cases you will be managing databases from with the programming language. Below commands will help you perform the same,</p>
+<p>In most cases you will be managing databases using the programming language. Below commands will help you perform the same:</p>
 <ol>
-<li>Activate the virtual environment for Python, 
+<li>Activate the virtual environment for Python: 
 <div class="hacker">cd ~/rethink</div>
 <div class="hacker">source venv/bin/activate</div>
 </li>
@@ -172,10 +168,10 @@ tcp6       0      0 :::29015    :::*     LISTEN      2181/rethinkdb</pre></div>
 <li>Import the client driver into the environment:
 <div class="hacker">import rethinkdb as r</div>
 </li>
-<li>Connect with the local database
+<li>Connect with the local database:
 <div class="hacker">r.connect("localhost",28015).repl()</div>
 </li>
-<li>Create database:
+<li>Create the database:
 <div class="hacker">r.db_create("article").run()</div>
 </li>
 <li>Create table posts:
