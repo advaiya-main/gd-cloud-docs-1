@@ -87,17 +87,21 @@
 <p>Steps to install Ruby on Rails using Ruby Version Manager (RVM) in CentOS, Ruby, Rails</p>
 <h1>Install Ruby on Rails using RVM – CentOS</h1>
 
+
 <p><strong>Difficulty</strong>: 1</p>
 <p><strong>Time</strong>: 30 minutes</p>
 <p>Ruby on Rails&reg; is a well-known open source stack for web application development. The Ruby Version Manager (RVM) lets you easily manage multiple Ruby application environments and switch between them in a most efficient way. This article will assist you on how to setup Ruby on Rails in CentOS using RVM.</p>
 
+<h2>Prerequisites</h2><ul><li>
+<p> To initially setup the server, please visit <a href="#">17323 - Initial Server Setup - CentOS</a></p></li></ul>
+<p class="note">You will need access to sudo privileges to complete these steps. </p>
 <h2>Prepare your system</h2>
 <p>Before you can install Ruby on Rails, prepare your system with the required and updated system software.</p>
 <ol>
 <li>Access root by running the following command:
   <div class="hacker">sudo yum update</div>
 </li>
-<li>Use <code>curl</code> to install RVM with the following command: 
+<li>To install <code>curl </code>use following command. 
 		<div class="hacker">sudo yum install curl</div><!--This command makes no sense. The text says that you are installing RVM, but then you do it again a few steps below. Is this a duplicate step? -->
 </li>
 <li>Set up the <code>mpapis public key</code> with the following command:
@@ -111,8 +115,14 @@ If your system doesn’t have RVM already installed, use the following command t
 		<div class="hacker">\curl -L https://get.rvm.io | bash -s stable --ruby </div>
 <p>The backslash before <code>curl</code> prevents potential version conflicts and <code>--ruby</code> flag will install the latest version of Ruby. </p>
 </li>
-<li>To apply RVM, execute the following command: 
-		<div class="hacker">source  /usr/local/rvm/scripts/rvm</div>
+<li>
+	Following message will appear after all installation process.
+	<div class="hacker">
+		 To start using RVM you need to run `source /home/<em><u>user_name</u></em>/.rvm/scripts/rvm`
+		in all your open shell windows, in rare cases you need to reopen all shell windows.
+	</div>
+	To apply RVM, execute the following command: 
+		<div class="hacker">source  /home/<em><u>user_name</u></em>/.rvm/scripts/rvm</div>
 <p>If your system already has RVM installed, update it, and install Ruby using the following commands.  </p>
 <div class="hacker">rvm get stable --autolibs=enable</div>
 <div class="hacker">rvm install ruby</div>
@@ -128,7 +138,7 @@ If your system doesn’t have RVM already installed, use the following command t
 <li> 
 Check the version of gem manager. 
 		<div class="hacker">gem –v</div>
-<p>To update gem manager type following command. </p>
+To update gem manager type following command.
 		<div class="hacker">gem update –-system</div>
 </li>
 <li> 
@@ -142,20 +152,22 @@ Install Bundler and Nokogiri gems with the following commands:
 </li> 
 </ol>
 <h2>Install Rails</h2>
-<ul>
-<li>Use gem to install the most recent, stable version of Rails. 
-		<div class="hacker">gem install rails</div>
-<p>To check the version, type: </p>
-		<div class="hacker">rails –v</div>
-<p>To install a specific version, type:</p>
-		<div class="hacker">gem install rails --version=[version number]</div>
-</li>
-</ul>
+<ol>
+	<li>Use gem to install the most recent, stable version of Rails. 
+			<div class="hacker">gem install rails</div>
+	</li>
+	<li>
+	To check the version, type:
+			<div class="hacker">rails –v</div>
+	
+	To install a specific version, type:
+			<div class="hacker">gem install rails --version=<em><u>[version number]</u></em></div>
+	</li>
+</ol>
 <p>After following all these steps, you are done with installation of Ruby on Rails. </p>
 
 <h2>Next steps</h2>
-<p>In this article, we reviewed the steps involved in setting up Ruby on Rails using RVM for your web application in CentOS distribution.</p>
-<p>For more information on RVM, read the article: <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17912%20-%20Use%20RVM%20to%20manage%20Ruby%20installations%20and%20Environments%20-%20ALL%20DISTROS.html">Use RVM to manage Ruby installations.</a></p>
+<p>In this article, we reviewed the steps involved in setting up Ruby on Rails using RVM for your web application in CentOS distribution. For more information on RVM, read the article: <a href="#">17912 - Use RVM to manage Ruby installations and Environments - ALL DISTROS</a></p>
 
 
 </body>
