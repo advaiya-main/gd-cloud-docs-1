@@ -83,10 +83,10 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>30 minutes</u></em></p>
 
-    <p>This article guides you on how to deploy Rails Apps with Passenger and Apache&trade; in Arch Linux. You will need at least one GB of RAM in a virtual server to run the Passenger commands, which consumes a lot of memory. It is assumed that the user has <code>sudo</code> privileges to access the virtual server.</p>
+    <p>This article guides you on how to deploy Rails Apps with Passenger and Apache&trade; in Arch Linux. You will need at least one GB of RAM in a virtual server to run the Passenger commands, which consumes a lot of memory. This article assumes that the user has <code>sudo</code> privileges to access the virtual server.</p>
 	<p class="note">This guide includes development library installation and ad hoc compilation on the machine, hence it is not recommended to use this tutorial in a production environment.</p>
     <h2>Prerequisites</h2>
-    <p>To setup your Arch Linux server, refer to the article: <a href ="17324 - Initial Server Setup - Arch Linux">initial Server Setup - Arch Linux</a>. You need to ensure that the fully qualified domain name (FQDN) points to the server. After you have setup the Arch Linux server, you will need to <a href ="17537 - Install Ruby on Rails using RVM - Arch Linux">install Ruby on Rails using RVM - Arch Linux</a>. You may also refer to <a href ="17716 - Deploy Rails Apps with Passenger and NGINX - Arch Linux">deploy Rails Apps with Passenger and NGINX - Arch Linux</a> link.</p>
+    <p>To setup your Arch Linux server, refer to the article: <a href ="17324 - Initial Server Setup - Arch Linux">initial Server Setup - Arch Linux</a>. You need to ensure that the fully qualified domain name (FQDN) points to the server. After you have setup the Arch Linux server, you will need to <a href ="17537 - Install Ruby on Rails using RVM - Arch Linux">install Ruby on Rails using RVM - Arch Linux</a>. You may also refer to <a href ="17716 - Deploy Rails Apps with Passenger and NGINX - Arch Linux">deploy Rails Apps with Passenger and NGINX - Arch Linux</a>.</p>
     
 	<h2>Install Apache</h2>
   <ul>
@@ -105,10 +105,10 @@ p.note {
 		</li>
 		<li>After executing the previous command, you will see something like this at the end: 
 		<div class="hacker"><pre>
-LoadModule passenger_module /home/<em>Logged_in_User</em>/.rvm/gems/<em>Installed_ruby_Version</em>/gems/passenger-5.0.15/buildout/apache2/mod_passenger.so
+LoadModule passenger_module /home/<em><u>Logged_in_User</u></em>/.rvm/gems/<em><u>Installed_ruby_Version</u></em>/gems/passenger-5.0.15/buildout/apache2/mod_passenger.so
 &lt;IfModule mod_passenger.c&gt;
-PassengerRoot /home/<em>Logged_in_User</em>/.rvm/gems/<em>Installed_ruby_Version</em>/gems/passenger-5.0.15
-PassengerDefaultRuby /home/<em>Logged_in_User</em>/.rvm/gems/<em>Installed_ruby_Version</em>/wrappers/ruby
+PassengerRoot /home/<em><u>Logged_in_User</u></em>/.rvm/gems/<em><u>Installed_ruby_Version</u></em>/gems/passenger-5.0.15
+PassengerDefaultRuby /home/<em><u>Logged_in_User</u></em>/.rvm/gems/<em>><u>Installed_ruby_Version</u></em>/wrappers/ruby
 &lt;/IfModule&gt;
 	</pre></div>
 		</li>
@@ -125,15 +125,15 @@ PassengerDefaultRuby /home/<em>Logged_in_User</em>/.rvm/gems/<em>Installed_ruby_
 		<li>Install the sqlite's  development package.
 		<div class ="hacker">sudo pacman -S sqlite</div>
 		</li>
-		<li>Move the test app to Apache's web root folder.
+		<li>Move the test app to the Apache web root folder.
 		<div class ="hacker">cd /var/www/html</div>
 		</li>
 		<li>Give the following permission:
 		<div class ="hacker">sudo chmod 0777 -R /var/www/html/</div>
 		</li>
-		<li>In this folder, test application code is generated under the <strong>HelloWorld</strong> folder.
-		<div class ="hacker">rails new <em>HelloWorld</em></div>
-		<div class ="hacker">cd <em>HelloWorld</em></div>
+		<li>In this folder, test application code is generated under the <code>HelloWorld</code> folder.
+		<div class ="hacker">rails new <em><u>HelloWorld</u></em></div>
+		<div class ="hacker">cd <em><u>HelloWorld</u></em></div>
 		</li>
 		<li>You can also initiate the development database using the migration tool.
 		<div class ="hacker">rake db:migrate</div>
@@ -154,9 +154,9 @@ Include conf/extra/httpd-vhosts.conf
 		<li>At the end of this file, add the virtual host.
 		<div class ="hacker"><pre>
 &lt;VirtualHost *:80&gt;
-       ServerName www.mydomain.com //your server name
-	 DocumentRoot /var/www/html/<em>HelloWorld</em>/public //your rail application path
-   &lt;Directory /var/www/html/<em>HelloWorld</em>/public&gt;
+       ServerName <em><u>www.mydomain.com</u></em>//<em><u>your server name</u></em>>
+	 DocumentRoot /var/www/html/<em><u>HelloWorld</u></em>/public //your rail application path
+   &lt;Directory /var/www/html/<em><u>HelloWorld</u></em>/public&gt;
       AllowOverride all
       Options -MultiViews
    &lt;/Directory&gt;
