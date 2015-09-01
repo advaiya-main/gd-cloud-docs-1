@@ -90,7 +90,7 @@ td:nth-child(1) {font-weight:bold;}
         <p><strong>Difficulty</strong>: <em><u>3</u></em><br />
         <strong>Time</strong>: <em><u>4 minutes</u></em></p>
 
-<<<<<<< HEAD
+
         <p>The LAMP (Linux, Apache, MySQL, and PHP) stack is a group of open source software used to get web servers up and running. Debian, Linux, and Ubuntu use the apt-get installer, which can update the system and install all of the required packages for each part of the LAMP stack. The steps in this article require the user to have root privileges.</p>
         If you have not installed Debian or Ubuntu, these articles explain how to do so:     <ul>
         <li><a href="17325 - Initial Server Setup - Debian">How to install Debian</a></li>
@@ -107,10 +107,10 @@ sudo apt-get update
 
         <p>After the update is complete, we can install Apache.</p>
         <div class="hacker">
-sudo apt-get install apache2
+sudo apt-get install apache2                                                                                                                <b></b>
 </div>         
 
-=======
+
         <p>The LAMP stack is a group of open source software used to get web servers up and running. The acronym stands for Linux, Apache, MySQL, and PHP. Debian, Ubuntu Linux <!-- To Conrad. So, is Debian Linux wrong above?  What about Ubuntu?--> uses the apt-get installer which can update the system and install all of the required packages for each part of the LAMP stack. The steps in this article require the user to have root privileges.</p>
         <a href="https://www.debian.org/releases/wheezy/i386/">How to install Debian</a>
         <a href="https://help.ubuntu.com/community/Installation">How to install Ubuntu</a>
@@ -123,7 +123,7 @@ sudo apt-get install apache2
     <ol>
         <li> Before installing any of the LAMP programs, we should update the package manager:
                   <div class="hacker">sudo apt-get update</div></li>
->>>>>>> de8d8364847b51c8c501cc2927b71f96c2abf4eb
+
 
         <li>Once the update is complete, we can install Apache.
             <div class="hacker">sudo apt-get install apache2</div>
@@ -145,17 +145,17 @@ sudo apt-get install apache2
 
         <li>The prompt will ask you for your current root password.
 
-<<<<<<< HEAD
+
         <p>Then the prompt will ask you if you want to change the root password. Go ahead and choose <strong>n</strong> and just respond <strong>yes</strong> to the remaining options, as seen below:
            Once root password is set</p> 
       
-=======
+
         <div class="hacker">Enter current password for root (enter for none): <br/> <br/>  OK, successfully used password, moving on... </div>  </li>
 
         <li>Then the prompt will ask you if you want to change the root password. Go ahead and choose "N" and just respond "YES" to the remaining options as seen below:
            Once root password is set</li>
      </ol>
->>>>>>> de8d8364847b51c8c501cc2927b71f96c2abf4eb
+
 
           <table style="width:100%;">
             <tr style ='font-weight: bold;'>
@@ -211,7 +211,7 @@ sudo apt-get install apache2
         <p>Once you've installed MySQL, finish the LAMP stack by installing PHP.</p>
 
     <h2>Install PHP</h2>
-    
+
         <p>PHP is an open source web scripting language that is widely used to build dynamic webpages.</p>
         <ol>
         <li>To install PHP, in the same terminal type in these commands:
@@ -220,15 +220,15 @@ sudo apt-get install apache2
         <li>It may also be useful to add PHP to the directory index, to serve the relevant php index files:
         <div class="hacker">sudo vim /etc/apache2/mods-enabled/dir.conf</div></li>
         <li>Add <code>index.php</code> to the beginning of the <code>DirectoryIndex</code> file line. The page should now look like this:
-        
-<<<<<<< HEAD
-        <div class="hacker">IfModule mod_dir.c>"<br>&nbsp;&nbsp;&nbsp;&nbsp;DirectoryIndex index.php index.html index.cgi index.pl index.php index.xhtml index.htm<br>/IfModule</div> </li>
+
+
+        <div class="hacker">IfModule mod_dir.c>"<br />&nbsp;&nbsp;&nbsp;&nbsp;DirectoryIndex index.php index.html index.cgi index.pl index.php index.xhtml index.htm<br />/IfModule</div> </li>
         </ol>
         
-=======
+
         <div class="hacker">IfModule mod_dir.c>"<br />&nbsp;&nbsp;&nbsp;&nbsp;DirectoryIndex index.php index.html index.cgi index.pl index.php index.xhtml index.htm<br />/IfModule</div>
 
->>>>>>> de8d8364847b51c8c501cc2927b71f96c2abf4eb
+
         <h2>Next steps</h2>
         <p>Congratulations! You now have a LAMP stack on your Debian, Ubuntu Linux server, you can now set up phpMyAdmin, Install WordPress, go on to do more with MySQL (A Basic MySQL Tutorial), Create an SSL Certificate, or Install an FTP Server.</p>
         <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/19191%20-%20Install%20WordPress%20on%20your%20LAMP%20server%20-%20Debian.html">Wordpress Install on LAMP on Debian, Unbuntu</a><br />
