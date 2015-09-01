@@ -86,7 +86,7 @@ Rails enables web developers to rapidly build quality applications, while NGINX 
 <h2>Prerequisites</h2>
 	 <p>To set up your Fedora server, refer to the article: <a href ="#">17322 - Initial Server Setup - Fedora</a>. You need to ensure that the fully qualified domain name (FQDN) points to the server. After you have set up the Fedora server, you will need to <a href ="#">17536 - Install Ruby on Rails using RVM - Fedora</a>. You may also refer to <a href ="#">17719 - Deploy Rails Apps with Passenger and Apache - Fedora</a> link.</p>
   
- <h2>Install Nginx and Passenger</h2>
+ <h2>Install NGINX and Passenger</h2>
     <ol>
         <li>Install Passenger  and update all packages of operating system..
             <div class='hacker'>gem  install passenger            </div>
@@ -120,7 +120,7 @@ Rails enables web developers to rapidly build quality applications, while NGINX 
   </li>
     </ol>
 
-<h2>Set up a test Rails application</h2>
+<h2>Set up a test Rails Application</h2>
 <ol><li>Create a directory 
             <div class='hacker'>sudo mkdir -p  /var/www</div>
         </li>
@@ -142,7 +142,7 @@ Rails enables web developers to rapidly build quality applications, while NGINX 
         <div class='hacker'>ruby -s</div>
         </li>
     </ol>
-<h2>Configure Nginx</h2>
+<h2>Configure NGINX</h2>
 <ol>
         <li>Open the  following configuration file of NGINX.
             <div class='hacker'>sudo vim  /etc/nginx/conf/nginx.conf</div>
