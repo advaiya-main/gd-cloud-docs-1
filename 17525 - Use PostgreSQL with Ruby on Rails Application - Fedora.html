@@ -81,7 +81,7 @@
 
 <body>
 
-<p>Setting up Rails Application with PostgreSQL in Fedora, PostgreSQL, Ruby, Rails</p>
+<p>Setting up a Rails Application with PostgreSQL in Fedora, PostgreSQL, Ruby, Rails</p>
 <h1>Use PostgreSQL with Ruby on Rails Application – Fedora</h1>
 
 <p><strong>Difficulty:</strong> <em>2</em></p>
@@ -116,7 +116,7 @@
 <pre>host    all             all             127.0.0.1/32            ident
 host    all             all             ::1/128                 ident</pre></div></li>
 <li>Change <code>ident</code> to <code>md5</code>.</li>
-<li>Save and exit the file.
+<li>Save and exit.
   <div class ="hacker">wq!</div></li>
 <li>Start and enable the PostgreSQL service.
   <div class='hacker'>sudo systemctl start postgresql</div>
@@ -156,11 +156,11 @@ host    all             all             ::1/128                 ident</pre></div
  </li>
 <li>Look for <code>pool: 5</code> in the file, and add the following lines beneath it. Enter the username and password for the <code>postgres</code>  user.
   <div class='hacker'>
-<pre>host: localhost
-username: <em><u>UserName</u></em>
-password: <em><u>UserName_password</u></em></pre></div>
+host: localhost<br />
+username: <em><u>UserName</u></em><br />
+password: <em><u>UserName_password</u></em><br /></div>
 </li>        
-<li>Save and exit the file.
+<li>Save and exit.
   <div class ="hacker">wq!</div></li>
 </ol>
 
@@ -181,7 +181,7 @@ Two databases in the PostgreSQL server are created. For example, if the applicat
 </li>
 </ul>
 <h2>Next Steps</h2>
-<p>In this article, we  configured a PostgreSQL with a Rails application in Fedora. For further exploration,  visit <a href="17515"> Deploy a Rails App with Unicorn and Nginx - Fedora</a>.</p>
+<p>In this article, you  configured a PostgreSQL with a Rails application in Fedora. For further exploration,  visit <a href="17515"> Deploy a Rails App with Unicorn and Nginx - Fedora</a>.</p>
 
 
 </body>
