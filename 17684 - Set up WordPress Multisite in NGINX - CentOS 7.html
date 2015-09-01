@@ -71,11 +71,8 @@ p.note {
 </head>
 
 <body>
-<p>Installing WordPress on a LEMP server for CentOS 7.</p>
-    <h1>Install WordPress on your LEMP server – CentOS 7</h1>
-    
-            <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
-            <strong>Time</strong>: <em><u>15 minutes</u></em></p>
+<p>Installing WordPress Multisite in NGINX/on a LEMP server for CentOS 7.</p>
+    <h1>Set up WordPress Multisite in NGINX - CentOS 7</h1>
         
             <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
@@ -152,7 +149,7 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
 </li> 
  
   <li>Make <code>server_name</code> point to your domains.  
-                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;/div></li>
+                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div></li>
  
   <!--CT: sub-bullet #3--> 
  <li>Modify the <code>location ~ \.php$ {</code> block:
