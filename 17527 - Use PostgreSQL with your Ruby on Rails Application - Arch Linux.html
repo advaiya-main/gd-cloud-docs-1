@@ -93,7 +93,7 @@ p.note {
 			<div class="hacker">sudo paceman -Si postgresql
 			</div>
 		</li>
-		<li>Initialize a database cluster by using the command <code>initdb</code>, which is installed with PostgreSQL. <code>initdb</code> command must be done as the <code>postgres</code> user:<!--Please clarify what "This" refers to. cj -->  
+		<li>Initialize a database cluster by using the command <code>initdb</code>, which is installed with PostgreSQL. <code>initdb</code> command must be initiated as the <code>postgres</code> user:<!--Please clarify what "This" refers to. cj -->  
 			<div class="hacker">sudo -i -u postgres
 			</div>
 			<div class="hacker">initdb -D '/var/lib/postgres/data'
@@ -102,8 +102,7 @@ p.note {
 		<li>Log out from the <code>postgres</code> user, and start PostgreSQL.
           <div class="hacker">logout
 		  </div>
-			<div class="hacker">sudo systemctl start postgresql
-			</div>
+			<div class="hacker">sudo systemctl start postgresql</div>
 		</li>
 		<li>Optionally, set PostgreSQL to start automatically every time your VPS boots up.
 			<div class="hacker">sudo systemctl enable postgresql
@@ -122,7 +121,7 @@ p.note {
 			<div class="hacker">postgres=# \password <em><u>UserName</u></em>
 			</div>
 		</li>
-		<li>Modify a template. (To drop a template, first you need to modify it.)
+		<li>Modify the template. (To drop a template, first you need to modify it.)
 			<div class="hacker">UPDATE pg_database SET datistemplate = FALSE WHERE datname = 'template1';
 			</div>
 		</li>
@@ -138,7 +137,7 @@ p.note {
 			<div class="hacker">UPDATE pg_database SET datistemplate = TRUE WHERE datname ='template1';
 			</div>
 		</li>
-		<li>Switch to <code>template1,</code> and <code>VACUUM FREEZE</code><!--VACUUM FREEZE is a command, not a verb. Please use a verb here. cj --> the template:
+		<li>Switch to <code>template1,</code> and collect the garbage data from <code>template1</code> using <code>VACUUM FREEZE</code> command<!--VACUUM FREEZE is a command, not a verb. Please use a verb here. cj -->:
 			<div class="hacker">\c template1
 			</div>
 			<div class="hacker">VACUUM FREEZE;
@@ -165,17 +164,17 @@ p.note {
 			<div class = "hacker">cd <em><u>helloworld</u></em>
 			</div>
 		</li>
-		<li>Open the <span class="hacker"><code>database.yml</code></span> file for editing.
+		<li>Open the <code>database.yml</code> file for editing.
           <div class = "hacker">sudo vim config/database.yml
 		  </div>
 		</li>
 		<li>Look for <code>pool: 5</code> in the file, and add the following lines beneath it. Enter the username and password for the postgres  user when prompted.<!--Wording looks off. Does the open file truly prompt the user to enter a name and password? cj-->
 		  <div class = "hacker">
-				<pre>
-host: localhost
-username: <em><u>UserName</u></em></span>
+				
+host: localhost <br />
+username: <em><u>UserName</u></em><br />
 password: <em><u>username_password</u></em>
-				</pre>
+				
 		  </div>
 		</li>
 		<li>Save and exit.
