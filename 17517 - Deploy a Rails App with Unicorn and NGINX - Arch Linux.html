@@ -79,14 +79,13 @@ p.note {
     <h2>Prerequisites</h2>
   In this article, we assume that you have already installed Ruby on Rails with rbenv and your Rails application uses PostgreSQL. If not, please visit:
     <ul>
-	<li><a href="#">17522 - Install Ruby on Rails with rbenv – Arch Linux</a>
+	<li><a href="17522">Install Ruby on Rails with rbenv – Arch Linux</a>
 	 </li>
-	<li><a href="#">17527 - Use PostgreSQL with your Ruby on Rails application – Arch Linux</a>
-  <!-- Missing the Install the Git procedure requested in the notes. -->
+	<li><a href="17527">Use PostgreSQL with your Ruby on Rails application – Arch Linux</a>
 	 </li>
 	 </ul>
 	 
-	 <h2>Prepare the Deployment Server</h2>
+	 <h2>Prepare the deployment server</h2>
     <ol> 
 	<li>Install the bundle of development tools, and then update the operating system using the following commands:
 	<div class='hacker'>sudo pacman -Sy base-devel</div>
@@ -106,10 +105,10 @@ p.note {
 	
 	<h2>Set up a Rails Application </h2>
     <ol>
-	<li>Create a new directory: 
+	<li>Create a new directory. 
 	<div class='hacker'>sudo mkdir –p /var/www</div>
 	</li>
-	<li>Provide all the required permissions and move into that directory:
+	<li>Provide all the required permissions and move into that directory.
 		<div class='hacker'>sudo chmod 777 -R /var/www/</div>
 	<div class='hacker'>cd /var/www/</div>
     </li>
@@ -121,7 +120,8 @@ p.note {
 	<li>Move to the newly created application directory. 
 	<div class='hacker'> cd <em><u>HelloWorld</u></em>/</div>
 	</li></ol>
-	<h2>Create Production Database User</h2>
+  
+	<h2>Create production database user</h2>
 	<ol>
 	<li>Create a user for the production database. 
 	<div class='hacker'>sudo -u postgres createuser -s <em><u>username</u></em>
@@ -136,7 +136,7 @@ p.note {
 </div>
     </li>
 	
-	<li>You can drop it to delete exist template using the following command:<!--Don't just repeat the command, what is drop actually doing?--> 
+	<li>Drop the existing template to delete it, using the following command:
 	<div class='hacker'>DROP DATABASE template1;
 </div>
     </li>
@@ -148,7 +148,7 @@ p.note {
 	<div class='hacker'>UPDATE pg_database SET datistemplate = TRUE WHERE datname ='template1';
 </div>
     </li>
-	<li>Switch to <code>template1</code> and collect the garbage data of the template using following command:  <!--What is vacumn freeze? Don't just repeat the command.-->
+	<li>Switch to <code>template1</code> and collect the garbage data of the template using following command:  
 	<div class='hacker'>\c template1
 </div>
 <div class='hacker'>VACUUM FREEZE;
@@ -163,10 +163,10 @@ p.note {
 	<div class='hacker'>\q
 </div>
     </li></ol>
-	<h2>Setup Database Connection</h2>
+	<h2>Set up database connection</h2>
 	<ol>
 	
-	<li>To setup a database connection, move to your application directory.
+	<li>To set up a database connection, move to your application directory.
 	<div class='hacker'>Cd /var/www/<em><u>HelloWorld</u></em>
 </div>
 <div class='hacker'>sudo  vim config/database.yml
@@ -176,17 +176,16 @@ p.note {
 	<div class='hacker'><pre>host: localhost
 username: <em><u>username</u></em>
 password: &lt;%= ENV[HelloWorld_DATABASE_PASSWORD'] %&gt;
-    <!--"Notice" is not as effective, it doesn't imply an action.-->
 </pre>
 </div>
-   <p>If your production username and the database user are not equal, then make the required changes to set them equal.</p> <!--I don't understand this set. By "not equal" do you mean, "not the same?"-->
+   <p>If your production username and the database user are not the same, then make the required changes to make them the same.</p> 
     </li>
 	<li>Save and exit.
 	<div class ="hacker">wq!</div></li>
 	</ol>
-	<h2>Set up rbenv Plugins</h2>
+	<h2>Set up rbenv plug-ins</h2>
 	<ol>
-	<li>Install the pluggin for <code>rbenv-vars</code>. 
+	<li>Install the plug-in for <code>rbenv-vars</code>. 
 		<div class='hacker'>cd .rbenv/plugins
 </div>
 <div class='hacker'>git clone https://github.com/sstephenson/rbenv-vars.git</div>
@@ -206,11 +205,10 @@ password: &lt;%= ENV[HelloWorld_DATABASE_PASSWORD'] %&gt;
 </li>
 <li>Save and exit.
 <div class ="hacker">wq!</div></li>
-<!--New procedure?-->
 <li>Export the secret key and the database password.
 	<div class='hacker'>rbenv vars
 </div>
-<p>Export them manually, if required.</p><!--How do I know to do it manually?-->
+<p>Export them manually, if required.</p>
 </li>
 <li>Create the production database for the Rails application and generate a scaffold controller to manage the production database.
 	<div class='hacker'>RAILS_ENV=production rake db:create</div>
@@ -220,19 +218,19 @@ password: &lt;%= ENV[HelloWorld_DATABASE_PASSWORD'] %&gt;
 	<li>Update  the  production database and run your application from the application directory.
 	<div class='hacker'>RAILS_ENV=production  rake db:migrate</div>
 	<div class='hacker'>rails s</div>
-	<p>To terminate user, press <strong>CTRL+C</strong>.</p>
+	<p>To terminate user, press <strong>Control/CTRL+C</strong>.</p>
 	</li>
 	<li>For binding to web browser, run the following command:
 	<div class='hacker'>rails server --binding=[your droplet's IP]</div>
-	<p>You should now be able to access it <!--What is it?--> on any browser by visiting:
+	<p>You should now be able to access it on any browser by visiting:
 	<strong>http://<em><u>your droplet's IP</u></em>:3000/tasks</strong>.</p>
 	</li>
-	<li>Upload source code here:
-	<a href="#">17414 - Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTRO</a>
+	<li>Upload source code using the following article:
+	<a href="17414">Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTRO</a>
 	</li>
 	</ol>
 	
-<h2>Configure Unicorn</h2>
+<h2>Configure Unicorn server</h2>
 
     <ol>
 	<li>To configure Unicorn, move to your Rails application directory.
@@ -271,8 +269,7 @@ password: &lt;%= ENV[HelloWorld_DATABASE_PASSWORD'] %&gt;
   <li>Save and exit.
   <div class ="hacker">wq!</div></li></ol>
   
-<!-- This could be a new subprocedure-->
-<h2>Connect Unicorn with Rails</h2><ol>
+<h2>Connect Unicorn with Rails application</h2><ol>
 	<li>Create the directories that were referred in the configuration file. 
 	<div class='hacker'>sudo mkdir -p shared/pids shared/sockets shared/log</div>
     </li>
@@ -297,7 +294,6 @@ password: &lt;%= ENV[HelloWorld_DATABASE_PASSWORD'] %&gt;
 ### END INIT INFO
 
 set -e
-<!-- the opening bracket creates an error and the command line doesn't display.  Replace the open bracket with the correct ascii &lt; -->
 USAGE="Usage: $0 &lt;start|stop|restart|upgrade|rotate|force-stop>"
 
 # app settings
@@ -309,7 +305,7 @@ ENV="production"
 
 # environment settings
 PATH="/home/$USER/.rbenv/shims:/home/$USER/.rbenv/bin:$PATH"
-#CMD="cd $APP_ROOT && bundle exec unicorn -c config/unicorn.rb -E $ENV -D"
+#CMD="cd $APP_ROOT &amp;&amp; bundle exec unicorn -c config/unicorn.rb -E $ENV -D"
 CMD="bundle exec unicorn -c config/unicorn.rb -E $ENV -D"
 
 PID="$APP_ROOT/shared/pids/unicorn.pid"
@@ -319,40 +315,40 @@ OLD_PID="$PID.oldbin"
 cd $APP_ROOT || exit 1
 
 sig () {
-  test -s "$PID" && kill -$1 `cat $PID`
+  test -s "$PID" &amp;&amp; kill -$1 `cat $PID`
 }
 
 oldsig () {
-  test -s $OLD_PID && kill -$1 `cat $OLD_PID`
+  test -s $OLD_PID &amp;&amp; kill -$1 `cat $OLD_PID`
 }
 case $1 in
   start)
-    sig 0 && echo >&2 "Already running" && exit 0
+    sig 0 &amp;&amp; echo >&amp;2 "Already running" &amp;&amp; exit 0
     echo "Starting $APP_NAME"
     #su - $USER -c "$CMD"
     /home/username/Application_name/bin/bundle exec unicorn -c config/unicorn.rb -E $ENV -D
     ;;
   stop)
     echo "Stopping $APP_NAME"
-    sig QUIT && exit 0
-    echo >&2 "Not running"
+    sig QUIT &amp;&amp; exit 0
+    echo >&amp;2 "Not running"
     ;;
   force-stop)
     echo "Force stopping $APP_NAME"
-    sig TERM && exit 0
-    echo >&2 "Not running"
+    sig TERM &amp;&amp; exit 0
+    echo >&amp;2 "Not running"
     ;;
   restart|reload|upgrade)
-    sig USR2 && echo "reloaded $APP_NAME" && exit 0
-    echo >&2 "Couldn't reload, starting '$CMD' instead"
+    sig USR2 &amp;&amp; echo "reloaded $APP_NAME" &amp;&amp; exit 0
+    echo >&amp;2 "Couldn't reload, starting '$CMD' instead"
     $CMD
     ;;
   rotate)
-    sig USR1 && echo rotated logs OK && exit 0
-    echo >&2 "Couldn't rotate logs" && exit 1
+    sig USR1 &amp;&amp; echo rotated logs OK &amp;&amp; exit 0
+    echo >&amp;2 "Couldn't rotate logs" &amp;&amp; exit 1
     ;;
   *)
-    echo >&2 $USAGE
+    echo >&amp;2 $USAGE
     exit 1
     ;;
 esac
@@ -363,9 +359,8 @@ esac
 	
 	<li>Save and exit.
 	<div class ="hacker" >wq!</div></li>
-  <!-- A new subprocedure starts here?-->
 	
-	<li>This script will allow you to run <em><u>unicorn_HelloWorld</u></em> that will run and stop both your Unicorn and your Rails application.</li>
+	<li>This script will allow you to run <em><u>unicorn_HelloWorld</u></em>, which  will run and then stop both your Unicorn and your Rails application.</li>
 	
 	<li>Update the script's permissions and enable Unicorn to start on boot.
 		<div class='hacker'>sudo chmod 755 -R /etc/pam.d/unicorn_HelloWorld</div>     
@@ -376,9 +371,9 @@ esac
 
 	</li>
 	</ol>
-	<h2>Configure NGINX </h2>
+	<h2>Configure NGINX server </h2>
 	<ol>
-	<li>Configure NGINX and enable it to communicate with the Unicorn. To do this, you need to edit the default configuration file: <code>default.conf</code> and leave <code>nginx.conf</code>.
+	<li>Configure NGINX and enable it to communicate with the Unicorn. Edit the default configuration file: <code>default.conf</code> and leave <code>nginx.conf</code>.
 	<div class='hacker'>sudo vim /etc/nginx/nginx.conf</div>
 	</li>
 	
@@ -421,21 +416,20 @@ esac
 	</li>
 	</ol>
 	 
-	 <h2>Manage Servers</h2>
+	 <h2>Manage servers</h2>
 
     <ol>
-	<li>After you finish configuring both the servers, initiate the Unicorn and run it as a daemon by using the configuration file. Ensure that you are inside the application directory, and then run the following command:
+	<li>After you finish configuring both the servers, initiate the Unicorn, and then run it as a daemon by using the configuration file. Ensure that you are inside the application directory, and then run the following command:
 	
 	<div class='hacker'>unicorn_rails -c config/unicorn.rb –Ds</div>
 	</li>
 	
 	<li>Test your droplet's IP address (or the domain name associated to it) at <strong>http://<em>your_droplet's_IP_address</em>/tasks</strong>.
-</div>
 	</li>
 	
 	 </ol>
     <h2>Conclusion</h2>
-<p> By using all the above steps we will be able to deploy your Rails application with Unicorn and NGINX on Arch Linux.  <!--Include links for the next steps?  If you don't have one, then change the heading to "Conclusion."-->
+<p> By using all the above steps we will be able to deploy your Rails application with Unicorn and NGINX on Arch Linux. 
 
 </p>   
 </body>
