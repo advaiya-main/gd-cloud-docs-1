@@ -6,7 +6,9 @@
 
 <!--Article Number is 18267 (fill in blank)-->
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Generally, this article is laid out as a procedural article.  The sections should include numbered steps rather than paragraphs. 
+
+All headings should be tagged as either h2 or h3, do not use bold or strong with a false heading.  -->
 
 
 <title>Install and configure Django CMS - CentOS, Fedora</title>
@@ -80,72 +82,55 @@ p.note {
     
                 <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
                 <strong>Time</strong>: <em><u>Time value</u></em></p>
+<!--Missing difficulty and time-->
 
-            <p><b>Django CMS </b>is one of the content management systems that is geared towards working with Django framework based web applications, we will walk you through installing Django CMS on a CentOS, Fedora Linux VPS, ready to be configured and used.
-                Django CMS comes with a relatively straight forward and quite rich documentation for development which will be more than enough to get you going after completing this tutorial. You can access the latest version by clicking
-                               <a href="http://docs.django-cms.org/en/2.4.2/getting_started/tutorial.html">here</a>.</p>
+            <p><b>Django CMS </b>is one of the content management systems that is geared towards working with Django framework based web applications, we will walk you through installing Django CMS on a CentOS, Fedora Linux VPS, ready to be configured and used. </p>
+<p>Django CMS comes with a relatively straight forward and quite rich documentation for development which will be more than enough to get you going after completing this tutorial. You can access the latest version on the                               <a href="http://docs.django-cms.org/en/2.4.2/getting_started/tutorial.html">Django web site</a>.</p>
+<!--Links should not use "here."-->
 
 
     <h2>Installing Django CMS</h2>
-
-            <p><b>Python Package Manager: pip</b><br/>
-                pip is a package manager which will help us to install the software packages (tools, libraries, applications).   </p>
-
-
-            <p><b>Python Package Distribution Utility: setuptools   </b> <br />
-                A dependency of pip, setuptools library builds on the functionality of Python's standard software distribution utilities toolset distutils.  </p>
+ <!-->
+            <h3>Python Package Manager: pip</h3>
+             <p>pip is a package manager which will help us to install the software packages (tools, libraries, applications).   </p>
 
 
-            <p><b>Virtual Python Environment Builder: virtualenv  </b> <br />
-                The virtualenv tool is here to isolate our Django CMS application repository and its complex dependencies from the rest of the system, allowing us to have everything in order, easing maintenance at the same time.  </p>
-
-    <h2>Update and Configure the VPS</h2>
-
-            <p><b>Prepare the Operating System </b></p>
-                <p class="note">Please Note:  We will be using a freshly created VPS for this article. This prevents any possible software related or security issues from the past installations. </p>
+            <h3>Python Package Distribution Utility: setuptools   </h3>
+            <p>A dependency of pip, setuptools library builds on the functionality of Python's standard software distribution utilities toolset distutils.  </p>
 
 
-            <p>First we will start with upgrading the software repository list followed by upgrading the installed tools on our machine to more recent versions:</p>
-               <div class="hacker">sudo yum -y update</div>
+            <h3>Virtual Python Environment Builder: virtualenv  </h3>
+            <p>The virtualenv tool is here to isolate our Django CMS application repository and its complex dependencies from the rest of the system, allowing us to have everything in order, easing maintenance at the same time.  </p>
 
-            <p>Once the package manager is updated you will install the Virtual Environment.</p>
+<h2>Update and Configure the VPS</h2>
+<p class="note">We will be using a freshly created VPS for this article. This prevents any possible software related or security issues from the past installations. </p>
+<ol>
+<li>Upgrade the software repository list followed by upgrading the installed tools on our machine to more recent versions:</p>
+               <div class="hacker">sudo yum -y update</div></li>
 
-    <h2>Install the Virtual Environment</h2>
+    <li>Install the Virtual Environment.<br />
+    <!--Too much intermediary content. Move this to the introduction, and then try to limit the procedure to just the steps.-->
+    Everything we need runs on Python. Default Debian 7 installation comes with Python <code>version 2.7</code>. As this suits our requirements, we can continue with installing pip, which we need for the virtualenv (and other packages') installation.
 
-            <p>Everything we need runs on Python. Default Debian 7 installation comes with Python <code>version 2.7</code>. As this suits our requirements, we can continue with installing pip, which we need for the virtualenv (and other packages') installation.
-                Before getting pip, we first need to install its dependency: <b><i>setuptools</i></b>.</p>
-
-    <h3>Install setuptools:</h3>
-
-            <p>Use a command called curl to securely get these files. These setup files will not only allow us to have the installation process automated, but also ensures that we have the latest stable versions running on our system. curl here will
-            verify the SSL certificates from the source and pass the data to the Python interpreter. Run the following command</p>
+<li>Install setuptools with curl to securely get these files. These setup files will not only allow us to have the installation process automated, but also ensures that we have the latest stable versions running on our system. curl here will
+            verify the SSL certificates from the source and pass the data to the Python interpreter.<br /> 
+            Run the following command</p>
 
               <div class="hacker">$ curl http://pypi.python.org/pypi/setuptools</div>
+              We can now install and set up pip on our linux server.</li>
+<li>Install pip system-wide. 
+<div class="hacker">$ sudo yum install python-pip</div></li>
+<li>By default, pip installs its files under <code>/usr/local/bin location</code>. We need to append it to our PATH so that we will be able to run it with calling pip command directly.
+<div class="hacker">export PATH="/usr/local/bin:$PATH"</div>
 
-            <p>We can now install and set up pip on our linux server.</p>
-
-
-    <h3>Install pip:</h3>
-
-            <p>Let's use curl again to have it securely downloaded and installed. Run the following:  </p>
-                <div class="hacker">$ sudo yum install python-pip</div>
-
-
-            <p>This will install it system-wide.<br />
-            By default, pip installs its files under <code>/usr/local/bin location</code>. We need to append it to our PATH so that we will be able to run it with calling pip command directly.<br />
-            Let's have it updated:</p>
-                <div class="hacker">export PATH="/usr/local/bin:$PATH"</div>
-
-           <p>As we have pip the package manager, all installations from now on are as easy as pip install package-name. </p>
+With the pip the package manager, all installations from now on are as easy as <code>pip install <em>package-name</em></code>. </li>
 
 
-    <h3>Install virtualenv:</h3>
-
-         <p>Run the following to have pip install virtualenv:</p>
-           <div class="hacker">sudo pip install virtualenv</div>
-        <p>This would also install it system-wide.</p>
-
-    <h3>Preparing our Virtual Environment (venv) for Django CMS</h3>
+<li>Install virtualenv system-wide.
+<div class="hacker">sudo pip install virtualenv</div>
+</li>
+</ol>
+<h2>Preparing our Virtual Environment (venv) for Django CMS</h2>
 
         <p>All the tools we need are ready and we can begin preparing the virtual environment where our Django CMS project is going to reside.
             Let's start with initiating a venv (virtual environment) called "project_cms" using virtualenv and go to the project's folder.</p>
@@ -155,7 +140,7 @@ p.note {
             cd project_cms      <br /></div>
 
 
-        <p>We chose <code>"project_cms"</code>as the project repository's folder name. You can change it as you wish, keep in mind that choosing an unrelated name could cause trouble in the future with maintenance. </p>
+        <p>We chose <code>project_cms</code>as the project repository's folder name. You can change it as you wish, keep in mind that choosing an unrelated name could cause trouble in the future with maintenance. </p>
 
         <p>Upon creating a virtualenv, you need to activate it in order to use it. </p>
              <div class="hacker">source bin/activate </div>
