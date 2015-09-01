@@ -178,7 +178,7 @@ The fastcgi_param arguments helps the PHP interpreter find the PHP script that w
  
  Some of these changes may have already been made when you installed your LEMP stack.
 
- After your changes, your file may look something like this:
+ After your changes, your file may look something like this (this example file is truncated):
 
 <div class="hacker"><pre>
 # For more information on configuration, see:
@@ -293,8 +293,8 @@ http {
 <div class="hacker">tar -xf latest.tar.gz</div>
 This command creates a directory called "wordpress" in your home directory.</li>
 
-<li>Move the files into the WordPress document root.
-<div class="hacker">sudo mv wordpress/* /var/www/wordpress/</div></li>
+<li>Copy the files into the WordPress document root.
+<div class="hacker">sudo cp -r ~/wordpress/* /var/www/wordpress</div></li>
 
 <li>Change ownership to the user <code>www-data</code> so that you'll be able to work with WordPress uploads, plugins, and themes.
 <div class="hacker">sudo chown nginx:nginx * -R</div> </li>
@@ -315,17 +315,17 @@ This command creates a directory called "wordpress" in your home directory.</li>
      <ol>
      <li>  In your web browser, enter your primary domain name. In our example, that's 
    <strong>http://coolexample.com</strong>.
-   (If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL.)<br/>
+   (If the Nginx default page displays, append <code>/wp-admin/</code>to your URL.)<br/>
    You should get this introductory page:<br />
   <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress multisite on your server welcome" />   </li>
      <li>Click <strong>Let's go!</strong> to continue.</li>
 
      <li>On the next page, fill out your WordPress MySQL database credentials. You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. </li>
   <li>Click <strong>Submit</strong>.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17684/083115/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
   <br />
   The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17684/083115/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
 </li>
       </ol>
       
@@ -372,7 +372,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
       <ol>
         <li>Return to your browser and click <strong>Run the Install</strong> on the screen you were just on to continue the WordPress web installation. You should be taken to this screen.
 <br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images17684/083115/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
         <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
         <li>Click <strong>Install WordPress</strong>.</li>
       </ol>
@@ -388,7 +388,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17684/083115/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
   </li>
   
-  <li>Because we're working with sub-domains, choose <strong>sub-domains</strong>and change your Network Title if you like. Click <strong>Install</strong>.<br />
+  <li>Because we're working with sub-domains, choose <strong>sub-domains</strong> and change your Network Title if you like. Click <strong>Install</strong>.<br />
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17684/083115/install-wordpress-multisite-network-screen5.png" alt="install wordpress multisite network" />  
 </li> 
 
@@ -440,8 +440,7 @@ At the top, there should now be a <strong>&quot;Network Admin: <code><em><u>(you
  
  <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. <br />
 
- There's much you can do from here. One option is to map your sub-domains to external domains. See     <br />
- <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00035%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20-%CentOS%207,%20Fedora%206.html">Set up WordPress Domain Mapping - CentOS 7, Fedora</a> for instructions. </p>
+ There's much you can do from here. One option is to map your sub-domains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00035%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20-%CentOS%207,%20Fedora%206.html">Set up WordPress Domain Mapping - CentOS 7, Fedora</a> for instructions. </p>
 
  </body>
  </html>
