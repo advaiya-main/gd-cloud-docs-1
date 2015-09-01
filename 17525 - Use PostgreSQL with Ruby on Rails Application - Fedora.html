@@ -106,15 +106,15 @@
 </li>
 <li>Set up a PostgreSQL server, and add its development-related libraries.
 	<div class='hacker'>sudo yum install postgresql-server postgresql-contrib postgresql-devel</div>
-</li>
+
 <div class='hacker'>Initialize a new PostgreSQL database </div>
-	<div class='hacker'>sudo postgresql-setup initdb</div>
+	<div class='hacker'>sudo postgresql-setup initdb</div></li>
   <li>Open the <code>pg_hba.conf</code> file, so that you can modify the host-based authentication of PostgreSQL. It does not allow for password authentication by default.
-       <div class='hacker'>sudo vim /var/lib/pgsql/data/pg_hba.conf</div>
-<li>Search for the following lines at the end of the file:</li>
+       <div class='hacker'>sudo vim /var/lib/pgsql/data/pg_hba.conf</div></li>
+<li>Search for the following lines at the end of the file:
 <div class='hacker'>
 <pre>host    all             all             127.0.0.1/32            ident
-host    all             all             ::1/128                 ident</pre></div>
+host    all             all             ::1/128                 ident</pre></div></li>
 <li>Change <code>ident</code> to <code>md5</code>.</li>
 <li>Save and exit the file.
   <div class ="hacker">wq!</div></li>
@@ -134,9 +134,9 @@ host    all             all             ::1/128                 ident</pre></div
 </li>
 <li>Set a password for the database user.
 		<div class='hacker'>psql</div>
-    	<div class='hacker'>postgres=# \password <em><u>UserName</u></em></div>
+    	<div class='hacker'>postgres=# \password <em><u>UserName</u></em></div></li>
 <li>Enter the new password.</li>
-</li>
+
 <li>Close the session.
 	<div class='hacker'>postgres=# \q</div>
 </li>
