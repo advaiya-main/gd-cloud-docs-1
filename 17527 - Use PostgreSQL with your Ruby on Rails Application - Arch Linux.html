@@ -67,21 +67,17 @@ p.note {
 </head>
 
 <body>
+<!--Two comments below are still not addressed. Please address them before returning to Ready for Editing. cj -->
 <p>Setting Up Rails Application with PostgreSQL in Arch Linux, PostgreSQL, Ruby, Rails</p>
     <h1>Use PostgreSQL with Your Ruby on Rails Application - Arch Linux</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>30 mins</u></em></p>
-<!--Please do not use span tags, including red text. For variables, use <em><u> tags. See editorial guidelines. cj -->
-
-<!--There is no need to use the <pre> tag in divs unless there is unique indentation that needs to be preserved. If there are multiple lines and no unique indentation, the <br /> tag can be used at the end of each line. cj -->
    
-    <p>In this article, we are going to create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails (RoR) application. We'll describe how to use PostgreSQL for a Rails application. </p>
-    <h2>Prerequisites</h2>
-	<p>To perform these tasks, we  assume that you have <code>sudo</code> privileges and to install Ruby on Rails with rbenv, please visit <a href ="#">17522 - Install Ruby on Rails with rbenv - Arch Linux</a>.</p>
+    <p>In this article, you'll create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails application. These tasks assume that you have sudo privileges and that you have <code>sudo</code> privileges and that <a href ="17522">Ruby on Rails is installed</a>.</p>
 <h2>Install PostgreSQL  </h2>
      <ol>
-		<li>Install PostgreSQL using  the following command.
+		<li>Install PostgreSQL.
 			<div class="hacker">sudo pacman -S postgresql 
 			</div>
 		</li>
@@ -93,13 +89,13 @@ p.note {
 			<div class="hacker">sudo paceman -Si postgresql
 			</div>
 		</li>
-		<li>Initialize a database cluster by using the command <code>initdb</code>, which is installed with PostgreSQL. <code>initdb</code> command must be done as the <code>postgres</code> user:<!--Please clarify what "This" refers to. cj -->  
-			<div class="hacker">sudo -i -u postgres
+		<li>Initialize a database cluster by using the command <code>initdb</code>, which is installed with PostgreSQL. <code>initdb</code> command must be done as the <code>postgres</code> user: 
+		  <div class="hacker">sudo -i -u postgres
 			</div>
 			<div class="hacker">initdb -D '/var/lib/postgres/data'
 			</div>
 		</li>
-		<li>Log out from the <code>postgres</code> user, and start PostgreSQL.
+		<li>Log out  the <code>postgres</code> user, and start PostgreSQL.
           <div class="hacker">logout
 		  </div>
 			<div class="hacker">sudo systemctl start postgresql
@@ -165,17 +161,17 @@ p.note {
 			<div class = "hacker">cd <em><u>helloworld</u></em>
 			</div>
 		</li>
-		<li>Open the <span class="hacker"><code>database.yml</code></span> file for editing.
+		<li>Open the <code>database.yml</code> file for editing.
           <div class = "hacker">sudo vim config/database.yml
 		  </div>
 		</li>
 		<li>Look for <code>pool: 5</code> in the file, and add the following lines beneath it. Enter the username and password for the postgres  user when prompted.<!--Wording looks off. Does the open file truly prompt the user to enter a name and password? cj-->
 		  <div class = "hacker">
-				<pre>
-host: localhost
-username: <em><u>UserName</u></em></span>
-password: <em><u>username_password</u></em>
-				</pre>
+				
+host: localhost<br />
+username: <em><u>UserName</u></em><br />
+password: <em><u>username_password</u></em><br />
+				
 		  </div>
 		</li>
 		<li>Save and exit.
@@ -190,17 +186,16 @@ password: <em><u>username_password</u></em>
 	  </li>
 	</ul>
 	<h2>Test the configuration</h2>
-  <ol>
+  <ul>
 		<li>Test your Rails application.
 		  <div class="hacker">Rails server
-			</div></li>
-		<li>You can run your Rails application on your <code>localhost</code> on port 3000.  You can also access your application from a web browser, if it is located on a remote server, by assigning a public IP address.
+			</div>You can run your Rails application on your <code>localhost</code> on port 3000.  You can also access your application from a web browser, if it is located on a remote server, by assigning a public IP address.
 			<div class="hacker">rails server --binding=<em><u>server_public_IP</u></em>
 		  </div>
 		</li>
-	</ol>
+	</ul>
     <h2>Next steps</h2>
-    <p>In this article, we reviewed the steps involved in setting up a PostgreSQL with your Rails application on Arch Linux. For further exploration, refer to <a href= "#"> 17517 - Deploy a Rails App with Unicorn and NGINX - Arch Linux</a>.</p>
+    <p>In this article, we set up a PostgreSQL with a Rails application on Arch Linux. For further exploration, visit <a href= "17517">Deploy a Rails App with Unicorn and Nginx - Arch Linux</a>.</p>
    
 </body>
 </html>
