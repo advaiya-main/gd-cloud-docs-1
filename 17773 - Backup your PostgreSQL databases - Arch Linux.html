@@ -81,7 +81,7 @@ p.note {
 
 <p>To install Ruby and PostgreSQL,  please visit <a href="#"> 17537 - Install Ruby on Rails using RVM - Arch Linux</a> and <a href="#">17527- Use PostgreSQL with your Ruby on Rails Application - Arch Linux</a> links respectively.</p>
 
-<h2>Back up a PostgreSQL database </h2>
+<h2>Back up a PostgreSQL Database </h2>
 <ol>
 <li><code>Pg_dump</code> is the utility which is used to dump database information into a file for backup purposes. Login with the <code>postgres</code> user  and run the following command to create a database back up file.
 
@@ -89,7 +89,7 @@ p.note {
 
 	<div class="hacker">pg_dump  <em><u>database_name</u></em> >  <em><u>backup_file</u></em></div>
 </li> 
-<li>If you want  to perform back up on a remote system, you can pass the <code>-h</code> flag for specifying the remote host, and the <code>-p</code> flag to give the remote port.
+<li>If you want  to perform back up on a remote system, you can pass the <code>-h</code> flag to specify the remote host, and the <code>-p</code> flag to specify the remote port.
 
 	<div class="hacker">pg_dump -h remote_host -p remote_port <em><u>database_name</u></em> > 	<em><u>backup_file</u></em></div>
 </li>    
@@ -98,7 +98,7 @@ p.note {
 </li>
 </ol>
 
-<h2>Restore data dumps </h2>
+<h2>Restore Data Dumps </h2>
 <ol>
 <li>Create an empty database to store the <code><em><u>backup_file</u></em>.</code>
 	<div class="hacker">createdb -T template0 <em><u>restored_database_name</u></em></div>
@@ -106,13 +106,13 @@ p.note {
 <li>Restore a backup created by <code>pg_dump.</code>
 	<div class="hacker">Psql  <em><u>restored_database_name</u></em> < <em><u>backup_file</u></em></div>
 </li>    
-<li>If the user <em><u>test_user</u></em>  owns a table in the database, then create a <em><u>test_user</u></em> before restorating the system.
+<li>If the <em><u>test_user</u></em>  owns a table in the database, then create a <em><u>test_user</u></em> before restorating the system.
 	<div class="hacker">createuser <em><u>test_user</u></em></div>
 	<div class="hacker">Psql  <em><u>restored_database_name</u></em> < <em><u>backup_file</u></em></div>
 </li>    
 </ol>    
 
-<h2>Dealing with restoration errors</h2>
+<h2>Dealing with Restoration Errors</h2>
 <ol>
 <li>Stop any backup error in PostgreSQL using the following command:
 	<div class="hacker">psql --set ON_ERROR_STOP=on <em><u>restored_database_name</u></em> < 	<em><u>backup_file</u></em></div>
@@ -123,7 +123,7 @@ p.note {
 </li>
 </ol>
 
-<h2>Backup and restore all databases in PostgreSQL</h2>
+<h2>Backup and Restore all Databases in PostgreSQL</h2>
 <ol>
 <li>To save time, you can use <code>pg_dumpall</code> utility to create backup for all the databases in the system.
 	<div class="hacker">pg_dumpall > <em><u>backup_file</u></em></div>
@@ -134,7 +134,7 @@ p.note {
 </ol> 
 
 <h2>Next Steps</h2>
-<p>In this article, we reviewed the steps involved in backing up the PostgreSQL databases on Arch Linux.</p>
+<p>In this article, we reviewed the steps involved in backing up the PostgreSQL databases on Arch Linux. For further exploration, please visit, <a href="#">17896 - Scaling Ruby on Rails: Setting Up A Dedicated PostgreSQL Server (Part 3) - Arch Linux</a></p>.
 
 </body>
 </html>

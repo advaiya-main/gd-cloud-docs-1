@@ -125,23 +125,22 @@
 			<div class="hacker">
 				Email Address:
 			</div>
-			<p>Type comment if any.</p>
+			<p>Type comment, if any.</p>
 			<div class="hacker">
 				Comment:
 			</div>
-			<p>We can add any in comment, we can also put blank comment</p>
-			<p>Confirm that information you typed is correct by choosing 'O'.</p>
+			<p>You can add any in comment, or just a blank comment will do. Confirm that information you typed is correct by choosing 'O'.</p>
 			<div class="hacker">Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? [Press O] </div>
 		</li>
 		<li>
-			<p>Type the passphrese:</p>
+			<p>Type the passphrase:</p>
 			<div class="hacker">
 				Enter passphrase:
 			</div>
-			<p>We can enter any passphrase here.It ask two times to enter passphrase. It will take sometime to create key. Basically GPG uses entropy,The computer will now create the key using random pieces of data collected from the system. This is called "entropy" and is used to create a truly random key.</p>
+			<p>You can enter any passphrase here. It might prompt you to enter the passphrase twice. It will take sometime to create key. The system will now create the key using random pieces of data collected from the system. This is called <strong>entropy</strong> and is used to create a truly random key.</p>
 		</li>
 		<li>
-			<p>GPG key stored within you GPG keyring. To check generated keys use the following command.</p>
+			<p>GPG keys are stored within your GPG. To check the generated keys, use the following command.</p>
 			<div class="hacker">gpg --list-keys</div>
 			<p>&nbsp;</p>
 			<div class="hacker">
@@ -151,21 +150,16 @@
 				uid                  client &lt;client@mydomain.com&gt;<br />
 				sub   2048R/4C73683E 2014-03-14<br />
 				</div>
-				<p>In above output bold part is shortened key ID. We can use hash to refer this key.</p>
-		</li>
+				</li>
 		<li>
-			<p>Upload keys to keyserver for further use. The Key server is replicated around the world and allow any to pull their keys information. This is exact what we want, it allows our two users and the SSH server to interact with each other and establish trust relationships. </p>
-			<p>To upload our keys to keyservers, on our client and admin computers, we will need to type something like this. We will need the key ID that we mentioned above: [please change words here]</p>
-			<div class="hacker">gpg --send-key key_id</div>
-			<p>Below is example command</p>
-			<div class="hacker">gpg --send-key 08D014B3</div>
-		</li>
+			<p>Upload the keys to keyserver for further use. The Key server is replicated around the world and can be allowed by anyone to pull their key information. This will allow the two users and the SSH server to interact with each other and establish trust relationships. </p>
+			<p>To upload keys to keyservers, on client and admin computers, you will need to type something like this.</p>
+			<div class="hacker">gpg --send-key <em><u>key_id</u></em></div>
+			</li>
 	</ol>
 	<h2>Signing the Keys</h2>
-	<ul>
-		<li>
-			<p>Now we administrator and client have GPG keys has pushed key to world keyservers, it will begin to  publicize with other keyserver across the world. It will take some time to being copy to each server available on world. So wait for few minutes till finish.</p>
-			<p>Now we are going to sing in using this keys, means that it varified and valid key to verify person identify for what we are trying to.</p>
+	<p>As the administrator and client, have the GPG keys has pushed key to world keyservers, it will begin to  publicize with other keyserver across the world. It will take some time to being copy to each server available on world. So wait for few minutes till finish.</p>
+			<p>Now we are going to sync in using this keys, means that it varified and valid key to verify person identify for what we are trying to.</p>
 			<p>To make sure that you got the correct keys, we will do by simple way by specifying exact key  by its fingerprint.</p>
 			<p>To make sure that you got the correct keys, we will do by simple way by specifying exact key  by its fingerprint.</p>
 			

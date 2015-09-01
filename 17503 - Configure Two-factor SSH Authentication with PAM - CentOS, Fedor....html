@@ -4,13 +4,11 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17503-->
 
 
 <title>17503 - Configure Two-factor SSH Authentication with PAM - CentOS, Fedora</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -79,7 +77,7 @@ p.note {
 <p class="note"> If you configure this for any user other than root, you need to login as the said user and switch to root user. In this case, direct root login is not possible.</p>
 
 <h2>Prerequisites</h2>
-<p>You need to install Google authenticator application in your smartphone. You can download this on your device from Google play, or get it from this link - Google Authenticato.r </p>
+<p>You need to install Google authenticator application in your smartphone. You can download this on your device from Google play, or get it from this link - Google Authenticator. </p> <!--missing link-->
 
 <h2>Install dependencies</h2>
 <ul>
@@ -111,10 +109,10 @@ p.note {
 
 <h2>Activate the two-factor authentication for a user</h2>
 <ol>
-<li>Switch to the desired user, for whom two factor Google authentication needs to be activated.
-<div class="hacker">su &lt;Username&gt;</div>
+<li>Switch to the user for whom two-factor Google authentication needs to be activated.
+<div class="hacker">su <em><u>username</u></em></div>
 </li>
-<li>Activate two factor Google authentication for the user by executing the following command:
+<li>Activate two-factor Google authentication for the user by executing the following command:
 <div class="hacker">google-authenticator</div>
 </li>
 <li>You will get few questions, which need to be answered with yes (y) for first two questions:
@@ -132,7 +130,7 @@ p.note {
 </ol>
 
 <h2>Conclusion</h2>
-<p>This is all about installing and configuring SSH server with Google two factor authentication. This configuration adds an additional layer of security for your Linux systems.</p>
+<p>This is all about installing and configuring SSH server with Google two-factor authentication. This configuration adds an additional layer of security for your Linux systems.</p>
 
 </body>
 </html>

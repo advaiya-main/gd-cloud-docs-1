@@ -76,24 +76,24 @@ p.note {
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>15 mins</em></p>
 
-<p>In this article, we will make a backup of a PostgreSQL database to use for scaling a Ruby on Rails (RoR) application. These instructions assume that you have <code>sudo</code> privileges.</p>
-<p>Before starting, make sure that <a href="#">17536 - Install Ruby on Rails using RVM - CentOS</a> and that <a href="#">17526- Use PostgreSQL with your Ruby on Rails Application - CentOS</a>.</p>
-<h2>Back up a PostgreSQL database </h2>
-<ul>
+<p>In this article, we will make a backup of a PostgreSQL database that can be used to scale a Ruby on Rails (RoR) application. These instructions assume that you have <code>sudo</code> privileges.</p>
+<h2>Prerequisites</h2>
+<p>Before starting, make sure that you visit <a href="#">17536 - Install Ruby on Rails using RVM - CentOS</a> and <a href="#">17526 - Use PostgreSQL with your Ruby on Rails Application - CentOS</a> links to install Ruby and PostgreSQL respectively.</p>
+<h2>Back up a PostgreSQL Database </h2>
+<ol>
   <li> Log in with the <code>postgres</code>  user, and create a database <em><u>backup file</u></em>.
     <div class="hacker">sudo su - postgres</div>
 
 	<div class="hacker">pg_dump  <em><u>database_name</u></em> >  <em><u>backup_file</u></em></div>
-  <code>Pg_dump</code> is the utility used to dump database information into a file for backup purposes. <br />
-  If you want  to perform the backup on a remote system, you can pass the <code>-h</code> flag for specifying the remote host, and the <code>-p</code> flag to give the remote port.
+  <li><code>Pg_dump</code> is the utility used to dump database information into a file for backup purposes. If you want  to perform the backup on a remote system, you can pass the <code>-h</code> flag to specify the remote host, and the <code>-p</code> flag to specify the remote port.
 
-	<div class="hacker">pg_dump -h remote_host -p remote_port <em><u>database_name</u></em> > 	<em><u>backup_file</u></em></div>
-  If you want to specify a different user, then <code>-U</code> is necessary.
+	<div class="hacker">pg_dump -h remote_host -p remote_port <em><u>database_name</u></em> > 	<em><u>backup_file</u></em></div></li>
+  <li>If you want to specify a different user, then <code>-U</code> is necessary.
 	<div class="hacker">pg_dump -U user_name -h remote_host -p remote_port <em><u>database_name</u></em> ><em><u>backup_file</u></em></div>
   </li>
-</ul>
+</ol>
 
-<h2>Restore data dumps </h2>
+<h2>Restore Data Dumps </h2>
 <ol>
 <li>Create an empty database to store the <em><u>backup_file.</u></em>
 	<div class="hacker">createdb -T template0 <em><u>restored_database_name</u></em></div>
@@ -102,13 +102,13 @@ p.note {
 <li>Restore a backup created by <code>pg_dump.</code>
 	<div class="hacker">Psql <em><u>restored_database_name</u></em> < <em><u>backup_file.</u></em></div>
 </li>    
-<li>If the user <em><u>test_user</u></em> owns a table in the database, then create a <em><u>test_user</u></em> before restorating the system.<!--Is test_user an example? Will the user know if test_user owns a table in the database? cj -->
+<li>If the <em><u>test_user</u></em> owns a table in the database, then create a <em><u>test_user</u></em> before restorating the system.<!--Is test_user an example? Will the user know if test_user owns a table in the database? cj -->
 	<div class="hacker">createuser <em><u>test_user</u></em></div>
 	<div class="hacker">Psql  <em><u>restored_database_name</u></em> < <em><u>backup_file</u></em></div>
 </li>    
 </ol>    
 
-<h2>Handle restoration errors</h2>
+<h2>Handle Restoration Errors</h2>
 <ol>
 <li>Stop any backup error in PostgreSQL.
 	<div class="hacker">psql --set ON_ERROR_STOP=on <em><u>restored_database_name</u></em> < 	<em><u>backup_file.</u></em></div>
@@ -119,7 +119,7 @@ p.note {
 </li>
 </ol>
 
-<h2>Back up and restore all databases in PostgreSQL</h2>
+<h2>Back Up and Restore all Databases in PostgreSQL</h2>
 <ol>
 <li>To save time,  use the <code>pg_dumpall</code> utility to create a backup for all the databases in the system.
 	<div class="hacker">pg_dumpall > <em><u>backup_file</u></em></div>
@@ -130,7 +130,7 @@ p.note {
 </ol>
  
 <h2>Next steps</h2>
-<p>In this article, we reviewed the steps involved in backing up the PostgreSQL databases on CentOS and Fedora. <!--What might the user do next? The intro says that this procedure is for scaling an application, which provides a clue. cj --></p>
+<p>In this article, we reviewed the steps involved in backing up the PostgreSQL databases on CentOS and Fedora. For further exploration, please visit: <a href="#">17895 - Scaling Ruby on Rails: Setting Up A Dedicated PostgreSQL Server (Part 3) - Centos, Fedora</a><!--What might the user do next? The intro says that this procedure is for scaling an application, which provides a clue. cj --></p>
 
 </body>
 </html>
