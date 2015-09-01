@@ -85,9 +85,16 @@
 
 <p><strong>Difficulty: </strong><em>2</em></p>
 <p><strong>Time: </strong> <em>2 hours</em></p>
+<!--This introduction needs to include the prerquisite mentioned in the Request Notes. cj -->
+<!--Added pre-requisite section. VS-->
+<p>Using Elasticsearch, Fluentd, and  Kibana (also known as an <em>EFK stack</em>) is a common way to deal with data analysis. This combination lets you collect, index, search, and  visualize log data. In this article, you'll  learn how to install an EFK Stack on  Debian or Ubuntu.</p>
 
-<p>Using Elasticsearch, Fluentd, and  Kibana (also known as an <em>EFK stack</em>) is a common way to deal with data  analysis. This combination lets you collect, index, search, and  visualize log data. In this article, you'll  learn how to install an EFK Stack   on  Debian or Ubuntu.</p>
-<p>Before starting, make sure that you have completed the initial server setup for your host machine. For detailed steps, see <a href="17321 - Initial Server Setup - Ubuntu">Initial Server Setup - Ubuntu</a> or <a href="17325 - Initial Server Setup - Debian">Initial Server Setup - Debian</a>.</p>
+<h2>Prerequisites</h2>
+<ul>
+<li>This article assumes that you have done the initial server setup for your host machine. For detailed steps, see <a href="17321 - Initial Server Setup - Ubuntu">Initial Server Setup - Ubuntu</a> or <a href="17325 - Initial Server Setup - Debian">Initial Server Setup - Debian</a>
+</li>
+</ul>
+
 <p class="note">These  tasks assume that you have  <code>sudo</code> user privileges.</p>
 <h2>Install and configure ElasticSearch</h2>
 <ol>
@@ -97,10 +104,6 @@
         
         <!--pre tags are not needed in most of these divs. Use pre tags only if there are indentation issues. If there is more than one line, and no indentation issues, you can use <br /> at the end of each line. cj -->
 		<!-- Updated the content accordingly at all instances. Hope this is fine. VS-->
-        
-        <!--Aug 31--Unfortunately, there are still many unnecesary pre tags in the divs. They are not needed on every line but only at the beginning and then end of the block. Please take another look. cj -->
-        
-        
 		sudo apt-get update
 		</div>
 	</li>
@@ -109,23 +112,25 @@
 		sudo apt-get install  default-jre
 		</div>
 		
-		<p>To confirm  a successful installation, check the Java version using the following command:</p>
-      
+		<p>To confirm the successful installation, check the Java version using the following command:</p>
+        <!--Do they have to check the Java version? What do they do with this information? cj-->
+		<!-- Updated the content accordingly. Hope this is fine. VS-->
 		<div class="hacker">
 		java -version
 		</div> 
 	</li>
-  <li>Install the Elasticsearch deb packages. 
+    <li>Install the Elasticsearch deb packages. 
   
- <p class="note">These commands are  for version 1.2.2. To obtain the latest version, visit the <a href="http://www.elasticsearch.org/download/" target="_top"> Elasticsearch download page</a></p>
-
+ <p class="note">These commands are  for version 1.2.2. To obtain the latest version, visit the <a href="http://www.elasticsearch.org/download/" target="_top"> Elasticsearch download page</a>.</p>
+    <!--The following should be two divs. Per editorial guidelines, use only one command per div. cj -->
+	<!--Updated Accordingly-->
 	  <div class="hacker">
 	    sudo wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.2.deb </div>
 	  <div class="hacker">
 	    sudo dpkg -i elasticsearch-1.2.2.deb
     </div>
   </li>
-	<li>Open  the  <code>elasticsearch.yml</code> file.<br />
+	<li>Open  the <code>elasticsearch.yml</code> file.<br />
 	  To make  Elasticseach accessible from the public Internet, its dynamic scripting needs to be  disabled so that it can be accessed by the Kibana dashboards.
 		<div class="hacker">
 		sudo vim /etc/elasticsearch/elasticsearch.yml
@@ -141,7 +146,7 @@
 	  sudo service elasticsearch start
 	  </div>
 	  A successful startup shows an OK message.<br />
-	  <img src="images/17909-Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Ubuntu, Debian_clip_image002.png" alt="Starting Elasticsearch engine" width="624" height="58" /> 
+	  <img src="17909-Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Ubuntu, Debian_clip_image002.jpg" alt="Starting Elasticsearch engine" width="624" height="58" /> 
 	</li>
 </ol>
 <h2>Install and configure Kibana</h2>
@@ -152,130 +157,133 @@
 	  cd ~
 	</div>
   </li>
-  <li> Install Kibana. 
+  <li> Install Kibana. <!--The following should be two divs. One command per div. cj --> <!--Updated Accordingly-->
+    <p class="note">These commands are  for version 4.1.1. To obtain the latest version, visit the <a href="https://www.elastic.co/downloads/kibana" target="_top"> Kibana download page</a>.</p>
+	 
     <div class="hacker">
 		sudo curl -L https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz | tar xzf -</div>
     <div class="hacker">
   		sudo cp -r kibana-4.1.1* /usr/share/kibana-4.1.1
 	</div>
   </li>
-  <li>Open Kibana's configuration file to change the port from default value 9200 to 80, which is used for interaction with Elasticsearch. 
+  <li>Open Kibana's configuration file to change the port from default value 9200 to 80, which is used for interaction with Elasticsearch. <!--How does the user know if he needs to update this? Also, the command seems to reference a different file. Finally, the first sentence of a step needs to tell the user to do something, not be explanatory. cj --><!--Updated content accordingly-->
   	<div class="hacker">
 		sudo vim /usr/share/kibana-4.1.1/config/kibana.yml
 	</div>
   </li>  
-  <li>Locate the following code, which is related to the port setting:<!--pre tags are not needed in divs like this that have no indentation issues. Instead, use a <br /> tag at the end of all lines but the last line. cj -->
+  <li>Locate the following code, which is related to the port setting:
 	  <div class="hacker"> 
-	  <pre>#default port value is 9200</pre>
-	  <pre>elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:9200&quot;,</pre>
+	  <pre>#default port value is 9200
+elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:9200&quot;,</pre>
     </div>
   </li>
   <li>Update the code to the following:
 	  <div class="hacker"> 
-	  <pre>#Updated to port value 80</pre>
-	  <pre>elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:80&quot;,</pre>
+	  <pre>#Updated to port value 80
+elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:80&quot;,</pre>
 	  </div>
   </li>
-  <li>Install Nginx, which can be used as the proxy server. This enables access to the Kibana dashboards from the Internet.
+  <li>Install NGINX, which can be used as the proxy server. This enable access to the Kibana dashboards from the Internet.
       <div class="hacker"> 
 	  sudo apt-get install nginx --yes
     </div>
   </li>
-  <li>Create the Nginx configuration file.
-    <div class="hacker"> 
+  <li>Create the NGINX configuration file.<!--Use a separate div for each command. cj --><!--Updated accordingly-->
+	  <div class="hacker"> 
 		sudo rm /etc/nginx/sites-available/default
 	  </div>
 	  <div class="hacker"> 
-	  sudo vim /etc/nginx/sites-available/default
+		sudo vim /etc/nginx/sites-available/default
 	  </div>
   </li>
-  <li>Put the following code into the Nginx configuration file:
+  <li>Put the following code into the NGINX configuration file:
   	  <div class="hacker"> 
-		  <pre>#</pre>
-		  <pre># Nginx config file, for setting up Nginx proxy for Elasticsearch + Kibana</pre>
-		  <pre>#</pre>
-		  <pre># This setup will password protect the saving of dashboards. </pre>
-		  <pre># This can be extended for password protection to all paths.</pre>
-		  <pre>#</pre>
-		  <pre># Even though these paths are being called as the result of an ajax request, the</pre>
-		  <pre># browser will prompt for a username/password on the first request</pre>
-		  <pre>#</pre>
-		  <pre># If you use this, the config.js should point at http://FQDN:80/ instead of</pre>
-		  <pre># http://FQDN:9200</pre>
-		  <pre>#</pre>
-		  <pre>&nbsp;</pre>
-		  <pre>server {</pre>
-		  <pre> listen                *:80 ;</pre>
-		  <pre> server_name           localhost;</pre>
-		  <pre> access_log            /var/log/nginx/kibana.log;</pre>
-		  <pre> location / </pre>
-		  <pre> {</pre>
-		  <pre>   root  /usr/share/kibana-4.1.1;</pre>
-		  <pre>   index  index.html  index.htm;</pre>
-		  <pre> }</pre>
-		  <pre> location ~ ^/_aliases$ </pre>
-		  <pre> {</pre>
-		  <pre>   proxy_pass http://127.0.0.1:9200;</pre>
-		  <pre>   proxy_read_timeout 90;</pre>
-		  <pre> }</pre>
-		  <pre> location ~ ^/.*/_aliases$ </pre>
-		  <pre> {</pre>
-		  <pre>   proxy_pass http://127.0.0.1:9200;</pre>
-		  <pre>   proxy_read_timeout 90;</pre>
-		  <pre> }</pre>
-		  <pre> location ~ ^/_nodes$ </pre>
-		  <pre> { </pre>
-		  <pre>   proxy_pass http://127.0.0.1:9200;</pre>
-		  <pre>   proxy_read_timeout 90;</pre>
-		  <pre>}</pre>
-		  <pre> location ~ ^/.*/_search$ </pre>
-		  <pre> {</pre>
-		  <pre>   proxy_pass http://127.0.0.1:9200;</pre>
-		  <pre>   proxy_read_timeout 90;</pre>
-		  <pre>}</pre>
-		  <pre> location ~ ^/.*/_mapping </pre>
-		  <pre> {</pre>
-		  <pre>   proxy_pass http://127.0.0.1:9200;</pre>
-		  <pre>   proxy_read_timeout 90;</pre>
-		  <pre>} </pre>
-		  <pre># Password protected end points</pre>
-		  <pre>location ~ ^/kibana-int/dashboard/.*$ </pre>
-		  <pre> {</pre>
-		  <pre>   proxy_pass http://127.0.0.1:9200;</pre>
-		  <pre>   proxy_read_timeout 90;</pre>
-		  <pre>   limit_except</pre>
-		  <pre>   GET</pre>
-		  <pre>   { </pre>
-		  <pre>    proxy_pass http://127.0.0.1:9200;</pre>
-		  <pre>    auth_basic &quot;Restricted&quot;;</pre>
-		  <pre>    auth_basic_user_file /etc/nginx/conf.d/kibana.myhost.org.htpasswd;</pre>
-		  <pre>   }</pre>
-		  <pre>}</pre>
-		  <pre> location ~ ^/kibana-int/temp.*$</pre>
-		  <pre> {</pre>
-		  <pre>   proxy_pass http://127.0.0.1:9200;</pre>
-		  <pre>   proxy_read_timeout 90;</pre>
-		  <pre>   limit_except GET </pre>
-		  <pre>   {</pre>
-		  <pre>      proxy_pass http://127.0.0.1:9200;</pre>
-		  <pre>      auth_basic &quot;Restricted&quot;;</pre>
-		  <pre>      auth_basic_user_file /etc/nginx/conf.d/kibana.myhost.org.htpasswd;</pre>
-		  <pre>   }</pre>
-		  <pre> }</pre>
-		  <pre>}</pre>
+		  <pre>#
+# Nginx config file, for setting up Nginx proxy for Elasticsearch + Kibana
+#
+# This setup will password protect the saving of dashboards.
+# This can be extended for password protection to all paths.
+#
+# Even though these paths are being called as the result of an ajax request, the
+# browser will prompt for a username/password on the first request
+#
+# If you use this, the config.js should point at http://FQDN:80/ instead of
+# http://FQDN:9200
+#
+&nbsp;
+server {
+	listen                *:80 ;
+	server_name           localhost;
+	access_log            /var/log/nginx/kibana.log;
+	location / 
+	 {
+	   root  /usr/share/kibana-4.1.1;
+	   index  index.html  index.htm;
+	 }
+	location ~ ^/_aliases$ 
+	 {
+	   proxy_pass http://127.0.0.1:9200;
+	   proxy_read_timeout 90;
+	 }
+	location ~ ^/.*/_aliases$ 
+	 {
+	   proxy_pass http://127.0.0.1:9200;
+	   proxy_read_timeout 90;
+	 }
+	 location ~ ^/_nodes$ 
+	 { 
+	   proxy_pass http://127.0.0.1:9200;
+	   proxy_read_timeout 90;
+	 }
+	 location ~ ^/.*/_search$ 
+	 {
+	   proxy_pass http://127.0.0.1:9200;
+	   proxy_read_timeout 90;
+	 }
+	location ~ ^/.*/_mapping 
+	 {
+	   proxy_pass http://127.0.0.1:9200;
+	   proxy_read_timeout 90;
+	 } 
+	# Password protected end points
+	location ~ ^/kibana-int/dashboard/.*$ 
+	 {
+	   proxy_pass http://127.0.0.1:9200;
+	   proxy_read_timeout 90;
+	   limit_except
+	   GET
+	   { 
+	    proxy_pass http://127.0.0.1:9200;
+	    auth_basic &quot;Restricted&quot;;
+	    auth_basic_user_file /etc/nginx/conf.d/kibana.myhost.org.htpasswd;
+	   }
+	 }
+	location ~ ^/kibana-int/temp.*$
+	{
+	   proxy_pass http://127.0.0.1:9200;
+	   proxy_read_timeout 90;
+	   limit_except GET 
+	   {
+	      proxy_pass http://127.0.0.1:9200;
+	      auth_basic &quot;Restricted&quot;;
+	      auth_basic_user_file /etc/nginx/conf.d/kibana.myhost.org.htpasswd;
+	   }
+	}
+}</pre>
   	  </div>
   </li>
-  <li>Restart Nginx.
+  <li>Restart NGINX.
 		<div class="hacker">
 			sudo service nginx restart
 		</div>
   		<p>A successful  restart displays an OK message:<br />
-      <img src="images/17909-Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Ubuntu, Debian_clip_image004.png" alt="Restarting Elasticsearch engine" width="624" height="53" /></p>
+      <img src="17909-Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Ubuntu, Debian_clip_image004.jpg" alt="Restarting Elasticsearch engine" width="624" height="53" /></p>
   </li>
 </ol>
 <h2>Install and configure Fluentd</h2>
 <ol>
-  <li>Install  Fluentd.
+  <li>Install Fluentd.
+  <p class="note">These commands are  for td-agent version 2.0.4-0. For other versions, see <a href="http://www.fluentd.org/download" target="_top"> Fluentd download page</a>.</p>
 	  <div class="hacker">
 		wget http://packages.treasuredata.com/2/ubuntu/trusty/pool/contrib/t/td-agent/td-agent_2.0.4-0_amd64.deb
 	  </div>
@@ -283,8 +291,9 @@
 		sudo dpkg -i td-agent_2.0.4-0_amd64.deb
 	  </div>
   </li>
-  <li>Install  additional plugins.
-	
+  <li>Install  additional plugins. 
+      <!--Put each command in its own div. cj -->
+	  <!-- Done-->
 	  <div class="hacker">
 		  sudo apt-get install make libcurl4-gnutls-dev --yes
 	  </div>
@@ -299,38 +308,38 @@
 		<li>outrecordreformer - Enables processing of data  into useful formats</li>
 	  </ul>
   </li>
-  <li>
-   Open the the configuration file <code>td-agent.conf.<br />
+  <li>Open the the configuration file <code>td-agent.conf.<br />
     </code>To allow Fluentd to listen to the syslog  messages and then forward them to Elasticsearch, this file needs to be updated. 
 	  <div class="hacker"> 
 	   sudo vim /etc/td-agent/td-agent.conf
 	  </div>
 	  <p>Add the following lines at the top of the  file:</p>
 	  <div class="hacker">
-		  <pre>&lt;source&gt;</pre>
-		  <pre>  type syslog</pre>
-		  <pre>  port 5140</pre>
-		  <pre>  tag  system</pre>
-		  <pre>&lt;/source&gt;</pre>
-		  <pre>&lt;match system.*.*&gt;</pre>
-		  <pre>  type record_reformer</pre>
-		  <pre>  tag elasticsearch</pre>
-		  <pre>  facility ${tag_parts[1]}</pre>
-		  <pre>  severity ${tag_parts[2]}</pre>
-		  <pre>&lt;/match&gt;</pre>
-		  <pre>&lt;match elasticsearch&gt;</pre>
-		  <pre>  type copy</pre>
-		  <pre>  &lt;store&gt;</pre>
-		  <pre>     type stdout</pre>
-		  <pre>  &lt;/store&gt;</pre>
-		  <pre>  &lt;store&gt;</pre>
-		  <pre>     type elasticsearch</pre>
-		  <pre>     logstash_format true</pre>
-		  <pre>     flush_interval 5s #debug</pre>
-		  <pre>  &lt;/store&gt;</pre>
-		  <pre>&lt;/match&gt; </pre>
+		  <pre>&lt;source&gt;
+     type syslog
+     port 5140
+     tag  system
+&lt;/source&gt;
+&lt;match system.*.*&gt;
+	 type record_reformer
+	 tag elasticsearch
+	 facility ${tag_parts[1]}
+	 severity ${tag_parts[2]}
+&lt;/match&gt;
+&lt;match elasticsearch&gt;
+	 type copy
+	 &lt;store&gt;
+     		type stdout
+	 &lt;/store&gt;
+	 &lt;store&gt;
+		type elasticsearch
+		logstash_format true
+		flush_interval 5s #debug
+	 &lt;/store&gt;
+&lt;/match&gt; </pre>
 	  </div></li>
-  <li>Save and close by pressing the <strong>ESC</strong> key and then <strong>:wq</strong>.</li> 
+  <li>Save and close by pressing <strong>ESC</strong> key and then <strong>:wq</strong>.</li> <!--Don't include quotation marks unless the user is supposed to type them. Same comment in step 8 below. cj -->
+  <!-- Updated by taking reference from another validated article. VS-->
  
   <li>Start  Fluentd.
    		<div class="hacker">
@@ -355,7 +364,8 @@
   </li></ol>
   <h2>Next steps</h2>
   <p>As an alternative to Fluentd, many users prefer to work with Logstash. To learn more about the ELK (Elasticsearch, Logstash, and Kibana) stack and its 
-  
+    <!--Please add article number in link. cj -->
+	<!--Added appropriate articles and article numbers. VS -->
   installation, see <a href="17852 - Install ELK stack (Elasticsearch, Logstash, Kibana) - Ubuntu">Install ELK stack (Elasticsearch, Logstash, Kibana) - Ubuntu</a> or <a href="17856 - Install ELK stack (Elasticsearch, Logstash, Kibana) - Debian">Install ELK stack (Elasticsearch, Logstash, Kibana) - Debian</a> </p>
 
 </body>

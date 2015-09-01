@@ -91,7 +91,7 @@
 	 <p class='note'>Please make sure that you are logged in as a <code>sudo</code> user.</p>
    <h2>Prerequisites</h2>
    <p>Before we proceed, we need to install rbenv and PostgreSQL on our Ruby on Rails application. So please visit <a href="#">17520 - Install Ruby on Rails with rbenv – Fedora</a> and <a href="#">17525 - Use PostgreSQL with your Ruby on Rails Application - Fedora</a> links.
-   <h2>Prepare the deployment Server</h2>
+   <h2>Prepare the Deployment Server</h2>
      <ol>
         <li>Install the bundle of development tool by using the following command
 			<div class='hacker'>sudo yum groupinstall -y 'development tools'</div>
@@ -104,13 +104,13 @@
 		<li>Install <code>curl-devel</code> and some other dependencies  by using  following command
 			<div class='hacker'>sudo yum install -y curl-devel nano sqlite-devel libyaml-devel</div>
 		</li>
-		<li>Install Nginx
+		<li>Install NGINX
 			<div class='hacker'>sudo service nginx start</div>
 		</li>
-		<li>Start the Nginx service
+		<li>Start the NGINX service
 			<div class='hacker'>gem install unicorn</div>
 		</li>
-		<li>Tell the server to start Nginx upon reboot
+		<li>Tell the server to start NGINX upon reboot
 			<div class='hacker'>sudo systemctl enable nginx</div>
 		</li>
 		<li>Install Unicorn
@@ -231,11 +231,11 @@ listen "/tmp/unicorn.HelloWorld.sock"
         </li>
 </ol>
 		
-		<h2>Manage the servers</h2>
+		<h2>Manage the Servers</h2>
        <ol> <li>Once you finish configuring both the servers, initiate Unicorn and run it as a daemon by using the configuration file. Ensure that you are inside the application directory and run the following command
             <div class='hacker'>unicorn_rails -c config/unicorn.rb –D</div>
         </li>
-        <li>Restart the Nginx service
+        <li>Restart the NGINX service
             <div class='hacker'>sudo service nginx restart
 	      </div>
 		 </li>

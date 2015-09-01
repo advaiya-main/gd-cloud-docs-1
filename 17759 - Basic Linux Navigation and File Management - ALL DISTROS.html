@@ -4,12 +4,11 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17759-->
 
 
-<title>Basic Linux Navigation and File Management - ALL DISTROS</title>
+
+<title>Basic Linux navigation and file management - ALL DISTROS</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -79,122 +78,131 @@ p.note {
 
     <p>In this article, we will assist you to understand the basic Linux navigation and file management in all distros. To perform this task, we are assuming that the user has <code>sudo</code> privileges.</p>
 
-    <h2>Find where you are with the<code> pwd </code>command</h2>
-   <ol>
-   <li>To know the present location of any directory
+<h2>Find where you are in a directory</h2>
+
+   <ul>
+   <li>To find the present location of any directory, type:
     <div class="hacker">pwd</div>
-	<p>The result should look like this</p>
+    The result should look like this:
 	  <div class="hacker">/home/username</div>
    </li>
-   </ol>
+   </ul>
    
-   <h2>Look at the content of directories with <code>ls</code></h2>
-   <ol>
-   <li>To change the directory
+<h2>Look at the contents of directories</h2>
+<p>Use the <code>ls</code> command to view the contents of directories.</p>
+   <ul>
+   <li>To change the directory, type:
    <div class="hacker">cd /usr/share</div>
    </li>
    
-   <li>To list all the directories and files
+   <li>To list all the directories and files, type:
    <div class="hacker">ls</div>
-   <p>The output will be shown as</p>
-   <img src="images/17759 - 1.png" alt="17759 - 1.png"/>
+   The output will be shown as:
+   <img src="images/17759 - 1.png" alt="List of all directories and files"/>
    </li>
    
-   <li>To know all the information about permissions of all directories and files
+   <li>To find all of the information about permissions of all directories and files, type:
   <div class="hacker">ls –l</div>
-  <p>The output will be shown as</p>
-  <img src="images/17759 - 2.png" alt="17759 - 2.png"/>
+  The output will be shown as:
+  <img src="images/17759 - 2.png" alt="List of permissions of all directories and files"/>
    </li>
    
-   <li>To get a listing of all files, including hidden files and directories
+   <li>To get a listing of all files, including hidden files and directories, type:
    <div class="hacker">ls -al</div>
-   <p>The output will be shown as</p>
-   <img src="images/17759 - 3.png" alt="17759 - 3.png"/>
+   The output will be shown as:
+   <img src="images/17759 - 3.png" alt="List of all files, including hidden files"/>
    </li>
-</ol>
+</ul>
 	
-	<h2>View Files</h2> 
- <ol>
- <li>To view a particular file, use the following command
+	<h2>View files</h2> 
+ <ul>
+ <li>To view a specific file, type:
    <div class="hacker">less /etc/services</div>
-   <p>The output will be shown as</p>
-   <img src="images/17759 - 4.png" alt="17759 - 4.png"/>
-   <p>If you want to scroll on the output file, then press the up and down arrow keys on the keyboard. To scroll one page down the screen, press either CTRL-f, space bar or the ‘Page Down’ button on the keyboard. To scroll one page up the screen, press either CTRL-b or ‘Page Up’ button on the keyboard. </p>
+   The output will be shown as:
+   <img src="images/17759 - 4.png" alt="View a specific file"/>
+   <ul>
+   <li>To scroll in the output file, press the <strong>up arrow</strong> and <strong>down arrow</strong> keys on the keyboard.</li>
+   <li>To scroll one page up the screen, press either the <strong>Ctrl-B</strong> or <strong>Page Up</strong> keys on the keyboard. </li>
+   <li>To scroll one page down the screen, press either <strong>Control/Ctrl+F</strong>, the <strong>spacebar</strong>, or the <strong>Page Down</strong> key on the keyboard. </li>
+
+   </ul>
    </li>
    
-   <li>If you want to search something like <code>mail</code> in this file, then type
+   <li>To search something like <code>mail</code> in this file, type:
    <div class="hacker">/mail</div>
    </li>
    
-   <li>To exit
+   <li>To exit the file, type:
    <div class="hacker">/q</div>
    </li>
    
-   <li>To display the content of a particular file
+   <li>To display the content of a particular file, type:
    <div class="hacker">cat file1</div>
    </li>
    
-   <li>To display top 10 lines of a particular file
+   <li>To display top 10 lines of a particular file, type:
    <div class="hacker">Head /etc/services</div>
    </li>
    
-    <li>To display last 10 lines of a particular file
+    <li>To display last 10 lines of a particular file, type:
    <div class="hacker">Tail /etc/services</div>
    </li>
-</ol> 
+</ul> 
   
-  <h2>Working with Files and Directories </h2>
-  <ol>
-    <li>Many commands can create files. You can use the <code>touch</code> command to create a file. This command will create an empty file with the name and location that you specify
+  <h2>Work with files and directories </h2>
+  <p>There are several commands that can create files and directories.</p>
+  <ul>
+    <li>To create an empty file with the name and location that you specify, type.
    <div class="hacker">sudo touch file1</div>
    </li>
-    <li>We can create multiple files at the same time using the following command
+    <li>To create multiple files at the same time, type:
    <div class="hacker">sudo touch file1 file2 file3 file4</div>
    </li>
-    <li>To create a directory
+    <li>To create a directory, type:
    <div class="hacker">sudo  mkdir test</div>
    </li>
-    <li>To create nested directories
+    <li>To create nested directories, type:
    <div class="hacker">sudo mkdir –P  /test/share/example</div>
    </li>
-    <li>To rename directories and file using
+    <li>To rename directories and file, type either:
    <div class="hacker">sudo mv test share  //for directories</div>
    <div class="hacker">sudo mv file1 example1  // for files</div>
    </li>
-    <li>To copy directories and files
+    <li>To copy directories and files, type:
    <div class="hacker">sudo cp  -rvf test again // for directories</div>
    <div class="hacker">sudo cp //source path //destination path</div>
-   <p>For example</p>
+   For example:
    <div class="hacker">sudo cp –rvf  /etc/services /use/file1</div>
-   <p>Here        -r means recursive
-            <br/> -v means visible 
-             <br/>-f means forcedly
-</p>
-   </li>
-  
-    <li>To remove directories and files
+    <ul>
+    <li><code>-r</code> means recursive</li>
+    <li><code>-v</code> means visible</li> 
+    <li><code>-f</code> means forcedly </li>
+   </ul></li>
+   
+   <li>To remove files directories, type the appropriate command:
    <div class="hacker">sudo  rm –rvf /etc/services.txt  // for files</div>
    <div class="hacker">sudo rmdir –rvf  /etc/test    //for directories</div>
-   <p>Here        -r means recursive
-            <br/> -v means visible 
-             <br/>-f means forcedly
-	</p>
+    <ul>
+    <li><code>-r</code> means recursive</li>
+    <li><code>-v</code> means visible</li> 
+    <li><code>-f</code> means forcedly </li>
+   </ul>
    </li>
-   </ol>
+   </ul>
    
-   <h2>Edit Files</h2>
+   <h2>Edit files</h2>
    <ol>
-    <li>Open a file 
+    <li>Open a file, type: 
    <div class="hacker">sudo vim /etc/services</div>
    </li>
-    <li>Press “I” to go in insert mode and make changes whatever you want.
-   </li>
-    <li>Press “ESC” to go in maintenance mode.
-   </li>
-    <li>To save the file
-   <div class="hacker">:wq!</div>
-   </li>
-   <li>To exit without saving the file
+   <li>
+      <ul>
+      <li>To go into insert mode and make changes whatever you want, press the <strong>I</strong> key.</li>
+    <li>To go into maintenance mode, press <strong>ESC</strong>.</li>
+    <li>To save the file, type:
+   <div class="hacker">:wq!</div></li>
+   </ul></li>
+   <li>To exit without saving the file, type:
    <div class="hacker">:q!</div>
    </li>
     </ol>

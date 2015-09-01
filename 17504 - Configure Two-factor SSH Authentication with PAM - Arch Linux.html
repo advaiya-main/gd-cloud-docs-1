@@ -9,7 +9,7 @@
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>Configure Two-factor SSH Authentication with PAM - Arch Linux</title>
+<title>17504-Configure Two-factor SSH Authentication with PAM - Arch Linux</title>
 <style>
 div.hacker {
 background-color:#666;
@@ -68,78 +68,79 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
-    
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+<p>Configure Two-factor SSH Authentication with PAM - Arch Linux, SSH, Security</p>
+<h1>Configure two-factor SSH authentication with PAM - Arch Linux </h1>
+<p><strong>Difficulty</strong>: <em>1</em></p>
+<p><strong>Time</strong>: <em>10 minutes</em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+<p>In this article, you will use Google authenticator Pluggable Authentication Module (PAM) to protect your SSH server through a two-factor authentication. You will be using your phone as an authentication medium for the two-factor authentication. To connect, you will need to enter the code that you receive on phone.</p>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
+<p class="note"> If you configure this for any user other than root, you need to login as the said user and then switch to root user. In this case, direct root login is not possible.</p>
 
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
-   
+<h2>Prerequisites</h2>
+<p>You need to install Google authenticator application in your smartphone. You can download this on your device from Google play, or get it from this link - Google Authenticator </p>
+
+<h2>Install dependencies</h2>
+<ol>
+<li>Install the required dependencies:
+<div class="hacker">sudo pacman -Sy</div>
+<div class="hacker">sudo pacman -S qrencode</div>
+<div class="hacker">sudo pacman -S pam</div>
+<div class="hacker">sudo pacman -S ntp</div>
+</li>
+<li>Download the Google Authenticator package from Arch User Repository (AUR) repository and then install it using the following commands:
+<div class="hacker">sudo pacman -S --needed base-devel</div>
+<div class="hacker">mkdir build</div>
+<div class="hacker">cd build</div>
+<div class="hacker">wget https://aur.archlinux.org/cgit/aur.git/snapshot/libpam-google-authenticator.tar.gz</div>
+<div class="hacker">tar -xvzf libpam-google-authenticator.tar.gz</div>
+<div class="hacker">cd libpam-google-authenticator</div>
+<div class="hacker">makepkg -s</div>
+<div class="hacker">sudo pacman -U libpam-google-authenticator-1.0-1-x86_64.pkg.tar.xz</div>
+</li>
+</ol>
+
+<h2>Configure Google authenticator</h2>
+<ol>
+<li>Start the <code>ntp</code> service.
+<div class="hacker">sudo systemctl enable ntpd.service</div>
+<div class="hacker">sudo systemctl start ntpd.service</div>
+</li>
+<li>Open the <code>sshd</code> configuration file for editing.
+<div class="hacker">sudo vim /etc/pam.d/sshd</div>
+</li>
+<li>Add the following line to the top of the file:
+<div class="hacker">auth required pam_google_authenticator.so</div>
+</li>
+<li>Open the <code>sshd_config</code> file for editing.
+<div class="hacker">sudo vim /etc/ssh/sshd_config</div>
+</li>
+<li>Update the following line as shown below:
+<div class="hacker">ChallengeResponseAuthentication yes</div>
+</li>
+</ol>
+
+<h2>Activate the two-factor authentication for a user</h2>
+<ol>
+<li>Switch to the desired user, for whom two factor Google authentication needs to be activated.
+<div class="hacker">su &lt;Username&gt; </div>
+</li>
+<li>Activate two factor Google authentication for the user by executing the following command:
+<div class="hacker">google-authenticator</div>
+</li>
+<li>You will get a few questions, which are needed to be answered with yes (y) for first two questions:
+<div class="hacker">Do you want authentication tokens to be time-based (y/n) y</div>
+<div class="hacker">Do you want me to update your "/home/user/.google_authenticator" file (y/n) y</div>
+</li>
+<li><p>Rest of the questions can be answered accordingly.</p></li>
+<li><p>You will get the qr-code after answering the questions. Scan this qr-code using your Google Authenticator application. You can also add this account using a secret key and a verification code, depending on your requirements.</p></li>
+<li>Now restart SSH service in the server. 
+<div class="hacker">sudo systemctl restart sshd.service</div>
+</li>
+</ol>
+
+<h2>Conclusion</h2>
+<p>This is all about installing and configuring SSH server with Google two factor authentication. This configuration adds an additional layer of security for your Linux systems.</p>
+
 </body>
 </html>
