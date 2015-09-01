@@ -4,10 +4,6 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
 
 <title>Install Ruby on Rails with rbenv - Fedora</title>
 <style type="text/css">
@@ -70,95 +66,97 @@ p.note {
 </head>
 
 <body>
+<!--Please address the two comments below. Thanks. cj -->
 <p>Setting up Ruby on Rails using rbenv in Fedora, Ruby, Rails</p>
-    <h1>Install Ruby on Rails using rbenv – Fedora</h1>
+    <h1>Install Ruby on Rails using rbenv - Fedora</h1>
     
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>Ruby is a pure object oriented language like PERL and Python and Rails is a framework for web application development written in Ruby. In this article, you will learn to install Ruby on Rails on Fedora, with the help of rbenv. rbenv is a new lightweight Ruby version management tool </p>
-<p class="note">Note: User should have sudo privileges to run the following command.</p> 
-    <h2>Prerequisites</h2>
-	<p>To setup the Fedora server, please refer <a href="#">17322 - Initial Server Setup - Fedora</a> link. Optionally, you can refer <a href="#">17367 - Install Git - Fedora<a> link to install Git.</p> 
+    <p>Ruby is a pure object oriented language like Perl and Python. Rails is a framework for web application development written in Ruby. In this article, you'll learn to install Ruby on Rails on Fedora, with the help of rbenv, a  lightweight Ruby version management tool.</p>
+<p class="note">You need <code>sudo</code> privileges to run the  commands.</p>
+<p>To set up the Fedora server,  refer to <a href="17322"> Initial Server Setup - Fedora</a> link. Optionally, you can also <a href="17367#"> install Git</a>.</p> 
 	<h2>Install rbenv</h2>
              <ol>
-			 <li>Before installing Ruby you need to install the dependencies of rbenv and Ruby with yum with the help of
-			 <div class='hacker'>sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel</div>
+			 <li>Install the dependencies of rbenv and Ruby.
+			   <div class='hacker'>sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel</div>
 			 </li>
-			 <li>Install rbenv and check for rbenv into <code>.rbenv</code> directory 
-			 <div class='hacker'>cd</div>
-			 <div class='hacker'>git clone git://github.com/sstephenson/rbenv.git .rbenv</div>
-			  <li><p>Add a directory to your $PATH for accessing the rbenv </p>
+			 <li>Install rbenv, and check for rbenv in the<code>.rbenv</code> directory. 
+			   <div class='hacker'>cd</div>
+			 <div class='hacker'>git clone git://github.com/sstephenson/rbenv.git .rbenv</div></li>
+			  <li>
+			Add a directory to your $PATH for accessing  rbenv.
 			  <div class='hacker'>echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile</div></li>
-			  <li><p>Add <code>rbenv init</code> in to the shell for enabling the shims</p>
+			  <li>
+			  <p>Add <code>rbenv init</code>  to the shell for enabling the shims.</p>
 			  <div class='hacker'>echo 'eval "$(rbenv init -)"' >> ~/.bash_profile</div>
 			  <div class='hacker'>exec $SHELL</div>
 			 </li>
-			 <li>These commands will install the latest development version of Ruby-build into the <code>~/.rbenv/plugins/ruby-build</code> directory
-			 <div class='hacker'>git clone git://github.com/sstephenson/ruby-           build.git~/.rbenv/plugins/ruby-build</div>
+			 <li> Install the latest development version of Ruby-build into the <code>~/.rbenv/plugins/ruby-build</code> directory.
+			   <div class='hacker'>git clone git://github.com/sstephenson/ruby-           build.git~/.rbenv/plugins/ruby-build</div>
 			 </li>
-			 <li>Add a directory to your $PATH for accessing Ruby 
-			 <div class='hacker'> echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >>   ~/.bash_profile</div>
+			 <li>Add a directory to your $PATH for accessing Ruby .
+			   <div class='hacker'> echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >>   ~/.bash_profile</div>
 			  <div class='hacker'>exec $SHELL</div>
+			 This installs rbenv into your home directory and sets the appropriate environment variables that  allow rbenv to the active version of Ruby.
 			 </li>
-			 <li>This installs rbenv into your home directory and sets the appropriate environment variables that will allow rbenv to the active version of Ruby
-			 </li>
-			 </ol> 
+ </ol> 
 			 
 	<h2>Install Ruby</h2>
-		<p>Before you start using rbenv, make sure which version of Ruby you want to install. In this article we are installing the latest version of Ruby.</p>
+		<p>Before you start using rbenv, make sure which version of Ruby you want to install<!--Would the user ever not want to install the latest version? What things should the user consider when making this decision? cj -->. In this article we are installing the latest version of Ruby.</p>
              <ol>
-			 <li>Install the dependency of Rails, before you install Ruby by typing
-			 <div class='hacker'>rbenv install -v <em>latest_version</em></div>
+			 <li>Install the dependency of Rails, before you install Ruby.
+			   <div class='hacker'>rbenv install -v <em>latest_version</em></div>
 			 </li>
-			 <li>The below command will set the default version of Ruby that all of your shells will use
-			 <div class='hacker'>rbenv global <em>latest_version</em></div>
+			 <li>Set the default version of Ruby that all of your shells will use.
+			   <div class='hacker'>rbenv global <em>latest_version</em></div>
 			 </li>
-			 <li>The below command will display the version of Ruby that was installed
-			  <div class='hacker'>ruby -v</div>
+			 <li>Display the version of Ruby that was installed.
+			   <div class='hacker'>ruby -v</div>
 			 </li>
 			 </ol>
 			 
 			 
 			 <h2>Install RubyGems </h2>
 		<ol>
-			 <li>When you install gems, by default documentation files will be installed. But it takes time, so here we first stop the document installation by disabling them
-			 <div class='hacker'>echo "gem: --no-document" > ~/.gemrc</div>
-			 </li>
-			 <li>After the document step is disabled, install the bundler gem. The Bundler gem is an essential tool for managing gems when developing and running Rails applications
-			 <div class='hacker'>gem install bundler</div>
+			 <li> Stop the document installation by disabling them. (When you install gems, by default the documentation files  install but take time.)
+			   <div class='hacker'>echo "gem: --no-document" > ~/.gemrc</div>
+		  </li>
+			 <li> Install the Bundler gem. The Bundler gem is an essential tool for managing gems when developing and running Rails applications.
+               <div class='hacker'>gem install bundler</div>
 				</li>
 			 </ol>
-			 <h2>Setup Rails</h2>
+<h2>Set up Rails</h2>
 		
              <ol>
-			 <li>To install Rails, type
-			  <div class='hacker'>gem install rails</div>
-			  <p>This will take some time, so be patient. Once completed, Ruby on Rails will be installed.</p>
+			 <li>Install Rails.
+			   <div class='hacker'>gem install rails</div>
+			  <p>This installation takes some time.</p>
 			 </li>
-			  <li>To install Shims for all Ruby executables known to rbenv, use sub-command <code>rehash</code>
+			  <li>Install Shims for all Ruby executables known to rbenv, using the sub-command <code>rehash</code>.
 			    <div class='hacker'>rbenv rehash</div>
 			 </li>
-			  <li>Find out the version of both Ruby and Rails
-			  <div class='hacker'>ruby -v</div>
+			  <li>Find out the version of both Ruby and Rails.
+			    <div class='hacker'>ruby -v</div>
 			   <div class='hacker'>rails –v</div>
 			 </li>
 			 </ol>	 
 			 
 			 
 			  <h2>Install JavaScript Runtime</h2>
-			A few Rails features, such as the Asset Pipeline, depend on a Javascript runtime. Install Node.js to provide this functionality.
-             <ol>
-			 <li>Add Fedora's Extra Packages for Enterprise Linux (EPEL) yum repository to provide the ability to install software packages which are not included in the official Fedora or Red Hat Enterprise Linux (RHEL) repositories  
-			  <div class='hacker'>sudo yum -y install epel-release</div>
+		    <p>A few Rails features, such as the Asset Pipeline, depend on a Javascript runtime. We'll install Node.js to provide this functionality. </p>
+<ol>
+			 <li>Add Fedora's Extra Packages for Enterprise Linux (EPEL) yum repository. This addition lets you install software packages that are not included in the official Fedora or Red Hat Enterprise Linux (RHEL) repositories  .
+			   <div class='hacker'>sudo yum -y install epel-release</div>
 			 </li>
-			  <li>After you have installed the EPEL release, install the Node.js package
-			  <div class='hacker'>sudo yum install nodejs</div>
+			  <li> Install the Node.js package.
+			    <div class='hacker'>sudo yum install nodejs</div>
 			 </li>
 			  </ol>	
             
     <h2>Next Steps</h2>
-    In this article, we reviewed the steps involved in installing rbenv, Ruby, RubyGems and finally Rails in Fedora environment. 
+    <p>In this article, we reviewed the steps involved in installing rbenv, Ruby, Ruby Gems, and finally Rails in Fedora. </p>
+    <!--Per editorial guidelines, what might the user want to do next? cj -->
    
 </body>
 </html>
