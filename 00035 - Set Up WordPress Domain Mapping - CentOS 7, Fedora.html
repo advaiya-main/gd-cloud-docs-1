@@ -4,7 +4,9 @@
 
 <head>
 
-<title>Title</title>
+<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
+
+<title>Set Up WordPress Domain Mapping - CentOS 7, Fedora</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -39,33 +41,14 @@ p.note {
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
-<mso:ArticleID msdt:dt="string">00034</mso:ArticleID>
-<mso:ArticleKeywords msdt:dt="string"></mso:ArticleKeywords>
-<mso:Complexity msdt:dt="string">2 - A little complex</mso:Complexity>
-<mso:Reference msdt:dt="string"></mso:Reference>
-<mso:LinuxDistributions msdt:dt="string">;#Debian;#Ubuntu;#</mso:LinuxDistributions>
-<mso:ReviewComments msdt:dt="string"></mso:ReviewComments>
-<mso:PrereqOrdering msdt:dt="string">0</mso:PrereqOrdering>
-<mso:ArticleStatus msdt:dt="string">Drafting in progress</mso:ArticleStatus>
-<mso:Dependencies msdt:dt="string"></mso:Dependencies>
-<mso:ArticlePriority msdt:dt="string"></mso:ArticlePriority>
-<mso:AssignedTo1 msdt:dt="string">27</mso:AssignedTo1>
-<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Christine Tzeng</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
-<mso:EditScore msdt:dt="string"></mso:EditScore>
-<mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
-<mso:TestComments msdt:dt="string"></mso:TestComments>
-<mso:DeliveryTarget msdt:dt="string"></mso:DeliveryTarget>
-<mso:TransitionedToGitHub msdt:dt="string">0</mso:TransitionedToGitHub>
-<mso:Difficulty msdt:dt="string">2</mso:Difficulty>
-<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
-<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:ArticleID msdt:dt="string">00035</mso:ArticleID>
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
 </head>
 
 <body>
-<p>Set Up WordPress Domain Mapping on Debian or Ubuntu</p>
-    <h1>Set Up WordPress Domain Mapping - Debian, Ubuntu</h1>
+<p>Set Up WordPress Domain Mapping on CentOS 7, Fedora</p>
+    <h1>Set Up WordPress Domain Mapping - CentOS 7, Fedora</h1>
     
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
         <strong>Time</strong>: <em><u>5 minutes</u></em></p>
@@ -74,9 +57,8 @@ p.note {
 This means you can map any site to another domain. In our tutorial, we’ll map our subdomains to independent standalone domains. For instance, coolexampleproduct.com would redirect to product.coolexample.com, a subdomain of your primary site, coolexample.com. 
 
 Prereqs
-You should have WordPress multisite installed. See 
-<a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17683%20-%20Set%20up%20WordPress%20Multisite%20in%20 NGINX%20-%20Debian%20Ubuntu.html">Set up WordPress Multisite in NGINX - Debian Ubuntu</a>
-for instructions:  
+You should have WordPress multisite installed. See ****17684 LINK****
+for instructions.  
 
 <h2>Download the plugin</h2>
 
@@ -111,18 +93,18 @@ sudo service nginx restart
 
 Return to your wp-admin window
 
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-network-admin-nav-screen1.png" alt="wordpress mu domain mapping plugin network admin nav" />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-network-admin-nav-screen1.png" alt="wordpress mu domain mapping plugin network admin nav" />
 
 In the top navigation bar, you’ll see <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Plugins</strong> <br />.
 
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="wordpress mu domain mapping plugin network activate" />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="wordpress mu domain mapping plugin network activate" />
 
 You’ll see 3 plugins. The WordPress MU Domain Mapping plugin should be the 3rd.
 Click Network Activate under this plugin. You’ll see this activate and the plugin box will highlight.
 LH nav bar: Settings ? Domain Mapping 
 
 
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-domain-options-screen3.png" alt="wordpress mu domain mapping plugin domain options" />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-domain-options-screen3.png" alt="wordpress mu domain mapping plugin domain options" />
 •	Under Domain Options
 •	Uncheck Remote Login
 •	Check Permanent Redirect
@@ -163,10 +145,10 @@ Save and close.
 Back in the WP-Admin browser window:
 The Sites > All Sites section should now show an additional ID column.
 
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-all-sites-with-ID-screen4.png" alt="wordpress mu domain mapping plugin all sites with ID" />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-all-sites-with-ID-screen4.png" alt="wordpress mu domain mapping plugin all sites with ID" />
 
 Make a note of the ID values for each site and go to the Settings > Domains page. Enter the site ID followed by the external domain for the site.
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-new-domain-screen5.png" alt="wordpress mu domain mapping plugin new domain" />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-new-domain-screen5.png" alt="wordpress mu domain mapping plugin new domain" />
 
 <h2>Next Steps</h2>
 
