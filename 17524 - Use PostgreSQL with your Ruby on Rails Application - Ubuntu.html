@@ -86,11 +86,12 @@
 <p><strong>Difficulty:</strong> <em>2</em></p>
 <p><strong>Time:</strong> <em>30 mins</em></p>
 
-<p>In this article, we'll create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails application.  These tasks  assume that you have sudo privileges.</p>
+<p>In this article, we'll create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails application.  </p>
+<p>These tasks  assume that you have sudo privileges.</p>
 <p> To install Ruby on Rails, see <a href="17534">Install Ruby on Rails using RVM - Ubuntu</a>.</p>
 <h2>Install PostgreSQL</h2>
 <ol>
-<li>At the terminal, type the following command:
+<li>Install PostgreSQL.
 	<div class='hacker'>sudo apt-get install postgresql postgresql-contrib</div>
 </li>
 <li>Install <code>pgadmin3</code> for the administrator. <code>pgadmin3</code> is an easy-to-access GUI for PostgresSQL. 
@@ -129,8 +130,8 @@
 <li>Look for <code>pool: 5</code> in the file, and add the following lines beneath it. Enter the username and password for the <code>postgres</code>  user.
   <div class='hacker'>
 <pre>host: localhost
-username: <em><u>UserName</u></em>
-password: <em><u>UserName_password</u></em></pre></div>
+username: <em><u>postgres user username</u></em>
+password: <em><u>postgres user password</u></em></pre></div>
 </li>        
 <li>Save and exit.
 <div class = "hacker">wq!</div></li>
