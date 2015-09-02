@@ -87,12 +87,12 @@ p.note {
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
     <p>In this article, we will assist you to automate the deployment of your Rails application using Capistrano. Capistrano is a remote server automation and deployment tool, which can be used to push your Rails application to remote repository. We are assuming that you have a GitHub account and own <code>sudo</code> priviledges to perform this task.</p>
-	<p class="note">Note: Capistrano relies on Git for deployments.</p>
+	<p class="note">Capistrano relies on Git for deployments.</p>
     <h2>Prepare the Deployment Server</h2>
-	<h3>Step 1: Install Nginx and Passenger</h3>
+	<h3>Install Nginx and Passenger</h3>
 	<ol><li><p><a href = "#">17536 - Install Ruby on Rails using RVM - CentOS</a></p>
 	</li>
-	<li>Download the epel repository using the following commands:
+	<li>Download the <code>EPEL</code> repository using the following commands:
 	<div class='hacker'>sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-	release-7-5.noarch.rpm</div>
 		    <div class='hacker'>sudo rpm -ivh epel-release-7-5.noarch.rpm</div>
 	</li>
@@ -102,10 +102,10 @@ p.note {
 					   <div class='hacker'>sudo yum –y update</div>
 					   </li>
 			
-	  <li>Install the Passenger
+	  <li>Install the Passenger.
 			 <div class='hacker'>gem install passenger</div>
 	  </li>
-			<li>Install the Nginx with the native Passenger module
+			<li>Install the Nginx with the native Passenger module.
 			<div class='hacker'>sudo  yum install libcurl-devel</div>
 			<div class='hacker'>rvmsudo passenger-install-nginx-module</div>
 			</li>
@@ -124,7 +124,7 @@ p.note {
 
 
 
-<h3>Step 2: Create the script for Nginx Management</h3>
+<h3>Create the script for Nginx Management</h3>
 
 <ol><li>Create a new file
 <div class='hacker'>sudo vim /etc/rc.d/init.d/nginx</div>
@@ -223,16 +223,17 @@ p.note {
 	esac
 </pre></div>
 </li>
-<li>Save and exit</li>
+<li>Save and exit
+<div class = "hacker">wq!</li>
 <li>Provide the following permission for this file:
       <div class='hacker'>sudo chmod +x /etc/rc.d/init.d/nginx</div>
 </li>
-<li><p>Open the Nginx configuration file</p>
+<li><p>Open the NGINX configuration file</p>
  <div class='hacker'> sudo vim /opt/nginx/conf/nginx.conf</div>
 </li>
 <li>In this file, go to the http {.. section  and add the following line after <code>passenger_root</code> and <code>passenger_ruby</code> directives
 <div class='hacker'><pre>passenger_app_env development;</pre></div></li>
-<li>Scroll down to the bottom of this file and comment out the following line in the server section {…
+<li>
 <div class='hacker'>
   <pre>#    location / {
 	#            root   html;
@@ -247,41 +248,44 @@ p.note {
 	passenger_enabled on;
 </pre></div>
 </li>
-<li>Save and exit</li>
+<li>Save and exit
+<div class = "hacker">wq!</div></li>
 <li>Start and check status of the Nginx service
 <div class='hacker'>sudo /etc/init.d/nginx restart</div>
 <div class='hacker'>sudo /etc/init.d/nginx status</div>
 </li>
+</ol>
+<h3>Capistrano installation and Create a System user</h3>
+<ol>
 <li>Install Capistrano
 <div class='hacker'>gem install capistrano</div>
 </li>
 <li>Create a system  user for deployment
-<div class='hacker'>sudo adduser <span class="red-text">UserName</span></div>
-<div class='hacker'>sudo passwd <span class="red-text">UserName</span></div>
+<div class='hacker'>sudo adduser UserName</div>
+<div class='hacker'>sudo passwd UserName</div>
 </li>
 <li>Open the <code>/etc/sudoers</code> file
  <div class='hacker'>sudo vim /etc/sudoers</div></li>
 
 <li><p>Scroll down to the bottom of this  file and find where root is defined. Add the following line.</p>
-<div class='hacker'><pre>  <span class="red-text">UserName</span> ALL=(ALL) ALL
+<div class='hacker'><pre>  UserName ALL=(ALL) ALL
 </pre></div></li>
-<li>Save and exit.</li>
+<li>Save and exit.
+<div class ="hacker">wq!</divs></li>
 </ol>
     <h2>Prepare Rails applications for Git-based Capistrano deployment</h2>
-	<h3>Step 1: Create a basic Ruby-On-Rails Application</h3>
+	<h3>Create a basic Ruby-On-Rails Application</h3>
     <ol>
-        <li>Create a new directory 
+        <li>Create a new directory and provide all permissions for this directory and move to the newly created directory.
           <div class='hacker'>sudo mkdir –p /var/www</div>
+		  <div class='hacker'>sudo chmod 777  -R /var/www/</div>
+		  	<div class='hacker'> cd /var/www</div>
         </li>
-		<li>Provide all permissions for this directory and move to the newly created directory
-		<div class='hacker'> cd /var</div>
-		<div class='hacker'>sudo chmod 777  www/</div>
-		</li>
 		<li>Create Rails application in this directory
-			<div class='hacker'>  rails new <span class="red-text">HelloWorld</span></div>
+			<div class='hacker'>  rails new HelloWorld</div>
 		</li>
-		<li>Now enter in the application directory
-		<div class='hacker'>cd <span class="red-text">HelloWorld</span></div>
+		<li>Enter in the application directory
+		<div class='hacker'>cd HelloWorld</div>
 		</li>
 		<li>Create a sample resource
 		  <div class='hacker'> rails generate scaffold Task title:string note:text</div>
@@ -296,14 +300,14 @@ p.note {
 		</li>
 		<li>For binding to web browser, run the following command:
 
-		  <div class='hacker'> rails server --binding=[<span class="red-text">your droplet's IP</span>]</div>
+		  <div class='hacker'> rails server --binding=[your droplet's IP]</div>
 		</li>
 		<li>You should now be able to access it on any browser by typing:
 
-		  <div class='hacker'> visiting: http://[<span class="red-text">your droplet's IP</span>]:3000</div>
+		  <div class='hacker'> visiting: http://[your droplet's IP]:3000</div>
 		</li>
 		</ol>
-		<h3>Step 2: Create a Git Repository</h3>
+		<h3>Create a Git Repository</h3>
 		<ol><li>Initiate git
 		 <div class='hacker'> git init</div>
 		</li>
@@ -332,7 +336,7 @@ p.note {
 	</ol>
 	<h2>Work with the Capistrano to automate deployments
 	</h2>
-	<h3>Step 1: Install Capistrano inside the project directory</h3>
+	<h3>Install Capistrano inside the project directory</h3>
 	<ol><li>Initiate  Capistrano project directories
 	<div class='hacker'>cap install</div>
 	<div class='hacker'><pre># mkdir -p config/deploy
@@ -343,21 +347,21 @@ p.note {
 	# Capified
 </pre></div>
 	</li>
-	<li>Now open the <code>config/deploy.rb</code> file
+	<li>Open the <code>config/deploy.rb</code> file
 	<p>The file <code>deploy.rb</code> contains arguments and settings relevant to the deployment server(s). Here, we will tell Capistrano which server(s) we would like to connect to, deploy and how to do that.</p>
 	  <div class='hacker'>sudo vim config/deploy.rb</div>
 	  </li>
 	  <li>Add the following line and modify it if you want
 	  <div class='hacker'><pre># Define the name of the application
-	set :application, '<span class="red-text">HelloWorld</span>
+	set :application, 'HelloWorld'
 
 	# Define where can Capistrano access the source repository
 	# set :repo_url, 'https://github.com/[user name]/[application 	name].git'
 	set :scm, :git
-	set :repo_url, 'https://github.com/ <span class="red-text">GitHub_UserName/HelloWorld</span> / 	HelloWorld.git'
+	set :repo_url, 'https://github.com/GitHub_UserName/HelloWorld/ 	HelloWorld.git'
 
 	# Define where to put your application code
-	set :deploy_to, "/var/www/<span class="red-text">HelloWorld</span> " // rail application path
+	set :deploy_to, "/var/www/HelloWorld" // rail application path
 
 	set :pty, true
 
@@ -394,20 +398,21 @@ p.note {
 	# end
 </pre></div>
 	  </li>
-	  <li>Save and exit.</li>
-	  <li>Now open the <code>config/deploy/production.rb</code> file
-	    <div class='hacker'>	sudo vim config/deploy/production.rb</div>
+	  <li>Save and exit.
+	  <div class = "hacker">wq!</div></li>
+	  <li>Open the <code>config/deploy/production.rb</code> file
+	    <div class="hacker">sudo vim config/deploy/production.rb</div>
 		</li>
 		<li>Enter the following server setting in this file
 		  <div class='hacker'>
 		    <pre># Define roles, user and IP address of deployment server
 	# role :name, %{[user]@[IP adde.]}
-	role :app, %w{<span class="red-text">UserName</span> @162.243.74.190} // YOUR PUBLIC IP
-	role :web, %w{<span class="red-text">UserName</span>  @162.243.74.190}
-	role :db,  %w{<span class="red-text">UserName</span>  @162.243.74.190}
+	role :app, %w{UserName@162.243.74.190} // YOUR PUBLIC IP
+	role :web, %w{UserName@162.243.74.190}
+	role :db,  %w{UserName@162.243.74.190}
 
 	# Define server(s)
-	server '162.243.74.190', user: ' <span class="red-text">UserName</span>  ', roles: %w{web}
+	server '162.243.74.190', user: 'UserName', roles: %w{web}
 
 	# SSH Options
 	# See the example commented out section in the file
@@ -416,16 +421,21 @@ p.note {
     	forward_agent: false,
     	auth_methods: %w(password),
     	password: 'System_User_Password’,
-  	  user: '<span class="red-text">UserName</span>',
+  	  user: 'UserName',
 	}
   </pre>
 		  </div>
 		</li>
-		<li>Save and exit</li>
+		<li>Save and exit
+		<div class ="hacker">wq!</div></li>
 	</ol>
-	<h3>Step 2: Deploy to the production server</h3>
-	<p>To deploy to the production server, type</p>
+	<h3>Deploy to the production server</h3>
+	<ul>
+		<li>
+	To Deploy your application on production server,type:
 	 <div class='hacker'>cap production deploy</div>
+	 </li>
+	 </ul>
 	 
 	 <h2>Next Step</h2>
 	 <p> By using all of the above mentioned steps, you can easily automate the deployment of your Rails application on GitHub on CentOS or Fedora.</p>
