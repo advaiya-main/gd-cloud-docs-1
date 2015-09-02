@@ -71,18 +71,18 @@ p.note {
     <h1>Deploy Rails Apps  with Passenger and NGINX - CentOS </h1>
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
-    <p>Rails enables web developer to build rapid application development, while NGINX is a light weight and high performance web server. In this article you will learn to deploy Rails application on NGINX web server using the simple and powerful features of Phusion Passenger. To perform this task, we are assuming that the user has <em>sudo</em> privileges.</p>
+    <p>Rails enables rapid application development, while NGINX is a lightweight and high performance web server. In this article, you will learn to deploy Rails application on NGINX web server using the simple and powerful features of Phusion Passenger. To perform this task, we are assuming that the user has <em>sudo</em> privileges.</p>
     <h2>Prerequisites</h2>
-	 <p>To set up your CentOS server, refer to the article: <a href ="#">17323 - Initial Server Setup - CentOS</a>. You need to ensure that the fully qualified domain name (FQDN) points to the server. After you have set up the CentOS server, you will need to <a href ="#">17535 - Install Ruby on Rails using RVM - CentOS</a>. You may also refer to <a href ="#">17721 - Deploy Rails Apps with Passenger and Apache - CentOS</a> link.</p>
+	 <p>To set up your CentOS server, refer to the article: <a href ="17323">Initial Server Setup - CentOS</a>. You need to ensure that the fully qualified domain name (FQDN) points to the server. After you have set up the CentOS server, you will need to <a href ="17535">install Ruby on Rails using RVM</a>. You may also refer to the article: <a href ="17721">Deploy Rails Apps with Passenger and Apache - CentOS</a>.</p>
   
  
    <h2>Install NGINX and Passenger</h2>
     <ol>
-        <li>Install Passenger  and update all packages of operating system..
+        <li>Install Passenger  and update all packages of the operating system.
             <div class='hacker'>gem  install passenger            </div>
 			<div class ="hacker">sudo yum -y update</div>
         </li>
-        <li>Install a dependency and provide required permission to home directory.
+        <li>Install a dependency and provide the required permission to the <code>home</code> directory.
             
             <div class='hacker'>sudo yum install libcurl-devel</div>
       <div class='hacker'>sudo chmod o+x "/home/<em><u>UserName</u></em>"</div>
@@ -90,7 +90,7 @@ p.note {
 	  <li>Install NGINX passenger.
       <div class='hacker'>rvmsudo  passenger-install-nginx-module</div>
         </li>
-        <li>For  language, select <strong>Ruby</strong>, and then press the <strong>Enter</strong> key.
+        <li>For  language, select <code>Ruby</code>, and then press the <strong>Enter</strong> key.
           <div class='hacker'>Use &lt;space&gt; to select. If the menu doesn't display correctly, ensure that your terminal supports UTF-8.
       <ul>
         <li>Ruby</li>
@@ -100,28 +100,28 @@ p.note {
         </ul>
 </div>
            </li>
-        <li>Select  <strong>1</strong> and press <strong>Enter</strong> to continue. This action  downloads, compiles, and installs the NGINX files with Passenger support.
+        <li>Select  <code>1</code> and press the <strong>Enter</strong> key to continue. This action downloads, compiles, and installs the NGINX files with Passenger support.
           <div class='hacker'>1. Yes: download, compile and install Nginx for me.(recommended)
-       <br/> 
-       The easiest way to get started. A stock Nginx 1.4.4 with Passenger support, but with no other additional third party modules, will be installed for you to a directory of your choice.</div>
+       <br /> 
+       The easiest way to get started. A stock NGINX 1.4.4 with Passenger support, but with no other additional third party modules, will be installed for you to a directory of your choice.</div>
         </li>
   <li>  Save and exit.
   <div class ="hacker">wq!</div>
   </li>
     </ol>
-    <h2>Set up a test Rails Application</h2>
+    <h2>Set up a test Rails application</h2>
        <ol><li>Create a directory 
             <div class='hacker'>sudo mkdir -p  /var/www</div>
         </li>
-        <li>Provide all required Permission and  go to that directory.
+        <li>Provide all required permissions, and then go to that directory.
           <div class="hacker">sudo chmod -R 0777 /var/www/</div>
 		  <div class='hacker'>cd /var/www</div>
 		  </li>
-		  <li>Create a Rail application and go to application directory.
+		  <li>Create a Rail application, and then go to <code>application</code> directory.
       <div class='hacker'>rails  new <em><u>HelloWorld</u></em></div>
       <div class='hacker'>cd <em><u>HelloWorld</u></em></div>
-        </li>
-    <li>Create a sample databases and generate a scaffold controller to manage the production database.
+        </li>                                               
+    <li>Create a sample databases, and then generate a scaffold controller to manage the production database.
             <div class='hacker'>  RAILS_ENV=development rake db:migrate</div>
 		<div class ="hacker">RAILS_ENV=production  rake db:migrate
 		</div>
@@ -137,9 +137,9 @@ p.note {
             <div class='hacker'>sudo vim  /etc/nginx/conf/nginx.conf</div>
         </li>
     
-    <li>Uncomment the below mentioned line right way
+    <li>Uncomment the following line:
             <div class='hacker'>passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-      <br/>passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv
+      <br />passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv
       </div>
         </li>
     
@@ -166,7 +166,7 @@ p.note {
        <li>Save and exit.
 	   <div class ="hacker">wq!</div>
 	   </li>
-        <li>Restart the NGINX service
+        <li>Restart the NGINX service.
             <div class='hacker'> sudo service nginx restart</div>
           
         </li></ol>
