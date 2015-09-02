@@ -90,45 +90,47 @@
 
 <p><strong>Difficulty</strong>: 1</p>
 <p><strong>Time</strong>: 30 minutes</p>
-<p>Ruby on Rails&reg; is a well-known open source stack for web application development. The Ruby Version Manager (RVM) lets you easily manage multiple Ruby application environments and switch between them in a most efficient way. This article will assist you on how to setup Ruby on Rails in CentOS using RVM.</p>
+<p>Ruby on Rails&reg; is a well-known, open source stack for web application development. With the Ruby Version Manager, you can easily manage multiple Ruby application environments and switch between them in a most efficient way. This article will assist you on how to set up Ruby on Rails in CentOS using RVM.</p>
 
-<h2>Prerequisites</h2><ul><li>
-<p> To initially setup the server, please visit <a href="#">17323 - Initial Server Setup - CentOS</a></p></li></ul>
+<h2>Prerequisites</h2>
+<p>If you have not set up your server, please visit <a href="17323">Initial Server Setup - CentOS</a></p>
 <p class="note">You will need access to sudo privileges to complete these steps. </p>
 <h2>Prepare your system</h2>
 <p>Before you can install Ruby on Rails, prepare your system with the required and updated system software.</p>
 <ol>
-<li>Access root by running the following command:
+<li>Access <code>root</code> using the following command:
   <div class="hacker">sudo yum update</div>
 </li>
-<li>To install <code>curl </code>use following command. 
-		<div class="hacker">sudo yum install curl</div><!--This command makes no sense. The text says that you are installing RVM, but then you do it again a few steps below. Is this a duplicate step? -->
+<li>Install <code>curl</code> using the following command: 
+		<div class="hacker">sudo yum install curl</div>
 </li>
-<li>Set up the <code>mpapis public key</code> with the following command:
+<li>Set up the <code>mpapis public key</code> using the following command:
   <div class="hacker">gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3</div>
 </li>
 </ol>
 <h2>Install RVM</h2>
 <ol>
 <li> 
-If your system doesn’t have RVM already installed, use the following command to install RVM. 
+If your system doesn’t have RVM already installed, install RVM using the following command:
 		<div class="hacker">\curl -L https://get.rvm.io | bash -s stable --ruby </div>
 <p>The backslash before <code>curl</code> prevents potential version conflicts and <code>--ruby</code> flag will install the latest version of Ruby. </p>
 </li>
 <li>
-	Following message will appear after all installation process.
+	After the installation is complete, the following message displays:
 	<div class="hacker">
 		 To start using RVM you need to run `source /home/<em><u>user_name</u></em>/.rvm/scripts/rvm`
 		in all your open shell windows, in rare cases you need to reopen all shell windows.
-	</div>
-	To apply RVM, execute the following command: 
-		<div class="hacker">source  /home/<em><u>user_name</u></em>/.rvm/scripts/rvm</div>
-<p>If your system already has RVM installed, update it, and install Ruby using the following commands.  </p>
+	</div></li>
+<li>
+	To apply RVM, use the following command: 
+		<div class="hacker">source  /home/<em><u>user_name</u></em>/.rvm/scripts/rvm</div></li>
+    
+    <li>If your system already has RVM installed, update it, and install Ruby using the following commands: 
 <div class="hacker">rvm get stable --autolibs=enable</div>
 <div class="hacker">rvm install ruby</div>
-<p>If you’ve already installed these packages, you'll get a message </p>
+If you’ve already installed these packages, you'll see a message.
 </li>
-<li>Rail asset pipeline needs JavaScript runtime to compile code. On CentOS, Node.js (a server-side JavaScript environment) is preferred. To install this, type the following command:
+<li>Rail asset pipeline needs JavaScript runtime to compile code. On CentOS, Node.js (a server-side JavaScript environment) is preferred. To install this, use the following command:
   <div class="hacker">sudo yum install nodejs</div>
 </li>
 </ol>
@@ -157,17 +159,17 @@ Install Bundler and Nokogiri gems with the following commands:
 			<div class="hacker">gem install rails</div>
 	</li>
 	<li>
-	To check the version, type:
-			<div class="hacker">rails –v</div>
+	To check the version, use the following command:
+			<div class="hacker">rails –v</div></li>
 	
-	To install a specific version, type:
+<li>If you need to install a specific version, use the following command.
 			<div class="hacker">gem install rails --version=<em><u>[version number]</u></em></div>
 	</li>
 </ol>
-<p>After following all these steps, you are done with installation of Ruby on Rails. </p>
+<p>After following all these steps, you have installed Ruby on Rails. </p>
 
 <h2>Next steps</h2>
-<p>In this article, we reviewed the steps involved in setting up Ruby on Rails using RVM for your web application in CentOS distribution. For more information on RVM, read the article: <a href="#">17912 - Use RVM to manage Ruby installations and Environments - ALL DISTROS</a></p>
+<p>In this article, we reviewed the steps involved in setting up Ruby on Rails using RVM for your web application in CentOS distribution. For more information on RVM, read the article: <a href="17912">Use RVM to manage Ruby installations and Environments - ALL DISTROS</a>.</p>
 
 
 </body>
