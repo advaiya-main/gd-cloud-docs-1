@@ -222,8 +222,8 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
     <li>At the prompt, enter your MySQL root password.  </li>
     <li>At the MySQL prompt, create your WordPress database. For this article, we'll use the database name "wordpress."
   <div class="hacker">CREATE DATABASE wordpress;</div></li>
-<li>Create the database administrator account, and set the user's credentials. We'll use "wordpressadmin" as the example user name, and "password" as the password.
-  <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'password';</div>
+<li>Create the database administrator account, and set the user's credentials. We'll use "wordpressadmin" as the example user name, and "wordpresspassword" as the password.
+  <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
   As a best security practice, create a strong password. Keep your user name and password handy, as you'll need them later.</li>
  <li>Give, or grant, your admin permissions to the database.   
 <div class="hacker">GRANT ALL PRIVILEGES ON wordpress.* TO wordpressadmin@localhost;</div>

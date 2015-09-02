@@ -214,8 +214,8 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
     <li>At the prompt, enter your MySQL root password.  </li>
     <li>At the MySQL prompt, create your WordPress database. For this article, we'll use the database name "wordpress."
   <div class="hacker">CREATE DATABASE wordpress;</div></li>
-<li>Create the database administrator account, and set the user's credentials. We'll use "wordpressadmin" as the example user name, and "password" as the password.
-  <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'password';</div>
+<li>Create the database administrator account, and set the user's credentials. We'll use "wordpressadmin" as the example user name, and "wordpresspassword" as the password.
+  <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
   As a best security practice, create a strong password. Keep your user name and password handy, as you'll need them later.</li>
  <li>Give, or grant, your admin permissions to the database.   
 <div class="hacker">GRANT ALL PRIVILEGES ON wordpress.* TO wordpressadmin@localhost;</div>
@@ -294,7 +294,7 @@ You can leave the Database Host as is (localhost), since that's what we defined,
 <li>Open your configuration file for editing.
    <div class="hacker">sudo vim wp-config.php</div></li>
    
-  <li>In the file, look for the following section of  code  (starting with &quot;MySQL settings&quot;), and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you created earlier.
+  <li>In the file, look for the following section of  code  (starting with &quot;MySQL settings&quot;), and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>, <em><u>mysql root password</u></em>) with the credentials you created earlier.
 
     <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
 /** The name of the database for WordPress */ <br />
@@ -304,7 +304,7 @@ define('DB_NAME', 'wordpress'); <br />
 define('DB_USER', 'wordpressadmin');     <br />
 
 /** MySQL database password */ <br />
-define('DB_PASSWORD', 'password');   </div> </li>
+define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
 
  <li>Farther down in the file, find the line  <code>/* That's all, stop editing! Happy blogging. */</code> and add  these lines:
    <div class="hacker">/* Multisite settings */<br/>
