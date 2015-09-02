@@ -72,17 +72,17 @@ p.note {
 <p><strong>Difficulty</strong>: <em>1</em></p>
 <p><strong>Time</strong>: <em>10 minutes</em></p>
 
-<p>In this article you will use Google authenticator Pluggable Authentication Module (PAM) to protect your SSH server through a two-factor authentication. You will be using your phone as an authentication medium for the two-factor authentication. To connect, you will need to enter the code that you receive on your phone.</p>
+<p>In this article you will use Google authenticator Pluggable Authentication Module (PAM) to protect your secure shell (SSH) server through a two-factor authentication. You will be using your phone as an authentication medium for the two-factor authentication. To connect, you will need to enter the code that you receive on your phone.</p>
 
 <p class="note"> If you configure this for any user other than root, you need to login as the said user and switch to root user. In this case, direct root login is not possible.</p>
 
 <h2>Prerequisites</h2>
-<p>You need to install Google authenticator application in your smartphone. You can download this on your device from Google play, or get it from this link - Google Authenticator. </p> <!--missing link-->
+<p>You need to install Google authenticator application in your smartphone. You can download this on your device from Google play, or download it from the <a href="https://support.google.com/accounts/answer/1066447?hl=en">Google Authenticator</a> site. </p>
 
 <h2>Install dependencies</h2>
 <ul>
 <li>
-<p>Install the required dependencies:</p>
+<p>Install the required dependencies.</p>
 <div class="hacker">sudo yum install epel-release</div>
 <div class="hacker">sudo yum update</div>
 <div class="hacker">sudo yum install qrencode*</div>
@@ -115,14 +115,14 @@ p.note {
 <li>Activate two-factor Google authentication for the user by executing the following command:
 <div class="hacker">google-authenticator</div>
 </li>
-<li>You will get few questions, which need to be answered with yes (y) for first two questions:
+<li>Answer the questions presented. Answer <strong>y</strong> to the first two questions.
 <div class="hacker">Do you want authentication tokens to be time-based (y/n) y</div>
 <div class="hacker">Do you want me to update your "/home/user/.google_authenticator" file (y/n) y</div>
 </li>
-<li><p>Following questions can be answered accordingly.</p></li>
-<li><p>You will get the qr-code after answering the questions. Scan this qr-code using your Google Authenticator application. You can also add this account using secret key and verification code, which depends on your requirements.</p>
+<li><p>Answer the remaining questions.</p></li>
+<li><p>You will get the QR code after answering the questions. Scan this QR code using your Google Authenticator application. You can also add this account using a secret key and verification code, which depends on your requirements.</p>
 </li>
-<li>Switch to root user and restart SSH service in the server. 
+<li>Switch to root user, and then restart SSH service in the server. 
 <div class="hacker">sudo su -</div>
 <div class="hacker">service sshd restart</div>
 <p>In case you configured authentication for root user, you only need to restart SSH service in the server.</p>
