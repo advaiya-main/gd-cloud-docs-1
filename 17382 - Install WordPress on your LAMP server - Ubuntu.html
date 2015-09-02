@@ -115,14 +115,15 @@ Failed at Copy files to document root point 1. Details and screenshot in email. 
     <li>At the prompt, enter your MySQL root password.  </li>
     <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name fittingly as “wordpress.”
 <div class="hacker">CREATE DATABASE wordpress;</div></li>
-<li>Create the database administrator account and set the user’s credentials.  For this tutorial, we’ll use “wordpressadmin” as the example user name, and “password” as the password.
-<div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'password';</div>
+<li>Create the database administrator account and set the user’s credentials. For this tutorial, we’ll use “wordpressadmin” as the example user name, and “wordpresspassword” as the password.
+<div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
 <p>As a good security practice, create a strong password. Keep your username and password handy, as you’ll need them later.</p></li>
  <li>Give, or grant, your admin permissions to the database.   
 <div class="hacker">GRANT ALL PRIVILEGES ON wordpress.* TO wordpressadmin@localhost;</div>
 <code>GRANT</code> is one of the account management statements the MySQL server notices and loads into memory right away. So a manual reload/restart should not be necessary. But if you’d like, you can check the permissions using <code>SHOW GRANTS</code>.
 <div class="hacker">SHOW GRANTS FOR 'wordpressadmin'@'localhost';</div>
 </li>
+
 <li>
    <p>If for some reason the privileges didn’t take, flush the privileges to activate the user. Flush forces a reload of the cache.</p>
 <div class="hacker">FLUSH PRIVILEGES;</div>  </li>
@@ -175,7 +176,7 @@ define('DB_NAME', 'wordpress'); <br />
 define('DB_USER', 'wordpressadmin');     <br />
 
 /** MySQL database password */ <br />
-define('DB_PASSWORD', 'password');   </div> </li>
+define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
 <li>Save and close.</li>                                      
 </ol>    
   <h2>Copy files to document root</h2>   
