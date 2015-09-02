@@ -196,10 +196,10 @@ define('DB_PASSWORD', 'wordpresspassword');   </div>
    <li>Move into that directory
 <div class="hacker">   cd /var/www/</div></li>
         
- <!--CT: Arch doesn't need this to be able to run (START)...  
- <li>Change ownership of the directory with the user you created earlier. For this tutorial, we're using <code>wordpress_user</code>.
-<div class="hacker">sudo chown nginx:nginx * -R </div>
-<div class="hacker">sudo usermod -a -G nginx wordpress_user </div>
+ <!--CT: Included permissions 9/02-->
+ <li>Change ownership of the directory and grant read-write permissions to the group. This way you'll be able to work with WordPress uploads, plugins, and themes.
+<div class="hacker">sudo chown http:http /var/www</div>
+<div class="hacker">sudo chmod g+w /var/www</div>
 </li>
  ...(END)-->
         </ol>

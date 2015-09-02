@@ -255,13 +255,11 @@ This command creates a directory called "wordpress" in your home directory.</li>
 <li>Copy the files into the WordPress document root.
 <div class="hacker">sudo cp -r ~/wordpress/* /var/www/wordpress</div></li>
 
- <!--CT: CHECK THESE COMMANDS -->
-<li>Create a designated user for WordPress. This can be any user. We'll call ours <code>wordpress_user</code>.
-       <div class="hacker">sudo adduser wordpress_user</div></li>
-                                  
-<li>Change ownership so that you'll be able to work with WordPress uploads, plugins, and themes.
-      <div class="hacker">sudo chown nginx:nginx * -R </div>
-      <div class="hacker">sudo usermod -a -G nginx wordpress_user </div></li>
+ 
+ <li>Change ownership of the directory and grant read-write permissions to the group. This way you'll be able to work with WordPress uploads, plugins, and themes.
+<div class="hacker">sudo chown http:http /var/www</div>
+<div class="hacker">sudo chmod g+w /var/www</div>
+</li>
 
 </ol>  
 
