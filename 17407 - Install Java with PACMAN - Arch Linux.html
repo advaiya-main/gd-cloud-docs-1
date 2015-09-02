@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is _17407_________ (fill in blank)-->
+
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>Install Java with PACMAN - Arch Linux</title>
+<style>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Java, SDK</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string"></mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#Arch Linux;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string">Should be identical by linux fork, if there are discepancies split up several articles according to distro</mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">1</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17407</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+
+<mso:ArticleStatus msdt:dt="string">Not started</mso:ArticleStatus>
+<mso:HoursDraftingEstimated msdt:dt="string">1.50000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.100000000000000</mso:HoursEditingEstimated>
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string"></mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Conrad James</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:ReviewComments msdt:dt="string"></mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+<mso:AssignedTo1 msdt:dt="string">39</mso:AssignedTo1>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+<p>Install Java</p>
+    <h1>Install Java with pacman - Arch Linux</h1>
+    
+    <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
+        <strong>Time</strong>: <em><u>10 minutes</u></em></p>
+
+    <p>Java is used by many applications so behooves many administrators to have Java already installed.  This article contains directions for installing both the java runtime, SDK, and Open JDK 7 versions </p>
+
+    <h2>Install Java</h2>
+    <ol>
+<li>Update your repository
+ <div class="hacker">sudo pacman -Syu </div>
+</li>
+<li>Download Java 8 runtime
+    (update the version number based on the current version)
+ <div class="hacker">sudo pacman -S jre8-openjdk</div>
+</li>
+<li>Download Java
+    OPEN JDK 8
+    (update the version number based on the current version)
+ <div class="hacker">sudo pacman -S jdk8-openjdk </div>
+</li>
+ <li>Create / edit a file,  <code>/etc/environment</code>
+      <div class="hacker">sudo vim /etc/environment</div>
+</li>
+ <li>Select your <code>Java_home</code> (in this case we will use the jdk version).  
+ <div class="hacker">JAVA_HOME="/usr/lib/jdk8-openjdk&quot;
+</div>
+</li>
+<li>Save and close.
+ </li>
+ <li>Load the environment file
+ <div class="hacker">source /etc/environment
+</div>
+</li>
+<li>Test it
+ <div class="hacker">echo $JAVA_HOME
+</div>
+</li>
+</ol>
+    <h2>Conclusion</h2>
+    <p>You have just installed Java.  </p>
+   
+</body>
+</html>

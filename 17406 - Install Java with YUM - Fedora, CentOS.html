@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is __17406________ (fill in blank)-->
+
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>Install Java with YUM - Fedora, CentOS</title>
+<style>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Java, SDK</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-install-java-on-centos-and-fedora, https://www.digitalocean.com/community/tutorials/how-to-install-java-on-centos-and-fedora</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#CentOS;#Fedora;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string">Should be identical by linux fork, if there are discepancies split up several articles according to distro</mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">1</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17406</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+
+<mso:ArticleStatus msdt:dt="string">Not started</mso:ArticleStatus>
+<mso:HoursDraftingEstimated msdt:dt="string">1.50000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.100000000000000</mso:HoursEditingEstimated>
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string"></mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Conrad James</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:ReviewComments msdt:dt="string"></mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+<mso:AssignedTo1 msdt:dt="string">39</mso:AssignedTo1>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+<p>Install Java</p>
+    <h1>Install Java with yum - CentOS, Fedora</h1>
+    
+    <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
+        <strong>Time</strong>: <em><u>10 minutes</u></em></p>
+
+    <p>Java is used by many applications so behooves many administrators to have Java already installed.  This article contains directions for installing both the java runtime, SDK, and Open JDK 7 versions </p>
+
+    <h2>Install Java</h2>
+    <ol>
+<li>Update your repository
+ <div class="hacker">sudo yum update </div>
+</li>
+<li>Download Java runtime
+    (update the version number based on the current version)
+ <div class="hacker">sudo yum install java-1.7.0-openjdk</div>
+</li>
+<li>Download Java
+    OPEN JDK 7
+    (update the version number based on the current version)
+ <div class="hacker">sudo yum install java-1.7.0-openjdk-devel </div>
+</li>
+<li>You can also get the latest version number and tar.gz archive from the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">Oracle downloads</a> page. This will require you to accept a license agreement.</li>
+ 
+       </ol>
+         <h2>Select and verify the default Java version</h2>
+ <ol>
+     <li>If you have mmore than one version of Java installed, you can use the following command to select it.  
+         Unless you installed an Oracle version above, this command will only return one row.
+ <div class="hacker">sudo update-alternatives --config java</div>
+    You will see this:
+    <div class="hacker"><pre>  Selection    Command
+-----------------------------------------------
+*+ 1           /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.79-2.5.5.0.fc20.x86_64/jre/bin/java
+
+Enter to keep the current selection[+], or type selection number:</pre></div>
+ 
+</li>
+        <li>Create a file,  <code>/etc/environment</code>
+      <div class="hacker">sudo vim /etc/environment</div>
+</li>
+ <li>Select your <code>Java_home</code>
+     by trimming off the <code>jre/bin/java</code> part of the path of your preferred alternative that you chose above, and entering it into the file.  
+ <div class="hacker">JAVA_HOME="/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.79-2.5.5.0.fc20.x86_64&quot;
+</div>
+</li>
+<li>Save and close.
+ </li>
+ <li>Load the environment file
+ <div class="hacker">source /etc/environment
+</div>
+</li>
+<li>Test it
+ <div class="hacker">echo $JAVA_HOME
+</div>
+</li>
+</ol>
+    <h2>Conclusion</h2>
+    <p>You have just installed three versions of Java and selected one to be your default.  </p>
+   
+</body>
+</html>

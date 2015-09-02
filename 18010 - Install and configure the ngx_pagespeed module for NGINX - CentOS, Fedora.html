@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is __18010________ (fill in blank)-->
+
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>Install and configure the ngx_pagespeed module for NGINX - CentOS, Fedora</title>
+<style>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">PHP, NGINX, Optimization, LEMP</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-add-ngx_pagespeed-module-to-nginx-in-debian-wheezy, https://www.digitalocean.com/community/tutorials/how-to-add-ngx_pagespeed-module-to-nginx-in-debian-wheezy</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#CentOS;#Fedora;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">3</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">1</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">18010</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:ArticleStatus msdt:dt="string">Not started</mso:ArticleStatus>
+<mso:HoursDraftingEstimated msdt:dt="string">1.50000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.100000000000000</mso:HoursEditingEstimated>
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string">Phase 2</mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+<mso:Week msdt:dt="string">9.00000000000000</mso:Week>
+<mso:ReviewComments msdt:dt="string"></mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:AssignedTo1 msdt:dt="string">19</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Brian Miller</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Crystal Smithwick</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:ReviewedBy msdt:dt="string">42</mso:ReviewedBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+<p>Installation and configuration of NGINX with ngx_pagespeed</p>
+    <h1>Install and configure the ngx_pagespeed module for NGINX - CentOS, Fedora</h1>
+    
+    <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
+        <strong>Time</strong>: <em><u>15 minutes</u></em></p>
+
+    <p>NGINX is fast.  Pagespeed nakes it faster by optimizing your website.  This article descibes how to install ngx_pagespeed, combine it with the NGINX source, and compile and configure the resulting customized NGINX webserver.</p>
+
+<h2>Preparation </h2>
+<ol>
+<li>Update your server.
+     <div class="hacker">sudo yum update</div>
+
+</li>
+     <li>Install a C compiler and some other tools
+                    <div class="hacker"> sudo yum install gcc-c++ pcre-devel zlib-devel make unzip</div>
+               </li>
+    
+</ol>
+    <h2>Install ngx_pagespeed </h2>
+    <ol>
+<li>Find the latest NPS version (1.9.32.6) and use it to get the zip file from the archive
+     <div class="hacker">sudo wget https://github.com/pagespeed/ngx_pagespeed/archive/release-1.9.32.6-beta.zip </div>
+
+</li>
+<li>Unzip the file 
+     <div class="hacker">unzip release-1.9.32.6-beta.zip</div>
+
+</li>
+<li>Navigate to the ngx_pagespeed folder.
+     <div class="hacker">cd ngx_pagespeed-release-1.9.32.6-beta/</div>
+
+</li>
+<li>Download from Google.
+     <div class="hacker">sudo wget https://dl.google.com/dl/page-speed/psol/1.9.32.6.tar.gz
+</div>
+
+</li>
+<li>extract to psol
+     <div class="hacker">tar -xzvf 1.9.32.6.tar.gz  </div>
+</li>
+    </ol>
+<h2>Download NGINX source </h2>
+<ol>
+<li>Check http://nginx.org/en/download.html for the latest version (1.8.0).
+ </li>
+<li>Navigate to your home directory
+     <div class="hacker">cd ~</div>
+
+</li>
+<li>Download NGINX source 
+     <div class="hacker">sudo wget http://nginx.org/download/nginx-1.8.0.tar.gz </div>
+
+</li>
+<li>Unzip it
+     <div class="hacker">sudo tar -xvzf nginx-1.8.0.tar.gz </div>
+
+</li>
+        </ol>
+<h2>Build NGINX from source </h2>
+<ol>
+<li>Navigate to Nginx source directory.
+     <div class="hacker">cd nginx-1.8.0/
+</div>
+
+</li>
+<li>Add the pagespeed module to the NGINX configuration
+     <div class="hacker">sudo ./configure --add-module=$HOME/ngx_pagespeed-release-1.9.32.6-beta  </div>
+</li>
+<li>Create a make file
+     <div class="hacker">sudo make </div>
+
+</li>
+<li>Install from your make file<div class="hacker">sudo make install</div>
+
+</li>
+    </ol>
+
+<h2>Configure NGINX </h2>
+<ol>
+<li>Open the configuration file for editing
+     <div class="hacker">sudo vim /usr/local/nginx/conf/nginx.conf</div>
+
+</li>
+<li>Add the following lines to your http context:
+     <div class="hacker"><pre># http context 
+http {
+...    
+    # pagespeed
+    pagespeed on;
+    pagespeed DisableRewriteOnNoTransform off;
+    pagespeed XHeaderValue "Powered By ngx_pagespeed";
+    pagespeed FileCachePath "/var/cache/ngx_pagespeed/";
+    pagespeed EnableFilters combine_css,combine_javascript;
+... </pre></div>
+
+</li>
+
+<li>Modify the Server and location contexts by commenting out the <code>root</code> and <code>index</code> directives in the location contexts and implement them in the server context instead.  Changed sections are <em><u>underlined</u></em>
+     <div class="hacker"><pre># http context 
+   server {
+        listen       80;
+        server_name  localhost;
+        <em><u>root   /usr/local/nginx/html;</u></em>
+        <em><u>index  index.html index.htm;</u></em>
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+        location / {
+        <em><u># root   html;</u></em>    
+        <em><u># index  index.html index.htm;</u></em>    
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+        <em><u># root   html;</u></em>     
+        }
+ ...</pre></div>
+
+</li>
+<li>Verify the install by checking the nginx version information 
+<div class="hacker">sudo /usr/local/nginx/sbin/nginx -V</div> 
+</li>
+<li>The response will look something like this 
+<div class="hacker"><pre>nginx version: nginx/1.8.0
+built by gcc 4.8.3 20140911 (Red Hat 4.8.3-7) (GCC)
+configure arguments: --add-module=/home/randomcode/ngx_pagespeed-release-1.9.32.6-beta
+</pre></div> 
+</li>
+<li>Start the Nginx service.
+<div class="hacker">sudo /usr/local/nginx/sbin/nginx</div>
+
+  </li>  
+                     </ol>
+
+
+    <h2>Conclusion</h2>
+ <p>Nginx is now running as a web server enhanced with pagespeed. You can verify by using your browser to navigate to the IP address of your cloudserver,  <code>http://<em><u>IP Address of your cloudserver</u></em></code> .</p>
+   
+</body>
+</html>

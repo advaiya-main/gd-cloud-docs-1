@@ -133,18 +133,20 @@ p.note {
                 <li>Edit the config file
                     <div class="hacker">sudo vim /usr/local/share/moin/moin.wsgi</div>
                </li>
-                <li>Below the <code>import sys, os</code> line insert the following:
+               <li>Edit the  <code>WSGIScriptAlias</code> ,<code>WSGIDaemonProcess</code>, and<code>WSGIProcessGroup</code> directives to look like this:
+                    <div class="hacker"><pre> # you will invoke your moin wiki at the root url, like http://servername/FrontPage:
+    WSGIScriptAlias / /usr/local/share/nginx/html/moin.wsgi
+
+    # create some wsgi daemons - use someuser.somegroup same as your data_dir:
+    WSGIDaemonProcess moin user=nginx group=nginx processes=5 threads=10 maximum-requests=1000 umask=0007
+
+    # use the daemons we defined above to process requests!
+    WSGIProcessGroup moin
+</pre></div>
+               </li>
+                <li>Below the <code>import sys, os</code> line uncomment the two lines&nbsp;<code>#sys.path.insert</code> lines and modify them as follows:
                     <div class="hacker"><pre>sys.path.insert(0, '/usr/local/lib/python2.7/dist-packages/')
 sys.path.insert(0, '/usr/local/share/moin/')</pre></div>
-               </li>
-                <li>The resulting file should like like this excerpt:
-                    <div class="hacker"><pre>...
-import sys, os
-
-sys.path.insert(0, '/usr/local/lib/python2.7/dist-packages/')
-sys.path.insert(0, '/usr/local/share/moin/')
-...
-</pre></div>
                </li>
                 <li>Save and close
                 </li>
@@ -156,7 +158,7 @@ sys.path.insert(0, '/usr/local/share/moin/')
                </li>
                 <li>Insert the following contents
                     <div class="hacker"><pre>[uwsgi]
-uid = www-data
+uid = nginx
 gid = www-data
 socket = /usr/local/share/moin/moin.sock
 chmod-socket = 660
@@ -235,11 +237,10 @@ superuser = [u"<em><u>WikiAdmin</u></em>", ]
                     <div class="hacker"><pre>#! /usr/bin/python
 #Fix and uncomment those 2 lines if your moin command doesn't find the MoinMoin
 package:
-#import sys
-#sys.path.insert(0, '/usr/local/lib/python2.7/site-packages')
+import sys
+sys.path.iimport sys
+sys.path.insert(0, '/usr/local/lib/python2.7/site-packages/')
 from MoinMoin.script.moin import run
-run()
-</pre></div>
                </li> 
 
           <li>Start MoinMoin
