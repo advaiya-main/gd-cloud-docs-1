@@ -4,10 +4,13 @@
 
 <head>
 
-<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
+<!--Article Number is 17814 (fill in blank)-->
 
-<title>Redirect www to Non-www with Apache - CentOS 7</title>
-<style type="text/css">
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>Redirect www to Non-www with Apache - CentOS, Fedora</title>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -41,36 +44,38 @@ p.note {
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
-<mso:ArticleID msdt:dt="string">00033</mso:ArticleID>
-<mso:ArticleKeywords msdt:dt="string"></mso:ArticleKeywords>
-<mso:Complexity msdt:dt="string">2 - A little complex</mso:Complexity>
-<mso:Reference msdt:dt="string"></mso:Reference>
-<mso:ArticleStatus msdt:dt="string">Ready for code validation</mso:ArticleStatus>
-<mso:Dependencies msdt:dt="string"></mso:Dependencies>
-<mso:ArticlePriority msdt:dt="string"></mso:ArticlePriority>
-<mso:AssignedTo1 msdt:dt="string">17</mso:AssignedTo1>
-<mso:DeliveryTarget msdt:dt="string">Phase 2</mso:DeliveryTarget>
-<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Pooja Nadubettu</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
-<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:ArticleKeywords msdt:dt="string">Apache,</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-redirect-www-to-non-www-with-apache-on-centos-7, https://www.digitalocean.com/community/tutorials/how-to-redirect-www-to-non-www-with-apache-on-centos-7</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#CentOS;#Fedora;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">2</mso:ArticlePriority>
 <mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
-<mso:TestComments msdt:dt="string"></mso:TestComments>
 <mso:Difficulty msdt:dt="string">2</mso:Difficulty>
 <mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17814</mso:ArticleID>
 <mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
-<mso:PercentResearch msdt:dt="string">0.800000000000000</mso:PercentResearch>
-<mso:PercentWriting msdt:dt="string">0.200000000000000</mso:PercentWriting>
-<mso:LinuxDistributions msdt:dt="string">;#CentOS 7;#</mso:LinuxDistributions>
-<mso:ReviewComments msdt:dt="string"></mso:ReviewComments>
-<mso:PrereqOrdering msdt:dt="string">0</mso:PrereqOrdering>
-<mso:HoursDraftingActual msdt:dt="string">2.50000000000000</mso:HoursDraftingActual>
-<mso:Week msdt:dt="string">8.00000000000000</mso:Week>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:ArticleStatus msdt:dt="string">Drafting in progress</mso:ArticleStatus>
 <mso:HoursDraftingEstimated msdt:dt="string">3.00000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.250000000000000</mso:HoursEditingEstimated>
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string">Phase 2</mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">3</mso:PrereqOrdering>
+<mso:Week msdt:dt="string">8.00000000000000</mso:Week>
+<mso:AssignedTo1 msdt:dt="string">17</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Pooja Nadubettu</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:ReviewComments msdt:dt="string"></mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Carla  Johnson</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
 </head>
 
 <body>
- <h1>Redirect www to Non-www with Apache - CentOS 7</h1>
+    <h1>Redirect www to Non-www with Apache - CentOS 6</h1>
 
     <p>
         <strong>Difficulty</strong>: <em><u>2</u></em><br />
@@ -80,7 +85,7 @@ p.note {
 
     <h2>Prerequisite</h2>
     <p>
-        You must have <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">Initial Server Setup</a> done on your server and installed Apache. If you haven't installed it yet, do the following to install it.  </p>
+        You must have <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17323 - Initial Server Setup - CentOS.html">Initial Server Setup</a> done on your server and installed Apache. If you haven't installed it yet, do the following to install it.  </p>
         <div class="hacker">sudo yum update</div>
         <div class="hacker">sudo yum install httpd</div>
 
@@ -89,17 +94,17 @@ p.note {
 
     <ol>
         <li>
-            Once you log in, click <strong>Manage</strong> in the <strong>Domains</strong> section. <br />
+            Once you log in, click <strong>Manage</strong> in the <strong>Domains</strong> section.
             <img src="/images/17813/Manage_Domains.png" alt="Manage Domains" />
         </li>
         <li>
-            This will take you to the list of domains you have with COMPANY_NAME. Click the drop down button on the domain that you want to work with and click on <strong>MANAGE DNS</strong>. <br />
+            This will take you to the list of domains you have with COMPANY_NAME. Click the drop down button on the domain that you want to work with and click on <strong>MANAGE DNS</strong>.
             <img src="/images/17813/DNS_Manage.png" alt="DNS Manage" />
         </li>
         <li>
         </li>
         <li>
-            If you dont see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field. Here's how both the records will look like. <br />
+            If you dont see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field. Here's how both the records will look like
             <img src="/images/17813/A_CNAME_Record.png" alt="DNS Records" />
             You should now be able to access both the www and non-www domains of your server.
         </li>
@@ -109,20 +114,16 @@ p.note {
     <p>We will make use of .htaccess file to hold our redirect rules. By default, the Rewrite module is enabled. In case it isnt, you can do so by editing the Apache configuration as:</p>
     <ol>
         <li>
-            Open the modules section of the Apache configuration file.
-            <div class="hacker">sudo vim /etc/httpd/conf.modules.d/00-base.conf</div>
-        </li>
-        <li>
-            Add the below line if it isnt already present.
-            <div class="hacker">LoadModule rewrite_module modules/mod_rewrite.so</div>
-        </li>
-        <li>
-            Open the configuration file.
+            Open the Apache configuration file.
             <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
         </li>
-        
         <li>
-            In the configuration block that corresponds to the DocumentRoot which in this case is <code>/var/www/html</code> replace <code>AllowOverride None</code> with <code>AllowOverride All</code>. The <code>Directory</code> section will look something like this:
+            Add the below line in the modules section, if it is not already present:
+            <div class="hacker">LoadModule rewrite_module modules/mod_rewrite.so</div>
+        </li>
+                
+        <li>
+            Also in the same file, in the configuration block that corresponds to the DocumentRoot which in this case is <code>/var/www/html</code> replace <code>AllowOverride None</code> with <code>AllowOverride All</code>. The <code>Directory</code> section will look something like this:
             <div class="hacker">
                 <pre>
 &lt;Directory /var/www/html>
@@ -133,11 +134,10 @@ p.note {
  &lt;/Directory>
 </pre>
             </div>
-            Save and exit the file.
         </li>
         <li>
             Restart Apache for the changes to take effect.
-            <div class="hacker">sudo systemctl restart httpd</div>
+            <div class="hacker">sudo service httpd restart</div>
         </li>
 
 
@@ -180,7 +180,7 @@ Content-Type: text/html; charset=iso-8859-1
             </div>
         </li>
         <li>
-            You can also verify this by navigating to <em><u>www.coolexample.com</u></em> on your browser and you will be redirected to <em><u>coolexample.com</u></em>
+            You can also verify this by navigating to <em><u>www.coolexample.com</u></em> on your browser and you will be redirected to <em><u>coolexample.com</u></em>coolexample.com
         </li>
     </ol>
     <h3>Redirect non-www to www</h3>
@@ -204,12 +204,11 @@ RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
             You will see the following displayed on the console:
             <div class="hacker">
                 <pre>
- HTTP/1.1 301 Moved Permanently
-Date: Sun, 23 Aug 2015 00:11:10 GMT
-Server: Apache/2.4.6 (CentOS) 
+HTTP/1.1 301 Moved Permanently
+Date: Wed, 19 Aug 2015 21:20:33 GMT
+Server: Apache/2.4.7 (Ubuntu)
 Location: http://www.coolexample.com/
 Content-Type: text/html; charset=iso-8859-1
-
 </pre>
             </div>
         </li>
@@ -221,6 +220,5 @@ Content-Type: text/html; charset=iso-8859-1
     <h2>Next steps</h2>
 
 
- 
 </body>
 </html>
