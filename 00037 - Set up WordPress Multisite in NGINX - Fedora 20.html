@@ -152,9 +152,12 @@ aboutus.coolexample.com</td>
 
            <li>In the file, make these changes:
              <ul>
+             <li>Make <code>server_name</code> point to your domains.  
+                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div></li>
+            
             <li>Make sure that <code>index.php</code> is added to the index line in the <code>http {</code> section towards the middle of the file (as already done from your LEMP installation).</li>
 
-            <li>In the <code>server {</code> section (probably towards the middle of the file), find the <code>root</code> line and change the root to point to <code>/var/www/wordpress;</code></li>
+            <li>In the <code>server</code> section (probably towards the middle of the file), find the <code>root</code> line and change the root to point to <code>/var/www/wordpress;</code></li>
 
     </ul>
 <p class="note">
