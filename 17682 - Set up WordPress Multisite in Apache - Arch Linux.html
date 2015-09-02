@@ -63,8 +63,8 @@ p.note {
 </head>
 
 <body>
-<p>Install WordPress Multisite in NGINX for Arch Linux.</p>
-    <h1>Set up WordPress Multisite in NGINX - Arch Linux</h1>
+<p>Install WordPress Multisite in Apache for Arch Linux.</p>
+    <h1>Set up WordPress Multisite in Apache - Arch Linux</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
@@ -105,11 +105,11 @@ aboutus.coolexample.com</td>
 <div class="hacker">sudo pacman -Sy php5-gd</div></li>
 
                                                           
-<p>Select <strong>y</strong> at the prompt to continue with the installation.</p></li>
+<p>Select <strong>y</strong> at each prompt to continue with the installation.</p></li>
 
 
 <li>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
-
+       </ul>
                     
  <h2>Create a MySQL database and administrator for WordPress</h2>
    
@@ -241,15 +241,15 @@ This will safely copy all of the contents from the directory you unpacked to the
      <li>On the next page, fill out your WordPress MySQL database credentials. 
      You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. </li>
   <li>Click <strong>Submit</strong>.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
-  <br />
-  The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
+
+<li>Your next screen will look something like this.<br/>
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup screen wpconfig code" />
 </li>
       </ol>
       
-<h3>Modify the WordPress configuration file</h3> 
-   
+<h2>Modify the WordPress configuration files</h2> 
+
+  <h3>Modify your wp-config file to enable multisites</h3>     
    <ol>
    
    <li>Back in the terminal, navigate to your WordPress document root.
@@ -263,14 +263,25 @@ This will safely copy all of the contents from the directory you unpacked to the
 define( 'WP_ALLOW_MULTISITE', true );</div></li>
     
     <li>Save and close the file.</li>
-    
-<h3>Create and modify the WordPress configuration file</h3>     
-    
-    
-    
-      <li>Restart Apache.
+                    </ol>
+                    
+<h3>Modify your httpd file to enable mod rewrite</h3>     
+<ol>
+<li>Open your <code>httpd.conf</code> file
+<div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div></li>
+
+<li>Enable mod rewrite. Find this line and uncomment it.  
+<div class="hacker">LoadModule rewrite_module modules/mod_rewrite.so</div> 
+(Search "LoadModule rewrite_module" to get to the line.)</li>
+
+<li>Find the <code>DirectoryIndex</code> and add index.php to the line so it reads:
+<div class="hacker">DirectoryIndex <em><u>index.php</u></em> index.html</div>                 
+</li>
+</ol>
+         
+ Restart Apache.
      <div class="hacker">sudo systemctl restart httpd</div></li>
-     </ol>
+ 
 
      <h3>Continue setup in WordPress web interface</h3>
       
@@ -278,7 +289,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
         <li>Return to your browser and click <strong>Run the Install</strong> on the screen you were just on to continue the WordPress web installation. You should be taken to this screen.
         
 <br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17685/090215/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
         <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
         <li>Click <strong>Install WordPress</strong>.</li>
       </ol>
@@ -291,17 +302,17 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
    <ol>
    
   <li>In your browser, continue the WordPress web installation. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17685/090215/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
   </li>
   
   <li>Because we're working with sub-domains, choose <strong>sub-domains</strong>
   and change your Network Title if you like. Click <strong>Install</strong>.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17685/090215/install-wordpress-multisite-network-screen5.png" alt="install wordpress multisite network" />  
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-screen5.png" alt="install wordpress multisite network" />  
 </li> 
 
  <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.
 
- <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17685/090215/install-wordpress-multisite-network-setup-screen6" alt="install wordpress multisite network setup" /><br/>
+ <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-screen6" alt="install wordpress multisite network setup" /><br/>
  
  The code resembles this:
  <div class="hacker"><pre>define('MULTISITE', true);
@@ -313,13 +324,22 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
              </li>
  
    <li>In your terminal, pull up your <code>wp-config</code> file.
-<div class="hacker">cd /var/www/wordpress</div>
+<div class="hacker">cd /srv/http</div>
    <div class="hacker">sudo vim wp-config.php</div>
    
  </li>
    <li>Find the section torwards the end of the file we were modifying, and paste the code you copied right before <code>/* That's all, stop editing! Happy blogging. */</code>.</li>
     
   <li>Save and close the file.</li>
+
+<li>Back in the WordPress Network Setup screen, copy the <code>.htaccess</code> code in the second section. </li>  
+<li>In your terminal, pull up your <code>.htaccess</code> file</li>
+<div class="hacker">sudo vim /srv/http/.htaccess</div></li>
+
+<li>Replace all the existing code (delete it manually) with the entire block of <code>.htaccess</code> code from WordPress. 
+
+<li>Save and close the file.</li>
+
 </ol>  
 
 <h2>Create additional sites or subdomains</h2>
@@ -330,12 +350,12 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 <li>To the left of that on the top navigation bar is <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
 
 At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar, if it wasn't there earlier.<br/></li>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17685/090215/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
 
 <li>On the main screen, next to Sites, click <strong>Add New</strong>.</li>
 
 <li>Fill out your first subdomain information. At the <code>Admin Email</code>, when you start typing, your email address appears. <br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17685/090215/install-wordpress-multisite-network-setup-add-new-site-filledout-screen8" alt="install wordpress multisite network setup add new site filledout" /></li>
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-add-new-site-filledout-screen8" alt="install wordpress multisite network setup add new site filledout" /></li>
 <li>Click <strong>Add Site</strong> to finish. </li>
 <li>Repeat for all your subdomains.</li>
  </ol>                              
@@ -345,7 +365,7 @@ At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(
  
  <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. <br />
 
- There's much you can do from here. One option is to map your sub-domains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00039%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20-%Arch%2Linux.html">Set up WordPress Domain Mapping - Arch Linux</a> for instructions. </p>
+ There's much you can do from here. One option is to map your sub-domains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/00041 - Set Up WordPress Domain Mapping in Apache - Arch Linux.html">Set Up WordPress Domain Mapping in Apache - Arch Linux</a> for instructions. </p>
 
 
 </body>
