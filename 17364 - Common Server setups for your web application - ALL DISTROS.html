@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+Describes the common server setups used for a web application and the potential issues.
+<head>
+    <!--Article Number is 17364-->
+    <title>Common Servers Setup for Web Application - ALL DISTROS</title>
+    <style>
+        div.hacker {
+            background-color: #666;
+            border: 1px solid #ccc;
+            color: #fff;
+            font-family: "Lucida Console","Courier New",Courier,fixed;
+            font-size: 95%;
+            line-height: 160%;
+            margin-bottom: 1.5em;
+            padding: 10px;
+        }
+
+        p.note {
+            background-color: #ffffe6;
+            border: 1px solid #eee;
+            color: #666;
+            padding: .8em 1.6em;
+            margin: 15px 0;
+        }
+
+        .warning {
+            border: 1px #d25100 solid;
+            padding: .5em 1em .5em 4em;
+            margin: 10px 20px 15px 20px;
+            background-image: url('@{help-img-path}/img_warning.gif');
+            background-repeat: no-repeat;
+            background-position: left top;
+            background-color: #ededed;
+            -moz-border-radius: 0.8em;
+            -webkit-border-radius: 0.8em;
+            /* -moz-border-bottom-radius: 0;9 */
+            -webkit-border-bottom-radius: 0;
+            padding-top: 14px;
+            padding-bottom: 15px;
+        }
+    </style>
+
+    <!--[if gte mso 9]><xml>
+    <mso:CustomDocumentProperties>
+    <mso:ArticleKeywords msdt:dt="string">Getting Started, Optimization</mso:ArticleKeywords>
+    <mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application, https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application</mso:Reference>
+    <mso:LinuxDistributions msdt:dt="string">;#ALL DISTROS;#</mso:LinuxDistributions>
+    <mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
+    <mso:RequestNotes msdt:dt="string">Informational - Outline common web server architecture methods</mso:RequestNotes>
+    <mso:Difficulty msdt:dt="string">1</mso:Difficulty>
+    <mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+    <mso:ArticleID msdt:dt="string">17364</mso:ArticleID>
+    <mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+    <mso:Collapsed msdt:dt="string"></mso:Collapsed>
+    <mso:Complexity msdt:dt="string"></mso:Complexity>
+    <mso:ArticleStatus msdt:dt="string">Not started</mso:ArticleStatus>
+    <mso:HoursDraftingEstimated msdt:dt="string">1.50000000000000</mso:HoursDraftingEstimated>
+    <mso:HoursEditingEstimated msdt:dt="string">0.100000000000000</mso:HoursEditingEstimated>
+    <mso:Sample msdt:dt="string">z</mso:Sample>
+    <mso:DeliveryTarget msdt:dt="string">Phase 1</mso:DeliveryTarget>
+    <mso:EditScore msdt:dt="string">C</mso:EditScore>
+    <mso:Week msdt:dt="string">5.00000000000000</mso:Week>
+    
+    <mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Gary Nakanelua</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+    <mso:ReviewComments msdt:dt="string">There are comments in line.  This article needs clarification of the terminology and an introduction.</mso:ReviewComments>
+    <mso:Dependencies msdt:dt="string"></mso:Dependencies>
+    <mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">C.L. Smithwick</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+    
+    <mso:HoursEditingActual msdt:dt="string">0.500000000000000</mso:HoursEditingActual>
+    <mso:PrereqOrdering msdt:dt="string">3</mso:PrereqOrdering>
+    <mso:AssignmentAction msdt:dt="string"></mso:AssignmentAction>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+<mso:AssignedTo1 msdt:dt="string">23</mso:AssignedTo1>
+</mso:CustomDocumentProperties>
+    </xml><![endif]-->
+</head>
+<body>
+    <p>Getting Started, Optimization</p>
+    <h1>Common Servers Setup for Web Application - ALL DISTROS</h1>
+    <p>
+        <strong>Difficulty</strong>:
+        <em><u>1</u></em>
+        <br />
+        <strong>Time</strong>:
+        <em><u>0.3</u></em>
+    </p>
+    <p>This article gives you some understanding on the common user server setups, their pros and conts.</p>
+   
+    <h2>All in One</h2>
+    <p>There are three components in typical application to be deployed:</p>
+    <ul>
+        <li>Application Server</li>
+        <li>Web Server</li>
+        <li>Database Server</li>
+    </ul>
+    <p>This setup can be achieved by installing a LAMP stack (Linux, Apache, MySQL, and PHP). </p>
+    <p class="note">This setup could potentially reduce performance and may create difficulty in identifying the cause.</p>
+    
+    <h2>Keep database separate</h2>
+    <p>
+        It is important to keep the database separate in a server inside a private network 
+        other than that running the aplication
+        that ensures elevated security. 
+        It also ensures that resources aren't shared and hence an 
+        better performance compared to that of "All in One" setup. 
+        Although the setup is more complex, it leverages additional resources to increase capacity, 
+        thereby improving performance.
+    </p>
+    <p>Please refer to <code>https://en.wikipedia.org/wiki/Private_network</code> for more information on Private Network</p>
+    <p class="note">Because the servers are isolated, this setup can create connectivity issues.</p>
+    <h2>Add a load balancer</h2>
+    <p>
+    <p class="note">Load balancing is a core networking solution that distributes 
+    incoming requests among multiple servers hosting the same application.</p>
+    <p>
+        Including in a load balancer 
+        to the server architecture can improve performance. 
+        The load balancer can quickly switch to the failover 
+        to serve the request when the primary server fails until 
+        the primary server can come back up online to serve requests again.
+         It also enables the use of same domain and port to serve requests from multiple applications.
+    </p>
+    <p>
+     This setup offers complete control on the requests and could possibly protect against denial of service.</p>
+    <p class="note">This setup could have a negative affect performance if it isn't configured efficiently.</p>
+    <h2>Use a HTTP accelerator</h2>
+    <p class="note">
+        Web Accelerator is a proxy server that reduces the access time by caching the response.
+    </p>
+    <p>
+        Also known as as "caching HTTP," reverse proxy is used to reduce the time to serve a request, 
+        as it caches the responses in memory.
+        This ensures responses can be reused for repeated requests of same type. 
+        This can protect against Denial of Service attacks and can be used as reverse proxy load balancer.
+    </p>
+    <p class="note">This setup might not improve the performance signficantly,
+     if the cached responses are never requested.</p>
+    <h2>Master-subordinate replication</h2>
+    <p>
+        This setup needs one master and several subordinate nodes to be distribute the request across available nodes. 
+        This improves the read performance of a database system.
+    </p>
+    <p>It offers complete control on the requests to could possibly protect against denial of service</p>
+    <p class="note">The subordinates become inaccessible if the master fails.</p>
+</body>
+</html>
