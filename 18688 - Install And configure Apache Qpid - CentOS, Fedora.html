@@ -106,24 +106,57 @@ p.note {
 <li>To start, stop, restart, check the status, and reload, you can use following commands:
 <!-- This would be easier to read as a table.  TASK | COMMAND-->
 
-<div class="hacker">	
-<pre>
-# To start the service:
-sudo /sbin/service qpidd start
-
-# To stop the service:
-sudo /sbin/service qpidd stop
-
-# To restart the service:
-sudo /sbin/service qpidd restart
-
-# To check the status:
-sudo /sbin/service qpidd status
-
-# To force reload:
-sudo /sbin/service qpidd force-reload
-</pre>
-</div></li>
+<table>
+	<tr>
+		<th>
+			Task
+		</th>
+		<th>
+			Command
+		</th>
+	</tr>
+	<tr>
+		<td>
+			Start the service
+		</td>
+		<td>
+			sudo /sbin/service qpidd start
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Stop the service
+		</td>
+		<td>
+			sudo /sbin/service qpidd stop
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Restart the service
+		</td>
+		<td>
+			sudo /sbin/service qpidd restart
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Check the status
+		</td>
+		<td>
+			sudo /sbin/service qpidd status
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Force Reload
+		</td>
+		<td>
+			sudo /sbin/service qpidd force-reload
+		</td>
+	</tr>
+</table>
+</li>
 </ul>
 <h2>Explore Qpid</h2>
 	<p>After you have configured Qpid and its Python language binding, we can explore how it works.</p>
@@ -181,6 +214,10 @@ finally:
 	<h2>Next step</h2>
     After following all these steps you will be able to install Qpid. You can similarly install other language bindings if you need. 
     <!--Are there links to the other bindings or refer to the procedure in this article.-->
+	<p>For example to get perl bindings use following command as we did for python-qpid in this article.</p>
+	<div class="hacker">
+		sudo yum install perl-qpid
+	</div>
    
 </body>
 </html>
