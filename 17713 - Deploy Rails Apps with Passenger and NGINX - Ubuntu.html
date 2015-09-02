@@ -78,42 +78,43 @@ p.note {
 </head>
 
 <body>
+<!--Please make sure that all variables use the proper formatting (<em> and <u>) and have a descriptive name such as "your application" for an example application. cj -->
 
- <p>Setting up Rails Apps with Passenger and NGINX in CentOS, Ruby, Rails, NGINX</p>
-    <h1>Deploy Rails Apps  with Passenger and NGINX - Ubuntu </h1>
+ <p>Setting up Rails Apps with Passenger and Nginx in Ubuntu, Ruby, Rails, Nginx</p>
+    <h1>Deploy Rails Apps  with Passenger and Nginx - Ubuntu </h1>
 
 <p><strong>Difficulty: </strong> <em>2</em></p>
 <p><strong>Time: </strong> <em>30 minutes</em></p>
 
- <p>Rails enables web developers to  rapidly build quality applications, while Nginx is a lightweight, high-performance web server. In this article you'll learn to deploy a Rails application on an Nginx web server using simple and powerful features of Phusion Passenger. This task  assumes that you have <code>sudo</code> privileges.</p>
-	<h2>Prerequisites</h2>
-	<p>To setup your Ubuntu server, you may refer <a href ="#">17321 - Initial Server Setup - Ubuntu</a>. You will need to ensure that the FQDN points to the server. Once you have setup the Ubuntu server, you will need to <a href="#">17534 - Install Ruby on Rails using RVM in Ubuntu </a>. You may also refer <a href ="#">17718 - Deploy Rails Apps with Passenger and Apache - Ubuntu</a>.</p>
+ <p>Rails enables web developers to  rapidly build quality applications, while Nginx is a lightweight, high-performance web server. In this article you'll learn to deploy a Rails application on an Nginx web server using simple and powerful features of Phusion Passenger. This task  assumes that you have <code>sudo</code> privileges. </p>
+ <p>To set up your Ubuntu server, refer to <a href ="17321"> Initial Server Setup - Ubuntu</a>. Ensure that the fully qualified domain name (FQDN) points to the server. After you set up the server, you need  to <a href="17534"> install Ruby on Rails using RVM</a>. You can also refer to <a href ="17718"> Deploy Rails Apps with Passenger and Apache - Ubuntu</a>.</p>
     <h2>Install Nginx and Passenger</h2>
-<ol><li>Update and install repositories as these are the dependencies required for Ruby and Nginx
-<div class="hacker"> sudo apt-get update </div>
+<ol>
+<li>Update and install repositories, dependencies required for Ruby and Nginx.
+  <div class="hacker"> sudo apt-get update </div>
 <div class="hacker">
 sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev</div>
 </li>
-<li>Add <code>gpg</code> key and install Phusion Passenger
-<div class="hacker"> gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7 </div>
+<li>Add the <code>gpg</code> key, and install Phusion Passenger.
+  <div class="hacker"> gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7 </div>
 <div class="hacker"> gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add - </div>
 <div class="hacker"> sudo apt-get install apt-transport-https </div>
 </li>
-<li>Add Passenger repository in source list
-<div class="hacker">
+<li>Add the Passenger repository in the source list.
+  <div class="hacker">
 
 sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main' >> /etc/apt/sources.list.d/passenger.list"</div>
 </li>
 
-<li>Add the following permissions to the Passenger repositories
+<li>Add the following permissions to the Passenger repositories:
 
-<div class="hacker"> sudo chown root: /etc/apt/sources.list.d/passenger.list </div>
+  <div class="hacker"> sudo chown root: /etc/apt/sources.list.d/passenger.list </div>
 
 <div class="hacker"> sudo chmod 600 /etc/apt/sources.list.d/passenger.list </div>
 </li>
- <li>      Run the update command
+ <li>      Run the update command.
 
-<div class="hacker"> sudo apt-get update </div>
+   <div class="hacker"> sudo apt-get update </div>
 </li>
 
 <li>Install Nginx and Passenger
@@ -136,14 +137,14 @@ will be installed for you to a directory of your choice.</pre>
           </div>
 
 </li></ol>
-		<h2>Configure test Rails application</h2>
+		<h2>Configure a test Rails application</h2>
 		<ol>
 
-   <li>To configure a test Rails application, create a directory first.
-            <div class='hacker'>sudo mkdir -p /var/www</div>
+   <li>Create a directory.
+         <div class='hacker'>sudo mkdir -p /var/www</div>
         </li>
-  <li>Move to <code>www </code> directory and create a Rails application.
-  <div class="hacker">  cd  /var/www</div>
+  <li>Move to the <code>www</code>  directory, and create a Rails application.
+    <div class="hacker">  cd  /var/www</div>
     <div class="hacker">rails new HelloWorld</div>
 	  <div class="hacker">  cd HelloWorld</div>
 	</li>
@@ -154,16 +155,18 @@ will be installed for you to a directory of your choice.</pre>
 </li>
 </ol>
 <h2>Configure Nginx</h2><ol>
-<li>Open the configuration file <code>nginx.conf</code> 
-<div class="hacker"> sudo Vim /etc/nginx/nginx.conf </div>
-<li><p>Uncomment the below line right way</p>
+<li>Open the configuration file <code>nginx.conf</code>.
+  <div class="hacker"> sudo Vim /etc/nginx/nginx.conf </div>
+<li>
+Uncomment the following line:
 <div class="hacker"><pre> passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini; 
  passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv</pre> </div></li>
-<li><p>Save the changes and restart Nginx service.</p>
-<div class="hacker"> sudo service Nginx restart </div>
+<li>Save the changes.</li>
+<li> Restart the Nginx service.
+  <div class="hacker"> sudo service Nginx restart </div>
 </li>
-<li>Finally configure the Nginx host. To do this, open /etc/nginx/sites-enabled/default in your text editor and replace file's content with the following:
-<div class="hacker">
+<li>Configure the Nginx host by opening <code>/etc/nginx/sites-enabled/default </code>in your text editor and replacing the file's content with the following:
+  <div class="hacker">
 <pre>server {
         listen 80 default_server;
         listen [::]:80 default_server ipv6only=on;
@@ -180,14 +183,14 @@ will be installed for you to a directory of your choice.</pre>
         }
 }</pre>
 </div>
-</li>
+</li><!--Save and close the file? cj -->
 
-<li>Restart the Nginx server by typing:
-<div class="hacker"> sudo service Nginx restart </div>
+<li>Restart the Nginx server:
+  <div class="hacker"> sudo service Nginx restart </div>
 </li>
 </ol>
 <h2>Next Steps</h2>
-<p>In this article, we installed Nginx and Passenger, and deployed our Rails application on Nginx server. </p>
+<p>In this article, we reviewed the steps to deploy a Rails application using Nginx and Passenger.<!--What might the user do next? cj --></p>
 
 </body>
 </html>
