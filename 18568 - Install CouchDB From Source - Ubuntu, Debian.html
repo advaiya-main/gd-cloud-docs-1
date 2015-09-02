@@ -8,7 +8,7 @@
 
 
 <title>Install CouchDB From Source - Debian, Ubuntu</title>
-<style text="text/css">
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -72,16 +72,24 @@ p.note {
 <p><strong>Difficulty:</strong> <em>4</em><br />
 <strong>Time:</strong> <em>30 minutes</em></p>
 
-<p>CouchDB database is known to embrace the entire web and belongs to NoSQL family. <!--What does the CouchDB database do for this server?--> This articles will assist you to install CouchDB from source in Ubuntu and Debian.</p><!--Missing the links to the Ubuntu and Debian install.-->
+<p>CouchDB database is known to embrace the entire web and belongs to NoSQL family. 
+	It is a document-oriented NoSQL database that uses JSON to store data, JavaScript as its query language using MapReduce, and HTTP for an API.
+	</p>
+	<p>
+	In CouchDB, each database is a collection of independent documents. Each document keeps its own data and self-contained schema. Multiple database may be accessed by an application, may be one stored on mobile and other on server. Revision information in stored in document metadata, which is required to merge changes occurred while the databases were disconnected.
+<!--What does the CouchDB database do for this server?--> This articles will assist you to install CouchDB from source in Ubuntu and Debian.</p><!--Missing the links to the Ubuntu and Debian install.-->
 
+<p class="note">
+	You need access to sudo privileges to complete these steps.
+</p>
 <h2>Install dependencies</h2>
 <!--Do not use "Step #: in Headings -->
-<p>First of all we'll need to make our machine ready to install CouchDB. </p>
+<p>Make your machine ready to install CouchDB. </p>
 <ol>
-<li>Update the packages for Ubuntu.<!--What about Debian?--> 
+<li>Update the packages.<!--What about Debian?--> 
 	<div class="hacker">$ sudo apt-get udpate	</div>
 </li>
-<li>Set up the Couch using the following command:<!--Is Couch and CouchDB and couchdb different entities?-->
+<li>Install tools to compile CouchDB.<!--Is Couch and CouchDB and couchdb different entities?-->
 	<div class="hacker">$ sudo apt-get install -y build-essential</div>
 </li>
 <li>To run <code>erlang</code> and other dependencies, use the following command:
@@ -103,7 +111,7 @@ p.note {
 <li>Extract the files.
 	<div class="hacker">$ sudo tar xvzf apache-couchdb-1.6.1.tar.gz</div>
 </li>
-<li>Move to the new directory.
+<li>Change directory to the one we just expanded.
 	<div class="hacker">$ cd apache-couchdb-1.6.1.tar.gz</div>
 </li>    
 </ol>    
@@ -111,27 +119,27 @@ p.note {
 <h2>Configure and install</h2><!--What are we installing?-->
 <ul><li>To compile a newly spun CouchDB server, install the source code using following command:
 	<div class="hacker">$ ./configure</div>
-	<div class="hacker">$ sudo make && sudo make install</div>
+	<div class="hacker">$ sudo make &amp;&amp; sudo make install</div>
   </li></ul>
     
 <h2>Finalize the steps</h2><!--Make your headings more descriptive.-->
 <ol>
-<li>CouchDB runs as user process for couchdb, so create a new user with following command:
+<li>CouchDB runs as user <code>Couchdb</code>, so create a new user with following command:
 	<div class="hacker">$ sudo adduser --disabled-login --disabled-password --no-create-home couchdb</div>
 </li>
-<li>It will ask you for Real name, Room Number etc. you can skip these. Now give rights to the new user you created on the CouchDB's files
+<li>It will ask you for Real name, Room Number etc. you can skip these. Give rights to the new user you created on the CouchDB's files.
 	<div class="hacker">$ sudo chown -R couchdb:couchdb /usr/local/var/log/couchdb /usr/local/var/lib/couchdb /usr/local/var/run/couchdb</div>
 </li>
-<li>Install the CouchDB as service.
-	<div class="hacker">$ sudo ln -s /usr/local/etc/init.d/couchdb  /etc/init.d</div>
-	<div class="hacker">$ sudo update-rc.d couchdb defaults</div>
+<li>Install the CouchDB as service and let it run on boot.
+	<div class="hacker">$ sudo ln -s /usr/local/etc/init.d/couchdb  /etc/init.d<br/>
+	$ sudo update-rc.d couchdb defaults</div>
 </li>    
-<li>Finally run the CouchDB service.
+<li>Run the CouchDB service.
 	<div class="hacker">$ sudo service couchdb start</div>
 </li>    
 </ol>    
 
-<h2>Next steps</h2>
+<h2>Conclusion</h2>
 <p>In this article we reviewed the steps involved with the installation of CouchDB in Ubuntu and Debian. You can see in terminal the CouchDB running as a service.</p>
 
 </body>
