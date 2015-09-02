@@ -4,10 +4,6 @@
 
 <head>
 
-<!--Article Number is 19005-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
 
 <title>Set Up a Local OSSEC Installation - Ubuntu, Debian</title>
 <style type="text/css">
@@ -69,7 +65,7 @@ p.note {
 </head>
 
 <body>
-<p>Setting up local OSSEC , Monitoring</p>
+<p>Setting up a local OSSEC , Monitoring</p>
 	<h1>Set Up a Local OSSEC Installation - Debian, Ubuntu </h1>
 <p><strong>Difficulty: </strong> 4</p>
 	<p><strong>Time: </strong> 45 Minutes</p>
@@ -78,10 +74,10 @@ p.note {
 or Ubuntu.</p>
 	<p class="note">
  You need  <code>sudo</code> privileges to complete all steps. </p>
-	<h2> Prerequisites</h2>
-			
+	<h2>Install Postfix</h2>
+		<p>For sending mail from a local SMTP server, you  need to install Postfix.</p>
 	<ol>
-	<li>For sending mail from a local SMTP server, you  need to install Postfix.</li>
+	
 	  <li>
 			
 		Update the server.
@@ -93,22 +89,22 @@ or Ubuntu.</p>
 			<div class="hacker">sudo apt-get install build-essential inotify-tools</div>
 		</li>
 	</ol>
-<h2>Download OSSEC and Verify the package</h2>
-	You will need to download Ossec tarball and a file with its cryptographic checksum to make sure that you are installing a valid software. Then you can generate MD5 and SHA1 checksum and compare these with the checksum file.
+<h2>Download OSSEC and verify the package</h2>
+	You  need to download the Ossec tarball and a file with its cryptographic checksum to make sure that you're installing valid software. Then you can generate the MD5 and SHA1 checksum and compare these with the checksum file.
 	<ol>
-		<li>
-			Download <code>ossec</code> with the following command.
-			<div class="hacker">sudo wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1.tar.gz</div></li>
+	  <li>
+			Download <code>ossec</code>.
+<div class="hacker">sudo wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1.tar.gz</div></li>
 													
-			<li>To download the checksum file, use the following command:
-			<div class="hacker">sudo wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1-checksum.txt</div>								
+			<li>Download the checksum file.
+			  <div class="hacker">sudo wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1-checksum.txt</div>								
 		</li>
 		<li>
-			Verify the <code>md5sum</code> of the compressed tarball:
+			Verify the <code>md5sum</code> of the compressed tarball.
 			<div class="hacker">
 			md5sum -c ossec-hids-2.8.1-checksum.txt
 			</div>
-			The output should be:
+			The output is as follows:
 			<div class="hacker">
 			
 			ossec-hids-2.8.1.tar.gz: OK<br/>
@@ -117,34 +113,33 @@ or Ubuntu.</p>
 			</div>
 		</li>
 		<li>
-			To verify SHA1 checksum use the following command:
-			<div class="hacker">
+			Verify SHA1 checksum.
+			  <div class="hacker">
 			sha1sum -c ossec-hids-2.8.1-checksum.txt
-			</div>
-			The output should be:
+		  </div>
+			The output is as follows:
 			<div class="hacker">
 			
 			ossec-hids-2.8.1.tar.gz: OK<br/>
 			sha1sum: WARNING: 1 line is improperly formatted
 			
 			</div>
-			You can ignore the warnings, as the <strong>OK</strong> next tar output file confirms that the file is good to go.
-		</li>
+			You can ignore the warnings, as the <strong>OK</strong> next tar output file confirms that the file is good to go<!--This sentence does not make sense. cj -->.
+	  </li>
 	</ol>
 <h2>Find your SMTP server</h2>
-	<p>During installation, OSSEC will ask for your SMTP server. To determine the correct SMTP server follow these steps.</p>
+	<p>During installation, OSSEC  asks for your SMTP server. To determine the correct SMTP server, follow these steps.</p>
 	<ol>
-		<li>
-			You can use <code>dig </code> command to query your providers mail exchange resource record. Enter following command
+		<li>Use <code>dig </code> command to query your providers mail exchange resource record.
 			<div class="hacker">
 				dig -t mx <em><u>coolexample.com</u></em>
-			</div>
+		  </div>
 			You will get answer in several sections but we are only interested in the ANSWER section.
 			For example if you run the command using fastmail.com
 			<div class="hacker">
 				dig -t mx fastmail.com
 			</div>
-			The valid SMTP servers for providers will be shown in the ANSWER section.
+			The valid SMTP servers for providers are shown in the ANSWER section.
 			<div class="hacker">
 				<pre>
 					;; ANSWER SECTION:
@@ -154,12 +149,13 @@ or Ubuntu.</p>
 			</div>
 			So in this example you can use <code>in1-smtp.messagingengine.com</code> or <code>in1-smtp.messagingengine.com</code> as SMTP server.
 			</li>
-			<li>Make a note of any of these SMTP servers. <!--If we're not saving a file, "Save" doesn't seem to be the correct word. Should this be "Make a note of any of these"? cj --> We will need it during installation.
+			<li>Make a note of any of these SMTP servers.  You'll need it during installation.
 		
 		</li>
 	</ol>
 	<h2>Install OSSEC</h2>
 	<ol>
+  <!--Please make sure that the first sentence of each step contains an imperative statement. -->
 		<li>You can install OSSEC in many modes including server, agent, local or hybrid mode. We will install in <code>local</code> mode in this article.
 			Expand the file with:
 			<div class="hacker">sudo tar -zxf ossec-hids-2.8.1.tar.gz</div>
@@ -220,20 +216,22 @@ or Ubuntu.</p>
 		
 	</ol>
 <h2>Verify OSSEC's email settings</h2>
-	Here you will need to verify if the email credentials given by us and one that OSSEC auto-configured are correct.
-	<ol>
-		<li>
+	Next you need to verify that the email credentials you provided and that OSSEC auto-configured are correct.
+	<ol><!--Please make sure that each step begins with an imperative statement. cj-->
+	  <li>
 			Email settings are in <code>ossec.conf</code> file that resides in <code>/var/ossec/etc</code>. To access this file, switch to the root user.
 			<div class="hacker">
 				sudo su
 			</div>
 		</li>
 		<li>
-			Change the directoty to the configuration file's directory.
-			<div class="hacker">
+			Change the directory to the configuration file's directory.
+			  <div class="hacker">
 				cd /var/ossec/etc
-			</div>
-			You may want to make a backup copy of this file. Use the following command to do this.
+			</div>	
+		</li>
+		<li>
+			Optionally, make a backup copy of this file. 
 			<div class="hacker">
 				cp ossec.conf ossec.conf.00
 			</div>
@@ -256,7 +254,7 @@ or Ubuntu.</p>
 			</ul>
 		</li>
 		<li>
-			<p>Update these settings as per your need and once you are finished, the final section will look like as shown.</p>
+			Update these settings as per your need and once you are finished, the final section will look like as shown.
 			<div class="hacker">
 				
 				&lt;global><br/>
@@ -278,12 +276,12 @@ or Ubuntu.</p>
 			
 		</li>
 	</ol>
-		<h2>Add Alerts</h2>
-	Here you will get an overview of configuration settings and its directory structure.
-	<ol>
+		<h2>Add alerts</h2>
+	Here you will get an overview of configuration settings and its<!--Please clarify what "its" refers to. cj --> directory structure.
+<ol>
 		<li>
 			<h3>Directory structure</h3>
-			Its root directory <code>/var/ossec</code> can only be accessed with root privileges.
+			Its root directory <code>/var/ossec</code> can only be accessed with root privileges.<!--Please remove <h3>s from within the steps. Also, make sure that each step begins with an imperative statement. Finally, some of this content doesn't look like procedures but like explanatory information. Explanatory information should not be presented in step format. cj -->
 			<ul>
 				<li>Its main configuration file resides in <code>/var/ossec/etc</code>.</li>
 				<li><code>/var/ossec/rules </code> contains predefined rules.</li>
@@ -339,7 +337,7 @@ or Ubuntu.</p>
 					&lt;alert_new_files>yes&lt;/alert_new_files><br/>
 				
 			</div>
-		</li>
+  </li>
 		<li>
 		<h3>Directory and file configuration</h3>
 		Right after that there is a list of system directory that it monitors as shown.
@@ -365,9 +363,9 @@ or Ubuntu.</p>
 		<li>
 		<h3>Local rules location</h3>
 		<p>Next files you would want to modify reside in <code>/var/ossec/rules</code>. In this directory if you use <code>ls -lgG</code> command, you will get a list of bunch of xml files but only two files <code>local_rules.xml </code>and <code>ossec_rules.xml</code> is of our use. The former file is used to add local rules and latter for default rules definitions.
-			You will need sudo privileges to access these files. 
-			</p>
-			<p>When a file is added to a monitored directory the rule 554 is fired from <code>ossec_rules.xml</code>. By default it doesn't send alert on firing of this rule. so you'll need to change the settings. </p>
+			You will need sudo privileges to access these files. <!--This wording is very rough. Please revise. cj -->
+      </p>
+			<p>When a file is added to a monitored directory, the rule 554 is fired from <code>ossec_rules.xml</code>. By default it doesn't send alert on firing of this rule. so you'll need to change the settings. </p>
 			<ol>
 				<li>Default rule definitions in <code>ossec_rules.xml </code> are useful to look at so we can modify and copy them into our local files. Rule 554 looks like:
 				
@@ -395,24 +393,25 @@ or Ubuntu.</p>
 						
 					</div>
 				</li>
-				<li>Save and close the file. Now restart the OSSEC using:
-					<div class="hacker">
-					/var/ossec/bin/ossec-control restart
-					</div>
-					<p>You will get a mail when it is restarted.</p>
-				</li>
+				<li>Save and close the file. </li>
+				<li>Restart the OSSEC:
+                  <div class="hacker">
+    /var/ossec/bin/ossec-control restart
+  </div>
+				  <p>You will get a mail when it is restarted.</p>
+			  </li>
 			</ol>
 		</li>
 		<li>
 		<h3>Triggering file change alerts</h3>
-		<p>When you add any file in directory to be monitored by OSSEC or you update or delete a file you should be getting alters.
+		<p>When you add any file in directory to be monitored by OSSEC or you update or delete a file, you should be getting alerts.
 		It doesn't send real time notification for adding a file but only for modification or deletion. Alerts of file addition go after full system check which is handled by frequency check time in ossec.conf.
 		</p>
 	</li>
 	</ol>
-<h2>Next Step</h2>
-	<p><!--Please fix this run-on sentence. cj -->
-	After following all these steps you will be able to setup OSSEC notifications. To look for more customization, you can refer to its <a href="http://ossec-docs.readthedocs.org/en/latest/manual/index.html">Official Documentation.</a>
+<h2>Next Steps</h2>
+	<p><!--Please revise this section, following the editorial guidelines. cj -->
+	After following all these steps you will be able to set up OSSEC notifications. To look for more customization, you can refer to its <a href="http://ossec-docs.readthedocs.org/en/latest/manual/index.html">official documentation.</a>
 	</p>
 </body>
 </html>
