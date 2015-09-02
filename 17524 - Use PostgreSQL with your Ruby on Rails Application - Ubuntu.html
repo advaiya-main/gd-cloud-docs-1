@@ -82,7 +82,7 @@
 <body>
 
 <p>Setting up Rails Application with PostgreSQL in Ubuntu, PostgreSQL, Ruby, Rails</p>
-<h1>Use PostgreSQL with Ruby on Rails Application - Ubuntu</h1>
+<h1>Use PostgreSQL with a Ruby on Rails Application - Ubuntu</h1>
 <p><strong>Difficulty:</strong> <em>2</em></p>
 <p><strong>Time:</strong> <em>30 mins</em></p>
 
@@ -124,8 +124,8 @@
 <li>Move to the application directory.
   <div class='hacker'>cd <em><u>HelloWorld</u></em></div>
  </li>
-<li>Open the following  file:
-  <div class='hacker'>sudo vim config/database.yml</div>
+<li>Open the <span class="hacker"><code>database.yml</code></span> file:
+<div class='hacker'>sudo vim config/database.yml</div>
  </li>
 <li>Look for <code>pool: 5</code> in the file, and add the following lines beneath it. Enter the username and password for the <code>postgres</code>  user.
   <div class='hacker'>
@@ -141,7 +141,7 @@ password: <em><u>postgres user password</u></em></pre></div>
 <ul>
 <li>Create the application's database in the application directory.
   <div class='hacker'>rake db:create</div>
-Two databases in PostgreSQL server are created. For example, if the application's name is <code>HelloWorld</code>, the command creates databases named <code>HelloWorld _development</code> and <code>HelloWorld _test</code>. 
+Two databases in the PostgreSQL server are created. For example, if the application's name is <code>HelloWorld</code>, the command creates databases named <code>HelloWorld _development</code> and <code>HelloWorld _test</code>. 
 </li>
 </ul>
 
