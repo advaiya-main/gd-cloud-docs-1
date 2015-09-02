@@ -10,7 +10,7 @@
 
 
 <title>Set Up a Local OSSEC Installation - CentOS, Fedora</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -73,91 +73,88 @@ p.note {
 <!--Please update using the EDITED version of 19005 as a guide. See comments in that document. cj -->
 <p>Setting up local OSSEC, Monitoring</p>
 	<h1>Set Up a Local OSSEC Installation - CentOS, Fedora</h1>
-	<p><strong>Difficulty: </strong> 4</p>
-	<p><strong>Time: </strong> 45 Minutes</p>
+	<p><strong>Difficulty: </strong> 4<br/>
+	<strong>Time: </strong> 45 Minutes</p>
 	<p>
-		This article explains installation of local OSSEC on CentOS and Fedora
+		This article explains the installation of local OSSEC on CentOS and Fedora
 	</p>
 	<p class="note">
-		Note: You will need access to sudo privileges to complete all steps.
+		You need sudo privileges to complete all steps.
 	</p>
 	<h2>Prerequisites</h2>
 	<ol>
 		<li>
-			<p>For sending mail from a local SMTP server, you will need to install Postfix.
-			</p>
+			For sending mail from a local SMTP server, you will need to install Postfix.
+			
 		</li>
 		<li>
-			<p>
-				Update the server using following command
-			</p>
+			
+				Update the server using following command:
+		
 			<div class="hacker">sudo yum update</div>
 		</li>
 		<li>
-			<p>Now install the packages</p>
+			Install the following packages.
 			<div class="hacker">
-				
 					sudo yum install -y bind-utils gcc make inotify-tools
-				
 			</div>
-			<p>buld-util provides DNS utilities,gcc and make are used to compile OSSEC and for real time notifications inotify-tools is used by OSSEC</p>
+			<strong>buld-util </strong>provides DNS utilities, <strong>gcc</strong> and <strong>make </strong> are used to compile OSSEC and for real time notifications <strong>inotify-tools</strong> is used by OSSEC.
 		</li>
 	</ol>
-	<h2>Download OSSEC and Verify the package</h2>
+	<h2>Download OSSEC and Verify the Package</h2>
 	<ol>
 		<li>
-			<p>You will need to download Ossec tarball and a file with its cryptographic checksum to verify you are installing a valid software. We will generate MD5 and SHA1 checksum and compare with those in checksum file.</p>
+			You will need to download Ossec tarball and a file with its cryptographic checksum to verify that you are installing a valid software. You can generate MD5 and SHA1 checksum and compare with those in checksum file.
 		</li>
 		<li>
-			<p>Download ossec with following command</p>
+			Download OSSEC with following command.
 			<div class="hacker">sudo wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1.tar.gz</div>
 													
-			<p>And for checksum file use following command</p>
-			<div class="hacker">sudo wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1-checksum.txt</div>
-									
+			And for checksum file use following command.
+			<div class="hacker">sudo wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1-checksum.txt</div>					
 		</li>
 		<li>
-			<p>verify the md5sum of the compressed tarball with following command</p>
+			Verify the md5sum of the compressed tarball with following command.
 			<div class="hacker">
 			md5sum -c ossec-hids-2.8.1-checksum.txt
 			</div>
-			<p>The output should be </p>
+			The output should be: 
 			<div class="hacker">
-			<pre>
-			ossec-hids-2.8.1.tar.gz: OK
+			
+			ossec-hids-2.8.1.tar.gz: OK<br/>
 			md5sum: WARNING: 1 line is improperly formatted
-			</pre>
+			
 			</div>
 		</li>
 		<li>
-			<p>Now for SHA1 checksum</p>
+			For SHA1 checksum type following command.
 			<div class="hacker">
 			sha1sum -c ossec-hids-2.8.1-checksum.txt
 			</div>
-			<p>The output should be </p>
+			The output should be:
 			<div class="hacker">
-			<pre>
-			ossec-hids-2.8.1.tar.gz: OK
+			
+			ossec-hids-2.8.1.tar.gz: OK<br/>
 			sha1sum: WARNING: 1 line is improperly formatted
-			</pre>
+		
 			</div>
-			Ignore the warnings here the "OK" confirms the file is good.
+			You can ignore the warnings. Here the <strong>OK</strong> confirms the file is good to go.
 		</li>
 	</ol>
 	<h2>Find your SMTP server</h2>
-	<p>During installation OSSEC will ask for your SMTP server.To determine the correct SMTP server follow these steps.</p>
+	<p>During installation, OSSEC will ask for your SMTP server. To determine the correct SMTP server follow these steps.</p>
 	<ol>
 		<li>
-			<p>You can use <code>dig </code> command to query your providers mail exchange resource record.Enter following command</p>
+			You can use <code>dig </code> command to query your provider's mail exchange resource record. Enter the following command:
 			<div class="hacker">
-				dig -t mx <code>coolexample.com</code>
+				dig -t mx <em><u>coolexample.com</u></em>
 			</div>
-			<p>You will get answer in several sections but we are only interested in ANSWER section.</p>
-			<p>For example if you run the command using fastmail.com</p>
+			You will get answer in several sections but you should be interested in the ANSWER section only.
+			For example, if you run the command using fastmail.com
 			<div class="hacker">
 				dig -t mx fastmail.com
 			</div>
-			<p>The valid SMTP servers for providers will be shown in ANSWER section.</p>
+			The valid SMTP servers for providers will be shown in the ANSWER section.
 			<div class="hacker">
 				<pre>
 					;; ANSWER SECTION:
@@ -165,25 +162,25 @@ p.note {
 					fastmail.com.           3600    IN      MX      20 in2-smtp.messagingengine.com.
 				</pre>
 			</div>
-			<p>So in this example you can use <code>in1-smtp.messagingengine.com</code> or <code>in1-smtp.messagingengine.com</code> as SMTP server.</p>
-			<p>Save any of these , we will need during installation.</p>
+			So in this example you can use <code>in1-smtp.messagingengine.com</code> or <code>in1-smtp.messagingengine.com</code> as SMTP server.
+			</li>
+			<li>Make a note of any of these SMTP servers. <!--If we're not saving a file, "Save" doesn't seem to be the correct word. Should this be "Make a note of any of these"? cj --> We will need it during installation.
+		
 		</li>
 	</ol>
-	<h2>Installation</h2>
+	<h2>Install OSSEC</h2>
 	<ol>
-		<li>You can install OSSEC in many mode including server, agent, local or hybrid mode. We will install in local mode in this article.
-			Expand the file with
+		<li>You can install OSSEC in many modes including server, agent, local or hybrid mode. We will install in <code>local</code> mode in this article.
+			Expand the file with:
 			<div class="hacker">sudo tar -zxf ossec-hids-2.8.1.tar.gz</div>
-			<p>If you get an error for tar command type "sudo yum install tar".</p>
-			<p>now change the directory to the expanded one</p>
+			<p>If you get an error for <code>tar </code>command type <code>sudo yum install tar</code>.</p>
+			Change the directory to the expanded one.
 			<div class="hacker">cd ossec-hids-2.8.1</div>
-			<p>Initiate the installation with</p>
+			Initiate the installation with:
 			<div class="hacker">sudo ./install.sh</div>
 		</li>
 		<li>
-			<p>It will prompt you to answer a few questions.First question will be to choose a language you may choose your language as you want but use default press Enter
-			</p>
-			<p>You will see this</p>
+			It will prompt you to answer few questions. First question will be to choose a language; you may choose your language, if you want. To use default, press <strong>Enter</strong>.
 			<div class="hacker">
 				<pre>
 					OSSEC HIDS v2.8 Installation Script - http://www.ossec.net
@@ -202,21 +199,19 @@ p.note {
 
 				</pre>
 			</div>
-			<p>Press Enter to continue.</p>
 		</li>
 		<li>
-			<p>Now it will ask you for type of installation, type "local here"</p>
+			When prompted to enter the type of installation, type <code>local</code> and press <strong>Enter</strong>.
 			<div class="hacker">
-			1- What kind of installation do you want (server, agent, local, hybrid or help)? <code>local</code>
+			1- What kind of installation do you want (server, agent, local, hybrid or help)? <em><u>local</u></em>
 			</div>
 		</li>
 		<li>
-			<p>For all the question press enter to accept default in Question 3.1 it will prompt you for you email address
-			and then SMTP server ip/host.Enter your email address and SMTP server that you saved using "dig" command.
-			</p>
+			For the rest of the questions, you may press <strong>Enter</strong> to accept the defaults. However, in Question <strong>3.1</strong> it will prompt you for your email address and then SMTP server ip/host. Enter your email address and SMTP server that you got using the <code>dig</code> command.
+			
 		</li>
 		<li>
-			<p>On successful installation you will get</p>
+			On successful installation you will get:
 			<div class="hacker">
 				<pre>
 				Thanks for using the OSSEC HIDS.
@@ -230,195 +225,204 @@ p.note {
 				---  Press ENTER to finish (maybe more information below). ---
 				</pre>
 			</div>
-			<p>Press enter to finish installation</p>
+			<p>Press enter to finish the installation.</p>
 		</li>
 		
 	</ol>
 	<h2>Verify OSSEC's email settings</h2>
-	<p>Here we are going to verify that if the email credentials given by us and one that OSSEC auto-configured are correct. </p>
+	Here you will need to verify if the email credentials given by us and one that OSSEC auto-configured are correct.
 	<ol>
 		<li>
-			<p>Email settings are in ossec.conf that resides in /var/ossec/etc. To access this file switch to root user</p>
+			Email settings are in <code>ossec.conf</code> file that resides in <code>/var/ossec/etc</code>. To access this file, switch to the root user.
 			<div class="hacker">
 				sudo su
 			</div>
 		</li>
 		<li>
-			<p>cd into the configuration file's directory</p>
+			Change the directoty to the configuration file's directory.
 			<div class="hacker">
 				cd /var/ossec/etc
 			</div>
-			<p>You may want to make a backup copy of this file. Use following command to do this.</p>
+			You may want to make a backup copy of this file. Use the following command to do this.
 			<div class="hacker">
 				cp ossec.conf ossec.conf.00
 			</div>
 		</li>
 		<li>
-			<p>Open ossec.conf in any editor</p>
+			<p>Open <code>ossec.conf</code> in any editor.</p>
 		</li>
 		<li>
-			<p>Email settings are at the top and following is the description of the fields</p>
+			<p>Email settings are at the top and following is the description of the fields.</p>
 			<ul>
 				<li>
-					&lt;email_to> is the email address given by you during installation
+					<code>&lt;email_to></code> is the email address given by you during installation.
 				</li>
 				<li>
-					&lt;email_from> is the address where the mails would appear to come from.
+					<code>&lt;email_from></code> is the address where the mails would appear to come from.
 				</li>
 				<li>
-					&lt;smtp_server> is the SMTP server you gave during setup
+					<code>&lt;smtp_server></code> is the SMTP server you gave during set up.
 				</li>
 			</ul>
 		</li>
 		<li>
-			<p>Once you are finished the final section will look like as shown</p>
+			<p>Update these settings as per your need and once you are finished, the final section will look like as shown.</p>
 			<div class="hacker">
-				<pre>
-				&lt;global>
-					&lt;email_notification>yes&lt;/email_notification>
-					&lt;email_to>user@coolexample.com&lt;/email_to>
-					&lt;smtp_server>mail.coolexample.com.&lt;/smtp_server>
-					&lt;email_from>user@coolexample.com&lt;/email_from>
-				&lt;/global>
-				</pre>
+				
+				&lt;global><br/>
+			&lt;email_notification><em><u>yes</u></em>&lt;/email_notification><br/>
+			&lt;email_to><em><u>email@coolexample.com</u></em>&lt;/email_to><br/>
+			&lt;smtp_server><em><u>mail.coolexample.com.</u></em>&lt;/smtp_server><br/>
+			&lt;email_from><em><u>ossecm@ossec_server</u></em>&lt;/email_from><br/>
+			&lt;/global><br/>
+				
 			</div>
 		</li>
 		<li>
-			<p>
-				save the file and start the server using following command
+			
+				Save the file and start the server using the following command:
 				<div class="hacker">
 				/var/ossec/bin/ossec-control start
 				</div>
-				<p>You should have received an email saying OSSEC has started  </p>
-			</p>
+				You should have received an email saying OSSEC has started. 
+			
 		</li>
 	</ol>
-	<h2>Add Alerts</h2>
-	<p>Now you will see how to change settings for OSSEC and its directory structure</p>
+		<h2>Add Alerts</h2>
+	Here you will get an overview of configuration settings and its directory structure.
 	<ol>
 		<li>
 			<h3>Directory structure</h3>
-			<p>Its root directory (/var/ossec) can only be accessed with root privileges. </p>
+			Its root directory <code>/var/ossec</code> can only be accessed with root privileges.
 			<ul>
-				<li>its main configuration file is in /var/ossec/etc</li>
-				<li>/var/ossec/rules contains predefined rules</li>
-				<li>/var/ossec/bin contains command used to manage OSSEC</li>
-				<li>/var/ossec/logs/ossec.log contains logs of the errors</li>
+				<li>Its main configuration file resides in <code>/var/ossec/etc</code>.</li>
+				<li><code>/var/ossec/rules </code> contains predefined rules.</li>
+				<li><code>/var/ossec/bin </code> contains command used to manage OSSEC.</li>
+				<li><code>/var/ossec/logs/ossec</code> log contains logs of the errors.</li>
 			</ul>
 		</li>
 		<li>
 		<h3>Main configuration file location</h3>
-		<p>The main configuration file is located at /var/ossec/etc/ossec.conf. First configuration option you will get is the email configuration you specified while installing. You can change if required at this place as explained in email verification steps</p>
+		The main configuration file is located at <code>/var/ossec/etc/ossec.conf</code>. Open it in any editor, make sure you have <code>sudo </code>privileges. First configuration option you will see is the email configuration you specified while installing. You can change it, if required at this place.
+
 		<div class="hacker">
-				<pre>
-			&lt;global>
-			&lt;email_notification>yes&lt;/email_notification>
-			&lt;email_to>email@coolexample.com&lt;/email_to>
-			&lt;smtp_server>mail.coolexample.com.&lt;/smtp_server>
-			&lt;email_from>ossec@ossec_server&lt;/email_from>
-			&lt;/global>
-			</pre>
+				
+			&lt;global><br/>
+			&lt;email_notification><em><u>yes</u></em>&lt;/email_notification><br/>
+			&lt;email_to><em><u>email@coolexample.com</u></em>&lt;/email_to><br/>
+			&lt;smtp_server><em><u>mail.coolexample.com.</u></em>&lt;/smtp_server><br/>
+			&lt;email_from><em><u>ossecm@ossec_server</u></em>&lt;/email_from><br/>
+			&lt;/global><br/>
+			
 			
 		</div>
-		<p>To change the number of email per hour you can add here the following line</p>
-		<div class="hacker">&lt;email_maxperhour>N&lt;/email_maxperhour></div>
-		<p>"N" is the number of emails. Make sure you &lt;email_from> address contains a valid domain part as some third-party email provider may drop otherwise.</p>
-		<p>If you are not getting emails as expected you can check logs here /var/ossec/logs/ossec.log</p>
+			<ul>
+				<li>
+				To change the number of email per hour you can add here the following line.
+				<div class="hacker">&lt;email_maxperhour><em><u>N</u></em>&lt;/email_maxperhour></div>
+				<p><em><u>N</u></em> is the number of emails. Make sure your <code>&lt;email_from></code> address contains a valid domain part as some third-party email provider may drop otherwise.</p>
+				<p>If you are not getting emails as expected you can check logs here <code>/var/ossec/logs/ossec.log</code></p>
+				</li>
+			</ul>
 		</li>
 		<li>
 		<h3>Frequency of scan </h3>
-		The &lt;syscheck> section starts like this
+		The <code>&lt;syscheck></code> section starts like this.
 		<div class="hacker">
-			<pre>
-				&lt;syscheck>
-				&lt;!-- Frequency that syscheck is executed - default to every 22 hours -->
-				&lt;frequency>79200&lt;/frequency>
-			</pre>
+			
+				&lt;syscheck><br/>
+				&lt;!-- Frequency that syscheck is executed - default to every 22 hours --><br/>
+				&lt;frequency>79200&lt;/frequency><br/>
 			
 		</div>
-		<p>So by default sytem check is run inevery 22 hours. You can change it.To enable alerts for new file creation, add the below mentioned line
-			</p>
+		<p>So by default system check is run in every 22 hours. You can change it. 
+		</p>
+		To enable alerts for new file creation, add the below mentioned line
+			
 			<div class="hacker">&lt;alert_new_files>yes&lt;/alert_new_files></div>
-		<p>So it should read</p>
+			It should read.
 			<div class="hacker">
-				<pre>
-					&lt;syscheck>
-					&lt;!-- Frequency that syscheck is executed - default to every 22 hours -->
-					&lt;frequency>79200&lt;/frequency>
-					&lt;alert_new_files>yes&lt;/alert_new_files>
-				</pre>
+				
+					&lt;syscheck><br/>
+					&lt;!-- Frequency that syscheck is executed - default to every 22 hours --><br/>
+					&lt;frequency>79200&lt;/frequency><br/>
+					&lt;alert_new_files>yes&lt;/alert_new_files><br/>
+				
 			</div>
 		</li>
 		<li>
 		<h3>Directory and file configuration</h3>
-		<p>Right after that there is a list of system directory that it monitors as shown</p>
+		Right after that there is a list of system directory that it monitors as shown.
 		<div class="hacker">
-			<pre>
-				&lt;!-- Directories to check  (perform all possible verifications) -->
-				&lt;directories check_all="yes">/etc,/usr/bin,/usr/sbin&lt;/directories>
-				&lt;directories check_all="yes">/bin,/sbin&lt;/directories>
-			</pre>
+			
+				&lt;!-- Directories to check  (perform all possible verifications) --><br/>
+				&lt;directories check_all="yes">/etc,/usr/bin,/usr/sbin&lt;/directories><br/>
+				&lt;directories check_all="yes">/bin,/sbin&lt;/directories><br/>
+			
 		</div>
-		<p>Add report_changes="yes" realtime="yes" to each line to enable real time monitoring </p>
+		Add <code>report_changes="yes" realtime="yes"</code> to each line to enable real time monitoring as shown.
 		<div class="hacker">
-			<pre>
-				&lt;!-- Directories to check  (perform all possible verifications) -->
-				&lt;directories report_changes="yes" realtime="yes" check_all="yes">/etc,/usr/bin,/usr/sbin&lt;/directories>
-				&lt;directories report_changes="yes" realtime="yes" check_all="yes">/bin,/sbin&lt;/directories>
-			</pre>
+				&lt;!-- Directories to check  (perform all possible verifications) --><br/>
+				&lt;directories report_changes="yes" realtime="yes" check_all="yes">/etc,/usr/bin,/usr/sbin&lt;/directories><br/>
+				&lt;directories report_changes="yes" realtime="yes" check_all="yes">/bin,/sbin&lt;/directories><br/>
 		</div>
-		<p>You can add more directories to monitor here.to add /home/user_name and /var/www/ add following line here</p>
+		You can add more directories to monitor here. For exmample to add <code>/home/user_name </code> and <code>/var/www/ </code>add following line here.
 		<div class="hacker">
 			&lt;directories report_changes="yes" realtime="yes" restrict=".php|.js|.py|.sh|.html" check_all="yes">/home/user_name,/var/www&lt;/directories>
 		</div>
-		<p>Restrict setting tells only to monitor specified formats</p>
+		<code>restrict </code>setting tells only to monitor specified formats.
 		</li>
 		<li>
 		<h3>Local rules location</h3>
-		<p>Local rules are located in /var/ossec/rules/local_rules.xml. Next file to be modified is the in /var/ossec/rules directory. Only two files local_rules.xml and ossec_rules.xml is of our use. The former file is used to add local rules and latter for default rules definitions.
-		You will need sudo privileges to access these files. 
-		</p>
-		<p>When a file is added to monitored directory the rule 554 is fired. By default  it doesn't send alert on fire so you'll need to change the settings. Rule 554 looks like.</p>
-		
-		<div class="hacker">
-			<pre>
-				&lt;rule id="554" level="0">
-				&lt;category>ossec&lt;/category>
-				&lt;decoded_as>syscheck_new_entry&lt;/decoded_as>
-				&lt;description>File added to the system.&lt;/description>
-				&lt;group>syscheck,&lt;/group>
-				&lt;/rule>
-			</pre>
-		</div>
-		<p>When level is set to "0" no alert will be sent. We will raise the alert level. Copy the rule to local_rules.xml and modify it.</p>
-		<p>Open the file /var/ossec/rules/local_rules.xml in any editor and add the new rule at the end within the group tag</p>
-		<div class="hacker">
-			<pre>
-				&lt;rule id="554" level="7" overwrite="yes">
-				&lt;category>ossec&lt;/category>
-				&lt;decoded_as>syscheck_new_entry&lt;/decoded_as>
-				&lt;description>File added to the system.&lt;/description>
-				&lt;group>syscheck,&lt;/group>
-				&lt;/rule>
-			</pre>
-		</div>
-		<p>Save and close the file.Now restart the OSSEC
-		</p>
-		<div class="hacker">
-			/var/ossec/bin/ossec-control restart
-		</div>
-		<p>You will get a mail when it is restarted.</p>
+		<p>Files that you would like to modify reside in <code>/var/ossec/rules</code>. In this directory if you use <code>ls -lgG</code> command, you will get a list of bunch of xml files but only two files <code>local_rules.xml </code>and <code>ossec_rules.xml</code> is of our use. The former file is used to add local rules and latter for default rules definitions.
+			You will need sudo privileges to access these files. 
+			</p>
+			<p>When a file is added to a monitored directory the rule 554 is fired from <code>ossec_rules.xml</code>. By default it doesn't send alert on firing of this rule. so you'll need to change the settings. </p>
+			<ol>
+				<li>Default rule definitions in <code>ossec_rules.xml </code> are useful to look at so we can modify and copy them into our local files. Rule 554 looks like:
+				
+					<div class="hacker">
+						
+							&lt;rule id="554" level="0"><br/>
+							&lt;category>ossec&lt;/category><br/>
+							&lt;decoded_as>syscheck_new_entry&lt;/decoded_as><br/>
+							&lt;description>File added to the system.&lt;/description><br/>
+							&lt;group>syscheck,&lt;/group><br/>
+							&lt;/rule><br/>
+						
+					</div>
+					<p>When level is set to "0" no alert will be sent. We will raise the alert level.</p> 
+				</li>
+				<li>Copy the rule 554 and open the file <code>/var/ossec/rules/local_rules.xml</code> in any editor and add the new rule at the end within the group tag. Change the level to "7".
+					<div class="hacker">
+						
+							&lt;rule id="554" level="7" overwrite="yes"><br/>
+							&lt;category>ossec&lt;/category><br/>
+							&lt;decoded_as>syscheck_new_entry&lt;/decoded_as><br/>
+							&lt;description>File added to the system.&lt;/description><br/>
+							&lt;group>syscheck,&lt;/group><br/>
+							&lt;/rule><br/>
+						
+					</div>
+				</li>
+				<li>Save and close the file. Now restart the OSSEC using:
+					<div class="hacker">
+					/var/ossec/bin/ossec-control restart
+					</div>
+					<p>You will get a mail when it is restarted.</p>
+				</li>
+			</ol>
 		</li>
 		<li>
-			<h3>Triggering file change alerts</h3>
-			<p>When you add any file in directory to be monitored by OSSEC or you update or delete a file you should be getting alerts.
-			It doesn't send real time notification for adding a file but only for modification or deletion. Alerts of file addition go after full system check which is handled by frequency check time in ossec.conf.
-			If you don't get emails please check your spam folder or logs in /var/ossec/logs/ossec.log
-			</p>
-		</li>
+		<h3>Triggering file change alerts</h3>
+		<p>When you add any file in directory to be monitored by OSSEC or you update or delete a file you should be getting alerts.
+		It doesn't send real time notification for adding a file but only for modification or deletion. Alerts of file addition go after full system check which is handled by frequency check time in <code>ossec.conf</code>.
+		</p>
+	</li>
 	</ol>
-	<h2>Next Step</h2>
-	<p>This article gives you the overview of basic settings more advance setups and configuration are possible.</p>
-	
+<h2>Next Step</h2>
+	<p><!--Please fix this run-on sentence. cj -->
+	After following all these steps you will be able to setup OSSEC notifications. To look for more customization, you can refer to its <a href="http://ossec-docs.readthedocs.org/en/latest/manual/index.html">Official Documentation.</a>
+	</p>
 </body>
 </html>
