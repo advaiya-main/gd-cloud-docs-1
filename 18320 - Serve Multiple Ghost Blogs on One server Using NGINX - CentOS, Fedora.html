@@ -82,7 +82,7 @@ p.note {
 <ul>
 <li>This article assumes that the host machine has a Ghost blogging platform deployed and running. For detailed steps, see the article: <a href="18133 - Install and configure Ghost with NGINX - CentOS, Fedora">Install and configure Ghost with NGINX - CentOS, Fedora</a>
 </li>
-<li>There must be multiple separate domain names available to use with each of the blogs. All domain names must be pointing to the VPS instance having the Ghost blog. For details about setting up the domain names correction, see <a href="#"> NEW ARTICLE TO BE CREATED</a>. For this article, following two domain names will be used:
+<li>There must be multiple separate domain names available to use with each of the blogs. All domain names must be pointing to the VPS instance having the Ghost blog. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>. For this article, following two domain names will be used:
 <ul>
 <li>blog1.coolexample.com</li>
 <li>blog2.coolexample.com </li>
@@ -127,11 +127,11 @@ p.note {
     }
 }</pre></div>
 </li>
-<li>Save and close by pressing <strong>ESC</strong> key and then <strong>:wq</strong>.</li>
+<li>Save and close by pressing <strong>ESC</strong> key, and then type <code>:wq</code>.</li>
 <li>Open the second configuration file.
 <div class="hacker">vim blog2.conf</div>
 </li>
-<li>Update the <code>server_name</code> parameter by adding the second domain name. For this configuration file, also update the value for <code>proxy_pass</code> parameter to <strong>2777</strong> (or simply replace the entire contents of the file with following content.):
+<li>Update the <code>server_name</code> parameter by adding the second domain name. For this configuration file, also update the value for <code>proxy_pass</code> parameter to <strong>2777</strong> (or simply replace the entire contents of the file with following content):
 <div class="hacker"><pre>server {
     listen 0.0.0.0:80;
     server_name <em><u>http://blog2.coolexample.com;</u></em>
