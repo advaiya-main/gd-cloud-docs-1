@@ -4,13 +4,10 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>17522-Install Ruby on Rails with rbenv - Arch Linux</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -71,40 +68,37 @@ p.note {
 
 <body>
 <p>Setting up Ruby on Rails using rbenv on Arch Linux, Ruby, Rails</p>
-<h1>Install Ruby on Rails using rbenv - Arch Linux </h1>
+<h1>Install Ruby on Rails Using rbenv - Arch Linux </h1>
 
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>30 minutes</em></p>
 
-<p>Ruby is a pure object oriented language like PERL and Python, while Rails is a web application development framework written in Ruby. It is designed to make programming web application easier by making assumptions about what every developer needs to get started.</p>
+<p>Ruby is a pure object oriented language like Perl and Python. Rails is a framework for web application development written in Ruby. In this article, you'll learn to install Ruby on Rails on Arch Linux, with the help of rbenv, a lightweight Ruby version management tool.</p>
+<p>To set up the Arch Linux server, refer to <a href="17324"> Initial Server Setup - Arch Linux</a>. Optionally, you can also <a href="17369"> install Git</a>.</p>
 
-<p class="note">Note: Please make sure that you have assigned super user privileges to your user. </p>
-
-<h2>Prerequisites</h2>
-
-<p>To setup the Arch Linux server, please visit <a href="#">17324 - Initial Server Setup - Arch Linux</a>. Optionally, you may also visit <a href="#">17369 - Install Git - Arch Linux</a> to install Git on Arch Linux.</p>
+<p class="note">Please make sure that you have assigned super user privileges to your user. </p>
 
 <h2>Install rbenv</h2>
 <ol>
-<li>Upgrade and install all the latest dependencies by using <code>pacman</code> base-level command
-<div class="hacker">sudo pacman -Syyu</div>
+  <li>Upgrade and install all the latest dependencies.
+    <div class="hacker">sudo pacman -Syyu</div>
 <div class="hacker">sudo pacman -Sy base-devel</div>
 </li>
-<li>Install rbenv and Ruby dependencies
+<li>Install rbenv and Ruby dependencies.
 
-<div class="hacker">sudo pacman -Sy git zsh</div>
+  <div class="hacker">sudo pacman -Sy git zsh</div>
 
 <div class="hacker">sudo git clone git://github.com/sstephenson/rbenv.git ~/.rbenv</div>
 </li>
-<li>Install rbenv and run the following commands to check if rbenv is located into <code>.rbenv</code> directory.
-        <div class="hacker">cd /.rbenv</div>
+<li>Install rbenv, and check that rbenv is located in <code>.rbenv</code> directory.
+    <div class="hacker">cd /.rbenv</div>
 
-<div class="hacker"><xmp>sudo echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+<div class="hacker">sudo echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
 sudo echo 'eval "$(rbenv init -)"' >> ~/.zshrc
-exec $SHELL</xmp></div>
+exec $SHELL</div>
 
 </li>      
-<li>Install ruby-build plugin. 
+<li>Install the ruby-build plugin. 
       <div class="hacker"> mkdir -p ~/.rbenv/plugins</div>
     
        <div class="hacker">cd !$</div>
@@ -117,50 +111,51 @@ exec $SHELL</xmp></div>
 
 <h2>Install Ruby</h2>
 
-<p>Before you start using rbenv, you need to make sure which version of Ruby you want to install. In this article, we are installing the latest version of Ruby.</p>
+<p>Before you start using rbenv, you need to make sure which version of Ruby you want to install. <!--Wouldn't the user always want to install the latest version? If so, how does the user get the latest version? If the user shouldn't use the latest version, how does he decide which version to install? cj -->In this article, we are installing the latest version of Ruby.</p>
 <ol>
-<li>Install the dependency of Rails before you install Ruby, by typing:
+<li>Install the dependency of Rails before you install Ruby.
 	<div class="hacker">rbenv install 1.8.7-p358</div>
 </li>
-<li>This will display  which version of Ruby was installed properly:
+<li>Display  which version of Ruby was installed.<!--Step missing? The previous step says that only a dependency (not Ruby) is installed. cj -->
 	<div class="hacker">ruby -v</div>
 </li>    
 </ol>
     
 <h2>Install RubyGems</h2>
 <ol>
-<li>By default, when you install gems, documentation files will also be installed. But this takes time, so here you need to first stop the document installation by disabling them.
-      <div class="hacker">echo "gem: --no-document" > ~/.gemrc</div>
+<li>Disable document installation. (By default, when you install gems<!--Is "gems" the same thing as "RubyGems"? RubyGems isn't mentioned anywhere in this section except the header. Confusing. cj -->, documentation files are also installed. But this takes time, so let's stop the document installation.)
+    <div class="hacker">echo "gem: --no-document" > ~/.gemrc</div>
 </li>
-<li>After you have disabled the document, install the bundler gem. The Bundler gem is an essential tool for managing gems when developing and running Rails applications.
-    <div class="hacker">gem install bundler</div>
+<li>Install the bundler gem. The bundler gem is an essential tool for managing gems when developing and running Rails applications.
+  <div class="hacker">gem install bundler</div>
 </li>    
 </ol>
 
-<h2>Setup Rails</h2>
+<h2>Set up Rails</h2>
 <ol>
 <li>Install Rails. 
 	<div class="hacker">gem install rails</div>
-<p>This will take some time, so be patient. Once completed, Ruby on Rails will be installed.</p>
+<p>This installation takes some time.</p>
 </li>
-<li>Install Shims for all Ruby executables, by using the sub-command <code>rehash</code>.
+<li>Install shims for all Ruby executables.
      <div class="hacker">rbenv rehash</div>
 </li>
-<li>Check the version of both Ruby and Rails.
-<div class="hacker">ruby -v</div>
+<li>Check the version of both Ruby and Rails to make sure that they installed.
+  <div class="hacker">ruby -v</div>
 <div class="hacker">rails -v</div>
 </li>       
 </ol>
 
-<h2>Install JavaScript Runtime</h2>
+<h2>Install JavaScript runtime</h2>
 <p>A few Rails features, such as Asset Pipeline, depend on a JavaScript runtime.</p>
-<p>Install the Node.js package</p>
-       <div class="hacker">sudo pacman -S nodejs npm</div>
-
+<ul>
+  <li>Install the <code>Node.js</code> package.
+    <div class="hacker">sudo pacman -S nodejs npm</div></li>
+</ul>
 
 
 <h2>Next Steps</h2>
-<p>In this article, we reviewed the steps involved in setting up <code>rbenv</code>, Ruby, RubyGems and finally Rails in Arch Linux environment. </p>
+<p>In this article, we reviewed the steps involved in installing <code>rbenv</code>, Ruby, RubyGems, and finally Rails on Arch Linux.<!--What might the user want to do next? cj --> </p>
 
 </body>
 </html>
