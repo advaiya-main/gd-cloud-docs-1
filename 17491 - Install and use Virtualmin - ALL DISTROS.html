@@ -4,12 +4,12 @@
 
 <head>
 
-<!--Article Number is _17543_________ (fill in blank)-->
+<!--Article Number is __________ (fill in blank)-->
 
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>Create Vanity or Branded Nameservers with your Cloud server - ALL DISTROS</title>
+<title>Install and use Virtualmin - ALL DISTROS</title>
 <style>
 div.hacker {
 background-color:#666;
@@ -44,25 +44,26 @@ p.note {
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
-<mso:ArticleKeywords msdt:dt="string">DNS</mso:ArticleKeywords>
-<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-create-vanity-or-branded-nameservers-with-digitalocean-cloud-servers, https://www.digitalocean.com/community/tutorials/how-to-create-vanity-or-branded-nameservers-with-digitalocean-cloud-servers</mso:Reference>
+<mso:ArticleKeywords msdt:dt="string">Control Panels</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">17543 - Create Vanity or Branded Nameservers with your Cloud server - ALL DISTROS, https://www.digitalocean.com/community/tutorials/how-to-install-and-utilize-virtualmin-on-a-vps</mso:Reference>
 <mso:LinuxDistributions msdt:dt="string">;#ALL DISTROS;#</mso:LinuxDistributions>
 <mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
-<mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
-<mso:Difficulty msdt:dt="string">1</mso:Difficulty>
+<mso:RequestNotes msdt:dt="string">Prereqs - 'Initial Server Setup.' Link to alternate article 'Install and use Webmin' for users who want control panel without Virtualmin. If steps are different per distro, split articles for each distro instead of by fork.</mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">2</mso:Difficulty>
 <mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
-<mso:ArticleID msdt:dt="string">17543</mso:ArticleID>
+<mso:ArticleID msdt:dt="string">17491</mso:ArticleID>
 <mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
 <mso:Collapsed msdt:dt="string"></mso:Collapsed>
 <mso:Complexity msdt:dt="string"></mso:Complexity>
-<mso:Week msdt:dt="string">3.00000000000000</mso:Week>
+<mso:Week msdt:dt="string">4.00000000000000</mso:Week>
 <mso:ArticleStatus msdt:dt="string">Not started</mso:ArticleStatus>
-<mso:HoursDraftingEstimated msdt:dt="string">0.300000000000000</mso:HoursDraftingEstimated>
-<mso:HoursEditingEstimated msdt:dt="string">0.100000000000000</mso:HoursEditingEstimated>
+<mso:HoursDraftingEstimated msdt:dt="string">1.00000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.250000000000000</mso:HoursEditingEstimated>
 <mso:Sample msdt:dt="string">z</mso:Sample>
 <mso:DeliveryTarget msdt:dt="string"></mso:DeliveryTarget>
 <mso:EditScore msdt:dt="string"></mso:EditScore>
-<mso:PrereqOrdering msdt:dt="string">3</mso:PrereqOrdering>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+<mso:TransitionedToGitHub msdt:dt="string">1</mso:TransitionedToGitHub>
 <mso:AssignedTo1 msdt:dt="string">19</mso:AssignedTo1>
 <mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Brian Miller</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
 </mso:CustomDocumentProperties>
@@ -70,16 +71,66 @@ p.note {
 </head>
 
 <body>
-<p>Sets up Vanity domain names</p>
-    <h1>Create Vanity or Branded Nameservers with your Cloud server - ALL DISTROS</h1>
+<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
+    <h1>Article Title from Spreadsheet</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
-        <strong>Time</strong>: <em><u>20 minutes</u></em></p>
+    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
+        <strong>Time</strong>: <em><u>Time value</u></em></p>
 
-    <p>Business and other users orften prefer to have vanity or branded nameservers because it adds lustre to their image.  YourCoolWebsite@CoolCompany.com is much cooler than YourCoolWebsite@YourWebHostingProvider.com.  
-        You will need a registered domain name.  You can get one from GoDaddy or any number of other domain name registrars.  A Vanity nameserver allows you to substitute your name for your cloudserver provider.  If you use a Branded Namesserver, you must manage your own DNS.</p>
+    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
 
-    <h2>Section 1 title</h2>
+    <h2>Install Virtualmin</h2>
+     <ol>
+               <li>Download the Virtualmin software
+                 <div class="hacker"> sudo wget http://software.virtualmin.com/gpl/scripts/install.sh -O /root/virtualmin-install.sh</div>
+               </li>
+               <li>Your screen will display something like this:
+                   <div class="hacker">2015-09-03 13:32:53 (710 KB/s) - ‘/root/virtualmin-install.sh’ saved [47633/47633]</div>
+               </li>
+               <li>Install Virtualmin
+                   <div class="hacker">sudo sh /root/virtualmin-install.sh</div>
+               </li>
+               <li>You may have logged in to your server using an IP address rather fully qualified domain name (FQDN).  
+                   The script may prompt you for your FQDN.  If this is the case, provide it.
+                </li>
+               <li>Navigate to your webmin page (<em><u>MyCoolWebsite.com</u></em>:10000)
+                   <div class="hacker">https://<em><u>MyCoolWebsite.com</u></em>:10000</div>
+               </li>
+    </ol>
+               <p>On the left hand side of the page there is a menu.  You will notice some differences from the standard Webmin interface:</p>
+         
+         <ul>
+               <li>First off, there is a selection between Virtualmin and Webmin.  Clicking on the name toggles the UI.  Note that in Virtualmin you are a master admin while in Webmin you are merely a login. </li>
+                <li>Webmin has a selection for <strong>Un-used modules</strong>.  Virtualmin does not because iis concerned with helping you install there is a menu item for Un-used modules</li>
+                <li>List item <strong>interface items like this</strong></li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+                <li>List item</li>
+              
+              </ul>
+
+
+
+
+
+
+
+
+
+
+
+
     <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
     
     <p>Include any of the following elements as needed:</p>
