@@ -4,11 +4,12 @@
 
 <head>
 
-<!--Article Number is 18569 -->
+<!--Article Number is 18569 
+sibling article 18568-->
 
 
 
-<title>Install CouchDB From Source - CentOS, Fedora</title>
+<title>Install CouchDB from Source - CentOS, Fedora</title>
 <style type ="text/css" >
 div.hacker {
 background-color:#666;
@@ -68,15 +69,17 @@ p.note {
 </head>
 
 <body>
-<p>Setting up CouchDB from source on CentOS &amp; Fedora, Erlang, and Spider Monkey.</p>
+<p>Setting up CouchDB from source on CentOS and Fedora, Erlang, and Spider Monkey.</p>
     <h1>Install CouchDB from Source - CentOS, Fedora</h1>
     
     <p><strong>Difficulty</strong>: <em><u>4</u></em><br />
         <strong>Time</strong>: <em><u>30 minutes</u></em></p>
 
-    <p>CouchDB is a database that embraces web applications and stores your data with JSON documents. CouchDB is used in developing modern web and mobile applications. You can even serve web applications directly out of CouchDB. This article will assist you to install CouchDB from source on CentOS and Fedora using Erlang and SpiderMonkey. Erlang is a programming language used in CouchDB to build massively scalable real-time systems with requirements on high availability.
-	Whereas, Mozilla's SpiderMonkey JavaScript Engine is required by CouchDB to compile in order. 
-	<!--What is the benefit or main function of CouchDB? Shouldn't the introduction include information on Spider Monkey and Erlang? -->
+    <p>CouchDB is a database that embraces web applications and stores your data with JSON documents. CouchDB is used in developing modern web and mobile applications. You can even serve web applications directly out of CouchDB.</p>
+
+<p>This article will assist you to install CouchDB from source on CentOS and Fedora using Erlang and SpiderMonkey. Erlang is a programming language used in CouchDB to build massively scalable, real-time systems that require high availability.
+Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile successfully. 
+
 </p>
 <h2>Install build tools and dependencies</h2>
 <ol>
@@ -89,7 +92,7 @@ p.note {
 	
 	<div class="hacker">sudo yum -y install libicu-devel curl-devel ncurses-devel libtool libxslt fop java-1.6.0-openjdk java-1.6.0-openjdk-devel unixODBC unixODBC-devel openssl-devel</div> </li>
 	
-	<li>Install EPEL repository using the following commands:
+	<li>Install the EPEL repository using the following commands:
 	<div class="hacker">sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-	release-7-5.noarch.rpm</div>
 		<div class="hacker">sudo rpm -ivh epel-release-7-5.noarch.rpm</div>
 	</li>
@@ -112,7 +115,7 @@ p.note {
 	<li>Download Mozilla SpiderMonkey from the source.
 		<div class="hacker">sudo wget   http://ftp.mozilla.org/pub/mozilla.org/js/mozjs17.0.0.tar.gz</div>
 	</li>
-	<li>Compile the Mozilla SpiderMonkey.
+	<li>Compile Mozilla SpiderMonkey.
 		<div class="hacker">sudo wget   http://ftp.mozilla.org/pub/mozilla.org/js/mozjs17.0.0.tar.gz</div>
 		<div class="hacker">sudo tar -xvf mozjs17.0.0.tar.gz</div>
 		<div class="hacker">cd mozjs17.0.0/js/src/</div>
@@ -136,7 +139,7 @@ p.note {
 		<div class="hacker">sudo make &amp;&amp; make install</div>
 	</li>
 </ol>
-<h2>Setup CouchDB</h2>
+<h2>Set up CouchDB</h2>
 <ol>
 	<li>Create a CouchDB user and give some permissions using following command:
 	<div class="hacker">sudo adduser --no-create-home couchdb</div>
@@ -145,14 +148,14 @@ p.note {
 	<li>Create a link for the <code>couchdb init script</code> to <code>/etc/init.d</code>.
 	<div class="hacker"> sudo ln -sf /usr/local/etc/rc.d/couchdb /etc/init.d/couchdb</div>
 	</li>
-	<li>To start CouchDB automatically at boot, add and enable the init script using <code>chkconfig</code>:
+	<li>To start CouchDB automatically at boot, add and enable the init script using the <code>chkconfig</code> command:
 	<div class="hacker">sudo chkconfig --add couchdb</div>
 		<div class="hacker"> sudo chkconfig couchdb on</div>
 	</li>
-	<li>Open the configuration file of CouchDB.
+	<li>Open the CouchDB configuration file.
 	<div class="hacker">sudo vim /usr/local/etc/couchdb/local.ini</div>
 	</li>
-	<li>To access CouchDB from the web, go to the <code>Httpd</code> section and make the following changes:
+	<li>To access CouchDB from the web, go to the <code>httpd</code> section and make the following changes:
 	<div class="hacker"><pre>	[httpd]
 	port = 5984
 	bind_address = 0.0.0.0
@@ -161,10 +164,10 @@ p.note {
 	<li>Restart the CouchDB services.
 	<div class="hacker">sudo service couchdb restart</div>
 	</li>
-	<li>To test that CouchDB is running successfully, go to any web browser and type:
-	<strong>http://<em>Your public Ip</em>:5984</strong>.
+	<li>To test that CouchDB is running successfully, go to any browser, and type:
+	<strong>http://<em><u>Your public Ip</u></em>:5984</strong>.
 	</li>
-	<li>After the server is up and running, you can access it in your browser at <strong>http://<em>Your public IP</em>:5984/utils/</strong>.
+	<li>After the server is up and running, you can access it in your browser at <strong>http://<em><u>Your public IP</u></em>:5984/utils/</strong>.
 	</li>
 </ol>
 <h2>Conclusion</h2>
