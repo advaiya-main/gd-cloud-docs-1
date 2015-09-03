@@ -82,15 +82,16 @@
 <body>
 
 <p>Setting up Rails Application with PostgreSQL in Ubuntu, PostgreSQL, Ruby, Rails</p>
-<h1>Use PostgreSQL with Ruby on Rails Application - Ubuntu</h1>
+<h1>Use PostgreSQL with a Ruby on Rails Application - Ubuntu</h1>
 <p><strong>Difficulty:</strong> <em>2</em></p>
 <p><strong>Time:</strong> <em>30 mins</em></p>
 
-<p>In this article, we'll create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails application.  These tasks  assume that you have sudo privileges.</p>
+<p>In this article, we'll create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails application.  </p>
+<p>These tasks  assume that you have sudo privileges.</p>
 <p> To install Ruby on Rails, see <a href="17534">Install Ruby on Rails using RVM - Ubuntu</a>.</p>
 <h2>Install PostgreSQL</h2>
 <ol>
-<li>At the terminal, type the following command:
+<li>Install PostgreSQL.
 	<div class='hacker'>sudo apt-get install postgresql postgresql-contrib</div>
 </li>
 <li>Install <code>pgadmin3</code> for the administrator. <code>pgadmin3</code> is an easy-to-access GUI for PostgresSQL. 
@@ -123,14 +124,14 @@
 <li>Move to the application directory.
   <div class='hacker'>cd <em><u>HelloWorld</u></em></div>
  </li>
-<li>Open the following  file:
-  <div class='hacker'>sudo vim config/database.yml</div>
+<li>Open the <span class="hacker"><code>database.yml</code></span> file:
+<div class='hacker'>sudo vim config/database.yml</div>
  </li>
 <li>Look for <code>pool: 5</code> in the file, and add the following lines beneath it. Enter the username and password for the <code>postgres</code>  user.
   <div class='hacker'>
 <pre>host: localhost
-username: <em><u>UserName</u></em>
-password: <em><u>UserName_password</u></em></pre></div>
+username: <em><u>postgres user username</u></em>
+password: <em><u>postgres user password</u></em></pre></div>
 </li>        
 <li>Save and exit.
 <div class = "hacker">wq!</div></li>
@@ -140,7 +141,7 @@ password: <em><u>UserName_password</u></em></pre></div>
 <ul>
 <li>Create the application's database in the application directory.
   <div class='hacker'>rake db:create</div>
-Two databases in PostgreSQL server are created. For example, if the application's name is <code>HelloWorld</code>, the command creates databases named <code>HelloWorld _development</code> and <code>HelloWorld _test</code>. 
+Two databases in the PostgreSQL server are created. For example, if the application's name is <code>HelloWorld</code>, the command creates databases named <code>HelloWorld _development</code> and <code>HelloWorld _test</code>. 
 </li>
 </ul>
 

@@ -4,13 +4,12 @@
 
 <head>
 
-<!--Article Number is __18264________ (fill in blank)-->
+<!--Article Number is 18264-->
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Install and configure Drupal on your LEMP server - ALL DISTROS</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -78,66 +77,72 @@ p.note {
 </head>
 
 <body>
-<p>Install Drupal</p>
+<p>Install Drupal on a LEMP stack for all distros, including NGINX, Debian, Ubuntu, Fedora, and CentOS.</p>
     <h1>Install and configure Drupal on your LEMP server - ALL DISTROS</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
+    <p><strong>Difficulty</strong>: <em><u>3</u></em><br />
         <strong>Time</strong>: <em><u>15 minutes</u></em></p>
 
+<<<<<<< HEAD
     <p>Drupal is a content management framework.    In this article we will describe how to install Drupal on a LEMP stack</p>
+=======
+    <p>Drupal is a content management framework. In this article, we will describe how to install Drupal on a LEMP stack on any OS.</p>
+    <!--Per the title, this is all Distros.-->
+>>>>>>> origin/master
 
     <h2>Platform Preparation</h2>
    <ol>
-               <li>Navigate to your home directory
+               <li>Navigate to your home directory.
                    <div class="hacker">cd ~</div>
                </li>
-                <li>Download Drupal
+                <li>Download Drupal.
                    <div class="hacker">wget http://ftp.drupal.org/files/projects/drupal-7.23.tar.gz</div>
                </li>
-               <li>The Drupal download is a zip file, so we will have to unzip it
+               <li>The Drupal download is a zip file, so you will have to unzip it.
+               
                    <div class="hacker">tar xzvf drupal-7.23.tar.gz</div>
                </li>
                <li>Create a directory under the web root to store the Drupal files 
                    <div class="hacker">sudo mkdir /usr/share/nginx/html/drupal</div>
                </li>
-               <li>Move the Drupal files from their unzipped location in your home directory to your new drupal directory
+               <li>Move the Drupal files from their unzipped location in your home directory to your new <code>drupal</code> directory.>.
                    <div class="hacker">sudo mv drupal-7.23/* /usr/share/nginx/html/drupal/</div>
                </li>
        </ol>
 
- <h2>Database Preparation</h2>
+ <h2>Prepare the database</h2>                   
     <ol>
-               <li>Open a MySQL session
+               <li>Open a MySQL session.
                    <div class="hacker">mysql -u root -p</div>
                </li>
-               <li>Create a drupal database
+               <li>Create a Drupal database.
                    <div class="hacker">CREATE DATABASE drupal;</div>
                </li>
-               <li>Create a new user
+               <li>Create a new user.
                    <div class="hacker">CREATE USER drupaluser@localhost IDENTIFIED BY 'password';</div>
                </li>
-               <li>Grant your new user ALL privileges
+               <li>Grant your new user, <code>ALL PRIVILEGES</code>.
                    <div class="hacker">GRANT ALL PRIVILEGES ON drupal.* TO drupaluser@localhost IDENTIFIED BY 'password';</div>
                </li>
-               <li>Write your changes to disk
+               <li>Write your changes to disk.
                    <div class="hacker">FLUSH PRIVILEGES;</div>
                </li>
-               <li>Exit MySQL session
+               <li>Exit MySQL session.
                    <div class="hacker">exit</div>
                </li>
        </ol>
 
-<h2>NGINX Configuration</h2>
+<h2>Configure NGINX</h2>
           <ol>      
-               <li>Open the nginx configuration file 
+               <li>Open the NGINX configuration file. 
                    <div class="hacker">sudo vim /etc/nginx/nginx.conf</div>
-               </li><li>Verify the <code>include</code> references in the http context contain the statement below.  If it does not exist, add it.  
+               </li><li>Verify the <code>include</code> references in the <code>http</code> context contain the statement below.  If it does not exist, add it.  
                    <div class="hacker">include /etc/nginx/conf.d/*.conf;
                   </div>
                </li>
-               <li>Save (if necessary) and close the file. 
+               <li>Save, if necessary, and close the file. 
                </li>
-              <li>Create a new file, drupal.conf 
+              <li>Create a new file <code>drupal.conf</code>. 
                    <div class="hacker">sudo vim /etc/nginx/conf.d/drupal.conf</div>
                </li>
                <li>Edit the file with the following contents: 
@@ -151,7 +156,7 @@ p.note {
         server_name localhost;
 
         location / {
-           try_files $uri $uri/ /index.php?q=$uri&$args;
+           try_files $uri $uri/ /index.php?q=$uri&amp;$args;
                     }
         error_page 404 /404.html;
 
@@ -171,10 +176,10 @@ p.note {
              </li>
  <li>Save and close. 
                </li>
- <li>Restart Nginx
+ <li>Restart NGINX.
                    <div class="hacker">sudo service nginx restart</div>
                </li>
- <li>Using your browser, navigate to http://Your_IP Address/drupal and use the Drupal UI to configure Drupal to meet your needs.
+ <li>In your browser, navigate to <strong>http://<em><u>Your_IP Address</u></em>/drupal</strong> and use the Drupal UI to configure Drupal to meet your needs.
  </li>
   </ol>
                            

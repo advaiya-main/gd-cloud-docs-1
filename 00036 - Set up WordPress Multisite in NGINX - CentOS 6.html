@@ -72,14 +72,14 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-    <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you’d otherwise have to log into different WordPress accounts.</p> 
+    <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you’d otherwise have to log into different WordPress accounts.</p>
 
 <p>For this article, we'll walk through setting up WordPress multisite for a primary domain and its subdomains. 
 We'll set up WordPress on a CentOS 6 system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
 <p>We'll use these example sites: </p>
 <table>
   <tr>
-    <td><b>Site 1</b></th>
+    <td><b>Site 1</b></td>
     <td>coolexample.com (primary)</td>
   </tr>
   <tr>
@@ -105,10 +105,10 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
      
 <p>Let's create the WordPress root directory for us to transfer the files into later.</p>   
 
-<ol>                                                                        
+<ol>
 <li>Create the document root directory. We'll use <code>/var/www/html</code> for this article.
   <div class="hacker">sudo mkdir -p /var/www/html</div>
-</li>
+</li>  </ol>
 
 <h2>Make a copy of your NGINX config file</h2>
   
@@ -144,61 +144,60 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
                 <div class="hacker">root     /var/www/wordpress;</div></li>
                 </ul></li>
                 
-                <li>Make <code>server_name</code> point to your domains.  
-                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;/div></li>
-                    
+                <li>Make <code>server_name</code> point to your domains.
+                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div></li>
+
                 <li>Make sure all the lines in this <code>location ~ \.php$ {</code> block are uncommented (they should be from your LEMP install).</li>
                 </ul>
             
             <p class="note">Some of these changes may have already been made when you installed your LEMP stack.
             <br />After your changes, your file may look something like this:  </p>
 
-                 <div class="hacker"><pre>
-           # The default server
-           #
-           server {
-               listen  80 default_server;
-               server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</em></u>
-               # Load configuration files for the default server block.
-               include /etc/nginx/default.d/*.conf;
-
-               location / {
-                   root    <em><u>/var/www/wordpress;</u></em>
-                   index  <em><u>index.php</u></em> index.html index.htm;
-               }
-
-               error_page  404              /404.html;
-               location = /404.html {
-                   root   /usr/share/nginx/html;
-               }
-
-               # redirect server error pages to the static page /50x.html
-               #
-               error_page   500 502 503 504  /50x.html;
-               location = /50x.html {
-                   root   /usr/share/nginx/html;
-               }
-               ...
-
-               # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-               #
-               location ~ \.php$ {
-                   root   <em><u>/var/www/wordpress;</u></em>
-                   fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
-                   fastcgi_index  index.php;
-                   fastcgi_param  SCRIPT_FILENAME
-               $document_root$fastcgi_script_name;
-                   include        fastcgi_params;
-              }
-
-               # deny access to .htaccess files, if Apache's document root
-               # concurs with nginx's one
-               #
-               #location ~ /\.ht {
-               #    deny  all;
-                #}
-           }</pre></div>  
-           </li>
+                 <div class="hacker">               <br />
+           # The default server                     <br />
+           #                                        <br />
+           server {                                 <br />
+               listen  80 default_server;           <br />
+               server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</u></em>  <br />
+               # Load configuration files for the default server block.     <br />
+               include /etc/nginx/default.d/*.conf;                         <br />
+                                                                            <br />
+               location / {                                                 <br />
+                   root    <em><u>/var/www/wordpress;</u></em>              <br />
+                   index  <em><u>index.php</u></em> index.html index.htm;   <br />
+               }                                                            <br />
+                                                                            <br />
+               error_page  404              /404.html;                      <br />
+               location = /404.html {                                       <br />
+                   root   /usr/share/nginx/html;                            <br />
+               }                                                            <br />
+                                                                            <br />
+               # redirect server error pages to the static page /50x.html   <br />
+               #                                                            <br />
+               error_page   500 502 503 504  /50x.html;                     <br />
+               location = /50x.html {                                       <br />
+                   root   /usr/share/nginx/html;                            <br />
+               }                                                            <br />
+               ...                                                          <br />
+                                                                            <br />
+               # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000     <br />
+               #                                                            <br />
+               location ~ \.php$ {                                          <br />
+                   root   <em><u>/var/www/wordpress;</u></em>               <br />
+                   fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;        <br />
+                   fastcgi_index  index.php;                                <br />
+                   fastcgi_param  SCRIPT_FILENAME                           <br />
+               $document_root$fastcgi_script_name;                          <br />
+                   include        fastcgi_params;                           <br />
+              }                                                             <br />
+                                                                            <br />
+               # deny access to .htaccess files, if Apache's document root  <br />
+               # concurs with nginx's one                                   <br />
+               #                                                            <br />
+               #location ~ /\.ht {                                          <br />
+               #    deny  all;                                              <br />
+                #}                                                          <br />
+                }</div></li>
 
 
        <li>Save and close.</li>
@@ -259,10 +258,10 @@ This command creates a directory called "wordpress" in your home directory.</li>
 <div class="hacker">sudo chown nginx:nginx * -R</div> </li>
 
 <li>Let's add a designated WordPress user. For this tutorial, we'll call ours <code>wordpress_user</code>.
-<div class="hacker">sudo adduser wordpress_user</div> 
+<div class="hacker">sudo adduser wordpress_user</div>  </li>
 
 <li>Give your user permissions to modify the content.
-<div class="hacker">sudo usermod -a -G nginx wordpress_user</div> 
+<div class="hacker">sudo usermod -a -G nginx wordpress_user</div>    </li>
 
 
 </ol>
@@ -368,7 +367,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
    <li>In your terminal, pull up your <code>wp-config</code> file.
 <div class="hacker">cd /var/www/html</div>
    <div class="hacker">sudo vim wp-config.php</div>
-   
+
  </li>
    <li>Find the section torwards the end of the file we were modifying, and paste the code you copied right before <code>/* That's all, stop editing! Happy blogging. */</code>.</li>
     
@@ -382,7 +381,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 
 <li>To the left of that on the top navigation bar is <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
 
-At the top, there should now be a <strong>&quot;Network Admin: <code><em><u>(your domain name)</u></em></code></strong> option in the menu bar, if it wasn't there earlier.<br/></li>
+At the top, there should now be a <strong>&quot;Network Admin: <code><em><u>(your domain name)</u></em></code></strong> option in the menu bar, if it wasn't there earlier.<br/>
 
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00036/083115/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
 

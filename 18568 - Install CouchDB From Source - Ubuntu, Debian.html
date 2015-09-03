@@ -4,10 +4,11 @@
 
 <head>
 
-<!--Article Number is 18568 -->
+<!--Article Number is 18568 
+sibling article 18569-->
 
 
-<title>Install CouchDB From Source - Debian, Ubuntu</title>
+<title>Install CouchDB from Source - Debian, Ubuntu</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -67,35 +68,32 @@ p.note {
 </head>
 
 <body>
-<h1>Install CouchDB From Source - Ubuntu, Debian</h1>
+<h1>Install CouchDB from Source - Debian, Ubuntu</h1>
 
 <p><strong>Difficulty:</strong> <em>4</em><br />
 <strong>Time:</strong> <em>30 minutes</em></p>
 
-<p>CouchDB database is known to embrace the entire web and belongs to NoSQL family. 
-	It is a document-oriented NoSQL database that uses JSON to store data, JavaScript as its query language using MapReduce, and HTTP for an API.
-	</p>
-	<p>
-	In CouchDB, each database is a collection of independent documents. Each document keeps its own data and self-contained schema. Multiple database may be accessed by an application, may be one stored on mobile and other on server. Revision information in stored in document metadata, which is required to merge changes occurred while the databases were disconnected.
-<!--What does the CouchDB database do for this server?--> This articles will assist you to install CouchDB from source in Ubuntu and Debian.</p><!--Missing the links to the Ubuntu and Debian install.-->
+<p>CouchDB is a document-oriented, NoSQL database that uses JSON to store data, JavaScript as its query language using MapReduce, and HTTP for an API. In CouchDB, each database is a collection of independent documents. Each document keeps its own data and self-contained schema. Multiple database may be accessed by an application, with one stored on mobile, and the other on server. Revision information is stored in document metadata, which is required to merge changes that occur while the databases were disconnected.</p>
+<p>This articles will help you install CouchDB from source in Ubuntu and Debian.</p>
+
 
 <p class="note">
 	You need access to sudo privileges to complete these steps.
 </p>
 <h2>Install dependencies</h2>
-<!--Do not use "Step #: in Headings -->
-<p>Make your machine ready to install CouchDB. </p>
+
+<p>Prepare your machine to install CouchDB. </p>
 <ol>
-<li>Update the packages.<!--What about Debian?--> 
+<li>Update the packages.
 	<div class="hacker">$ sudo apt-get udpate	</div>
 </li>
-<li>Install tools to compile CouchDB.<!--Is Couch and CouchDB and couchdb different entities?-->
+<li>Install the tools to compile CouchDB.
 	<div class="hacker">$ sudo apt-get install -y build-essential</div>
 </li>
 <li>To run <code>erlang</code> and other dependencies, use the following command:
 	<div class="hacker">$ sudo apt-get install -y erlang-base erlang-dev erlang-nox erlang-eunit</div>
 </li>
-<li>Install the other required libraries. 
+<li>Install the additional required libraries. 
 	<div class="hacker">$ sudo apt-get install -y libmozjs185-dev libicu-dev libcurl4-gnutls-dev libtool</div>
 </li>    
 </ol>        
@@ -105,7 +103,7 @@ p.note {
 <li>Download the copy of source. Go to the directory where your code will reside.
 	<div class="hacker">$ cd /usr/local/src</div>
 </li>
-<li>Fetch source using following command:
+<li>Fetch source using the following command:
 		<div class="hacker">$ sudo curl -O http://apache.mirrors.tds.net/couchdb/source/1.6.1/apache-couchdb-1.6.1.tar.gz</div>
 </li>
 <li>Extract the files.
@@ -116,21 +114,21 @@ p.note {
 </li>    
 </ol>    
 
-<h2>Configure and install</h2><!--What are we installing?-->
+<h2>Configure and install the source code</h2>
 <ul><li>To compile a newly spun CouchDB server, install the source code using following command:
 	<div class="hacker">$ ./configure</div>
 	<div class="hacker">$ sudo make &amp;&amp; sudo make install</div>
   </li></ul>
     
-<h2>Finalize the steps</h2><!--Make your headings more descriptive.-->
+<h2>Finalize the installation</h2>
 <ol>
 <li>CouchDB runs as user <code>Couchdb</code>, so create a new user with following command:
 	<div class="hacker">$ sudo adduser --disabled-login --disabled-password --no-create-home couchdb</div>
 </li>
-<li>It will ask you for Real name, Room Number etc. you can skip these. Give rights to the new user you created on the CouchDB's files.
+<li>It will ask you for <code>Real name</code>, <code>Room Number</code>, etc. You can skip these question. Give rights to the new user you created on the CouchDB files.
 	<div class="hacker">$ sudo chown -R couchdb:couchdb /usr/local/var/log/couchdb /usr/local/var/lib/couchdb /usr/local/var/run/couchdb</div>
 </li>
-<li>Install the CouchDB as service and let it run on boot.
+<li>Install the CouchDB as service and allow it to run on boot.
 	<div class="hacker">$ sudo ln -s /usr/local/etc/init.d/couchdb  /etc/init.d<br/>
 	$ sudo update-rc.d couchdb defaults</div>
 </li>    

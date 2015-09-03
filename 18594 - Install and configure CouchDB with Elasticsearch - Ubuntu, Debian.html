@@ -68,27 +68,26 @@ p.note {
 </head>
 
 <body>
-<p>Install and configure CouchDB with Elasticsearch ñUbuntu, Debian, NoSQL</p>
+<p>Install and configure CouchDB with Elasticsearch ‚ÄìUbuntu, Debian, NoSQL</p>
     <h1>Install and configure CouchDB with Elasticsearch - Debian, Ubuntu  </h1>
     
-    <p><strong>Difficulty</strong>: <em>2</em><br/>
+    <p><strong>Difficulty</strong>: <em>2</em><br />
         <strong>Time</strong>: <em>1.5 hours</em></p>
 
-    <p>CouchDB is often categorized as a ìNoSQLî database and it stores data in JSON (JavaScript Object Notation) format. It is a lightweight data-interchange format that provides Master-Master replication. Elasticsearch is a popular search server based on Lucene. It is developed in Java language. </p>
-<p>This article covers the steps to install and configure CouchDB with Elasticsearch on Debian or Ubuntu machine.</p>
+    <p>CouchDB is often categorized as a <em>NoSQL</em> database, and it stores data in JSON (JavaScript Object Notation) format. It is a lightweight, data-interchange format that provides Master-Master replication. Elasticsearch is a popular search server, based on Lucene. It is developed in Java language. </p>
+<p>This article covers the steps to install and configure CouchDB with Elasticsearch on a Debian or Ubuntu machine.</p>
 <p class="note">This article assumes that user is logged in with sudo user privileges.</p>
 
-    <h2>Prepare the system</h2>
+<h2>Prepare the system</h2>
    
                 <ol>
-               <li>Update the machine.
-               <!--Use periods or colons at the end of instructions.-->
+        <li>Update the machine.
 			   <div class="hacker">sudo apt-get update</div>
 			   </li>
                <li>Install CouchDB dependencies.
 			   <div class="hacker">sudo apt-get build-dep erlang</div>
 			   </li>
-               <li>Install Erlang. CouchDB is written in Erlang language.
+               <li>Install Erlang. CouchDB is written in the Erlang language.
 			   <div class="hacker">apt-get install -y erlang-base erlang-dev erlang-nox erlang-eunit</div>
 			   </li>
                <li>Install other dependencies (libraries) required by CouchDB. 
@@ -96,11 +95,10 @@ p.note {
 			   </li>
                </ol>
              
-              <h2>Download and install CouchDB</h2>
+    <h2>Download and install CouchDB</h2>
               <ol>
                <li>Navigate to the <code>src</code> directory.
-               <!--Directories are tagged as code.-->
-			   <div class="hacker">cd /usr/local/src</div>
+ 			   <div class="hacker">cd /usr/local/src</div>
 			   </li>
                <li>Download the CouchDB source code.
 			   <div class="hacker">curl -O http://apache.mirrors.tds.net/couchdb/source/1.5.0/apache-couchdb-1.5.0.tar.gz</div>
@@ -108,14 +106,14 @@ p.note {
                <li>Change the ownership permissions.
 			   <div class="hacker">chown -R username *</div>
 			   </li>
-               <li>Un-tar (unpack) downloaded source code
+               <li>Unpack the downloaded source code.
 			   <div class="hacker">sudo tar xvzf apache-couchdb-1.5.0.tar.gz</div>
 			   </li> 
 		   
-		       <li>Navigate to the un-tarred directory of CouchDB. 
+		       <li>Navigate to the unpacked directory of CouchDB. 
 			   <div class="hacker">cd apache-couchdb-1.5.0</div>
 			   </li>
-               <li>Install CouchDB 
+         <li>Install CouchDB.
 			   <div class="hacker">./configure</div>
 			    <div class="hacker">sudo make </div>
 				 <div class="hacker">sudo make install</div>
@@ -124,83 +122,88 @@ p.note {
                </ol>
            
 		   
-		     <h2>Configure CouchDB</h2>
-         <!-- Break this procedure into smaller sections of no more than 7 steps. Use h3 headings, as needed.-->
+		 <h2>Configure CouchDB</h2>
               <ol>
 			    <li>Create a CouchDB user and create a directory. 
 			   <div class="hacker">mkdir -p /usr/local/var/lib/couchdb &amp;&amp; adduser --system --home /usr/local/var/lib/couchdb --no-create-home --shell /bin/bash --group --gecos "CouchDB" couchdb</div>
-			   <p>When asked for, provide the required information about the user, including full name, id phone and home etc. and press <strong>yes</strong>.</p>
+			   <p>When asked for, provide the required information about the user, including full name, id phone and home etc. and press <strong>y</strong> to confirm.</p>
 			   </li>
-               <li>Change the ownership permission of CouchDB in different directory with recursive order
+               <li>Change the ownership permission of CouchDB in different directory with recursive order.
 			   <div class="hacker">sudo mkdir -p /usr/local/var/log/couchdb</div>
 			   <div class="hacker">sudo mkdir -p /usr/local/var/run</div>
 			   <div class="hacker">sudo chmod -R 0770 /usr/local </div>
 			   <div class="hacker">sudo chown -R couchdb:couchdb /usr/local </div>
 			   </li>
-               <li>Add CouchDB file to <code>Init.d</code> to ensure that CouchDB runs at system startup 
+               <li>Add CouchDB file to <code>Init.d</code> to ensure that CouchDB runs at system startup. 
 			   <div class="hacker">sudo cp -v /usr/local/etc/init.d/couchdb /etc/init.d/couchdb</div>
 			   </li>
-               <li>Disallow manual restart by setting up CouchDB as a service  
+               <li>Disallow manual restart by setting up CouchDB as a service.  
 			   <div class="hacker">ln -s /usr/local/etc/init.d/couchdb  /etc/init.d</div>
 			    <div class="hacker">update-rc.d couchdb defaults</div>
 			   </li>
-               <li>Start CouchDB 
+			   </ol>
+         
+		<h2>Run CouchDB</h2>
+			   <ol>	
+        <li>Start CouchDB.
 			   <div class="hacker">sudo /etc/init.d/couchdb start</div>
 			   </li>
-			    <li>Test the default port of CouchDB 
+			    <li>Test the default port of CouchDB.
 			   <div class="hacker">netstat -an | grep 5984</div>
-			   <p>By default couchDB runs on port 5984, which is confirmed via the following output</p>
+			   <p>By default, CouchDB runs on port 5984, which the following output confirms:</p>
 			   <div class="hacker">tcp   0    0 127.0.0.1:5984      0.0.0.0:*      LISTEN</div>
 			   </li>
-               <li>Open the config file for editing
+               <li>Open the config file <code>local.ini</code> for editing.
 			   <div class="hacker">vim /usr/local/etc/couchdb/local.ini</div>
 			   </li>
-               <li>Uncomment and update the following line 
-			   <div class="hacker">bind_address = &lt;YOUR_VALID_IP_HERE&gt;</div>
+          <li>Uncomment and update the following line:
+			   <div class="hacker">bind_address = <em><u>YOUR_VALID_IP_HERE</u></em>;</div>
 			   </li>
-               <li>Restart the database server CouchDB
+               <li>Restart the database server CouchDB.
 			   <div class="hacker">sudo /etc/init.d/couchdb start</div>
 			   </li>
-			    <li>Test that CouchDB is running
+			    <li>Test that CouchDB is running.
 			   <div class="hacker">curl http://127.0.0.1:5984</div>
-			   </li>
-               <li>Successful run of CouchDB would display the following output
+			   A successful run of CouchDB will display the following output.
 			   <div class="hacker">{"couchdb":"Welcome","uuid":"daddfc5d37e7ae41e32ea75062eb98c1","version":"1.5.0","vendor":{"version":"1.5.0","name":"The Apache Software Foundation"}}</div>
 			   </li>
                </ol>
            
 		   
-		      <h2>Installing Elasticsearch </h2>
-          <!--Break into shorter sections of less than 7 steps. Use h3 headings.-->
+		<h2>Install Elasticsearch </h2>
+  
               <ol>
-               <li>Install the latest java development kit from apt-get command
+       <li>Install the latest java development kit with the <code>apt-get</code> command.
 			   <div class="hacker">sudo apt-get install openjdk-7-jre-headless</div>
 			   </li>
-			    <li>Download the Elasticsearch package with wget command
+			    <li>Download the Elasticsearch package with <code>wget</code> command.
 			   <div class="hacker">wget </div>
 			    <div class="hacker">https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.8.deb</div>
 			   </li>
-               <li>Install the downloaded package using dpkg 
+               <li>Install the downloaded package using the <code>dpkg</code> command. 
 			   <div class="hacker">sudo dpkg -i elasticsearch-0.90.8.deb</div>
 			   </li>
-               <li>Open the configuration file elasticsearch.yml to make updates and enable accessibility from internet
+			   </ol>
+		<h2>Configure Elasticsearch </h2>
+			   <ol>
+               <li>Open the configuration file <code>elasticsearch.yml</code> to make updates and enable access from the internet.
 			   <div class="hacker">sudo vim /etc/elasticsearch/elasticsearch.yml</div>
 			   </li>
-               <li>Locate the following lines, and enter the IP address of the server
-			   <div class="hacker">network.bind_host: </div>
+        <li>Locate the following lines, and enter the IP address of the server.
+			   <div class="hacker">network.bind_host: <em><u>YOUR_VALID_IP_HERE</u></em></div>
 			   </li>
-               <li>Insert following line anywhere in the file 
+         <li>Insert following line anywhere in the file:
 			   <div class="hacker">script.disable_dynamic: true</div>
 			   </li>
-               <li>Save this file and exit, by pressing <strong>ESC</strong> key, and then <strong>:wq</strong>.
+               <li>Save this file and exit, by pressing <strong>Esc</strong> key, and then typing  <code>:wq</code>.
 			   </li>
-			    <li>Restart the Elasticsearch service for change to take effect with sudo.
+			    <li>Restart the Elasticsearch service for the changes to take effect.
 			   <div class="hacker">sudo service elasticsearch restart</div>
 			   </li>
-               <li>To check Elasticsearch is running run command 
+         <li>Check that Elasticsearch is running, using the following command:
 			   <div class="hacker">curl http://127.0.0.1:9200</div>
 			   </li>
-               <li>Successful execution would show the following output
+               <li>A successful execution will display the following output:
 			   <div class="hacker">
 <pre>
 {
@@ -224,53 +227,53 @@ p.note {
 		   
 		      <h2>Test the installation</h2>
               <ol>
-               <li>Stop Elasticsearch to avoid any conflicts 
+          <li>Stop Elasticsearch to avoid any conflicts.
 			   <div class="hacker">sudo /etc/init.d/elasticsearch stop</div>
 			   </li>
-               <li>Create new directory for change Elasticsearch Stores Indices
+          <li>Create new directory for Elasticsearch Stores Indices.
 			   <div class="hacker">sudo mkdir /var/data/</div>
 			   <div class="hacker">sudo mkdir /var/data/elasticsearch</div>
 			   </li>
-               <li>Change the ownership to Elasticsearch user and group 
+               <li>Change the ownership to Elasticsearch user and group. 
 			   <div class="hacker">sudo chown elasticsearch /var/data/elasticsearch</div>
 			    <div class="hacker">sudo chgrp elasticsearch /var/data/elasticsearch</div>
 			   </li>
-               <li>Update the Elasticsearch configuration file to point to the data directory
+        <li>Update the Elasticsearch configuration file to point to the <code>data</code> directory.
 			   <div class="hacker">vim /etc/default/elasticsearch</div>
 			   </li>
-			   <li>Add the following line in the file
+			   <li>Add the following line in the file:
 			   <div class="hacker">DATA_DIR= /var/data/elasticsearch</div>
 			   </li>
-			   <li>Navigate to the Elasticsearch directory
+			   <li>Navigate to the <code>Elasticsearch</code> directory.
 			   <div class="hacker">cd /usr/share/elasticsearch/</div>
 			   </li>
-			   <li>Install the CouchDB River plugin, which enables automatic indexing of CouchDB and makes it searchable using the CouchDB providers
+			   <li>Install the <code>CouchDB River</code> plug in, which enables automatic indexing of CouchDB, and makes it searchable, using the CouchDB providers.
 			   <div class="hacker">sudo ./bin/plugin -install elasticsearch/elasticsearch-river-couchdb/1.2.0</div>
 			   </li>
-			   <li>Start Elasticsearch
+			   <li>Start Elasticsearch.
 			   <div class="hacker">sudo /etc/init.d/elasticsearch start</div>
 			   </li>
                </ol>
            
 		   
-		      <h2>Create sample CouchDB database and setup Elasticsearch Index</h2>
+		<h2>Create sample CouchDB database and set up Elasticsearch Index</h2>
               <ol>
-               <li>Open a new terminal (or connect to the machine using another client), and test Elasticsearch using the following command
+               <li>Open a new terminal (or connect to the machine using another client), and test Elasticsearch using the following command:
 			   <div class="hacker">curl -X PUT http://127.0.0.1:5984/mydatabse</div>
-			   <p>Successful execution would show the following message</p>
+			   <p>Successful execution will display the following message:</p>
 			   <div class="hacker">{"ok":true}</div>
 			   </li>
-               <li>Create the sample documents
+         <li>Create the sample documents.
 			   <div class="hacker">curl -X PUT 'http://127.0.0.1:5984/mydatabase/1' -d '{"name":"My Name 1"}'</div>
-			   <div class="hacker">curl -X PUT 'http://127.0.0.1:5984/mydatabase/1' -d '{"branch:îmy brach 1"}'</div>
-			   <div class="hacker">curl -X PUT 'http://127.0.0.1:5984/mydatabase/1' -d '{"roll no:îmy rollno  1"}'</div>
+			   <div class="hacker">curl -X PUT 'http://127.0.0.1:5984/mydatabase/1' -d '{"branch:‚Äùmy brach 1"}'</div>
+			   <div class="hacker">curl -X PUT 'http://127.0.0.1:5984/mydatabase/1' -d '{"roll no:‚Äùmy rollno  1"}'</div>
 			   </li>
-               <li>Setup Elasticsearch with the CouchDB database by creating index
+               <li>Set up Elasticsearch with the CouchDB database, by creating an index.
 			   <div class="hacker">curl -X PUT '127.0.0.1:9200/_river/testdb/_meta' -d '{ "type" : "couchdb", "couchdb" : { "host" : "localhost", "port" : 5984, "db" : "testdb", "filter" : null }, "index" : { "index" : "testdb", "type" : "testdb", "bulk_size" : "100", "bulk_timeout" : "10ms" } }'</div>
 			   </li>
-               <li>Test the index by firing the following query
+               <li>Test the index by firing the following query.
 			   <div class="hacker">curl http://127.0.0.1:9200/mydatabase/mydatabase/_search?pretty=true</div>
-			   <p> Successful execution of query would result into following output</p>
+			   <p> Successful execution of query would result in the following output:</p>
 			   <div class="hacker">
 <pre>
 {
@@ -306,8 +309,7 @@ p.note {
                </ol>
 			             
     <h2>Conclusion</h2>
-    <!--boilerplate was left in this section.-->
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task.With the combination of CouchDB with Elasticsearch, full text queries on data can be done using Elasticsearch. This reduces the dependency on map-reduce. Also, when using Elasticsearch with CouchDB, user need not know the document ID, which further enhances the efficiency. </p>
+    <p>In this article, you installed and configured CouchDB with Elasticsearch. With the combination of CouchDB, Elasticsearch and perform full text queries on data. This reduces the dependency on map-reduce. Also, when using Elasticsearch with CouchDB, the user need not know the document ID, which further enhances the efficiency.</p>
    
 </body>
 </html>

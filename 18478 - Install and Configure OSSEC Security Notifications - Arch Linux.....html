@@ -53,18 +53,17 @@
 	<h1>Install and Configure OSSEC Security Notifications - Arch Linux</h1>
 	<p><strong>Difficulty: </strong> 2</p>
 	<p><strong>Time: </strong> 45 Minutes</p>
-	<p>
-		This article explains installation and configuration of OSSEC security notifications on Arch Linux
-	</p>
+	<p>OSSEC is an open-source, host-based intrusion detection system. It performs log integrity checking, analysis, rootkit detection, Windows registry monitoring, active response and time based alerting. It can monitor one or more servers and can be configured to give real time alerts. This article explains installation of OSSEC security notifications on  Arch Linux.</p>
 	<p class="note">
 		You will need access to sudo privileges to complete all steps.
 	</p>
-	<h2>Prerequisites</h2>
+	<h2>Prerequisites </h2>
+	<ul>
+		<li>If you want to send mails from a local server you need to install Postfix. Please refer <a href="17426 - Install and Configure Postfix - Arch Linux">Install and Configure Postfix - Arch Linux</a>.</li>
+	</ul>
+	<h2>Prepare the System</h2>
 	<ol>
-		<li>
-	For sending mail from a local SMTP server, you will need to install Postfix.
-	
-		</li>
+		
 		<li>
 			
 				Update the server using following command.
@@ -113,8 +112,9 @@
 		</li>
 	</ol>
 	<h2>Install OSSEC</h2>
+	You can install OSSEC in many mode including server, agent, local or hybrid mode. In this example it will be installed in local mode.
 	<ol>
-		<li>You can install OSSEC in many mode including server, agent, local or hybrid mode. We will install in local mode in this article.
+		<li>
 			Expand the file with:
 			<div class="hacker">sudo tar -zxf ossec-hids-2.8.1.tar.gz</div>
 			<p>If you get an error for tar command type <code>yum install tar</code> to install <code>tar</code>.</p>
@@ -222,7 +222,7 @@
 			<p>In next prompt it will ask you for more IP addresses but that's not necessary. List files to be monitored will be displayed. You can add more files after installation, so press <strong>Enter</strong>. It may take a few minutes to install.
 			</p>
 	
-				On successful installation you will get 
+				On successful installation you will get: 
 			
 			<div class="hacker">
 				<pre>
@@ -250,14 +250,14 @@
 					---  Press ENTER to finish (maybe more information below). ---
 				</pre>
 			</div>
-			Now we will start the OSSEC.
-		</li>
+			</li>
 	</ol>
 	<h2>Start OSSEC</h2>
+	OSSEC is configured to start at boot but first time you will need to initiate it manually.
 	<ol>
 		<li>
-			OSSEC is configured to start at boot but first time you will need to initiate it manually.
-			<p>Current status can be checked with </p>
+			
+			Current status can be checked with:
 			<div class="hacker">sudo /var/ossec/bin/ossec-control status</div>
 			You will get.
 			<div class="hacker">
@@ -305,112 +305,91 @@
 			You will get such emails whenever something it is configured to monitor happens.
 		</li>
 	</ol>
-	<h2>Configure OSSEC</h2>
-	Here you will get an overview of configuration settings and its directory structure.
-	<ol>
-		<li>
-			<h3>Directory structure</h3>
-			Its root directory <code>/var/ossec</code> can only be accessed with root privileges.
-			<ul>
-				<li>Its main configuration file resides in <code>/var/ossec/etc</code>.</li>
-				<li><code>/var/ossec/rules </code> contains predefined rules.</li>
-				<li><code>/var/ossec/bin </code> contains command used to manage OSSEC.</li>
-				<li><code>/var/ossec/logs/ossec</code> log contains logs of the errors.</li>
-			</ul>
-		</li>
-		<li>
-		<h3>Main configuration file location</h3>
-		The main configuration file is located at <code>/var/ossec/etc/ossec.conf</code>. Open it in any editor, make sure you have <code>sudo </code>privileges. First configuration option you will see is the email configuration you specified while installing. You can change it, if required at this place.
-
+<h2>Update Main configuration file</h2>
+The main configuration file is <code>/var/ossec/etc/ossec.conf</code>. This file is used to configure OSSEC for additional alerts, number of emails, directories to be monitored etc. 
+<p class="note">
+	Following steps are optional.
+</p>
+<ol>
+	<li>
+		 Open <code>ossec.conf</code> in any editor.
+		 <div class="hacker">
+			sudo vim /var/ossec/etc/ossec.conf
+		 </div>
+	</li>
+	<li> Add the following lines in the <code>&lt;global></code> tag.
+		<div class="hacker">&lt;email_maxperhour><em><u>N</u></em>&lt;/email_maxperhour></div>
+		final code block will look like:
 		<div class="hacker">
-				
 			&lt;global><br/>
-			&lt;email_notification><em><u>yes</u></em>&lt;/email_notification><br/>
-			&lt;email_to><em><u>email@example.com</u></em>&lt;/email_to><br/>
-			&lt;smtp_server><em><u>mail.example.com.</u></em>&lt;/smtp_server><br/>
-			&lt;email_from><em><u>ossecm@ossec_server</u></em>&lt;/email_from><br/>
+			&lt;email_notification>yes&lt;/email_notification><br/>
+			&lt;email_to>email@coolexample.com&lt;/email_to><br/>
+			&lt;smtp_server>mail.coolexample.com.&lt;/smtp_server><br/>
+			&lt;email_from>ossec@ossec_server&lt;/email_from><br/>
+			<em><u>&lt;email_maxperhour>N&lt;/email_maxperhour></u></em><br/>
 			&lt;/global><br/>
-			
-			
 		</div>
-			<ul>
-				<li>
-				To change the number of email per hour you can add here the following line.
-				<div class="hacker">&lt;email_maxperhour><em><u>N</u></em>&lt;/email_maxperhour></div>
-				<p><em><u>N</u></em> is the number of emails. Make sure your <code>&lt;email_from></code> address contains a valid domain part as some third-party email provider may drop otherwise.</p>
-				<p>If you are not getting emails as expected you can check logs here <code>/var/ossec/logs/ossec.log</code></p>
-				</li>
-			</ul>
-		</li>
-		<li>
-		<h3>Frequency of scan </h3>
-		The <code>&lt;syscheck></code> section starts like this.
+	</li>
+	<li>
+		Locate <code>&lt;syscheck></code> tag in the same file. You can update frequency of system check by updating <code>&lt;frequency></code> tag here. Time duration is in seconds.
 		<div class="hacker">
-			
 				&lt;syscheck><br/>
 				&lt;!-- Frequency that syscheck is executed - default to every 22 hours --><br/>
-				&lt;frequency>79200&lt;/frequency><br/>
-			
+				<em><u>&lt;frequency>79200&lt;/frequency></u></em><br/>
 		</div>
-		<p>So by default system check is run in every 22 hours. You can change it. 
-		</p>
-		To enable alerts for new file creation, add the below mentioned line
-			
-			<div class="hacker">&lt;alert_new_files>yes&lt;/alert_new_files></div>
-			It should read.
-			<div class="hacker">
+	</li>
+	<li>
+		Add the following line in same <code>&lt;syscheck></code> tag to add alert for new files as shown.
+		<div class="hacker">
 				
 					&lt;syscheck><br/>
 					&lt;!-- Frequency that syscheck is executed - default to every 22 hours --><br/>
 					&lt;frequency>79200&lt;/frequency><br/>
-					&lt;alert_new_files>yes&lt;/alert_new_files><br/>
+					<em><u>&lt;alert_new_files>yes&lt;/alert_new_files></u></em><br/>
 				
-			</div>
-		</li>
-		<li>
-		<h3>Directory and file configuration</h3>
-		Right after that there is a list of system directory that it monitors as shown.
-		<div class="hacker">
-			
-				&lt;!-- Directories to check  (perform all possible verifications) --><br/>
-				&lt;directories check_all="yes">/etc,/usr/bin,/usr/sbin&lt;/directories><br/>
-				&lt;directories check_all="yes">/bin,/sbin&lt;/directories><br/>
-			
 		</div>
-		Add <code>report_changes="yes" realtime="yes"</code> to each line to enable real time monitoring as shown.
+		
+	</li>
+	<li>
+		Locate to <code>&lt;directories></code> tag right after the <code>&lt;syscheck></code> and add <code>report_changes="yes" realtime="yes" </code> to each line to enable real time monitoring as shown.
 		<div class="hacker">
 				&lt;!-- Directories to check  (perform all possible verifications) --><br/>
-				&lt;directories report_changes="yes" realtime="yes" check_all="yes">/etc,/usr/bin,/usr/sbin&lt;/directories><br/>
-				&lt;directories report_changes="yes" realtime="yes" check_all="yes">/bin,/sbin&lt;/directories><br/>
+				&lt;directories <em><u>report_changes="yes" realtime="yes" check_all="yes"</u></em>>/etc,/usr/bin,/usr/sbin&lt;/directories><br/>
+				&lt;directories <em><u>report_changes="yes" realtime="yes" check_all="yes"</u></em>>/bin,/sbin&lt;/directories><br/>
 		</div>
-		You can add more directories to monitor here. For exmample to add <code>/home/user_name </code> and <code>/var/www/ </code>add following line here.
+	</li>
+	<li>
+		Add the following line to add <code>/home/user_name </code> and <code>/var/www/ </code> to be monitored.
 		<div class="hacker">
 			&lt;directories report_changes="yes" realtime="yes" restrict=".php|.js|.py|.sh|.html" check_all="yes">/home/user_name,/var/www&lt;/directories>
 		</div>
 		<code>restrict </code>setting tells only to monitor specified formats.
-		</li>
-		<li>
-		<h3>Local rules location</h3>
-		<p>Next files you would want to modify reside in <code>/var/ossec/rules</code>. In this directory if you use <code>ls -lgG</code> command, you will get a list of bunch of xml files but only two files <code>local_rules.xml </code>and <code>ossec_rules.xml</code> is of our use. The former file is used to add local rules and latter for default rules definitions.
-			You will need sudo privileges to access these files. 
-			</p>
-			<p>When a file is added to a monitored directory the rule 554 is fired from <code>ossec_rules.xml</code>. By default it doesn't send alert on firing of this rule. so you'll need to change the settings. </p>
-			<ol>
-				<li>Default rule definitions in <code>ossec_rules.xml </code> are useful to look at so we can modify and copy them into our local files. Rule 554 looks like:
-					<div class="hacker">
-							&lt;rule id="554" level="0"><br/>
-							&lt;category>ossec&lt;/category><br/>
-							&lt;decoded_as>syscheck_new_entry&lt;/decoded_as><br/>
-							&lt;description>File added to the system.&lt;/description><br/>
-							&lt;group>syscheck,&lt;/group><br/>
-							&lt;/rule><br/>
-					</div>
-					<p>When level is set to "0" no alert will be sent. We will raise the alert level.</p> 
-				</li>
-				<li>Copy the rule 554 and open the file <code>/var/ossec/rules/local_rules.xml</code> in any editor and add the new rule at the end within the group tag. Change the level to "7".
+	</li>
+	<li>
+		Save and close the file by pressing <strong>Esc</strong> and typing <strong>:wq</strong> followed by pressing the <strong>Enter</strong> key.
+		<div class="hacker">
+			:wq
+		</div>
+	</li>
+	</ol>
+		
+<h2>Add local rules</h2>
+You will need to modify the next file that resides in <code>/var/ossec/rules</code>. 
+In this directory <code>ossec_rules.xml</code> contains OSSEC's default rule definitions and custom rules are added in <code>local_rules.xml</code>
+Default rule definitions in <code>ossec_rules.xml</code> file are useful to look at. We can copy and modify them in local rules.
+<p class="note">
+Following steps are optional.
+</p>
+		
+		<ol>   
+			<li>
+				Open <code>/var/ossec/rules/ossec_rules.xml</code> in any editor, locate rule <strong>554</strong> and copy it.
 				<div class="hacker">
-					
-						&lt;rule id="554" level="7" overwrite="yes"><br/>
+				 sudo vim /var/ossec/rules/ossec_rules.xml
+				</div>
+				Rule 554 looks like:
+				<div class="hacker">
+						&lt;rule id="554" level="0" overwrite="yes"><br/>
 						&lt;category>ossec&lt;/category><br/>
 						&lt;decoded_as>syscheck_new_entry&lt;/decoded_as><br/>
 						&lt;description>File added to the system.&lt;/description><br/>
@@ -418,24 +397,50 @@
 						&lt;/rule><br/>
 					
 				</div>
-				</li>
-				<li>Save and close the file. Now restart the OSSEC using:
-					<div class="hacker">
-					/var/ossec/bin/ossec-control restart
+			</li>
+			<li>
+				Close the file by pressing <strong>Esc</strong> and typing <strong>:q!</strong> followed by pressing the <strong>Enter</strong> key.
+				<div class="hacker">
+					:q!
 				</div>
-				<p>You will get a mail when it is restarted.</p>
-				</li>
-			</ol>
-		</li>
-		<li>
-		<h3>Triggering file change alerts</h3>
-		<p>When you add any file in directory to be monitored by OSSEC or you update or delete a file you should be getting alters.
+			</li>
+			<li>
+				Open <code>/var/ossec/rules/local_rules.xml</code> in any editor.
+				<div class="hacker">
+					sudo vim /var/ossec/rules/local_rules.xml
+				</div>
+			</li>
+			<li>Add the rule 554 you copied from <code>ossec_rules.xml</code> and change level to <strong>7</strong> as shown.
+				<div class="hacker">
+						<em><u>&lt;rule id="554" level="7" overwrite="yes"></u></em><br/>
+						&lt;category>ossec&lt;/category><br/>
+						&lt;decoded_as>syscheck_new_entry&lt;/decoded_as><br/>
+						&lt;description>File added to the system.&lt;/description><br/>
+						&lt;group>syscheck,&lt;/group><br/>
+						&lt;/rule><br/>
+					
+				</div>
+			</li>
+				<li>Save and close the file by pressing <code>esc</code> then typing following characters following by pressing <strong>Enter</strong>.
+				<div class="hacker">
+					:wq
+				</div></li>
+				<li>Restart OSSEC:
+                  <div class="hacker">
+					sudo /var/ossec/bin/ossec-control restart
+				</div>
+				  <p>You will get a mail when it is restarted.</p>
+			  </li>
+		</ol>
+	
+	
+		<h2>Trigger file changes</h2>
+		<p>When you add any file in directory to be monitored by OSSEC or you update or delete a file, you should be getting alerts.
 		It doesn't send real time notification for adding a file but only for modification or deletion. Alerts of file addition go after full system check which is handled by frequency check time in ossec.conf.
 		</p>
-	</li>
-	</ol>
+
 	
 	<h2>Next Step</h2>
-	After following all these steps you will be able to set up OSSEC notifications. To look for more customization, you can refer to its <a href="http://ossec-docs.readthedocs.org/en/latest/manual/index.html">Official Documentation.</a>
+	After following all these steps you will be able to set up OSSEC notifications. OSSEC can be configured to one or more servers, called agents. To explore how to monitor an OSSEC agent using OSSEC server please refer to <a href="19004 - Monitor OSSEC Agents Using an OSSEC Server - Arch Linux">Monitor OSSEC Agents Using an OSSEC Server - Arch Linux</a>.
 	</body>
 </html>

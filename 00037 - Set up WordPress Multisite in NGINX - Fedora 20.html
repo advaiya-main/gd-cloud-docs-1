@@ -77,20 +77,22 @@ p.note {
 <p>For this article, we'll walk through setting up WordPress multisite for a primary domain and its subdomains. 
 We'll set up a fresh install of WordPress in Nginx on a Fedora 20 system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
 <p>We'll use these example sites: </p>
-<table>
+  <table>
+
+
   <tr>
-    <td><b>Site 1</b></th>
-    <td>coolexample.com (primary)</td>
+    <th>Site 1 <br/></th>
+    <td>coolexample.com (primary)<br/></td>
   </tr>
   <tr>
-    <td><b>Site 2</b></td>
+    <th>Site 2</th>
     <td>coolexampleproduct.com<br/>
-product.coolexample.com</td>
+product.coolexample.com<br/></td>
   </tr>
   <tr>
-    <td><b>Site 3</b></td>
+    <th>Site 3<br/></th>
     <td>coolexamplecompany.com<br/>
-aboutus.coolexample.com</td>
+aboutus.coolexample.com<br/></td>
   </tr>
 </table>
 
@@ -99,27 +101,26 @@ aboutus.coolexample.com</td>
 <ul>
 <li>You'll need a Linux, Nginx&reg;, MySQL, and PHP (LEMP) stack configured. Make sure that Nginx, MySQL, and PHP are up and running. For instructions, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/19187%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Fedora%2020%20.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) – Fedora 20</a></li>
 
-<p>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</p></li> 
+<li>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</li>
 
-<li>Install <code>tar</code> using <code>yum</code></h3>
-        <div class="hacker">sudo yum install tar</div>
-                                                          
-<p>Select <strong>y</strong> at the prompt to continue with the installation.</p></li>
+<li>Install <code>tar</code> using <code>yum</code>
+        <div class="hacker">sudo yum install tar</div>  </li>
 
-<li>Create a designated user for WordPress</h3>
+<li>Select <strong>y</strong> at the prompt to continue with the installation.</li> </ul>
+
+<h3>Create a designated user for WordPress</h3>
         <p> The user can be any user you create. We'll call ours  <code>wordpress_user</code>.</p>
-       <div class="hacker">sudo adduser wordpress_user</div></li>
+       <div class="hacker">sudo adduser wordpress_user</div>
 
-<li>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
+<p>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</p>
 
 <h2>Create the Wordpress document root directory</h2>
-     
+
 <p>Let's create the WordPress root directory for us to transfer the files into later.</p>   
 
-<ol>                                                                        
-<li>Create the document root directory. 
+<p>Create the document root directory.</p>
   <div class="hacker">sudo mkdir -p /var/www/wordpress</div>
-</li>
+
 
 <!--CT (to Carla): Pasted from edited article 19203, with a few modifications to make it work for multisite-->
 
@@ -148,7 +149,7 @@ aboutus.coolexample.com</td>
             <ol>
               <li>Open the <code>nginx.conf</code> file.
                 <div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
-            
+
 
            <li>In the file, make these changes:
              <ul>
@@ -165,25 +166,25 @@ aboutus.coolexample.com</td>
            
             After your changes, your file may resemble this example (Some parts are truncated):
 <div class="hacker">
-      <pre>
- # For more information on configuration, see:
- #   * Official English Documentation: http://nginx.org/en/docs/
- #   * Official Russian Documentation: http://nginx.org/ru/docs/
-
- ...
-
-     #gzip  on;
- index <em><u>index.php</u></em> index.html index.htm;
-
-     # Load modular configuration files from the /etc/nginx/conf.d directory.
-     # See http://nginx.org/en/docs/ngx_core_module.html#include
-     # for more information.
-     include /etc/nginx/conf.d/*.conf;
-               
-    server {
-        listen       80 default_server;
-        server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</em></u>
-        root         <em><u>/var/www/wordpress;</em></u></pre></div></li></ol>
+                                     <br />
+ # For more information on configuration, see:    <br />
+ #   * Official English Documentation: http://nginx.org/en/docs/   <br />
+ #   * Official Russian Documentation: http://nginx.org/ru/docs/    <br />
+                                                                     <br />
+ ... <br />
+            <br />
+     #gzip  on;  <br />
+ index <em><u>index.php</u></em> index.html index.htm;  <br />
+                                                         <br />
+     # Load modular configuration files from the /etc/nginx/conf.d directory.  <br />
+     # See http://nginx.org/en/docs/ngx_core_module.html#include    <br />
+     # for more information.    <br />
+     include /etc/nginx/conf.d/*.conf; <br />
+               <br />
+    server {  <br />
+        listen       80 default_server;  <br />
+        server_name <em>coolexample.com product.coolexample.com aboutus.coolexample.com;</em>  <br />
+        root         <em>/var/www/wordpress;</em></div></li></ol>   <br />
                                             
 
 
@@ -394,7 +395,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 
 <li>To the left of that on the top navigation bar is <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
 
-At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar, if it wasn't there earlier.<br/></li>
+At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar, if it wasn't there earlier.<br/>
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00037/083015/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
 
 <li>On the main screen, next to Sites, click <strong>Add New</strong>.</li>

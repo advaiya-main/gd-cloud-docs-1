@@ -4,9 +4,6 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>17526-Use PostgreSQL with your Ruby on Rails Application - CentOS</title>
@@ -71,43 +68,48 @@ p.note {
 
 <body>
 <p>Setting up Rails Application with PostgreSQL in CentOS, PostgreSQL, Ruby, Rails</p>
-<h1>Use PostgreSQL with your Ruby on Rails Application - CentOS</h1>
+<h1>Use PostgreSQL with a Ruby on Rails Application - CentOS</h1>
 
 <p><strong>Difficulty:</strong> <em>2</em></p>
 <p><strong>Time:</strong> <em>30 mins</em></p>
 
-<p>In this article, we are going to create a PostgreSQL server that will be used as a database layer for scaling Ruby on Rails (RoR) application. Here, we will describe how we can use PostgreSQL for Rails application. To perform this task, we are assuming that the user has sudo privileges and SELINUX is disabled. If not, open the file at the following location and disable SELINUX.</p>
-
-<div class="hacker">sudo vim /etc/selinux/config</div>
+<p>In this article, we'll create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails application.</p>
+<p>These tasks assume that you have sudo privileges.</p>
+<p>To install Ruby on Rails, see  <a href="17536"> Install Ruby on Rails using RVM - CentOS</a> or <a href="17521"> Install Ruby on Rails with rbenv - CentOS</a>.</p>
+<h2>Disable SELinux</h2>
+<ol>
+  <li>Open the following file, and disable SELinux.
+    <div class="hacker">sudo vim /etc/selinux/config</div>
 <div class="hacker">SELINUX=disabled</div>
 
-<p>Save the changes and exit.</p>
+</li>
+  <li>Save the changes, and exit.</li>
+</ol>
 
-<h2>Prerequisites</h2>
-<p>Please refer <a href="#">17536 - Install Ruby on Rails using RVM - CentOS</a> and <a href="#">17521 - Install Ruby on Rails with rbenv - CentOS</a> links to install Ruby on Rails.</p>
 
-<h2>Setup a PostgreSQL database</h2>
+
+<h2>Set up a PostgreSQL database</h2>
 <ol>
 <li>Download the latest EPEL repositories.
 	<div class="hacker">sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel- release-7-5.noarch.rpm</div>
 	<div class="hacker">sudo rpm -ivh epel-release-7-5.noarch.rpm</div>
 </li>
-<li>Setup the PostgreSQL server and add its libraries related to development.
+<li>Set up the PostgreSQL server, and add its libraries related to development.
 	<div class="hacker">sudo yum install postgresql-server postgresql-contrib postgresql-devel</div>
 </li>
 <li>Initialize a new PostgreSQL database. 
 	<div class="hacker">sudo postgresql-setup initdb</div>
-<p>Modify the host-based authentication of PostgreSQL as it doesn't allow for password authentication by default. </p>
+
 </li>
-<li>Open the pg_hba.conf file.
-	<div class="hacker">sudo vim /var/lib/pgsql/data/pg_hba.conf</div>
-<p>Search for the following lines at the end of the file:</p>
+<li>Open the <code>pg_hba.conf</code> file. You need to modify the host-based authentication of PostgreSQL as it doesn't allow for password authentication by default.
+<div class="hacker">sudo vim /var/lib/pgsql/data/pg_hba.conf</div>
+</li><li>Search for the following lines at the end of the file:</li>
 <div class="hacker"><pre>host    all             all             127.0.0.1/32            ident
 host    all             all             ::1/128                 ident</pre></div>
 
-<p>Change <em>ident</em> with <em>md5.</em></p>
 </li>
-<li><p>Save the changes and exit.</p></li>
+<li>Change <code>ident</code> to <code>md5</code>.</li>
+<li>Save the changes and exit.</li>
 <li>Run and enable the PostgreSQL service.
 	<div class="hacker">sudo systemctl start postgresql</div>
 	<div class="hacker">sudo systemctl enable postgresql</div>
@@ -116,7 +118,7 @@ host    all             all             ::1/128                 ident</pre></div
 
 <h2>Create a database user</h2>
 <ol>
-<li>Login with <code>postgres</code> system user.
+<li>Log in with <code>postgres</code> system user.
 	<div class="hacker">sudo su - postgres</div>
 </li>        
 <li>Create a PostgreSQL super user. 
@@ -124,55 +126,53 @@ host    all             all             ::1/128                 ident</pre></div
 </li>
 <li>Set a password for the database user.
 	<div class="hacker">psql</div>
-    <div class="hacker">postgres=# \password PostUser</div>
-<p>Enter the new password.</p>
-</li>
+    <div class="hacker">postgres=# \password PostUser</div></li>
+<li>Enter the new password.</li>
 <li>Close the session.
 	<div class="hacker">postgres=# \q</div>
 </li>
 </ol>
 
-<h2>Setup Rails application</h2>
+<h2>Set up the Rails application</h2>
 <ol>
-<li>Move to your home directory to create a new Rails app. To set PostgreSQL as the database, use the <code>-d postgresql</code> option.
-<div class="hacker">cd ~</div>
-<div class="hacker">rails new HelloWorld -d postgresql</div>
+<li>Move to your home directory to create a new Rails application.To set PostgreSQL as the database, use the <code>-d postgresql</code> option.
+  <div class="hacker">cd ~</div>
+<div class="hacker">rails new <em><u>HelloWorld</u></em> -d postgresql</div>
 </li>
-<li>Move into application directory.
- <div class="hacker">cd HelloWorld</div>
+<li>Move into the application directory.
+  <div class="hacker">cd <em><u>HelloWorld</u></em><u></u></div>
  </li>
-<li>Open the following file:
- <div class="hacker">sudo vim config/database.yml</div>
+<li>Open the <span class="hacker"><code>database.yml</code></span> file:
+<div class="hacker">sudo vim config/database.yml</div>
  </li>
-<li>Look for <em>pool: 5</em> in the file and add the following lines beneath it. Enter the username and password for the postgres user:
-<div class="hacker"><xmp>host: localhost
-username: PostUser
-password: postgres_password</xmp></div>
+<li>Look for <em>pool: 5</em> in the file, and add the following lines beneath it. Enter the username and password for the postgres user.
+  <div class="hacker"><xmp>host: localhost<br />
+username: <u><em>postgres user username</em></u><br />
+password: <em><u>postgres user password</u></em></xmp>
+  </div>
         </li>
 <li>Save and exit.</li>
 </ol>
 
 <h2>Create a database for your application</h2>
-<ol>
-<li>Use the rake command to create your application's databases in the application directory.
-<div class="hacker">rake db:create</div>
-</li>
-<li>Two databases in your PostgreSQL server will be created. For example, if your application's name is "HelloWorld", it will create the two databases named <em>HelloWorld _development</em> and <em>HelloWorld _test</em>.
-</li>
-</ol>
+<ul>
+<li>Create the application's databases in the application directory.
+  <div class="hacker">rake db:create</div>
 
-<h2>Test configuration</h2>
-<ol>
-<li>Test your Rails application.
- <div class="hacker">Rails server</div>
-</li> 
-<li>Now you can run your Rails application on your localhost on port 3000.  You can also access your application from a web browser , if it is located on a remote server by assigning a public IP address.
+Two databases in the PostgreSQL server are created. For example, if the application's name is <code>HelloWorld</code>, the command creates databases named <code>HelloWorld _development</code> and <code>HelloWorld _test</code>. </li></ul>
+
+
+<h2>Test the configuration</h2>
+<ul>
+<li>Test the Rails application.
+  <div class="hacker">Rails server</div>
+Now you can run your Rails application on your localhost on port 3000.  You can also access your application from a web browser , if it is located on a remote server by assigning a public IP address.
 <div class="hacker">rails server --binding=server_public_IP</div>
 </li>
-</ol>
+</ul>
 
-<h2>Next Steps</h2>
-<p>In this article, we reviewed the steps involved in setting up a PostgreSQL with Rails application in CentOS. To further explore, please visit <a href="#">17516 - Deploy a Rails App with Unicorn and NGINX - CentOS</a></p>
+<h2>Next steps</h2>
+<p>In this article, we configured a PostgreSQL server with a Rails application in CentOS. For further exploration, see <a href="17516">Deploy a Rails App with Unicorn and NGINX - CentOS</a></p>
 
 </body>
 </html>

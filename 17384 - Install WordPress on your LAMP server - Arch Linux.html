@@ -112,13 +112,14 @@ p.note {
 <div class="hacker">mysql -u root -p</div>
                      </li>
                      
-       
+<!--CT: Commenting this out since this prereq states mysql has to be up and running...       
      <li>  If you get an error that looks something like this:
 <div class="hacker">ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/run/mysqld/mysqld.sock' (2 "No such file or directory")</div>
    To fix this error, start the MySQL service.  <br />
     <div class="hacker">sudo systemctl start mysqld.service</div>                
      Now you should be able to continue.  </li>
-
+ ...(END)-->
+ 
         <li>At the prompt, enter your MySQL root password.  </li>
     <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name fittingly as “wordpress.”
 <div class="hacker">CREATE DATABASE wordpress;</div></li>
@@ -205,7 +206,7 @@ This will safely copy all of the contents from the directory you unpacked to the
 <div class="hacker">sudo vim /etc/php/php.ini</div>
  </li>
  
- <li>Find the line that reads <code>extension=mysql.so</code> in the resulting file and remove the comments in it.
+ <li>Find the line that reads <code>extension=mysql.so</code> in the resulting file and uncomment it.
  </li>
  
 <li>Save and close.</li>

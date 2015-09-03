@@ -73,9 +73,7 @@ p.note {
 	<h1>Monitor OSSEC Agents using OSSEC Server - Debian,Ubuntu </h1>
 	<p><strong>Difficulty: </strong> 4<br/>
 	<strong>Time: </strong> 1 hour</p>
-	<p>
-		This article explains how to monitor OSSEC agents with OSSEC server on Debian and Ubuntu.
-	</p>
+	<p>OSSEC is an open-source, host-based intrusion detection system. It performs log integrity checking, analysis, rootkit detection, Windows registry monitoring, active response and time based alerting. It can monitor one or more servers and can be configured to give real time alerts. This article explains how to monitor OSSEC agents with OSSEC server on Debian and Ubuntu.</p>
 	<p class="note">
 		You will need access to sudo privileges to complete all steps.
 	</p>
@@ -86,7 +84,7 @@ p.note {
 			Two separate Ubuntu droplets. One for Server and other for Agent. 
 		</li>
 		<li>
-			Iptable should be enabled on both droplets.
+			<strong>Iptable</strong> should be enabled on both droplets.
 		</li>
 	</ul>
 	<!--prerequisites ends-->
@@ -101,7 +99,7 @@ p.note {
 			</div>
 		</li>
 		<li>
-			To install any available updates, type: 
+			Install available updates: 
 			<div class="hacker">
 				sudo apt-get udgrade
 			</div>
@@ -113,22 +111,22 @@ p.note {
 			</div>
 		</li>
 		<li>
-			On Agent, install following packages: 
+			Install following packages, on agent: 
 			<div class="hacker">
 				sudo apt-get install build-essential
 			</div>
 		</li>
 		<li>
-			Install the following package on both servers to save any change that you make in iptables.
+			Install the following packages on both servers to save any changes made in <strong>iptables</strong>.
 			<div class="hacker">
 				sudo apt-get install iptables-persistent
 			</div>
-			<p>You will be asked if you would like to save current rules to be automatically loaded. If you want to save your current configurations,
+			<p>It will ask if you would like to save current rules to be automatically loaded. To save your current configurations,
 			press <strong>Enter</strong>.</p>
 			<p>It will also ask if you want to save IPv6 rules you created.</p>
 		</li>
 		<li>
-		On both the droplets, download OSSEC and its checksum file 
+		Download OSSEC and its checksum file on both the droplets.
 			<div class="hacker">
 				
 				wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1.tar.gz<br/>
@@ -137,33 +135,29 @@ p.note {
 			</div>
 		</li>
 		<li>
-		After downloading both the files, type the following command to verify md5sum of the compressed tarball
+		Type the following command to verify md5sum of the compressed tarball.
 			<div class="hacker">
 				md5sum -c ossec-hids-2.8.1-checksum.txt
 			</div>
-		</li>
-		<li>
-		You will get output as:
+			The putput should be:
 			<div class="hacker">
 			ossec-hids-2.8.1.tar.gz: OK<br/>
 				md5sum: WARNING: 1 line is improperly formatted
 			</div>
+			Ignore the warning.
 		</li>
 		<li>
-			Type the following command to verify SHA1 of the compressed tarball.
+			Verify SHA1 of the compressed tarball using following command.
 			<div class="hacker">
-			sha1sum -c ossec-hids-2.8.1-checksum.txt
+				sha1sum -c ossec-hids-2.8.1-checksum.txt
 			</div>
-		</li>
-		<li>
-			You will get:
+			The output should be:
 			<div class="hacker">
 				ossec-hids-2.8.1.tar.gz: OK<br/>
 				sha1sum: WARNING: 1 line is improperly formatted
 			</div>
-			You can ignore the warnings, as the <strong>OK</strong> next to tar file confirms that the file is good to go.
+			Ignore the warnings.
 		</li>
-		
 	</ol>
 	<!--step1 ends-->
 	<!--step2 starts-->
@@ -174,14 +168,9 @@ p.note {
 			<div class="hacker">
 				sudo tar xf ossec-hids-2.8.1.tar.gz
 			</div>
-			If you get an error for <code>tar</code> command, type: 
-			<div class="hacker">
-				sudo yum install tar
-			</div>
-			
 		</li>
 		<li>
-			Change directory to the one we just expanded.
+			Change directory to the one just expanded.
 			<div class="hacker">
 				cd ossec-hids-2.8.1/
 			</div>
@@ -193,25 +182,25 @@ p.note {
 			</div>
 		</li>
 		<li>
-			During the installation you will be prompted to answer a few questions, just press <strong>Enter</strong>
-			to accept the default answers. In first question you will be asked to choose a language which is by default <strong>English(en)</strong>, press <strong>Enter</strong>
+			During the installation it will prompt to answer a few questions, just press <strong>Enter</strong>
+			to accept the default answers. The first question will be to choose a language, which is by default <strong>English(en)</strong>, press <strong>Enter</strong>
 			to accept it.
 		</li>
 		<li>
-			In the next question you will be asked for the type of installation, type <em><u>server</u></em> and press <strong>Enter</strong>.
+			In the next question it will ask the type of installation, type <em><u>server</u></em> and press <strong>Enter</strong>.
 			<div class="hacker">
 				1- What kind of installation do you want (server, agent, local, hybrid or help)? <em><u>server</u></em>
 			</div>
 		</li>
 		<li>
 			
-				For the rest of the questions, please accept default. Question on email should be answered with a valid email id, where all
-				the notifications will be sent.
+			Accept default for rest of the questions. Question on email should be answered with a valid email id, where all
+			the notifications will be sent.
 			
 		</li>
 		<li>
 			
-			After all the questions the installation will start.On the successful installation, you will see the following:
+			After all the questions the installation will start. On successful installation following will be displayed.
 			<div class="hacker">
 				<pre>
 				In order to connect agent and server, you need to add each agent to the server.
@@ -229,9 +218,10 @@ p.note {
 	<!--step2 ends-->
 	<!--step3 starts-->
 	<h2>Configure OSSEC Server</h2>
+	OSSEC agent is not yet installed but server can be configured. 
 	<ol>
 		<li>
-			OSSEC agent is not yet installed but we can configure the server. To access or modify the OSSEC's files, switch to the root user.
+			Switch to the root user.
 			<div class="hacker">
 				sudo su
 			</div>
@@ -247,14 +237,14 @@ p.note {
 			<div class="hacker">
 				vim ossec.conf
 			</div>
-			Here on the top you can see few fields. Following is the description of these fields.
+			On the top of this file there are a few fields. Following is the description of these fields.
 			<ul>
 				<li><code>&lt;email_to> </code>is the email you entered during installation.</li>
 				<li><code>&lt;email_from> </code>is where the emails appear to be coming from.</li>
 				<li>Change <code>&lt;smtp_server> </code> to localhost if you have your own email
 				 server installed on same the host as OSSEC.</li>
 			</ul>
-			You can update these settings as per your need.After all the changes, the section will look like:
+			Update these settings as per your need. After all the changes, the section will look like:
 			<div class="hacker">
 				<pre>
 				&lt;global>
@@ -267,13 +257,13 @@ p.note {
 			</div>
 		</li>
 		<li>
-			Now save the file and close it by pressing <strong>ESC</strong> and following characters followed by pressing <strong>Enter</strong>.
+			Save the file and close it by pressing <strong>ESC</strong> and following characters followed by pressing <strong>Enter</strong>.
 			<div class="hacker">
 				:wq
 			</div>
 		</li>
 		<li>
-			Start OSSEC
+			Start OSSEC.
 			<div class="hacker">
 				/var/ossec/bin/ossec-control start
 			</div>
@@ -285,7 +275,7 @@ p.note {
 	<h2>Install OSSEC Agent</h2>
 	<ol>
 		<li>
-		Type the following command to untar the file.
+			Type the following command to untar the file.
 			<div class="hacker">
 				sudo tar xf ossec-hids-2.8.1.tar.gz
 			</div>
@@ -303,20 +293,20 @@ p.note {
 			</div>
 		</li>
 		<li>
-			Most of the prompts are same as before, except a few. When asked about the type of installation, type <code>agent</code> and press:
-			<strong>Enter</strong>
+			Most of the prompts are same as before, except a few. When asked about the type of installation, type <code>agent</code> and press <strong>Enter</strong>:
+			
 			<div class="hacker">
 				1- What kind of installation do you want (server, agent, local, hybrid or help)? <em><u>agent</u></em>
 			</div>
 		</li>
 		<li>
-			When asked about the server IP address, type IP address of your server.
+			When asked about the server IP address, type IP address of the server.
 			<div class="hacker">
 				3.1- What's the IP Address or hostname of the OSSEC HIDS server? : <em><u>server_ip</u></em>
 			</div >
 		</li>
 		<li>
-				For other questions, accept default by pressing <strong>Enter</strong>. On the successful installation you will see:
+				For other questions, accept default by pressing <strong>Enter</strong>. On the successful following will be displayed.
 			<div class="hacker">
 				<pre>
 					You first need to add this agent to the server so they
@@ -347,7 +337,7 @@ p.note {
 			</div>
 		</li>
 		<li>
-			You will see options as shown below, type <strong>A</strong> and press <strong>Enter</strong>.
+			Type <strong>A</strong> and press <strong>Enter</strong> to add and agent.
 			<div class="hacker">
 				<pre>
 				(A)dd an agent (A).
@@ -360,7 +350,7 @@ p.note {
 			</div>
 		</li>
 		<li>
-			You will be asked for agent's name, IP and its ID. Keep the name unique and enter the IP of your agent. For ID, you can accept the default value by pressing <strong>Enter</strong>:
+			It will ask for agent's name, IP and its ID. Keep the name unique and enter the IP of the agent. For ID, you can accept the default value by pressing <strong>Enter</strong>:
 			<div class="hacker">
 				<pre>
 				- Adding a new agent (use '\q' to return to the main menu).
@@ -377,9 +367,10 @@ p.note {
 				Agent added.
 				</pre>
 			</div>
+			It will return to main menu.
 		</li>
 		<li>
-			You will be returned to main menu. Press <strong>A</strong>, <strong>Enter</strong> and then give the ID of the agent to fetch the agent key. Make sure to make a note of it.
+			 Press <strong>E</strong>, <strong>Enter</strong> and then give the ID of the agent to fetch the agent key. Make sure to make a note of it.
 			<div class="hacker">
 				<pre>
 				Choose your action: A,E,L,R or Q: e
@@ -403,8 +394,14 @@ p.note {
 	<!--step5 ends-->
 	<!--step6 starts-->
 	<h2>Import key to Agent from Server</h2>
-	These actions are to be completed on Agent. Type <code>sudo su</code> to change to root to start.
+	These actions are to be completed on <strong>Agent</strong>.
 	<ol>
+		<li>
+			Switch to root.
+			<div class="hacker">
+				sudo su
+			<div>
+		</li>
 		<li>
 			Type following command.
 			<div class="hacker">
@@ -412,7 +409,7 @@ p.note {
 			</div>
 		</li>
 		<li>
-			You will get the following options:
+			Chose <strong>I</strong> to import key:
 			<div class="hacker">
 				<pre>
 				(I)mport key from the server (I).
@@ -420,15 +417,15 @@ p.note {
 				Choose your action: I or Q: <em><u>i</u></em>
 				</pre>
 			</div>
-			After choosing "I" follow the direction to paste the key from server and confirm when it asks.
+			After choosing <strong>I</strong> follow the direction to paste the key from server and confirm when it asks.
 		</li>
 		<li>
 			Press <strong>Enter</strong> to return to the main menu and choose <strong>Q</strong> to quit.
 			<div class="hacker">
 				<pre>
-					Confirm adding it?(y/n): <em><u>y</u></em>
-					Added.
-					** Press ENTER to return to the main menu.
+				Confirm adding it?(y/n): <em><u>y</u></em>
+				Added.
+				** Press ENTER to return to the main menu.
 				</pre>
 			</div>
 		</li>
@@ -440,27 +437,26 @@ p.note {
 	<p>Communication on both sides takes place on UDP port 1514. To add a rule to <code>iptables</code> for both ends follow these steps.</p>
 	<ol>
 		<li>
-			Temporarily remove the drop rule on both ends.
+			Remove the drop rule on both ends temporarily.
 			<div class="hacker">
 				sudo iptables -D INPUT -j DROP
 			</div>
-			If you don't have a drop rule,it might give you message of "bad rule".
+			If these is no drop rule,it will give message of <strong>bad rule</strong>.
 		</li>
 		<li>
-			Add following rule at OSSEC server with agent's IP.
+			Use following command to add a rule at OSSEC server with agent's IP.
 			<div class="hacker">
 				iptables -A INPUT -p UDP --dport 1514 -s <em><u>ip_of_agent</u></em> -j ACCEPT
 			</div>
 		</li>
 		<li>
-			Add following rule on agent's side with server's IP.
+			Use following command to add a rule on agent's side with server's IP.
 			<div class="hacker">
 				iptables -A INPUT -p UDP --dport 1514 -s <em><u>ip_of_server</u></em> -j ACCEPT
 			</div>
 		</li>
 		<li>
-			These rules should persist after reboot. We have installed <strong>iptables-persistant</strong> to take care of this. Type following command to 
-			save changes:
+			Type the following command to save changes of <strong>iptable</strong>:
 			<div class="hacker">
 			sudo invoke-rc.d iptables-persistent save
 			</div>
@@ -469,32 +465,31 @@ p.note {
 	<!--step7 ends-->
 	<!--step8 starts-->
 	<h2>Restart OSSEC Agent and Server</h2>
-	<ol>
+	<ul>
 		<li>
 			Restart both the servers
 			<div class="hacker">
 				/var/ossec/bin/ossec-control restart
 			</div>
-		</li>
-		<li>
-			You can start OSSEC agent from server using the following command:
+		
+			OSSEC agent can be started from server using the following command:
 			<div class="hacker">
-				/var/ossec/bin/agent_control -R 001
+				/var/ossec/bin/agent_control -R <em><u>001</u></em>
 			</div>
-			001 is the agent ID. You should get the following message.
+			001 is the agent ID. Following message will be displayed.
 			<div class="hacker">
 				<em><u>agent-name</u></em>-<em><u>ip_of_agent</u></em> is active.
 			</div>
 		</li>
-	</ol>
+	</ul>
 	<!--step8 ends-->
 	<h2>Nest Steps</h2>
 	<p>
-		After following all these steps, you should be receiving alerts from both the ends. You may further customize settings 
-		for file addition or real time alerts. For configuration settings, you can refer <a href="18476 - Install and Configure OSSEC Security Notifications - Ubunut, Debian">Install and Configure OSSEC Security Notifications - Ubuntu, Debian</a>
+		After following all these steps, email alerts should be received from both the ends. Settings may be further customized 
+		for file addition or real time alerts. For configuration settings refer to <a href="18476 - Install and Configure OSSEC Security Notifications - Ubunut, Debian">Install and Configure OSSEC Security Notifications - Ubuntu, Debian</a>
 	</p>
 	<p>
-		If you want to monitor more than two droplets, add them as OSSEC agents using same steps as explained. If you come across any issue during set up you can go through the logs in <code>/var/ossec/logs/ossec.log</code> file.
+		To monitor more than two droplets, add them as OSSEC agents using same steps as explained. If any issue occurs during set up, go through the logs in <code>/var/ossec/logs/ossec.log</code> file.
 	</p>
 </body>
 </html>
