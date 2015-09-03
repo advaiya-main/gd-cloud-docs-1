@@ -222,7 +222,7 @@
 			<p>In next prompt it will ask you for more IP addresses but that's not necessary. List files to be monitored will be displayed. You can add more files after installation, so press <strong>Enter</strong>. It may take a few minutes to install.
 			</p>
 	
-				On successful installation you will get 
+				On successful installation you will get: 
 			
 			<div class="hacker">
 				<pre>
@@ -250,8 +250,7 @@
 					---  Press ENTER to finish (maybe more information below). ---
 				</pre>
 			</div>
-			Now we will start the OSSEC.
-		</li>
+			</li>
 	</ol>
 	<h2>Start OSSEC</h2>
 	OSSEC is configured to start at boot but first time you will need to initiate it manually.
@@ -313,12 +312,12 @@ The main configuration file is <code>/var/ossec/etc/ossec.conf</code>. This file
 </p>
 <ol>
 	<li>
-		 Open ossec.conf in any editor.
+		 Open <code>ossec.conf</code> in any editor.
 		 <div class="hacker">
 			sudo vim /var/ossec/etc/ossec.conf
 		 </div>
 	</li>
-	<li> Add following line in <code>&lt;global></code> tag.
+	<li> Add the following lines in the <code>&lt;global></code> tag.
 		<div class="hacker">&lt;email_maxperhour><em><u>N</u></em>&lt;/email_maxperhour></div>
 		final code block will look like:
 		<div class="hacker">
@@ -332,7 +331,7 @@ The main configuration file is <code>/var/ossec/etc/ossec.conf</code>. This file
 		</div>
 	</li>
 	<li>
-		Locate <code>&lt;syscheck></code> tag in same file. You can update frequency of system check by updating <code>&lt;frequency></code> tag here. Time duration is in seconds.
+		Locate <code>&lt;syscheck></code> tag in the same file. You can update frequency of system check by updating <code>&lt;frequency></code> tag here. Time duration is in seconds.
 		<div class="hacker">
 				&lt;syscheck><br/>
 				&lt;!-- Frequency that syscheck is executed - default to every 22 hours --><br/>
@@ -340,7 +339,7 @@ The main configuration file is <code>/var/ossec/etc/ossec.conf</code>. This file
 		</div>
 	</li>
 	<li>
-		Add following line in same <code>&lt;syscheck></code> tag to add alert for new files as shown.
+		Add the following line in same <code>&lt;syscheck></code> tag to add alert for new files as shown.
 		<div class="hacker">
 				
 					&lt;syscheck><br/>
@@ -360,14 +359,14 @@ The main configuration file is <code>/var/ossec/etc/ossec.conf</code>. This file
 		</div>
 	</li>
 	<li>
-		Add following line to add <code>/home/user_name </code> and <code>/var/www/ </code> to be monitored.
+		Add the following line to add <code>/home/user_name </code> and <code>/var/www/ </code> to be monitored.
 		<div class="hacker">
 			&lt;directories report_changes="yes" realtime="yes" restrict=".php|.js|.py|.sh|.html" check_all="yes">/home/user_name,/var/www&lt;/directories>
 		</div>
 		<code>restrict </code>setting tells only to monitor specified formats.
 	</li>
 	<li>
-		Save and close the file by pressing <code>esc</code> then typing following characters following by pressing <strong>Enter</strong>.
+		Save and close the file by pressing <strong>Esc</strong> and typing <strong>:wq</strong> followed by pressing the <strong>Enter</strong> key.
 		<div class="hacker">
 			:wq
 		</div>
@@ -375,7 +374,7 @@ The main configuration file is <code>/var/ossec/etc/ossec.conf</code>. This file
 	</ol>
 		
 <h2>Add local rules</h2>
-Next file to be modified resides in <code>/var/ossec/rules</code>. 
+You will need to modify the next file that resides in <code>/var/ossec/rules</code>. 
 In this directory <code>ossec_rules.xml</code> contains OSSEC's default rule definitions and custom rules are added in <code>local_rules.xml</code>
 Default rule definitions in <code>ossec_rules.xml</code> file are useful to look at. We can copy and modify them in local rules.
 <p class="note">
@@ -400,7 +399,7 @@ Following steps are optional.
 				</div>
 			</li>
 			<li>
-				Close the file by pressing <code>esc</code> then typing following characters following by pressing <strong>Enter</strong>.
+				Close the file by pressing <strong>Esc</strong> and typing <strong>:q!</strong> followed by pressing the <strong>Enter</strong> key.
 				<div class="hacker">
 					:q!
 				</div>
@@ -426,7 +425,7 @@ Following steps are optional.
 				<div class="hacker">
 					:wq
 				</div></li>
-				<li>Restart the OSSEC:
+				<li>Restart OSSEC:
                   <div class="hacker">
 					sudo /var/ossec/bin/ossec-control restart
 				</div>
