@@ -78,24 +78,29 @@ p.note {
 
 <body>
 
-<!--Please make sure that all variables use the proper formatting (<em> and <u>) and have a descriptive name such as "yourapplication" for an example application. cj -->
+<!--Please make sure that all variables use the proper formatting (<em> and <u>) and have a descriptive name such as "yourapplication" for an example application. cj --><!--Fixed-->
 <p>Setting up Rails Apps with Passenger and Nginx in Debian, Ruby, Rails, Nginx</p>
  
     <h1>Deploy Rails Apps with Passenger and Nginx - Debian</h1>
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
-<p>Rails enables web developers to rapidly build quality applications, and Nginx is a lightweight, high-performance web server. In this article you'll learn to deploy a Rails application on an Nginx web server using simple and powerful features of Phusion Passenger. This task assumes that you have <code>sudo</code> privileges.</p>
+<p>Rails enables rapid application development, while NGINX is a lightweight and high performance web server. In this article, you will learn to deploy Rails application on NGINX web server using the simple and powerful features of Phusion Passenger. To perform this task, its is assumed that the user has <em>sudo</em> privileges.</p>
 <h2>Prerequisites</h2>
-	<p>To set up the Debian server,  refer to<a href="17325"> Initial Server Setup - Debian</a>. Ensure that the fully qualified domain name (FQDN) points to the server. After you  set up the  server, you  need to <a href="17538"> install Ruby on Rails using RVM</a>. You can also refer to <a href ="17722"> Deploy Rails Apps with Passenger and Apache - Debian.</a></p>
-<h2>Install Nginx and Passenger</h2>
+<ul>
+<li><a href="17325 - Initial Server Setup - Debian"> Initial Server Setup - Debian</a>.</li>
+<li><a href="17538 - Install Ruby on Rails using RVM - Debian">Install Ruby on Rails using RVM</a>.</li>
+<li><a href ="17722 - Deploy Rails Apps with Passenger and Apache - Debian"> Deploy Rails Apps with Passenger and Apache - Debian</a>.</li>
+<li>Fully Qualified Domain Name (FQDN) should point to the server.</li>
+</ul>
+<h2>Install NGINX and Passenger</h2>
    <ol>
-     <li>Update and install repositories, the dependencies required for Ruby and Nginx.
+     <li>Update the repositories and install the dependencies for Ruby and NGINX.
             
           <div class='hacker'>sudo apt-get update</div>
      <div class='hacker'>sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev</div>
       </li>
       
-        <li>Add the <code>gpg</code> key, and install the Phusion Passenger.
+        <li>Add the <code>gpg</code> key and install the Phusion Passenger.
           <div class='hacker'>gpg --keyserver keyserver.debian.com --recv-keys 561F9B9CAC40B2F7    </div>
     <div class='hacker'>gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
 sudo apt-get install apt-transport-https    </div>
@@ -107,10 +112,10 @@ sudo apt-get install apt-transport-https    </div>
     <div class='hacker'>sudo apt-get update    </div>
         </li>
     
-     <li>Install Nginx and Passenger.
+     <li>Install NGINX and Passenger.
         <div class='hacker'>sudo apt-get install nginx-full passenger    </div>
     </li>
-	<li>For  language, select <strong>Ruby</strong>, and then press the <strong>Enter</strong> key.
+	<li>For  language, select <code>Ruby</code>, and then press the <strong>Enter</strong> key.
           <div class='hacker'>Use &lt;space&gt; to select. If the menu doesn't display correctly, ensure that your terminal supports UTF-8.
       <ul>
         <li>Ruby</li>
@@ -120,70 +125,71 @@ sudo apt-get install apt-transport-https    </div>
         </ul>
 </div>
 </li>
-<li>Select  <strong>1</strong> and press <strong>Enter</strong> to continue. This action   downloads, compiles, and installs Nginx files with the Passenger support.
-    <div class='hacker'><pre>1. Yes: download, compile and install Nginx for me. (recommended)<br/>
-   The easiest way to get started. A stock Nginx 1.4.4 with Passenger support, but with no other additional third party modules, 
-will be installed for you to a directory of your choice.</pre>
-    </div>
+<li>Select  <code>1</code> and press the <strong>Enter</strong> key to continue. This action downloads, compiles, and installs the NGINX files with Passenger support.
+   <div class='hacker'>1. Yes: download, compile and install Nginx for me.(recommended)
+       <br /> 
+       The easiest way to get started. A stock NGINX 1.4.4 with Passenger support, but with no other additional third party modules, will be installed for you to a directory of your choice.</div>
 
 </li></ol>
-<h2>Configure a test Rails application</h2>
+<h2>Set up a Test Rails Application</h2>
 		<ol>
 	
     <li>Create a directory.
-      <div class='hacker'>sudo mkdir -p  /var/www    </div>
+      <div class='hacker'>sudo mkdir -p  <em><u>/var/www</u></em>    </div>
     </li>
 	  <li>Move to the <code>www</code> directory, and create a Rails application.
-        <div class='hacker'>cd  /var/www</div>
-      <div class='hacker'>rails new HelloWorld</div>  
-      <div class='hacker'>cd HelloWorld</div>
+        <div class='hacker'>cd  <em><u>/var/www</u></em></div>
+      <div class='hacker'>rails new <em><u>SampleApp</u></em></div>  
+      <div class='hacker'>cd <em><u>SampleApp</u></em></div>
 	  </li>
    <li> Create sample resources.
       <div class='hacker'>rails generate scaffold Task title:string note:text</div>
+	  <div class='hacker'>rake db:migrate RAILS_ENV=development</div>
 	  </li>
-    <li>  To test your application, run the following command in application directory:
-      <div class='hacker'>ruby -s</div> 
+    <li> To test your application, run the following command in application directory:
+      <div class='hacker'>rails s --bind=<em><u>Public-IP</u></em></div> 
     </li>
       </ol>
-	  <h2>Configure Nginx</h2><ol>
-     <li>Open the configuration file.
+	  <h2>Configure NGINX</h2><ol>
+     <li>Open the following configuration file of NGINX.
             <div class='hacker'>sudo vim /etc/nginx/nginx.conf</div></li>
      <li>
-       <p>Uncomment the line that says <code>passenger_root</code>, and then add the <code>passenger_ruby</code> line beneath it as follows:</p>
+       <p>Uncomment the following line:</p>
     
             <div class='hacker'>
-            <pre>passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv   </pre>   
+            passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;<br/>
+passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv   
             </div>
         </li>
-        <li>Save the changes.</li>
-          <li>Restart the Nginx service.
-            <div class='hacker'>sudo service Nginx restart</div>
+        <li>Save and Exit.<div class ="hacker">:wq</div></li>
+          <li>Restart the NGINX service.
+            <div class='hacker'>sudo service nginx restart</div>
           </li>
        
-        <li>Configure the Nginx host by opening <code>/etc/nginx/sites-enabled/default</code> in your text editor and replacing the file's contents with the following:</p>
-            <div class='hacker'><pre>
-      server {
-        listen 80 default_server;
-        listen [::]:80 default_server ipv6only=on;
+        <li>Open the following configuration file to configure host <code>/etc/nginx/sites-enabled/default</code>:</p>
+            <div class='hacker'>
+      server {<br/>
+        listen 80 default_server;<br/>
+        listen [::]:80 default_server ipv6only=on;<br/>
 
-        server_name www.mydomain.com; // your server name
-        passenger_enabled on;
-        rails_env    production;
-        root         /var/www/HelloWorld/public; // your rail application path
+        server_name <em><u>www.coolexample.com</u></em>; // Replace coolexample.com witch FQDN or Public-IP<br/>
+        passenger_enabled on;<br/>
+        rails_env    production;<br/>
+        root         <em><u>/var/www/SampleApp</u></em>/public; // Your rails application's path<br/>
+<br/>
+        # redirect server error pages to the static page /50x.html<br/>
+        error_page   500 502 503 504  /50x.html;<br/>
+        location = /50x.html {<br/>
+            root   html;<br/>
+        }<br/>
 
-        # redirect server error pages to the static page /50x.html
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   html;
-        }
-
-</pre></div>
-      </li>  <!--Save and close the file? cj -->   
-        <li>Restart the Nginx service.
-            <div class='hacker'>sudo service Nginx restart</div>
+</div>
+      </li>  <!--Save and close the file? cj --><!--fixed-->   
+	  <li>Save and Exit.<div class="hacker">:wq</div></li>
+        <li>Restart the NGINX service.
+            <div class='hacker'>sudo service nginx restart</div>
         </li></ol>
-    <h2>Next Steps</h2>
-    In this article, we reviewed the steps  to deploy a Rails application using Nginx and Passenger.<!--What might the user do next? cj -->
+    <h2>Conclusion</h2>
+    In this article, we reviewed the steps involved in installing Ruby on Rails using RVM, installed NGINX and Passenger, and finally compiled and configured it to deploy our Rails application on NGINX web server.<!--What might the user do next? cj --><!--Changed from "Next step" to "Conclusion"-->
 </body>
 </html>
