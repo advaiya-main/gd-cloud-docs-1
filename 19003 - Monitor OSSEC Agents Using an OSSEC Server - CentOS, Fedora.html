@@ -70,22 +70,23 @@ p.note {
 	<h1>Monitor OSSEC Agents using OSSEC Server - CentOS, Fedora</h1>
 	<p><strong>Difficulty: </strong> 4<br />
 	<strong>Time: </strong> 1 hour</p>
-	<p>
-		This article explains how to monitor OSSEC agents with OSSEC server on CentOS and Fedora. <!--What does OSSEC stand for?-->
+	<p>OSSEC (Open Source Host-based Intrusion Detection System) is a security monitoring system.</p> 
+  <p>
+  This article explains how to monitor OSSEC agents with a OSSEC server on CentOS and Fedora.
 	</p>
 	<p class="note">You will need access to sudo privileges to complete all the steps.
 	</p>
 	<h2>Prerequisites</h2>
 	<ul>
 		<li>
-			Two separate Ubuntu droplets required - one for server and other for agent. 
+			Two separate Ubuntu droplets are required - one for server and other for agent. 
 		</li>
 		<li>
-			Iptable should be enabled on both the droplets.
+			<strong>Iptable</strong> should be enabled on both the droplets.
 		</li>
 	</ul>
   
-	<h2>Download OSSEC and Verify on Server and Agent</h2>
+	<h2>Download OSSEC and verify on the server and the agent</h2>
 	<ol>
 		<li>
 			Update the package database.
@@ -96,18 +97,18 @@ p.note {
 		<li>
 			Install following packages on server: 
 			<div class="hacker">
-				sudo yum groupinstall 'Development Tools'<br/>
+				sudo yum groupinstall 'Development Tools'<br />
 				sudo yum install inotify-tools 
 			</div>
 		</li>
 		<li>
-			On agent, install the following packages:
+			On the the agent, install the following packages:
 			<div class="hacker">
 				sudo yum groupinstall 'Development Tools'
 			</div>
 		</li>
 		<li>
-			Install the following package on both the servers to save any change you make in <code>iptables</code>. 
+			Install the following package on both the servers, to save any change you make in <code>iptables</code>. 
 			<div class="hacker">
 				sudo yum install iptables-services<br/>
 				sudo systemctl enable iptables
@@ -124,10 +125,9 @@ p.note {
 				wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1.tar.gz<br/>
 			wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1-checksum.txt
 				
-			</div></li>
-  <!--Please continue formatting the rest of the produres as list items. Remember that the close </li> tag goes after the div. No close break is needed before a <div> tag.  Also, tag buttons as <strong>. -->    
+			</div></li> 
 			<li>
-				After downloading both the files, type the following command to verify md5sum of the compressed tarball:
+				After downloading both the files, type the following command to verify <em>md5sum</em> of the compressed tarball:
 				<div class="hacker">
 					md5sum -c ossec-hids-2.8.1-checksum.txt
 				</div>
@@ -135,12 +135,12 @@ p.note {
 			<li>
 				The output should be:
 				<div class="hacker">
-					ossec-hids-2.8.1.tar.gz: OK<br/>
+					ossec-hids-2.8.1.tar.gz: OK<br />
 					md5sum: WARNING: 1 line is improperly formatted
 				</div>
 			</li>
 			<li>
-				Type the following command to verify SHA1 of the compressed tarball.
+				Type the following command to verify <em>SHA1</em> of the compressed tarball.
 				<div class="hacker">
 				sha1sum -c ossec-hids-2.8.1-checksum.txt
 				</div>
@@ -156,7 +156,7 @@ p.note {
 	</ol>
 
 
-	<h2>Install the OSSEC Server</h2>
+	<h2>Install the OSSEC server</h2>
 	<ol>
 		<li>
 			Type the following command to untar the file.
@@ -170,7 +170,7 @@ p.note {
 			
 		</li>
 		<li>
-			Change directory to the one we just expanded.
+			Change directory to the one you just expanded.
 			<div class="hacker">
 				cd ossec-hids-2.8.1/
 			</div>
@@ -344,8 +344,8 @@ p.note {
 			</div>
 		</li>
 		<li>
-			You will be asked for agent's name, IP and its ID. Keep the name unique and enter the IP of your agent , for ID
-			you can accept default value by pressing <strong>Enter</strong>
+			You will be asked for the name, IP, and ID of the agent. Keep the name of the agent unique, and then enter the IP of your agent. For the ID
+			you can accept default value by pressing <strong>Enter</strong>.
 			<div class="hacker">
 				<pre>
 				- Adding a new agent (use '\q' to return to the main menu).
@@ -364,7 +364,7 @@ p.note {
 			</div>
 		</li>
 		<li>
-			You will be returned to main menu. Press <strong>A</strong>, <strong>Enter</strong> and then give the ID of the agent to fetch the agent key. Make sure to make a note of it.
+			You will be returned to main menu. Press <strong>A</strong>, <strong>Enter</strong>, and then give the ID of the agent to fetch the agent key. Make sure to keep a record of the key.
 			<div class="hacker">
 				<pre>
 				Choose your action: A,E,L,R or Q: e
@@ -403,10 +403,10 @@ p.note {
 				Choose your action: I or Q: <em><u>i</u></em>
 				</pre>
 			</div>
-			After choosing "I" follow the direction to paste the key from server and confirm when it asks.
+			After choosing <code>I</code>, follow the direction to paste the key from the server, and then confirm when when asked.
 		</li>
 		<li>
-			Press <strong>Enter</strong> to return to the main menu and choose <strong>Q</strong> to quit.
+			Press <strong>Enter</strong> to return to the <code>Main Menu</code>, and then choose <strong>Q</strong> to quit.
 			<div class="hacker">
 				<pre>
 					Confirm adding it?(y/n): <em><u>y</u></em>
