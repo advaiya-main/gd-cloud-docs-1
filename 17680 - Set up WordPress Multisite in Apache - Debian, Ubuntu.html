@@ -166,7 +166,7 @@ This URL will always link to a compressed file of the latest stable version of W
       
  <ol>
  <li>Transfer your WordPress files to the website's root directory
-    <div class="hacker">sudo cp -r ~/wordpress/* /srv/http/</div>
+    <div class="hacker">sudo cp -r ~/wordpress/* /var/www/html</div>
 This will safely copy all of the contents from the directory you unpacked to the document root.
       </li>   
  
@@ -175,9 +175,9 @@ This will safely copy all of the contents from the directory you unpacked to the
  <div class="hacker">sudo chown www-data:www-data /var/www/html * -R</div>
 <div class="hacker">sudo chmod u+x /var/www/html * -R</div>
                                   
-<p> ******* IF IT DOESN'T WORK TRY:     <br/>
+<!--CT: internal note (alternative permissions)...
 sudo chown -R [USER NAME]:[USER NAME] /var/www
-           </p>
+           </p>                                   ...-->
       
  <li>Restart Apache.
 <div class="hacker">sudo service apache2 restart</div>
