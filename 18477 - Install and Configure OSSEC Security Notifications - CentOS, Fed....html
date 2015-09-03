@@ -221,7 +221,7 @@
 			In the next prompt it will ask you for more IP addresses but that's not necessary. List files to be monitored will be displayed. You can add more files after installation, so press <strong>Enter</strong>. It may take a few minutes to install.
 			
 			</p>
-				On successful installation you will get 
+				On successful installation you will get: 
 		
 			<div class="hacker">
 				<pre>
@@ -376,7 +376,7 @@ The main configuration file is <code>/var/ossec/etc/ossec.conf</code>. This file
 	</ol>
 		
 <h2>Add local rules</h2>
-Next file to be modified resides in <code>/var/ossec/rules</code>. 
+You will need to modify the next file that resides in <code>/var/ossec/rules</code>. 
 In this directory <code>ossec_rules.xml</code> contains OSSEC's default rule definitions and custom rules are added in <code>local_rules.xml</code>
 Default rule definitions in <code>ossec_rules.xml</code> file are useful to look at. We can copy and modify them in local rules.
 <p class="note">
@@ -423,7 +423,7 @@ Following steps are optional.
 					
 				</div>
 			</li>
-				<li>Save and close the file by pressing the <strong>Esc</strong> key and typing <strong>:wq</strong> followed by pressing the <strong>Enter</strong> key.
+				<li>Save and close the file by pressing <code>esc</code> then typing following characters following by pressing <strong>Enter</strong>.
 				<div class="hacker">
 					:wq
 				</div></li>
@@ -438,7 +438,7 @@ Following steps are optional.
 	
 		<h2>Trigger file changes</h2>
 		<p>When you add any file in directory to be monitored by OSSEC or you update or delete a file, you should be getting alerts.
-		It doesn't send real time notification for adding a file but only for modification or deletion. Alerts of file addition go after full system check which is handled by frequency check time in ossec.conf.
+		It doesn't send real time notification for adding a file but only for modification or deletion. Alerts of file addition go after full system check which is handled by frequency check time in <code>ossec.conf</code>.
 		</p>
 
 	
