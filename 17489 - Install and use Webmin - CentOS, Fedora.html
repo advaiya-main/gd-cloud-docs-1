@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is _17489_________ (fill in blank)-->
+
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>Install and use Webmin - CentOS, Fedora</title>
+<style>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Control Panels</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-install-webmin-with-ssl-on-ubuntu-14-04, https://www.digitalocean.com/community/tutorials/how-to-install-webmin-with-ssl-on-ubuntu-14-04</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#CentOS;#Fedora;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string">Prereqs - 'Initial Server Setup.' Link to alternate article 'Install and use Virtualmin' for users who wish to install both Virtualmin and Webmin. If steps are different per distro, split articles for each distro instead of by fork.</mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">2</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17489</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:Week msdt:dt="string">4.00000000000000</mso:Week>
+<mso:ArticleStatus msdt:dt="string">Not started</mso:ArticleStatus>
+<mso:HoursDraftingEstimated msdt:dt="string">1.00000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.250000000000000</mso:HoursEditingEstimated>
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string"></mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+<mso:AssignedTo1 msdt:dt="string">19</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Brian Miller</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+<p>Webmin is a web-based tool for managing your server.  It supports many common tasks like installing software, adding users, and managing servers.</p>
+    <h1>Install Webmin - CentOS, Fedora</h1>
+    
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
+        <strong>Time</strong>: <em><u>15</u></em></p>
+
+    <p>Webmin is a web-based tool for managing your server.  It supports many common tasks like installing software, adding users, and managing servers.  
+        This article describes how to install webmin.  It assumes you have a user, <em><u>yourloginuser</u></em>, who accesses your server via SSH.</p>
+
+    <h2>Create a user with sudo privileges</h2>
+ <ol>
+               <li>Edit the <code>/etc/sudoers</code> file with visudo
+                   <div class="hacker">sudo visudo</div>
+               </li>
+               <li>Find the section that looks like this:
+                   <div class="hacker"><pre>root    ALL=(ALL) ALL </pre></div>
+              </li>
+              <li>Add a line in it for the user you use to log in to your server to grant sudo privileges to that user.
+                   <div class="hacker"><pre>root    ALL=(ALL) ALL 
+yourloginuser    ALL=(ALL) ALL </pre></div>
+              </li>
+               <li>Save and close</li>
+    </ol>
+ <h2>Install Webmin</h2>
+ <ol>
+               <li>Create a webmin repository file 
+                   <div class="hacker">sudo vim /etc/yum.repos.d/webmin.repo</div>
+               </li>
+               <li>Add the following lines to the file:
+                   <div class="hacker"><pre>[Webmin]
+name=Webmin Distribution Neutral
+#baseurl=http://download.webmin.com/download/yum
+mirrorlist=http://download.webmin.com/download/yum/mirrorlist
+enabled=1</pre></div>
+              </li>
+      <li>Save and close</li>
+              <li>Add the Webmin key to your keyring
+                   <div class="hacker">sudo wget http://www.webmin.com/jcameron-key.asc </div>
+              </li>
+              <li>Import the public key
+                   <div class="hacker">sudo rpm --import jcameron-key.asc </div>
+              </li>
+              <li>Update your local repository
+                   <div class="hacker">sudo yum update</div>
+              </li>
+              <li>Install webmin
+                   <div class="hacker">sudo yum install webmin</div>
+              </li>
+ </ol>
+ <h2>Verification</h2>
+ <ol>
+               <li>Using your browser, access the Webmin login page: 
+                <div class="hacker">https://your IP address:10000</div>
+              </li>
+              <li>Ignore the SSL warning (you trust this server because you own it. 
+              </li>
+              <li>A login screen will appear.  Log in using the <em><u>yourloginuser</u></em> and start using webmin!
+              </li>
+</ol>
+
+             
+    <h2>Next steps</h2>
+    <p>Explore the Webmin interface and start using it to manage your server.</p>
+   
+</body>
+</html>

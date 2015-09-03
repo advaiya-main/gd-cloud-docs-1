@@ -45,7 +45,11 @@ p.note {
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
 <mso:ArticleKeywords msdt:dt="string">Control Panels</mso:ArticleKeywords>
+<<<<<<< HEAD
+<mso:Reference msdt:dt="string">17543 - Create Vanity or Branded Nameservers with your Cloud server - ALL DISTROS, https://www.digitalocean.com/community/tutorials/how-to-install-and-utilize-virtualmin-on-a-vps</mso:Reference>
+=======
 <mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-install-and-utilize-virtualmin-on-a-vps, https://www.digitalocean.com/community/tutorials/how-to-install-and-utilize-virtualmin-on-a-vps</mso:Reference>
+>>>>>>> origin/master
 <mso:LinuxDistributions msdt:dt="string">;#ALL DISTROS;#</mso:LinuxDistributions>
 <mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
 <mso:RequestNotes msdt:dt="string">Prereqs - 'Initial Server Setup.' Link to alternate article 'Install and use Webmin' for users who want control panel without Virtualmin. If steps are different per distro, split articles for each distro instead of by fork.</mso:RequestNotes>
@@ -63,83 +67,51 @@ p.note {
 <mso:DeliveryTarget msdt:dt="string"></mso:DeliveryTarget>
 <mso:EditScore msdt:dt="string"></mso:EditScore>
 <mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+<<<<<<< HEAD
+<mso:TransitionedToGitHub msdt:dt="string">1</mso:TransitionedToGitHub>
+<mso:AssignedTo1 msdt:dt="string">19</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Brian Miller</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+=======
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Install Virtualmin</p>
+    <h1>Install and use Virtualmin - ALL DISTROS</h1>
     
     <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
         <strong>Time</strong>: <em><u>Time value</u></em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+    <p>Webmin is a GUI tool that helps you manage the software packages installed on your server.  
+        Virtualmin is an extension of Webmin that extends its functionality to managing Virtual Private Servers (VPS).</p>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
+
+    <h2>Install Virtualmin</h2>
+     <ol>
+               <li>Download the Virtualmin software
+                 <div class="hacker"> sudo wget http://software.virtualmin.com/gpl/scripts/install.sh -O /root/virtualmin-install.sh</div>
+               </li>
+               <li>Your screen will display something like this:
+                   <div class="hacker">2015-09-03 13:32:53 (710 KB/s) - ‘/root/virtualmin-install.sh’ saved [47633/47633]</div>
+               </li>
+               <li>Install Virtualmin
+                   <div class="hacker">sudo sh /root/virtualmin-install.sh</div>
+               </li>
+               <li>You may have logged in to your server using an IP address rather fully qualified domain name (FQDN).  
+                   The script may prompt you for your FQDN.  If this is the case, provide it.
+                </li>
+               <li>Navigate to your webmin page (<em><u>MyCoolWebsite.com</u></em>:10000)
+                   <div class="hacker">https://<em><u>MyCoolWebsite.com</u></em>:10000</div>
+               </li>
+    </ol>
+               <p>On the left hand side of the page there is a menu.  Clicking on the name toggles the UI between Virtualmin and Webmin.  
+                   You will notice some differences from the standard Webmin interface because the two tools offer slightly different functionality.  
+                   Webmin manages your server while Virtualmin manages the individual VPS you have installed on your physical server.  
+                   </p>
  
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
-
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
    
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
     <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
-   
+  <p>Use the post-installation wizard to familiarize yourself with Virtualmin and use it to help you build out some VPS and the software running on them.</p>         
 </body>
 </html>
