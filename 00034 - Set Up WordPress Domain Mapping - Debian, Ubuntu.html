@@ -70,7 +70,7 @@ p.note {
 <h1>Set Up WordPress Domain Mapping - Debian, Ubuntu</h1>
 
                 <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
-                <strong>Time</strong>:<em><u>5 minutes</u></em></p>
+                <strong>Time</strong>: <em><u>5 minutes</u></em></p>
 
            <p>The WordPress MU Domain Mapping plug-in allows you to point multiple domains to one WordPress account.
            This means that you can map any site to another domain. In our tutorial, we'll map our subdomains to independent stand-alone domains. For instance, <strong>coolexampleproduct.com</strong> would redirect to <strong>product.coolexample.com</strong><!--I'm not sure we can use coolexampleproduct.com, how about product.coolexample.com to newproduct.coolexamle.com.  Then we can keep the coolexample.com intact.-->, a subdomain of your primary site, <strong>coolexample.com</strong>.</p>
@@ -78,16 +78,18 @@ p.note {
 <h2>Prerequisites </h2>
 
         <p>You should have WordPress multisite installed. See
-        <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17683%20-%20Set%20up%20WordPress%20Multisite%20in%20 NGINX%20-%20Debian%20Ubuntu.html">Set up WordPress Multisite in NGINX - Debian Ubuntu</a> for instructions.</p>
+        <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17683%20-%20Set%20up%20WordPress%20Multisite%20in%20 NGINX%20-%20Debian%20Ubuntu.html">Set up WordPress Multisite in NGINX - Debian, Ubuntu</a> for instructions.</p>
 <!--Note on multi-site vs multisite.  WordPress uses "multisite" and dictonaries use multi-site.  Micosoft is silent about it, but since this is about WordPress, I kept "multisite" without the hyphen.-->        
 
 <h2>Download the plug in</h2>
 <!--Note on plugin vs plug in.  The Microsoft Style Guide uses "plug in," so I've used it except when actually copying code.-->
 
     <ol>
-            <li>Download the plug in. <br />
-            cd ~ wget <a href="http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip"> Download the World Press Domain mapping plugin</a>   </li> 
+            <li>Download the World Press Domain mapping plugin. <br />
+
+<div class="hacker">cd ~ wget http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip</div>   </li> 
 <!--Is the previous line supposed to be a code example and then a link?-->
+<!--CT: it's a code example. fixed-->
 
             <li>Install unzip.
                     <div class="hacker">sudo yum install unzip  <br />
@@ -114,22 +116,21 @@ p.note {
             <li>Open your <code>wp-config</code> file.
             <div class="hacker">sudo vim wp-config.php</div></li>
 
-            <li>Add this line before <code>/*</code>. 
-            <div class="hacker">*/ <br />
-            define('SUNRISE', 'on'); </div> </li>
-            <li>That's all, stop editing!</li> 
-            <li>Save and close. Happy blogging.</li>
-
-    </ol>
-
-   <!--Missing heading? -->
-
-
-    <ol>
-            <li>Restart NGINX.
+            <li>Add this line before <code>/* That's all, stop editing! Happy blogging. */</code>. 
+            <div class="hacker">define('SUNRISE', 'on'); </div> </li>
+            <li>Save and close.</li>
+              
+               <li>Restart NGINX.
 
                       <div class="hacker">sudo service nginx restart</div></li>
     </ol>
+
+ 
+
+   <!--Missing heading? -->
+   <!--CT: Added below-->
+<h2>Activate Domain Mapping</h2>
+         
 
     <ol>    <li>Return to your <strong>wp-admin</strong> window. <br />
     <!--broken image, ask Susan-->
@@ -137,13 +138,19 @@ p.note {
 
             <li>In the top navigation bar, you will see <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Plugins</strong>. <br />   <br />
                     <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="WordPress mu domain mapping plugin network activate" />    <br />
-                    <p class="note">You will see three plug ins. The WordPress MU Domain Mapping plug in should be the third.</p>   </li>
 
-            <li>Under this plug in, click <strong>Network Activate</strong>. You will see this <!--what's this?--> activate, and the plug in box will be highlighted. <br />
-                LH nav bar: Settings ? Domain Mapping    <br />
+ <!--CT: This isn't a note. Removed note tag-->
+                 You will see three plug ins. The WordPress MU Domain Mapping plug in should be the third.   </li>
+
+            <li>Under this plug in, click <strong>Network Activate</strong>. The plug in box will highlight, indicating it's activated.
+            <!--what's this?--> 
+            <!--CT: clarified. Revised above.--> <br />
+            <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-domain-options-screen3.png" alt="wordpress mu domain mapping plugin domain options" /> </li>
+            
+           <li> In the menu bar on the left-hand side, hover/mouse over <strong>Settings</strong>, then select <strong>Domain Mapping</strong> from the menu that appears. <br />
                 <!--what is this?-->
-                    <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-domain-options-screen3.png" alt="wordpress mu domain mapping plugin domain options" /> </li>
-
+                 <!--CT: clarified. Revised this part right above.-->  
+                    
             <li>Under <strong>Domain Options</strong>, clear the <strong>Remote Login</strong> check box. </li>
 
             <li>Select the <strong> Permanent Redirect</strong> check box.</li>
@@ -168,48 +175,55 @@ p.note {
             <li>Create a new file.
                 <div class="hacker">sudo vim /var/www/html/wp-content/mu-plugins/wpms_blogid.php</div>
 
-                <p class="note">It is a new file, so it will be blank.</p> </li>
+               <!--CT: Removed note again-->
+               It is a new file, so it will be blank.</li>
 
             <li>Copy this whole code block and paste it into your file.
 
+        <!--CT: The code block is messed up (e.g., pre is supposed to a tag <pre>, and the sign before php should be a < sign, not >. Fixed. Please don't touch! IM me if you have questions-->
+<div class="hacker"><pre>&lt;?php
+add_filter( 'wpmu_blogs_columns', 'do_get_id' );
+add_action( 'manage_sites_custom_column', 'do_add_columns', 10, 2 );
+add_action( 'manage_blogs_custom_column', 'do_add_columns', 10, 2 );
 
-                <div class="hacker">&lt;pre>&gt;?php <br />
-                add_filter( 'wpmu_blogs_columns', 'do_get_id' );  <br />
-                add_action( 'manage_sites_custom_column', 'do_add_columns', 10, 2 );    <br />
-                add_action( 'manage_blogs_custom_column', 'do_add_columns', 10, 2 );  <br />
+function do_add_columns( $column_name, $blog_id ) {
+    if ( 'blog_id' === $column_name )
+        echo $blog_id;
+    return $column_name;
+}
 
-                function do_add_columns( $column_name, $blog_id ) {  <br />
-                    if ( 'blog_id' === $column_name )  <br />
-                        echo $blog_id;       <br />
-                    return $column_name;    <br />
-                }           <br />
-                                    <br />
-                function do_get_id( $columns ) {  <br />
-                    $columns['blog_id'] = 'ID'; <br />
-                    return $columns;    <br />
-                }&lt;/pre&gt; </div> </li>
+function do_get_id( $columns ) {
+    $columns['blog_id'] = 'ID';
+    return $columns;
+}       </pre></div>
+
+               
 
             <li>Save and close.</li>
     </ol>
-                <p class="note">Back in the <strong>WP-Admin</strong> browser window, 
-                the <strong>Sites &gt; All Sites</strong> section should now show an additional <strong>ID</strong> column.</p>
+
+<!--CT: Added some instruction and made this a step. it's a step, not a note-->
+<li>Back in the <strong>wp-Admin</strong> browser window, the <strong>Sites &gt; All Sites</strong> section should now show an additional <strong>ID</strong> column. Make note of the ID for your subdomain that you'll be mapping.</li>
 
                 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-all-sites-with-ID-screen4.png" alt="WordPress MU Domain Mapping Plugin all sites with ID screen" />   <br />
  <!--Missing a heading?-->  
+  <!--CT: Added-->
+  
+  <h2>Map your domains</h2>
     <ol>
             <li>Make a note of the ID values for each site.</li>
             <li>Go to the <strong>Settings Domains</strong> page.</li>
             <li>Enter the site ID, followed by the external domain for the site.</li>
 
         </ol>
-.
+
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-new-domain-screen5.png" alt="WordPress MU Domain Mapping Plugin New Domain screen" /> <br />
 
 <h2>Next steps</h2>
 
 <p>Congratulations! Each site that you've defined with its own domain name, can now be accessed that way. You can test it by visiting one of those domains. You will see the URL redirect to the subdomain of your primary site.</p><p>
 
-Now each site can be maintained separately through its own WordPress admin panel. Just append <code>/wp-admin/</code>  to the URL, such as <strong>coolexampleproduct.com/wp-admin/.</strong> </p>
+Now each site can be maintained separately through its own WordPress admin panel. Just append <code>/wp-admin/</code> to the URL, such as <strong>coolexampleproduct.com/wp-admin/.</strong> </p>
 
 
 </body>
