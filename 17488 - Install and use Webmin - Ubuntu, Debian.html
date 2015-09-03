@@ -104,6 +104,7 @@ yourloginuser    ALL=(ALL:ALL) ALL</pre></div>
                    <div class="hacker"><pre>deb http://download.webmin.com/download/repository sarge contrib
 deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib</pre></div>
               </li>
+      <li>Save and close</li>
               <li>Add the Webmin key to your apt keyring.
                    <div class="hacker">wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -</div>
               </li>
@@ -117,12 +118,9 @@ deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib</p
  <h2>Verification</h2>
  <ol>
                <li>Using your browser, access the Webmin login page: 
-                   <div class="hacker">sudo vim /etc/apt/sources.list</div>
-               </li>
-               <li>Add the following lines to the bottom of the file:
                    <div class="hacker">https://your IP address:10000</div>
-              </li>
-              <li>Ignore the SSL warning (you trust this server because you own it. 
+               </li>
+               <li>Ignore the SSL warning (you trust this server because you own it. 
               </li>
               <li>A login screen will appear.  Log in using the <em><u>yourloginuser</u></em> and start using webmin!
               </li>

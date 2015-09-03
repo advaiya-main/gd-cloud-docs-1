@@ -4,7 +4,7 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
+<!--Article Number is __17490________ (fill in blank)-->
 
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
@@ -70,78 +70,47 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Webmin is a web-based tool for managing your server.  It supports many common tasks like installing software, adding users, and managing servers.</p>
+    <h1>Install Webmin - Arch Linux</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
+        <strong>Time</strong>: <em><u>15</u></em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+    <p>Webmin is a web-based tool for managing your server.  It supports many common tasks like installing software, adding users, and managing servers.  
+        This article describes how to install webmin.  It assumes you have a user, <em><u>yourloginuser</u></em>, who accesses your server via SSH.</p>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
+<h2>Get Webmin</h2>
+ <ol>
+               <li>Change to the tmp directory
+                   <div class="hacker">cd /tmp</div>
+               </li>
+               <li>Download Webmin
+                   <div class="hacker">sudo wget http://prdownloads.sourceforge.net/webadmin/webmin-1.760.tar.gz </div>
+              </li>
+              <li>Unzip it
+                   <div class="hacker">sudo gunzip webmin-1.760.tar.gz</div>
+              </li>
+              <li>Unzip the tar archive
+                   <div class="hacker">sudo tar -xf webmin-1.760.tar </div>
+              </li>
+              <li>Navigate to the directory created by tar
+                   <div class="hacker">cd webmin-1.760</div>
+              </li>
+              <li>Install webmin
+                   <div class="hacker">sudo ./setup.sh /usr/local/webmin</div>
+              <p>The install program will ask several questions.  Accept the defaults and create a user and password</p></li>
+ </ol>
+ <h2>Verification</h2>
+ <ol>
+               <li>Using your browser, access the Webmin login page: 
+                <div class="hacker">http://your IP address:10000</div>
+              <li>A login screen will appear.  Log in using the <em><u>yourloginuser</u></em> and start using webmin!
+              </li>
+</ol>
 
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
              
     <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
+    <p>Explore the Webmin interface and start using it to manage your server.</p>
    
 </body>
 </html>
