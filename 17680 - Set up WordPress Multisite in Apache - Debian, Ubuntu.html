@@ -205,6 +205,31 @@ sudo chown -R [USER NAME]:[USER NAME] /var/www
  <li>Open your configuration file for editing.
    <div class="hacker">sudo vim wp-config.php</div></li>
  
+ <li>Edit the following lines with the values in <code>wp-config.php</code>.
+
+<div class="hacker">sudo cp wp-config-sample.php wp-config.php</div>
+                                                               </li>
+                                                               
+ <li>Open the config file in your text editor.
+<div class="hacker">sudo vim wp-config.php</div>  </li>
+
+ <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
+/** The name of the database for WordPress */ <br />
+define('DB_NAME', 'wordpress'); <br />
+
+/** MySQL database username */  <br />
+define('DB_USER', 'wordpressadmin');     <br />
+
+/** MySQL database password */ <br />
+define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
+<li>Save and close.</li> 
+
+  <li> Look for this section of the code below (starting with <code>MySQL settings</code>…) and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
+Use the credentials that you just created. </li>
+                                     
+</ol>    
+ 
+ 
  <li>Farther down in the file, find the line  <code>/* That's all, stop editing! Happy blogging. */</code> and add  these lines:
    <div class="hacker">/* Multisite settings */<br/>
 define( 'WP_ALLOW_MULTISITE', true );</div></li>
@@ -229,15 +254,10 @@ To activate the new configuration, you need to run:
 <div class="hacker"> sudo nano /etc/apache2/sites-enabled/000-default.conf</div>
             
 Search for DocumentRoot, and add the following lines under it: 
-<div class="hacker"><pre><Directory "/var/www/html">
+<div class="hacker"><pre>&lt;Directory "/var/www/html"&gt;
     AllowOverride All
-</Directory></pre></div>
-So it will look like:
+&lt;/Directory&gt;</pre>
 
-<div class="hacker"><pre>DocumentRoot /var/www/html
-        <Directory "/var/www/html">
-    AllowOverride All
-</Directory></pre></div>
 
 ******Not seeing Network under Tools in WP*****
 
