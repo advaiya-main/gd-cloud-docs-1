@@ -67,7 +67,7 @@
 <mso:PrereqOrdering msdt:dt="string">3</mso:PrereqOrdering>
 <mso:AssignedTo1 msdt:dt="string">12</mso:AssignedTo1>
 <mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Tom Taylor</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
-<mso:ReviewComments msdt:dt="string">8/20 cj: Sending back to Revise for now as (according to Request Notes) this doc may evolve once Parts 1 and 2 are written.</mso:ReviewComments>
+<mso:ReviewComments msdt:dt="string">8/20 cj: Sending back to Revise for now as (according to Request Notes) this doc may evolve once Parts 1 and 2 are written. </mso:ReviewComments>
 <mso:Dependencies msdt:dt="string"></mso:Dependencies>
 <mso:TestComments msdt:dt="string"></mso:TestComments>
 <mso:Week msdt:dt="string">8.00000000000000</mso:Week>
@@ -93,7 +93,8 @@
 
 <h2>Prerequisites</h2>
 <ul>
-    <li>To install Ruby, please visit <a href="#">17534 - Install Ruby on Rails using RVM - Ubuntu</a></li>
+    <li>To install Ruby on Rails, please visit, <a href="17534">Install Ruby on Rails using RVM - Ubuntu</a> and <a href="17538">Install Ruby on Rails using RVM - Debian</a></li>
+	<li>Since this article is part of 3 part series, please visit <a href="17952">Scale Ruby on Rails Applications Across Multiple Servers - Debian, Ubuntu</a> and <a href="17981">Scaling Ruby on Rails: Setting Up A Dedicated MySQL Server (part 2) - Debian, Ubuntu</a> links.</li>
 	
 </ul>
 <h2>Install PostgreSQL</h2>
@@ -135,7 +136,7 @@ To create a database, type the following command:
 <li>
 Create a role for PostgreSQL and login using:
 	<div class="hacker"> sudo -u postgres psql </div>
-<p>	Run the below query to create user and its role</p>
+<p>	Run the below query to create user and its role.</p>
 <div class="hacker">CREATE USER <em><u>rails_user</u></em> WITH PASSWORD <em><u>‘StrongPass@word’</u></em>; </div>
 </li>
 <li>
@@ -157,7 +158,7 @@ Open file using the <code>vim</code> editor:
 listen_addresses = 'localhost' 
 </pre>
 </div>
-<p>And replace with </p>
+<p>And replace with: </p>
   <div class="hacker">
 <pre>listen_addresses = '*' or listen_addresses = 'Your_IP'</pre></div>
 </li>
