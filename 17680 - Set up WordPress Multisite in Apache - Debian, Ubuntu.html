@@ -203,7 +203,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
   
   <h3>Enable mod rewrite</h3>
   
-  <p>Activate the apache Mod_Rewrite module.</p>
+  <p>Activate the Apache Mod_Rewrite module.</p>
 
   <div class="hacker">sudo a2enmod rewrite</div>         
 
@@ -215,18 +215,20 @@ To activate the new configuration, you need to run:
    We will be restarting Apache after this step.
    
    Open your virtual host config file. We'll use the default Apache one.
-            sudo nano /etc/apache2/sites-enabled/000-default.conf
+<div class="hacker"> sudo nano /etc/apache2/sites-enabled/000-default.conf</div>
             
 Search for DocumentRoot, and add the following lines under it: 
 <div class="hacker"><pre><Directory "/var/www/html">
     AllowOverride All
 </Directory></pre></div>
 So it will look like:
+
 <div class="hacker"><pre>DocumentRoot /var/www/html
         <Directory "/var/www/html">
     AllowOverride All
 </Directory></pre></div>
 
+******Not seeing Network under Tools in WP*****
 
 ******IF THOSE DON'T WORK - TRY MODIFYING THIS FILE INSTEAD*****
  sudo nano /etc/apache2/apache2.conf
