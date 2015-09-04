@@ -256,11 +256,6 @@ Search for DocumentRoot, and add the following lines under it:
 &lt;/Directory&gt;</pre></div>
 
 
-******Not seeing Network under Tools in WP*****
-
-******IF THOSE DON'T WORK - TRY MODIFYING THIS FILE INSTEAD*****
- sudo nano /etc/apache2/apache2.conf
-
  <li>Save and close.</li>
 
  <li>Restart Apache.
@@ -321,39 +316,84 @@ define('PATH_CURRENT_SITE', '/');
 define('SITE_ID_CURRENT_SITE', 1);
 define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
              </li>
-  </ol>
+ <li>Once you've pasted the code, save and close the file.</li>
+      </ol>
 
-   <h3>Modify your .htaccess file</h3>
- DO I NEED THIS??
-************
- Open file as
-sudo vim /etc/apache2/apache2.conf
-
-Second Step
-remove comment sign (#) if you find it before this line ( line number 187 approx.)
-AccessFileName .htaccess
-
-Third Step
-Then find the line where there is 
-<Directory /var/www/>
-         Options Indexes FollowSymLinks
-         AllowOverrideNone
-         Require all granted
-</Directory>
-
-replace "None" with "All"
-AllowOverride All      
-*************
+      <h3>Modify your .htaccess file</h3>
  <ol>
 <li>Back in the WordPress Network Setup screen, copy the <code>.htaccess</code> code in the second section. </li>  
 <li>In your terminal, pull up your <code>.htaccess</code> file</li>
 <div class="hacker">sudo vim /var/www/html/.htaccess</div></li>
 
-<li>Replace all the existing code (delete it manually) with the entire block of <code>.htaccess</code> code from WordPress.</li> 
+<li>Replace all the existing code (delete it manually) with the entire block of <code>.htaccess</code> code from WordPress.<br/>
+
+The code will look something like this.
+
+ <div class="hacker"><pre>RewriteEngine On
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+
+# add a trailing slash to /wp-admin
+RewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L]
+RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
+RewriteRule . index.php [L] </pre></div>
+</li> 
 
 <li>Save and close the file.</li>
 </ol>  
 
+   <h3>Enable use of .htaccess</h3>
+   
+<p><code>AllowOverride All</code> allows all options in your .htaccess file. We're going to make sure this is set to All, otherwise the 000-default.conf assumes you have only one site on your server.</p>
+
+<ol> 
+ <li>Open your <code>apache2.conf</code> file:
+ <div class="hacker">sudo vim /etc/apache2/apache2.conf</div></li>
+
+<li>Look for this line and make sure it's uncommented. 
+ <div class="hacker">AccessFileName .htaccess</div>
+</li>
+
+<li>Find the <code>Directory /var/www/</code> section. It will look like this. 
+ <div class="hacker"><pre><Directory /var/www/>
+Options Indexes FollowSymLinks
+         AllowOverride  None
+         Require all granted
+</Directory></pre></div>
+
+In the <code>AllowOverride</code> line, change "None" to "All."
+ <div class="hacker">AllowOverride <em><u>All</u></em></div>  
+  </li>
+
+<li>Save and close the file.</li>
+</ol>
+
+<h2>Make Apache load index.php pages</h2>
+
+<p>If your WordPress install is on a fresh LAMP server, it's likely you're still seeing your Apache test page whether your WordPress page. To fix this, edit your DirectoryIndex so that Apache will load index.php, instead of index.html, by default. </p>
+
+<ol>
+<li>Back at your terminal, go to your <code>/mods-enabled/</code> directory.
+ <div class="hacker">cd /etc/apache2/mods-enabled/</div></li>
+  
+ <div class="hacker">sudo vim dir.conf</div> 
+ 
+ <li>Find the <code>DirectoryIndex</code> line; it'll have a line of index files. Add <code>index.php</code> as the first item in that list, right after DirectoryIndex. This way, Apache will look for and load and index.php files before other extensions.</li>
+ 
+  <li>Save and close.</li> 
+ 
+ <li>Restart Apache.
+ <div class="hacker">sudo service apache2 restart</div></li> 
+ </ol>
+ 
+ Now you should see your WordPress serve up content.
+ 
 <h2>Create additional sites or subdomains</h2>
 
 <ol>       
