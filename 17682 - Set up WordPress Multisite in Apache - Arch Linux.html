@@ -307,7 +307,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 <!--CT...<p class="note">If at any point during web installation you get an error such as a 404 or 504 page, reload the wp-admin page (<code>http://coolexample.com/wp-admin/</code>).</p>
 -->  
 
-    <h2>Enable multisite</h2>
+<h3>Update your wp-config file</h3>
    
    <ol>
    
@@ -341,7 +341,10 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
    <li>Find the section torwards the end of the file we were modifying, and paste the code you copied right before <code>/* That's all, stop editing! Happy blogging. */</code>.</li>
     
   <li>Save and close the file.</li>
-
+    </ol>
+  
+  <h3>Modify your .htaccess file</h3>
+  <ol>
 <li>Back in the WordPress Network Setup screen, copy the <code>.htaccess</code> code in the second section. </li>  
 <li>In your terminal, pull up your <code>.htaccess</code> file</li>
 <div class="hacker">sudo vim /srv/http/.htaccess</div></li>
