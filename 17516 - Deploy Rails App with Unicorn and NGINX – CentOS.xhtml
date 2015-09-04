@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 
 <head>
-    <title>17716</title>
+    <title>Deploy Rails App with Unicorn and NGINX – CentOS</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <style type="text/css">
@@ -49,22 +49,23 @@
     <h1>Deploy Rails App with Unicorn and NGINX – CentOS</h1>
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
-    <p>In this article, we will be configuring a multi-layer deployment installation to host Rails based Ruby web applications. To do this, we will use the powerful, flexible, and extremely successful Unicorn application server running behind Nginx. </p>
-	 <p class='note'>Assuming that we are logged in as a sudo user.</p>
+    <p>In this article, we will be configuring a multi-layer deployment installation to host Rails based Ruby web applications. To do this, we will use the powerful, flexible, and extremely successful Unicorn application server running behind NGINX. </p>
+	 <p class='note'>Assuming that we are logged in as a <code>sudo</code> user.</p>
 	  <h2>Prerequisites</h2>
   In this article, we assume that you have already installed Ruby on Rails with rbenv and your Rails application uses PostgreSQL. If not, please visit:
     <ul>
-	<li><a href="#">17521 - Install Ruby on Rails with rbenv – CentOS</a>
+	<li><a href="17521">Install Ruby on Rails with rbenv on CentOS</a>
 	 </li>
-	<li><a href="#">17526 - Use PostgreSQL with your Ruby on Rails application – CentOS</a>
-  <!-- Missing the Install the Git procedure requested in the notes. -->
+	<li><a href="17526">Use PostgreSQL with your Ruby on Rails application on CentOS</a>
+  <!-- Missing the Install the Git procedure requested in the notes. --> <!-- fixed -->
 	 </li>
 	 </ul>
    <h2>Prepare the Deployment Server</h2>
      <ol>
         
-		<li>Install bundle of development tool by using the following command
+		<li>Install bundle of development tool  and <code>GIT</code> by using the following command
 			<div class='hacker'>sudo yum groupinstall -y 'development tools'</div>
+			<div class ="hacker">sudo yum install git</div>
 		</li>
 		<li>Install <code>EPEL</code> repository and update the operating system
 			<div class='hacker'>sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-	release-7-5.noarch.rpm</div>
@@ -89,9 +90,9 @@
             <div class='hacker'>cd /var/www/</div>	
       </li>
         <li>Create a Rail Application in this directory and  move to the application directory
-          <div class='hacker'>rails new <em><u>HelloWorld</u></em>
+          <div class='hacker'>rails new <em><u>Your_application</u></em>
 		 </div>
-		<div class='hacker'>cd <em><u>HelloWorld</u></em>/</div>
+		<div class='hacker'>cd <em><u>Your_application</u></em>/</div>
         </li>
 		
 		<li>Create a sample databases and generate a scaffold controller to manage the production database.
@@ -115,14 +116,14 @@
       </li>
 		
 		<li>Upload source code using following article:
-            <p><a href="#">17414 - Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTRO</a></p>
+            <p><a href="17414 ">Use SFTP to Securely Transfer Files with a Remote Server on ALL DISTRO</a></p>
         </li>
 		
 </ol>
 		
-		<h2>Step 3: Configure Server</h2>
+		<h2>Configure Server</h2>
        <ol> <li>To configure Unicorn, move to the Rail Application directory
-            <div class='hacker'>Cd /var/www/<em><u>HelloWorld</u></em></div>
+            <div class='hacker'>Cd /var/www/<em><u>Your_application</u></em></div>
         </li>
         <li>Create a blank unicorn.rb. 
             <div class='hacker'>sudo vim config/unicorn.rb</div>
@@ -131,17 +132,17 @@
             <div class='hacker'><pre>
 # Set the working application directory
 # working_directory "/path/to/your/app"
-working_directory "/var/www/<em><u>HelloWorld</u></em>"
+working_directory "/var/www/<em><u>Your_application</u></em>"
 
 # Unicorn PID file location
 # pid "/path/to/pids/unicorn.pid"
-pid "/var/www/HelloWorld /pids/unicorn.pid"
+pid "/var/www/<em><u>Your_application</u></em>/pids/unicorn.pid"
 
 # Path to logs
 # stderr_path "/path/to/log/unicorn.log"
 # stdout_path "/path/to/log/unicorn.log"
-stderr_path "/var/www/HelloWorld/log/unicorn.log"
-stdout_path "/var/www/HelloWorld/log/unicorn.log"
+stderr_path "/var/www/<em><u>Your_application</u></em>/log/unicorn.log"
+stdout_path "/var/www/<em><u>Your_application</u></em>/log/unicorn.log"
 	
 # Unicorn socket
 listen "/tmp/unicorn.[app name].sock"
@@ -167,7 +168,7 @@ timeout 30
             <div class='hacker'><pre>
 upstream app {
 # Path to Unicorn SOCK file, as defined previously
-   	 server unix:/tmp/unicorn.HelloWorld.sock fail_timeout=0;
+   	 server unix:/tmp/unicorn.<em><u>Your_application</u></em>.sock fail_timeout=0;
 	}
 
 	server {
@@ -213,7 +214,7 @@ upstream app {
           
         </li></ol>
 		<h2>Conclusion</h2>
-		By using all the above steps we will be able to deploy the Rails application with Unicorn and Nginx on Centos. 
+		By using all the above steps we will be able to deploy the Rails application with Unicorn and NGINX on CentOS. 
 </body>
 
 </html>
