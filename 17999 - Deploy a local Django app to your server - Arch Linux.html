@@ -75,111 +75,118 @@ p.note {
 </head>
 
 <body>
-        <p>Describes how to install Apache, MySQL, PHP (LAMP) stack on Ubuntu and Debian Linux.</p>
+        <p>Describes how to setup a local Django app on Arch Linux</p>
     <h1>Build a LAMP stack for Python -  Ubuntu, Debian Linux</h1>
 
-        <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
-        <strong>Time</strong>: <em><u>4.00</u></em></p>
+                <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
+                <strong>Time</strong>: <em><u>1.50</u></em></p>
 
-        <p>The LAMP stack is a group of open source software used to get web servers up and running. The acronym stands for Linux, Apache, MySQL, and PHP. Ubuntu and Debian Linux uses the <code>apt-get</code> installer, which can update the system and install all of the required packages for each part of the LAMP stack. The steps in this article require the user to have root privileges.</p>
+        <p>Django is a Python web framework that allows for rapid development of primarily database-driven web applications. Virtual Environments, or <em><u>virtualenv</u></em>, is a Python package that allows development within isolated Python environments. Installing or updating Python packages within one environment will have no impact on other environments. </p>
 
-    <h2>Step One - Install Apache</h2>
+<h2>Install Virtualenv and Install Virtualenvwrapper</h2>
+
+                <p class="note"><u><em>VirtualEnv</em></u> is a Python tool used to create isolated environments for Python in which you can install packages without interfering with the other virtualenvs nor with the system Python's packages.</p>
+
+        <p>Install <u><em>VirtualEnv</em></u> and <u><em>virtualenvwrapper</em></u> with the command below:</p>
+
+                <div class="hacker">sudo  pacman -S python2 python2-pip python2-virtualenv python-virtualenvwrapper</div>
+
+        <p>VirtualEnvWrapper requires some initial setup</p>
+                <div class="hacker">export WORKON_HOME=$HOME/.virtualenvs  <br/>
+                                    source /usr/bin/virtualenvwrapper.sh  </div>
 
 
-        <p>Before installing any of the LAMP programs, we should update the package manager:</p>
-            <div class="hacker">sudo apt-get update</div>
+<h2>Configure Virtual Environment</h2>
 
-        <p>Once the update is complete, we can install Apache:</p>
-             <div class="hacker">sudo apt-get install apache2</div>
+    <ol>    <li> Create the <em><u>virtualenv</u></em>
+                <div class="hacker">mkvirtualenv -p /usr/bin/python2.7 myenv</div>   </li>
+
+            <li>Activate the <em><u>virtualenv</u></em>
+                <div class="hacker">workon myenv</div>  </li>
+
+
+            <li>Install some package inside the <em><u>virtualenv</u></em>
+                      <div class="hacker">pip install django pyproj</div>  </li>
+
+    </ol>
+
+
+<h2> Install PostgreSQL, GDAL, GEOS, PostGIS</h2>
+
+    <ol>
+            <li>Install PostgreSQL, PostGIS
+                <div class="hacker">sudo pacman -Sy postgresql postgresql-libs postgis</div>
+
+                 <p class="note">Please select the any default values that the install may ask for</p></li>
+
+            <li>Before you install Django, be sure to activate the new virtual environment if not already activated
+                <div class="hacker">workon myapp</div></li>
+
+            <li>Now Django can be installed
+                <div class="hacker">pip install django</div></li>
+
+
+
+    </ol>
+
+
+        <p>You are ready to create a Django project.</p>
+
+ <h2>Create Django Project</h2>
+
+       <ol>
+                <li>Use the command below to create a django project:
+                         <div class="hacker">django-admin.py startproject myproject</div></li>
+
+
+
+                <li>This will create a <code>./myproject </code>directory containing several projects directories and files. Navigate into the project directory.
+                        <div class="hacker">cd myproject</div>
+
+
+                    <p class="note">The <code>./myproject/settings.py</code> file can be modified and a preferred database backend configured. Other settings can be modified as necessary.
+                                    If no database backend is specified, then Django will use the default sqlite3 backend.
+                                    You can populate with database with some default Django tables. </p> </li>
+       </ol>
+
+
+
+
+                <p>You can populate with database with some default Django tables.</p>
+                        <div class="hacker">python manage.py migrate</div>
+
+                <p>The project can now be verified by launching the Django web service.</p>
+                        <div class="hacker">python manage.py runserver</div>
+
+                <p>The service should now be accessible at<u><strong>http://localhost:8000/</strong></u>. Open another terminal while the "runserver" command is running and type this curl command:</p>
+                        <div class="hacker">curl http://localhost:8000/</div>
+
+
+                         <p class="note"><b>Note</b>: The built-in Django web server is <b>NOT</b> meant to be used in a production environment.
+                         It is a tool for development only. Once the application is ready to be deployed into production, consider using a web server such as <em><u>Apache</u> or <u>Nginx</u> with <u>uWSGI</u></em>.</p>
+
+
+<h2>Step Five - Configure Django App</h2>
+
+               <p> Once the project is created and operation, it is time to create an application. An application can be created in the same directory as <code>manage.py</code>. </p>
+                    <div class="hacker">python manage.py startapp myapp</div>
+
+
+                <p>This will create a <strong><u>./myapp</u></strong> directory with base files ready for your code.</p>
+
+<h2>Next steps</h2>
+
+               <p>Congratulations! You've now got your app deployed and are ready to build dynamic webpages.</p>
+
+
 
 
        <p>Please make sure Apache is installed, bring up a Internet browser to your server's IP address (i.e. http://12.34.56.789). You should get the screen shot below if everything went good.</p>
 
    <!--  Image File needs to be added  -->
 
-    <p>Image (PNG only). See editorial guidelines for more information. </p>
+    <p>Image (PNG only). See editorial guidelines for more information.</p>
 
-
-<h2>Install MySQL</h2>
-
-    <ol>
-        <li>Run the <code>apt-get</code> update to ensure your server is up-to-date on all of its apt packages.
-            <div class="hacker">sudo apt-get update</div></li>
-
-        <li>Install MySQL.
-            <div class="hacker">sudo apt-get install mysql-server php5-mysql</div></li>
-
-        <li>Activate MySQL.
-            <div class="hacker">sudo mysql_install_db</div>
-        MySQL will ask you for a db admin password. Skip this step for now.</li>
-
-        <li>Secure your database server.
-          <div class="hacker">sudo /usr/bin/mysql_secure_installation</div> </li> </ol>
-
-     The prompt will request the answer to a number of questions.<br />
-     The following table contains the remainder of the questions you will be asked, the recommended response and some remarks regarding the consequences of not following the recommendation. <br />   <br />
-
-
-<table>
-    <tr>
-        <th >Question</th>
-        <th>Suggested Answer</th>
-        <th>Why / Why not?</th>
-    </tr>
-
-    <tr>
-        <td >Enter current password for root:</td>
-        <td>Press <strong>Enter</strong> for none.</td>
-        <td>Do not enter a password. If you do so, MySQL will not have sufficient access to system resources to function as a database server.</td>
-    </tr>
-
-    <tr>
-        <td>Do you want to change the root password?</td>
-        <td><center>y</center></td>
-        <td>A password is needed to secure MySQL. Enter a strong password and write it down.</td>
-    </tr>
-
-    <tr>
-        <td>Remove anonymous users?</td>
-        <td><center>y</center></td>
-        <td>The anonymous user allows anyone to login without requiring an account created by an admin. A hacker attempting to compromise your database server may try logging in as this user. </td>
-    </tr>
-
-    <tr>
-        <td> Disallow root login remotely?</td>
-        <td><center>y</center></td>
-        <td>It is more secure to create a non-root user with admin permissions. Answer "no," if you need more flexibility to manage your db server.</td>
-
-    </tr>
-
-    <tr>
-        <td >Remove test database and access to it?</td>
-        <td><center>y</center></td>
-        <td>If you have a reason to keep a test database, answer "no." </td>
-    </tr>
-
-    <tr>
-        <td >Reload privilege tables now?</td>
-        <td><center>y</center></td>
-        <td>Why wait?</td>
-    </tr>
-</table>
-
-<h2>Step Three - Install PHP</h2>
-
-        <p>PHP is an open source web scripting language that is widely used to build dynamic webpages.</p>
-
-        <p>To install PHP, in the same terminal type in these commands:</p>
-             <div class="hacker">sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt</div>
-
-
-        <p>PHP should also be added to the apache configuration file:  </p>
-            <div class="hacker">sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt</div>
-
-       <p>Paste in this text block within the config.</p>
-
-    <h2>Next steps</h2>
-        <p>Congratulations! You now have a LAMP stack on your Ubuntu Linux server, you can now set up phpMyAdmin, Install WordPress, go on to do more with MySQL (A Basic MySQL Tutorial), Create an SSL Certificate, or Install an FTP Server. </p>
 
 </body>
 </html>
