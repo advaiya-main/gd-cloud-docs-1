@@ -86,9 +86,8 @@ p.note {
 <p><strong>Difficulty: </strong><em> 4</em></p>
 <p><strong>Time: </strong> <em>1 hour</em></p>
 
-<p>In this article, we will be creating a database layer using MySQL to host the application servers running Ruby on Rails. This articles will assist you in setting up a dedicated MySQL server and scaling Ruby on Rails applications between the servers in CentOS or Fedora Linux distributions.</p>
+<p>In this article, you will learn to create a database layer using MySQL to host the application servers running Ruby on Rails. This article will assist you in setting up a dedicated MySQL server and scaling Ruby on Rails applications between the servers in CentOS or Fedora Linux distributions.</p>
 <h2>Prerequisites</h2>
-If you have not installed Ruby with RVM  on CentOS and not configured rails application for MySQL, please visit :
 <ul>
 <li>
 <a href ="17536">Install Ruby on Rails using RVM on CentOS</a>
@@ -97,7 +96,7 @@ If you have not installed Ruby with RVM  on CentOS and not configured rails appl
 <a href = "18239">Configure your Rails application for MySQL on CentOS, Fedora</a>
 </li>
 </ul>
-<p class="note">We assume that you are logged in as a <code>sudo</code> user. </a></p>
+<p class="note">It is assumed that you are logged in as a <code>sudo</code> user. </a></p>
 
 <h2>Select the database</h2> <!--Do not include the word "Step" and number in a Heading.  I made this a H2.  Titles are sentence case with imperative mood.  Please duplicate this formating with the other headings.--><!-- fixed -->
 <p>Based on the needs and application type, choose your database server to build a database layer for your application development. Following are some popular databases:</p>
@@ -108,15 +107,22 @@ If you have not installed Ruby with RVM  on CentOS and not configured rails appl
 <li>Postgre SQL</li>
 </ul>
 
-
+<h3>Non-Relational database servers</h3>
 <ul><!--Make this into a list into a H2 with bullets for the list.  Make it easily scannable for readers.  I did the one above.--><!-- fixed -->
-<li>For Non-relational database servers: Use Column-based Cassandra and HBase, Document-based MongoDB and Couchbase and Graph-based OrientDB, Neo4J and related databases</li>
+<li>Column-based Cassandra and HBase</li>
+<li>Document-based MongoDB</li>
+<li>Couchbase and Graph-based OrientDB</li>
+<li>Neo4J and related databases</li></ul>
 
-<li>Understand the Database Server Layer
+<h3>Understand the Database Server Layer</h3>
 <!--This section could also be a list.--><!-- fixed -->
-<p>To make our database server centrally accessible, we need a load-balancer, two application servers and one database server to set-up the database server layer. This is how the architecture will look like:</p>
+<p>To make the database server centrally accessible, you will need:</p> 
+<ul><li>Load-balancer</li>
+<li>Two application servers</li>
+<li>And, one database server to set-up the database server layer</li></ul>
+<p>This is how the architecture will look like:</p>
 
-<img src="images/17981.png" alt="17981" /> <!--Send images to Gary or Thomas and update the link to the image. --><!-- not fixed -->
+<img src="images/17981.png" alt="17981" /> <!--Send images to Gary or Thomas and update the link to the image. --><!-- not fixed as the link is working fine and images are located in the images folder in GitHub -->
 
 </li></ul>
      
