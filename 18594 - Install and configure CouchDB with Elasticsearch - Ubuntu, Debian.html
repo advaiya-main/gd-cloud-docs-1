@@ -164,7 +164,7 @@ p.note {
 			   </li>
 			    <li>Test that CouchDB is running.
 			   <div class="hacker">curl http://127.0.0.1:5984</div>
-			   A successful run of CouchDB will display the following output.
+			   A successful run of CouchDB will display the following output:
 			   <div class="hacker">{"couchdb":"Welcome","uuid":"daddfc5d37e7ae41e32ea75062eb98c1","version":"1.5.0","vendor":{"version":"1.5.0","name":"The Apache Software Foundation"}}</div>
 			   </li>
                </ol>
@@ -189,13 +189,13 @@ p.note {
                <li>Open the configuration file <code>elasticsearch.yml</code> to make updates and enable access from the internet.
 			   <div class="hacker">sudo vim /etc/elasticsearch/elasticsearch.yml</div>
 			   </li>
-        <li>Locate the following lines, and enter the IP address of the server.
+        <li>Locate the following lines, and enter the IP address of the server:
 			   <div class="hacker">network.bind_host: <em><u>YOUR_VALID_IP_HERE</u></em></div>
 			   </li>
          <li>Insert following line anywhere in the file:
 			   <div class="hacker">script.disable_dynamic: true</div>
 			   </li>
-               <li>Save this file and exit, by pressing <strong>Esc</strong> key, and then typing  <code>:wq</code>.
+               <li>Save this file and exit, by pressing <strong>Esc</strong> key, and then typing  <strong>:wq</strong>.
 			   </li>
 			    <li>Restart the Elasticsearch service for the changes to take effect.
 			   <div class="hacker">sudo service elasticsearch restart</div>
@@ -309,7 +309,7 @@ p.note {
                </ol>
 			             
     <h2>Conclusion</h2>
-    <p>In this article, you installed and configured CouchDB with Elasticsearch. With the combination of CouchDB, Elasticsearch and perform full text queries on data. This reduces the dependency on map-reduce. Also, when using Elasticsearch with CouchDB, the user need not know the document ID, which further enhances the efficiency.</p>
+    <p>In this article, you installed and configured CouchDB with Elasticsearch. With the combination of CouchDB, Elasticsearch can perform full text queries on data. This reduces the dependency on map-reduce. Also, when using Elasticsearch with CouchDB, the user need not know the document ID, which further enhances the efficiency.</p>
    
 </body>
 </html>
