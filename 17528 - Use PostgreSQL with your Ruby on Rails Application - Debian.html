@@ -94,7 +94,7 @@ p.note {
 	</ol>	
 	<h2>Create database user</h2>
 	<ol>
-		<li>Login with the <code>postgres</code> system user and then create a new user.
+		<li>Login with the <code>postgres</code> system user and create a new user.
 			<div class="hacker">sudo -u postgres createuser -s <em><u>User_Name</u></em></div>
 		</li>
 		<li>Set a password for the database user.
@@ -119,11 +119,11 @@ p.note {
 			<div class = "hacker">rails new <em><u>Your_application</u></em> -d postgresql
 			</div>
 		</li>
-		<li>Change directory to the application directory.
+		<li>Change the directory to the application directory.
 			<div class = "hacker">cd <em><u>Your_application</u></em>
 			</div>
 		</li>
-		<li>Open the following file.
+		<li>Open the following file:
 			<div class = "hacker">sudo vim config/database.yml
 			</div>
 		</li>
@@ -145,7 +145,7 @@ password: <em><u>User_Password</u></em>
 			<div class="hacker">rake db:create
 			</div>
 		</li>
-		<li>If you get an error, then install the following package.
+		<li>If you get an error, then install the following package:
 			<div class="hacker">sudo apt-get install libpq-dev
 			</div>
 			<div class="hacker">bundle install
