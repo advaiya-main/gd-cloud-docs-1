@@ -86,9 +86,9 @@
     <h1>Configure your Rails application for MySQL - Arch Linux</h1>
     <p><strong>Difficulty</strong>: <em>1</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
-    <p>This article will explain how to install MySQL&trade; and MySQL adaptor, create a Rails&reg; Application, configure a database connection, and finally, how to create an application database on Arch Linux&trade;. </p>
+    <p>This article will explain how to install MySQL&trade; and MySQL adaptor, create a Rails&reg; application, configure a database connection, and finally, how to create an application database on Arch Linux&trade;. </p>
 	 <!--Need full path or at least the filename or ID#--> <!-- removed line-->
-	 <p>Arch Linux uses MariaDB as its database system instead of MySQL and MariaDB is based on MYSQL. So here, the term MariaDB will be used in place of MySQL at some instances.</p>
+	 <p>Arch Linux uses MariaDB as its database system instead of MySQL. MariaDB is based on MYSQL, and here the term MariaDB will be used in place of MySQL at some instances.</p>
 	 <h2>Prerequisite</h2>
 	 <ul><li><a href="17537">17537 - Install Ruby on Rails using RVM - Arch Linux</a></li></ul>
    <h2>Install MySQL</h2> <!--Do not use the word "Step" or number headings. Procedure headings should be include a verb and be imperative.--><!--Fixed-->
@@ -100,7 +100,7 @@
 		<li>Initialize MySQL database directories.
 			<div class='hacker'>sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql</div>
 		</li>
-		<li>Start the MySQL using the following command:
+		<li>Start MySQL using the following command:
 			<div class='hacker'>sudo systemctl start mysqld</div>
 		</li>
 		
@@ -113,7 +113,7 @@
 		<li>Run the MySQL installation process, by typing:
 			<div class='hacker'>sudo mysql_secure_installation</div>
 		</li>
-		<li>After you have finished the above command, a welcome screen displays the following:
+		<li>After you have finished the above command, welcome screen displays the following:
 		<div class='hacker'>
 		<pre>NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
       SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
@@ -126,7 +126,7 @@
 	</pre>
 	</div></li>
 	                              
-	<li>Answer the following questions which are prompted by MySQL installer with <strong>y</strong>:<!--Be specific.--><!--Fixed-->
+	<li>Answer the following questions prompted by MySQL installer by typing <strong>Y</strong>:<!--Be specific.--><!--Fixed-->
 	<div class='hacker'>
 	<pre>
 	  Set root password?                     --> y
@@ -151,16 +151,16 @@
 <br />		bind-address   =  0.0.0.0
 		</div>
 		</li>
-		<li>Restart the MySQL Sever to effect the change.<!--"Set up" is the verb and "setup" the noun. -->
+		<li>Restart MySQL Sever to reflect the change.<!--"Set up" is the verb and "setup" the noun. -->
 			<div class='hacker'>sudo systemctl start mysqld</div>
 		</li>
 	</ol>
    <h2>Set up a Rails application</h2>
     <ol>
-        <li>Make sure that Rails is installed on machine otherwise install, to verify use the following command:: 
+        <li>Make sure that Rails is installed on the machine otherwise install it. To verify use the following command: 
             <div class="hacker">rails -v<br/>#Rails 4.2.4</div>
 		</li>
-        <li>Create a Rails application, and the use the <code>-d mysql</code> option to set MySQL/MariaDB as the database.
+        <li>Create a Rails application, and use the <code>-d mysql</code> option to set MySQL as the database.
             <div class="hacker">rails new your-application -d mysql </div>
       </li>
         <li>Change the directory to the application directory.
@@ -174,7 +174,7 @@
        <ol> <li>Open your application database configuration file. 
             <div class='hacker'>vi config/database.yml</div>
         </li>
-        <li>Set the database credentials to connect with MySQL. The following is an example for database connection.
+        <li>Set the database credentials to connect with MySQL. The following is an example of database connection.
 <div class="hacker">
 <pre>
 default: &default
@@ -207,8 +207,8 @@ default: &default
             <div class='hacker'>exit</div>
         </li>
 </ol>
-		<h2>Next Step</h2>
-		By using all the above steps, you’ll be able to configure MySQL Server on Arch Linux for your Rails application.
+		<h2>Conclusion</h2>
+		By using all of the above steps, you will be able to configure MySQL server on Arch Linux for your Rails application.
 </body>
 
 </html>
