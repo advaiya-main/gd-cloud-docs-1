@@ -213,6 +213,8 @@ sudo chown -R [USER NAME]:[USER NAME] /var/www
  <li>Open the config file in your text editor.
 <div class="hacker">sudo vim wp-config.php</div>  </li>
 
+  <li> Look for this section of the code below (starting with <code>MySQL settings</code>…) and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
+Use the credentials that you just created. </li>
  <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
 /** The name of the database for WordPress */ <br />
 define('DB_NAME', 'wordpress'); <br />
@@ -223,11 +225,6 @@ define('DB_USER', 'wordpressadmin');     <br />
 /** MySQL database password */ <br />
 define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
 <li>Save and close.</li> 
-
-  <li> Look for this section of the code below (starting with <code>MySQL settings</code>…) and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
-Use the credentials that you just created. </li>
-                                     
-</ol>    
  
  
  <li>Farther down in the file, find the line  <code>/* That's all, stop editing! Happy blogging. */</code> and add  these lines:
@@ -298,6 +295,32 @@ Choose a user name and password. Use the password supplied if you like; just be 
 <li>Your next screen will prompt you to log in again. Do so now with your newly-created username and password.</li>    
       </ol>
 
+      <h2>Enable multisite</h2>
+   
+   <ol>
+   
+  <li>You'll now be in your WordPress admin dashboard. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.<br />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
+  </li>
+  
+  <li>Because we're working with sub-domains, choose <strong>sub-domains</strong>
+  and change your Network Title if you like. Click <strong>Install</strong>.<br />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-screen5.png" alt="install wordpress multisite network" />  
+</li> 
+
+ <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.
+
+ <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-screen6" alt="install wordpress multisite network setup" /><br/>
+ 
+ The code resembles this:
+ <div class="hacker"><pre>define('MULTISITE', true);
+define('SUBDOMAIN_INSTALL', true);
+define('DOMAIN_CURRENT_SITE', '<em><u>coolexample.com</u></em>');
+define('PATH_CURRENT_SITE', '/');
+define('SITE_ID_CURRENT_SITE', 1);
+define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
+             </li>
+ 
 
       
 
