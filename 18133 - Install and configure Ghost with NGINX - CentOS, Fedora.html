@@ -5,7 +5,6 @@
 <head>
 
 
-
 <title>Install and configure Ghost with NGINX - CentOS, Fedora</title>
 <style type='text/css'>
 div.hacker {
@@ -69,89 +68,88 @@ p.note {
 <body>
 
 <!--Please revise, using the edited version of 18132 as a guide. cj -->
-<p>Install and configure Ghost with NGINX - CentOS, Fedora, CMS, Ghost, NGINX</p>
-    <h1>Install and configure Ghost with NGINX - CentOS, Fedora</h1>
+<p>Install and configure Ghost with NGINX - CentOS, CMS, Fedora, Ghost, NGINX</p>
+    <h1>Install and configure Ghost with Nginx - CentOS, Fedora</h1>
     
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>1.0 hrs</em></p>
 
-    <p>Ghost is simple blogging platform, fast to setup and easy to use. Besides, it provides good customization options to the users. This article will assist you with the steps to set up a Ghost blogging platform with nginx on your CentOS or Fedora platform. </p>
-<p class="note">Note: It is assumed that you are logged in as a sudo user.</p> 
+    <p>Ghost is a simple blogging platform that is fast and easy to set up and provides good customization options. This article will help you to set up a Ghost blogging platform with Nginx on CentOS or Fedora platform. </p>
+	<p class="note">These procedures assume that you have <code>sudo</code> privileges.</p> 
 
-    <h2>Step 1: Prepare the machine</h2>
-    Login into the Fedora or CentOS machine and perform these steps using the commands described here. It is assumed that you have the sudo user privileges when performing the following tasks:
+    <h2>Prepare the machine</h2>
     <ol>
-	<li>Update your Fedora or CentOS server (for the interactive installations, you might need to respond regarding the confirmation for installation)
-	<div class='hacker'>yum -y update</div>
+	<li>Update your CentOS or Fedora server. (When prompted for confirmation during installation, enter <strong>Y</strong>.)
+	<div class='hacker'>sudo yum -y update</div>
 	 </li>
 	
-	<li>Install dependencies, including python and nodejs
-	<div class='hacker'>yum -y install git wget unzip man </div>
-	<div class='hacker'>yum install npm </div>
+	<li>Install dependencies, including <code>git</code> and <code>npm</code>.
+	<div class='hacker'>sudo yum -y install git wget unzip man </div>
+	<div class='hacker'>sudo yum install npm </div>
     </li>
 	</ol>
 	
-	<h2>Step 2: Install and Configure Ghost</h2>
+	<h2>Install and	configure Ghost</h2>
     <ol>
-	<li>Download the latest version of Ghost from the site Ghost.org
+	<li>Download the latest version of Ghost from <code>Ghost.org</code>.
 	<div class='hacker'>curl -L https://ghost.org/zip/ghost-latest.zip -o ghost.zip</div>
 	</li>
-	<li>Unzip the Ghost to some suitable folder location (Recommended location is  /var/www/ghost)
-	<div class='hacker'>mkdir –p /var/www</div>
-	<div class='hacker'>unzip -uo ghost.zip -d /var/www/ghost</div>
+	<li>Unzip the file to a suitable folder location such as <code>/var/www/ghost</code>.
+	<div class='hacker'>sudo mkdir -p /var/www</div>
+	<div class='hacker'>sudo unzip -uo ghost.zip -d /var/www/ghost</div>
     </li>
 	
-	<li>Install the Ghost in the new ghost directory
-	<div class='hacker'>cd /var/www/ghost &amp;&amp; npm install --production</div>
+	<li>Install Ghost in the new <code>ghost</code> directory.
+	<div class='hacker'>cd /var/www/ghost &amp;&amp; sudo npm install --production</div>
     </li>
-	<li>Start the Ghost (production environment) using the following command
-	<div class='hacker'>npm start --production</div>
+	<li>Start Ghost (production environment).
+	<div class='hacker'>sudo npm start --production</div>
 	The default port used by Ghost is 127.0.0.1:2368.
-	<p>When it starts, it should give a message “your blog is now available on <code> http://&lt;provided URL&gt;.</code> This value of URL can be updated in the config file <code>config.js.</code><br/>
-	To shut down the blog, and return to command prompt, press CTRL+C </p>
+	<p>When  starting, Ghost displays the message "Your blog is now available on <code><em><u>http://provided URL</u></em>".</code><br/></p>
+	<p>To shut down the blog and return to the command prompt, press <strong>Ctrl+C</strong>.</p>
     
-	<img src="images/18133-GhostServer.png" alt="18133-GhostServer.png"/> </li>
 	</ol>
 	
-<h2>Step 3: Install and Configure nginx</h2>
-Nginx, an open-source, high performance HTTP Server, is used to enable connections from the outside on port 80 to connect through to the port that Ghost is running on, so that people can see your blog.
+<h2>Install and configure Nginx</h2>
+Nginx is used to enable connections from outside on port 80 to connect to the port that Ghost is running on, so that people can see your blog.	
     <ol>
-	<li>Install nginx using the following command
-	<div class='hacker'>yum install nginx</div>
+	<li>Install Nginx.
+	<div class='hacker'>sudo yum install nginx</div>
 	</li>
-	<li>To configure nginx, you need to create the new blog.conf file
-	<div class='hacker'>vim /etc/nginx/conf.d/blog.conf</div>
+	<li>Create a new Ghost configuration file and open it for editing. 
+	<div class='hacker'>sudo vim /etc/nginx/conf.d/blog.conf</div>
     </li>
 	
-	<li>Put the following code into the file, modifying it to adapt to your own configuration (you need to change only the domain name)
+	<li>Put the following code into the file, modifying it to adapt to your own configuration (the only thing you should need to change is the domain name).
 	<div class='hacker'>
 	  <pre>
 server {
     listen 80;
-    server_name http://<span class="style2">192.169.164.127</span>;
-    access_log /var/log/nginx/<span class="style2">192.169.164.127</span>_access.log;
-    error_log /var/log/nginx/<span class="style2">192.169.164.127</span>_error.log;
+    server_name <em><u>http://Your IP Address or domain name;</u></em>
+    access_log <em><u>/var/log/nginx/Your domain name.log;</u></em>
+
     location / {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header HOST $http_host;
         proxy_set_header X-NginX-Proxy true;
-        proxy_pass http://127.0.0.1:2368;
+        proxy_pass <em><u>http://Your IP Address;</u></em>
         proxy_redirect off;
     }
 }
 		</pre>
 	</div>
 	</li>
+	<li>Save and exit the editor by the pressing the <strong>Esc</strong> key and entering <code>:wq</code>.</li>
 	
-	<li>Open the ghost config file /var/www/ghost/config.js for editing
-	<div class='hacker'>vi /var/www/ghost/config.js</div>
+	<li>Open the Ghost configuration file <code>/var/www/ghost/config.js</code> for editing.
+	<div class='hacker'>sudo vi /var/www/ghost/config.js</div>
     </li>
 	
-	<li>Put the following code into the Ghost file (content highlighted in red needs to be updated). The URL could be your domain name (http://your-domainname.com) or the public IP address of your droplet
+	<li>Put the following code into the Ghost configuration file. The URL can be your domain name (<em><u>http://your-domainname.com</u></em>) or the public IP address of your droplet.
 	<div class='hacker'>
 	<pre>
     production: {
-       url: <span class="style2">'http://192.169.164.127'</span>,
+        url: '<em><u>http://Your domain name or IP address</u></em>',
         mail: {},
         database: {
             client: 'sqlite3',
@@ -163,29 +161,31 @@ server {
 
         server: {
             // Host to be passed to node's `net.Server#listen()`
-            host: <span class="style2">'192.169.164.127'</span>,
+            host: '<em><u>Your IP Address</u></em>',
             // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
             port: '2368'
         }
     }
-</pre>
-	</div>
+</pre></div>
     </li>
+	<li>SSave and exit the editor by the <strong>Esc</strong> key and entering <strong>:wq</strong>.</li>
+	</ol>
 	
-	<li>Start the Ghost (production environment) using the following command
-	<div class='hacker'>cd /var/www/ghost </div>
-	<div class='hacker'>npm start --production</div>
-    </li>
-	
-	<li>Now the Ghost blog should be available on the web browser via the specified url. 
-In your browser, open the page (red highlighted text needs to be updated)<br/>
-<p><code>http://<span class="style2">192.169.164.127:2368/</span></code></p>
-<img src="images/18133-GhostOnBrowser.png" alt="18133-GhostOnBrowser.png"/>
+<h2>Start Ghost server</h2>
+	<ol>
+	<li>Move to the Ghost directory.
+	<div class='hacker'>cd /var/www/ghost</div>
+	</li>
+	<li>Start  Ghost (production environment).
+	<div class='hacker'>sudo npm start --production</div>
+	</li>
+	<li>In your browser, open the page <code><em><u>http://Your domain name or IP Address:2368/</u></em></code>. The Ghost blog should be available via specified URL. 
+	<br/>	
 	</li>
 	</ol>
 	      
-    <h2>Conclusion</h2>
-<p> The Ghost blogging platform, with its ease of deployment and use, can help individuals and organizations setup and extend their content management infrastructure. When used with nginx, and with availability of options for setting up and supporting multiple environments like production, development or testing, it can be easily adapted for any environment.
+<h2>Next steps</h2>
+<p>In this article, you installed and configured Ghost with Nginx on CentOS or Fedora platform. The Ghost blogging platform, with its ease of deployment and use, can help you set up and extend your content management infrastructure. For an optimized performance, you can <a href="18320">host mulitple Ghost blogs on a single server</a>
 </p>
 </body>
 </html>
