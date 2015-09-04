@@ -183,6 +183,61 @@ sudo chown -R [USER NAME]:[USER NAME] /var/www
 <div class="hacker">sudo service apache2 restart</div>
                                </li> </ol>
       
+<h2>Modify the WordPress configuration files</h2> 
+
+  <h3>Modify your wp-config file to enable multisites</h3>     
+   <ol>
+   
+   <li>Back in the terminal, navigate to your WordPress document root.
+     <div class="hacker">cd /var/www/html</div></li>
+
+ <li>Open your configuration file for editing.
+   <div class="hacker">sudo vim wp-config.php</div></li>
+ 
+ <li>Farther down in the file, find the line  <code>/* That's all, stop editing! Happy blogging. */</code> and add  these lines:
+   <div class="hacker">/* Multisite settings */<br/>
+define( 'WP_ALLOW_MULTISITE', true );</div></li>
+    
+    <li>Save and close the file.</li>
+                    </ol>
+  
+  <h3>Enable mod rewrite</h3>
+  
+  <p>Activate the apache Mod_Rewrite module.</p>
+
+  <div class="hacker">sudo a2enmod rewrite</div>         
+
+Your output message might look like this.
+  <div class="hacker"><pre>Enabling module rewrite.
+To activate the new configuration, you need to run:
+  service apache2 restart</pre></div>
+         
+   We will be restarting Apache after this step.
+   
+   Open your virtual host config file. We'll use the default Apache one.
+            sudo nano /etc/apache2/sites-enabled/000-default.conf
+            
+Search for DocumentRoot, and add the following lines under it: 
+<div class="hacker"><pre><Directory "/var/www/html">
+    AllowOverride All
+</Directory></pre></div>
+So it will look like:
+<div class="hacker"><pre>DocumentRoot /var/www/html
+        <Directory "/var/www/html">
+    AllowOverride All
+</Directory></pre></div>
+
+
+******IF THOSE DON'T WORK - TRY MODIFYING THIS FILE INSTEAD*****
+ sudo nano /etc/apache2/apache2.conf
+
+ <li>Save and close.</li>
+
+ <li>Restart Apache.
+<div class="hacker">sudo service apache2 restart</div>
+                               </li> </ol>
+
+
 <h2>Install WordPress</h2> 
 
       <p>Now you can access the WordPress web interface.</p>             
@@ -212,24 +267,7 @@ Choose a user name and password. Use the password supplied if you like; just be 
 
 
       
-<h2>Modify the WordPress configuration files</h2> 
 
-  <h3>Modify your wp-config file to enable multisites</h3>     
-   <ol>
-   
-   <li>Back in the terminal, navigate to your WordPress document root.
-     <div class="hacker">cd /var/www/html</div></li>
-
- <li>Open your configuration file for editing.
-   <div class="hacker">sudo vim wp-config.php</div></li>
- 
- <li>Farther down in the file, find the line  <code>/* That's all, stop editing! Happy blogging. */</code> and add  these lines:
-   <div class="hacker">/* Multisite settings */<br/>
-define( 'WP_ALLOW_MULTISITE', true );</div></li>
-    
-    <li>Save and close the file.</li>
-                    </ol>
-                    
 
 
 
