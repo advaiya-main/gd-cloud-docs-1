@@ -6,7 +6,7 @@
 
 <!--Article Number is 17650-->
 
-<title>Set up SSL Certificate with phpMyAdmin and Apache - Arch Linux</title>
+<title>Set up a SSL Certificate with phpMyAdmin and Apache - Arch Linux</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -76,35 +76,37 @@ p.note {
 
 <body>
 <p>This article describes the Apache configuration steps required to make your phpMyAdmin implementation use SSL</p>
-    <h1>Set up SSL Certificate with phpMyAdmin and Apache - Arch Linux</h1>
+    <h1>Set up a SSL Certificate with phpMyAdmin and Apache - Arch Linux</h1>
 
     <p>
         <strong>Difficulty</strong>: <em><u>2</u></em><br />
-        <strong>Time</strong>: <em><u>20</u></em>
+        <strong>Time</strong>: <em><u>20 minutes</u></em>
     </p>
-    <p>phpMyAdmin is an open source tool that enables users to perform MySQL database operations like create, delete, or modify MySQL databases or execute SQL statements, by providing a user interface. An essential way to help safeguard your data is to encrypt traffic between the web server client and your phpMyAdmin implementation.</p>
+    <p><em>phpMyAdmin</em> is an open source tool that enables users to perform MySQL database operations like create, delete, or modify MySQL databases or execute SQL statements, by providing a user interface. An essential way to help safeguard your data is to encrypt traffic between the web server client and your phpMyAdmin implementation.</p>
     
-    <p> This article describes how to use SSL certificate to allow phpMyAdmin traffic to be encrypted. </p>
+    <p>This article describes how to use a SSL certificate to encrypt phpMyAdmin traffic. </p>
+    
     <h2>Pre-requisites</h2>
     You need to have the following installed on your server:
     <ul>
-        <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux.html">LAMP</a> </li>
-        <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17650 - Install and secure phpMyAdmin with Apache - Arch Linux">Install and Secure phpMyAdmin on Fedora</a> </li>
-        <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17454 - Install an SSL Certificate on Apache – Arch Linux">Install an SSL Certificate</a></li>
+        <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux.html">LAMP for Arch Linux</a> </li>
+        <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17650 - Install and secure phpMyAdmin with Apache - Arch Linux">phpMyAdmin</a> </li>
+        <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17454 - Install an SSL Certificate on Apache – Arch Linux">SSL Certificate</a></li>
     </ul>
-    <h2>Forcing phpMyAdmin to your SSL server</h2>
-    <p>Once you have all the prerequisites in place, the only thing to do is to force phpMyAdmin to use SSL instead of http.</p>
+    <h2>Force phpMyAdmin to your SSL server</h2>
+    <p>After you have all the prerequisites in place, the only thing left to do is to force phpMyAdmin to use <em>SSL</em> instead of <em>http</em>.</p>
     <ol>
         <li>
             Open the phpMyAdmin configuration file.
             <div class="hacker">sudo vim /etc/webapps/phpmyadmin/config.inc.php</div>
         </li>
         <li>
-            Add the following line towards the end of the file.
-            <div class="hacker">$cfg['ForceSSl'] = TRUE;</div>
+            Add the following line towards the end of the file:
+            <div class="hacker">$cfg['ForceSSl'] = TRUE;</div></li>
+        <li>   
             Save and exit the file.
         </li>
-        <li>When you go to your browser and navigate to <strong>http://<em><u>yourdomainname.com</u></em>/phpmyadmin</strong> , after you enter your user credentials, you will see in the address bar, that it uses <strong>https://</strong></li>
+        <li>When you go to your browser, navigate to <strong>http://<em><u>yourdomainname.com</u></em>/phpmyadmin</strong>, and then enter your user credentials, you will see in the address bar that it uses <strong>https://</strong>.</li>
 
     </ol>
 
