@@ -301,7 +301,7 @@ Choose a user name and password. Use the password supplied if you like; just be 
    <ol>
    
   <li>You'll now be in your WordPress admin dashboard. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17680/090315/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
   </li>
   
   <li>Because we're working with sub-domains, choose <strong>sub-domains</strong>
@@ -309,9 +309,9 @@ Choose a user name and password. Use the password supplied if you like; just be 
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-screen5.png" alt="install wordpress multisite network" />  
 </li> 
 
- <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.
-
- <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-screen6" alt="install wordpress multisite network setup" /><br/>
+ <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.<br/>
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17680/090315/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup screen wpconfig code" />
+<br/>
  
  The code resembles this:
  <div class="hacker"><pre>define('MULTISITE', true);
@@ -321,7 +321,7 @@ define('PATH_CURRENT_SITE', '/');
 define('SITE_ID_CURRENT_SITE', 1);
 define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
              </li>
- 
+  </ol>
 
    <h3>Modify your .htaccess file</h3>
  DO I NEED THIS??
@@ -359,16 +359,19 @@ AllowOverride All
 <ol>       
 <li>Back in your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page. Then, log back in if your password isn't saved.<br /></li>
 
-<li>To the left of that on the top navigation bar is <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
+<li>Go to <strong>My Sites</strong> in your top navigation bar. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. </li>
 
-At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar, if it wasn't there earlier.<br/></li>
+<li>At the top menu bar, "Network Admin" should now appear before your site name, if it wasn't there earlier.<br/> 
+So the option will look like <strong>Network Admin:</strong> <code><em><u>your domain name</u></em></code>.<br/></li>
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
 
-<li>On the main screen, next to Sites, click <strong>Add New</strong>.</li>
+<li>On the main screen, next to <strong>Sites</strong>, click <strong>Add New</strong>.</li>
 
-<li>Fill out your first subdomain information. At the <code>Admin Email</code>, when you start typing, your email address appears. <br />
+<li>Fill out your first subdomain information.<br/> 
+At the <strong>Site Address</strong> field, fill in the prefix of your subdomain. For example, for <em><u>product.coolexample.com</u></em>, you'll simply put <em><u>product</u></em>.<br/>
+At the <code>Admin Email</code>, when you start typing, your email address appears. <br />
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-add-new-site-filledout-screen8" alt="install wordpress multisite network setup add new site filledout" /></li>
-<li>Click <strong>Add Site</strong> to finish. </li>
+<li>Click <strong>Add Site</strong> to finish. This might take a few minutes.</li>
 <li>Repeat for all your subdomains.</li>
  </ol>                              
 
