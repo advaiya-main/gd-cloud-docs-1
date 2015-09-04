@@ -55,7 +55,7 @@
 	<p><strong>Time: </strong> 45 Minutes</p>
 	<p>OSSEC is an open-source, host-based intrusion detection system. It performs log integrity checking, analysis, rootkit detection, Windows registry monitoring, active response and time based alerting. It can monitor one or more servers and can be configured to give real time alerts. This article explains installation of OSSEC security notifications on  Arch Linux.</p>
 	<p class="note">
-		You will need access to sudo privileges to complete all steps.
+		You need access to <code>sudo</code> privileges to complete all steps.
 	</p>
 	<h2>Prerequisites </h2>
 	<ul>
@@ -78,33 +78,37 @@
 			</div>
 		</li>
 	</ol>
-	<h2>Download OSSEC and Verify the package</h2>
-	You will need to download OSSEC tarball and a file with its cryptographic checksum to verify you are installing a valid software. We will generate MD5 and SHA1 checksum and compare with those in checksum file.
-	
-	<ol>
+	<h2>Download OSSEC and verify the package</h2>
+	<p>You  need to download the OSSEC tarball and a file with its cryptographic checksum to verify that you are installing valid software. We'll generate MD5 and SHA1 checksum and compare with those in the checksum file.</p>
+<ol>
 	
 		
 		<li>
-		Download OSSEC with following command.
+			Download OSSEC.
 			<div class="hacker">sudo wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1.tar.gz</div>
 			And for checksum file use following command.
 			<div class="hacker">sudo wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1-checksum.txt</div>
 		</li>
-		<li>
-			Verify the checksum with <code>cat</code> command.
+		<li>Download the checksum file.
 			<div class="hacker">cat ossec-hids-2.8.1-checksum.txt</div>
-			You will get:
+		</li>
+		<li>
+			Verify the checksum.
+			<div class="hacker">cat ossec-hids-2.8.1-checksum.txt</div>
+			The following displays:
 			<div class="hacker">
-				MD5(ossec-hids-2.8.1.tar.gz)= c2ffd25180f760e366ab16eeb82ae382<br/>
-				SHA1(ossec-hids-2.8.1.tar.gz)= 0ecf1df09558dc8bb4b6f65e1fb2ca7a7df9817c
+				<p>MD5(ossec-hids-2.8.1.tar.gz)= c2ffd25180f760e366ab16eeb82ae382</p>
+				<p>SHA1(ossec-hids-2.8.1.tar.gz)= 0ecf1df09558dc8bb4b6f65e1fb2ca7a7df9817c</p>
 			</div>
 		</li>
 		<li>
-			Generate the MD5sum of tarball.
+			Generate the MD5sum of tarball. <strong>md5sum</strong> is a computer program that calculates and verifies 128-bit MD5 hashes. The MD5 hash (or checksum) functions as a compact digital fingerprint of a file.
 			<div class="hacker">md5sum ossec-hids-2.8.1.tar.gz</div>
-			You will get:
+			<p>The following displays:</p>
 			<div class="hacker">c2ffd25180f760e366ab16eeb82ae382  ossec-hids-2.8.1.tar.gz</div>
-			This should match with the MD5 checksum in file. Same will go for SHA1 as shown
+			This should match with the MD5 checksum in file.
+		</li>
+		<li>Same will go for SHA1 as shown. <strong>SHA1</strong> produces a 160-bit output called a message digest. Message digest can be input to a signature algorithm which generates or verifies the signature for the message. US Secure Hash Algorithm 1 is used by SHA1.
 			<div class="hacker">sha1sum  ossec-hids-2.8.1.tar.gz</div>
 			It should give output as:
 			<div class="hacker">0ecf1df09558dc8bb4b6f65e1fb2ca7a7df9817c  ossec-hids-2.8.1.tar.gz</div>
@@ -112,129 +116,103 @@
 		</li>
 	</ol>
 	<h2>Install OSSEC</h2>
-	You can install OSSEC in many mode including server, agent, local or hybrid mode. In this example it will be installed in local mode.
+	<p>You can install OSSEC in many modes including server, agent, local, or hybrid mode. We'll install it in local mode. </p>
 	<ol>
-		<li>
-			Expand the file with:
+		<li>Expand the file.
 			<div class="hacker">sudo tar -zxf ossec-hids-2.8.1.tar.gz</div>
 			<p>If you get an error for tar command type <code>yum install tar</code> to install <code>tar</code>.</p>
-			Change the directory to the one we just expanded.
+		</li>
+			<li> Change the directory to the expanded one.
 			<div class="hacker">cd ossec-hids-2.8.1</div>
 			Initiate the installation with:
 			<div class="hacker">sudo ./install.sh</div>
 		</li>
-		<li>
-			It will prompt you to answer a few questions. First question will be to choose a language. You may choose your language as you want. To use default press <strong>Enter</strong>.
+		
+			<li>When prompted, choose a language or use the default by pressing <strong>Enter</strong>.
 			
-			<p>You will see this:</p>
+			 <p>The following displays:</p>
 			<div class="hacker">
 				<pre>
-				OSSEC HIDS v2.8 Installation Script - http://www.ossec.net
-				
-				 You are about to start the installation process of the OSSEC HIDS.
-				 You must have a C compiler pre-installed in your system.
-				 If you have any questions or comments, please send an e-mail
-				 to dcid@ossec.net (or daniel.cid@gmail.com).
+						OSSEC HIDS v2.8 Installation Script - http://www.ossec.net
+						
+						 You are about to start the installation process of the OSSEC HIDS.
+						 You must have a C compiler pre-installed in your system.
+						 If you have any questions or comments, please send an e-mail
+						 to dcid@ossec.net (or daniel.cid@gmail.com).
 
-				  - System: Linux ubuntu 3.13.0-55-generic
-				  - User: root
-				  - Host: ubuntu
+						  - System: Linux ubuntu 3.13.0-55-generic
+						  - User: root
+						  - Host: ubuntu
 
 
-				  -- Press ENTER to continue or Ctrl-C to abort. -
+						  -- Press ENTER to continue or Ctrl-C to abort. -
 
 				</pre>
 			</div>
 			Press <strong>Enter</strong> to continue.
 		</li>
 		<li>
-			Next it will ask you for the kind of installation. So type <em><u>local</u></em> and press <strong>Enter</strong>. You will get:
+			When prompted for the kind of installation, type <strong>local</strong> and press <strong>Enter</strong>.
+		</li>
+		<li>
+			For the following prompts, press <strong>Enter</strong>. <br />
 			<div class="hacker">
 				Choose where to install the OSSEC HIDS [/var/ossec]:
 			</div>
-			Accept default by pressing <strong>Enter</strong>.
-		</li>
-		<li>
-			It will ask for email notification.
 			<div class="hacker">
 				Do you want e-mail notification? (y/n) [y]:
 			</div>
 		</li>
 		<li>
-			Press <strong>Enter</strong>; it will ask your email address where you want to receive notifications.
+			For the following prompt  regarding where you want to receive notifications, type your email address.
 			<div class="hacker">
 				What's your e-mail address? 
 			</div>
-		</li>
-		<li>
-			Type your email address. It will show.
+			The following displays:		
 			<div class="hacker">
 				
 				We found your SMTP server as: advaiya-com.mail.protection.outlook.com.<br/>
 				- Do you want to use it? (y/n) [y]:
 				
 			</div>
-			Press <strong>Enter </strong>unless you want to use some specific SMTP.
-		</li>
-		<li>
-			<p>It will ask you about what checks it should perform. You can press <strong>Enter</strong> to accept default.</p>
-			<ol>
-			<li>
-			Press <strong>Enter</strong> for integrity check daemon.
-			<div class="hacker">
-				
-				Do you want to run the integrity check daemon? (y/n) [y]:<br/>
-				- Running syscheck (integrity check daemon).
-				
-			</div>
 			</li>
-			<li>
-			<p>To detect rootkit, press <strong>Enter</strong>.</p>
-			<div class="hacker">
-				
-				Do you want to run the rootkit detection engine? (y/n) [y]:<br/>
-				- Running rootcheck (rootkit detection).
-				
-			</div>
-			</li>
-			<li>
-			<p>For Active response, press <strong>Enter</strong>.</p>
-			<div class="hacker">
-
-			Active response allows you to execute a specific command based on the events received.<br/>  
-			Do you want to enable active response? (y/n) [y]:
-
-			</div>
-			</li>
-			<li>
-			<p>Press <strong>Enter</strong> for default firewall drop response. </p>
-			<div class="hacker">
-
-			Do you want to enable the firewall-drop response? (y/n) [y]:<br/>
-			- firewall-drop enabled (local) for levels >= 6
-
-			</div>
-			</li>
-			</ol>
+				<li>Press <strong>Enter</strong> unless you want to use a different SMTP server.</li>
 		
-		</li>
+			<li>For the following prompts, press <strong>Enter</strong>.
+					<div class="hacker">
+					Do you want to run the integrity check daemon? (y/n) [y]:<br />
+						- Running syscheck (integrity check daemon).
+				</div>
+				<div class="hacker">
+					Do you want to run the rootkit detection engine? (y/n) [y]:<br />
+					- Running rootcheck (rootkit detection).
+				</div>
+				<div class="hacker">
+					Active response allows you to execute a specific command based on the events received.<br/>  
+					Do you want to enable active response? (y/n) [y]:
+				</div>
+				<div class="hacker">
+					Do you want to enable the firewall-drop response? (y/n) [y]:<br/>
+					- firewall-drop enabled (local) for levels >= 6
+				</div>
+			</li>
+		
 		<li>
-			<p>In next prompt it will ask you for more IP addresses but that's not necessary. List files to be monitored will be displayed. You can add more files after installation, so press <strong>Enter</strong>. It may take a few minutes to install.
-			</p>
-	
-				On successful installation you will get: 
-			
+			When prompted for more IP addresses, press <strong>Enter</strong>. You can add more files to be monitored after installation. Installation may take a few minutes.
+				<p>A successful installation displays the following:</p>
+		
 			<div class="hacker">
 				<pre>
-					Unknown system. No init script added.
+					System is Redhat Linux.
+					- Init script modified to start OSSEC HIDS during boot.
 
 					- Configuration finished properly.
 
 					- To start OSSEC HIDS:
-					/var/ossec/bin/ossec-control start
+							/var/ossec/bin/ossec-control start
 
 					- To stop OSSEC HIDS:
-					/var/ossec/bin/ossec-control stop
+							/var/ossec/bin/ossec-control stop
 
 					- The configuration can be viewed or modified at /var/ossec/etc/ossec.conf
 
@@ -248,18 +226,19 @@
 					More information can be found at http://www.ossec.net
 
 					---  Press ENTER to finish (maybe more information below). ---
+
 				</pre>
 			</div>
-			</li>
+		</li>
 	</ol>
 	<h2>Start OSSEC</h2>
-	OSSEC is configured to start at boot but first time you will need to initiate it manually.
+	<p>OSSEC is configured to start at startup, but the first time you  need to initiate it manually.</p>
 	<ol>
 		<li>
 			
-			Current status can be checked with:
+			Check the current status.
 			<div class="hacker">sudo /var/ossec/bin/ossec-control status</div>
-			You will get.
+			The following displays:
 			<div class="hacker">
 				
 				ossec-monitord not running...<br/>
@@ -272,11 +251,11 @@
 			</div>
 		</li>
 		<li>
-			To start the OSSEC, type:
+			Start the OSSEC.
 			<div class="hacker">
 			sudo /var/ossec/bin/ossec-control start
 			</div>
-			Following will be displayed.
+			The following displays:
 			<div class="hacker">
 				Starting OSSEC HIDS v2.8 (by Trend Micro Inc.)...
 				Started ossec-maild...<br/>
@@ -289,18 +268,18 @@
 			</div>
 		</li>
 		<li>
-			Right after starting the OSSEC, you will get a mail as shown.
+			Also, you receive an email message.
 			<div class="hacker">
-			<pre>
-			OSSEC HIDS Notification.
-			2015 Aug 17 02:16:34
-
-			Received From: ubuntu->ossec-monitord
-			Rule: 502 fired (level 3) -> "Ossec server started."
-			Portion of the log(s):
-
-			ossec: Ossec started.
-			</pre>
+			
+			OSSEC HIDS Notification.<br />
+			2015 Aug 17 02:16:34<br />
+<br />
+			Received From: ubuntu->ossec-monitord<br />
+			Rule: 502 fired (level 3) -> "Ossec server started."<br />
+			Portion of the log(s):<br />
+<br />
+			ossec: Ossec started.<br />
+			
 			</div>
 			You will get such emails whenever something it is configured to monitor happens.
 		</li>
@@ -366,9 +345,9 @@ The main configuration file is <code>/var/ossec/etc/ossec.conf</code>. This file
 		<code>restrict </code>setting tells only to monitor specified formats.
 	</li>
 	<li>
-		Save and close the file by pressing <strong>Esc</strong> and typing <strong>:wq</strong> followed by pressing the <strong>Enter</strong> key.
+		Save and close the file by pressing <strong>Esc</strong> and typing <strong>:wq!</strong> followed by pressing the <strong>Enter</strong> key.
 		<div class="hacker">
-			:wq
+			:wq!
 		</div>
 	</li>
 	</ol>
@@ -423,7 +402,7 @@ Following steps are optional.
 			</li>
 				<li>Save and close the file by pressing <code>esc</code> then typing following characters following by pressing <strong>Enter</strong>.
 				<div class="hacker">
-					:wq
+					:wq!
 				</div></li>
 				<li>Restart OSSEC:
                   <div class="hacker">
@@ -435,12 +414,11 @@ Following steps are optional.
 	
 	
 		<h2>Trigger file changes</h2>
-		<p>When you add any file in directory to be monitored by OSSEC or you update or delete a file, you should be getting alerts.
-		It doesn't send real time notification for adding a file but only for modification or deletion. Alerts of file addition go after full system check which is handled by frequency check time in ossec.conf.
-		</p>
+		<p>When you add any file in the directory monitored by OSSEC or you update or delete a file, you should receive alerts.
++	You don't receive real time notification for adding a file but only for modification or deletion. Alerts of file addition go after full system check, which is handled by frequency check time in <code>ossec.conf</code>. </p>
 
 	
 	<h2>Next Step</h2>
-	After following all these steps you will be able to set up OSSEC notifications. OSSEC can be configured to one or more servers, called agents. To explore how to monitor an OSSEC agent using OSSEC server please refer to <a href="19004 - Monitor OSSEC Agents Using an OSSEC Server - Arch Linux">Monitor OSSEC Agents Using an OSSEC Server - Arch Linux</a>.
+	This article gives you an overview of basic settings. OSSEC can be configured to one or more servers, called agents. To explore how to monitor an OSSEC agent using OSSEC server please refer to <a href="19004 - Monitor OSSEC Agents Using an OSSEC Server - Arch Linux">Monitor OSSEC Agents Using an OSSEC Server - Arch Linux</a>.
 	</body>
 </html>
