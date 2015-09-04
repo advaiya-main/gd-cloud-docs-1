@@ -88,18 +88,18 @@
 <p><strong>Difficulty:</strong> 4</p>
 <p><strong>Time:</strong> 30 minutes</p>
 
-<p>This article will assist you to create a PostgreSQL server that will be used as a database layer for scaling Ruby on Rails (RoR) application. This article describes how you can combine PostgreSQL database server with RoR web server to build robust and scalable application.</p> This article is part of 3 part series, so to refer the previous series please visit the following links:</p?
+<p>This article will assist you to create a PostgreSQL server that will be used as a database layer for scaling Ruby on Rails (RoR) application. This article describes how you can combine PostgreSQL database server with RoR web server to build robust and scalable application.</p> This article is a part of the three part series, so to refer the previous series, please visit the following links:</p?
 <ul>
 <li><a href="17982">Scaling Ruby on Rails: Setting Up A Dedicated MySQL Server (part 2) - CentOS, Fedora</a></li>
 <li><a href="17953">Scale Ruby on Rails Applications Across Multiple Servers - CentOS, Fedora</a></li>
 </ul>
 
 
-<h2>Choose Database Sever</h2>
+<h2>Choose Database Server</h2>
 
-<p>Rails support various relational and non-relation database, such as PostgreSQL in relational database, NoSQL in non-relational Database. When you begin with app development with Rails, you can use SQLite as your database as this doesn’t require any constraints and has the ability to handle small volume of data. However, if you are planning to use large volume of data in your application and require foreign key and primary key constraint, then consider using RDMS.</p>
+<p>Rails support various relational and non-relational databases, such as PostgreSQL in relational database, NoSQL in non-relational Database. When you begin app development with Rails, you can use SQLite as your database as this doesn’t require any constraints and has the ability to handle small volume of data. However, if you are planning to use large volume of data in your application and require foreign key and primary key constraint, then consider using RDMS.</p>
 
-<p>Choose database back end very carefully, as you cannot change it often. Here are some of the popular databases listed below for your reference which can handle large volumes of data:</p>
+<p>Choose database back-end very carefully, as you cannot change it often. Here are some of the popular databases listed below for your reference which can handle large volume of data:</p>
 <ul>
 <li>Oracle</li>
 <li>MSSQL</li>
@@ -112,10 +112,10 @@
 <h2>Install PostgreSQL</h2>
 <ol>
 
-<li>Install PostgreSQL and other dependencies using following command:
+<li>Install PostgreSQL and other dependencies using the following command:
 	<div class='hacker'>sudo yum install postgresql postgresql-contrib</div>
 </li>
-<li>Install <code>pgadmin3</code> for the administrator. This is an easy to access GUI for PostgresSQL, and is an optional installation but useful when using on a desktop.
+<li>Install <code>pgadmin3</code> for the administrator. This is an easy to access GUI for PostgresSQL and is an optional installation, but useful when using on a desktop.
 	<div class='hacker'>sudo yum install pgadmin3</div>
 </li>
 <li>Install the  PostgreSQL server and initialize the database.
@@ -129,10 +129,10 @@
 
 	<div class='hacker'>sudo service postgresql start</div>
 </li>
-<li>Before you can do anything, you must initialize a database storage area (cluster) on disk. In file system terms, a database cluster is a single directory under which all data is stored. It is completely up to you where you choose to store your data. There is no default, although locations such as <code>/usr/local/pgsql/data</code> or <code>/var/lib/postgres/data</code> are popular.
+<li>Before you can do anything, you must initialize a database storage area (cluster) on disk. In file system terms, a database cluster is a single directory under which all data is stored. It is completely up to you where you choose to store your data. There is no default location, although locations such as <code>/usr/local/pgsql/data</code> or <code>/var/lib/postgres/data</code> are popular.
 	<div class='hacker'>sudo  -p mkdir /var/lib/postgres/data</div>
 </li>
-<li>Change the owner of the <code>/var/lib/postgres</code> directory and its contents to the <code>postgres</code> user (the default user set up by the install):
+<li>Change the owner of the <code>/var/lib/postgres</code> directory and its contents to the <code>postgres</code> user (which is the default user when you install PostgreSQL).
 
 		<div class='hacker'>sudo chown -c -R postgres:postgres /var/lib/postgres</div>
 </li>
@@ -178,7 +178,7 @@
 </ol>
 
 <h2>Architect the Database Server Layer</h2>
-<p>To reduce server load and CPU usage and make our database server centrally accessible, you will need a load-balancer, two application servers and one database server to set-up the database server layer. This is how the architecture will look like:</p>
+<p>To reduce server load and CPU usage and make your database server centrally accessible, you will need a load-balancer, two application servers and one database server to set-up the database server layer. This is how the architecture will look like:</p>
 
 <img src="images/17895.png" />
   	 
@@ -186,7 +186,7 @@
 <ol>
 <li>Create a role for PostgreSQL and login using:
 			<div class='hacker'>sudo -u postgres psql</div>
-<p>	Run the below query to create user and its role.</p>
+<p>	Run the below query to create a user and its role.</p>
 		<div class='hacker'>CREATE USER ruby_User WITH PASSWORD ‘StrongPass@word’;</div>
  </li>
 <li>Assign ownership to Rails user.	
@@ -194,7 +194,7 @@
  </li>
 <li>Quit from PostgreSQL command line by pressing: <strong>\q </strong></li>
 </ol>
-<h2>Establish Remote Connection</h2>
+<h2>Establish remote connection</h2>
 <p>Make PostgreSQL server accessible from Rails application running on remote systems, and modify the configuration file.</p>
 
 <ol>
@@ -234,7 +234,7 @@
 </ol>
 <h2>Configure Database with Rails</h2>
 <ol>
-<li>Create a Rails application in particular directory:
+<li>Create a Rails application in a particular directory:
 
 	<div class='hacker'>sudo mkdir –p   /var/www</div>
 
@@ -251,7 +251,7 @@
 <div class='hacker'> cd config</div>
 <div class='hacker'>sudo vim database.yml</div>
 </li>
-<li><p>You will see the database settings separated by environment names. Since an application needs to be run using the production environment, let's edit the configuration file for that.</p>
+<li><p>You will see the database settings separated by environment names. Since an application needs to be run using the production environment, edit the configuration file for that.</p>
 </li>
 <li>Copy environment variable at the end of the file and edit as per your requirement:
 <div class='hacker'>
@@ -270,7 +270,7 @@
 <li>Open the Gemfile to add <code>pg</code> gem.
 			<div class='hacker'>sudo vim Gemfile</div>
             </li>
-<li>Add following line:
+<li>Add the following line:
 		<div class='hacker'>gem 'pg'</div>
         </li>
 <li>Save and exit.
@@ -284,7 +284,7 @@
 
 <h2>Conclusion</h2>
 
-<p>In this article, we reviewed the steps involved in setting up a scalable PostgreSQL database server and deployed it with our Rails application.</p>
+<p>In this article, you learned the steps involved in setting up a scalable PostgreSQL database server and deployed it with the Rails application.</p>
 
 
 
