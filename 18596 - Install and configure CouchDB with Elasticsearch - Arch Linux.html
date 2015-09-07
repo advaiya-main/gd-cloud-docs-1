@@ -6,6 +6,8 @@
 
 <!--Article Number is 18569-->
  
+ 
+ 
 <title>Install and configure CouchDB with Elasticsearch - Arch Linux</title>
 <style type='text/css'>
 div.hacker {
@@ -84,8 +86,10 @@ p.note {
 	 </li>
 	
 	<li>Install Erlang. CouchDB is written in Erlang language.
-	<div class='hacker'>sudo pacman –S erlang </div></li>
-	<li>From  the provided list of options for repository, choose <code>option 1, mesa-libgl</code>.</li>
+	<div class='hacker'>sudo pacman –S erlang </div>
+	</li>
+	<li>From the provided list of options for repository, choose <code>option 1, mesa-libgl</code>.
+	</li>
 	</ol>
 	
 <h2>Install and configure CouchDB</h2>
@@ -95,42 +99,36 @@ p.note {
 	</li>
 	<li>Start CouchDB.
 	<div class='hacker'>systemctl start couchdb.service</div>
-	
-    </li>
-	
+    </li>	
 	<li>Run the following command to test CouchDB:
 	<div class='hacker'>curl -XGET http://127.0.0.1:5984/</div>
-   
 	<p>Successful run of CouchDB will show the following message:</p>
-   
-	<img src="images/18596 - 1.png" alt="18596 - 1.png"/> </li>
-	
+	<img src="images/18596 - 1.png" alt="18596 - 1.png"/> 
+	</li>
 	<li>Open the config file <code>local.ini</code> for editing.
 	<div class='hacker'>vim /etc/couchdb/local.ini</div>
 	</li>
-	<li>Uncomment and update the following line:
+	<li>Uncomment (by removing <code>#</code>) and update the following lines:
 	<div class="hacker">Port:5984</div>
 	<div class="hacker">bind_address = <em><u>YOUR_VALID_IP_HERE</u></em>;</div>
     </li>
     <li>Restart the database server CouchDB.
 	<div class='hacker'>systemctl start couchdb.service</div>
 	</li>
-	
 	</ol>
 	
 <h2>Install Elasticsearch </h2>
 <!--This procedure has too many steps. Break it into smaller sections with a maximum of 7 steps.  Use h3. You can also combine some commands into the same step, with seperate div.  If they logically go together with no output between.  For example, you could "Install and check Java version" -->
-<!-- Broken the setion into other sections, following the strucutre used in other sibling articles.-->
+<!-- Broken the section into other sections, following the strucutre used in other sibling articles.-->
     <ol>
-	<li>Install Java. 
+	<li>Install the latest java development kit. 
 	<div class='hacker'>pacman -S jre8-openjdk</div>
 	</li>
-	<li>Check Java version to ensure successful installation and configuration, using the following command:
+	<li>Check Java version using the following command, to ensure successful installation and configuration:
 	<div class='hacker'>java -version</div>
     </li>
 	
-	<li>Install the Elasticsearch's deb packages. 
-	
+	<li>Install the Elasticsearch's deb packages.	
 	<p class="note">These steps install version 1.7.1. For other versions, visit <strong>elasticsearch.org/download</strong>. </p>
 	<div class='hacker'>wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz</div>
 	<div class='hacker'>sudo tar xzf elasticsearch-1.7.1.tar.gz</div>
@@ -149,20 +147,20 @@ p.note {
 	</li>
 	
 	<li>Locate and uncomment the following code:
-	<div class='hacker'>network.publish_host: 127.0.0.1 </div>
+	<div class="hacker">network.publish_host: 127.0.0.1 </div>
 	</li>
 	
 	<li>Insert following line anywhere under the section <code>Security</code> (usually at the end of the file):  
-	<div class='hacker'>script.disable_dynamic: true</div>
+	<div class="hacker">script.disable_dynamic: true</div>
 	</li>
 	
 	<li>Save the file and exit, by pressing the <strong>Esc</strong> key, and pressing <strong>:wq</strong>.
 	</li>
 	
 	<li>Restart the Elasticsearch service for the changes to take effect. <!--This makes no sense. Can you make it less jargony?--><!--Updated accordingly.-->
-	<div class='hacker'>./bin/elasticsearch</div>
+	<div class="hacker">./bin/elasticsearch</div>
 	
-	<p>Upon successful start, it would show a <strong>Started</strong> message.</p>
+	<p>A successful execution will display a <strong>Started</strong> message as shown below:</p>
 	<img src="images/18596 - 2.png" alt="18596 - 2.png"/>
   <!--The image is too wide.  According to the guidelines, 600px max.-->
   <!--Updated the image accordingly.-->
@@ -172,7 +170,7 @@ p.note {
 	<div class='hacker'>curl http://127.0.0.1:9200</div>
 	</li>
 	
-	Successful execution will display the following output:
+	<li>A successful execution will display the following output:
 	<div class='hacker'>
 	<pre>
 {
