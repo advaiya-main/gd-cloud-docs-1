@@ -70,10 +70,10 @@ p.note {
 
 <body>
 
-<!--Please update using the EDITED version of 19005 as a guide. See comments in that document. cj -->
-<!--Sept 2: This document still has not been revised according to 19005. For example, 19005 does not have a "Prerequisites" section. That section has been revised. Please take another look. cj -->
-<!--Sept 4. Still not revised. Sending back again. cj -->
-<p>Setting up local OSSEC, Monitoring</p>
+<!--Please update using the EDITED version of 19005 as a guide. See comments in that document. cj --><!--Addressed-->
+<!--Sept 2: This document still has not been revised according to 19005. For example, 19005 does not have a "Prerequisites" section. That section has been revised. Please take another look. cj --><!--Addressed-->
+<!--Sept 4. Still not revised. Sending back again. cj --><!--Addressed-->
+<p>Setting up a local OSSEC , Monitoring</p>
 	<h1>Set Up a Local OSSEC Installation - CentOS, Fedora</h1>
 	<p><strong>Difficulty: </strong> 4<br/>
 	<strong>Time: </strong> 45 Minutes</p>
@@ -102,24 +102,24 @@ p.note {
 			<strong>bind-utils </strong>provides DNS utilities, <strong>gcc</strong> and <strong>make </strong> are used to compile OSSEC and for real time notifications <strong>inotify-tools</strong> are used by OSSEC.
 		</li>
 	</ol>
-	<h2>Download OSSEC and Verify the Package</h2>
+	<h2>Download OSSEC and verify the package</h2>
+	You need to download the Ossec tarball and a file with its cryptographic checksum to make sure that you're installing valid software. Then you can generate the MD5 and SHA1 checksum and compare these with the checksum file.
 	<ol>
 		<li>
-			You will need to download Ossec tarball and a file with its cryptographic checksum to verify that you are installing a valid software. You can generate MD5 and SHA1 checksum and compare with those in checksum file.
-		</li>
-		<li>
-			Download OSSEC with following command.
+			Download <code>ossec</code>.
 			<div class="hacker">sudo wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1.tar.gz</div>
-													
-			And for checksum file use following command.
+			</li>
+		<li>
+			Download the checksum file.
 			<div class="hacker">sudo wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1-checksum.txt</div>					
 		</li>
 		<li>
 			Verify the md5sum of the compressed tarball with following command.
+			<strong>md5sum</strong> is a computer program that calculates and verifies 128-bit MD5 hashes. The MD5 hash (or checksum) functions as a compact digital fingerprint of a file.
 			<div class="hacker">
 			md5sum -c ossec-hids-2.8.1-checksum.txt
 			</div>
-			The output should be: 
+			The output is as follows:
 			<div class="hacker">
 			
 			ossec-hids-2.8.1.tar.gz: OK<br/>
@@ -129,11 +129,12 @@ p.note {
 			Ignore the warning.
 		</li>
 		<li>
-			For SHA1 checksum type following command.
+			Type following command to verify SHA1 checksum. 
+			<strong>SHA1</strong> produces a 160-bit output called a message digest. Message digest can be input to a signature algorithm which generates or verifies the signature for the message. US Secure Hash Algorithm 1 is used by SHA1.
 			<div class="hacker">
 			sha1sum -c ossec-hids-2.8.1-checksum.txt
 			</div>
-			It should display:
+			The output is as follows:
 			<div class="hacker">
 			
 			ossec-hids-2.8.1.tar.gz: OK<br/>
@@ -144,10 +145,9 @@ p.note {
 		</li>
 	</ol>
 	<h2>Find your SMTP server</h2>
-	<p>During installation, OSSEC will ask for your SMTP server. To determine the correct SMTP server using <code>dig</code> command follow these steps.</p>
+	<p>During installation, OSSEC  asks for your SMTP server. To determine the correct SMTP server, follow these steps.</p>
 	<ol>
-		<li>
-			Enter the following command:
+		<li>Use <code>dig </code> command to query your providers mail exchange resource record.
 			<div class="hacker">
 				dig -t mx <em><u>coolexample.com</u></em>
 			</div>
@@ -156,79 +156,69 @@ p.note {
 			<div class="hacker">
 				dig -t mx fastmail.com
 			</div>
-			The valid SMTP servers for providers will be shown in the ANSWER section.
+			The valid SMTP servers for providers are shown in the ANSWER section.
 			<div class="hacker">
 				<pre>
-					;; ANSWER SECTION:
-					fastmail.com.           3600    IN      MX      10 in1-smtp.messagingengine.com.
-					fastmail.com.           3600    IN      MX      20 in2-smtp.messagingengine.com.
+;; ANSWER SECTION:
+fastmail.com.           3600    IN      MX      10 in1-smtp.messagingengine.com.
+fastmail.com.           3600    IN      MX      20 in2-smtp.messagingengine.com.
 				</pre>
 			</div>
 			So in this example you can use <code>in1-smtp.messagingengine.com</code> or <code>in1-smtp.messagingengine.com</code> as SMTP server.
 			</li>
-			<li>Make a note of any of these SMTP servers as you will need them during installation. <!--If we're not saving a file, "Save" doesn't seem to be the correct word. Should this be "Make a note of any of these"? cj --><!--Fixed-->
+			<li>Make a note of any of these SMTP servers.  You'll need it during installation. <!--If we're not saving a file, "Save" doesn't seem to be the correct word. Should this be "Make a note of any of these"? cj --><!--Fixed-->
 		
 		</li>
 	</ol>
 	<h2>Install OSSEC</h2>
-	There are many modes to install including server, agent, local or hybrid mode. In this article, you will see steps to install in <code>local</code> mode..
+		There are many modes to install OSSEC including server, agent, local or hybrid mode. In this article, you will see steps to install in <code>local</code> mode.
 	<ol>
+  <!--Please make sure that the first sentence of each step contains an imperative statement. --><!--Fixed-->
 		<li>
 			Expand the file with:
 			<div class="hacker">sudo tar -zxf ossec-hids-2.8.1.tar.gz</div>
 			<p>If you get an error for <code>tar </code>command type <code>sudo yum install tar</code>.</p>
+		</li>
+		<li>
 			Change the directory to the expanded one.
 			<div class="hacker">cd ossec-hids-2.8.1</div>
+		</li>
+		<li>
 			Initiate the installation with:
 			<div class="hacker">sudo ./install.sh</div>
 		</li>
+		<!---->
 		<li>
-			It will prompt you to answer few questions. First question will be to choose a language; you may choose your language, if you want. To use default, press <strong>Enter</strong>.
+			During the installation it will prompt to answer a few questions, just press <strong>Enter</strong>
+			to accept the default answers.
+		</li>
+		<li>Choose a language. To accept the default, <em><u>English(en)</u></em>, press <strong>Enter</strong>.
+ 		</li>
+		<li>
+			Choose the kind of installation. To select <em><u>local</u></em>, type <em><u>local</u></em> and press <strong>Enter</strong>.
+			<div class="hacker">
+				1- What kind of installation do you want (server, agent, local, hybrid or help)? <em><u>local</u></em>
+			</div>
+		</li>
+		<li>Respond to the question about email with a valid email ID. All the notifications will be sent to this email address.</li>
+		<li>For the rest of the questions, accept the defaults.</li> 
+		<li>After you respond to the questions, the installation will start.</li>	
+		<li>
+			On successful installation you will get.
 			<div class="hacker">
 				<pre>
-					OSSEC HIDS v2.8 Installation Script - http://www.ossec.net
-					
-					 You are about to start the installation process of the OSSEC HIDS.
-					 You must have a C compiler pre-installed in your system.
-					 If you have any questions or comments, please send an e-mail
-					 to dcid@ossec.net (or daniel.cid@gmail.com).
+Thanks for using the OSSEC HIDS.
+If you have any question, suggestion or if you find any bug,
+contact us at contact@ossec.net or using our public maillist at
+ossec-list@ossec.net
+( http://www.ossec.net/main/support/ ).
 
-					  - System: Linux ubuntu 3.13.0-55-generic
-					  - User: root
-					  - Host: ubuntu
+More information can be found at http://www.ossec.net
 
-
-					  -- Press ENTER to continue or Ctrl-C to abort. -
-
+---  Press ENTER to finish (maybe more information below). ---
 				</pre>
 			</div>
-		</li>
-		<li>
-			When prompted to enter the type of installation, type <code>local</code> and press <strong>Enter</strong>.
-			<div class="hacker">
-			1- What kind of installation do you want (server, agent, local, hybrid or help)? <em><u>local</u></em>
-			</div>
-		</li>
-		<li>
-			For the rest of the questions, you may press <strong>Enter</strong> to accept the defaults. However, in Question <strong>3.1</strong> it will prompt you for your email address and then SMTP server ip/host. Enter your email address and SMTP server that you got using the <code>dig</code> command.
-			
-		</li>
-		<li>
-			On successful installation you will get:
-			<div class="hacker">
-				<pre>
-				Thanks for using the OSSEC HIDS.
-				If you have any question, suggestion or if you find any bug,
-				contact us at contact@ossec.net or using our public maillist at
-				ossec-list@ossec.net
-				( http://www.ossec.net/main/support/ ).
-
-				More information can be found at http://www.ossec.net
-
-				---  Press ENTER to finish (maybe more information below). ---
-				</pre>
-			</div>
-			<p>Press enter to finish the installation.</p>
+			<p>Press enter to finish the installation</p>
 		</li>
 		
 	</ol>
@@ -236,28 +226,11 @@ p.note {
 	You need to verify that the email credentials you provided and that OSSEC auto-configured are correct. Email settings are in <code>ossec.conf</code> file that resides in <code>/var/ossec/etc</code>.
 	<ol>
 		<li>
-			 To access this file, switch to the root user.
-			<div class="hacker">
-				sudo su
-			</div>
-		</li>
-		<li>
-			Change the directoty to the configuration file's directory.
-			<div class="hacker">
-				cd /var/ossec/etc
-			</div>
-			You may want to make a backup copy of this file. Use the following command to do this.
-			<div class="hacker">
-				cp ossec.conf ossec.conf.00
-			</div>
-		</li>
-		<li>
 			<p>Open <code>ossec.conf</code> in any editor.</p>
 			<div class="hacker">
-				vim ossec.conf
+				 sudo vim /var/ossec/etc/ossec.conf
 			</div>
-		</li>
-		<li>
+		
 			<p>Email settings are at the top and following is the description of the fields.</p>
 			<ul>
 				<li>
@@ -279,15 +252,15 @@ p.note {
 			&lt;email_notification><em><u>yes</u></em>&lt;/email_notification><br/>
 			&lt;email_to><em><u>email@coolexample.com</u></em>&lt;/email_to><br/>
 			&lt;smtp_server><em><u>mail.coolexample.com.</u></em>&lt;/smtp_server><br/>
-			&lt;email_from><em><u>ossecm@ossec_server</u></em>&lt;/email_from><br/>
+			&lt;email_from><em><u>ossec@ossec_server</u></em>&lt;/email_from><br/>
 			&lt;/global><br/>
 				
 			</div>
 		</li>
 		<li>
-			Save and close the file by pressing the <strong>Esc</strong> key and typing <strong>:wq</strong> followed by the <strong>Enter</strong> key.
+			Save and close the file by pressing the <strong>Esc</strong> key and typing <strong>:wq!</strong> followed by the <strong>Enter</strong> key.
 			<div class="hacker">
-				:wq
+				:wq!
 			</div>
 		</li>
 		<li>
@@ -361,9 +334,9 @@ The main configuration file is <code>/var/ossec/etc/ossec.conf</code>. This file
 		<code>restrict </code>setting tells only to monitor specified formats.
 	</li>
 	<li>
-		Save and close the file by pressing the <strong>Esc</strong> key and typing <strong>:wq</strong> followed by the <strong>Enter</strong> key.
+		Save and close the file by pressing the <strong>Esc</strong> key and typing <strong>:wq!</strong> followed by the <strong>Enter</strong> key.
 		<div class="hacker">
-			:wq
+			:wq!
 		</div>
 	</li>
 	</ol>
@@ -419,7 +392,7 @@ Following steps are optional.
 			</li>
 				<li>Save and close the file by pressing <code>esc</code> then typing following characters following by pressing <strong>Enter</strong>.
 				<div class="hacker">
-					:wq
+					:wq!
 				</div></li>
 				<li>Restart OSSEC.
                   <div class="hacker">
@@ -435,7 +408,7 @@ Following steps are optional.
 		It doesn't send real time notification for adding a file but only for modification or deletion. Alerts of file addition go after full system check which is handled by frequency check time in ossec.conf.
 		</p>
 
-<h2>Next Step</h2>
+<h2>Next Steps</h2>
 	<p><!--Please fix this run-on sentence. cj --><!--updated-->
 	After following all these steps you will be able to set up local OSSEC. OSSEC can be configured to one or more servers, called agents. To explore how to monitor an OSSEC agent using OSSEC server please refer to <a href="19003 - Monitor OSSEC Agents Using an OSSEC Server - CentOS, Fedora">Monitor OSSEC Agents Using an OSSEC Server - CentOS, Fedora</a>
 	</p>
