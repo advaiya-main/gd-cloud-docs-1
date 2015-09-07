@@ -203,10 +203,7 @@ sudo chown -R [USER NAME]:[USER NAME] /var/www
    <li>Back in the terminal, navigate to your WordPress document root.
      <div class="hacker">cd /var/www/html</div></li>
 
- <li>Open your configuration file for editing.
-   <div class="hacker">sudo vim wp-config.php</div></li>
- 
- <li>Edit the following lines with the values in <code>wp-config.php</code>.
+  <li>Edit the following lines with the values in <code>wp-config.php</code>.
 
 <div class="hacker">sudo cp wp-config-sample.php wp-config.php</div>
                                                                </li>
@@ -225,8 +222,6 @@ define('DB_USER', 'wordpressadmin');     <br />
 
 /** MySQL database password */ <br />
 define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
-<li>Save and close.</li> 
- 
  
  <li>Farther down in the file, find the line  <code>/* That's all, stop editing! Happy blogging. */</code> and add  these lines:
    <div class="hacker">/* Multisite settings */<br/>
