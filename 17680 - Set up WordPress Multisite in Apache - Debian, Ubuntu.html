@@ -126,6 +126,7 @@ aboutus.coolexample.com</td>
    
     <p>Set up your MySQL database with an administrator so that WordPress has a place to store all your site and user information.</p>
 
+    <!--CT (to Susan/Carla): Can you center this? Is it in the style sheet?-->
 <p class="warning">Remember: All <b>MySQL</b> code statements must end with a semi-colon (;).</p>
 
 <ol>
@@ -248,10 +249,10 @@ To activate the new configuration, you need to run:
    We will be restarting Apache after this step.
    
    Open your virtual host config file. We'll use the default Apache one.
-<div class="hacker"> sudo nano /etc/apache2/sites-enabled/000-default.conf</div>
+<div class="hacker"> sudo vim /etc/apache2/sites-enabled/000-default.conf</div>
             
 Search for DocumentRoot, and add the following lines under it: 
-<div class="hacker"><pre>&lt;Directory "/var/www/html"&gt;
+<div class="hacker"><pre>&lt;Directory /var/www/html&gt;
     AllowOverride All
 &lt;/Directory&gt;</pre></div>
 
@@ -361,11 +362,11 @@ RewriteRule . index.php [L] </pre></div>
 </li>
 
 <li>Find the <code>Directory /var/www/</code> section. It will look like this. 
- <div class="hacker"><pre><Directory /var/www/>
+ <div class="hacker"><pre>&lt;Directory /var/www/&gt;
 Options Indexes FollowSymLinks
          AllowOverride  None
          Require all granted
-</Directory></pre></div>
+&lt;/Directory&gt;</pre></div>
 
 In the <code>AllowOverride</code> line, change "None" to "All."
  <div class="hacker">AllowOverride <em><u>All</u></em></div>  
@@ -376,7 +377,7 @@ In the <code>AllowOverride</code> line, change "None" to "All."
 
 <h2>Make Apache load index.php pages</h2>
 
-<p>If your WordPress install is on a fresh LAMP server, it's likely you're still seeing your Apache test page whether your WordPress page. To fix this, edit your DirectoryIndex so that Apache will load index.php, instead of index.html, by default. </p>
+<p>If your WordPress install is on a fresh LAMP server, it's likely you're still seeing your Apache test page instead of your WordPress page. To fix this, edit your DirectoryIndex so that Apache will load index.php, instead of index.html, by default. </p>
 
 <ol>
 <li>Back at your terminal, go to your <code>/mods-enabled/</code> directory.
@@ -384,7 +385,7 @@ In the <code>AllowOverride</code> line, change "None" to "All."
   
  <div class="hacker">sudo vim dir.conf</div> 
  
- <li>Find the <code>DirectoryIndex</code> line; it'll have a line of index files. Add <code>index.php</code> as the first item in that list, right after DirectoryIndex. This way, Apache will look for and load and index.php files before other extensions.</li>
+ <li>Find the <code>DirectoryIndex</code> line; it's followed by a line of index files. Add <code>index.php</code> as the first item in that list, right after <code>DirectoryIndex</code>. This way, Apache will look for and load and index.php files before other extensions.</li>
  
   <li>Save and close.</li> 
  
@@ -397,7 +398,7 @@ In the <code>AllowOverride</code> line, change "None" to "All."
 <h2>Create additional sites or subdomains</h2>
 
 <ol>       
-<li>Back in your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page. Then, log back in if your password isn't saved.<br /></li>
+<li>Back in your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page.<br /></li>
 
 <li>Go to <strong>My Sites</strong> in your top navigation bar. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. </li>
 
@@ -408,7 +409,7 @@ So the option will look like <strong>Network Admin:</strong> <code><em><u>your d
 <li>On the main screen, next to <strong>Sites</strong>, click <strong>Add New</strong>.</li>
 
 <li>Fill out your first subdomain information.<br/> 
-At the <strong>Site Address</strong> field, fill in your first subdomain. For example, for <em><u>product</u></em>.coolexample.com <!--CT: Is it okay to do this? I want to highlight just the subdomain part-->, you'll simply put <em><u>product</u></em>.<br/></li>
+At the <strong>Site Address</strong> field, fill in your first subdomain. For example, for <em><u>product</u></em>.coolexample.com <!--CT (to Carla): Is it okay to do this? I want to highlight just the subdomain part-->, you'll simply put <em><u>product</u></em>.<br/></li>
 <li>Click <strong>Add Site</strong> to finish. This might take a few minutes.</li>
 <li>Repeat for all your subdomains.</li>
  </ol>                              
@@ -418,7 +419,7 @@ At the <strong>Site Address</strong> field, fill in your first subdomain. For ex
  
  <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. <br />
 
- There's much you can do from here. One option is to map your sub-domains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/00041 - Set Up WordPress Domain Mapping in Apache - Arch Linux.html">Set Up WordPress Domain Mapping in Apache - Arch Linux</a> for instructions. </p>
+ There's much you can do from here. One option is to map your sub-domains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/00047 - Set Up WordPress Domain Mapping in Apache - Debian, Ubuntu.html.html">Set Up WordPress Domain Mapping in Apache - Debian, Ubuntu</a> for instructions. </p>
 
 
 </body>
