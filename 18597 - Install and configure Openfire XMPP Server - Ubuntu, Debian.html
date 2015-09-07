@@ -77,7 +77,7 @@ p.note {
 
 <p>This article will help you to understand the installation and configuration of Openfire XMPP Server on   Debian or Ubuntu.</p>
 <p>Extensible Messaging and Presence Protocol (XMPP) is an XML-based communication protocol for middleware. It enables the near-real-time exchange of structured yet extensible data between any two or more network entities.</p>
-<p>Openfire<!--What is the relationship between XMPP and Openfire? As is, these two paragraphs are disjointed pieces of information. cj --> enables collaboration in real time and provides a tightly secured and high performing server. You can use Open Source Apache License for Openfire and can easily set up and configure it using Java. </p>
+<p>Openfire<!--What is the relationship between XMPP and Openfire? As is, these two paragraphs are disjointed pieces of information. cj --><!-- fixed --> enables collaboration in real time and provides a tightly secured and high performing server. You can use Open Source Apache License for Openfire and can easily set up and configure it using Java. </p>
 <p> Openfire is a java based tool to use utility of XMPP server.</p>
 <p class="note">Openfire disallows  chat options. </p>
 <h2>Install Openfire</h2>
@@ -86,10 +86,10 @@ p.note {
 		<div class="hacker">sudo apt-get update</div>
 </li>        
       
-<li>To install java, run the following command: <!--What does the command do? cj --><!-- fixed -->
+<li>Run the following command to install java: <!--What does the command do? cj --><!-- fixed -->
    	<div class="hacker">sudo apt-get install default-jre</div>
 </li>
-<li>Download  Openfire form source.
+<li>Download  Openfire from source.
 
 	<div class="hacker">sudo 	wget -O openfire.deb http://www.igniterealtime.org/downloadServlet?filename=openfire/openfire_3.8.2_all.deb</div>
 This command initiates the download of the Openfire Debian package to <code>openfire.deb</code>. </li>
@@ -102,10 +102,10 @@ This command initiates the download of the Openfire Debian package to <code>open
    <li>Start the service.
    <div class="hacker">sudo /etc/init.d/openfire start</div>
    </li>
-<li>
+</ol>
 <h2>Test Openfire </h2>
 <ol> 
-<li>Test the Openfire installation on your system, by visiting the following URL on your browser :
+<li>Test the Openfire installation on your system by visiting the following URL on your browser:
    <div class="hacker"><strong>http://<em><u>your_IP</u></em>:9090</strong></div>
    </li>
    <li>Successful installation of Openfire would show the Openfire wizard on your browser. Follow the instructions to proceed with the set up.
@@ -120,14 +120,14 @@ This command initiates the download of the Openfire Debian package to <code>open
    <li>Once completed with the setup procedure, login into the admin console using the Admin account.<br/>
    <img src="images/18597 - 2.png" alt="18597 - 2.png"/>
    </li>
-   <li>Once logged-in, the first screen shows the server manager tab under the Server tab. The server manager provides information about server properties and environment, system properties, language and time, clustering, database, logs, email setting and security audit viewer.<br/>
+   <li>Once logged-in, the first screen shows the <strong>Server Manager</strong> tab under the <strong>Server</strong> tab. It provides information about server properties and environment, system properties, language and time, clustering, database, logs, email setting and security audit viewer.<br/>
    <img src="images/18597 - 3.png" alt="18597 - 3.png"/>
    </li>
 
 	<li>The server setting tab provides information about profile settings, client connections, server to server connections, external components, http bindings, update management, registration and login management, resources policies, offline messages, audit policies for messages, private data storage options, security settings, server certificates, compression settings and file transfer settings.<br/>
 	<img src="images/18597 - 4.png" alt="18597 - 4.png"/>
 	</li>
-	<li>The Media services tab provides information about Media Proxy settings.
+	<li>The <strong>Media Services</strong> tab provides information about Media Proxy settings.
 	<br/>
 	<img src="images/18597 - 5.png" alt="18597 - 5.png"/>
 	
