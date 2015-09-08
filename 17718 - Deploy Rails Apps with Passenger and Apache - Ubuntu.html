@@ -81,8 +81,13 @@ p.note {
     <p><strong>Time</strong>: <em>30 minutes</em></p>
     <p>This article explains how to deploy a Rails application with Passenger and Apache in Ubuntu. </p>
     <p> The Passenger commands  consume a lot of memory. You  need at least 1 GB of RAM in a virtual server to run them. Also, it's assumed that you have <code>sudo</code> privileges to access the virtual server.</p>
-
-<p>To set up your Ubuntu server, refer to  <a href ="17321"> Initial Server Setup - Ubuntu</a>. Ensure that the fully qualified domain name (FQDN) points to the server. After you  set up the  server, you  need to <a href ="17534"> install Ruby on Rails using RVM</a>. You can also refer to <a href ="17713"> Deploy Rails Apps with Passenger and Nginx on Ubuntu</a>.</p>
+ <h2>Prerequisites</h2>
+ <ul>
+ <li>To set up your Ubuntu server, refer to  <a href ="17321"> Initial Server Setup - Ubuntu</a>. </li>
+ <li>Ensure that the fully qualified domain name (FQDN) points to the server.</li>
+ <li>After you  set up the  server, install Ruby, by visiting <a href ="17534"> Install Ruby on Rails using RVM</a>. </li>
+ <li>You can also refer to <a href ="17713"> Deploy Rails Apps with Passenger and Nginx on Ubuntu</a></li>
+ </ul>
     <p class='note'>Because the tasks in this article include development library installation and ad hoc compilation on the machine, they are  not recommended  for a production environment.    </p>
 <h2>Install Apache</h2>
 		<ol>
@@ -108,7 +113,7 @@ p.note {
         <li>Create a new <code>passenger.conf</code> file. 
           <div class='hacker'>sudo vim /etc/apache2/conf.d/passenger.conf</div>
         </li>
-	    <li>Add the following lines to the filess:
+	    <li>Add the following lines to the file you just created:
             <div class='hacker'>LoadModule passenger_module /home/newUser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10/buildout/apache2/mod_passenger.so
                 <br/>PassengerRoot /home/newUser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10
                 <br/>PassengerDefaultRuby /home/newUser/.rvm/wrappers/ruby-2.0.0-p247/ruby</div>
@@ -124,20 +129,20 @@ p.note {
 		
 		  <h2>Configure a test Rails application </h2>
 	  <ol>
-        <li>Install the sqlite development package to store data in the database.
+        <li>Install the SQLite development package to store data in the database.
             <div class='hacker'>sudo yum install sqlite-devel</div></li>
 		<li>Go to  Apache's web root folder.
             <div class='hacker'>cd /var/www/html </div>
         </li>
-		<li>Create a Rails application, and go  to the application directory.
+		<li>Create a Rails application, and go to the application directory.
             <div class='hacker'>rails new <em><u>Your_application</u></em> </div>
 			<div class='hacker'>cd <em><u>Your_application</u></em> </div>
 		</li>
-		<li>By default, Ubuntu<!--This is not a CentOS article. cj--><!-- fixed --> doesn't have JavaScript execution environment installed. So to manually install it, type 
+		<li>By default, Ubuntu<!--This is not a CentOS article. cj--><!-- fixed --> doesn't have JavaScript execution environment installed. So to manually install it, open <code>Gemfile</code> in your favourite editor. 
           <div class='hacker'>sudo vim Gemfile </div>
         </li>
 		
-		<li>Add the following line to the file to install <code>therubyracer</code> gem:
+		<li>Add the following line at the end of the file:
             <div class='hacker'>gem 'therubyracer'</div>
 			
         </li>
@@ -159,7 +164,7 @@ p.note {
 		 <li>In the file, uncomment the following line:
             <div class='hacker'>NameVirtualHost *:80</div>
           </li>
-		  <li>At the end of this file, add a virtual host:
+		  <li>At the end of this file, add following block of code:
             <div class='hacker'>
                <pre>
 &lt;VirtualHost *:80&gt;
@@ -183,6 +188,6 @@ p.note {
         </li>
     </ol>
 	<h2>Conclusion</h2>
-		In this article, we reviewed the steps to set up a Rails application with Passenger and Apache to make the application more secure and reliable. 
+		In this article, you have configured a Rails application with Passenger and Apache to make the application more secure and reliable. 
 </body>
 </html>
