@@ -64,6 +64,12 @@ p.note {
                 <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00037 - Set up WordPress Multisite in NGINX - Fedora 20.html">Set up WordPress Multisite in NGINX - Fedora 20</a></li>
                 <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00038 - Set up WordPress Multisite in NGINX - Fedora 21.html">Set up WordPress Multisite in NGINX - Fedora 21</a></li>
     </ul>
+    
+    
+        <p> Install unzip, if you haven't already.
+                    <div class="hacker">sudo yum install unzip</div> 
+                    If prompted, enter <strong>y</strong> to continue installation.</p> 
+       
 
 <h2>Download the plugin</h2>
 
@@ -72,9 +78,9 @@ p.note {
                 <li>Download the plugin: <br />
                 cd ~ wget <a href="http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip"> Download the World Press Domain mapping plugin</a>   </li>
 
-                <li>Install unzip
-                        <div class="hacker">sudo yum install unzip  <br />
-                        unzip wordpress-mu-domain-mapping.latest-stable.zip </div>  </li>
+                 <li>Unzip the plug-in.
+                    <div class="hacker">unzip wordpress-mu-domain-mapping.latest-stable.zip </div> </li>
+                    
 
                 <li>Then move the files to the WordPress  /wp-content/plugins/directory. <br />
                         <div class="hacker">sudo mv wordpress-mu-domain-mapping <br />

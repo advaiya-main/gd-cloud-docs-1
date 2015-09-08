@@ -56,9 +56,14 @@ p.note {
 
             <p>The WordPress MU Domain Mapping plugin allows you to point multiple domains to one WordPress account.
               This means that you can make a network site into its own unique, stand-alone domain. In our tutorial, we'll map a subdomain to an independent domain. For instance, <strong>coolexample.net</strong><!--CT (to Crystal): Using this example domain as a placeholder until we get new domain from GD 9/08--> would redirect to <strong>product.coolexample.com</strong>, a subdomain of your primary site, <strong>coolexample.com</strong>.</p>
+              
 <h3>Prerequisites</h3>
 
             <p>You should have WordPress multisite installed. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00036 - Set up WordPress Multisite in NGINX - CentOS 6.html">Set up WordPress Multisite in NGINX - CentOS 6</a> for more instructions. </p>
+
+            <p> Install unzip, if you haven't already.
+                    <div class="hacker">sudo yum install unzip</div> 
+                    If prompted, enter <strong>y</strong> to continue installation.</p> 
 
 <h2>Download the plugin</h2>
 
@@ -67,9 +72,8 @@ p.note {
                 <li>Download the plugin: <br />
                 cd ~ wget <a href="http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip"> Download the World Press Domain mapping plugin</a>   </li>
 
-                <li>Install unzip
-                        <div class="hacker">sudo yum install unzip  <br />
-                        unzip wordpress-mu-domain-mapping.latest-stable.zip </div>  </li>
+                   <li>Unzip the plug-in.
+                    <div class="hacker">unzip wordpress-mu-domain-mapping.latest-stable.zip </div> </li>
 
                 <li>Then move the files to the WordPress  /wp-content/plugins/directory. <br />
                         <div class="hacker">sudo mv wordpress-mu-domain-mapping <br />
@@ -102,14 +106,16 @@ p.note {
 
 
     <ol>    <li>Return to your wp-admin window <br />
-                        <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-network-admin-nav-screen1.png" alt="wordpress mu domain mapping plugin network admin nav" />   <br/> <br /> </li>
+                        <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-network-admin-nav-screen1.png" alt="wordpress mu domain mapping plugin network admin nav" />    <br /> </li>
 
                 <li>In the top navigation bar, You will see <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Plugins</strong>. <br />   <br />
                         <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="wordpress mu domain mapping plugin network activate" />  <br />
                         <p class="note">You will see 3 plugins. The WordPress MU Domain Mapping plugin should be the 3rd.</p>   </li>
-
-                <li>Click Network Activate under this plugin. You will see this activate and the plugin box will highlight. <br />
-                    LH nav bar: Settings ? Domain Mapping    <br />
+                    
+                    <li>Under this plug-in, click <strong>Network Activate</strong>. The <strong>Plugins</strong> dialog will highlight, indicating it's activated.<br />
+                    
+                    
+                    
                      <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-domain-options-screen3.png" alt="wordpress mu domain mapping plugin domain options" /> </li>
 
                 <li>Under Domain Options</li>
