@@ -175,7 +175,7 @@ p.note {
 	<li>Add your GitHub repository link.
 	  <div class ="hacker">git remote add origin 	git@github.com:<em><u>GitHub_UserName</em></u>/<em><u>Your_application</u></em>.git</div>
 	</li>
-	<li>Create an RSA/SSH key.
+	<li>Create a RSA/SSH key.
 	  <div class ="hacker">ssh-keygen -t rsa</div>
 	<div class ="hacker">sudo cat /root/.ssh/id_rsa.pub</div>
 	<p>Or</p>
@@ -196,7 +196,7 @@ p.note {
 	<li>Open the <code>deploy.rb</code> file.
 	  <div class ="hacker">sudo vim config/deploy.rb</div>
 	</li>
-	<li>Because Mina requires bundler, rails, git, and ruby,  add the following lines in the beginning of this file:
+	<li>Add the following lines in the beginning of this file as Mina requires the configuration of the bundler, Rails, Git, and Ruby. 
 	  <div class ="hacker"><pre>require 'mina/bundler'
     require 'mina/rails' 
      require 'mina/git' 
@@ -214,7 +214,7 @@ set :repository, 'https://github.com/<em><u>GitHub_username</u></em>/<em><u>Your
 
 </pre></div>
 	</li>
-	<li>In the environment task section, uncomment the line that you want to choose.   
+	<li>Uncomment the line that says <code>'rbenv:load'</code> in the environment task section, if you have installed Ruby using rbenv. Otherwise, uncomment the other line that invokes Ruby installation using <code>rvm</code>.   
 	  <div class ="hacker"><pre> task :environment do  
      invoke :'rbenv:load'
      # invoke :'rvm:use[ruby-1.9.3-p125@default]'   
