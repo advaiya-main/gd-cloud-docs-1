@@ -198,7 +198,7 @@ This will safely copy all of the contents from the directory you unpacked to the
    <li>Navigate to your WordPress document root.
      <div class="hacker">cd /var/www/html</div></li>
 
-  <li>Edit the following lines with the values in <code>wp-config.php</code>.
+  <li>Make a copy of your sample <code>wp-config.php</code> file .
 
 <div class="hacker">sudo cp wp-config-sample.php wp-config.php</div>
                                                                </li>
@@ -278,27 +278,52 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
  <li>Once you've pasted the code, save and close the file.</li>
       </ol>
  
+   <h3>Modify your .htaccess file</h3>
+ <ol>
+<li>Back in the WordPress Network Setup screen, copy the <code>.htaccess</code> code in the second section. </li>  
+<li>In your terminal, pull up your <code>.htaccess</code> file</li>
+<div class="hacker">sudo vim /var/www/html/.htaccess</div></li>
+
+<li>Replace all the existing code (delete it manually) with the entire block of <code>.htaccess</code> code from WordPress.<br/>
+
+The code will look something like this.
+
+ <div class="hacker"><pre>RewriteEngine On
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+
+# add a trailing slash to /wp-admin
+RewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L]
+RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
+RewriteRule . index.php [L] </pre></div>
+</li> 
+
+<li>Save and close the file.</li>
+</ol>  
+
   
    <h3>Enable use of .htaccess</h3>
    
 <p><code>AllowOverride All</code> allows all options in your .htaccess file. We're going to make sure this is set to All.</p>
 
 <ol> 
- <li>Open your <code>apache2.conf</code> file:
- <div class="hacker">sudo vim /etc/apache2/apache2.conf</div></li>
+ <li>Open your <code>httpd.conf</code> file:
+ <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div></li>
 
-<li>Look for this line and make sure it's uncommented. 
- <div class="hacker">AccessFileName .htaccess</div>
-</li>
-
-<li>Find the <code>Directory</code> section. Underneath it will be <code>AllowOverride</code>. In this line, change "None" to "All."
+<li>Find the <code>&lt;Directory /&gt;</code> section. Underneath it will be <code>AllowOverride</code>. In this line, change "None" to "All."
  <div class="hacker">AllowOverride <em><u>All</u></em></div>  
   </li>
 
 <li>Save and close the file.</li>
 
  <li>Restart Apache.
- <div class="hacker">sudo service apache2 restart</div></li> 
+ <div class="hacker">sudo service httpd restart</div></li> 
  
   </ol>
   
