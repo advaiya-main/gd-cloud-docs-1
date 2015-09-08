@@ -67,6 +67,8 @@ p.note {
 
 <body>
 <!--Christine, the images are not loading properly. Susan recently wrote up some instructions on how to link them. Can you take a look? Thanks! cj -->
+<!--CT: Yup, fixed (I think) 9/08-->
+
 <p>Installing Wordpress Multisite on a LEMP server for Fedora 20.</p>
     <h1>Set Up WordPress Multisite in Nginx - Fedora 20</h1>
     
@@ -392,16 +394,17 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 
 <li>To the left, on the top navigation bar, mouse over  <strong>My Sites</strong>, select <strong>Network Admin</strong> from the drop-down menu, and then select <strong>Sites</strong>. <br />
 
-At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar, if it wasn't there earlier<!--Sounds a little wishy-washy. Is there a reason it would not have been there earlier? Seems it either would be or would not be. cj -->.<br/>
+At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar.<!--Sounds a little wishy-washy. Is there a reason it would not have been there earlier? Seems it either would be or would not be. cj -->
+<!--CT: Good point. Because I thought on my 1st run-through, it was there before. But pretty much every run after that, it didn't appear until this point. Revised to reflect--><br/>
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00037/083015/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
 
 <li>On the main screen, next to <strong>Sites</strong>, click <strong>Add New</strong>.</li>
 
-<li>Fill out your first subdomain information. At the <code>Admin Email</code>, when you start typing, your email address appears. <br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00037/083015/install-wordpress-multisite-network-setup-add-new-site-filledout-screen8" alt="install wordpress multisite network setup add new site filledout" /></li>
-<li>Click <strong>Add Site</strong> to finish. </li>
+<li>Fill out your first subdomain information.<br/> 
+At the <strong>Site Address</strong> field, fill in your first subdomain. For example, for <em><u>product</u></em>.coolexample.com <!--CT (to Carla): Is it okay to do this? I want to highlight just the subdomain part-->, you'll simply put <em><u>product</u></em>.<br/></li>
+<li>Click <strong>Add Site</strong> to finish. This might take a few minutes.</li>
 <li>Repeat for all your subdomains.</li>
- </ol>                              
+ </ol>                                
 
 
 <h2>Next Steps</h2>
