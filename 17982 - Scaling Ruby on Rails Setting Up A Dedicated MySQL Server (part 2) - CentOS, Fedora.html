@@ -80,51 +80,36 @@ p.note {
 
 <body>
 
-<p>Setting up a dedicated MySQL server to host Ruby on Rails application servers, Ruby, Rails, MariaDB, MySQL, NoSQL, Scaling./p>
+<p>Setting up a dedicated MySQL server to host Ruby on Rails application servers, Ruby, Rails, MariaDB, MySQL, NoSQL, Scaling.</p>
 <h1>Scaling Ruby on Rails: Setting Up A Dedicated MySQL Server (part 2) - CentOS, Fedora</h1>
 
 <p><strong>Difficulty: </strong><em> 4</em></p>
 <p><strong>Time: </strong> <em>1 hour</em></p>
 
-<p>In this article, you will learn to create a database layer using MySQL to host the application servers running Ruby on Rails. This article will assist you in setting up a dedicated MySQL server and scaling Ruby on Rails applications between the servers in CentOS or Fedora Linux distributions.</p>
+<p>This article provides information about creating a database layer using MySQL to host the application servers running Ruby on Rails. </p>
+<!--If this is Part 2, include the link to Part 1.--><!-- Added on  line number 106 -->
+<h2>Architecture of Database Server Layer - An Overview</h2>
+<p>To make the database server centrally accessible, load-balancer is required, two application servers and one database server to set-up the database server layer. The architecture will look like the following diagram :</p>
+
+<img src="images/17982.png" alt="17982" /> <!--Send images to Gary or Thomas and update the link to the image. --><!-- not fixed -->
+<p> This articles will assist you in setting up a dedicated MySQL server and scaling Ruby on Rails applications between the servers in CentOS or Fedora Linux distributions.</p>
 <h2>Prerequisites</h2>
+This article assumes that the host machine has Ruby on Rails using RVM installed and running. For more details, see:
 <ul>
 <li>
 <a href ="17536">Install Ruby on Rails using RVM on CentOS</a>
 </li>
 <li>
+<a href ="17535">Install Ruby on Rails using RVM on Fedora</a>
+</li>
+</ul>
+This article assumes that you have configured Rails application for MySQL. For more  details, see:
+<ul>
+<li>
 <a href = "18239">Configure your Rails application for MySQL on CentOS, Fedora</a>
 </li>
 </ul>
-<p class="note">It is assumed that you are logged in as a <code>sudo</code> user. </a></p>
-
-<h2>Select the database</h2> <!--Do not include the word "Step" and number in a Heading.  I made this a H2.  Titles are sentence case with imperative mood.  Please duplicate this formating with the other headings.--><!-- fixed -->
-<p>Based on the needs and application type, choose your database server to build a database layer for your application development. Following are some popular databases:</p>
-
-<h3>Relational database servers</h3>
-<ul>
-<li>MySQL and derivatives</li>
-<li>Postgre SQL</li>
-</ul>
-
-<h3>Non-Relational database servers</h3>
-<ul><!--Make this into a list into a H2 with bullets for the list.  Make it easily scannable for readers.  I did the one above.--><!-- fixed -->
-<li>Column-based Cassandra and HBase</li>
-<li>Document-based MongoDB</li>
-<li>Couchbase and Graph-based OrientDB</li>
-<li>Neo4J and related databases</li></ul>
-
-<h3>Understand the Database Server Layer</h3>
-<!--This section could also be a list.--><!-- fixed -->
-<p>To make the database server centrally accessible, you will need:</p> 
-<ul><li>Load-balancer</li>
-<li>Two application servers</li>
-<li>And, one database server to set-up the database server layer</li></ul>
-<p>This is how the architecture will look like:</p>
-
-<img src="images/17981.png" alt="17981" /> <!--Send images to Gary or Thomas and update the link to the image. --><!-- not fixed as the link is working fine and images are located in the images folder in GitHub -->
-
-</li></ul>
+<p class="note">This article  assumes that you are logged in as a <code>sudo</code> user.</p> 
      
 <h2>Install MySQL and other Dependencies.</h2>
 <ol>
@@ -170,13 +155,13 @@ p.note {
   Enter current password for root (enter for none): 
 </pre>
 </div>
-<p>If you have created a password by using the following command, then Press <strong>Enter</strong></p>
+<p>If you have created a password by using the following command, then Press <strong>Enter</strong>.</p>
 <div class="hacker">
 <pre>
    /usr/bin/mysqladmin -u root password 'new-password'
 </pre>
 </div>
-<p>Answer the following questions.</p>
+<p>Answer the following questions:</p>
 <div class="hacker">
 <pre>
     Set root password?                     --> Y
@@ -203,7 +188,7 @@ p.note {
 <li>Grant access rights to any specific user by typing :
   <div class="hacker"> GRANT ALL ON rails_myapp.* TO '<em><u>rails_UserName</u></em>'@'localhost'; </div>
   <div class="hacker"> GRANT ALL ON rails_myapp.* TO '<em><u>rails_UserName</u></em>r'@'%'; </div>
-  <p>Revoke the privileges</p>
+  <p>Revoke the privileges.</p>
     <div class="hacker"> FLUSH PRIVILEGES; </div>
   <p>Exit from Database.</p>
 <div class="hacker"> Exit </div>
