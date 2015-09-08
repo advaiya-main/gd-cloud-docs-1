@@ -54,7 +54,7 @@ p.note {
                 <strong>Time</strong>: <em><u>5 minutes</u></em></p>
 
            <p>The WordPress MU Domain Mapping plug-in allows you to point multiple domains to one WordPress account.
-           This means that you can map any site to another domain. In our tutorial, we'll map our subdomains to independent stand-alone domains. For instance, <strong>product.coolexample.com</strong> would redirect to <strong>newproduct.coolexample.com</strong>, a subdomain of your primary site, <strong>coolexample.com</strong>.</p>
+           This means that you can map any site to another domain. In our tutorial, we'll map our subdomains to independent stand-alone domains. For instance, <strong>coolexampleproduct.com</strong> would redirect to <strong>product.coolexample.com</strong>, a subdomain of your primary site, <strong>coolexample.com</strong>.</p>
 
 <h2>Prerequisites </h2>
 
@@ -62,7 +62,12 @@ p.note {
     <ul>
       <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17680%20-%20Set%20up%20WordPress%20Multisite%20in%20ApacheX%20-%20Debian%20Ubuntu.html">Set up WordPress Multisite in Apache - Ubuntu</a></li>
    <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00048%20-%20Set%20up%20WordPress%20Multisite%20in%20Apache%20-%20Debian%20Debian.html">Set up WordPress Multisite in Apache - Debian</a></li>
-       </ul>    
+                 </ul>
+                 
+         Install unzip, if you haven't already.
+                    <div class="hacker">sudo apt-get install unzip</div>  <br />
+                    If prompted, enter <strong>y</strong> to continue installation. 
+       
 
 <h2>Download the plug-in</h2>
 
@@ -72,11 +77,10 @@ p.note {
 <div class="hacker">cd ~ wget http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip</div>   </li> 
 
 
-            <li>Install unzip.
-                    <div class="hacker">sudo yum install unzip  <br />
-                    unzip wordpress-mu-domain-mapping.latest-stable.zip </div> 
+            <li>Unzip the plugin.
+                    <div class="hacker">unzip wordpress-mu-domain-mapping.latest-stable.zip </div> 
                     
-                    If prompted, enter <strong>y</strong> to continue installation. </li>
+                  
 
             <li>Move the files to the WordPress <code>/wp-content/plugins/directory</code> directory. <br />
                     <div class="hacker">sudo mv wordpress-mu-domain-mapping <br />

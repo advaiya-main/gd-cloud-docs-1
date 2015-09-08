@@ -80,17 +80,22 @@ p.note {
         <p>You should have WordPress multisite installed. See the article:
         <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17683%20-%20Set%20up%20WordPress%20Multisite%20in%20 NGINX%20-%20Debian%20Ubuntu.html">Set up WordPress Multisite in Nginx - Debian, Ubuntu</a> for instructions.</p>       
 
+        <p> Install unzip, if you haven't already.
+                    <div class="hacker">sudo apt-get install unzip</div>  <br />
+                    If prompted, enter <strong>y</strong> to continue installation.</p> 
+       
+
 <h2>Download the plug-in</h2>
 
     <ol>
             <li>Download the <strong>WordPress Domain mapping</strong> plug-in. <br />
 
 <div class="hacker">cd ~ wget http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip</div>   </li> 
-
-
-            <li>Install unzip.
-                    <div class="hacker">sudo apt-get install unzip  <br />
-                    unzip wordpress-mu-domain-mapping.latest-stable.zip </div>  </li>
+                        
+            <li>Unzip the plugin.
+                    <div class="hacker">unzip wordpress-mu-domain-mapping.latest-stable.zip </div> 
+                    
+                
 
             <li>Move the files to the WordPress <code>/wp-content/plugins/directory</code> directory. <br />
                     <div class="hacker">sudo mv wordpress-mu-domain-mapping <br />
