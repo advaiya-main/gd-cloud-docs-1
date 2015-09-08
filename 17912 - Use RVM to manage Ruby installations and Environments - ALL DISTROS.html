@@ -81,12 +81,12 @@ p.note {
 	<p>In this article, we will be discussing on managing Ruby installations using RVM. We will continue assuming that you have already installed RVM on server.</p>
 	<p>As a prerequisite, you may refer the following links:</p>
 	<ul>
-<li>	<a href="#">Install Ruby on Rails using RVM – Ubuntu</a></li>
-<li>	<a href="#">Install Ruby on Rails using RVM - Fedora</a></li>
-<li>	<a href="#">Install Ruby on Rails using RVM - CentOS</a></li>
-<li>	<a href="#">Install Ruby on Rails using RVM - Arch Linux</a></li>
-<li>	<a href="#">Install Ruby on Rails using RVM - Debian</a></li>
-<!-- Include the article number in the href="#" tag-->
+<li>	<a href="17534">Install Ruby on Rails using RVM – Ubuntu</a></li>
+<li>	<a href="17535">Install Ruby on Rails using RVM - Fedora</a></li>
+<li>	<a href="17536">Install Ruby on Rails using RVM - CentOS</a></li>
+<li>	<a href="17537">Install Ruby on Rails using RVM - Arch Linux</a></li>
+<li>	<a href="17538">Install Ruby on Rails using RVM - Debian</a></li>
+<!-- Include the article number in the href="#" tag--><!--Replaced # with the article number-->
 </ul>
     <h2>RVM Command</h2>
     
@@ -96,7 +96,35 @@ p.note {
 	<div class="hacker">Eg: rvm install ruby</div>
   
 	<h2>Commands and their purpose</h2>
-  <!--This would make a better table    TASK | COMMAND-->
+  <!--This would make a better table    TASK | COMMAND--> <!--changed into tabular format-->
+  <table border="1">
+    <tr>
+    <th>TASK</th>
+     <th>COMMAND</th>
+    </tr>
+    <tr>
+    <td>To get the list of different command options available</td>
+       <td>rvm help</td>
+         </tr>
+               <tr>
+    <td>To get details about a particular command</td>
+       <td>rvm help command</td>
+                     
+               </tr>
+               <tr>
+    <td>To find the installed packages in RVM</td>
+       <td>rvm info</td>
+          </tr>
+               <tr>
+    <td>To update RVM</td>
+       <td>rvm get stable</td>
+               </tr>
+			   <tr>
+	<td>To enable Tab completion in <code>.bashrc</code> file</td>
+		<td>[[ -r $rvm_path/scripts/completion ]] &amp;&amp; . $rvm_path/scripts/completion</td>
+               </table>
+
+	<!--Changed this into a table
 	<ol>
 	<li>To get the list of different command options available:
 	<div class="hacker">rvm help</div>
@@ -117,9 +145,46 @@ p.note {
 	<li>If you want to enable Tab Completion, you need to add below line in <code>.bashrc</code> file:
 	<div class="hacker">[[ -r $rvm_path/scripts/completion ]] &amp;&amp; . $rvm_path/scripts/completion</div>
 	</li>
-	</ol>
+	</ol>-->
 	<h2>Install and uninstall Rubies using RVM</h2>
-  <!--Better as a table.  TASK | COMMAND -->
+  <!--Better as a table.  TASK | COMMAND --><!--Fixed-->
+  <table border="1">
+    <tr>
+    <th>TASK</th>
+     <th>COMMAND</th>
+    </tr>
+    <tr>
+    <td>To get the list of available Rubies to install</td>
+       <td>rvm list known</td>
+         </tr>
+               <tr>
+    <td>To install a selected Ruby version</td>
+       <td>rvm install ruby_version</td>
+                     
+               </tr>
+               <tr>
+    <td>To get the list of installed Rubies</td>
+       <td>rvm list</td>
+          </tr>
+               <tr>
+    <td>To switch between the multiple versions of Ruby installed</td>
+       <td>rvm use other_ruby_version</td>
+               </tr>
+			   <tr>
+			   <tr>
+	<td>To set a particular Ruby version as default</td>
+		<td>rvm command ruby_version --default</td>
+		       </tr>
+		       <tr>
+		<td>To switch to a default Ruby</td>
+		<td>rvm default</td>
+		       </tr>
+			   <tr>		
+	<td>To uninstall a particular Ruby version</td>
+	    <td>rvm uninstall ruby_version</td>
+	           </tr>
+               </table>
+	<!--Changed this into Table
 	<ol>
 	<li>To get the list of available Rubies to install:
 	<div class="hacker">rvm list known</div>
@@ -148,7 +213,7 @@ p.note {
 	<li>To uninstall a particular Ruby version:
 	<div class="hacker">rvm uninstall ruby_version</div>
 	</li>
-	</ol>
+	</ol>-->
 	<h2>Managing Gemsets with RVM</h2>
 	<p>Gems are packages which contains package information along with files to install. The <code>gem</code> command is used to build and install Gem packages. Gemset is a set of gems collected together.</p>
 	<p>When you install Ruby using RVM, it comes with two gemsets:</p>
@@ -160,6 +225,47 @@ p.note {
 
 	<h2>Commands for managing Gemsets</h2>
   <!--Better as a table -->
+  <table border="1">
+    <tr>
+    <th>TASK</th>
+     <th>COMMAND</th>
+    </tr>
+    <tr>
+    <td>To see the available gemsets for current Ruby</td>
+       <td>rvm gemset list</td>
+         </tr>
+               <tr>
+    <td>To see gemsets for more than one Ruby installations</td>
+       <td>rvm gemset list_all</td>
+                     
+               </tr>
+               <tr>
+    <td>To create a gemset</td>
+       <td>rvm gemset create gem_test</td>
+          </tr>
+               <tr>
+    <td>To copy a current gemset to a new gemset</td>
+       <td>rvm gemset copy default gem_test</td>
+               </tr>
+			   <tr>
+			   <tr>
+	<td>To use a particular gemset</td>
+		<td>rvm gemset use gem_test</td>
+		       </tr>
+		       <tr>
+		<td>To set default version for Ruby, when you have more than one gemset installed</td>
+		<td>rvm --default use ruby_version@gem_test</td>
+		       </tr>
+			   <tr>		
+	<td>To delete a gemset</td>
+	    <td>rvm gemset delete gem_test</td>
+	           </tr>
+			   <tr>
+	<td>To create project specific configurations to specify which Ruby version and gemset to use in a <code>.rvmrc </code>file</td>
+		<td>rvm ruby_version@gemset</td>
+				</tr>
+               </table>
+	<!--Changed this into table
 	<ol>
 	<li>To see the available gemsets for current Ruby:
 	<div class="hacker">rvm gemset list</div>
@@ -185,15 +291,17 @@ p.note {
 	<li>You have the provision to create project specific configurations to specify which Ruby version and gemset to use, you can do this by giving following statement in a <code>.rvmrc </code>file:
 	<div class="hacker">rvm ruby_version@gemset</div>
 	</li>
-	</ol> 
+	</ol> -->
 	<h2>Configurations</h2>
-  <!--For a single step, use a bullet.-->
-	<p>RVM has its default configuration file in:</p>
+	<ul>
+  <!--For a single step, use a bullet.--><!--Fixed-->
+	<li>RVM has its default configuration file in:
 	<div class="hacker">$ ~/.rvm/config/db</div>
-	<p>If RVM is upgraded, then the customizations made to this file will be lost forever. Therefore custom configurations can be made in <code>'~/.rvm/user/db'</code> so that the settings will retain.</p>
+	<p>If RVM is upgraded, then the customizations made to this file will be lost forever. Therefore custom configurations can be made in <code>'~/.rvm/user/db'</code> so that the settings will retain.</p></li>
+	</ul>
   
-    <h2>Next steps</h2> <!--"Conclusion" if there are no next steps or links.-->
-    <p>In this article, we reviewed the steps involved in managing Ruby using Ruby Version Manager. The above mentioned commands can be used on any Linux distributions.  </p>
+    <h2>Conclusion</h2> <!--"Conclusion" if there are no next steps or links.--><!--fixed-->
+    <p>In this article, you learned the steps involved in managing Ruby using Ruby Version Manager. The above mentioned commands can be used on any Linux distributions.  </p>
    
 </body>
 </html>
