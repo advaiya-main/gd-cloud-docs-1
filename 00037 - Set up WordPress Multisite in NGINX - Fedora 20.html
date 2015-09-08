@@ -4,7 +4,7 @@
 
 <head>
 
-<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
+
 
 <title>Set up WordPress Multisite in NGINX - Fedora 20</title>
 <style type="text/css">
@@ -66,8 +66,9 @@ p.note {
 </head>
 
 <body>
+<!--Christine, the images are not loading properly. Susan recently wrote up some instructions on how to link them. Can you take a look? Thanks! cj -->
 <p>Installing Wordpress Multisite on a LEMP server for Fedora 20.</p>
-    <h1>Set up WordPress Multisite in Nginx - Fedora 20</h1>
+    <h1>Set Up WordPress Multisite in Nginx - Fedora 20</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
@@ -119,8 +120,6 @@ aboutus.coolexample.com<br/></td>
 <ul><li>Create the document root directory.
   <div class="hacker">sudo mkdir -p /var/www/wordpress</div></li></ul>
 
-
-<!--CT (to Carla): Pasted from edited article 19203, with a few modifications to make it work for multisite-->
 
 <h2>Modify the  configuration files</h2>
 <p>We now need to update the default  configuration files with our WordPress settings. Let’s work from our <code>nginx.conf</code> and <code>php.conf</code> files to configure them for WordPress.</p>
@@ -183,8 +182,7 @@ aboutus.coolexample.com<br/></td>
         listen       80 default_server;  <br />
         server_name <em>coolexample.com product.coolexample.com aboutus.coolexample.com;</em>  <br />
         root         <em>/var/www/wordpress;</em></div></li></ol>   <br />
-                                            
-
+                                 
 
 <h3>Modify the PHP configuration file</h3>
 
@@ -221,7 +219,7 @@ aboutus.coolexample.com<br/></td>
                     <div class="hacker">sudo service nginx restart</div>
                     </li></ol>
 
-<!--CT (to Carla): Pasted from 17683-->
+
 <h2>Create a MySQL database and administrator for WordPress</h2>
     
     <p>Set up your MySQL database with an administrator so that WordPress has a place to store all your site and user information.    </p>
