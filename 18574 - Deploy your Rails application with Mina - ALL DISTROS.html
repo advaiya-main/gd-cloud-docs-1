@@ -79,7 +79,7 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>4</u></em><br/>
         <strong>Time</strong>: <em><u>1 hr</u></em></p>
 
-    <p>This article provides information about installation Mina and deploy a Rails application with Mina. Mina is a Ruby-based tool used for creating scripts with a list of tasks to perform, grouped under a name, and to facilitate everyday operations. Mina converts these RAKE based programming files to bash scripts, connects to a defined remote server, and executes them.</p>
+    <p>This article will help you install Mina and deploy a Rails application with Mina. Mina is a Ruby-based tool used for creating scripts with a list of tasks to perform, grouped under a name, and to facilitate everyday operations. Mina converts these RAKE based programming files to bash scripts, connects to a defined remote server, and executes them.</p>
 <h2>Prerequisites</h2>
 <p>For this article you need to have a GitHub account.</p>
     <p>This article assumes that the host machine has Ruby on Rails using rbenv installed and running. For more details, see:</p>
@@ -122,7 +122,7 @@ p.note {
 
 <h2>Create a Rails application</h2>
 <ol>
-	<li>Create a new directory, and gives the required permission.
+	<li>Create a new directory, and gives the necessary permission.
 	  <div class ="hacker">sudo  mkdir -p /var/www/</div>
 	<div class ="hacker">sudo chmod 0777 -R /var/www/</div>
 	</li>
@@ -151,8 +151,8 @@ p.note {
 	  <div class ="hacker"><em><u>username</u></em> ALL=(ALL) ALL //For Arch Linux,CentOS,Fedora</div>
 	<div class ="hacker"><em><u>username</u></em> ALL=(ALL:ALL) ALL (For Debian, Ubuntu)</div>
 	</li>
-	<li>Save and exit.
-	<div class ="hacker">wq!</div>
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+	
 	</li>
 </ol>
 <h2>Create a Git repository</h2>
@@ -196,7 +196,7 @@ p.note {
 	<li>Open the <code>deploy.rb</code> file.
 	  <div class ="hacker">sudo vim config/deploy.rb</div>
 	</li>
-	<li>Add the following lines in the beginning of this file as Mina requires the configuration of the bundler, Rails, Git, and Ruby. 
+	<li>Add the following lines in the beginning of this file as Mina requires the configuration of the bundler, Rails, Git, and Ruby. <!--Changed the sentence to make it imperative-->
 	  <div class ="hacker"><pre>require 'mina/bundler'
     require 'mina/rails' 
      require 'mina/git' 
@@ -214,7 +214,7 @@ set :repository, 'https://github.com/<em><u>GitHub_username</u></em>/<em><u>Your
 
 </pre></div>
 	</li>
-	<li>Uncomment the line that says <code>'rbenv:load'</code> in the environment task section, if you have installed Ruby using rbenv. Otherwise, uncomment the other line that invokes Ruby installation using <code>rvm</code>.   
+	<li>Uncomment the line that says <code>'rbenv:load'</code> in the environment task section, if you have installed Ruby using rbenv. Otherwise, uncomment the other line that invokes Ruby installation using <code>rvm</code>. <!--Modified this sentence to make it more clear-->  
 	  <div class ="hacker"><pre> task :environment do  
      invoke :'rbenv:load'
      # invoke :'rvm:use[ruby-1.9.3-p125@default]'   
@@ -239,9 +239,8 @@ set :repository, 'https://github.com/<em><u>GitHub_username</u></em>/<em><u>Your
 
 </pre></div>
 	</li>
-	<li>Save and exit.
-	<div class ="hacker">wq!</div>
-	</li>
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key. <!--Following this standard for every "Save and Exit" sentences. Also a hacker class is not required after save and close-->
+		</li>
 	<li>Create the folder structure in <code>deploy.rb</code> file.
 	  <div class ="hacker">mina setup -verbose
 	</div>
@@ -262,6 +261,6 @@ set :repository, 'https://github.com/<em><u>GitHub_username</u></em>/<em><u>Your
 	</li>
 </ol>
 <h2>Conclusion</h2>
-<p>By using all of the above steps, you will be able to deploy your Rails application with Mina on all distross.<!--Need to explain what the user might want to do next. See editorial guidelines. cj --><!-- fixed --></p>
+<p>By using all of the above steps, you will be able to deploy your Rails application with Mina on all distross.<!--Need to explain what the user might want to do next. See editorial guidelines. cj --><!-- Changed to "Conclusion" --></p>
 </body>
 </html>
