@@ -174,8 +174,7 @@ p.note {
 
             <li>Copy this whole code block and paste it into your file.
 
-  <!--CT (to Susan): Please don't modify this code block. thanks-->
-<div class="hacker"><pre>&lt;?php
+ <div class="hacker"><pre>&lt;?php
 add_filter( 'wpmu_blogs_columns', 'do_get_id' );
 add_action( 'manage_sites_custom_column', 'do_add_columns', 10, 2 );
 add_action( 'manage_blogs_custom_column', 'do_add_columns', 10, 2 );
@@ -189,8 +188,8 @@ function do_add_columns( $column_name, $blog_id ) {
 function do_get_id( $columns ) {
     $columns['blog_id'] = 'ID';
     return $columns;
-} 
-?>      </pre></div>
+}      
+?&gt;   </pre></div>
 
                
  </li>

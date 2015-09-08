@@ -70,7 +70,7 @@ p.note {
 
     <ol>
                 <li>Download the plugin: <br />
-                cd ~ wget <a href="http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip"> Download the World Press Domain mapping plugin</a>   </li>
+              <div class="hacker">cd ~ wget http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip</div>   </li> 
 
                    <li>Unzip the plug-in.
                     <div class="hacker">unzip wordpress-mu-domain-mapping.latest-stable.zip </div> </li>
@@ -148,24 +148,24 @@ p.note {
 
                 <p class="note">It is a new file so it will be blank.</p> </li>
 
-            <li>Copy this whole code block and paste it into your file.
+           <li>Copy this whole code block and paste it into your file.
 
+<div class="hacker"><pre>&lt;?php
+add_filter( 'wpmu_blogs_columns', 'do_get_id' );
+add_action( 'manage_sites_custom_column', 'do_add_columns', 10, 2 );
+add_action( 'manage_blogs_custom_column', 'do_add_columns', 10, 2 );
 
-                <div class="hacker">&gt;?php <br />
-                add_filter( 'wpmu_blogs_columns', 'do_get_id' );  <br />
-                add_action( 'manage_sites_custom_column', 'do_add_columns', 10, 2 );    <br />
-                add_action( 'manage_blogs_custom_column', 'do_add_columns', 10, 2 );  <br />
+function do_add_columns( $column_name, $blog_id ) {
+    if ( 'blog_id' === $column_name )
+        echo $blog_id;
+    return $column_name;
+}
 
-                function do_add_columns( $column_name, $blog_id ) {  <br />
-                    if ( 'blog_id' === $column_name )  <br />
-                        echo $blog_id;       <br />
-                    return $column_name;    <br />
-                }           <br />
-                                    <br />
-                function do_get_id( $columns ) {  <br />
-                    $columns['blog_id'] = 'ID'; <br />
-                    return $columns;    <br />
-                }/ </div> </li>
+function do_get_id( $columns ) {
+    $columns['blog_id'] = 'ID';
+    return $columns;
+}     
+?&gt;  </pre></div> </li>
 
             <li>Save and close.</li>
     </ol>

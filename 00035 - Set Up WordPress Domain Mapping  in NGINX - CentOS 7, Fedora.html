@@ -76,7 +76,7 @@ p.note {
 
     <ol>
                 <li>Download the plugin: <br />
-                cd ~ wget <a href="http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip"> Download the World Press Domain mapping plugin</a>   </li>
+                <div class="hacker">cd ~ wget http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip</div>   </li> 
 
                  <li>Unzip the plug-in.
                     <div class="hacker">unzip wordpress-mu-domain-mapping.latest-stable.zip </div> </li>
@@ -95,7 +95,7 @@ p.note {
 
     <ol>
                 <li>Let’s go to our WordPress document root.
-                    <div class="hacker">cd /var/www/html</div> </li>
+                    <div class="hacker">cd /var/www/wordpress</div> </li>
 
                 <li>Open your wp-config file.
                     <div class="hacker">sudo vim wp-config.php</div></li>
@@ -146,10 +146,10 @@ p.note {
     <ol>
             <li>In your terminal, create a directory to house the plugin.
                 <div class="hacker">cd ~  <br  />
-                sudo mkdir /var/www/html/wp-content/mu-plugins  </div>  </li>
+                sudo mkdir /var/www/wordpress/wp-content/mu-plugins  </div>  </li>
 
             <li>Create a new file.
-                <div class="hacker">sudo vim /var/www/html/wp-content/mu-plugins/wpms_blogid.php</div>
+                <div class="hacker">sudo vim /var/www/wordpress/wp-content/mu-plugins/wpms_blogid.php</div>
 
                 <p class="note">It is a new file so it will be blank.</p> </li>
 
@@ -170,7 +170,8 @@ p.note {
                 function do_get_id( $columns ) {  <br />
                     $columns['blog_id'] = 'ID'; <br />
                     return $columns;    <br />
-                }/ </div> </li>
+                }  
+?&gt;</div> </li>
 
             <li>Save and close.</li>
     </ol>
