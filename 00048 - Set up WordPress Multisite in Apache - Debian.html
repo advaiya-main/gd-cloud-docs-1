@@ -7,7 +7,7 @@
 <!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
 
 <title>Title</title>
-<style type="text/css">
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -24,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em .<h1></h1>5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -36,7 +36,18 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
+
 
 
 <!--[if gte mso 9]><xml>
@@ -82,15 +93,7 @@ aboutus.coolexample.com</td>
 <li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see <!--CT (to Susan): please fix my link--><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Debian</a></p>
 
 <p>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</p></li> 
-
-<li>Install <code>wget</code> if you haven't already. 
-        <div class="hacker">sudo apt-get install wget</div></li>
-        
-<li>Install this php module that WordPress needs to run properly.
-<div class="hacker">sudo apt-get install php5-gd</div></li>
-
-                                                          
-<p>Select <strong>y</strong> at each prompt to continue with the installation.</p></li>
+</li>
 
 
 <li>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
@@ -213,25 +216,33 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 Your output message might look like this.
   <div class="hacker"><pre>Enabling module rewrite.
 To activate the new configuration, you need to run:
-  service apache2 restart</pre></div>
+  service apache2 restart</pre></div><br/>
          
    We will be restarting Apache after this step.
-   
-   Open your virtual host config file. We'll use the default Apache one.
-<div class="hacker"> sudo vim /etc/apache2/sites-enabled/000-default.conf</div>
+<ol>
+  <li> First, make a copy of your virtual host config file just in case. We'll use the default Apache one.
+<div class="hacker">sudo cp 000-default 000-default.bak</div></li>
+                                    
+   <li>Now open your original file so we can modify it. 
+<div class="hacker"> sudo vim /etc/apache2/sites-enabled/000-default</div></li>
             
-Search for DocumentRoot, and add the following lines under it: 
+<li>Search for DocumentRoot, and add the following lines under it: 
 <div class="hacker"><pre>&lt;Directory /var/www/html&gt;
     AllowOverride All
-&lt;/Directory&gt;</pre></div>
+&lt;/Directory&gt;</pre></div> </li>
 
 
  <li>Save and close.</li>
 
  <li>Restart Apache.
 <div class="hacker">sudo service apache2 restart</div>
-                               </li> </ol>
+                               </li>
+ <li>Let's also rename the default Apache<code> index.html</code> page so that you can see your WordPress site.
+            <div class="hacker">sudo mv /var/www/index.html /var/www/index.html.orig</div>   </li>
 
+                               
+                               
+</ol>
 
 <h2>Install WordPress</h2> 
 
@@ -342,22 +353,7 @@ In the <code>AllowOverride</code> line, change "None" to "All."
   </li>
 
 <li>Save and close the file.</li>
-</ol>
 
-<h2>Make Apache load index.php pages</h2>
-
-<p>If your WordPress install is on a fresh LAMP server, it's likely you're still seeing your Apache test page instead of your WordPress page. To fix this, edit your DirectoryIndex so that Apache will load index.php, instead of index.html, by default. </p>
-
-<ol>
-<li>Back at your terminal, go to your <code>/mods-enabled/</code> directory.
- <div class="hacker">cd /etc/apache2/mods-enabled/</div></li>
-  
- <div class="hacker">sudo vim dir.conf</div> 
- 
- <li>Find the <code>DirectoryIndex</code> line; it's followed by a line of index files. Add <code>index.php</code> as the first item in that list, right after <code>DirectoryIndex</code>. This way, Apache will look for and load and index.php files before other extensions.</li>
- 
-  <li>Save and close.</li> 
- 
  <li>Restart Apache.
  <div class="hacker">sudo service apache2 restart</div></li> 
  </ol>
@@ -373,7 +369,7 @@ In the <code>AllowOverride</code> line, change "None" to "All."
 
 <li>At the top menu bar, "Network Admin" should now appear before your site name, if it wasn't there earlier.<br/> 
 So the option will look like <strong>Network Admin:</strong> <code><em><u>your domain name</u></em></code>.<br/></li>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00048/090715/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
 
 <li>On the main screen, next to <strong>Sites</strong>, click <strong>Add New</strong>.</li>
 
