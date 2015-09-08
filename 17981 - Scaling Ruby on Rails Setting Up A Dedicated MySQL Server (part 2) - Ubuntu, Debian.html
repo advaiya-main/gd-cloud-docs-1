@@ -86,10 +86,10 @@ p.note {
 <!--The OS's should be in alphabetical order. Update filename, title, and H1.--> <!-- fixed -->
 <p><strong>Difficulty: </strong><em> 4</em></p>
 <p><strong>Time: </strong> <em>1 hour</em></p>
-<p>This article provides information about creating a database layer using MySQL to host the application servers running Ruby on Rails. </p>
+<p>This article provides information about creating a database layer using MySQL to host application servers running Ruby on Rails. </p>
 <!--If this is Part 2, include the link to Part 1.--><!-- Added on  line number 109 -->
 <h2>Architecture of database server layer - an overview</h2>
-<p>To make the database server centrally accessible, you will require one load-balancer, two application servers and one database server to set-up the database server layer. The architecture will look like the following diagram:</p>
+<p>To make the database server centrally accessible, you will require a load-balancer, two application servers and a database server to set-up the database server layer. The architecture will look like the following diagram:</p>
 
 <img src="images/17981.png" alt="17981" /> <!--Send images to Gary or Thomas and update the link to the image. --><!-- All images are stored in images folder in Github-->
 <p> This articles will assist you in setting up a dedicated MySQL server and scaling Ruby on Rails applications between the servers in Debian or Ubuntu Linux distributions.</p>
@@ -225,8 +225,8 @@ bind-address   =  0.0.0.0
 </pre>
 </div>
 </li>
-<li>Save and exit.
-<div class ="hacker">wq!</div>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+
 </li>
 <li>Start MySQL Daemon.
 <div class="hacker"> sudo /etc/init.d/mysql start </div>
@@ -270,7 +270,7 @@ production:
 </div>
 
 </li>
-<li>Save and exit.
+<li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
 <div class = "hacker">wq!</div>
 </li>
 </ol>
@@ -282,7 +282,7 @@ production:
       Add the following line:
        <div class="hacker"> gem 'mysql' </div>
 </li>
-<li>Save and exit.
+<li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
 <div class ="hacker">wq!</div>
 </li>
 <li>Install all the dependenices of <code>Gemfile</code>.
