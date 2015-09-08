@@ -4,9 +4,6 @@
 
 <head>
 
-<!--Article Number is 17999 -->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Deploy a local Django app to your server - Arch Linux</title>
@@ -75,54 +72,58 @@ p.note {
 </head>
 
 <body>
+
+<!--I started editing this, but the filename and subject matter do not match. Is this doc about instsalling a LAMP stack or about setting up a Django app? Sending back to coding for now. cj -->
         <p>Describes how to setup a local Django app on Arch Linux</p>
-    <h1>Build a LAMP stack for Python -  Ubuntu, Debian Linux</h1>
+    <h1>Build a LAMP stack for Python -  Debian, Ubuntu </h1>
 
                 <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
                 <strong>Time</strong>: <em><u>1.50</u></em></p>
 
-        <p>Django is a Python web framework that allows for rapid development of primarily database-driven web applications. Virtual Environments, or <em><u>virtualenv</u></em>, is a Python package that allows development within isolated Python environments. Installing or updating Python packages within one environment will have no impact on other environments. </p>
+        <p>Django is a Python web framework that allows  rapid development of primarily database-driven web applications. Virtual Environments, or <code>virtualenv</code>, is a Python package that allows development within isolated Python environments. Installing or updating Python packages within one environment has no impact on other environments. </p>
 
-<h2>Install Virtualenv and Install Virtualenvwrapper</h2>
+<h2>Install <code>virtualenv</code> and  <code>virtualenvwrapper</code></h2>
 
-                <p class="note"><u><em>VirtualEnv</em></u> is a Python tool used to create isolated environments for Python in which you can install packages without interfering with the other virtualenvs nor with the system Python's packages.</p>
+                <p><code>virtualenv</code> is a Python tool used to create isolated environments for Python in which you can install packages without interfering with the other virtualenvs nor with the system Python's packages.</p>
 
-        <p>Install <u><em>VirtualEnv</em></u> and <u><em>virtualenvwrapper</em></u> with the command below:</p>
+        <ol>
+                  <li>Install<code> virtualenv</code> and <code>virtualenvwrapper</code>.
+                    <div class="hacker">sudo  pacman -S python2 python2-pip python2-virtualenv python-virtualenvwrapper</div>
 
-                <div class="hacker">sudo  pacman -S python2 python2-pip python2-virtualenv python-virtualenvwrapper</div>
-
-        <p>VirtualEnvWrapper requires some initial setup</p>
-                <div class="hacker">export WORKON_HOME=$HOME/.virtualenvs  <br/>
-                                    source /usr/bin/virtualenvwrapper.sh  </div>
-
-
-<h2>Configure Virtual Environment</h2>
-
-    <ol>    <li> Create the <em><u>virtualenv</u></em>
-                <div class="hacker">mkvirtualenv -p /usr/bin/python2.7 myenv</div>   </li>
-
-            <li>Activate the <em><u>virtualenv</u></em>
-                <div class="hacker">workon myenv</div>  </li>
+      </li>
+          <li><code>virtualenvwrapper</code> requires some initial setup</p>.
+                    <div class="hacker">export WORKON_HOME=$HOME/.virtualenvs  <br/>
+                                    source /usr/bin/virtualenvwrapper.sh  </div></li>
+</ol>
 
 
-            <li>Install some package inside the <em><u>virtualenv</u></em>
-                      <div class="hacker">pip install django pyproj</div>  </li>
+<h2>Configure virtual environment</h2>
+
+    <ol>    <li> Create the <code>virtualenv</code>
+        <div class="hacker">mkvirtualenv -p /usr/bin/python2.7 myenv</div>   </li>
+
+            <li>Activate the <code>virtualenv</code>
+              <div class="hacker">workon myenv</div>  </li>
+
+
+            <li>Install some package inside the <code>virtualenv</code>
+            <div class="hacker">pip install django pyproj</div>  </li>
 
     </ol>
 
 
-<h2> Install PostgreSQL, GDAL, GEOS, PostGIS</h2>
+<h2> Install PostgreSQL, GDAL, GEOS, PostGIS<!--The following steps don't mention installing all these things. Also, step 3 mentions installing Djanjo, which is not covered in this header. cj --></h2>
 
     <ol>
             <li>Install PostgreSQL, PostGIS
                 <div class="hacker">sudo pacman -Sy postgresql postgresql-libs postgis</div>
 
-                 <p class="note">Please select the any default values that the install may ask for</p></li>
+                Select  any default values as prompted.</li>
 
-            <li>Before you install Django, be sure to activate the new virtual environment if not already activated
+            <li>Activate the new virtual environment if not already activated.
                 <div class="hacker">workon myapp</div></li>
 
-            <li>Now Django can be installed
+            <li>Install Django.
                 <div class="hacker">pip install django</div></li>
 
 
@@ -132,16 +133,17 @@ p.note {
 
         <p>You are ready to create a Django project.</p>
 
- <h2>Create Django Project</h2>
+ <h2>Create a Django project</h2>
 
        <ol>
-                <li>Use the command below to create a django project:
-                         <div class="hacker">django-admin.py startproject myproject</div></li>
+                <li> Create a django project:
+                         <div class="hacker">django-admin.py startproject myproject</div>
+                         This command creates a <code>./myproject </code>directory containing several projects directories and files.</li>
 
 
 
-                <li>This will create a <code>./myproject </code>directory containing several projects directories and files. Navigate into the project directory.
-                        <div class="hacker">cd myproject</div>
+                <li> Navigate into the project directory.
+<div class="hacker">cd myproject</div>
 
 
                     <p class="note">The <code>./myproject/settings.py</code> file can be modified and a preferred database backend configured. Other settings can be modified as necessary.
@@ -162,13 +164,13 @@ p.note {
                         <div class="hacker">curl http://localhost:8000/</div>
 
 
-                         <p class="note"><b>Note</b>: The built-in Django web server is <b>NOT</b> meant to be used in a production environment.
+                         <p class="note">The built-in Django web server is <b>NOT</b> meant to be used in a production environment.
                          It is a tool for development only. Once the application is ready to be deployed into production, consider using a web server such as <em><u>Apache</u> or <u>Nginx</u> with <u>uWSGI</u></em>.</p>
 
 
 <h2>Step Five - Configure Django App</h2>
 
-               <p> Once the project is created and operation, it is time to create an application. An application can be created in the same directory as <code>manage.py</code>. </p>
+               <p> Once the project is created and operational, it is time to create an application. An application can be created in the same directory as <code>manage.py</code>. </p>
                     <div class="hacker">python manage.py startapp myapp</div>
 
 
@@ -176,7 +178,7 @@ p.note {
 
 <h2>Next steps</h2>
 
-               <p>Congratulations! You've now got your app deployed and are ready to build dynamic webpages.</p>
+               <p>Congratulations! You've now got your application deployed and are ready to build dynamic web pages.</p>
 
 
 
