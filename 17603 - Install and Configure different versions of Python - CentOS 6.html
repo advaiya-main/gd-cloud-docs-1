@@ -4,13 +4,13 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
+<!--Article Number is 17603 (fill in blank)-->
 
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Install and Configure different versions of Python - CentOS 6</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -78,78 +78,108 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
-    
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+            <p>Describes how to install and compile different versions of Python within the same CentOS 6 image..</p>
+<h1>Install And Configure Different Versions of Python - CentOS 6 </h1>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+<h2>Introduction</h2>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
 
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
-   
+                    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
+                    <strong>Time</strong>: <em><u>3.00</u></em></p>
+
+                <p>When you install a new self-managed CentOS 6 server, you may notice that the Python version installed by default is Python 2.6.6. If you're a Python application developer, you likely know that the current stable release of Python that is compatible with most applications in 2.7 or greater. </p>
+                <p><u><em>The native Python is always needed</em></u></p>
+
+                    <p class="warning">Warning:  Modifying the existing Python 2.7 install will break apt, and prevent you from being able to use it for package management and installation which is a BIG no no! This guide will show you how to install a different version of Python while leaving the system version intact.</p>
+
+
+<h2>Overview</h2>
+
+    <ul>
+                <li>Preparing the server for the install</li>
+                <li>Downloading, compiling, and installing Python 2.7.6</li>
+                <li>Configuring the PATH variable so that future calls to Python can be streamlined</li>
+
+    </ul>
+
+<h2>Phase I - prepare the server for compiling Python 2.7.6</h2>
+
+    <ol>        <li>Lets start by making sure that all our currently installed yum package are up to date:
+                      <div class="hacker">sudo yum -y update</div></li>
+
+                <li>There is a suite of tools that we need installed before we can continue. Instead of doing this the hard way and installing all of these tools one-by-one, we are again going to let yum do the heavy lifting for us. Yum includes a software suite called 'Development Tools' that will contain everything we need. Install this by running:
+                       <div class="hacker">sudo yum groupinstall -y development</div></li>
+
+                <li>Now we need to install another group of packages before we compile Python 2.7. This step is optional, but this suite of tools will likely be needed in a variety of tasks you may come across in the future. If we wait to do this until after Python 2.7 is installed, then Python will not know how to link to them during the compiling process. Run the following command to install these tools:
+                       <div class="hacker">sudo yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel</div></li>
+
+    </ol>
+                <p>Our server is now ready for the next steps to compile some Python!</p>
+
+
+
+<h2>Phase II - Compiling Python from source</h2>
+
+                <p>This phase will contain three stages:</p>
+
+    <ol>        <li>Downloading the compressed source code package<code>- using wget</code></li>
+                <li> Extracting the files from this package</li>
+                <li>Configuring and building the application</li>
+    </ol>
+
+                <p>You might want to be logged in as root, and you should be in the /root folder. Use the pwd command to confirm this - we want to make certain we aren't leaving any tar files lying around inside important system folders.</p>
+
+    <ol>
+                <li>Run the following command to grab the tarball (a Linux-lingo term for the archive) from the Python official page. This is an example using the link for Python 2.7.6 - if you are doing a different version you may substitute this link with whichever version you need:<br/>
+                <div class="hacker">wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz</div></li>
+
+                <li>You'll notice this is a .xz archive. This is an encoded TAR archive, so before proceeding we need to run it through the .xz decoder:
+                <div class="hacker">xz -d Python-2.7.6.tar.xz</div>
+                It should now be in the proper .tar format<br/></li>
+
+
+                <li>Run the following command to extract our Python tarball:
+                <div class="hacker">tar -xvf Python-2.7.6.tar</div>
+                It should immediately unarchive into a folder named Python-2.7.6<br/> </li>
+
+                <li>We are almost ready to compile. Before doing that, we need to make sure that there aren't going to be any dependency issues when we compile, and that the environment is set up correctly for Python 2.7.6. Luckily, Python contains a <code>./configure</code> that does all of this for us. Start by navigating into the Python directory that you just extracted:
+                <div class="hacker">cd Python-2.7.6</div><br/>
+                You should now be in a directory with a <code>configure and setup.py</code> file. You can confirm this by running ls (short for list) to confirm that you are in the correct directory. You will be if your ls looks like the example below the fold: <br />
+                Example ls of Python directory:<br />
+                <div class="hacker">
+                [root@cent6server Python-2.7.6]# ls <br/>
+                install-sh &nbsp;&nbsp; LICENSE &nbsp;&nbsp; Makefile.pre.in &nbsp;&nbsp; Modules&nbsp;&nbsp; Parser&nbsp;&nbsp;PCbuild &nbsp;&nbsp;Python&nbsp;&nbsp;RISCOS&nbsp;&nbsp;Tools <br />
+                config.sub&nbsp;&nbsp;configure.ac&nbsp;&nbsp;Doc&nbsp;&nbsp;Include&nbsp;&nbsp;Lib&nbsp;&nbsp;Mac&nbsp;&nbsp;Misc&nbsp;&nbsp;Objects  PC&nbsp;&nbsp;pyconfig.h.in&nbsp;&nbsp;README&nbsp;&nbsp;setup.py </div></li>
+
+                <li>Run the following command to configure the server for compilation. We are setting the flag for --prefix to specify which directory we will compile Python. Ours will follow the standard of putting it in <code>/usr/local </code>(which is the default). Technically you can install it into any directory you wish but generally its a good idea to follow standard procedure. If you don't specify a directory, it will default it to<code>/usr/local. </code>
+                <div class="hacker">./configure --prefix=/usr/local</div>
+                Python is going to run through and check to make sure everything is kosher for the compiling process. If the output ends in creating Makefile, you should be ready to go. If you get any errors during configuration, do NOT proceed with compiling Python - it will cause problems on the system. Read through the errors and resolve them first before moving forward. That said - we did all the preparation steps, so its unlikely that errors will occur unless you had made custom changes that would have affected dependencies.<br/> <br/></li>
+
+                <li>Alright - the time has come. If you were installing/compiling any other software suite from source, this is typically where we would run make install. Don't do this. Doing so will overwrite the system Python and will break all kinds of things on your server. Instead, this provides us with an <code>altinstall</code> file to use in its stead. Run the following commands in order to compile and install <em><u>Python 2.7.6.</u></em>
+                <div class="hacker">#first we compile. This part can take a while - be patient while C works its magic.<br />
+                                    make<br />
+                                    #next we use altinstall to install our compiled Python libraries <br />
+                                    make altinstall </div>
+
+                  After running both of these commands, the install will be complete, and Python 2.7 will be installed in <code>/usr/local/bin/python2.7</code></li>
+
+    </ol>
+
+               <p> Python is now compiled, installed, and configured on your server. This means that you can now call directly to the python2.7 variable and it will know to call to the proper location. To demonstrate and confirm this, run the following command inside your prompt: </p>
+                    <div class="hacker">which python2.7</div>
+
+               <p>You should see it showing the path to the <code>Python 2.7 interpreter</code> - which if you followed our steps, uses <code>/usr/local/bin/python2.7. </code>You can also confirm that it is recognizing this by typing:</p>
+
+                    <div class="hacker">python2.7 -V</div>
+
+                <p>Your terminal should return an output confirming the version as 2.7.6</p>
+
+
+<h2>Closing</h2>
+
+                <p>Congrats! You've just taken Python and compiled it from source, and installed it as an alternate Python install on your server. Now any applications you run that require can refer directly to the version of Python you installed instead of the system Python</p>
+
+
+
 </body>
 </html>
