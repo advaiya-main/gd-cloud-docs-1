@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
-
+<!--Article Number 17473-->
 <head>
 
 <title>Install Apache Tomcat 7 - Debian, Ubuntu</title>
@@ -96,27 +96,28 @@ p.note {
  
 
     <h2>Install Tomcat</h2>
-    <p>There are a number of ways to install Tomcat, but we will use the apt-get method as it is the most simple. Note that this method will install the latest version of Tomcat that is in the Debian (or Ubuntu) repositories, not necessarily the latest Tomcat release.</p>
+    <p>There are a number of ways to install Tomcat, but we will use the apt-get method, which is the simplest.</p> 
+    <p class="note">This method will install the latest version of Tomcat in the Debian or Ubuntu repository. It is not necessarily the latest Tomcat release.</p>
     <ol>
     <li>Update the packages repository.
 	<div class="hacker">sudo apt-get update</div></li>
-    <li>Install Tomcat. Type <strong>y</strong> when prompted to confirm the installation.
+    <li>Install Tomcat. When prompted to confirm the installation, type <strong>y</strong>.
 	<div class="hacker">sudo apt-get install tomcat7</div></li>
-    <li>To change the default Java options which Tomcat will reference when starting, open Tomcat's parameters file.
+    <li>To change the default Java options, which Tomcat will reference when starting, open the Tomcat parameters file.
 	<div class="hacker">sudo vim /etc/default/tomcat7</div></li>
-	<li>Replace the line that starts with <code>JAVA_OPTS</code> with the line below. You can also safely change the <em><u>Xmx</u></em> and/or <em><u>MaxPermSize</u></em> values to change Tomcat's memory usage.
+	<li>In the file, replace the line that starts with <code>JAVA_OPTS</code> with the line below. You can also change the <em><u>Xmx</u></em> and <em><u>MaxPermSize</u></em> values to change Tomcat's memory usage.
 	<div class="hacker">JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Xmx512m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC"</div>	
 	</li>
-    <li>Exit vim and confirm the save, if prompted.</li>
-    <li>Restart Tomcat.<br/>
+    <li>Exit vim. If prompted, confirm the save.</li>
+    <li>Restart Tomcat.<br />
 	<div class="hacker">sudo service tomcat7 restart</div></li>
     </ol>
 	
-	<p>Tomcat still needs some configuration work, but you can celebrate completing the install by entering <strong>http://server_ip_address:8080</strong> into your web browser to view the splash page. If everything was done correctly, you will see "It works!" at the top of the page.</p>
+	<p>Tomcat still needs some configuration work, but you can confirm the installation by going to <strong>http://<em><u>server_ip_address</u></em>:8080</strong>. If everything was done correctly, you will see "It works!" at the top of the Splash page.</p>
 
     <h2>Install additional packages</h2>
 	<p>Install Tomcat's online documentation, the web application manager, and some example web apps. </p>
-  <ul><li>Run the following command and type <strong>y</strong> when prompted to confirm the installations. 
+  <ul><li>Run the following command, and then type <strong>y</strong> when prompted to confirm the installations. 
 	<div class="hacker">sudo apt-get install tomcat7-docs tomcat7-admin tomcat7-examples</div></li>
   </ul>
 
@@ -129,41 +130,42 @@ p.note {
 	
   <p>Tomcat documentation suggests installing a source control system, like Git, as well as Apache Ant (used to develop Java applications).</p> 
   <ul>
-  <li>To install Git and Ant, run the following command and type <strong>y</strong> when prompted to confirm the installations. 
+  <li>To install Git and Ant, run the following command. 
 	<div class="hacker">sudo apt-get install git ant</div></li>
+  <li>Type <strong>y</strong> when prompted to confirm the installations.</li>
   </ul>
 	
-	<h2>Configure Tomcat's web management interface</h2>
-	<p>In order to use the web application manager you installed above (under "Install additional packages"), you will first need to create a user.</p>
+	<h2>Configure the Tomcat web management interface</h2>
+	<p>In order to use the web application manager that you installed as part of the additional pages, create a user.</p>
 	
 	<ol>
-	<li>Open Tomcat's users file. 
+	<li>Open the Tomcat users file. 
 	<div class="hacker">sudo vim /etc/tomcat7/tomcat-users.xml</div></li>
 	<li>Add the following line of code immediately after <code>&#60;tomcat-users&#62;</code>:
 	<div class="hacker">&#60;user username="admin" password="password" roles="manager-gui,admin-gui"/&#62;</div>
 	<div class="note">You will obviously want to change the <code>username</code> and <code>password</code> values to something more secure.</div></li>	
-    <li>Exit vim and confirm the save if prompted.</li>
+    <li>Exit vim. If prompted, confirm the save.</li>
     <li>Restart Tomcat.<br/>
 	<div class="hacker">sudo service tomcat7 restart</div></li>
     </ol>
 	
-	<h2>Access Tomcat's web management interface</h2>
-	<p>Now that Tomcat knows who the admin user is, it will allow you to access the Web Application Manager, which helps you manage your Java applications. This is where you can Start, Stop, Reload, Deploy, and Undeploy applications or run diagnostics on your apps. You can find information about your server at the very bottom of the page.</p>
+	<h2>Access the Tomcat web management interface</h2>
+	<p>Now that Tomcat knows who the admin user is, you can access the Web Application Manager, which helps you manage your Java applications. This is where you can Start, Stop, Reload, Deploy, and Undeploy applications or run diagnostics on your apps. You can find information about your server at the very bottom of the page.</p>
 	
 	<ul>
-	<li>To see the Web Application Manager, enter <strong>http://server_ip_address:8080/manager/html</strong> into your web browser.</li>
+	<li>To see the Web Application Manager, enter <strong>http://<em><u>server_ip_address</u></em>:8080/manager/html</strong> into your web browser.</li>
 	</ul>
 	
-	<p>Tomcat's Virtual Host Manager is where you add virtual hosts, which is where applications are served.</p>
+	<p>The Tomcat Virtual Host Manager is where you add virtual hosts, which is where applications are served.</p>
 	
 	<ul>
-	<li>To see the Virtual Host Manager, enter <strong>http://server_ip_address:8080</strong> into your web browser.</li>
+	<li>To see the Virtual Host Manager, enter <strong>http://<em><u>server_ip_address</u></em>:8080</strong> into your web browser.</li>
 	</ul>
 	
-	<div class="note">For both URLs, you will be prompted for the new user's credentials you entered above.</div>
+	<div class="note">For both URLs, you will be prompted for the new user's credentials that you entered previously.</div>
 	
     <h2>Conclusion</h2>
-    <p>You're done! You have successfully installed and configured Apache Tomcat 7. Now go deploy your own web apps.</p>
+<p>You're done! You have successfully installed and configured Apache Tomcat 7. Now, go deploy your own web apps.</p>
    
 </body>
 </html>
