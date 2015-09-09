@@ -1,11 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
 <head>
     <!--Article Number is 17352 (fill in blank)-->
     <!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
     <title>Set up Node.js application for production – Ubuntu</title>
-    <style>
+    <style type='text/css'>
         div.hacker {
             background-color: #666;
             border: 1px solid #ccc;
@@ -95,85 +96,66 @@
         <li>A regular user added to <code>SUDO</code> group.</li>
     </ul>
     <p class="note">Please visit &lt;hyper-link&gt; on how add user to <code>SUDO</code> group.></p>
-
+  <!-- The section below was formatted oddly, change to a number list was <p> amd <ul>  Not sure if we need the seperate 'hacker' classes for each (did not change)   -->
     <h2>Installation</h2>
-    <ul>
-        <li>Update apt-get package using the following command</li>
-    </ul>
-    <p>
-        <div class="hacker">sudo apt-get update </div>
-    </p>
-    <ul>
-        <li>Build dependencies for <code>Node.js</code> using the following command</li>
-    </ul>
-    <p>
-        <div class="hacker">sudo apt-get install –y build-essential openssl libssl-dev pkg-config</div>
-    </p>
-    <ul>
-        <li>Copy Source code download link from <code>‘https://nodejs.org/download/’</code>, and download the<code>Node.js</code> using the command below</li>
-    </ul>
-    <p>
-        <div class="hacker">cd ~</div>
-        <div class="hacker">wget https://nodejs.org/dist/v0.12.6/node-v0.12.6.tar.gz </div>
-    </p>
-    <ul>
-        <li>Extract <code>.tar</code> using the command below</li>
-    </ul>
-    <p>
-        <div class="hacker">tar xvf node-v*</div>
-    </p>
-    <ul>
-        <li>Change directory</li>
-    </ul>
-    <p>
-        <div class="hacker">cd node-v*</div>
-    </p>
-    <ul>
-        <li>Configure, Build and install using the following commands</li>
-    </ul>
-    <p>
-        <div class="hacker">./configure</div>
-        <div class="hacker">make</div>
-        <div class="hacker">sudo make install</div>
-    </p>
-    <ul>
-        <li>Delete the downloaded files using the command below</li>
-    </ul>
-    <p>
-        <div class="hacker">cd ~</div>
-        <div class="hacker">rm –rf node-v*</div>
-    </p>
+    <ol>
+        <li>Update apt-get package using the following command
+                <div class="hacker">sudo apt-get update </div> </li>
+
+       <li>Build dependencies for <code>Node.js</code> using the following command
+                    <div class="hacker">sudo apt-get install &minus;y build-essential openssl libssl-dev pkg-config</div></li>
+
+
+        <li>Copy Source code download link from <code>‘https://nodejs.org/download/'</code>, and download the<code>Node.js</code> using the command below
+                    <div class="hacker">cd ~</div>
+                    <div class="hacker">wget https://nodejs.org/dist/v0.12.6/node-v0.12.6.tar.gz </div> </li>
+
+        <li>Extract <code>.tar</code> using the command below
+                    <div class="hacker">tar xvf node-v*</div> </li>
+
+        <li>Change directory
+                    <div class="hacker">cd node-v* </div> </li>
+
+
+        <li>Configure, Build and install using the following commands
+                    <div class="hacker">./configure</div>
+                    <div class="hacker">make</div>
+                    <div class="hacker">sudo make install</div>  </li>
+
+
+        <li>Delete the downloaded files using the command below
+                    <div class="hacker">cd ~</div>
+                    <div class="hacker">rm -rf node-v*</div> </li>
+    </ol>
 
     <h2>Create an Application</h2>
     <p>Make sure to configure the sample application to respond to appropriate IP and ports. Also, application should server the request from reverse proxy server.</p><p>
         Retrieve the IP address from the server (Private IP Address) or by using the following command
     </p>
-    <p>
-        <div class="hacker">Curl –w “\n” http://&lt;privateipaddress&gt;/metadata/v1/interfaces/private/0/ipv4/address</div>
-    </p>
+
+        <div class="hacker">Curl -w "\n" http://&lt;privateipaddress&gt;/metadata/v1/interfaces/private/0/ipv4/address</div>
+
 
     <h2>Sample Code</h2>
-    <p>
-        Edit <code>Node.js</code>
-        application using the following command
-    </p>
-    <p>
+
+      <p>  Edit <code>Node.js</code>
+        application using the following command</p>
+
         <div class="hacker">vi sample.js</div>
-    </p>
-    <p>
-        Include the following code with your Private IP Address and a non-admin port. (Admin ports - < 1024)
-    </p>
-    <p class="note">Press key ‘I’ to start editing.</p>
-    <p>
+
+    <p>    Include the following code with your Private IP Address and a non-admin port. (Admin ports - &lt; 1024) </p>
+
+    <p class="note">Press key <code>I</code> to start editing.</p>
+
         <code>
-            Var http = require(‘http’);<br />
+            Var http = require('http');<br />
             http.createserver(function (req, res){<br />
-            res.writehead(200, {‘content-type’: ‘text/plain’});<br />
-            res.end(‘Sample Node Js Application \n’);}).listen(&lt;port&gt;,’&lt;privateipaddress&gt;’);<br />
-            console.log(‘http://&lt;privateipaddress&gt;:&lt;port&gt;/’);
+            res.writehead(200, {'content-type': 'text/plain'});<br />
+            res.end('Sample Node Js Application \n');}).listen(&lt;port&gt;,'&lt;privateipaddress&gt;');<br />
+            console.log('http://&lt;privateipaddress&gt;:&lt;port&gt;/');
         </code>
-    </p>
-    <p>
+
+      <pre>
         Save, exit<code>(esc -> :wq -> ENTER)</code>
         and look for <code>
             200
@@ -181,102 +163,102 @@
         HTTP success code.
         Then, test your application by following the steps below
         Execute the following command
-    </p>
-    <p>
+    </pre>
+
         <div class="hacker">node sample.js</div>
         <div class="hacker">curl http://&lt;privateipaddress&gt;:&lt;port&gt;</div>
-    </p>
-    <p>Check for ‘Sample Node Js Application’ as output</p>
+
+    <p>Check for &lsquo;Sample Node Js Application&rsquo; as output</p>
 
     <h2>Process Manager Installation</h2>
     <p>
         Process manager for <code>Node.js</code>
         is installed using the following command
     </p>
-    <p>
-        <div class="hacker">sudo npm install pm2 –g</div>
-    </p>
+
+        <div class="hacker">sudo npm install pm2 -g</div>
+
     <p>
         This enables the application run as a service
     </p>
 
     <h2>Manage Application with Process Manager</h2>
     <p>Execute the following command to start the application</p>
-    <p>
+
         <div class="hacker">pm2 start sample.js</div>
-    </p>
+
     <p>
         This adds application to the process list and outputs the following
     </p>
 
-    <img src="http://img4.wsimg.com/support/images/cloudserver/17352/07092015/set-up-node.js-application-in-production-ubuntu.png" alt="Output" /> 
+    <img src="http://img4.wsimg.com/support/images/cloudserver/17352/07092015/set-up-node.js-application-in-production-ubuntu.png" alt="Output" />
 
     <p>
         As you notice, it contains all the information about the process/service.
     </p><p>
         Execute the following command to enable automatic startup with the server reboots. The platform needs to be specified as well.
     </p>
-    <p>
+
         <div class="hacker">pm2 startup Ubuntu</div>
-    </p>
+
     <p>
         The resulting output will have the command that needs to be run as root user or super user. Copy the command from the output to clipboard and execute the same.
     </p><p>
         Execute the following command to stop the service or process
     </p>
-    <p>
+
         <div class="hacker">pm2 stop sample.js</div>
-    </p>
+
     <p>
         Execute the following command to restart the service or process
     </p>
-    <p>
+
         <div class="hacker">pm2 restart sample.js</div>
-    </p>
+
     <p>
         Execute the following command to obtain the list of application managed by Process Manager.
     </p>
-    <p>
+
         <div class="hacker">pm2 list</div>
-    </p>
+
     <p>
         Execute the following command to obtain available information of the process or service
     </p>
-    <p>
+
         <div class="hacker">pm2 info sample.js</div>
-    </p>
+
     <p>
         Execute the following command to obtain application status of the Process Manager
-    </p>
-    <p>
+   </p>
+
         <div class="hacker">pm2 monit</div>
-    </p>
+
 
     <h2>Setting Up Reverse Proxy Server</h2>
     <p>
-        It’s vital that you set up a way, so the users are able to access it. We will walk through the process of setting up <code>Nginx</code>
+        It's vital that you set up a way, so the users are able to access it. We will walk through the process of setting up <code>Nginx</code>
         web server as a reverse proxy for this purpose.
     </p><p>
         Update the apt-get package list using the following command
     </p>
-    <p>
+
         <div class="hacker">sudo apt-get update</div>
-    </p>
-    <p>
+
+
         Install <code>Nginx</code>
         using apt-get using the following command
-    </p>
-    <p>
+
+
         <div class="hacker">sudo apt-get install nginx</div>
-    </p>
+
     <p>
         Open the default server block using the following command
     </p>
-    <p>
+
         <div class="hacker">sudo vi /etc/nginx/sites-available/default</div>
-    </p>
+
     <p>
-        The configuration file will open up. Press key ‘I’ to switch to edit mode and replace it with the following.
+        The configuration file will open up. Press key 'I' to switch to edit mode and replace it with the following.
     </p>
     <p>
         <code>
@@ -302,9 +284,9 @@
     </p><p>
         Restart the Nginx server using the following command
     </p>
-    <p>
+
         <div class="hacker">sudo service nginx service restart.</div>
-    </p>
+
     <p>You should now be able to access the application hitting the server url.</p>
 </body>
 </html>
