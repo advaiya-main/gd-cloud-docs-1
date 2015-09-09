@@ -69,7 +69,7 @@ p.note {
 
 <body>
 <p>Setting up permanent and temporary redirects, Apache, NGINX</p>
-    <h1>Create temporary and permanent Redirects with Apache and Nginx - ALL DISTROS</h1>
+    <h1>Create temporary and permanent redirects with Apache and NGINX - ALL DISTROS</h1>
     
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>45 minutes</em></p>
@@ -89,10 +89,10 @@ p.note {
 
 <p>Apache uses different tools for redirect. The simplest way would be to redirect using<code> mod_alias</code> module. In case of extensive redirects,<code> mod_rewrite</code> is used. Redirects using<code> mod_rewrite</code> is out of scope of this article.</p>
 
-   <h3>With Redirect Directive </h3>
+   <h3>With Redirect directive </h3>
    <p>This directive is included in the <code>mod_alias</code> module and is used for simple, single-page redirects. It takes two arguments - old and new URLs.</p>
 <ol> 
-   <li>Open the appropriate file depending on your distribution in any editor
+   <li>Open the appropriate file depending on your distribution in any editor.
    <ul>
    <li>For Ubuntu, open /etc/apache2/sites-available/000-default.conf
    </li>
@@ -106,7 +106,7 @@ p.note {
    </li>
    </ul>
    </li>
-   <li>Add the following lines in<code> VirtualHost *:80 </code>block
+   <li>Add the following lines in<code> VirtualHost *:80 </code>block:
    <div class="hacker">
 <pre>
 &lt;VirtualHost *:80&gt;
@@ -120,18 +120,18 @@ p.note {
 &lt;/VirtualHost&gt;
 </pre> 
  </div>
- <p>This redirect instructs browser to redirect all requests for <em><u>www.coolexample1.com</u></em> to <em><u>www.coolexample2.com</u></em>, but this is only for the single page, not for the entire site.</p>
+ <p>This redirect instructs the browser to redirect all requests for <em><u>www.coolexample1.com</u></em> to <em><u>www.coolexample2.com</u></em>, but this works only for a single page and not for the entire site.</p>
    </li>
-   <li><code>Redirect</code> directive creates 302 or temporary redirects. To create permanent, you can use any of following
+   <li><code>Redirect</code> directive creates 302 or temporary redirects. To create permanent redirects, you can use any of following:
    <div class="hacker">Redirect 301 /coolexample1 http://www.coolexample2.com/newlocation</div>
    <p>Or</p>
    <div class="hacker">Redirect permanent /coolexample1 http://www. coolexample2.com/newlocation</div>
    </li>
   </ol>
   
-  <h3>With RedirectMatch Directive</h3>
+  <h3>With RedirectMatch directive</h3>
   <p>This directive uses regular expression to allow redirect for entire directories. It matches patterns in parentheses and then references the matched text in the redirect using <code>$1</code>, 1 designates the first group of text. Sequential numbers are given to subsequent groups.</p>
-  <p>For example, if you want to match every request for anything within <code>/customers</code> directory to a subdomain. Let’s say <code>- customers.coolexample.com,</code> add the following lines in same file that you opened in the last step.</p>
+  <p>For example, if you want to match any request within <code>/customers</code> directory to a subdomain, say <code>- customers.coolexample.com,</code> add the following lines in same file that you opened in the last step.</p>
 
    <div class="hacker">
 <pre>
@@ -144,9 +144,9 @@ RedirectMatch ^/ customers/(.*)$ http:// customers.coolexample.com/$1
 </div>
  
  
-  <h2>Redirect in Nginx</h2>
+  <h2>Redirect in NGINX</h2>
 <ol> 
-<li>If you want to redirect requests from <code>coolexample1.com</code> to <code>coolexample2.com,</code> open the appropriate file based on your distribution in any editor
+<li>If you want to redirect requests from <code>coolexample1.com</code> to <code>coolexample2.com,</code> open the appropriate file based on your distribution in any editor.
 <ul>
 <li>For Ubuntu -  <code>/etc/nginx/sites-available/default</code> 
 </li>
@@ -160,10 +160,10 @@ RedirectMatch ^/ customers/(.*)$ http:// customers.coolexample.com/$1
 </li>
 </ul>   
   </li>
-   <li>In the server block, add the following lines
+   <li>In the server block, add the following lines:
    <div class="hacker">server_name coolexample1.com.com;</div>
    <div class="hacker">return 301 $scheme://coolexample2.com$request_uri;</div>
-   <p>Final block will look like</p>
+   <p>Final block will look like this:</p>
     <div class="hacker">
 <pre>
 server {
@@ -176,18 +176,18 @@ server {
 </pre>
 	</div>
    </li>
-   <li>For directory redirects, you can use the same “rewrite” directive as used in Apache
+   <li>For directory redirects, you can use the same “rewrite” directive as used in Apache.
    <div class="hacker">rewrite ^/customers/(.*)$ </div>
    <div class="hacker">http://customers.coolexample.com/$1 redirect;</div>
    </li>
-   <li>For permanent redirects, use the following
+   <li>For permanent redirects, use the following:
    <div class="hacker">rewrite ^/customers/(.*)$ </div>
    <div class="hacker">http://customers.coolexample.com/$1 permanent;</div>
    </li>
 </ol>
   
     <h2>Conclusion</h2>
-    <p>You should use correct redirection type because improper use of temporary redirects may spoil your search ranking.</p>
+    <p>In this article, you learned to create temporary and permanent redirects with Apache and NGINX. You should use correct redirection type because improper use of temporary redirects may spoil your search ranking.</p>
    
 </body>
 </html>
