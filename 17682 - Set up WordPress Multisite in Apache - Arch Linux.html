@@ -244,16 +244,14 @@ This will safely copy all of the contents from the directory you unpacked to the
      <li>  In your web browser, enter your primary domain name. In our example, that's 
    <strong>http://coolexample.com</strong>.
    (If the Apache default page displays, append <code>/wp-admin/ </code>to your URL.)<br/>
-   You should get this introductory page:<br />
-  <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress multisite on your server welcome" />   </li>
-     <li>Click <strong>Let's go!</strong> to continue.</li>
+   You may get this introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
 
      <li>On the next page, fill out your WordPress MySQL database credentials. 
      You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. </li>
   <li>Click <strong>Submit</strong>.<br />
 
 <li>Your next screen will look something like this.<br/>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup screen wpconfig code" />
+<img src="images/17682/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup screen wpconfig code" />
 </li>
       </ol>
       
@@ -299,7 +297,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
         <li>Return to your browser and click <strong>Run the Install</strong> on the screen you were just on to continue the WordPress web installation. You should be taken to this screen.
         
 <br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
+<img src="images/17682/090815/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
         <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
         <li>Click <strong>Install WordPress</strong>.</li>
       </ol>
@@ -311,18 +309,14 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
    
    <ol>
    
-  <li>In your browser, continue the WordPress web installation. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
-  </li>
+  <li>In your browser, continue the WordPress web installation. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.  </li>
   
   <li>Because we're working with sub-domains, choose <strong>sub-domains</strong>
-  and change your Network Title if you like. Click <strong>Install</strong>.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-screen5.png" alt="install wordpress multisite network" />  
-</li> 
+  and change your Network Title if you like. Click <strong>Install</strong>.</li> 
 
- <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.
+ <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.<br/>
 
- <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-screen6" alt="install wordpress multisite network setup" /><br/>
+ <img src="images/17682/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup" /><br/>
  
  The code resembles this:
  <div class="hacker"><pre>define('MULTISITE', true);
@@ -361,9 +355,10 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 <li>Back in your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page. Then, log back in if your password isn't saved.<br /></li>
 
 <li>Go to <strong>My Sites</strong> in your top navigation bar. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
+  <img src="images/17682/090815/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> </li>
 
 At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar, if it wasn't there earlier.<br/></li>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
+
 
 <li>On the main screen, next to  <strong>Sites</strong>, click <strong>Add New</strong>.</li>
 

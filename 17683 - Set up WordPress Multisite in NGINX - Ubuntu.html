@@ -261,20 +261,20 @@ This command creates a directory called "wordpress" in your home directory.</li>
      <li>  In your web browser, enter your primary domain name. In our example, that's 
    <strong>http://coolexample.com</strong>.
    (If the Nginx default page displays, append <code>/wp-admin/</code> to your URL.)<br/>
-   You should get this introductory page:<br />
-  <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress multisite on your server welcome" />   </li>
-     <li>Click <strong>Let's go!</strong> to continue.</li>
+   You may get this introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
 
-     <li>On the WordPress configuration page, fill out your information to create your administrator account. <br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17385/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="Install WordPress Welcome screen" /> </li>
+     <!--CT: Believe this is an extraneous step...<li>On the WordPress configuration page, fill out your information to create your administrator account. <br />
+<img src="images/17683/090815/install-wordpress-on-your-server-welcome-filledout-1.png" alt="Install WordPress Welcome screen" /> </li>...-->
 
   <li>On the next screen, fill in your WordPress MySQL database credentials.
-You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. </li>
-  <li>Click <strong>Submit</strong>.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
+You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. <br/>
+  
+<img src="images/17683/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" /></li>
+
+<li>Click <strong>Submit</strong>.
   <br />
-  The following page displays   the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
+  The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
+<img src="images/17683/090815/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
 </li>
       </ol>
       
@@ -319,9 +319,9 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 <h3>Continue setup in WordPress web interface</h3>
       
       <ol>
-        <li>Return to your browser to continue the WordPress web installation. You should be taken to this screen.
+        <li>Return to your browser to continue the WordPress web installation. You should be taken to the WordPress 5-minute install screen.
 <br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
+<img src="images/17683/090815/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
         <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
         <li>Click <strong>Install WordPress</strong>.</li>
       </ol>
@@ -333,22 +333,19 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
    <ol>
    
 
-  <li>In your  browser, continue the WordPress web installation. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.<!--How do you "go to" these locations? Do you click something? Choose something from a menu? cj -->
-<!--CT (to Carla): Clicking on the links from a menu. I made that change. Please fix if needed/still not clear--><br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
+  <li>In your browser, continue the WordPress web installation. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.<!--How do you "go to" these locations? Do you click something? Choose something from a menu? cj -->
+<!--CT (to Carla): Clicking on the links from a menu. I made that change. Please fix if needed/still not clear-->
   </li>
   
   <li>Because we're working with sub-domains, choose <strong>sub-domains</strong><!--I can't see the image, but where do they choose this from? Is there a section header or menu? cj --> 
   <!--CT (to Carla): You check the option (checkmark) in the main part of the screen (not a side menu)-->
-  and change your Network Title if you like. Click <strong>Install</strong>.<br />
-
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-screen5.png" alt="install wordpress multisite network" />  
+  and change your Network Title if you like. Click <strong>Install</strong>.
 </li> 
 
  <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.
    <p class="note">For Nginx, there's no <code>htaccess</code> file. We'll ignore the <code>.htaccess</code> code.</p>
  
- <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-setup-screen6" alt="install wordpress multisite network setup" /><br/>
+ <img src="images/17683/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup" /><br/>
  
  The code resembles this:
  <div class="hacker"><pre>define('MULTISITE', true);
@@ -376,15 +373,14 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
   At the top, there's now a <strong>&quot;Network Admin: <code><em><u>(your domain name)</u></em></code>&quot;</strong> option in the menu bar.</li>
 
 
-<li>To the left of that on the top navigation bar is <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong> <br />.<!--This formatting is a little unconventional, but I can't see the image to know what it should be. Is this a menu command? cj -->
+<li>To the left of that on the top navigation bar is <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong> <br /><!--This formatting is a little unconventional, but I can't see the image to know what it should be. Is this a menu command? cj -->
 <!--CT (to Carla): Yup, they're menu commands that you mouseover. I've changed the instructions to remove arrows so that it's written out. Help smooth it out more? I can email you the image if it helps-->
 
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
+<img src="images/17683/090815/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> </li>
 
 <li>On the main screen, next to Sites, click <strong>Add New</strong>.</li>
 
-<li>Fill out your first subdomain information. At the <code>Admin Email</code>, when you start typing, your email address  appears. <br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-setup-add-new-site-filledout-screen8" alt="install wordpress multisite network setup add new site filledout" /></li>
+<li>Fill out your first subdomain information. </li>
 <li>Click <strong>Add Site</strong> to finish. </li>
 <li>Repeat for all your subdomains.</li>
  </ol>                              
@@ -394,7 +390,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
  <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. <br />
 
  There's much you can do from here. One option is to map your sub-domains to external domains. See     <br />
- <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00034%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20-%20Debian,%20Ubuntu.html">Set up WordPress Domain Mapping - Debian, Ubuntu</a> for instructions. </p>
+ <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00034%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20in%20NGINX%20-%20Debian,%20Ubuntu.html">Set up WordPress Domain Mapping - Debian, Ubuntu</a> for instructions. </p>
 
  </body>
  </html>
