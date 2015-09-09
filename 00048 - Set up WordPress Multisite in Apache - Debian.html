@@ -24,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .<h1></h1>5em 4em;
+ padding: .5em 1em .5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -71,7 +71,7 @@ We'll set up a fresh install of WordPress in Apache on an Debian system. The ste
 <p>We'll use these example sites: </p>
 <table>
   <tr>
-    <td><b>Site 1</b></th>
+    <th><b>Site 1</b></th>
     <td>coolexample.com (primary)</td>
   </tr>
   <tr>
@@ -90,20 +90,20 @@ aboutus.coolexample.com</td>
 
 <ul>
 
-<li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see <!--CT (to Susan): please fix my link--><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Debian</a></p>
+<li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see <!--CT (to Susan): please fix my link--><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Debian</a></li>
 
-<p>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</p></li> 
-</li>
+<li>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</li>
+
 
 
 <li>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
        </ul>
-                    
+
  <h2>Create a MySQL database and administrator for WordPress</h2>
    
     <p>Set up your MySQL database with an administrator so that WordPress has a place to store all your site and user information.</p>
 
-    <!--CT (to Susan/Carla): Can you center this? Is it in the style sheet?-->
+    <!--CT (to Susan/Carla): Can you center this? Is it in the style sheet? Skj- this was a CSS Style error fixed. -->
 <p class="warning">Remember: All <b>MySQL</b> code statements must end with a semi-colon (;).</p>
 
 <ol>
@@ -149,32 +149,31 @@ This URL will always link to a compressed file of the latest stable version of W
 </ol>
 
                             
-  <h2>Copy files to document root</h2>   
+  <h2>Copy files to document root</h2>
      
    <p>After you’ve configured WordPress, transfer the files to Apache’s root directory so that the application can serve content to your site visitors.</p>
       
  <ol>
  <li>Transfer your WordPress files to the website's root directory
     <div class="hacker">sudo cp -r ~/wordpress/* /var/www/html</div>
-This will safely copy all of the contents from the directory you unpacked to the document root.
-      </li>   
+This will safely copy all of the contents from the directory you unpacked to the document root.</li>
  
  <li>Let's also set directory permissions at this point so that you can work with WordPress content (e.g., uploading images).
  Make the group ownership recursive to make sure it will write to your subdirectories:  
  <div class="hacker">sudo chown www-data:www-data /var/www/html * -R</div>
-<div class="hacker">sudo chmod u+x /var/www/html * -R</div>
+<div class="hacker">sudo chmod u+x /var/www/html * -R</div> </li></ol>
                                   
 <!--CT: internal note (alternative permissions)...
 sudo chown -R [USER NAME]:[USER NAME] /var/www
            </p>                                   ...-->
       
- <li>Restart Apache.
+ <ol><li>Restart Apache.
 <div class="hacker">sudo service apache2 restart</div>
                                </li> </ol>
       
 <h2>Modify the WordPress configuration files</h2> 
 
-  <h3>Modify your wp-config file to enable multisites</h3>     
+  <h3>Modify your wp-config file to enable multisites</h3>
    <ol>
    
    <li>Navigate to your WordPress document root.
@@ -189,7 +188,7 @@ sudo chown -R [USER NAME]:[USER NAME] /var/www
 <div class="hacker">sudo vim wp-config.php</div>  </li>
 
   <li> Look for this section of the code below (starting with <code>MySQL settings</code>…) and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
-Use the credentials that you just created. </li>
+Use the credentials that you just created.
  <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
 /** The name of the database for WordPress */ <br />
 define('DB_NAME', 'wordpress'); <br />
@@ -208,17 +207,18 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
                     </ol>
   
   <h3>Enable mod rewrite</h3>
-  
-  <p>Activate the Apache Mod_Rewrite module.</p>
 
-  <div class="hacker">sudo a2enmod rewrite</div>         
+  <ol><li>Activate the Apache Mod_Rewrite module.
+
+  <div class="hacker">sudo a2enmod rewrite</div>
 
 Your output message might look like this.
   <div class="hacker"><pre>Enabling module rewrite.
 To activate the new configuration, you need to run:
   service apache2 restart</pre></div><br/>
-         
-   We will be restarting Apache after this step.
+
+   We will be restarting Apache after this step.</li>
+   </ol>
 <ol>
   <li> First, make a copy of your virtual host config file just in case. We'll use the default Apache one.
 <div class="hacker">sudo cp 000-default 000-default.bak</div></li>
@@ -301,7 +301,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
       <h3>Modify your .htaccess file</h3>
  <ol>
 <li>Back in the WordPress Network Setup screen, copy the <code>.htaccess</code> code in the second section. </li>  
-<li>In your terminal, pull up your <code>.htaccess</code> file</li>
+<li>In your terminal, pull up your <code>.htaccess</code> file
 <div class="hacker">sudo vim /var/www/html/.htaccess</div></li>
 
 <li>Replace all the existing code (delete it manually) with the entire block of <code>.htaccess</code> code from WordPress.<br/>
