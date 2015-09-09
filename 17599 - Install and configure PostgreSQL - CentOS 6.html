@@ -85,8 +85,8 @@ PostgreSQL is an open-source relational database management system. PostgreSQL u
    <div class="hacker">sudo yum –y update</div>
    </li>
    <li>Install the PostgreSQL package and its necessary dependencies.
-     <div class="hacker">sudo yum -y install postgresql postgresql-libs postgresql-plperl </div>
-   <div class="hacker">postgresql-plpython postgresql-server</div>
+     <div class="hacker">sudo yum -y install postgresql postgresql-libs postgresql-plperl postgresql-plpython postgresql-server </div>
+  
    </li>
    <li>Initialize the database and data directories.
      <div class="hacker">sudo service postgresql initdb</div>
@@ -104,7 +104,7 @@ PostgreSQL is an open-source relational database management system. PostgreSQL u
 <h2>Connect to PostgreSQL</h2>
 <ol> 
    <li>Log in by <code>Postgres</code> user.
-     <div class="hacker">sudo su – postgres</div>
+     <div class="hacker">sudo -i -u postgres</div>
    </li>
    <li>Log into the database.
      <div class="hacker">Psql</div>
