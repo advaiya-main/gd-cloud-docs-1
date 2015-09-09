@@ -109,7 +109,7 @@ p.note {
 <div class="hacker">CREATE DATABASE wordpress;</div></li>
 
             <li>Create the database administrator account, and set the user's credentials.  For this article, we'll use &quot;wordpressadmin&quot; as the example user name and &quot;password&quot; as the password.
-              <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'password';</div>    
+              <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>    
 ’ll need them later.</li>
 
             <li>Give, or grant, your admin permissions to the database.
@@ -140,15 +140,15 @@ p.note {
 <div class="hacker">tar xzvf latest.tar.gz </div>
 <p>This command creates a directory called <code>wordpress</code> in your home directory.</p></li>
 
-        <li>Unhide any hidden files using <code>shopt</code> (shell options) and <code>dotglob</code>:
+       <!--CT: Commenting this out. Don't need... <li>Unhide any hidden files using <code>shopt</code> (shell options) and <code>dotglob</code>:
             <div class="hacker">shopt -s dotglob</div>  </li>
-
+...-->
         <li>Copy files to the document root <code>/var/www/</code>.
             <div class="hacker">sudo cp -R ~/wordpress/* /var/www/</div>  </li>
 
-        <li>Turn off <code>dotglob</code>:
+       <!--CT: Commenting this out. Don't need... <li>Turn off <code>dotglob</code>:
             <div class="hacker">shopt -u dotglob</div>  </li>
-
+...-->
         <li>Give your web server process, <code>www-data</code>, ownership values to allow Apache to interact with the content.
             <div class="hacker">sudo chown -R www-data:www-data /var/www/</div></li>
           </ol>
@@ -182,7 +182,7 @@ define('DB_NAME', 'wordpress'); <br />
 define('DB_USER', 'wordpressadmin');     <br />
 
 /** MySQL database password */ <br />
-define('DB_PASSWORD', 'password');   </div> </li>
+define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
 <li>Save and close the file.</li>
 </ol>
 
@@ -192,23 +192,24 @@ define('DB_PASSWORD', 'password');   </div> </li>
 
      <ol>
      <li>  Enter your server’s domain name or public IP address in your web browser. <br />
-   <strong>http://server_domain_name_or_IP</strong><br/>
+   <strong>http://your_domain_name_or_IP</strong><br/>
    You are redirected to the WordPress admin page:<code> http://server_domain_name_or_IP/wp-admin/install.php</code><br/>
    </li>
 
-  <li>If you get this preliminary page to choose your language, do so and select <strong>Continue</strong>.
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/19191/082015/install-wordpress-on-your-server-choose-language-0.5.png" alt="install wordpress choose language" /> <br />
-<li>At the WordPress configuration page, fill out your information to create your administrator account. <br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/19191/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> <br />
-WordPress confirms your installation by displaying your user name and password.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/19191/082015/install-wordpress-on-your-server-success-login-confirmation-2.png" alt="install wordpress confirmation screen" />  </li>
-   <li>  <p>Click <strong>Login.</strong> WordPress  prompts you to log in with your new credentials.</p>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/19191/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" />
+  <li>If you get the preliminary page to choose your language, do so and select <strong>Continue</strong>.
+</li>
+
+<li>At the WordPress 5-minute installation page, fill out your information to create your administrator account. Then, click <strong>Install WordPress</strong>.
+<p><img src="images/19191/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </p></li>
+<li>On the next screen, WordPress confirms your installation with your user name and (hidden) password. Click <strong>Log In</strong>.</li>
+
+ <li><p> WordPress then prompts you to log in again with your new credentials. Do so now and click <strong>Log In</strong>.</p>
+<img src="images/19191/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" />
                                                           </li>
                                                             </ol>
 
  <p>All finished!  The dashboard of your new site displays.</p>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/19191/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
+<img src="images/19191/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
 
 
 <h2>Next steps</h2>
