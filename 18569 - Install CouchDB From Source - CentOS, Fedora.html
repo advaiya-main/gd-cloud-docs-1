@@ -116,7 +116,6 @@ Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile su
 		<div class="hacker">sudo wget   http://ftp.mozilla.org/pub/mozilla.org/js/mozjs17.0.0.tar.gz</div>
 	</li>
 	<li>Compile Mozilla SpiderMonkey.
-		<div class="hacker">sudo wget   http://ftp.mozilla.org/pub/mozilla.org/js/mozjs17.0.0.tar.gz</div>
 		<div class="hacker">sudo tar -xvf mozjs17.0.0.tar.gz</div>
 		<div class="hacker">cd mozjs17.0.0/js/src/</div>
 		<div class="hacker">sudo ./configure</div>
@@ -133,6 +132,11 @@ Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile su
 	<li>Export the path of Erlang using the following commands:
 	<div class="hacker"> export ERL_TOP='pwd'</div>
 		<div class="hacker">export PATH=$ERL_TOP/bin:$PATH</div>
+	</li><li>Install all erlang  dependencies.
+	<div class ="hacker">sudo yum install erlang</div>
+	</li>
+	<li>Install <code>jsapi</code> header file which is required by spider Monkey.
+	<div class ="hacker">sudo yum install js-devel</div>
 	</li>
 	<li>Compile the CouchDB.
 	<div class="hacker"> sudo ./configure --with-erlang=/usr/lib64/erlang/erts-5.10.4/include</div>
