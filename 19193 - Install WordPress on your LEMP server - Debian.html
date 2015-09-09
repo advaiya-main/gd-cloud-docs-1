@@ -4,10 +4,6 @@
 
 <head>
 
-<!--Article Number is 00015 -->
-
-<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
-
 <title>Install WordPress on your LEMP server - Debian</title>
 <style type="text/css">
 div.hacker {
@@ -77,18 +73,19 @@ p.note {
 </head>
 
 <body>
+<!--Looks good, just need to link the images. cj -->
         <p>Installing Wordpress on a LEMP server for Debian.</p>
-<h1>Install WordPress on your LEMP server – Debian</h1>
+<h1>Install WordPress on Your LEMP Server - Debian</h1>
 
         <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
             <strong>Time</strong>: <em><u>15 minutes</u></em></p>
 
-        <p>WordPress has become much more than its humble beginnings in 2003 as a self-hosted blogging tool. It is the Internet’s leading content management system (CMS). This open-source CMS powers all types of sites, including many major brands. With a MySQL and PHP architecture, WordPress is easy to install and has endless options for website configuration thanks to tens of thousands of plugins and themes from its rich and active community.</p>
+        <p>WordPress has become much more than its humble beginnings in 2003 as a self-hosted blogging tool. It's the Internet’s leading content management system (CMS). This open-source CMS powers all types of sites, including many major brands. With a MySQL and PHP architecture, WordPress is easy to install and has endless options for website configuration thanks to tens of thousands of plugins and themes from its rich and active community.</p>
 
         <p>This article walks you through setting up WordPress on a Debian system. The steps are for a non-root user with <code>sudo</code>, or administrative, privileges.</p>
 
     <h2>Prerequisites</h2>
-        <p>Make sure you that have a non-root user with <code>sudo</code> (administrator) privileges set up. You also need a Linux, Nginx, MySQL, and PHP (LEMP) stack configured. Be sure that Nginx, MySQL, and PHP are up and running. For a how-to on installing a LEMP stack, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">Build a LEMP stack (Linux, Nginx, MySQL, PHP) – Debian</a>.   </p>
+        <p>Make sure you that have a non-root user with <code>sudo</code> (administrator) privileges set up. You also need a Linux, Nginx, MySQL, and PHP (LEMP) stack configured. Be sure that Nginx, MySQL, and PHP are up and running. To install a LEMP stack, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">Build a LEMP stack (Linux, Nginx, MySQL, PHP) – Debian</a>.   </p>
 
         <p>As you install the software, make a note of your MySQL root account (administrator) password. You’ll need it for these tasks.</p>
 
@@ -118,8 +115,8 @@ p.note {
         <li>If the privileges don’t take effect, flush the privileges to activate the user. <code>FLUSH</code> forces a reload of the cache.
 <div class="hacker">FLUSH PRIVILEGES;</div>  </li>
 
-        <li>Exit MySQL to bring you back to your normal command prompt.
-<div class="hacker">exit</div> </li>
+        <li>Exit MySQL to return to your normal command prompt.
+          <div class="hacker">exit</div> </li>
     </ol>
 <p>You finished! </p>
 <h2>Download and install WordPress</h2>
@@ -203,10 +200,10 @@ define('DB_PASSWORD', <em><u>'wordpresspassword'</u></em>);   </div> </li>
 
  <h2>Update the Nginx configuration file</h2>
 
-   <p>We now need to update the default Nginx configuration file with our WordPress settings. Use the default Nginx server block as a base for your new server block. </p>
+   <p>You now need to update the default Nginx configuration file with your WordPress settings. Use the default Nginx server block as a base for your new server block. </p>
   <ol>
-    <li>Copy the server block over:
-<div class="hacker">sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/wordpress</div></li>
+    <li>Copy the server block over.
+      <div class="hacker">sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/wordpress</div></li>
   <li>
 
 Open the new file for editing.
@@ -231,10 +228,7 @@ Open the new file for editing.
                 try_files $uri $uri/ /index.php?q=$uri&amp;$args;<br/>
         } </div>
 
-
        </li>
-
-
     </ul>
     After the changes, your file  resembles this:
 
@@ -266,9 +260,9 @@ server {
 
 <h2>Enable your WordPress site</h2>
 
-         Create a symlink to reference your new location and delete the old file.
+         Create a symlink to reference your new location, and delete the old file.
 
-        <ol>
+         <ol>
          <li>Link your <code>sites-enabled</code> directory to this new file.
            <div class="hacker">sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/</div>
          </li>
@@ -277,13 +271,11 @@ server {
            <div class="hacker">sudo rm /etc/nginx/sites-enabled/default</div>
          </li>
 
-         <li>Restart Nginx and the PHP processes for your changes take effect.
+         <li>Restart Nginx and the PHP processes for your changes to take effect.
            <div class="hacker">sudo service nginx restart</div>
 <!--CT: or reload-->
 <div class="hacker">sudo service php5-fpm restart</div> </li>
 </ol>
-
-
       <h2>Install WordPress </h2>
 
       <p>Good news! The rest of your installation uses the WordPress web interface.</p>
@@ -303,8 +295,6 @@ WordPress confirms your installation by displaying your user name and password.<
  <p>All finished! The dashboard of your new site displays.</p>
  
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00015/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
-
-
 
 
     <h2>Next steps</h2>

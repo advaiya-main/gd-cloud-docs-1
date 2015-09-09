@@ -4,13 +4,12 @@
 
 <head>
 
-<!--Article Number is __17406________ (fill in blank)-->
+<!--Article Number is __17406_-->
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Install Java with YUM - Fedora, CentOS</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -77,62 +76,59 @@ p.note {
 <p>Install Java</p>
     <h1>Install Java with yum - CentOS, Fedora</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
+    <p><strong>Difficulty</strong>: <em><u>1</u></em><br />
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-    <p>Java is used by many applications so behooves many administrators to have Java already installed.  This article contains directions for installing both the java runtime, SDK, and Open JDK 7 versions </p>
+    <p>Java is used by many applications, so benefits many administrators to have Java already installed. This article contains directions for installing the java runtime, SDK, and Open JDK 7 versions. </p>
 
     <h2>Install Java</h2>
     <ol>
-<li>Update your repository
+<li>Update your repository.
  <div class="hacker">sudo yum update </div>
 </li>
-<li>Download Java runtime
-    (update the version number based on the current version)
- <div class="hacker">sudo yum install java-1.7.0-openjdk</div>
+<li>Download Java runtime. This article uses version <em><u>1.7.0</u></em>. Update the version number based on the current version of Java.
+ <div class="hacker">sudo yum install java-<em><u>1.7.0</u></em>-openjdk</div>
 </li>
-<li>Download Java
-    OPEN JDK 7
-    (update the version number based on the current version)
- <div class="hacker">sudo yum install java-1.7.0-openjdk-devel </div>
+<li>Download Java OPEN JDK 7.
+ <div class="hacker">sudo yum install java-<em><u>1.7.0</u></em>-openjdk-devel </div>
 </li>
-<li>You can also get the latest version number and tar.gz archive from the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">Oracle downloads</a> page. This will require you to accept a license agreement.</li>
+<li>You can also get the latest version number and tar.gz archive from the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">Oracle downloads</a> page. This site requires a license agreement.</li>
  
        </ol>
-         <h2>Select and verify the default Java version</h2>
+
+<h2>Select and verify the default Java version</h2>
  <ol>
-     <li>If you have mmore than one version of Java installed, you can use the following command to select it.  
+     <li>If you have more than one version of Java installed, you can use the following command to select it.  
          Unless you installed an Oracle version above, this command will only return one row.
  <div class="hacker">sudo update-alternatives --config java</div>
     You will see this:
-    <div class="hacker"><pre>  Selection    Command
+    <div class="hacker"><pre>Selection   Command
 -----------------------------------------------
-*+ 1           /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.79-2.5.5.0.fc20.x86_64/jre/bin/java
+*+ 1      /usr/lib/jvm/java-1.7.0-openjdk-<em><u>1.7.0.79-2.5.5.0.fc20.x86_64</u></em>jre/bin/java
 
 Enter to keep the current selection[+], or type selection number:</pre></div>
  
 </li>
-        <li>Create a file,  <code>/etc/environment</code>
+        <li>Create a <code>/etc/environment</code> file.
       <div class="hacker">sudo vim /etc/environment</div>
 </li>
- <li>Select your <code>Java_home</code>
-     by trimming off the <code>jre/bin/java</code> part of the path of your preferred alternative that you chose above, and entering it into the file.  
+ <li>To select your preferred version, use the <code>JAVA_HOME</code> command and the path of your preferred alternative with the <code>jre/bin/java</code> part of the path removed. Enter this path into the file.  
  <div class="hacker">JAVA_HOME="/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.79-2.5.5.0.fc20.x86_64&quot;
 </div>
 </li>
 <li>Save and close.
  </li>
- <li>Load the environment file
+ <li>Load the environment file.
  <div class="hacker">source /etc/environment
 </div>
 </li>
-<li>Test it
+<li>Test it.
  <div class="hacker">echo $JAVA_HOME
 </div>
 </li>
 </ol>
     <h2>Conclusion</h2>
-    <p>You have just installed three versions of Java and selected one to be your default.  </p>
+    <p>You have just installed three versions of Java, and then selected one to be your default.</p>
    
 </body>
 </html>

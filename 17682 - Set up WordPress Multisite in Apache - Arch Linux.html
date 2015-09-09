@@ -6,7 +6,7 @@
 
 
 <title>Set up WordPress Multisite in Apache - Arch Linux</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -23,7 +23,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em .<h1></h1>5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -35,6 +35,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -63,7 +73,7 @@ p.note {
 </head>
 
 <body>
-<p>Install WordPress Multisite in Apache for Arch Linux.</p>
+<p>Install WordPress Multisite in Apache on a LAMP stack for Arch Linux.</p>
     <h1>Set up WordPress Multisite in Apache - Arch Linux</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
@@ -234,16 +244,14 @@ This will safely copy all of the contents from the directory you unpacked to the
      <li>  In your web browser, enter your primary domain name. In our example, that's 
    <strong>http://coolexample.com</strong>.
    (If the Apache default page displays, append <code>/wp-admin/ </code>to your URL.)<br/>
-   You should get this introductory page:<br />
-  <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress multisite on your server welcome" />   </li>
-     <li>Click <strong>Let's go!</strong> to continue.</li>
+   You may get this introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
 
      <li>On the next page, fill out your WordPress MySQL database credentials. 
      You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. </li>
   <li>Click <strong>Submit</strong>.<br />
 
 <li>Your next screen will look something like this.<br/>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17683/082515/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup screen wpconfig code" />
+<img src="images/17682/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup screen wpconfig code" />
 </li>
       </ol>
       
@@ -289,7 +297,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
         <li>Return to your browser and click <strong>Run the Install</strong> on the screen you were just on to continue the WordPress web installation. You should be taken to this screen.
         
 <br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
+<img src="images/17682/090815/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
         <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
         <li>Click <strong>Install WordPress</strong>.</li>
       </ol>
@@ -297,27 +305,23 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 <!--CT...<p class="note">If at any point during web installation you get an error such as a 404 or 504 page, reload the wp-admin page (<code>http://coolexample.com/wp-admin/</code>).</p>
 -->  
 
-    <h2>Enable multisite</h2>
+<h3>Update your wp-config file</h3>
    
    <ol>
    
-  <li>In your browser, continue the WordPress web installation. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
-  </li>
+  <li>In your browser, continue the WordPress web installation. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.  </li>
   
   <li>Because we're working with sub-domains, choose <strong>sub-domains</strong>
-  and change your Network Title if you like. Click <strong>Install</strong>.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-screen5.png" alt="install wordpress multisite network" />  
-</li> 
+  and change your Network Title if you like. Click <strong>Install</strong>.</li> 
 
- <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.
+ <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.<br/>
 
- <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-screen6" alt="install wordpress multisite network setup" /><br/>
+ <img src="images/17682/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup" /><br/>
  
  The code resembles this:
  <div class="hacker"><pre>define('MULTISITE', true);
 define('SUBDOMAIN_INSTALL', true);
-define('DOMAIN_CURRENT_SITE', coolexample.com');
+define('DOMAIN_CURRENT_SITE', '<em><u>coolexample.com</u></em>');
 define('PATH_CURRENT_SITE', '/');
 define('SITE_ID_CURRENT_SITE', 1);
 define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
@@ -331,7 +335,10 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
    <li>Find the section torwards the end of the file we were modifying, and paste the code you copied right before <code>/* That's all, stop editing! Happy blogging. */</code>.</li>
     
   <li>Save and close the file.</li>
-
+    </ol>
+  
+  <h3>Modify your .htaccess file</h3>
+  <ol>
 <li>Back in the WordPress Network Setup screen, copy the <code>.htaccess</code> code in the second section. </li>  
 <li>In your terminal, pull up your <code>.htaccess</code> file</li>
 <div class="hacker">sudo vim /srv/http/.htaccess</div></li>
@@ -347,18 +354,19 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 <ol>       
 <li>Back in your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page. Then, log back in if your password isn't saved.<br /></li>
 
-<li>To the left of that on the top navigation bar is <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
+<li>Go to <strong>My Sites</strong> in your top navigation bar. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
+  <img src="images/17682/090815/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> </li>
 
 At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar, if it wasn't there earlier.<br/></li>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-sites-nav-screen7" alt="install wordpress multisite network setup sites nav" /> </li>
 
-<li>On the main screen, next to Sites, click <strong>Add New</strong>.</li>
 
-<li>Fill out your first subdomain information. At the <code>Admin Email</code>, when you start typing, your email address appears. <br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17682/090215/install-wordpress-multisite-network-setup-add-new-site-filledout-screen8" alt="install wordpress multisite network setup add new site filledout" /></li>
-<li>Click <strong>Add Site</strong> to finish. </li>
+<li>On the main screen, next to  <strong>Sites</strong>, click <strong>Add New</strong>.</li>
+
+<li>Fill out your first subdomain information.<br/> 
+At the <strong>Site Address</strong> field, fill in your first subdomain. For example, for <em><u>product</u></em>.coolexample.com <!--CT (to Carla): Is it okay to do this? I want to highlight just the subdomain part-->, you'll simply put <em><u>product</u></em>.<br/></li>
+<li>Click <strong>Add Site</strong> to finish. This might take a few minutes.</li>
 <li>Repeat for all your subdomains.</li>
- </ol>                              
+ </ol>                             
 
 
 <h2>Next Steps</h2>

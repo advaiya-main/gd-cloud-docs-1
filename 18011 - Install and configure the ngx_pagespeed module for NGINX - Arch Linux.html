@@ -4,13 +4,12 @@
 
 <head>
 
-<!--Article Number is __18011________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 18011-->
 
 
-<title>Install and configure the ngx_pagespeed module for NGINX - Arch Linux</title>
-<style>
+
+<title>Install and configure the ngx_pagespeed module for Nginx - Arch Linux</title>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -75,93 +74,94 @@ p.note {
 </head>
 
 <body>
-<p>Installation and configuration of NGINX with ngx_pagespeed</p>
-    <h1>Install and configure the ngx_pagespeed module for NGINX - Arch Linux</h1>
+<p>Installation and configuration of Nginx with ngx_pagespeed</p>
+    <h1>Install and configure the ngx_pagespeed module for Nginx - Arch Linux</h1>
     
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
         <strong>Time</strong>: <em><u>15 minutes</u></em></p>
 
-   <p>NGINX is fast.  Pagespeed nakes it faster by optimizing your website.  This article descibes how to install ngx_pagespeed, combine it with the NGINX source, and compile and configure the resulting customized NGINX webserver.</p>
+   <p>Nginx is fast.  PageSpeed makes it faster by optimizing your website.  This article describes how to install ngx_pagespeed, combine it with the Nginx source, and then compile and configure the resulting customized Nginx web server.</p>
 
-<h2>Preparation </h2>
+<h2>Prerequisites</h2>
 <ol>
 <li>Update your server.
      <div class="hacker">sudo pacman -Syu</div>
 
 </li>
-     <li>Install a C compiler and some other tools
+     <li>Install a C compiler and some other tools.
                     <div class="hacker"> sudo pacman -S gcc make unzip</div>
                </li>
-     <li>Install perl
+     <li>Install perl.
                     <div class="hacker"> wget http://sourceforge.net/projects/pcre/files/latest/download?source=files</div>
                </li>
  </ol>
     <h2>Install ngx_pagespeed </h2>
     <ol>
-<li>Find the latest NPS version (1.9.32.6) and use it to get the zip file from the archive
-     <div class="hacker">sudo wget https://github.com/pagespeed/ngx_pagespeed/archive/release-1.9.32.6-beta.zip </div>
+<li>Find the latest NPS version, and then use it to get the zip file from the archive. This article uses version <em><u>1.9.32.6</u></em>.
+     <div class="hacker">sudo wget https://github.com/pagespeed/ngx_pagespeed/archive/release-<em><u>1.9.32.6</u></em>-beta.zip </div>
 
 </li>
-<li>Unzip the file 
-     <div class="hacker">unzip release-1.9.32.6-beta.zip</div>
+<li>Unzip the file. 
+     <div class="hacker">unzip release-<em><u>1.9.32.6</u></em>-beta.zip</div>
 
 </li>
-<li>Navigate to the ngx_pagespeed folder.
-     <div class="hacker">cd ngx_pagespeed-release-1.9.32.6-beta/</div>
+<li>Navigate to the <code>ngx_pagespeed</code> folder.
+     <div class="hacker">cd ngx_pagespeed-release-<em><u>1.9.32.6</u></em>-beta/</div>
 
 </li>
 <li>Download psol from Google.
-     <div class="hacker">sudo wget https://dl.google.com/dl/page-speed/psol/1.9.32.6.tar.gz
+     <div class="hacker">sudo wget https://dl.google.com/dl/page-speed/psol/<em><u>1.9.32.6</u></em>.tar.gz
 </div>
 
 </li>
-<li>extract to psol
-     <div class="hacker">tar -xzvf 1.9.32.6.tar.gz  </div>
+<li>Extract to psol.
+     <div class="hacker">tar -xzvf <em><u>1.9.32.6</u></em>.tar.gz  </div>
 </li>
     </ol>
-<h2>Download NGINX source </h2>
+<h2>Download Nginx source</h2>
 <ol>
-<li>Check http://nginx.org/en/download.html for the latest version (1.8.0).
+<li>Check <strong>http://nginx.org/en/download.html</strong> for the latest version. This article uses version <em><u>1.8.0</u></em>.
  </li>
-<li>Navigate to your home directory
+<li>Navigate to your home directory.
      <div class="hacker">cd ~</div>
 
 </li>
-<li>Download NGINX source 
-     <div class="hacker">sudo wget http://nginx.org/download/nginx-1.8.0.tar.gz </div>
+<li>Download Nginx source. 
+     <div class="hacker">sudo wget http://nginx.org/download/nginx-<em><u>1.8.0</u></em>.tar.gz </div>
 
 </li>
-<li>Unzip it
-     <div class="hacker">sudo tar -xvzf nginx-1.8.0.tar.gz </div>
+<li>Unzip it.
+     <div class="hacker">sudo tar -xvzf nginx-<em><u>1.8.0</u></em>.tar.gz </div>
 
 </li>
         </ol>
-<h2>Build NGINX from source </h2>
+<h2>Build Nginx from source </h2>
 <ol>
 <li>Navigate to Nginx source directory.
-     <div class="hacker">cd nginx-1.8.0/
+     <div class="hacker">cd nginx-<em><u>1.8.0</u></em>/
 </div>
 
 </li>
-<li>Add the pagespeed module to the NGINX configuration
-     <div class="hacker">sudo ./configure --add-module=$HOME/ngx_pagespeed-release-1.9.32.6-beta  </div>
+<li>Add the <code>PageSpeed</code> module to the Nginx configuration.
+     <div class="hacker">sudo ./configure --add-module=$HOME/ngx_pagespeed-release-<em><u>1.9.32.6</u></em>-beta  </div>
 </li>
-<li>Create a make file
+<li>Create a make file.
      <div class="hacker">sudo make </div>
 
 </li>
-<li>Install from your make file<div class="hacker">sudo make install</div>
+<li>Install from your make file
+<div class="hacker">sudo make install</div>.
 
 </li>
     </ol>
 
-<h2>Configure NGINX </h2>
+<h2>Configure Nginx </h2>
 <ol>
-<li>Open the configuration file for editing
+<li>Open the configuration file for editing.
      <div class="hacker">sudo vim /usr/local/nginx/conf/nginx.conf</div>
 
 </li>
-<li>Add the following lines to your http context:
+<li>Add the following lines to your <code>http</code> context:
      <div class="hacker"><pre># http context 
 http {
 ...    
@@ -175,7 +175,7 @@ http {
 
 </li>
 
-<li>Modify the Server and location contexts by commenting out the <code>root</code> and <code>index</code> directives in the location contexts and implement them in the server context instead.  Changed sections are <em><u>underlined</u></em>
+<li>Modify the server and location contexts by commenting out the <code>root</code> and <code>index</code> directives in the <code>location</code> contexts, and then implementing them in the <code>server</code> context instead.  Changed sections are <em><u>underlined</u></em>.
      <div class="hacker"><pre># http context 
    server {
         listen       80;
@@ -203,13 +203,13 @@ http {
  ...</pre></div>
 
 </li>
-<li>Verify the install by checking the nginx version information 
+<li>Verify the install by checking the Nginx version information. 
 <div class="hacker">sudo /usr/local/nginx/sbin/nginx -V</div> 
 </li>
-<li>The response will look something like this 
-<div class="hacker"><pre>nginx version: nginx/1.8.0
+<li>The response will look something like this: 
+<div class="hacker"><pre>nginx version: nginx/<em><u>1.8.0</u></em>
 built by gcc 5.2.0 (GCC)
-configure arguments: --add-module=/home/randomcode/ngx_pagespeed-release-1.9.32.6-beta
+configure arguments: --add-module=/home/randomcode/ngx_pagespeed-release-<em><u>1.9.32.6</u></em>-beta
 </pre></div> 
 </li>
 <li>Start the Nginx service.
@@ -218,8 +218,8 @@ configure arguments: --add-module=/home/randomcode/ngx_pagespeed-release-1.9.32.
 </ol>
 
 
-    <h2>Conclusion</h2>
- <p>Nginx is now running as a web server enhanced with pagespeed. You can verify by using your browser to navigate to the IP address of your cloudserver,  <code>http://<em><u>IP Address of your cloudserver</u></em></code> .</p>
+<h2>Conclusion</h2>
+ <p>Nginx is now running as a web server enhanced with PageSpeed. You can verify by using your browser to navigate to the IP address of your cloud server, <code>http://<em><u>IP Address of your cloud server</u></em></code>.</p>
    
 </body>
 </html>

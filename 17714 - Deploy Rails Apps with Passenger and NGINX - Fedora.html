@@ -75,14 +75,14 @@ p.note {
 </head>
 
 <body>
-<!--Please make sure that all variables use the proper formatting (<em> and <u>) and have a descriptive name such as "yourapplication" for an example application. cj -->
+<!--Please make sure that all variables use the proper formatting (<em> and <u>) and have a descriptive name such as "yourapplication" for an example application. cj --><!--Fixed the variable names and changed "HelloWorld" to "Your_application"-->
 
 <p>Setting up Rails Apps with Passenger and Nginx in Fedora, Ruby, Rails, Nginx</p>
 <h1>Deploy Rails Apps with Passenger and Nginx - Fedora </h1>
 
 <p><strong>Difficulty: </strong> 2</p>
 <p><strong>Time: </strong> 30 minutes</p>
-<p><!--Please addressthe Request Notes. cj-->
+<p><!--Please addressthe Request Notes. cj--><!--Fixed-->
 Rails enables web developers to rapidly build quality applications, while Nginx is a lightweight, high-performance web server. In this article you'll learn to deploy a Rails application on an Nginx web server using the simple and powerful features of Phusion Passenger. This task assumes that you have <code>sudo</code> privileges.</p>
 <p>To set up your Fedora server, refer to  <a href ="17322"> Initial Server Setup - Fedora</a>. Ensure that the fully qualified domain name (FQDN) points to the server. After you  set up the  server, you  need to <a href ="17536"> install Ruby on Rails using RVM</a>. You may also refer to <a href ="17719"> Deploy Rails Apps with Passenger and Apache - Fedora</a>.</p>
   
@@ -115,9 +115,8 @@ Rails enables web developers to rapidly build quality applications, while Nginx 
        <br/> 
        The easiest way to get started. A stock Nginx 1.4.4 with Passenger support, but with no other additional third party modules, will be installed for you to a directory of your choice.</div>
         </li>
-  <li>  Save and exit.
-  <div class ="hacker">wq!</div>
-  </li>
+  <li>  Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.<!--Following this standard for "save and exit"-->
+    </li>
     </ol>
 
 <h2>Set up a test Rails application</h2>
@@ -130,8 +129,8 @@ Rails enables web developers to rapidly build quality applications, while Nginx 
 		  <div class='hacker'>cd /var/www</div>
 		  </li>
 		  <li>Create a Rails application, and go to application directory.
-            <div class='hacker'>rails  new <em><u>HelloWorld</u></em></div>
-      <div class='hacker'>cd <em><u>HelloWorld</u></em></div>
+            <div class='hacker'>rails  new <em><u>Your_application</u></em></div>
+      <div class='hacker'>cd <em><u>Your_application</u></em></div>
         </li>
     <li>Create a sample database, and generate a scaffold controller to manage the production database.
             <div class='hacker'>  RAILS_ENV=development rake db:migrate</div>
@@ -145,11 +144,11 @@ Rails enables web developers to rapidly build quality applications, while Nginx 
     </ol>
 <h2>Configure Nginx</h2>
 <ol>
-        <li>Open the   Nginx configuration file.
+        <li>Open the Nginx configuration file.
             <div class='hacker'>sudo vim  /etc/nginx/conf/nginx.conf</div>
         </li>
     
-    <li>Uncomment the following  lines:
+    <li>Uncomment the following lines:
             <div class='hacker'>passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
       <br/>passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv
       </div>
@@ -183,7 +182,7 @@ Rails enables web developers to rapidly build quality applications, while Nginx 
           
         </li></ol>
 <h2>Conclusion</h2>
-<p>In this article, we reviewed the steps  to deploy a Rails application using Nginx and Passenger.<!--What might the user do next? cj --> </p>
+<p>In this article, you learned the steps to deploy a Rails application using Nginx and Passenger.<!--What might the user do next? cj --><!--Changed to "Conclusion"--> </p>
 
 </body>
 </html>

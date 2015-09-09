@@ -89,77 +89,121 @@
 <body>
 <p>Optimize Unicorn for your Ruby on Rails application - CentOS, Fedora platform, Ruby, Rails, Optimization</p>
 <h1>Optimize Unicorn for your Ruby on Rails application - CentOS, Fedora</h1>
-<p><strong>Difficulty: </strong> 3</p>
-<p><strong>Time: </strong> 1.5 hour</p>
+
+
+<p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
+<strong>Time</strong>: <em><u>1.5 hours</u></em></p>
+
 <p>
-Rails is a nice web framework, but over past few years, it has grown into a complex system. Particularly when using Unicorn, Rails apps tend to consume a lot of memory. Understanding its operational details and optimizing its performance can be a critical factor for success any Rails developer. This article will assist you with few simple things that can be done to enhance the performance of Unicorn for your Rails applications. <!--Include the OS's in the intro and links to install any prerequisites not in the article. -->
+Rails is a nice web framework, but over past few years, it has grown into a complex system. Particularly when using Unicorn, Rails apps tend to consume a lot of memory. Understanding its operational details and optimizing its performance can be a critical factor for success of any Rails developer. </p>
+
+<p>This article will assist you with few simple things that can enhance the performance of Unicorn for your Rails applications on a CentOS or Fedora platform.
 </p>
-<p class="note">
-Note: It is assumed that you are logged in as a sudo user and <a href="#"> deployed a Rails App with Unicorn and NGINX - CentOS</a> or <a href="#"> deployed a Rails App with Unicorn and NGINX - Fedora</a> <!--Don't include "Note" in the Notes class. The word is added by the presentation layer.-->
-</p>
-<h2>
-Set Unicorn as a default option
-</h2>
-<p>
-By default, Rails uses the "Webrick" server to run applications. It is fast, but unfortunately, it can not handle concurrent connection requests. For optimized performance, Unicorn must be set as the default server for Rails. Unicorn is a multi-threaded web server, capable of handling multiple requests simultaneously, thus optimizing the performance 2 to 3 times.
-<!--How? Include a procedure.-->
-</p>
-<h2>
-Upgrade to 2.0
-</h2>
-<p>If you are using ruby 1.9 or earlier, it is recommended to upgrade to 2.0. Because ruby 1.9 and earlier versions do not support automated garbage collection, and thus are unable to take benefits of Copy-on-Write (CoW) feature. </p>
-<p>You can check your Ruby version using "ruby -v" command.
-If your version is >=2.0, you are on right track, but in case it is 1.9 or earlier, you should upgrade to >=2.0 <!--Make this a step, and include a step to upgrade.  Repetitive content.-->
-</p>
-<h2>
-Fine tuning the configuration settings
-</h2>
-<p>
-To boost the performance of Unicorn, some configuration settings can be checked. These are available in the Unicorn's default configuration file config/unicorn.rb.<!--Tag filenames with <code>.-->
-Upon a new install, this configuration file might not be available on your machine. GitHub do provide a <a href="https://github.com/gitlabhq/gitlabhq/blob/master/config/unicorn.rb.example">sample unicorn.rb configuration file.</a> Checking out the following configurations can help improving the performance:
-</p>
-<!--These next few paragraphs would make a better table. Process | Description | Recommended Setting  or something like that.-->
-<h3>worker_process</h3>
-<p>Worker process defines the total number of concurrent worker to be launched. This ideally depends upon the memory available to the processes to execute. So depending upon your application and the availability of memory, you can set the number of concurrent worker process to run. For example, to allow 5 concurrent connections, you can set the value to 5 workers.
-The default value is 3.
-</p>
-<div class="hacker">worker_processes 3 </div><!--Because this is outside of a code sample, these processes should be tagged with <code>. -->
-<h3>Timeout</h3>
-<p>Timeout defines the time duration to wait before the worker times out. It is usually preferred to keep a lower base value for timeout to avoid holding back a long queue. So ideally 15 to 30 is considered as a rational value, but depending upon the nature of applications, this can be changed accordingly.
-The default value is 60 seconds.
-</p>
-<div class="hacker">timeout 60</div>
-<h3>Preload_app</h3>
-<p>This defines the ability to preload the Rails application using CoW, before forking the worker processes.
-This setting impacts startup time when running Unicorn worker processes. This should be set to true. Although, when using this option, special care need to be taken when opening and closing any sockets.
-When workers are forked, any associated connection (like database connections or others which require sockets) must be closed and reopened. 
-</p>
-<div class="hacker">preload_app true</div>
-<h2>Controlling Unicorn Workers</h2>
-<p>When using Unicorn, all the forked or child processes of Ruby application consumes memory.  So in case there is any memory leakage in the Ruby application, use of Unicorn would increase the problem multi-fold times. Over a period of time, I situation may arrive when all the memory might get used and no additional memory is left, ultimately causing the system to halt or crash.
-Although Unicorn may not be causing this problem, but can be resolved using Unicorn-worker-killer. 
-</p>
-<h2>Unicorn Worker Killer</h2>
-<p>Unicorn worker killer is a gem that provides automatic restart of worker without affecting any request. It is based on the maximum number of requests and the consumed memories, and helps avoid excess consumption of memory in an event of memory leakage.
-Here are the steps for using unicorn-worker-killer:  <!--There are missing words in this paragraph. There are also some verb tense issues.-->
-</p>
+<h2>Prerequisite</h2>
+<p>This article requires that Ruby on Rails be installed. If it is not installed, refer to the appropriate article. </p>
+<ul>
+	<li><a href="17536">Install Ruby on Rails using RVM - CentOS</a></li>
+	<li><a href="17535">Install Ruby on Rails using RVM - Fedora</a></li>
+</ul>
+<p class="note">This article assumes that user is logged in with sudo user privileges.</p>
+
+<h2>Set Unicorn as a default option</h2>
+<p>By default, Rails uses the <strong>Webrick</strong> server to run applications. It is fast, but unfortunately, it can not handle concurrent connection requests. For optimized performance, Unicorn must be set as the default server for Rails. Unicorn is a multi-threaded web server capable of handling multiple requests simultaneously, thus optimizing the performance considerably.</p> 
+
+<p>For details about setting up Rails app with Unicorn and Nginx, see:</p>
+<ul>
+	<li><a href="17516">Deploy a Rails App with Unicorn and Nginx - CentOS</a></li>
+  <li><a href="17515"> Deploy a Rails App with Unicorn and Nginx - Fedora</a></li>
+</ul>
+
+<h2>Upgrade to Ruby 2.x</h2>
+<p>If you are using Ruby 1.9 or earlier, it is recommended to upgrade to 2.x. Ruby 1.x and earlier versions, do not support automated garbage collection, and thus are unable to take benefits of Copy-on-Write (CoW) feature. </p>
 <ol>
-<li>
-<h3>Installation</h3><!--Headings should be imperative and have a noun.  "Install Worker Killer Fire">
-<p>To install worker killer fire below command.</p> <!--Missing word?-->
-<div class="hacker">gem install unicorn-worker-killer</div>
+	<li>Upgrade Ruby from 1.9 to 2.x.
+		<div class="hacker">rvm install 2.2.3</div>
+	</li>
+	<li>Verify the Ruby version.
+	<div class="hacker">ruby -v<br />
+	#ruby 2.2.3p173 (2015-08-18 revision 51636) [x86_64-linux] 
+	</div></li> 
+</ol>
+
+<h2>Fine-tune the configuration settings</h2>
+<p>To boost the performance of Unicorn, some configuration settings can be checked. These are available in the Unicorn's basic configuration file <code>config/unicorn.rb</code>.</p>
+
+<ol>
+	<li>Open the <code>unicorn.rb</code> in your favorite editor.
+	<div class="hacker">vim config/unicorn.rb</div>
+	</li>
+<li>Update the desired configuration variables based on requirements.
+	<div class="hacker">
+	<pre>
+app_path = <em><u>File.expand_path(File.dirname(__FILE__) + '/..')</u></em>
+worker_processes <em><u>2</u></em>
+preload_app <em><u>true</u></em>
+timeout <em><u>30</u></em>
+</pre>
+	</div>
+	</li>
+	<li>To save and exit the file, press the <strong>Esc</strong> key, type <code>:wq</code>, and then press the <strong>Enter</strong> key. </li>
+</ol>
+
+<h3>Setting variables</h3>
+<p>Below is the explanation of the setting variables:</p>
+<ul>
+<li><code>app_path</code>
+<p>Defines the current app's path for later reference. <code>Rails.root</code> isn't available at this point, so point up a directory.</p>
 </li>
-<li>
-<h3>Setup Unicorn Worker Killer</h3>
-<p>Open file <span class="command">config.ru</span><!--Use <code> not <span and command--> (of your application) located in the default project directory, and add the following lines above the require ::File.expand_path('../config/environment', __FILE__) line.</p>
-<div class="hacker">
-<pre>
+
+<li><code>worker_process</code>
+<p>Defines the total number of concurrent worker to be launched. This number ideally depends upon the memory available to the processes to execute. So depending upon your application and the availability of memory, you can set the number of concurrent worker process to run. For example, to allow five concurrent connections, you can set the value to five workers.</p>
+</li>
+<li><code>preload_app</code>
+<p>Defines the ability to preload the Rails application using CoW, before forking the worker processes.
+This setting affects startup time when running Unicorn worker processes. This should be set to <strong>true</strong>. Although, when using this option, special care is to be taken when opening and closing any sockets.
+When workers are forked, any associated connection (like database connections or others, which require sockets) must be closed and reopened. 
+</p>
+</li>
+<li><code>timeout</code>
+<p>
+Defines the time duration to wait before the worker times out. It is usually preferred to keep a lower base value for the timeout, to avoid holding back a long queue. So ideally, <strong>15 </strong>to <strong>30</strong> is considered as a rational value, but depending upon the nature of applications, this can be changed accordingly.
+</p>
+</li>
+</ul>
+
+
+<h2>Deploy unicorn-worker-killer</h2>
+<p>When using Unicorn, all the forked or child processes of Ruby application consume memory. Therefore, if there were a memory leak in the Ruby application, use of Unicorn would increase the problem multi-fold times. Over a period of time, situations may arise when all the memory is used and no additional memory is left. This ultimately can cause the system to halt or crash.
+</p>
+<p>
+Although Unicorn may not be cause this problem, it can be resolved using <code>unicorn-worker-killer</code>. 
+</p>
+
+<h3>Set up unicorn-worker-kille</h3>
+<p>unicorn-worker-killer is a gem that helps perform self-checks of memory consumed by unicorn workers. In case the memory consumption of the unicorn workers exceeds the pre-defined maximum requests due to any memory leakage, unicorn-worker-killer provides an automatic restart of workers without affecting any requests. 
+</p>
+<p>Here are the steps for using unicorn-worker-killer:
+</p> 
+
+<ol>
+	<li> Install unicorn-worker-killer.
+	<div class="hacker">gem install 'unicorn-worker-killer'</div>
+	<div class="hacker">bundle install</div>
+	</li>
+
+		<li> Open file <code>config.rb</code> located in the default project directory.
+		 <div class="hacker">sudo vim config.rb</div>
+		</li>
+	<li>	
+		Update the variables <strong>max_requests_min</strong> and <strong>max_requests_max</strong> to the desired values.
+		<div class="hacker">
+		<pre>
   # --- Start of unicorn worker killer code ---
 
   require 'unicorn/worker_killer'
 
-  max_request_min = 500
-  max_request_max = 600
+  <em><u>max_request_min = 500</u></em>
+  <em><u>max_request_max = 600</u></em>
 
   # Max requests per worker
   use Unicorn::WorkerKiller::MaxRequests, max_request_min, max_request_max
@@ -171,15 +215,21 @@ Here are the steps for using unicorn-worker-killer:  <!--There are missing words
   use Unicorn::WorkerKiller::Oom, oom_min, oom_max, ,versbose=true
 
   # --- End of unicorn worker killer code ---
-
-  require ::File.expand_path('../config/environment',  __FILE__)
-  run YourApp::Application
-</pre>
-</div>
-max_requests_min and max_requests_max defines the minimum and the maximum number of requests per worker. To prevent all workers getting dead simultaneously, a random number between max_requests_min and max_requests_max is defined as the actual limit. Once the number exceeds the limit, that worker is automatically restarted.  <!--This information gets lost at the end of this long sample. Add it to the section above.-->
-</li>
+	
+   require ::File.expand_path('../config/environment',  __FILE__)
+   run YourApp::Application
+</pre></div>
+		The variables <strong>max_requests_min</strong> and <strong>max_requests_max</strong> defines the minimum and the maximum number of requests per worker. A random number between <strong>max_requests_min</strong> and <strong>max_requests_max</strong> is defined as the actual limit. This randomness prevents all workers from being killed simultaneously. When the number of requests handled by the worker exceeds the limit, the workers are automatically killed and restarted. 
+	</li>
+	<li>To save and exit the file, press the <strong>Esc</strong> key, type the <code>:wq</code> command, and then press the <strong>Enter</strong> key. </li>
 </ol>
 <h2>Conclusion</h2>
-<p>Unicorn is painless way to achieve concurrency and performance in your Rails apps whether used with thread safe or not. It provide essential stability to Rails Apps. Unicorn worker killer gracefully restart your application and resolve memory leaks.</p>
+<p>Unicorn is a painless way to achieve concurrency and performance in your Rails apps, whether used with thread-safe or not. It provides essential stability to Rails Apps. Unicorn worker killer gracefully restarts your application and resolves memory leaks.</p>
 </body>
 </html>
+
+
+
+
+
+

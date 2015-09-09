@@ -4,13 +4,13 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
+<!--Article Number is 17478 (fill in blank)-->
 
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Deploy a remote MySQL server for your LAMP or LEMP application - ALL DISTROS</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -112,11 +112,11 @@ p.note {
    <p>Open a session on the computer you will use as the MySQL client, SQLclient, and install the mysql client tools.  Depending on your distro this will be:</p>
 
  <ul>
-       <code>
-        <li>apt-get install mysql-client</li>  
-        <li>pacman install mysql-client</li>   
-        <li>yum install mysql-client</li> 
-       </code>  
+
+        <li> <code>apt-get install mysql-client</code></li>
+        <li> <code>pacman install mysql-client</code></li>
+        <li> <code>yum install mysql-client</code></li>
+
         </ul> 
 
     <h2>Configure the target server to accept remote connections</h2>
@@ -124,33 +124,33 @@ p.note {
  <li>Open a session on DBServer</li>
         <li>Use <code>find / -name my.cnf </code>to find the location of your <code>my.cnf</code> file.&nbsp; Usually it will be under <code>/etc</code> or&nbsp;<code>/etc/mysql</code>.</li>
         <li>Open <code>my.cnf</code> for editing. Ignoring all commented lines, it should look something like this: 
-     <div class="hacker"><pre>
-[mysqld]
-datadir=/var/lib/mysql
-socket=/var/lib/mysql/mysql.sock
-log-error=/var/log/mysqld.log
-pid-file=/var/run/mysqld/mysqld.pid
+     <div class="hacker"><br />
+[mysqld]  <br />
+datadir=/var/lib/mysql <br />
+socket=/var/lib/mysql/mysql.sock    <br />
+log-error=/var/log/mysqld.log   <br />
+pid-file=/var/run/mysqld/mysqld.pid  <br />
+                     <br />
+[mysqld_safe]  <br />
+                    <br />
+!includedir /etc/my.cnf.d  <br />
 
-[mysqld_safe]
-
-!includedir /etc/my.cnf.d
-
-</pre></div></li>
+</div></li>
 <li>Add / modify the <code>bind-address</code> directive under the <code>[mysqld] heading to direct it to listen for incoming connections based on IP address</code>:
-     <div class="hacker"><pre>
-[mysqld]
-datadir=/var/lib/mysql
-socket=/var/lib/mysql/mysql.sock
-log-error=/var/log/mysqld.log
-pid-file=/var/run/mysqld/mysqld.pid
-
-<span class="auto-style1">bind-address = DBServer_IPAddress </span>
-
-[mysqld_safe]
-
-!includedir /etc/my.cnf.d
-
-</pre></div></li>
+     <div class="hacker">
+[mysqld]   <br />
+datadir=/var/lib/mysql  <br />
+socket=/var/lib/mysql/mysql.sock <br />
+log-error=/var/log/mysqld.log  <br />
+pid-file=/var/run/mysqld/mysqld.pid   <br />
+             <br />
+<span class="auto-style1">bind-address = DBServer_IPAddress </span> <br />
+  <br />
+[mysqld_safe] <br />
+                    <br />
+!includedir /etc/my.cnf.d    <br />
+                  <br />
+</div></li>
                    <li>Restart MySQL on DBServer</li>   
         </ol>       
               
@@ -174,47 +174,47 @@ pid-file=/var/run/mysqld/mysqld.pid
     <h2>Create local and remote users</h2>
     <ol>
     <li>Using your sqladmin account, open an MySQL session on DBServer by entering:
-    <div class="hacker"><pre>mysql -u sqladmin -p</pre></div>
+    <div class="hacker">mysql -u sqladmin -p</div>
  <p>You will be prompted for your password.&nbsp; After entering it you will see a mysql prompt:</p>
      <div class="hacker">mysql>  </div>
 </li>
 <li>At the <code>mysql></code>prompt, navigate to the MyDB database:
-    <div class="hacker"><pre>
-USE MyDB</pre></div>
+    <div class="hacker">
+USE MyDB</div>
  </li> 
 <li>You will see:
-    <div class="hacker"><pre>
-Database changed</pre></div>
+    <div class="hacker">
+Database changed</div>
  </li>
 <li>Create a local user by entering the following at the <code>mysql></code>prompt:
-    <div class="hacker"><pre>
-CREATE USER 'localuser'@'localhost' IDENTIFIED BY 'password';</pre></div>
+    <div class="hacker">
+CREATE USER 'localuser'@'localhost' IDENTIFIED BY 'password';</div>
  </li> 
  <li>Grant privileges to localuser by entering the following at the <code>mysql></code>prompt:
-    <div class="hacker"><pre>
-GRANT ALL PRIVILEGES ON MyDB.* TO 'localuser'@'localhost';</pre></div>
+    <div class="hacker">
+GRANT ALL PRIVILEGES ON MyDB.* TO 'localuser'@'localhost';</div>
  </li> 
  <li>Create a remote user by entering the following at the <code>mysql></code>prompt:
-    <div class="hacker"><pre>
-CREATE USER 'remoteuser'@&#39;<span class="auto-style2">Client IP Address</span>&#39; IDENTIFIED BY 'password';</pre></div>
+    <div class="hacker">
+CREATE USER 'remoteuser'@&#39;<span class="auto-style2">Client IP Address</span>&#39; IDENTIFIED BY 'password';</div>
  </li> 
- <li>Grant privileges to remoteuser by entering the following at the code>mysql></code>prompt:
-    <div class="hacker"><pre>GRANT ALL PRIVILEGES ON MyDB.* TO 'remoteuser'@'<span class="auto-style2">Client IP Address</span>';</pre></div>
+ <li>Grant privileges to remoteuser by entering the following at the <code>mysql></code>prompt:
+    <div class="hacker">GRANT ALL PRIVILEGES ON MyDB.* TO 'remoteuser'@'<span class="auto-style2">Client IP Address</span>';</div>
  </li> 
 
  <li>Write these changes to disk:
-    <div class="hacker"><pre>FLUSH PRIVILEGES;</pre></div>
- </li> 
+    <div class="hacker">FLUSH PRIVILEGES;</div>
+ </li>
    <li>Exit MySql
-    <div class="hacker"><pre>exit</pre></div>
- </li>         
+    <div class="hacker">exit</div>
+ </li>
    </ol> 
-  
+
        <h2>Verify Local Connectivity</h2>
 
                  <ol>
                <li>Open a session on DBServer and enter:
-                       <div class="hacker"><pre>mysql -u sqladmin -p</pre></div></li>
+                       <div class="hacker">mysql -u sqladmin -p</div></li>
                        <li>You will be prompted for your password.&nbsp; After entering it you will see a mysql prompt:
      <div class="hacker">mysql>  </div>
 <p>You have verified remote connectivity</p></li>
@@ -222,13 +222,13 @@ CREATE USER 'remoteuser'@&#39;<span class="auto-style2">Client IP Address</span>
  <h2>Verify Connectivity</h2>
  <ol>
  <li>Open a session on your client machine, DBclient, and enter:
- <div class="hacker"><pre>mysql -u remoteuser -h <span class="auto-style1">DBServer_IPAddress </span> -p</pre></div></li>
+ <div class="hacker">mysql -u remoteuser -h <span class="auto-style1">DBServer_IPAddress </span> -p</div></li>
 <li>You will be prompted for your password.&nbsp; After entering it you will see a mysql prompt:
 <div class="hacker">mysql>  </div>
 <p>You have verified remote connectivity.</p>
   </li> 
 <li>Open a new session on your client machine, DBclient, and enter:
- <div class="hacker"><pre>mysql -u localuser -h <span class="auto-style1">DBServer_IPAddress </span> -p</pre></div></li>
+ <div class="hacker">mysql -u localuser -h <span class="auto-style1">DBServer_IPAddress </span> -p</div></li>
      <li>You will be prompted for your password.&nbsp; After entering it you will see an error message indicating Access denied.
 <div class="hacker">ERROR 1045 (28000): Access denied for user 'localuser'@'ip-<span class="auto-style3">Client IP Address</span>.ip.secureserver.net' (using password: YES)
   </div>
@@ -236,7 +236,7 @@ CREATE USER 'remoteuser'@&#39;<span class="auto-style2">Client IP Address</span>
   </li> 
 
  <li>Open a new session on DBServer and login as your newly-created local-only user:
- <div class="hacker"><pre>mysql -u localuser -p</pre></div></li>
+ <div class="hacker">mysql -u localuser -p</div></li>
 <li>You will be prompted for your password.&nbsp; After entering it you will see a mysql prompt:
 <div class="hacker">mysql>  </div>
 <p>You have verified the ability of a local-only user to login in locally.</p>
@@ -246,7 +246,7 @@ CREATE USER 'remoteuser'@&#39;<span class="auto-style2">Client IP Address</span>
   <h2>  Connecting your application</h2>
 <p>There are probably hundreds, if not thousands, of applications in the Linux universe that connect to a database server. Providing guidance for each of them is well beyond the scope of this article. However, since you have been running your application(s) on a LAMP or LEMP stack, your application(s) will have a configuration file reference to your database hostname that point to StackServer, StackServer&#39;s IP address, or &quot;localhost.&quot; The restored database on DBServer will be identical to the one on your StackServer so the database name, user and password configuration will not change. Change the database hostname directive in your application to point at
 
-<span class="auto-style1">DBServer_IPAddress </span>&nbsp;or <strong><em>DBServer&#39;s fully qualified domain name (FQDN) </em></strong>depending on how your application supports database hostnames. 
+<span class="auto-style1">DBServer_IPAddress </span>&nbsp;or <strong><em>DBServer&#39;s fully qualified domain name (FQDN) </em></strong>depending on how your application supports database hostnames.
  </p>       
      <h2>Next steps</h2>
     <p>You have moved your database to a remote server and provided for both local and remote access to it.&nbsp; 

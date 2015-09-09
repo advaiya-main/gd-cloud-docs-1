@@ -4,12 +4,10 @@
 
 <head>
 
-<!--Article Number is 17648 (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17648 -->
 
 
-<title>Set up SSL Certificate with phpMyAdmin and Apache - Debian, Ubuntu</title>
+<title>Set up a SSL Certificate with phpMyAdmin and Apache - Debian, Ubuntu</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -77,34 +75,34 @@ p.note {
 </head>
 
 <body>
-<p>This article describes the  configuration steps required to make your phpMyAdmin implementation use SSL</p>
-    <h1>Set up SSL Certificate with phpMyAdmin and Apache - Debian, Ubuntu</h1>
+<p>This article describes the  configuration steps required to make your phpMyAdmin implementation use SSL.</p>
+    <h1>Set up a SSL Certificate with phpMyAdmin and Apache - Debian, Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
-        <strong>Time</strong>: <em><u>20</u></em></p>
+        <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-    <p>phpMyAdmin is an open source tool that enables users to perform MySQL database operations like create, delete or modify MySQL databases or execute SQL statements, by providing a user interface. An essential way to help safeguard your data is to encrypt traffic between the web server client and your phpMyAdmin implementation. This article describes how to use SSL certificate to allow phpMyAdmin traffic to be encrypted. </p>
+    <p><em>phpMyAdmin</em> is an open source tool that enables users to perform MySQL database operations like create, delete, or modify MySQL databases or execute SQL statements, by providing a user interface. An essential way to help safeguard your data is to encrypt traffic between the web server client and your phpMyAdmin implementation. </p>
+    <p>This article describes how to use SSL certificate to allow phpMyAdmin traffic to be encrypted. </p>
 
     <h2>Pre-requisites</h2>
      You need to have the following installed on your server:
     <ul>
         <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17341%20-%20Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Ubuntu.html">LAMP for Ubuntu</a> or <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17341 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian.html">LAMP for Debian</a>  </li>
-        <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17638 - Install and secure phpMyAdmin with Apache - Ubuntu">Install and Secure phpMyAdmin on Ubuntu </a> or <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17642 - Install and secure phpMyAdmin with Apache - Debian">Install and Secure phpMyAdmin on Debian</a></li>
-        <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17451 - Install an SSL Certificate on Apache - Debian, Ubuntu">Install an SSL Certificate</a></li>
+        <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17638 - Install and secure phpMyAdmin with Apache - Ubuntu">phpMyAdmin on Ubuntu </a> or <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17642 - Install and secure phpMyAdmin with Apache - Debian">phpMyAdmin on Debian</a></li>
+        <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17451 - Install an SSL Certificate on Apache - Debian, Ubuntu">SSL Certificate</a></li>
     </ul>
 
-    <h2>Forcing phpMyAdmin to your SSL server</h2>
+    <h2>Force phpMyAdmin to your SSL server</h2>
 
-    <p>Once you have all the prerequisites in place, the only thing to do is to force phpMyAdmin to use SSL instead of&nbsp;http.&nbsp;</p>
+    <p>After you have all the prerequisites in place, the only thing left to do is to force phpMyAdmin to use <em>SSL</em> instead of <em>http.</em></p>
     <ol>
         <li>Open the phpMyAdmin configuration file.
         <div class="hacker">sudo vim  /etc/phpmyadmin/config.inc.php</div>
         </li>
-        <li>Add the following line towards the end of the file.
-        <div class="hacker">$cfg['ForceSSl'] = true;</div>
-        Save and exit the file.
-        </li>
-        <li>When you go to your browser and navigate to <strong>http://<em><u>yourdomainname.com/phpmyadmin</u></em></strong> , after you enter your user credentials, you will see in the address bar, that it uses <strong>https://</strong></li>
+        <li>Add the following line towards the end of the file:
+        <div class="hacker">$cfg['ForceSSl'] = true;</div></li>
+        <li>Save and exit the file.        </li>
+        <li>When you go to your browser, navigate to <strong>http://<em><u>yourdomainname.com/phpmyadmin</u></em></strong>, and then enter your user credentials, you will see in the address bar that it uses <strong>https://</strong>.</li>
         
     </ol>   
              

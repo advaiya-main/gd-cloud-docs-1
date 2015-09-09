@@ -4,13 +4,11 @@
 
 <head>
 
-<!--Article Number is _17407_________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is _17407_-->
 
 
-<title>Install Java with PACMAN - Arch Linux</title>
-<style>
+<title>Install Java with pacman - Arch Linux</title>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -80,36 +78,39 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
+<<<<<<< HEAD
     <p>Java is used by many applications so behooves many administrators to have Java already installed.  This article contains directions for installing both the java runtime and SDK using Arch Linux&#39;s pacman package deployment tool. </p>
+=======
+    <p>Java is used by many applications, so it is convenient for administrators to have Java already installed. This article contains directions for installing both the java runtime, SDK and Open JDK 7 versions. </p>
+>>>>>>> origin/master
 
     <h2>Install Java</h2>
     <ol>
-<li>Update your repository
+<li>Update your repository.
  <div class="hacker">sudo pacman -Syu </div>
 </li>
-<li>Download Java 8 runtime
-    (update the version number based on the current version)
- <div class="hacker">sudo pacman -S jre8-openjdk</div>
+<li>Download Java <em><u>8</u></em> runtime. <br />
+    Update the version number, based on the current version available.
+ <div class="hacker">sudo pacman -S jre<em><u>8</u></em>-openjdk</div>
 </li>
-<li>Download Java
-    OPEN JDK 8
-    (update the version number based on the current version)
- <div class="hacker">sudo pacman -S jdk8-openjdk </div>
+<li>Download Java OPEN JDK <em><u>8</u></em>.  <br />
+Update the version number, based on the current version available.
+ <div class="hacker">sudo pacman -S jdk<em><u>8</u></em>-openjdk </div>
 </li>
- <li>Create / edit a file,  <code>/etc/environment</code>
+ <li>Create or edit the file <code>/etc/environment</code>.
       <div class="hacker">sudo vim /etc/environment</div>
 </li>
- <li>Select your <code>Java_home</code> (in this case we will use the jdk version).  
+ <li>Select your <code>Java_home</code>. In this case, we will use the <code>jdk</code> version.  
  <div class="hacker">JAVA_HOME="/usr/lib/jdk8-openjdk&quot;
 </div>
 </li>
 <li>Save and close.
  </li>
- <li>Load the environment file
+ <li>Load the environment file.
  <div class="hacker">source /etc/environment
 </div>
 </li>
-<li>Test it
+<li>Test it.
  <div class="hacker">echo $JAVA_HOME
 </div>
 </li>

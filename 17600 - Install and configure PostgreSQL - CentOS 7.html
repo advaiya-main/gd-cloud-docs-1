@@ -4,13 +4,11 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17600-->
 
 
 <title>17600 - Install and configure PostgreSQL - CentOS 7</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -76,20 +74,21 @@ p.note {
 <p><strong>Difficulty</strong>: <em>1</em></p>
 <p><strong>Time</strong>: <em>15 minutes</em></p>
 
-<p>This article provides information about installation and configuration of PostgreSQL on CentOS 7. PostgreSQL is an open-source relational database management system. PostgreSQL uses the Structured Query Language (SQL) to manipulate data. To perform this task, we are assuming that the user has sudo privileges.</p>
+<p>PostgreSQL is an open-source, relational database management system. PostgreSQL uses Structured Query Language (SQL) to manipulate data. To perform this task, we are assuming that the user has sudo privileges.</p>
+<p>This article provides information about installation and configuration of PostgreSQL on CentOS 7. </p>
 
 <h2>Install PostgreSQL</h2>
 <ol>
 <li>Update all the packages of the operating system.
 	<div class="hacker">sudo yum -y update</div>
 </li>    
-<li>Install PostgreSQL package and its necessary dependencies.
+<li>Install the PostgreSQL package and its necessary dependencies.
 	<div class="hacker">sudo yum -y install postgresql postgresql-libs postgresql-plperl 	postgresql-plpython postgresql-server</div>
 </li>    
 <li>Initialize the database and data directories.
 	<div class="hacker">sudo service postgresql initdb</div>
 </li>    
-<li>Configure PostgreSQL to start up upon server boot.
+<li>Configure PostgreSQL to start up on server boot.
 	<div class="hacker">sudo chkconfig postgresql on</div>
 </li>    
 <li>Start the PostgreSQL service.
@@ -99,24 +98,24 @@ p.note {
 
 <h2>Connect to PostgreSQL</h2>
 <ol>
-<li><p>Once PostgreSQL is installed completely, <code>Postgres</code> system user and database will be automatically created.</p>
+<li><p>After PostgreSQL is installed completely, a <code>Postgres</code> system user and database will be automatically created.</p>
 </li>
-<li>Log in by <code>Postgres</code> user.
+<li>Log in as <code>Postgres</code> user.
     <div class="hacker">sudo su - postgres</div>
 </li>
-<li>Login into database using the following command:
+<li>Log in into database using the following command:
 	<div class="hacker">Psql</div>
 </li>
 <li>You will see the <code>Postgres=#</code> prompt. To exit from the prompt, type:
 	<div class="hacker">\q</div>
 </li>
-<li>Logout from the <code>Postgres</code> system user.
+<li>Log out as the <code>Postgres</code> system user.
 	 <div class="hacker"> exit</div>
 </li>      
 </ol>
 
 <h2>Next Steps</h2>
-<p>This article covers the steps to install and configure PostgreSQL. Now you are ready to create your own database for your applications. For more details see <a href="#">17526 - Use PostgreSQL with your Ruby on Rails Application - CentOS </a>.   </p>
+<p>This article covers the steps to install and configure PostgreSQL. You are ready to create your own database for your applications. For more details, see the article <a href="17526">Use PostgreSQL with your Ruby on Rails Application - CentOS </a>.   </p>
 
 </body>
 </html>

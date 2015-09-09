@@ -111,19 +111,21 @@ exec $SHELL</div>
 
 <h2>Install Ruby</h2>
 
-<p>Before you start using rbenv, you need to make sure which version of Ruby you want to install. <!--Wouldn't the user always want to install the latest version? If so, how does the user get the latest version? If the user shouldn't use the latest version, how does he decide which version to install? cj -->In this article, we are installing the latest version of Ruby.</p>
+<p>Before you start using rbenv, you need to make sure which version of Ruby you want to install. <!--Wouldn't the user always want to install the latest version? If so, how does the user get the latest version? If the user shouldn't use the latest version, how does he decide which version to install? cj --><!--Modified the command to add the latest version-->In this article, we are installing the latest version of Ruby.</p>
 <ol>
 <li>Install the dependency of Rails before you install Ruby.
-	<div class="hacker">rbenv install 1.8.7-p358</div>
+	<div class="hacker">rbenv install -v <em><u>latest_version</u></em></div>
 </li>
-<li>Display  which version of Ruby was installed.<!--Step missing? The previous step says that only a dependency (not Ruby) is installed. cj -->
+<li>Set the default version of Ruby that all of your shells will use.
+	<div class="hacker">rbenv global <em><u>latest_version</u></em></div></li>
+<li>Display  which version of Ruby was installed.<!--Step missing? The previous step says that only a dependency (not Ruby) is installed. cj --><!--added the missing step-->
 	<div class="hacker">ruby -v</div>
 </li>    
 </ol>
     
 <h2>Install RubyGems</h2>
 <ol>
-<li>Disable document installation. (By default, when you install gems<!--Is "gems" the same thing as "RubyGems"? RubyGems isn't mentioned anywhere in this section except the header. Confusing. cj -->, documentation files are also installed. But this takes time, so let's stop the document installation.)
+<li>Disable document installation. (By default, when you install gems<!--Is "gems" the same thing as "RubyGems"? RubyGems isn't mentioned anywhere in this section except the header. Confusing. cj --><!--Explained in line no 131-->, documentation files are also installed. But this takes time, so let's stop the document installation.)
     <div class="hacker">echo "gem: --no-document" > ~/.gemrc</div>
 </li>
 <li>Install the bundler gem. The bundler gem is an essential tool for managing gems when developing and running Rails applications.
@@ -154,8 +156,8 @@ exec $SHELL</div>
 </ul>
 
 
-<h2>Next Steps</h2>
-<p>In this article, we reviewed the steps involved in installing <code>rbenv</code>, Ruby, RubyGems, and finally Rails on Arch Linux.<!--What might the user want to do next? cj --> </p>
+<h2>Conclusion</h2>
+<p>In this article, you learned the steps involved in installing <code>rbenv</code>, Ruby, RubyGems, and finally Rails on Arch Linux.<!--What might the user want to do next? cj --><!-- Changed to "Conclusion"--> </p>
 
 </body>
 </html>
