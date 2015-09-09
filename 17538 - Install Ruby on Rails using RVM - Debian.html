@@ -52,44 +52,46 @@
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>30 minutes</em></p>
 
-<p>Ruby on Rails is a well-known open source stack for web application development. The Ruby Version Manager (RVM) lets you easily manage multiple Ruby application environments and switch between them in the most efficient way. This article will assist on how to install Ruby on Rails in Debain VPS using RVM.</p>
+<p>Ruby on Rails is a well-known open source stack for web application development. With the Ruby Version Manager, you can easily manage multiple Ruby application environments and switch between them in the most efficient way. This article will assist on how to install Ruby on Rails in Debain VPS using RVM.</p>
 
-<p>To get started, we will need the following prerequisites:</p>
+<h2>Prerequisites</h2>
 <ul>
 <li>RVM (Ruby Version Manager)</li>
 <li>SQLite</li>
 <li>MySQL (Optional)</li>
 <li>Apache2 (Optional)</li>
 </ul>
-
 <ol>
-<li>To install RVM, run the following commands: 
+<h2>Install RVM</h2>
+<li>Run the following commands to install RVM: 
 	<div class='hacker'>sudo apt-get install libgdbm-dev libncurses5-dev automake libtool bison libffi-dev</div>
 	<div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable</div>
 </li>
-<li>Once we have run the above command, there is one more dependency that needs to be fixed. For that run the following command: 
+<li>Run the following commands to install dependencies: 
 	<div class='hacker'>sudo curl -sSL https://rvm.io/mpapis.asc | gpg --import -</div>
 	<div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable</div>
 	<div class='hacker'>source ~/.rvm/scripts/rvm	</div>
 	<div class='hacker'>rvm install ruby</div>
 	<div class='hacker'>ruby -v</div>
 </li>
-<li>Ruby tends to install the contents for all the packages. So to inhibit this, type the following command:
+<li>Ruby tends to install the contents for all the packages. Type the following command to inhibit this:
 	<div class='hacker'>sudo echo "gem: --no-ri --no-rdoc" > ~/.gemrc</div>
 </li>
-<li>Then install the bundler
+<li>Install the bundler.
 	<div class='hacker'>gem install bundler</div>
 </li>
-<li>To prevent any dependencies of Rails libraries, let us install NodeJS by typing: 
+<li>To prevent any dependencies of Rails libraries, install NodeJS by typing: 
 	<div class='hacker'>sudo add-apt-repository ppa:chris-lea/node.js</div>
 	<div class='hacker'>sudo apt-get update</div>
 	<div class='hacker'>sudo apt-get install nodejs</div>
-</li>
-<li>Install Rails 
-	<div class='hacker'>gem install rails </div>
-      <p>This will take some time. Once completed, the environment is created.</p>
+</li> </ol>
+<ol>
+<h2>Install Rails</h2> 
+<li> Run the following command to install Rails:
+	<div class='hacker'>gem install rails </div> </li>
+      <p>This will take some time to create the environment.</p>
 </li>       
-<li>To check you rails version, type:
+<li>Type the following command to check you Rails version:
         <div class='hacker'>rails -v</div>
 </li>
 <li>Create the project directory for your Rail project by typing the following command:
@@ -103,15 +105,15 @@
 	<div class='hacker'>rails server </div>
 	<p>Ensure the Rails server is running.</p>
 </li>
-<li>You can bind the Rails application using the following command:
+<li>Bind the Rails application using the following command:
 	<div class='hacker'>rails server --binding=[your public IP]</div>
  </li>
 </ol>
  
-<p>The new application is ready and can be accessed by visiting your_public_IP_or_domain:3000 (3000 is default port).</p>
+<p>The new application is ready and you can access it by visiting your_public_IP_or_domain:3000 (3000 is default port).</p>
 
-<h2>Next Steps</h2>
-<p>In this article, we reviewed the steps involved in setting up Ruby on Rails using RVM for the web application in Debian distribution.</p>
+<h2>Conclusion</h2>
+<p>In this article, you learned the steps involved in setting up Ruby on Rails using RVM for the web application in Debian distribution.</p>
 
 </body>
 </html>
