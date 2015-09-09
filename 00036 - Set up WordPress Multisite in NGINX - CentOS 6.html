@@ -286,10 +286,12 @@ This command creates a directory called "wordpress" in your home directory.</li>
 
  You may get an introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
 
-     <li>On the next page, fill out your WordPress MySQL database credentials. You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. </li>
-  <li>Click <strong>Submit</strong>.<br />
-<img src="images/00036/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
-  <br />
+     <li>On the next page, fill out your WordPress MySQL database credentials. You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. <br/>
+
+<img src="images/00036/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" /></li>
+ 
+   <li>Click <strong>Submit</strong>.<br />
+
   The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
 <img src="images/00036/090815/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
 </li>
@@ -311,7 +313,7 @@ This command creates a directory called "wordpress" in your home directory.</li>
 <li>Open your configuration file for editing.
    <div class="hacker">sudo vim wp-config.php</div></li>
    
-  <li>In the file, look for the following section of code (starting with &quot;MySQL settings&quot;), and enter your corresponding values of the three <code>DB_</code> variables that we filled out earlier in the WordPress web interface(<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you created earlier.
+  <li>In the file, look for the following section of code (starting with &quot;MySQL settings&quot;), and enter your corresponding values of the three <code>DB_</code> variables that we filled out earlier in the WordPress web interface (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you created earlier.
 
     <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
 /** The name of the database for WordPress */ <br />

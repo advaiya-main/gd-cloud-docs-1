@@ -7,7 +7,7 @@
 
 
 <title>Set up WordPress Multisite in NGINX - Fedora 20</title>
-<style type="text/css">
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -24,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em .<h1></h1>5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -36,8 +36,17 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
-</style>
 
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
@@ -160,8 +169,8 @@ aboutus.coolexample.com<br/></td>
             <li>In the <code>server</code> section (probably towards the middle of the file), find the <code>root</code> line and change the root to point to <code>/var/www/wordpress;</code></li>
 
     </ul>
-<p class="note">
-            You may have made some of these changes when you installed your LEMP stack.  </p>
+
+<p>            You may have made some of these changes when you installed your LEMP stack.  </p>
            
             After your changes, your file may resemble this example (Some parts are truncated):
 <div class="hacker">
@@ -305,7 +314,7 @@ This command creates a directory called "wordpress" in your home directory.</li>
    
    <ol>
    
-   <li>Back in the terminal, navigate to your WordPress document root.
+   <li>Back in your terminal, navigate to your WordPress document root.
      <div class="hacker">cd /var/www/wordpress</div></li>
 
  <li>List files using <code>ls</code> to make sure that <code>wp-config-sample.php</code> is among them.</li>   
@@ -341,10 +350,10 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
      <h3>Continue setup in the WordPress web interface</h3>
       
       <ol>
-        <li>Return to your browser, and click <strong>Run the Install</strong> on the screen you were just on to continue the WordPress web installation. The following screen displays.
+        <li>Return to your browser, and click <strong>Run the Install</strong> on the screen you were just on to continue the WordPress web installation. You should be taken to the WordPress 5-minute install screen.
         
 <br />
-<img src="images/00037/083015/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
+<img src="images/00037/090815/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
         <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
         <li>Click <strong>Install WordPress</strong>.</li>
       </ol>
@@ -365,7 +374,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
  <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. You'll  paste this code into your configuration file.
    <p class="note">For Nginx, there's no <code>htaccess</code> file. We'll ignore the <code>.htaccess</code> code.</p>
  
- <img src="images/00037/083015/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup" /><br/>
+ <img src="images/00037/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup" /><br/>
  
  The code resembles this:
  <div class="hacker"><pre>define('MULTISITE', true);
@@ -393,17 +402,19 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 
 <li>To the left, on the top navigation bar, mouse over  <strong>My Sites</strong>, select <strong>Network Admin</strong> from the drop-down menu, and then select <strong>Sites</strong>. <br />
 
+  <img src="images/00037/090815/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> <br/>
+
 At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar.<!--Sounds a little wishy-washy. Is there a reason it would not have been there earlier? Seems it either would be or would not be. cj -->
-<!--CT: Good point. Because I thought on my 1st run-through, it was there before. But pretty much every run after that, it didn't appear until this point. Revised to reflect--><br/>
-<img src="images/00037/083015/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> </li>
+<!--CT: Good point. Because I thought on my 1st run-through, it was there before. But pretty much every run after that, it didn't appear until this point. Revised to reflect--></li>
+
 
 <li>On the main screen, next to <strong>Sites</strong>, click <strong>Add New</strong>.</li>
 
-<li>Fill out your first subdomain information.<br/> 
-At the <strong>Site Address</strong> field, fill in your first subdomain. For example, for <em><u>product</u></em>.coolexample.com <!--CT (to Carla): Is it okay to do this? I want to highlight just the subdomain part-->, you'll simply put <em><u>product</u></em>.<br/></li>
-<li>Click <strong>Add Site</strong> to finish. This might take a few minutes.</li>
+<li>Fill out your first subdomain information. </li>
+<li>Click <strong>Add Site</strong> to finish. </li>
 <li>Repeat for all your subdomains.</li>
- </ol>                                
+ </ol>                              
+                                  
 
 
 <h2>Next Steps</h2>
