@@ -155,13 +155,13 @@ This URL will always link to a compressed file of the latest stable version of W
       
  <ol>
  <li>Transfer your WordPress files to the website's root directory
-    <div class="hacker">sudo cp -r ~/wordpress/* /var/www/html</div>
+    <div class="hacker">sudo cp -r ~/wordpress/* /var/www</div>
 This will safely copy all of the contents from the directory you unpacked to the document root.</li>
  
  <li>Let's also set directory permissions at this point so that you can work with WordPress content (e.g., uploading images).
  Make the group ownership recursive to make sure it will write to your subdirectories:  
- <div class="hacker">sudo chown www-data:www-data /var/www/html * -R</div>
-<div class="hacker">sudo chmod u+x /var/www/html * -R</div> </li></ol>
+ <div class="hacker">sudo chown www-data:www-data /var/www * -R</div>
+<div class="hacker">sudo chmod u+x /var/www * -R</div> </li></ol>
                                   
 <!--CT: internal note (alternative permissions)...
 sudo chown -R [USER NAME]:[USER NAME] /var/www
@@ -177,7 +177,7 @@ sudo chown -R [USER NAME]:[USER NAME] /var/www
    <ol>
    
    <li>Navigate to your WordPress document root.
-     <div class="hacker">cd /var/www/html</div></li>
+     <div class="hacker">cd /var/www</div></li>
 
   <li>Edit the following lines with the values in <code>wp-config.php</code>.
 
@@ -227,7 +227,7 @@ To activate the new configuration, you need to run:
 <div class="hacker"> sudo vim /etc/apache2/sites-enabled/000-default</div></li>
             
 <li>Search for DocumentRoot, and add the following lines under it: 
-<div class="hacker"><pre>&lt;Directory /var/www/html&gt;
+<div class="hacker"><pre>&lt;Directory /var/www&gt;
     AllowOverride All
 &lt;/Directory&gt;</pre></div> </li>
 
@@ -302,7 +302,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
  <ol>
 <li>Back in the WordPress Network Setup screen, copy the <code>.htaccess</code> code in the second section. </li>  
 <li>In your terminal, pull up your <code>.htaccess</code> file
-<div class="hacker">sudo vim /var/www/html/.htaccess</div></li>
+<div class="hacker">sudo vim /var/www/.htaccess</div></li>
 
 <li>Replace all the existing code (delete it manually) with the entire block of <code>.htaccess</code> code from WordPress.<br/>
 

@@ -95,10 +95,10 @@ p.note {
     
     <h2>Install the Apache web server</h2>
     <ol>
-    <li>Install Apache through CentOS by running the <code>yum</code> command:<br />
+    <li>Install Apache by running the <code>yum</code> command:<br />
       <div class="hacker">sudo yum -y install httpd</div></li>
-    <li>Enable Apache so that the httpd service will start automatically on a reboot.
-    <div class="hacker">sudo systemctl enable httpd.service</div></li>
+    <li>Start up Apache so that the httpd service will start automatically on a reboot.
+    <div class="hacker">sudo service httpd start</div></li>
     <li>Log in as a non-root user. Remember that as a non-root user, you need to use <code>sudo</code> in front of commands.</li>
    </ol> 
    
@@ -129,9 +129,9 @@ p.note {
     <li>Create a sample page for your first virtual host. Make some sample content for your newly-created directory structure.
     For simplicity's sake, let's create <code>index.html</code> pages.
     <div class="hacker"> 
-    vim /var/www/ domain1.com /public_html/index.html</div>
+    vim /var/www/domain1.com/public_html/index.html</div>
     Add the following contents: 
-    <div class="hacker"><pre> 
+     <div class="hacker"><pre> 
     &lt;html&gt; 
     &lt;head&gt; 
     &lt;title&gt;Welcome to domain1.com!&lt;/title&gt; 
@@ -142,8 +142,7 @@ p.note {
     &lt;/html&gt;   </pre></div></li>
     <li>Save and close the file.</li>
     <li>Create a sample page for your second virtual host. Copy the file just created to use as a template for your second site.
-    <div class="hacker"><pre>cp /var/www/domain1.com/public_html/index.html
-    /var/www/domain2.com/public_html/index.html</pre></div></li>
+    <div class="hacker"><pre>cp /var/www/domain1.com/public_html/index.html /var/www/domain2.com/public_html/index.html</pre></div></li>
     <li>Open the file and modify the relevant pieces of information:<br />
     <div class="hacker">vim /var/www/domain2.com/public_html/index.html</div>
     
