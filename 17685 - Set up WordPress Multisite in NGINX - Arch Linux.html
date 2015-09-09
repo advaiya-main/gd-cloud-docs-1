@@ -9,7 +9,7 @@
 
 
 <title>Set up WordPress Multisite in NGINX - Arch Linux</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -26,7 +26,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em .<h1></h1>5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -38,6 +38,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -270,15 +280,15 @@ This command creates a directory called "wordpress" in your home directory.</li>
      <li>  In your web browser, enter your primary domain name. In our example, that's 
    <strong>http://coolexample.com</strong>.
    (If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL.)<br/>
-    You may get this introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
-    
+    You may get an introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
+
      <li>On the next page, fill out your WordPress MySQL database credentials. 
      You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. </li>
   <li>Click <strong>Submit</strong>.<br />
-<img src="images/17683/082515/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
+<img src="images/17685/090215/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
   <br />
   The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
-<img src="images/17683/082515/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
+<img src="images/17685/090215/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
 </li>
       </ol>
       
@@ -286,7 +296,7 @@ This command creates a directory called "wordpress" in your home directory.</li>
    
    <ol>
    
-   <li>Back in the terminal, navigate to your WordPress document root.
+   <li>Back in your terminal, navigate to your WordPress document root.
      <div class="hacker">cd /var/www/wordpress</div></li>
 
  <li>List files using <code>ls</code> to make sure that <code>wp-config-sample.php</code> is among them.</li>   
@@ -322,7 +332,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
      <h3>Continue setup in WordPress web interface</h3>
       
       <ol>
-        <li>Return to your browser and click <strong>Run the Install</strong> on the screen you were just on to continue the WordPress web installation. You should be taken to this screen.
+        <li>Return to your browser and click <strong>Run the Install</strong> on the screen you were just on to continue the WordPress web installation. You should be taken to the WordPress 5-minute install screen.
         
 <br />
 <img src="images/17685/090215/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
@@ -336,13 +346,11 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
    
    <ol>
    
-  <li>In your browser, continue the WordPress web installation. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.<br />
-<img src="images/17685/090215/install-wordpress-multisite-dashboard-screen4.png" alt="install wordpress multisite dashboard" />
+  <li>In your browser, continue the WordPress web installation. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.
   </li>
   
   <li>Because we're working with sub-domains, choose <strong>sub-domains</strong>
-  and change your Network Title if you like. Click <strong>Install</strong>.<br />
-<img src="images/17685/090215/install-wordpress-multisite-network-screen5.png" alt="install wordpress multisite network" />  
+  and change your Network Title if you like. Click <strong>Install</strong>.
 </li> 
 
  <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.
@@ -376,16 +384,16 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 
 <li>To the left of that on the top navigation bar is <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
 
-At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar, if it wasn't there earlier.<br/></li>
+At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar.<br/></li>
 <img src="images/17685/090215/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> </li>
 
-<li>On the main screen, next to Sites, click <strong>Add New</strong>.</li>
+<li>On the main screen, next to <strong>Sites</strong>, click <strong>Add New</strong>.</li>
 
-<li>Fill out your first subdomain information. At the <code>Admin Email</code>, when you start typing, your email address appears. <br />
-<img src="images/17685/090215/install-wordpress-multisite-network-setup-add-new-site-filledout-screen8.png" alt="install wordpress multisite network setup add new site filledout" /></li>
+<li>Fill out your first subdomain information. </li>
 <li>Click <strong>Add Site</strong> to finish. </li>
 <li>Repeat for all your subdomains.</li>
  </ol>                              
+                                
 
 
 <h2>Next Steps</h2>
