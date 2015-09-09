@@ -4,7 +4,6 @@
 
 <head>
 
-<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
 
 <title>Set Up WordPress Domain Mapping - CentOS 7, Fedora</title>
 <style type="text/css">
@@ -54,73 +53,71 @@ p.note {
             <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
             <strong>Time</strong>: <em><u>5 minutes</u></em></p>
 
-            <p>The WordPress MU Domain Mapping plugin allows you to point multiple domains to one WordPress account.
-              This means that you can make a network site into its own unique, stand-alone domain. In our tutorial, we'll map a subdomain to an independent domain. For instance, <strong>coolexample.net</strong><!--CT (to Crystal): Using this example domain as a placeholder until we get new domain from GD 9/08--> would redirect to <strong>product.coolexample.com</strong>, a subdomain of your primary site, <strong>coolexample.com</strong>.</p>
-<h3>Prerequisites</h3>
+<p>The WordPress MU Domain Mapping plugin lets you  point multiple domains to one WordPress account.
+              This means that you can make a network site into its own unique, standalone domain. In this article, we'll map a subdomain to an independent domain. For example, <strong>coolexample.net</strong><!--CT (to Crystal): Using this example domain as a placeholder until we get new domain from GD 9/08--> would redirect to <strong>product.coolexample.com</strong>, a subdomain of your primary site, <strong>coolexample.com</strong>.</p>
+<h2>Prerequisites</h2>
 
-            <p>You should have WordPress multisite installed. Choose your system for instructions:</p>
+        <p>You should have WordPress multisite installed:</p>
     <ul>
-                <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17684 - Set up WordPress Multisite in NGINX - CentOS 7.html">Set up WordPress Multisite in NGINX - CentOS 7</a> </li>
-                <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00037 - Set up WordPress Multisite in NGINX - Fedora 20.html">Set up WordPress Multisite in NGINX - Fedora 20</a></li>
-                <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00038 - Set up WordPress Multisite in NGINX - Fedora 21.html">Set up WordPress Multisite in NGINX - Fedora 21</a></li>
+                <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17684 - Set up WordPress Multisite in NGINX - CentOS 7.html">Set Up WordPress Multisite in Nginx - CentOS 7</a> </li>
+                <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00037 - Set up WordPress Multisite in NGINX - Fedora 20.html">Set Up WordPress Multisite in </a><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17684 - Set up WordPress Multisite in NGINX - CentOS 7.html">Nginx</a><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00037 - Set up WordPress Multisite in NGINX - Fedora 20.html"> - Fedora 20</a></li>
+                <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00038 - Set up WordPress Multisite in NGINX - Fedora 21.html">Set Up WordPress Multisite in </a><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17684 - Set up WordPress Multisite in NGINX - CentOS 7.html">Nginx</a><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00038 - Set up WordPress Multisite in NGINX - Fedora 21.html"> - Fedora 21</a></li>
     </ul>
     
     
-        <p> Install unzip, if you haven't already.
-                    <div class="hacker">sudo yum install unzip</div> 
-                    If prompted, enter <strong>y</strong> to continue installation.</p> 
+You should have <code>unzip</code> installed.
+<ul><li>To install <code>unzip</code>:<div class="hacker">sudo yum install unzip</div> 
+If prompted, enter <strong>y</strong> to continue installation.</li></ul>
        
 
 <h2>Download the plugin</h2>
-
-
     <ol>
                 <li>Download the plugin: <br />
                 <div class="hacker">cd ~ wget http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip</div>   </li> 
 
-                 <li>Unzip the plug-in.
+                 <li>Unzip the plugin.
                     <div class="hacker">unzip wordpress-mu-domain-mapping.latest-stable.zip </div> </li>
                     
 
-                <li>Then move the files to the WordPress  /wp-content/plugins/directory. <br />
+                <li>Move the files to the WordPress  <code>/wp-content/plugins/</code> directory. <br />
                         <div class="hacker">sudo mv wordpress-mu-domain-mapping <br />
-                         /var/www/html/wp-content/plugins/</div>   </li>
+      /var/www/html/wp-content/plugins/</div>   </li>
 
-                <li>Copy the sunrise.php into our WordPress document root.
-                        <div class="hacker">sudo cp /var/www/html/wp-content/plugins/wordpress-mu-domain-mapping/sunrise.php    <br />
-                        /var/www/html/wp-content/</div>   </li>
+                <li>Copy the <code>sunrise.php</code> into the WordPress document root.
+                  <div class="hacker">sudo cp /var/www/html/wp-content/plugins/wordpress-mu-domain-mapping/sunrise.php    <br />
+      /var/www/html/wp-content/</div>   </li>
     </ol>
 
-<h2>Edit your wp-config file</h2>
+<h2>Edit your <code>wp-config</code> file</h2>
 
-    <ol>
-                <li>Let’s go to our WordPress document root.
+<ol>
+                <li>Go to your WordPress document root.
                     <div class="hacker">cd /var/www/wordpress</div> </li>
 
-                <li>Open your wp-config file.
-                    <div class="hacker">sudo vim wp-config.php</div></li>
+                <li>Open your <code>wp-confi</code>g file.
+<div class="hacker">sudo vim wp-config.php</div></li>
 
                    <li>Add this line before <code>/* That's all, stop editing! Happy blogging. */</code>. 
             <div class="hacker">define('SUNRISE', 'on'); </div> </li>
 
                 <li>Save and close.</li>
-    </ol>
+    
+                <li>Restart Nginx.
+                    <div class="hacker">sudo service nginx restart</div></li> </ol>  
+<!--A header appears to be missing. cj -->
 
-    <ol>
-                <li>Restart nginx
-                    <div class="hacker">sudo service nginx restart</div></li> </ol>
-
-
-    <ol>    <li>Return to your wp-admin window <br />
+    <ol>    <li>Return to your wp-admin window <br /><!--Can you please link the images? cj -->
                         <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-network-admin-nav-screen1.png" alt="wordpress mu domain mapping plugin network admin nav" />    <br /> </li>
 
-                <li>In the top navigation bar, You will see <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Plugins</strong>. <br />   <br />
+                <li>In the top navigation bar, hover/mouse over <strong>My Sites</strong>,  select <strong>Network Admin</strong> from the drop-down menu, and then select <strong>Plugins</strong>. <br />   
+                  <br />
                         <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="wordpress mu domain mapping plugin network activate" />  <br />
                        
-                       You will see three plug-ins. The WordPress MU Domain Mapping plug-in should be the third item.   </li>
+      You'll see three plugins. The WordPress MU Domain Mapping plugin should be the third item.   </li>
 
-                <li>Click Network Activate under this plugin. You will see this activate and the plug-in box will highlight. <br />
-                    LH nav bar: Settings ? Domain Mapping    <br />
+                <li>Click <strong>Network Activate</strong> under this plugin. This activates, and the plug-in box  highlights. <br />
+                  <!--The following steps look like rough notes. cj --> 
+                    LH nav bar: Settings ? Domain Mapping   <br />
                      <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-domain-options-screen3.png" alt="wordpress mu domain mapping plugin domain options" /> </li>
 
                 <li>Under Domain Options</li>
@@ -135,25 +132,23 @@ p.note {
 
     </ol>
 
-                   <p> Your external domain will now redirect to the subdomain you have defined. For example, <!--CT (to Crystal): Using this example domain as a placeholder until we get new domain from GD 9/08 (2 of 2)--><em>coolexample.net</em> redirects to <em>product.coolexample.com</em>.  This includes the administration pages <strong>/wp-admin</strong>.</p>
+                   <p> Your external domain  now redirects to the subdomain you  defined. For example, <!--CT (to Crystal): Using this example domain as a placeholder until we get new domain from GD 9/08 (2 of 2)--><em>coolexample.net</em> redirects to <em>product.coolexample.com</em>.  This includes the administration pages <strong>/wp-admin</strong>.</p>
            
-            <p>    In the next step, we map a domain name to each site based on its site ID. There's more than one way to find the ID of a site, but for easier administration, we will create a simple WordPress Multi-use plug-in that displays an additional ID column on the <strong>Sites</strong> page. </p>
-
-
 
 <h2>Map a domain name to each site based on site ID</h2>
+<p>Now we'll map a domain name to each site based on its site ID. There's more than one way to find the ID of a site, but for easier administration, we'll create a simple WordPress Multi-use plugin that displays an additional ID column on the <strong>Sites</strong> page. </p>
 
     <ol>
             <li>In your terminal, create a directory to house the plugin.
                 <div class="hacker">cd ~  <br  />
-                sudo mkdir /var/www/wordpress/wp-content/mu-plugins  </div>  </li>
+      sudo mkdir /var/www/wordpress/wp-content/mu-plugins  </div>  </li>
 
-            <li>Create a new file.
-                <div class="hacker">sudo vim /var/www/wordpress/wp-content/mu-plugins/wpms_blogid.php</div>
+      <li>Create a new file.
+        <div class="hacker">sudo vim /var/www/wordpress/wp-content/mu-plugins/wpms_blogid.php</div>
 
-               It is a new file so it will be blank.</li>
+         This new file is blank.</li>
 
-            <li>Copy this whole code block and paste it into your file.
+            <li>Copy this whole code block, and paste it into your file.
 
 
                 <div class="hacker">&gt;?php <br />
@@ -175,25 +170,25 @@ p.note {
 
             <li>Save and close.</li>
             
-    <li>Back in the WP-Admin browser window, the <strong>Sites &gt; All Sites</strong> section should now show an additional <strong>ID</strong> column. Make note of the ID for your subdomain that you'll be mapping.</li> 
- </ol> 
+    <li>Back in the WP-Admin browser window, find the additional <strong>ID</strong> column in the <strong>Sites &gt; All Sites</strong> section, and  note the ID for your subdomain that you'll be mapping.</li> 
+</ol> 
 
       <h2>Map your domains</h2>
     <ol>
-            <li>Make a note of the ID value for each site</li>
-            <li>go to the Settings &gt; </li>
-            <li>Domains page.</li>
-            <li>Enter the site ID followed by the external domain for the site.</li>
+            <li>Make a note of the ID value for each site.</li>
+            <li>Go to the <strong>Settings</strong> &gt; <strong>Domains</strong> page.</li>
+            <li>Enter the site ID followed by the external domain for the site.<br />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-new-domain-screen5.png" alt="wordpress mu domain mapping plugin new domain" /></li>
 
-        </ol>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-new-domain-screen5.png" alt="wordpress mu domain mapping plugin new domain" />
+</ol>
 
-<h2>Next Steps</h2>
+<h2>Next steps</h2>
 
-Congratulations! Each site that you have defined with its own domain name can now be accessed that way. You can test it by visiting one of those domains. You will  see the URL redirect to the subdomain of your primary site.
-
-Now each site can be maintained separately through its own WordPress admin panel. Just append <code>/wp-admin/</code> to the URL, such as <code>coolexampleproduct.com/wp-admin/</code>.
-
-         
+<p>Congratulations! Each site that you  defined with its own domain name can now be accessed that way. You can test it by visiting it. You'll  see the URL redirect to the subdomain of your primary site.
+  
+  Now you can maintain each site  separately through its own WordPress admin panel. Just append <code>/wp-admin/</code> to the URL (for example, <code>coolexampleproduct.com/wp-admin/</code>).
+  
+  
+</p>
 </body>
 </html>
