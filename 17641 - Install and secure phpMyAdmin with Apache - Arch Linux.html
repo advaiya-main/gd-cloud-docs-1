@@ -107,7 +107,7 @@ p.note {
             Uncomment the following lines:
             <div class="hacker">
 
-extension=mysqli.so   <br/>
+extension=mysqli.so   <br />
 extension=mcrypt.so    <br/>
 
             </div>
@@ -158,10 +158,10 @@ Include conf/extra/phpmyadmin.conf  <br/>
         </li>
 <li>
             In your browser, go to <strong>http://server-ip-address-or-your-domain-name/phpmyadmin</strong> to see the web interface. A "Welcome to phpMyAdmin" page displays.<!--Pooja, can you see Susan's instructions for linking images? Thanks. cj -->
-<img src='/images' alt='Welcome to phpMyAdmin' />
+<img src='/images/17641/090915/Welcome-to-phpMyAdmin.png' alt='Welcome to phpMyAdmin' />
         </li>
         <li>
-            Log into the user interface with the username <code>root</code> and the MySQL root password. You'll  see the phpMyAdmin user interface. <img src='/images' alt='phpMyAdmin user interface' />
+            Log into the user interface with the username <code>root</code> and the MySQL root password. You'll  see the phpMyAdmin user interface. <img src='/images/17641/090915/phpMyAdmin-user-interface.png' alt='phpMyAdmin user interface' />
         </li>
     </ol>
     <h2>Secure phpMyAdmin </h2>
@@ -192,14 +192,14 @@ Require valid-user
                     <strong><code>AuthName</code></strong>: Can be set  to anything you want. This message displays at the password prompt.
                 </li>
                 <li> <strong><code>AuthUserFile</code></strong>: Is the location where you would store the password file. </li>
-                <li><strong> <code>Require valid-user</code></strong>: Indicates that only users <!--Does "user names" work? Otherwise, it sounds as though people are living in the file. cj-->who are stored in the password file are granted access to the phpMyAdmin login screen. </li>
+                <li><strong> <code>Require valid-user</code></strong>: Indicates that only usernames <!--Does "user names" work? Otherwise, it sounds as though people are living in the file. cj-->that are stored in the password file are granted access to the phpMyAdmin login screen. </li>
           </ul>
         </li>
     
 
         <li>
             Create a first user to be stored in the password file.
-            <div class="hacker">sudo htpasswd -c /etc/webapps/phpmyadmin/.htpasswd <em>newuser1<!--I wonder if there is a more descriptive name we could use to better satisfy GD requirements regarding variables. Also, please format it correctly. Thanks. cj --></em></div>
+            <div class="hacker">sudo htpasswd -c /etc/webapps/phpmyadmin/.htpasswd <em><u>your_username<!--I wonder if there is a more descriptive name we could use to better satisfy GD requirements regarding variables. Also, please format it correctly. Thanks. cj --></u></em></div>
 <li>Set and confirm the password.
  
               <br />
