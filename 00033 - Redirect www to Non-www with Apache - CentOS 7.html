@@ -78,8 +78,8 @@ p.note {
     </p>
     <p>Let's assume that you have a domain with and without the <code>www</code> prefix: <em><u>www.coolexample.com</u></em> and <em><u>coolexample.com</u></em>. Both display the same content. <strong>Permanent redirect</strong> or "301 Redirect" is the type of redirect where you would be redirecting your users from one domain to the other.<!--What will the user be doing in this article? cj --></p>
     <p>
-Before starting, make sure to complete the <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">initial server setup</a>  on your server and installed Apache. </p>
-    <p>To install it<!--What does "it" refer to--Apache? cj -->:</p>
+Before starting, make sure to complete the <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">initial server setup</a>  on your server and to install Apache. </p>
+    <p>To install it<!--What does "it" refer to - Apache? cj -->:</p>
 <div class="hacker">sudo yum update</div>
         <div class="hacker">sudo yum install httpd</div>
 
@@ -88,11 +88,11 @@ Before starting, make sure to complete the <a href="https://blueprintcs.sharepoi
     <ol>
         <li>
       Assuming that you have a domain with COMPANY_NAME, log into <a href="https://mya.godaddy.com/default.aspx">COMPANY_NAME account manager</a>.</li>
-        <li>Click <strong>Manage</strong> in the <strong>Domains</strong> section. <!--Can you please set up the links for these images? cj --><br />
+        <li>Click <strong>Manage</strong> in the <strong>Domains</strong> section. <!--Can you please correct the links for these images? cj --><br />
             <img src="/images/17813/Manage_Domains.png" alt="Manage Domains" />
           <br />
-        This  takes you to the list of domains you have with COMPANY_NAME. </li>
-        <li>Click the drop down button on the domain that you want to work with, and click  <strong>MANAGE DNS</strong>. <br />
+        The list of your domains with COMPANY_NAME displays. </li>
+        <li>Click the drop-down button on the domain that you want to work with, and click  <strong>MANAGE DNS</strong>. <br />
           <img src="/images/17813/DNS_Manage.png" alt="DNS Manage" />        <br />
       If you don't see a record for your domain, create one. Also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. </li>
         <li>Make sure to type  the IP address of your server in the <strong>POINTS TO </strong> field. <br />
@@ -103,7 +103,7 @@ Before starting, make sure to complete the <a href="https://blueprintcs.sharepoi
 
 </ol>
     <h2>Enable Rewrite, and create <code>.htaccess</code></h2>
-    <p>We'll  use <code>.htaccess</code> file to hold the redirect rules. By default, the Rewrite module is enabled. In case it isn't enabled, edit the Apache configuration file.</p>
+    <p>We'll  use the <code>.htaccess</code> file to hold the redirect rules. By default, the Rewrite module is enabled. In case it isn't enabled, edit the Apache configuration file.<!--Can they skip this section if the module is enabled? How do they know if it is enabled? cj --></p>
     <ol>
         <li>
             Open the modules section of the Apache configuration file.
@@ -119,7 +119,7 @@ Before starting, make sure to complete the <a href="https://blueprintcs.sharepoi
         </li>
         
         <li>
-            In the configuration block that corresponds to the DocumentRoot, which in this case is <code>/var/www/html,</code> replace <code>AllowOverride None</code> with <code>AllowOverride All</code>. <br />
+            In the configuration block that corresponds to the DocumentRoot (in this case <code>/var/www/html</code>), replace <code>AllowOverride None</code> with <code>AllowOverride All</code>. <br />
           The <code>Directory</code> section  resembles this:
             <div class="hacker">
                 <pre>
@@ -130,7 +130,7 @@ Before starting, make sure to complete the <a href="https://blueprintcs.sharepoi
     allow from all
  &lt;/Directory>
 </pre>
-          </div></li>
+      </div></li>
         <li>
             Save and exit the file.
       </li>
@@ -141,33 +141,33 @@ Before starting, make sure to complete the <a href="https://blueprintcs.sharepoi
 
 
         <li>
-            Navigate into the DocumentRoot directory (in this case <code>/var/www/html</code>).
+            Navigate to the DocumentRoot directory (in this case <code>/var/www/html</code>).
             <div class="hacker">cd /var/www/html</div>
         </li>
         <li>
-            Create a <code>.htaccess</code> file to enter the redirection information. There are two options. We will take a look at both.
+            Create a <code>.htaccess</code> file to enter the redirection information. There are two options.<!--Two options to do what? cj --> We will take a look at both.<!--Does the following command really look at both options? These two sentences seem to be in the wrong place. cj -->
 <div class="hacker">sudo vim .htaccess</div>
       </li>
     </ol>
     <h3>Redirect www to non-www</h3>
     <ol>
         <li>
-            If you want to redirect from www to non-www, type in the below block of text in the .htaccess file.
-            <div class="hacker">
-                <pre>
+            If you want to redirect from www to non-www, type the following block of text in the <code>.htaccess</code> file.
+<div class="hacker">
+      <pre>
 RewriteEngine On
 RewriteBase /
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 </pre>
-            </div>
+          </div></li><li>
             Save and exit.
-            <p class="note">If you are using HTTPS, you need to replace <strong>http</strong> with <strong>https</strong> in the last line <code>RewriteRule</code></p>
-        </li>
-        <li>
-            To validate your redirection <code>curl</code> your domain name.
-            <div class="hacker">curl -I www.coolexample.com</div>
-            You will see the following displayed on the console:
+            <p class="note">If  using HTTPS, replace <strong>http</strong> with <strong>https</strong> in the last line <code>RewriteRule</code>.</p>
+      </li>
+      <li>
+            To validate your redirection, <code>curl</code> <!--Is it possible to use an actual verb instad of a command? cj -->your domain name.
+<div class="hacker">curl -I www.coolexample.com</div>
+            The following displays on the console:
             <div class="hacker">
                 <pre>
 HTTP/1.1 301 Moved Permanently
@@ -176,32 +176,32 @@ Server: Apache/2.4.6 (CentOS) OpenSSL/1.0.1e-fips
 Location: http://coolexample.com/
 Content-Type: text/html; charset=iso-8859-1
 </pre>
-            </div>
-        </li>
-        <li>
-            You can also verify this by navigating to <em><u>www.coolexample.com</u></em> on your browser and you will be redirected to <em><u>coolexample.com</u></em>
+          </div>
+        
+          You can also verify the redirection by going to <em><u>www.coolexample.com</u></em> in your browser. You are redirected to <em><u>coolexample.com</u></em>
         </li>
     </ol>
-    <h3>Redirect non-www to www</h3>
+<h3>Redirect non-www to www</h3>
     <ol>
         <li>
-            If you want to redirect from www to non-www, type in the below block of text in the .htaccess file.
-            <div class="hacker">
-                <pre>
+            If you want to redirect from www to non-www, type in the below block of text in the <code>.htaccess</code> file.
+<div class="hacker">
+        <pre>
 RewriteEngine On
 RewriteBase /
 RewriteCond %{HTTP_HOST} !^www\. [NC]
 RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
 </pre>
-            </div>
-            Save and exit.
-            <p class="note">If you are using HTTPS, you need to replace <strong>http</strong> with <strong>https</strong> in the last line <code>RewriteRule</code></p>
-        </li>
+          </div> </li>
         <li>
-            To validate your redirection <code>curl</code> your domain name.
+            Save and exit.
+            <p class="note">If using HTTPS, replace <strong>http</strong> with <strong>https</strong> in the last line <code>RewriteRule</code></p>
+      </li>
+      <li>
+            To validate your redirection, <code>curl<!--Same comment here as above. cj --></code> your domain name.
             <div class="hacker">curl -I coolexample.com</div>
-            You will see the following displayed on the console:
-            <div class="hacker">
+            The following displays on the console:
+        <div class="hacker">
                 <pre>
  HTTP/1.1 301 Moved Permanently
 Date: Sun, 23 Aug 2015 00:11:10 GMT
@@ -210,11 +210,8 @@ Location: http://www.coolexample.com/
 Content-Type: text/html; charset=iso-8859-1
 
 </pre>
-            </div>
-        </li>
-        <li>
-            You can also verify this by navigating to <strong>http://<em><u>coolexample.com</u></em></strong> on your browser and you will be redirected to <strong>www.<em><u>coolexample.com</u></em></strong>
-        </li>
+          </div>
+        You can also verify the redirection by going to http://<em><u>coolexample.com</u></em> in your browser. You are redirected to  www.<em><u>coolexample.com</u></em>.</li>
     </ol>
 
     <h2>Next steps</h2>
