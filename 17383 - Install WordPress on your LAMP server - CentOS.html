@@ -118,17 +118,12 @@ Suggested command failed again in Fedora, email sent with detailed results.</mso
     <li>Log into your MySQL admin account.
 <div class="hacker">mysql -u root -p</div>     </li>
     <li>At the prompt, enter your MySQL root password.  </li>
-<<<<<<< HEAD
-    <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name <em>wordpress.</em>
+
+    <li>At the MySQL prompt, create your WordPress database. For this article, we’ll use the database name <em>wordpress.</em>
 <div class="hacker">CREATE DATABASE <em><u>wordpress</u></em>;</div></li>
 <li>Create the database administrator account and set the user’s credentials. For this tutorial, we’ll use <em>wordpressadmin</em> as the example username, and <em>wordpresspassword</em> as the password.
 <div class="hacker">CREATE USER <em><u>wordpressadmin</u></em>@localhost IDENTIFIED BY '<em><u>wordpresspassword</u></em>';</div>
-=======
-    <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name fittingly as "wordpress."
-<div class="hacker">CREATE DATABASE wordpress;</div></li>
-<li>Create the database administrator account and set the user’s credentials. For this tutorial, we’ll use "wordpressadmin" as the example user name, and "wordpresspassword" as the password.
-<div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
->>>>>>> origin/master
+
 <p>As a good security practice, create a strong password. Keep your username and password handy, as you’ll need them later.</p></li>
  <li>Give, or grant, your admin permissions to the database.   
 <div class="hacker">GRANT ALL PRIVILEGES ON wordpress.* TO <em><u>wordpressadmin</u></em>@localhost;</div></li>
@@ -163,7 +158,7 @@ This command creates the directory <code>wordpress</code> in your home directory
    <h2>Configure WordPress</h2>
    
    <ol>
-      <li>Go into the <code>WordPress</code> directory you just unpacked.
+      <li>Go into the <code>WordPress</code> directory that you just unpacked.
 <div class="hacker">cd ~/wordpress</div>    </li>
 
 <li>Edit the following lines with the values in <strong>wp-config.php</strong>.
@@ -173,12 +168,7 @@ This command creates the directory <code>wordpress</code> in your home directory
  <li>Open the config file in your text editor.
 <div class="hacker">vim wp-config.php</div>
      </li>
-   
-<<<<<<< HEAD
-   <li>Look for this section of the code below (starting with <code>MySQL settings…</code> and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
-=======
-   <li>Look for this section of the code below (starting with "MySQL settings"…) and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
->>>>>>> origin/master
+   <li>Look for this section of the code below (starting with <code>MySQL settings…</code>) and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
 
 <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
 /** The name of the database for WordPress */ <br />
@@ -195,14 +185,14 @@ define('DB_PASSWORD', '<em><u>wordpresspassword</u></em>');   </div> </li>
                             
   <h2>Copy files to document root</h2>   
      
-   <p>After you’ve configured WordPress, transfer the files to Apache’s root directory so that the application can serve content to your site visitors.</p>
+   <p>After you’ve configured WordPress, transfer the files to Apache’s root directory, so that the application can serve content to your site visitors.</p>
       
  <ol>
  <li>Transfer your WordPress files using <code>rsync</code>.
     <div class="hacker">sudo rsync -avP ~/wordpress/ /var/www/html/</div>
 This will safely copy all of the contents from the directory you unpacked to the document root.
       </li>   
-<li>Change ownership to Apache and grant the permissions so that WordPress can auto-update content.                                          
+<li>Change ownership to Apache and then grant the permissions, so that WordPress can auto-update content.                                          
 <div class="hacker">sudo chown -R apache:apache /var/www</div>
 <div class="hacker">sudo chmod 775 /var/www</div>
                     </li>
@@ -212,7 +202,7 @@ This will safely copy all of the contents from the directory you unpacked to the
 
 <h2>Set directory permissions to allow uploads</h2>
      
-      <p>Open the permissions of your uploads directory so that you can upload images and other content to your site. The default permissions are too limiting.</p>
+      <p>Open the permissions of your uploads directory, so that you can upload images and other content to your site. The default permissions are too limiting.</p>
      
      <ol>
      <li>  Create the <code>uploads</code> directory.
@@ -224,7 +214,7 @@ This will be the parent directory.       </li>
 <div class="hacker">sudo chown -R :apache /var/www/html/wp-content/uploads/</div>
 <div class="hacker">sudo chmod 775 /var/www/html/wp-content/uploads</div>
   
-This allows the web server to create files and directories under the directory, which means you’ll be able to upload content to the server.
+This step allows the web server to create files and directories under the directory, which means you’ll be able to upload content to the server.
                                    </li>
                                    </ol>
 
@@ -235,7 +225,6 @@ This allows the web server to create files and directories under the directory, 
      <ol>
      <li>  Enter your server’s domain name or public IP address in your web browser. 
    <div class="hacker">http://<em><u>your IP</u></em></div></li>
-<<<<<<< HEAD
   <li>At the <strong>WordPress configuration</strong> page, fill out your information to create your administrator account.
 <img src="images/17383/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </li>
   <li>WordPress confirms your installation by displaying your username and password.
@@ -247,20 +236,7 @@ This allows the web server to create files and directories under the directory, 
 <img src="images/17383/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
                                                             </li>
                                                               </ol>
-=======
-  <li><p>At the <strong>WordPress configuration</strong> page, fill out your information to create your administrator account.  </p>
-<img src="images/17383/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </li>
-  <li> <p>	WordPress confirms your installation by displaying your username and password.</p>
-<img src="images/17383/082015/install-wordpress-on-your-server-success-login-confirmation-2.png" alt="install wordpress confirmation screen" />  </li>
-   <li>  <p>Click <strong>Log In</strong> WordPress prompts you to log in with your new credentials.</p>
-<img src="images/17383/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" />
 
-                                                            </li>
-                                                              </ol>
- <p>All done! You’ll be taken to the dashboard of your new site.</p>    
-     
-<img src="images/17383/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
->>>>>>> origin/master
              
     <h2>Next steps</h2>
     
