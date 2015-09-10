@@ -80,7 +80,7 @@ p.note {
         <strong>Time</strong>: <em><u>1 hr</u></em></p>
 
     <p>This article will help you install Mina and deploy a Rails application with Mina. Mina is a Ruby-based tool used for creating scripts with a list of tasks, grouped under a name, to perform and to facilitate everyday operations. Mina converts these RAKE based programming files to bash scripts, connects to a defined remote server, and executes them.</p>
-<p>To perform these tasks, you need a GitHub account. Also, make sure that the host machine has Ruby on Rails using rbenv installed and running. For instructions, see  the following:</p>
+<p>To perform these tasks, you need a GitHub account (For help, see the <a href="https://help.github.com/articles/create-a-repo/">Github documentation)</a>. Also, make sure that the host machine has Ruby on Rails using rbenv installed and running. For instructions, see  the following:</p>
 	<ul>
 	<li><a href="17523">Install Ruby on Rails with rbenv - Debian</a></li>
 	</li>
@@ -136,9 +136,9 @@ p.note {
 	
 	</li>
 </ol>	
-<h2>Create a Git repository</h2>
-<p>Make a repository on GitHub. So log in on GitHub on your local browser and create a <em><u>Your_application</u></em> repository.<!--Is this second sentence covered in the steps below? If so, we don't need to tell them to do it here too. cj--></p>
-<ol>
+<h2>Create a Git repository</h2><ol>
+<li>
+Make a repository on GitHub: Log into GitHub on your local browser, and create a <em><u>Your_application</u></em> repository.</li>
 	<li>Install Git.
 	  
 	<div class ="hacker">sudo apt-get install git </div>
@@ -165,11 +165,11 @@ p.note {
 	<li>Push the project's source code to your Github account.
 	  <div class ="hacker">git push -u origin master</div>
 	</li>
-	<li>Change the ownership of Rails application to the deployer.
+	<li>Change the ownership of the Rails application to the deployer.
 	  <div class ="hacker">sudo chown -R  <em><u>username</u></em>  /var/www/<em><u>Your_application</u></em></div>
 	</li>
 </ol>
-<h2>Deploy Rails application</h2>
+<h2>Deploy the Rails application</h2>
 <ol>
 	<li>Go to the application directory.
 	  <div class ="hacker">cd  /var/www/<em><u>Your_application</u></em></div>
@@ -177,7 +177,7 @@ p.note {
 	<li>Open the <code>deploy.rb</code> file.
 	  <div class ="hacker">sudo vim config/deploy.rb</div>
 	</li>
-	<li>Add the following lines in the beginning of this file as Mina requires the configuration of the bundler, Rails, Git, and Ruby. <!--Changed the sentence to make it imperative-->
+	<li>Add the following lines to the beginning of this file. Mina requires the configuration of the bundler, Rails, Git, and Ruby. <!--Changed the sentence to make it imperative-->
 	  <div class ="hacker"><pre>require 'mina/bundler'
     require 'mina/rails' 
      require 'mina/git' 
@@ -192,18 +192,17 @@ p.note {
  set :app_path,   "#{deploy_to}/#{current_path}" //rails application path
 set :repository, 'https://github.com/<em><u>GitHub_username</u></em>/<em><u>Your_application</u></em>.git'
     set :branch,     'master'
-
 </pre></div>
 	</li>
-	<li>Uncomment the line that says <code>'rbenv:load'</code> in the environment task section, if you have installed Ruby using rbenv. Otherwise, uncomment the other line that invokes Ruby installation using <code>rvm</code>. <!--Modified this sentence to make it more clear-->  
+	<li>Uncomment the line that says <code>'rbenv:load'</code> in the environment task section, if you  installed Ruby using rbenv. Otherwise, uncomment the  line that invokes Ruby installation using <code>rvm</code>. <!--Modified this sentence to make it more clear-->  
 	  <div class ="hacker"><pre> task :environment do  
      invoke :'rbenv:load'
      # invoke :'rvm:use[ruby-1.9.3-p125@default]'   
     End
 </pre></div>
 	</li>
-	<li>Add the following lines to clone the repository. Then configure the shared paths, execute a bundle to set all the required gems to the server. Optionally you can migrate the database and precompile the assets. <!--Please format variables correctly, using <em> and <u> tags. cj -->  <!-- fixed -->
-	<div class ="hacker"><pre>task :deploy => :environment do 
+	<li>Add the following lines to clone the repository. Then configure the shared paths, and execute a bundle to set all the required gems to the server. Optionally you can migrate the database and precompile the assets. <!--Please format variables correctly, using <em> and <u> tags. cj -->  <!-- fixed -->
+	  <div class ="hacker"><pre>task :deploy => :environment do 
      deploy do 
        invoke :'git:clone' 
         invoke :'deploy:link_shared_paths' 
@@ -219,8 +218,8 @@ set :repository, 'https://github.com/<em><u>GitHub_username</u></em>/<em><u>Your
    end
 </pre></div>
 	</li>
-	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key. <!--Following this standard for every "Save and Exit" sentences. Also a hacker class is not required after save and close-->
-		</li>
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong><code>:wq</code></strong>, followed by pressing the <strong>Enter</strong> key. 
+	  </li>
 	<li>Create the folder structure in <code>deploy.rb</code> file.
 	  <div class ="hacker">mina setup -verbose
 	</div>
@@ -241,6 +240,6 @@ set :repository, 'https://github.com/<em><u>GitHub_username</u></em>/<em><u>Your
 	</li>
 </ol>
 <h2>Conclusion</h2>
-<p>By using all of the above steps, you will be able to deploy your Rails application with Mina on Debian,Ubuntu.
-	</body>
+<p>By following the above steps, you have deployed your Rails application with Mina on Debian or Ubuntu.
+</body>
 </html>

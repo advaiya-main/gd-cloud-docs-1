@@ -80,9 +80,7 @@ p.note {
         <strong>Time</strong>: <em><u>1 hr</u></em></p>
 
     <p>This article will help you install Mina and deploy a Rails application with Mina. Mina is a Ruby-based tool used for creating scripts with a list of tasks to perform, grouped under a name, and to facilitate everyday operations. Mina converts these RAKE based programming files to bash scripts, connects to a defined remote server, and executes them.</p>
-<h2>Prerequisites</h2>
-<p>For this article you need to have a GitHub account.</p>
-    <p>This article assumes that the host machine has Ruby on Rails using rbenv installed and running. For more details, see:</p>
+<p>To perform these tasks, you need a GitHub account. Also, make sure that the host machine has Ruby on Rails using rbenv installed and running. For instructions, see  the following:</p>
 	<ul>
 	<li><a href="#17521">Install Ruby on Rails with rbenv on CentOS</a>
 	</li>
@@ -156,7 +154,7 @@ p.note {
 	  <div class ="hacker">git commit -m "first commit"</div>
 	</li>
 	<li>Add your GitHub repository link.
-	  <div class ="hacker">git remote add origin 	git@github.com:<em><u>GitHub_UserName</em></u>/<em><u>Your_application</u></em>.git</div>
+	  <div class ="hacker">git remote add origin 	git@github.com:<em><u>GitHub_UserName</u></em>/<em><u>Your_application</u></em>.git</div>
 	</li>
 	<li>Create an RSA/SSH key.
 	  <div class ="hacker">ssh-keygen -t rsa</div>
@@ -171,7 +169,7 @@ p.note {
 	  <div class ="hacker">sudo chown -R  <em><u>username</u></em>  /var/www/<em><u>Your_application</u></em></div>
 	</li>
 </ol>
-<h2>Deployment of Rails application</h2>
+<h2>Deploy the Rails application</h2>
 <ol>
 	<li>Go to the application directory.
 	  <div class ="hacker">cd  /var/www/<em><u>Your_application</u></em></div>
@@ -179,7 +177,7 @@ p.note {
 	<li>Open the <code>deploy.rb</code> file.
 	  <div class ="hacker">sudo vim config/deploy.rb</div>
 	</li>
-	<li>Add the following lines in the beginning of this file as Mina requires the configuration of the bundler, Rails, Git, and Ruby. <!--Changed the sentence to make it imperative-->
+	<li>Add the following lines in the beginning of this file. Mina requires the configuration of the bundler, Rails, Git, and Ruby. <!--Changed the sentence to make it imperative-->
 	  <div class ="hacker"><pre>require 'mina/bundler'
     require 'mina/rails' 
      require 'mina/git' 
