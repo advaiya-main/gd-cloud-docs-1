@@ -84,23 +84,17 @@ p.note {
     <h1>Deploy Rails Apps with Passenger and Nginx - Debian</h1>
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
-<p>Rails enables rapid application development, while NGINX is a lightweight and high performance web server. In this article, you will learn to deploy Rails application on NGINX web server using the simple and powerful features of Phusion Passenger. To perform this task, its is assumed that the user has <em>sudo</em> privileges.</p>
-<h2>Prerequisites</h2>
-<ul>
-<li><a href="17325 - Initial Server Setup - Debian"> Initial Server Setup - Debian</a>.</li>
-<li><a href="17538 - Install Ruby on Rails using RVM - Debian">Install Ruby on Rails using RVM</a>.</li>
-<li><a href ="17722 - Deploy Rails Apps with Passenger and Apache - Debian"> Deploy Rails Apps with Passenger and Apache - Debian</a>.</li>
-<li>Fully Qualified Domain Name (FQDN) should point to the server.</li>
-</ul>
-<h2>Install NGINX and Passenger</h2>
+<p>Rails enables web developers to rapidly build quality applications, while Nginx is a lightweight, high-performance web server. In this article you'll learn to deploy a Rails application on an Nginx web server using the simple and powerful features of Phusion Passenger. These tasks assume that you have <code>sudo</code> privileges.</p>
+<p>To set up your Ubuntu server, refer to <a href="17325 - Initial Server Setup - Debian"> Initial Server Setup - Debian</a>. Ensure that the fully qualified domain name (FQDN) points to the server. After you set up the server, you need to <a href="17538 - Install Ruby on Rails using RVM - Debian">install Ruby on Rails using RVM</a>.You can also refer to <a href ="17722 - Deploy Rails Apps with Passenger and Apache - Debian"> Deploy Rails Apps with Passenger and Apache - Debian</a>.</p>
+<h2>Install Nginx and Passenger</h2>
    <ol>
-     <li>Update the repositories and install the dependencies for Ruby and NGINX.
+     <li>Update the repositories, and install the dependencies for Ruby and Nginx.
             
           <div class='hacker'>sudo apt-get update</div>
      <div class='hacker'>sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev</div>
       </li>
       
-        <li>Add the <code>gpg</code> key and install the Phusion Passenger.
+        <li>Add the <code>gpg</code> key, and install the Phusion Passenger.
           <div class='hacker'>gpg --keyserver keyserver.debian.com --recv-keys 561F9B9CAC40B2F7    </div>
     <div class='hacker'>gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
 sudo apt-get install apt-transport-https    </div>
@@ -112,7 +106,7 @@ sudo apt-get install apt-transport-https    </div>
     <div class='hacker'>sudo apt-get update    </div>
         </li>
     
-     <li>Install NGINX and Passenger.
+     <li>Install Nginx and Passenger.
         <div class='hacker'>sudo apt-get install nginx-full passenger    </div>
     </li>
 	<li>For  language, select <code>Ruby</code>, and then press the <strong>Enter</strong> key.
@@ -125,13 +119,13 @@ sudo apt-get install apt-transport-https    </div>
         </ul>
 </div>
 </li>
-<li>Select  <code>1</code> and press the <strong>Enter</strong> key to continue. This action downloads, compiles, and installs the NGINX files with Passenger support.
+<li>Select  <code>1</code> and press the <strong>Enter</strong> key to continue. This action downloads, compiles, and installs the Nginx files with Passenger support.
    <div class='hacker'>1. Yes: download, compile and install Nginx for me.(recommended)
        <br /> 
        The easiest way to get started. A stock NGINX 1.4.4 with Passenger support, but with no other additional third party modules, will be installed for you to a directory of your choice.</div>
 
 </li></ol>
-<h2>Set up a Test Rails Application</h2>
+<h2>Set up a test Rails application</h2>
 		<ol>
 	
     <li>Create a directory.
@@ -146,50 +140,53 @@ sudo apt-get install apt-transport-https    </div>
       <div class='hacker'>rails generate scaffold Task title:string note:text</div>
 	  <div class='hacker'>rake db:migrate RAILS_ENV=development</div>
 	  </li>
-    <li> To test your application, run the following command in application directory:
+    <li> Test the application by running the following command in application directory:
       <div class='hacker'>rails s --bind=<em><u>Public-IP</u></em></div> 
     </li>
       </ol>
-	  <h2>Configure NGINX</h2><ol>
-     <li>Open the following configuration file of NGINX.
-            <div class='hacker'>sudo vim /etc/nginx/nginx.conf</div></li>
+	  <h2>Configure Nginx</h2><ol>
+     <li>Open the  <span class="hacker"><code>nginx.conf</code></span> configuration file.
+<div class='hacker'>sudo vim /etc/nginx/nginx.conf</div></li>
      <li>
-       <p>Uncomment the following line:</p>
+      Uncomment the following line:
     
             <div class='hacker'>
             passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;<br/>
 passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv   
             </div>
         </li>
-        <li>Save and Exit.<div class ="hacker">:wq</div></li>
-          <li>Restart the NGINX service.
+        <li>Save and exit.
+          <div class ="hacker">:wq</div></li>
+          <li>Restart the Nginx service.
             <div class='hacker'>sudo service nginx restart</div>
           </li>
        
-        <li>Open the following configuration file to configure host <code>/etc/nginx/sites-enabled/default</code>:</p>
-            <div class='hacker'>
-      server {<br/>
-        listen 80 default_server;<br/>
-        listen [::]:80 default_server ipv6only=on;<br/>
-
-        server_name <em><u>www.coolexample.com</u></em>; // Replace coolexample.com witch FQDN or Public-IP<br/>
-        passenger_enabled on;<br/>
-        rails_env    production;<br/>
-        root         <em><u>/var/www/SampleApp</u></em>/public; // Your rails application's path<br/>
-<br/>
-        # redirect server error pages to the static page /50x.html<br/>
-        error_page   500 502 503 504  /50x.html;<br/>
-        location = /50x.html {<br/>
+        <li>Configure the Nginx host by opening <code>/etc/nginx/sites-enabled/default </code>in your text editor and replacing the file's contents with the following:
+          <div class='hacker'>
+            server {<br/>
+            listen 80 default_server;<br/>
+            listen [::]:80 default_server ipv6only=on;<br/>
+            
+            server_name <em><u>www.coolexample.com</u></em>; // Replace coolexample.com witch FQDN or Public-IP<br/>
+            passenger_enabled on;<br/>
+            rails_env    production;<br/>
+            root         <em><u>/var/www/SampleApp</u></em>/public; // Your rails application's path<br/>
+            <br/>
+            # redirect server error pages to the static page /50x.html<br/>
+            error_page   500 502 503 504  /50x.html;<br/>
+            location = /50x.html {<br/>
             root   html;<br/>
-        }<br/>
-
-</div>
-      </li>  <!--Save and close the file? cj --><!--fixed-->   
-	  <li>Save and Exit.<div class="hacker">:wq</div></li>
-        <li>Restart the NGINX service.
+            }<br/>
+            
+          </div>
+        </li>  
+        <!--Save and close the file? cj --><!--fixed-->   
+	  <li>Save and exit.
+	    <div class="hacker">:wq</div></li>
+        <li>Restart the Nginx service.
             <div class='hacker'>sudo service nginx restart</div>
         </li></ol>
-    <h2>Conclusion</h2>
-    In this article, we reviewed the steps involved in installing Ruby on Rails using RVM, installed NGINX and Passenger, and finally compiled and configured it to deploy our Rails application on NGINX web server.<!--What might the user do next? cj --><!--Changed from "Next step" to "Conclusion"-->
+<h2>Conclusion</h2>
+    In this article, you deployed a Rails application using Nginx and Passenger.<!--What might the user do next? cj --><!--Changed from "Next step" to "Conclusion"-->
 </body>
 </html>
