@@ -94,7 +94,7 @@ p.note {
     
    </ol> 
    
-    <h2>Set up the virtual hosts</h2>
+    <h2>Set up the virtual host</h2>
     <ol>
     <li>Create the virtual directories for the domains/sites you'll be serving from your VPS.
     For this tutorial, we will use the example domain name <em><u>coolexample.com</u></em>.<br />
@@ -102,7 +102,7 @@ p.note {
     sudo mkdir -p /var/www/coolexample.com/public_html</div></li>
     
     <li>Set up ownership and grant permissions. Change the ownership from the <code>root</code> user to a regular user using <code>chown</code>. This way, regular users can modify files in your web directories.
-    <div class="hacker">sudo chown -R apache:apache /var/www/coolexample.com/public_html</div></li>
+    <div class="hacker">sudo chown -R apache:apache /var/www/<em><u>coolexample.com</u></em>/public_html</div></li>
      
     <li>Set read permissions to the Apache web root <code>/var/www </code> directory to enable access to the files from that directory. Modify permissions so that the general web directory has read access.<br />
     <div class="hacker">sudo chmod -R 755 /var/www/</div>         
@@ -113,34 +113,36 @@ p.note {
     
     <ol>
     <li>Create a sample page for your virtual host. For simplicity's sake, let's create <code>index.html</code> pages.
-    <div class="hacker">vim /var/www/coolexample.com/public_html/index.html</div>
+    <div class="hacker">vim /var/www/<em><u>coolexample.com</u></em>/public_html/index.html</div>
 
-    It'll be a blank file. Add some content. We'll add: 
-     <div class="hacker"><pre> 
-    &lt;html&gt; 
+    It'll be a blank file. Add some content: 
+        <div class="hacker"><pre>&lt;html&gt; 
     &lt;head&gt; 
     &lt;title&gt;Welcome to coolexample.com!&lt;/title&gt; 
     &lt;/head&gt; 
     &lt;body&gt; 
     &lt;h1&gt;Hooray! Your coolexample.com virtual host is working!&lt;/h1&gt; 
     &lt;/body&gt; 
-    &lt;/html&gt;   </pre></div></li>
+&lt;/html&gt;</pre></div></li>
     <li>Save and close the file.</li>
     
-    <h2>Create new virtual host files</h2>
-    <ol>
-    <li>Set up two directories: one to store the virtual host file and another to hold symbolic links to virtual hosts that will be published.
+    <!--CT: Not relevant for Centos 6...
+    <h2>Create your new virtual host file</h2>
+    
+    <p>Set up two directories: one to store the virtual host file and another to hold symbolic links to virtual hosts that will be published.</p>
     <div class="hacker">
     sudo mkdir /etc/httpd/sites-available<br />
-    sudo mkdir /etc/httpd/sites-enabled</div>    
-    </li>
+    sudo mkdir /etc/httpd/sites-enabled</div>    ...-->
+
+    <h2>Modify your Apache configuration file</h2>
     
-    <li>Edit the main configuration file so that Apache will look for virtual hosts in the sites-enabled directory.
+    <p>Edit the main configuration file so that Apache will look for virtual host.</p>
+
+    <ol>
+      <li>Open the Apache config file.
      <div class="hacker">vim /etc/httpd/conf/httpd.conf</div></li>
-     
-     <li>Enable your site.
-    <ul>
-    <li>Check that Apache listening on the default HTTP port, port 80, for the virtual host. Find these 2 lines in the file: 
+      
+        <li>Check that Apache is listening on the default HTTP port, port 80, for the virtual host. Find these two lines in the file: 
       <div class="hacker">#Listen 12.34.56.78:80<br/>
         Listen 80</div>
       And make sure they match the above and that the <code>Listen</code> line is uncommented. Most likely, this is already the case.</li>
@@ -148,19 +150,21 @@ p.note {
     <li>Further down in the file, uncomment <code>NameVirtualHost</code> so it looks like:
      <div class="hacker">NameVirtualHost *:80</div></li>
 
-    <li>At the very end of  the file, find the section beginning with <code>&lt;VirtualHost *:80&gt;</code>and make the following changes to this part:
+    <li>At the very end of the file, find the section beginning with <code>&lt;VirtualHost *:80&gt;</code> and make the following changes to this part:
 
-      <!--CT (to Susan): Start of nested list here (help me format it, please)-->
+<!--CT (to Susan): Start of nested list here (help me format it, please)-->
 
-<ul><li>Starting with the first line <code>&lt;VirtualHost *:80&gt;</code>, uncomment the whole section, ending with <VirtualHost>.
+<ul><li>Starting with the first line <code>&lt;VirtualHost *:80&gt;</code>, uncomment the whole section, ending with <code>&lt;/VirtualHost&gt;</code>.
 
 <ul><li>Point <code>DocumentRoot</code> to your domain and the directory that holds it.<br/>
 In our case, that would be <code>/var/www/coolexample.com/public_html</code>. So the line will look like: 
  <div class="hacker">DocumentRoot /var/www/coolexample.com/public_html</div></li></ul>
 
-<ul><li>Point <code>ServerName</code> to your domain, including the www. In our case, that would be <em><u>www.coolexample.com</u></em></li></ul>
+<ul><li>Point <code>ServerName</code> to your domain with the www. 
+Make sure your hostname has a valid DNS record, so that the www version of your domain works.
+  In our case, that would be <em><u>www.coolexample.com</u></em></li></ul>
 
-<ul><li>Point ServerAlias to other variations of your domain, such as the the URL without the www.</li></ul>
+<ul><li>Point ServerAlias to other variations of your domain, such as the domain without the www.</li></ul>
 
 <!--CT (to Susan): End of nested list-->
 
@@ -176,60 +180,33 @@ In our case, that would be <code>/var/www/coolexample.com/public_html</code>. So
     CustomLog <em><u>/var/www/coolexample.com</u></em>/requests.log combined 
     &lt;/VirtualHost&gt; </pre></div>
 
-<p>Note that the other lines (ServerAdmin, ErrorLog, and CustomLog) are not required to set up your virtual host.</p>
+<p>Note that the other lines (ServerAdmin, ErrorLog, and CustomLog) are not required to set up your virtual host. We've filled them out for this example.</p>
 </li>
 
 <li>Save and close.</li>
 
-Restart Apache
-sudo service httpd restart
+<li>Restart Apache.
+ <div class="hacker">sudo service httpd restart</div></li>
 
-    <div class="hacker">
-    &lt;VirtualHost *:80&gt;<br />
-    &lt;/VirtualHost&gt;</div></li>
-    <li> Declare <strong>www.<em><u>coolexample</u></em>.com</strong> as the main server name.
-    <div class="hacker">
-    &lt;VirtualHost *:80&gt;<br />
-    ServerName www.coolexample.com<br />
-    ServerAlias coolexample.com<br />
-    &lt;/VirtualHost&gt;</div>
-Make sure your hostname has a valid DNS record, so that the www version of your domain works.</li>
-    
-    <li> Configure your virtual host. Point to the root directory of your public web documents and tell Apache where to store error and request logs.
-    <div class="hacker"><pre>
-    &lt;VirtualHost *:80&gt; 
-    ServerName www.coolexample.com 
-    ServerAlias coolexample.com 
-    DocumentRoot /var/www/coolexample.com/public_html 
-    ErrorLog /var/www/coolexample.com/error.log 
-    CustomLog /var/www/coolexample.com/requests.log combined 
-    &lt;/VirtualHost&gt; </pre>   </div>
-    </li>
-    
-    
-    
-    
-    <h2>Enable the new virtual host files</h2>
-    <ol>
-    <li>Link the virtual hosts in the sites-enabled directory.<p />
-    <div class="hacker">sudo ln -s /etc/httpd/sites-available/coolexample.com.conf /etc/httpd/sites-enabled/coolexample.com.conf</div></li>
-    <li>Restart Apache so that changes can take effect:
-    <div class="hacker">sudo apachectl restart</div></li>
-    </ol>
-    
-    <h2>Test your setup</h2>
-    Restart Apache and go to the newly configured domains in your web browser.
-    <strong>http://<em><u>domain1</u></em>.com</strong>      
-    You should see a page with a single line of text:
-    <code>Success! The coolexample.com virtual host is working!</code>
-    Test <strong>http://<em><u>domain2</u></em>.com</strong> by direct navigation to make sure that domain is also working. <p />
-    
-    <p>To access your sites from your remote systems, add the actual domain name records in your DNS
+</ol>
+
+You may see the following error, which you can disregard. This message is just a warning and your virtual hosts will work.
+ <div class="hacker">Could not reliably determine the server's fully qualified domain name, using 127.0.0.1 for ServerName</div>
+ 
+ <h2>Test your setup</h2>
+
+ <p>See your virtual host in action by typing in your domain or IP address into your browser, such as <em><u>coolexample.com</u></em>. You should see your test page created earlier.</p>
+
+ <p>To access your sites from your remote systems, add the actual domain name records in your DNS
     server.</p>
 
-<p class="note">You can test your virtual host locally by setting up local hosts on your computer alone. This is a good option if you have not yet pointed your domain name to the IP address of your VPS. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00003 - Set up Local Hosts to Test Virtual Host Setup – ALL DISTROS.html"> Set up Local Hosts to Test Virtual Host Setup – ALL DISTROS</a> for more on how to do this.</p> 
+<p class="note">You can test your virtual host locally by setting up local hosts on your computer alone. This is a good option if you have not yet pointed your domain name to the IP address of your VPS. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00003 - Set up Local Hosts to Test Virtual Host Setup - ALL DISTROS.html"> Set up Local Hosts to Test Virtual Host Setup - ALL DISTROS</a> for more on how to do this.</p> 
       
+
+<h2>Adding additional virtual hosts</h2>
+
+<p>Repeat the above steps to create more virtual hosts. Be sure to create a new document root with your domain name each time. 
 <h2>Next Steps</h2>
-<p>Congratulations! You now have a single server handling two separate sites with their own domains. Remember that you can add additional virtual hosts since there is no limit on the number of domain names Apache can handle.</p>
+<p>Congratulations! You now have a single server handling a site with its own domain. Remember that you can add additional virtual hosts since there is no limit on the number of domain names Apache can handle.</p>
   </body>
 </html>
