@@ -103,7 +103,7 @@ This article assumes that the host machine has Ruby on Rails using RVM installed
 <a href ="17535">Install Ruby on Rails using RVM on Fedora</a>
 </li>
 </ul>
-This article is a part 2 article of the scaling Ruby on Rails series articles. To refer the first and third part, visit:
+This article is a part 2 of the <em>Scaling Ruby on Rails series</em> of articles. To refer to the first and third part of the series, visit:
 <ul>
 <li>
 <a href = "17953">Scale Ruby on Rails Applications Across Multiple Servers - CentOS, Fedora</a>
@@ -112,7 +112,7 @@ This article is a part 2 article of the scaling Ruby on Rails series articles. T
 <a href = "17895">Scaling Ruby on Rails: Setting Up A Dedicated PostgreSQL Server (Part 3) - Centos, Fedora</a>
 </li>
 </ul>
-<p class="note">This article  assumes that you are logged in as a <code>sudo</code> user.</p> 
+<p class="note">This article  assumes that you are logged in as a sudo user.</p> 
      
 <h2>Install MySQL and other dependencies</h2>
 <ol>
@@ -125,7 +125,7 @@ This article is a part 2 article of the scaling Ruby on Rails series articles. T
 <div class="hacker"> sudo   wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm </div>
 <div class="hacker"> sudo rpm -ivh epel-release-7-5.noarch.rpm </div>
 </li>
-<li>Again update everything and install the required libraries.
+<li>Update everything again, and then install the required libraries.
 <div class="hacker"> sudo yum -y update </div>
 <div class="hacker"> sudo yum install -y curl-devel vim sqlite-devel libyaml-devel </div>
 </li>
@@ -135,15 +135,15 @@ This article is a part 2 article of the scaling Ruby on Rails series articles. T
   If MySQL server doesn't work, then try MariaDB.
   <div class="hacker"> sudo yum install MariaDB-server MariaDB-client </div>
 </li>
-<li>Initiate the MySQL server daemon by typing :
+<li>Initiate the MySQL server daemon.
   <div class="hacker"> sudo  service mysqld start </div>
 <p> Or</p>
 <div class="hacker"> sudo /etc/init.d/mysql start </div>
 </li>
-<li>Run the MySQL installation process by typing:
+<li>Run the MySQL installation process.
   <div class="hacker"> sudo/usr/bin/mysql_secure_installation </div>
 </li>
-<li>After you have finished the above command, a welcome screen will display the following:
+<li>After you have finished the above command, a Welcome screen will display the following:
   <div class="hacker">
 <pre>
   NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
@@ -165,7 +165,7 @@ This article is a part 2 article of the scaling Ruby on Rails series articles. T
 </pre>
 </div>
 Press <strong>Enter.</strong>
-<p>Answer the following questions by pressing <strong>Y</strong>.</p>
+<p>Answer the following questions by typing <strong>y</strong>.</p>
 <div class="hacker">
 <pre>
     Set root password?                     --> Y
@@ -187,7 +187,7 @@ Press <strong>Enter.</strong>
 </li>
 <li>Create a new user for your database, and then grant remote and local access to this user.
   <div class="hacker"> CREATE USER '<em><u>rails_UserName</u></em>'@'localhost' IDENTIFIED BY 'pwd'; </div>
-<div class="hacker">  CREATE USER '<em><u>rails_UserName</u></em>r'@'%' IDENTIFIED BY 'pwd'; </div>
+<div class="hacker">  CREATE USER '<em><u>rails_UserName</u></em>r'@'%' IDENTIFIED BY 'pwd'; </div> </li>
 
 <li>Grant access rights to any specific user by typing:
   <div class="hacker"> GRANT ALL ON rails_myapp.* TO '<em><u>rails_UserName</u></em>'@'localhost'; </div>
@@ -197,9 +197,9 @@ Press <strong>Enter.</strong>
   <p>Exit from the database.</p>
 <div class="hacker"> Exit </div>
 </li>
-<li>To enable remote connections, open the MySQL configuration <code>my.cnf</code> and edit it using the vim text editor.
+<li>To enable remote connections, open the MySQL configuration <code>my.cnf</code>, and then edit it using the vim text editor.
 <div class="hacker"> sudo vim  /etc/my.cnf </div>
-                <p>Add the following lines in this file :</p>
+Add the following lines in this file:
 <div class="hacker">
 <pre>
 [mysqld]
@@ -218,7 +218,7 @@ bind-address   =  0.0.0.0
   <div class="hacker">  gem install mysql2 </div>
      <div class="hacker">  gem update -system </div>
 </li>
-<li>Install the Rails package with the following command:
+<li>Install the Rails package.
   <div class="hacker">  gem install rails </div>
 </li>
 <li>Create a Rails application, and  then use the <code>-d mysql</code> option to set MySQL as the database.
@@ -232,7 +232,7 @@ bind-address   =  0.0.0.0
 <div class ="hacker">cd config/</div>
   <div class="hacker"> sudo vim database.yml </div>
 </li>
-<li>Locate the production section, and then  replace it with the following code:
+<li>Locate the production section, and then replace it with the following code:
 <div class="hacker">
 <pre>
 production:
@@ -255,13 +255,13 @@ production:
 <ol>
 <li>Open the <code>Gemfile</code>. 
 <div class="hacker"> sudo vim Gemfile </div>
-       <p>Add the following line :</p>
+       <p>Add the following line:</p>
     <div class="hacker"> gem 'mysql' </div>
 
 </li>
-<li>Save and exit the file by pressing the <strong>Esc</strong> key, yping <code>:wq</code>, followed by the <strong>Enter</strong> key.</li>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.</li>
 
-<li>Install all the dependenices of <code>Gemfile</code>.
+<li>Install all the dependencies of <code>Gemfile</code>.
     <div class="hacker"> bundle install </div>
 </li>
 </ol>
