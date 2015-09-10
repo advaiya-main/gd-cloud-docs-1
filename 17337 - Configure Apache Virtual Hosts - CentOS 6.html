@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+
+<title>Configure Apache Virtual Hosts - CentOS 6</title>
+<style type="text/css">
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Apache, Setup, Virtual Host</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-centos-7, https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-centos-7</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#Fedora;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string">Prereq: - 'Initial Server Setup'' 'Build a LAMP stack.' FQDN pointed at server. Include simple instructions for installing Apache for those who do not want full LAMP.</mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">2</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17337</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:ArticleStatus msdt:dt="string">Collapsed</mso:ArticleStatus>
+<mso:HoursDraftingEstimated msdt:dt="string">1.50000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.750000000000000</mso:HoursEditingEstimated>
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string">Phase 0</mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:Week msdt:dt="string">2.00000000000000</mso:Week>
+<mso:AssignedTo1 msdt:dt="string">27</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Christine Tzeng</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:ReviewComments msdt:dt="string"></mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+<mso:CollapsedInto msdt:dt="string">194</mso:CollapsedInto>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Carla  Johnson</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+<p>Configuring Apache Virtual Hosts for CentOS 6.</p>
+    <h1>Configure Apache Virtual Hosts - CentOS 6</h1>
+    
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
+        <strong>Time</strong>: <em><u>30 minutes</u></em></p>
+    
+    <p>To run multiple sites on a single IP address, you'll need to set up the virtual hosts in your web browser. Apache is the most commonly-used web server and can run a multitude of content based on IP address or hostname.</p>
+
+    <p>This guide will walk you through how to set up an Apache virtual host on a CentOS 6 virtual private server (VPS) as a non-root user with <code>sudo</code> privileges.</p>
+    
+    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), you can <a href="../articels/17342 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Centos6, Fedora.html">install MySQL and PHP</a>. </p>
+    
+    <h2>Install the Apache web server</h2>
+    <ol>
+    <li>Install Apache by running the <code>yum</code> command:<br />
+      <div class="hacker">sudo yum install httpd</div></li>
+    <li>Start up Apache so that the httpd service will start automatically on a reboot.
+    <div class="hacker">sudo service httpd start</div></li>
+    
+   </ol> 
+   
+    <h2>Set up the virtual hosts</h2>
+    <ol>
+    <li>Create the virtual directories for the domains/sites you'll be serving from your VPS.
+    For this tutorial, we will use the example domain name <em><u>coolexample.com</u></em>.<br />
+    <div class="hacker">
+    sudo mkdir -p /var/www/coolexample.com/public_html</div></li>
+    
+    <li>Set up ownership and grant permissions. Change the ownership from the <code>root</code> user to a regular user using <code>chown</code>. This way, regular users can modify files in your web directories.
+    <div class="hacker">sudo chown -R apache:apache /var/www/coolexample.com/public_html</div></li>
+     
+    <li>Set read permissions to the Apache web root <code>/var/www </code> directory to enable access to the files from that directory. Modify permissions so that the general web directory has read access.<br />
+    <div class="hacker">sudo chmod -R 755 /var/www/</div>         
+    </li>
+    </ol>
+    
+    <h2>Create a sample page for your virtual host</h2>
+    
+    <ol>
+    <li>Create a sample page for your virtual host. For simplicity's sake, let's create <code>index.html</code> pages.
+    <div class="hacker">vim /var/www/coolexample.com/public_html/index.html</div>
+
+    It'll be a blank file. Add some content. We'll add: 
+     <div class="hacker"><pre> 
+    &lt;html&gt; 
+    &lt;head&gt; 
+    &lt;title&gt;Welcome to coolexample.com!&lt;/title&gt; 
+    &lt;/head&gt; 
+    &lt;body&gt; 
+    &lt;h1&gt;Hooray! Your coolexample.com virtual host is working!&lt;/h1&gt; 
+    &lt;/body&gt; 
+    &lt;/html&gt;   </pre></div></li>
+    <li>Save and close the file.</li>
+    
+    <h2>Create new virtual host files</h2>
+    <ol>
+    <li>Set up two directories: one to store the virtual host file and another to hold symbolic links to virtual hosts that will be published.
+    <div class="hacker">
+    sudo mkdir /etc/httpd/sites-available<br />
+    sudo mkdir /etc/httpd/sites-enabled</div>    
+    </li>
+    
+    <li>Edit the main configuration file so that Apache will look for virtual hosts in the sites-enabled directory.
+     <div class="hacker">vim /etc/httpd/conf/httpd.conf</div></li>
+     
+     <li>Enable your site.
+    <ul>
+    <li>Check that Apache listening on the default HTTP port, port 80, for the virtual host. Find these 2 lines in the file: 
+      <div class="hacker">#Listen 12.34.56.78:80<br/>
+        Listen 80</div>
+      And make sure they match the above and that the <code>Listen</code> line is uncommented. Most likely, this is already the case.</li>
+
+    <li>Further down in the file, uncomment <code>NameVirtualHost</code> so it looks like:
+     <div class="hacker">NameVirtualHost *:80</div></li>
+
+    <li>At the very end of  the file, find the section beginning with <code>&lt;VirtualHost *:80&gt;</code>and make the following changes to this part:
+
+      <!--CT (to Susan): Start of nested list here (help me format it, please)-->
+
+<ul><li>Starting with the first line <code>&lt;VirtualHost *:80&gt;</code>, uncomment the whole section, ending with <VirtualHost>.
+
+<ul><li>Point <code>DocumentRoot</code> to your domain and the directory that holds it.<br/>
+In our case, that would be <code>/var/www/coolexample.com/public_html</code>. So the line will look like: 
+ <div class="hacker">DocumentRoot /var/www/coolexample.com/public_html</div></li></ul>
+
+<ul><li>Point <code>ServerName</code> to your domain, including the www. In our case, that would be <em><u>www.coolexample.com</u></em></li></ul>
+
+<ul><li>Point ServerAlias to other variations of your domain, such as the the URL without the www.</li></ul>
+
+<!--CT (to Susan): End of nested list-->
+
+<p>Here's what the whole section could look like after your changes:</p>
+ <div class="hacker"><pre>
+   &lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@dummy-host.example.com
+    DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em> 
+    ServerName <em><u>www.coolexample.com</u></em> 
+    ServerAlias <em><u>coolexample.com</u></em> 
+    ServerName <em><u>www.coolexample.com</u></em>     
+    ErrorLog <em><u>/var/www/coolexample.com</u></em>/error.log 
+    CustomLog <em><u>/var/www/coolexample.com</u></em>/requests.log combined 
+    &lt;/VirtualHost&gt; </pre></div>
+
+<p>Note that the other lines (ServerAdmin, ErrorLog, and CustomLog) are not required to set up your virtual host.</p>
+</li>
+
+<li>Save and close.</li>
+
+Restart Apache
+sudo service httpd restart
+
+    <div class="hacker">
+    &lt;VirtualHost *:80&gt;<br />
+    &lt;/VirtualHost&gt;</div></li>
+    <li> Declare <strong>www.<em><u>coolexample</u></em>.com</strong> as the main server name.
+    <div class="hacker">
+    &lt;VirtualHost *:80&gt;<br />
+    ServerName www.coolexample.com<br />
+    ServerAlias coolexample.com<br />
+    &lt;/VirtualHost&gt;</div>
+Make sure your hostname has a valid DNS record, so that the www version of your domain works.</li>
+    
+    <li> Configure your virtual host. Point to the root directory of your public web documents and tell Apache where to store error and request logs.
+    <div class="hacker"><pre>
+    &lt;VirtualHost *:80&gt; 
+    ServerName www.coolexample.com 
+    ServerAlias coolexample.com 
+    DocumentRoot /var/www/coolexample.com/public_html 
+    ErrorLog /var/www/coolexample.com/error.log 
+    CustomLog /var/www/coolexample.com/requests.log combined 
+    &lt;/VirtualHost&gt; </pre>   </div>
+    </li>
+    
+    
+    
+    
+    <h2>Enable the new virtual host files</h2>
+    <ol>
+    <li>Link the virtual hosts in the sites-enabled directory.<p />
+    <div class="hacker">sudo ln -s /etc/httpd/sites-available/coolexample.com.conf /etc/httpd/sites-enabled/coolexample.com.conf</div></li>
+    <li>Restart Apache so that changes can take effect:
+    <div class="hacker">sudo apachectl restart</div></li>
+    </ol>
+    
+    <h2>Test your setup</h2>
+    Restart Apache and go to the newly configured domains in your web browser.
+    <strong>http://<em><u>domain1</u></em>.com</strong>      
+    You should see a page with a single line of text:
+    <code>Success! The coolexample.com virtual host is working!</code>
+    Test <strong>http://<em><u>domain2</u></em>.com</strong> by direct navigation to make sure that domain is also working. <p />
+    
+    <p>To access your sites from your remote systems, add the actual domain name records in your DNS
+    server.</p>
+
+<p class="note">You can test your virtual host locally by setting up local hosts on your computer alone. This is a good option if you have not yet pointed your domain name to the IP address of your VPS. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00003 - Set up Local Hosts to Test Virtual Host Setup – ALL DISTROS.html"> Set up Local Hosts to Test Virtual Host Setup – ALL DISTROS</a> for more on how to do this.</p> 
+      
+<h2>Next Steps</h2>
+<p>Congratulations! You now have a single server handling two separate sites with their own domains. Remember that you can add additional virtual hosts since there is no limit on the number of domain names Apache can handle.</p>
+  </body>
+</html>
