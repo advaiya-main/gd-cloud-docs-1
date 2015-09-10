@@ -4,9 +4,7 @@
 
 <head>
 
-<!--Article Number is 17814 (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17814 -->
 
 
 <title>Redirect www to Non-www with Apache - CentOS, Fedora</title>
@@ -75,17 +73,18 @@ p.note {
 </head>
 
 <body>
-    <h1>Redirect www to Non-www with Apache - CentOS 6</h1>
+    <h1>Redirect www to a Non-www with Apache - CentOS 6</h1>
 
     <p>
         <strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>15</u></em>
     </p>
-    <p>Let's assume that have a domain with and without the "www" prefix. <em><u>www.coolexample.com</u></em> and <em><u>coolexample.com</u></em>. Both of them display the same content. <strong>Permanent redirect</strong> or "301 Redirect" is the type of redirect where you would be redirecting your users from one domain to the other. </p>
+    <p>Let's assume that have a domain with and without the "www" prefix. <em><u>www.coolexample.com</u></em> and <em><u>coolexample.com</u></em>. Both of them display the same content. <em>A permanent redirect</em> or <em>301 Redirect</em> is the type of redirect, where you would be redirecting your users from one domain to the other. </p>
 
     <h2>Prerequisite</h2>
     <p>
-        You must have <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17323 - Initial Server Setup - CentOS.html">Initial Server Setup</a> done on your server and installed Apache. If you haven't installed it yet, do the following to install it.  </p>
+        You must have <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17323 - Initial Server Setup - CentOS.html">Initial Server Setup</a> done on your server and installed Apache. If you haven't installed it yet, the following articles explain how to install it.  </p>
+<!--Not sure what happened here, but these are steps, not articles.-->
         <div class="hacker">sudo yum update</div>
         <div class="hacker">sudo yum install httpd</div>
 
@@ -94,31 +93,32 @@ p.note {
 
     <ol>
         <li>
-            Once you log in, click <strong>Manage</strong> in the <strong>Domains</strong> section.
+            After you log in, click <strong>Manage</strong>, in the <strong>Domains</strong> section.
+            <!--Given that this article depends on these pages, please fix the images so that they appear in the article. -->
             <img src="/images/17813/Manage_Domains.png" alt="Manage Domains" />
         </li>
         <li>
-            This will take you to the list of domains you have with COMPANY_NAME. Click the drop down button on the domain that you want to work with and click on <strong>MANAGE DNS</strong>.
+            This will take you to the list of domains you have with COMPANY_NAME. Click the drop-down button on the domain that you want to work with, and then click <strong>MANAGE DNS</strong>.
             <img src="/images/17813/DNS_Manage.png" alt="DNS Manage" />
         </li>
         <li>
         </li>
         <li>
-            If you dont see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field. Here's how both the records will look like
+            If you don't see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname <em>www</em> in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field. Here's how both the records will look:
             <img src="/images/17813/A_CNAME_Record.png" alt="DNS Records" />
             You should now be able to access both the www and non-www domains of your server.
         </li>
 
     </ol>
-    <h2>Enable Rewrite and create .htaccess</h2>
-    <p>We will make use of .htaccess file to hold our redirect rules. By default, the Rewrite module is enabled. In case it isnt, you can do so by editing the Apache configuration as:</p>
+    <h2>Enable rewrite and create .htaccess</h2>
+    <p>We will make use of <code>.htaccess</code> file to hold our redirect rules. By default, the <code>Rewrite</code> module is enabled. In case it isnt, you can do so by editing the Apache configuration as follows:</p>
     <ol>
         <li>
             Open the Apache configuration file.
             <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
         </li>
         <li>
-            Add the below line in the modules section, if it is not already present:
+            Add the below line in the <code>modules</code> section, if it is not already present:
             <div class="hacker">LoadModule rewrite_module modules/mod_rewrite.so</div>
         </li>
                 
@@ -142,18 +142,18 @@ p.note {
 
 
         <li>
-            Navigate into the DocumentRoot directory in this case <code>/var/www/html</code>
+            Navigate into the <code>DocumentRoot</code> directory in this case <code>/var/www/html</code>.
             <div class="hacker">cd /var/www/html</div>
         </li>
         <li>
-            Create a .htaccess file to enter the redirection information. There are two options. We will take a look at both.
+            Create a <code>.htaccess</code> file to enter the redirection information. There are two options. We will take a look at both.
             <div class="hacker">sudo vim .htaccess</div>
         </li>
     </ol>
     <h3>Redirect www to non-www</h3>
     <ol>
         <li>
-            If you want to redirect from www to non-www, type in the below block of text in the .htaccess file.
+            If you want to redirect from www to non-www, type in the below block of text in the <code>.htaccess</code> file.
             <div class="hacker">
                 <pre>
 RewriteEngine On
@@ -161,9 +161,11 @@ RewriteBase /
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 </pre>
-            </div>
-            Save and exit.
-            <p class="note">If you are using HTTPS, you need to replace <strong>http</strong> with <strong>https</strong> in the last line <code>RewriteRule</code></p>
+            </div></li>
+            <li>
+            Save and exit. </li>
+    <!--Is there something here?-->        
+            <p class="note">If you are using HTTPS, you need to replace <code>http</code> with <code>https</code> in the last line <code>RewriteRule</code></p>
         </li>
         <li>
             To validate your redirection <code>curl</code> your domain name.
@@ -174,19 +176,19 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 HTTP/1.1 301 Moved Permanently
 Date: Thu, 20 Aug 2015 20:52:30 GMT
 Server: Apache/2.4.6 (CentOS) OpenSSL/1.0.1e-fips
-Location: http://coolexample.com/
+Location: http://<em><u>coolexample.com</u></em>/
 Content-Type: text/html; charset=iso-8859-1
 </pre>
             </div>
         </li>
         <li>
-            You can also verify this by navigating to <em><u>www.coolexample.com</u></em> on your browser and you will be redirected to <em><u>coolexample.com</u></em>coolexample.com
+            You can also verify this by navigating to <em><u>www.coolexample.com</u></em> on your browser, and you will be redirected to <em><u>coolexample.com</u></em>coolexample.com
         </li>
     </ol>
     <h3>Redirect non-www to www</h3>
     <ol>
         <li>
-            If you want to redirect from www to non-www, type in the below block of text in the .htaccess file.
+            If you want to redirect from www to non-www, type in the below block of text in the <code>.htaccess</code> file.
             <div class="hacker">
                 <pre>
 RewriteEngine On
@@ -200,14 +202,14 @@ RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
         </li>
         <li>
             To validate your redirection <code>curl</code> your domain name.
-            <div class="hacker">curl -I coolexample.com</div>
+            <div class="hacker">curl -I <code>coolexample.com</code></div>
             You will see the following displayed on the console:
             <div class="hacker">
                 <pre>
 HTTP/1.1 301 Moved Permanently
 Date: Wed, 19 Aug 2015 21:20:33 GMT
 Server: Apache/2.4.7 (Ubuntu)
-Location: http://www.coolexample.com/
+Location: http://<code>www.coolexample.com</code>/
 Content-Type: text/html; charset=iso-8859-1
 </pre>
             </div>
@@ -218,7 +220,7 @@ Content-Type: text/html; charset=iso-8859-1
     </ol>
 
     <h2>Next steps</h2>
-
+ <!--What are the next steps?-->
 
 </body>
 </html>
