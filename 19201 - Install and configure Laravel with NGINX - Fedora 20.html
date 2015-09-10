@@ -109,26 +109,33 @@ p.note {
 
        <h2>Configure Nginx    </h2>
     <ol>
-               <li>Create a physical location for the Laravel server.
+     <li>Create a physical location for the Laravel server.
                  <div class="hacker">sudo mkdir -p /var/www/laravel</div>
       </li> 
+  <li>Create a directory for server-level include files.
+                 <div class="hacker">sudo mkdir /etc/nginx/servers</div>
+      </li> 
+      <li>Create a directory for location-level include files.
+                 <div class="hacker">sudo mkdir /etc/nginx/locations</div>
+      </li>     
       
-      <li>Open the nginx.conf file and verify the index directive and conf.d include statement is specified in the http context:
+      <li>Open the nginx.conf file 
                   <div class="hacker">sudo vim /etc/nginx/nginx.conf</div> 
       </li> 
-       <li>The file should look something like this:
+       <li>Verify / modify the file such that the index directive and a server-level include reference is specified in the http context.  
+           The end result should look something like this:
                   <div class="hacker">
          <pre>        http 
           {
           ...
           index index.php index.html index.htm
           ...
-          include /etc/nginx/conf.d/*.conf
+          include /etc/nginx/servers/*.conf
           server {
           ...</pre></div> 
       </li>  
        <li>Create a new server block for Laravel.
-                  <div class="hacker">sudo vim /etc/nginx/conf.d/laravel.conf</div> 
+                  <div class="hacker">sudo vim /etc/nginx/servers/laravel.conf</div> 
       </li>
   <li>Add the following contents:
     <div class="hacker"><pre># server context
@@ -140,17 +147,18 @@ p.note {
         location /laravel {
         }
 
-        include /etc/nginx/default.d/*.conf;
+        include /etc/nginx/locations/*.conf;
         }
 
 </pre></div>
      </li> 
           <li>Save and close the file.       </li>
-          <li>Create / edit an Nginx PHP location block configuration file and open it for editing.
-            <div class="hacker">sudo vim /etc/nginx/default.d/php.conf</div> 
+          <li>Create an Nginx PHP location block configuration file and open it for editing.  
+              If you already have a php configuration include file you may copy it to <code>/etc/nginx/locations/</code> and modify it as shown below:
+            <div class="hacker">sudo vim /etc/nginx/locations/php.conf</div> 
           </li>
 
-      <li>Add / modify the file so it looks&nbsp; like this:
+      <li>Modify the file so it looks&nbsp; like this:
         <div class="hacker"><pre>
 #location context
  location ~ \.php$ {
