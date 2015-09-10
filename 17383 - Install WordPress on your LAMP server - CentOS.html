@@ -86,7 +86,7 @@ Suggested command failed again in Fedora, email sent with detailed results.</mso
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
         <strong>Time</strong>: <em><u>15 minutes</u></em></p>
 
-     <p>WordPress has become much more than its humble beginnings in 2003 as a self-hosted blogging tool; it is the Internet’s leading content management system (CMS). This open-source CMS powers all types of sites, including major brands such as The New Yorker, Variety, TechCrunch, and Best Buy. With a MySQL and PHP architecture, WordPress is easy to install and has endless options for website configuration thanks to tens of thousands of plugins and themes from its rich and active community.</p>
+     <p>WordPress has become much more than its humble beginnings in 2003 as a self-hosted blogging tool; it is the Internet’s leading content management system (CMS). This open-source CMS powers all types of sites, including major brands such as The New Yorker, Variety, TechCrunch, and Best Buy. With a MySQL and PHP architecture, WordPress is easy to install, and has endless options for website configuration thanks to tens of thousands of plug ins and themes from its rich and active community.</p>
 
 <p>This article will walk you through setting up WordPress on CentOS 6 or 7. The steps will be for a non-root user with sudo (administrator) privileges.</p>
 
@@ -100,14 +100,15 @@ Suggested command failed again in Fedora, email sent with detailed results.</mso
          </ul>
          
   <p>Make note of your MySQL root account (admin) password. You'll need it for these tasks.</p>
+<ol>
+<li>Restart Apache.  
+<div class="hacker">sudo service httpd restart</div></li>
 
-Restart Apache.  
-<div class="hacker">sudo service httpd restart</div>
-
-Install <code>rsync</code>, a reliable file transfer and synchronization program, if you don't already have it.
-<div class="hacker">sudo yum install rsync</div>
+<li>Install <code>rsync</code>, a reliable file transfer and synchronization program, if you don't already have it.
+<div class="hacker">sudo yum install rsync</div> </li>
+</ol>
                          
-    <h2>To create a MySQL database and administrator for WordPress</h2>
+    <h2>Create a MySQL database and administrator for WordPress</h2>
     
     <p>Set up your MySQL database with an administrator so that WordPress has a place to store all your site and user information.</p>
 
@@ -117,38 +118,33 @@ Install <code>rsync</code>, a reliable file transfer and synchronization program
     <li>Log into your MySQL admin account.
 <div class="hacker">mysql -u root -p</div>     </li>
     <li>At the prompt, enter your MySQL root password.  </li>
-    <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name fittingly as “wordpress.”
-<div class="hacker">CREATE DATABASE wordpress;</div></li>
-<li>Create the database administrator account and set the user’s credentials. For this tutorial, we’ll use “wordpressadmin” as the example user name, and “wordpresspassword” as the password.
-<div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
+    <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name <em>wordpress.</em>
+<div class="hacker">CREATE DATABASE <em><u>wordpress</u></em>;</div></li>
+<li>Create the database administrator account and set the user’s credentials. For this tutorial, we’ll use <em>wordpressadmin</em> as the example username, and <em>wordpresspassword</em> as the password.
+<div class="hacker">CREATE USER <em><u>wordpressadmin</u></em>@localhost IDENTIFIED BY '<em><u>wordpresspassword</u></em>';</div>
 <p>As a good security practice, create a strong password. Keep your username and password handy, as you’ll need them later.</p></li>
  <li>Give, or grant, your admin permissions to the database.   
-<div class="hacker">GRANT ALL PRIVILEGES ON wordpress.* TO wordpressadmin@localhost;</div>
-<code>GRANT</code> is one of the account management statements the MySQL server notices and loads into memory right away. So a manual reload/restart should not be necessary. But if you’d like, you can check the permissions using <code>SHOW GRANTS</code>.
-<div class="hacker">SHOW GRANTS FOR 'wordpressadmin'@'localhost';</div>
+<div class="hacker">GRANT ALL PRIVILEGES ON wordpress.* TO <em><u>wordpressadmin</u></em>@localhost;</div></li>
+<li><code>GRANT</code> is one of the account management statements the MySQL server notices and loads into memory right away. A manual reload/restart should not be necessary. But, if you’d like, you can check the permissions using <code>SHOW GRANTS</code>.
+<div class="hacker">SHOW GRANTS FOR '<em><u>wordpressadmin</u></em>'@'localhost';</div>
 </li>
 
 <li>
    If for some reason the privileges didn’t take, flush the privileges to activate the user. Flush forces a reload of the cache.
-<div class="hacker">FLUSH PRIVILEGES;</div>  </li>
-
-<li> You're finished! Exit MySQL to bring you back to your normal command prompt.
+<div class="hacker">FLUSH PRIVILEGES;</div> 
+You're finished! Exit MySQL to bring you back to your normal command prompt.
 <div class="hacker">exit</div> </li>
   </ol>      
-
-
-
-
-              
+               
 <h2>Download WordPress</h2>           
      
      Your system is now ready to install WordPress into your directory. WordPress is available in a tar.gz or zip format. We will be getting the <code>tar.gz</code> file.
      
      <ol>
-     <li>Download the WordPress files from the official site using <code>wget</code>.
+     <li>Download the WordPress files from the official site using the <code>wget</code> command.
 <div class="hacker">cd ~</div> 
-<div class="hacker">wget http://wordpress.org/latest.tar.gz    </div>     <br />
-This URL will always link to a compressed file of the latest stable version of WordPress.      </li>
+<div class="hacker">wget http://wordpress.org/latest.tar.gz    </div>
+This URL will always link to a compressed file of the latest stable version of WordPress.</li>
          
          <li>Extract, or untar, the application directory.
 
@@ -171,17 +167,17 @@ This command creates the directory <code>wordpress</code> in your home directory
 <div class="hacker">vim wp-config.php</div>
      </li>
    
-   <li>Look for this section of the code below (starting with “MySQL settings”…) and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
+   <li>Look for this section of the code below (starting with <code>MySQL settings…</code> and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
 
 <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
 /** The name of the database for WordPress */ <br />
-define('DB_NAME', 'wordpress'); <br />
+define('DB_NAME', '<em><u>wordpress</u></em>'); <br />
 
 /** MySQL database username */  <br />
-define('DB_USER', 'wordpressadmin');     <br />
+define('DB_USER', '<em><u>wordpressadmin</u></em>');     <br />
 
 /** MySQL database password */ <br />
-define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
+define('DB_PASSWORD', '<em><u>wordpresspassword</u></em>');   </div> </li>
 <li>Save and close.</li>                                      
                                     
                             </ol>
@@ -195,11 +191,7 @@ define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
     <div class="hacker">sudo rsync -avP ~/wordpress/ /var/www/html/</div>
 This will safely copy all of the contents from the directory you unpacked to the document root.
       </li>   
-<!--CT...          <li>Go to the document root to get back ownership for the files in <code>/var/www/html</code>.
-<div class="hacker">cd /var/www/html</div>        </li>
-<li><p>For security purposes, change ownership to a sudo non-root user to interact with your site. This can be your regular user or an additional user you create. </p>
- ...-->
-<p>Change ownership to Apache and grant the permissions so that WordPress can auto-update content.                                          </p>
+<li>Change ownership to Apache and grant the permissions so that WordPress can auto-update content.                                          
 <div class="hacker">sudo chown -R apache:apache /var/www</div>
 <div class="hacker">sudo chmod 775 /var/www</div>
                     </li>
@@ -220,8 +212,8 @@ This will be the parent directory.       </li>
 
 <div class="hacker">sudo chown -R :apache /var/www/html/wp-content/uploads/</div>
 <div class="hacker">sudo chmod 775 /var/www/html/wp-content/uploads</div>
-</li>  
-<p>This allows the web server to create files and directories under the directory, which means you’ll be able to upload content to the server.</p>
+  
+This allows the web server to create files and directories under the directory, which means you’ll be able to upload content to the server.
                                    </li>
                                    </ol>
 
@@ -232,18 +224,17 @@ This will be the parent directory.       </li>
      <ol>
      <li>  Enter your server’s domain name or public IP address in your web browser. 
    <div class="hacker">http://<em><u>your IP</u></em></div></li>
-  <li><p>At the <strong>WordPress configuration</strong> page, fill out your information to create your administrator account.  </p>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17383/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </li>
-  <li> <p>	WordPress confirms your installation by displaying your username and password.</p>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17383/082015/install-wordpress-on-your-server-success-login-confirmation-2.png" alt="install wordpress confirmation screen" />  </li>
-   <li>  <p>Click <strong>Log In</strong> WordPress prompts you to log in with your new credentials.</p>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17383/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" />
-
+  <li>At the <strong>WordPress configuration</strong> page, fill out your information to create your administrator account.
+<img src="images/17383/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </li>
+  <li>WordPress confirms your installation by displaying your username and password.
+<img src="images/17383/082015/install-wordpress-on-your-server-success-login-confirmation-2.png" alt="install wordpress confirmation screen" />  </li>
+   <li> Click <strong>Log in</strong>. WordPress prompts you to log in with your new credentials.
+<img src="images/17383/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" /> </li>
+<li>All done! You’ll be taken to the dashboard of your new site.   
+     
+<img src="images/17383/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
                                                             </li>
                                                               </ol>
- <p>All done! You’ll be taken to the dashboard of your new site.</p>    
-     
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17383/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
              
     <h2>Next steps</h2>
     
