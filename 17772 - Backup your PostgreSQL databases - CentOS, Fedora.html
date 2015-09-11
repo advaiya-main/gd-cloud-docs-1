@@ -80,7 +80,7 @@ p.note {
 
 <p>Before starting, make sure that  <a href="17536">Ruby on Rails is installed</a> and that <a href="17526">PostgreSQL is installed</a>.</p>
 <h2>Back up a PostgreSQL database </h2>
-<p>Back up a PostgreSQL database using any of the following methods.<code>Pg_dump</code> is the utility used to dump database information into a file for backup purposes.</p>
+<p>Back up a PostgreSQL database using any of the following methods.<code> Pg_dump</code> is the utility used to dump database information into a file for backup purposes.</p>
 <ul>
   <li> Log in with the <code>postgres</code>  user, and create a database <em><u>backup file</u></em>.
     <div class="hacker">sudo su - postgres</div>
@@ -111,7 +111,7 @@ p.note {
 
 <h2>Handle restoration errors</h2>
 <ol>
-<li>Stop any backup error in PostgreSQL. The <code>ON_ERROR_STOP</code> command  continues the process without any interruption even if it encounters any error.
+<li>Stop any backup error in PostgreSQL. The <code>ON_ERROR_STOP</code> command  continues the process without any interruption even if it encounters an error.
                 <div class="hacker">psql --set ON_ERROR_STOP=on <em><u>restored_database_name</u></em> <                 <em><u>backup_file.</u></em></div>
 </li>    
 <li>Restore all the database in a single transaction. The <code>Psql -1</code> command  stops the process if it encounters an error.
