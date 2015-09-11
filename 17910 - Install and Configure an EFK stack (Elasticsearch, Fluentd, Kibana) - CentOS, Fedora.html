@@ -291,7 +291,7 @@ location ~ ^/kibana-int/dashboard/.*$
 		curl -L https://td-toolbelt.herokuapp.com/sh/install-redhat-td-agent2.sh | sh
 	  </div>
   </li>
-  <li>Install  additional plugins required to integrate elasticsearch with Fluentd. 
+  <li>Install the additional plugins required to integrate elasticsearch with Fluentd. 
 
 	  <div class="hacker">  
 		  sudo yum -y install make libcurl4-gnutls-dev
@@ -303,7 +303,7 @@ location ~ ^/kibana-int/dashboard/.*$
 		  sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-record-reformer
 	  </div>
   </li>
-  <li>Open the  configuration file <code>td-agent.conf</code>. To allow Fluentd to listen to the syslog  messages and then forward them to Elasticsearch, this file needs to be updated. 
+  <li>Open the configuration file <code>td-agent.conf</code>. To allow Fluentd to listen to the syslog  messages and then forward them to Elasticsearch, this file needs to be updated. 
 	  <div class="hacker"> 
 	   sudo vim /etc/td-agent/td-agent.conf
 	  </div>
@@ -352,7 +352,7 @@ location ~ ^/kibana-int/dashboard/.*$
 	  </div>
   </li>
   <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key. </li>
-  <li>Restart rsyslogd.
+  <li>Restart <code>rsyslogd</code>.
 	   <div class="hacker">
 	     sudo service rsyslog restart
 	   </div>
