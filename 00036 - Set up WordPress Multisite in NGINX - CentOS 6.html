@@ -105,7 +105,7 @@ aboutus.coolexample.com</td>
 <h2>Prerequisites</h2>
 
 
-You'll need a Linux, Nginx&reg;, MySQL, and PHP (LEMP) stack configured. Make sure that Nginx, MySQL, and PHP are up and running. For instructions, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00008%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20CentOS%207.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) – CentOS 6</a>.
+You'll need a Linux, Nginx&#8482;, MySQL&#8482;, and PHP (LEMP) stack configured. Make sure that Nginx, MySQL, and PHP are up and running. For instructions, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00008%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20CentOS%207.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - CentOS 6</a>.
 
 <p>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</p> 
 
@@ -119,9 +119,8 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
   <div class="hacker">sudo mkdir -p /var/www/html</div>
 </li>  </ol>
 
-<h2>Make a copy of your NGINX config file</h2>
-  
-   <p>We now need to update the default NGINX config file with our WordPress settings. Let’s work from our <code>nginx.conf</code> file to configure it for WordPress. </p>
+<h2>Make a copy of your Nginx configuration file</h2>
+<p>We now need to update the default Nginx config file with our WordPress settings. Let’s work from our <code>default.conf</code> file to configure it for WordPress. </p>
 
 <ol>
 <li>Double-check that you have the file first (you should).
@@ -132,14 +131,14 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
 <div class="hacker">sudo cp /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.bak</div></li>
 </ol>
 
-  <h2>Populate your NGINX config file with your WordPress information</h2>
+  <h2>Populate your Nginx config file with your WordPress information</h2>
 
         <p>Now that we have a backup, let’s start editing the config file.</p>
 <ol>
 <li>Open the <code>.conf</code> file.
                 <div class="hacker">sudo vim /etc/nginx/conf.d/default.conf</div>
                 
-          </li>
+  </li>
           <li> Inside the file, make these changes. 
 
 <ul>
@@ -157,7 +156,7 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
                  <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div></li>
 
                 <li>Make sure all the lines in this <code>location ~ \.php$ {</code> block are uncommented (they should be from your LEMP install).</li>
-                </ul>
+            </ul>
             
             <p class="note">Some of these changes may have already been made when you installed your LEMP stack.
             <br />After your changes, your file may look something like this:  </p>
@@ -211,9 +210,9 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
 
        <li>Save and close.</li>
 
- <li>Restart NGINX to make your changes take.
+ <li>Restart Nginx to make your changes take.
 <div class="hacker">sudo service nginx restart</div>  </li>
- </ol>
+</ol>
 
 
                          
