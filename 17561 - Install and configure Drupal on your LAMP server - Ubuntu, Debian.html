@@ -48,26 +48,26 @@ p.note {
 
 <p>Drupal is one of the most popular open-source dynamic Content Management System (CMS) for blogs and websites. Drupal is a free software package that allows you to easily organize, manage and publish your content with an endless variety of customization.</p>
 
-<p>Before starting, you will need to install LAMP on your Debian and Ubuntu server. For more details, see <a href ="17346">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a> and <a href = "17341">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu</a>. 
+<p>Before starting, you will need to install LAMP on your Debian and Ubuntu server. For more details, see <a href ="17346">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a> and <a href = "17341">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu</a>.</p> 
 
 <h2>Set up environment for Drupal</h2>
 <ol>
-<li>Install the PHP graphics, <code>libssh</code> and <code>php-curl</code> as these will be required by Drupal for future purposes.
+<li>Install the <code>php5-gd</code>, <code>libssh2-php</code> and <code>php5-curl</code> as these will be required by Drupal for future purposes.
 <div class="hacker">sudo apt-get update</div>
 <div class="hacker">sudo apt-get install php5-gd php5-curl libssh2-php php5-mysql</div>
 </li>
 <li>Enable <code>rewrite</code> mode for human and SEO friendly links.
 <div class="hacker">sudo a2enmod rewrite</div>
 </li>
-<li>Reload <code>apache2</code> webserver to make the changes effective.
+<li>Restart the <code>apache2</code> webserver to make the changes effective.
 <div class="hacker">service apache2 restart</div>
 </li>
 <li>Create a database for Drupal to store basic settings and user data.
-<div class="hacker">mysql -uroot -ppassword</div>
+<div class="hacker">mysql -uroot -p<em><u>password</u></em></div>
 <div class="hacker">CREATE DATABASE <em><u>drupal</u></em>;</div>
 </li>
 <li>Add a new user for Drupal database.
-<div class="hacker">CREATE USER drupaluser@localhost IDENTIFIED BY '<em><u>drupalpassword</em></u>';</div>
+<div class="hacker">CREATE USER drupaluser@localhost IDENTIFIED BY <em><u>'drupalpassword'</u></em>;</div>
 </li>
 <li>Grant all privileges to the Drupal user.
 <div class="hacker">GRANT ALL PRIVILEGES ON drupal.* TO drupaluser@localhost;</div>
@@ -89,12 +89,12 @@ p.note {
 <li>Extract Drupal compressed file using the following command:
 <div class="hacker">sudo tar zxvf drupal-7.39.tar.gz</div>
 </li>
-<li>Change permission to 755 to the Drupal directory:
-<div class="hacker">sudo chmod -R 755 /var/www/html/drupal</div>
-<div class="hacker">sudo chown -R www-data:www-data /var/www/html/drupal</div>
-</li>
 <li>Rename Drupal extracted folder to 'drupal' for easy access:
-<div class="hacker">sudo mv drupal-7.39 drupal</div>
+<div class="hacker">sudo mv drupal-7.39 <em><u>drupal</u></em></div>
+</li>
+<li>Change permission to 755 to the Drupal directory:
+<div class="hacker">sudo chmod -R 755 /var/www/html/<em><u>drupal</u></em></div>
+<div class="hacker">sudo chown -R www-data:www-data /var/www/html/<em><u>drupal</u></em></div>
 </li>
 </ol>
 
