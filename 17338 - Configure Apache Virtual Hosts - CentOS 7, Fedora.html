@@ -105,7 +105,10 @@ p.note {
     
     <h2>Install the Apache web server</h2>
     <ol>
-    <li>Install Apache by running the <code>yum</code> command:<br />
+     <li>Update your packages using <code>yum</code>.
+      <div class="hacker">sudo yum update</div></li>
+
+    <li>Install Apache.
       <div class="hacker">sudo yum install httpd</div></li>
     <li>Start up Apache so that the httpd service will start automatically on a reboot.
     <div class="hacker">sudo service httpd start</div></li>
