@@ -95,8 +95,8 @@ p.note {
     
     <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), find your system: 
         <ul>
-          <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17344%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20–%20CentOS%207.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – CentOS 7</a></li> 
-            <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17342%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20–%20CentOS%207.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – CentOS 6, Fedora</a></li> 
+          <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17344%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20CentOS%207.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 7</a></li> 
+            <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17342%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20CentOS%207.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 6, Fedora</a></li> 
             </ul>
 
     <p>Also, make sure your hostname has a valid DNS record, so that the www version of your domain works. See <a href="/article/19116?prog_id=PROG_ID">Point your domain to a GoDaddy Cloud Server</a> for instructions on setting up your domain.</p>
@@ -182,7 +182,7 @@ p.note {
 <li>Paste this code in, replacing your own domain for coolexample.com.
 <p>Here's what the whole file could look like after your changes:</p>
  <div class="hacker"><pre>
-   &lt;VirtualHost *:80&gt;
+&lt;VirtualHost *:80&gt;
    
     ServerName <em><u>www.coolexample.com</u></em>     
     ServerAlias <em><u>coolexample.com</u></em> 
@@ -190,7 +190,7 @@ p.note {
     ErrorLog /var/www/coolexample.com/error.log 
     CustomLog /var/www/coolexample.com/requests.log combined 
     
-    &lt;/VirtualHost&gt; 
+&lt;/VirtualHost&gt; 
   </pre></div>
 
 <p>Note that the lines ErrorLog and CustomLog are not required to set up your virtual host, but we've included them in case you do want to tell Apache where to keep error and request logs for your site.</p>
