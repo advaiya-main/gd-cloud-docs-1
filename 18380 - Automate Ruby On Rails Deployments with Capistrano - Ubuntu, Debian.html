@@ -237,9 +237,9 @@ p.note {
 <li><p>Open the configuration file of NGINX.</p>
  <div class='hacker'> sudo vim /opt/nginx/conf/nginx.conf</div>
 </li>
-<li>In this file, go to the http {.. section  and add the following line after <code>passenger_root</code> and <code>passenger_ruby</code> directives.
+<li>In this file, go to the <code>http {..</code> section  and add the following line after <code>passenger_root</code> and <code>passenger_ruby</code> directives.
 <div class='hacker'><pre>passenger_app_env development;</pre></div></li>
-<li>Scroll to the bottom of this file and comment out the following line in the server section {…
+<li>Scroll to the bottom of this file and comment out the following line in the server section.
 <div class='hacker'>
   <pre>#    location / {
 	#            root   html;
@@ -442,7 +442,7 @@ p.note {
 	<div class='hacker'>sudo chmod 0777 –R /var/www/<em><u>Your_application</u></em>/</div></li>
 	<li><p>Type the following to deploy:</p>
 	 <div class='hacker'>cap production deploy</div></li>
-	 
+	 </ol>
 <h2>Conclusion</h2>
 <p>In this article, you have learnt how to automate the deployment of your Rails application using Capistrano on Debian, Ubuntu.</p>
         

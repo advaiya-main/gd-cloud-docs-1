@@ -78,9 +78,10 @@
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
     <p>This article guides you through the steps to deploy Rails Apps with Passenger and Apache in Debian. You will need at least one GB of RAM in a virtual server to run the Passenger commands, which consume a lot of memory. It is assumed that the user has <code>sudo</code> privileges to access the virtual server.</p>
-    <p class='note'>This guide includes development library installation and ad hoc compilation on the machine; therefore, we do not recommend that you use this tutorial in a production environment.</p>
-   <h2>Prerequisites</h2>
-  <p>We assume that you have gone through the article: <a href="17538">Install Ruby on Rails using RVM - Debian</a>.</p>
+    <p>It assume that you have gone through the article: <a href="17538">Install Ruby on Rails using RVM - Debian</a>.</p>
+	<p class='note'>This guide includes development library installation and ad hoc compilation on the machine; therefore, we do not recommend that you use this tutorial in a production environment.</p>
+   <!--<h2>Prerequisites</h2>    --> <!-- removing this heading as per guidelines and suggestions by Carla Johnshon.     -->
+  
    <h2>Install Apache</h2>
 	<ol>
         <li>Update the system and install Apache.
@@ -89,7 +90,7 @@
             <div class='hacker'>sudo apt-get -y install curl curl-dev apache2-dev mod_ssl</div>
         </li>
         <li>To check the version of Ruby installed, type:
-            <div class='hacker'>sudo ruby - v</div>
+            <div class='hacker'>ruby - v</div> <!--Corrected code here-->
         </li>
         </ol>
         
@@ -97,10 +98,10 @@
         <ol>
         <li>To install Passenger, type:
             <div class='hacker'>sudo apt-get install gem</div>
-            <div class='hacker'>sudo gem install rails passenger</div>
+            <div class='hacker'>gem install rails passenger</div><!--Corrected code here-->
         </li>
         <li>Install the Passenger package for Apache.
-            <div class='hacker'>sudo rvmsudo passenger-install-apache2-module</div>
+            <div class='hacker'>rvmsudo passenger-install-apache2-module</div><!--Corrected code here-->
             <p>The installation will take some time to complete.</p>
         </li>
         <li>Create a new <code>passenger.conf</code> file.

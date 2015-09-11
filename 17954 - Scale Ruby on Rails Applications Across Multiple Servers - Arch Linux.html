@@ -10,7 +10,7 @@
 
 
 <title>Scale Ruby on Rails Applications Across Multiple Servers - Arch Linux</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -77,54 +77,50 @@ p.note {
 <p><strong>Difficulty:</strong> <em>4</em></p>
 <p><strong>Time:</strong> <em>2 hr</em></p>
 
-<p>In this article, you will see ways to scale the Rails application which is configured with database servers like PostgreSQL and MySQL and then enable the app to distribute the load across multiple Arch Linux servers using Unicorn to handle multiple incoming requests. It is assumed that you have the <code>sudo</code> privileges to perform the steps given in this article</p>
-
-
-<h2>Scalable Application Server Overview</h2>
 <p>When it comes to building a scalable application server, two key elements are required:</p>
 <ul>
-<li>Application servers - Unicorn or Rails</li>
-<li>Webserver - Nginx</li>
+    <li>Application servers – Unicorn or Rails</li>
+    <li>Webserver - NGINX</li>
 </ul>
+<p>Unicorn is often the preferred choice for the ease-of-debugging, process management and load balancing capabilities. NGINX is popular because of its light weight web server that will be used as a load-balancer with Unicorn based application for the following example. In this article, you will see ways to scale the Rails application that is configured with database servers like PostgreSQL and MySQL, and enable the app to distribute the load across multiple Arch Linux servers using Unicorn to handle multiple incoming requests.</p> 
+<p>In this article, you need to install Ruby on Rails using RVM. For detailed steps, see <a href="17537 - Install Ruby on Rails using RVM - Arch Linux">Install Ruby on Rails using RVM - Arch Linux</a>. In addition, this article is the first part of three '<strong>Scaling Ruby on Rails</strong>' series of articles. To refer the other two series, see <a href ="17983">Scaling Ruby on Rails: Setting Up A Dedicated MySQL Server (part 2) - Arch Linux</a> and <a href ="17896">Scaling Ruby on Rails: Setting Up A Dedicated PostgreSQL Server (Part 3) - Arch Linux</a>.</p> 
 
-<p>Unicorn is often the preferred choice because of the ease-of-debugging, process management and load balancing capabilities. Nginx is popular because of its light weight web server which will be used as a load-balancer with Unicorn based application for the following example. </p>
-
-
-<h2>Prepare the Sever Build</h2>
+<h2>Prepare the sever build</h2>
 
 <ol> 
-<li>Update your Arch Linux server
+<li>Update your Arch Linux server.
 <div class='hacker'>pacman -Sy</div>
 </li>
-<li>Install curl 
+<li>Install curl. 
 <div class='hacker'>pacman -S curl</div>
 </li>
 </ol>
 
-<h2>Setup the Application Servers</h2>
-<ol><li><p>To install Ruby on Rails using RVM, see: <a href="#"> Install Ruby on Rails using RVM - Arch Linux</a></p></li>
+<h2>Set up the application servers</h2>
+<ol>
 
-<li>Install the Unicorn web application
+<li>Install the Unicorn web application.
 <div class='hacker'>gem install unicorn</div>
 </li>
-<li>Install node.js
+<li>Install node.js.
 <div class='hacker'>pacman -S nodejs npm</div>
 </li>
 </ol>
 
-<h2>Create a Sample Rails Application</h2>
+<h2>Create a sample Rails application</h2>
 
-<ol><li><p>Create a sample application in Rails using the below mentioned commands:</p>
+<ol>
+<li><p>Create a sample application in Rails using the below mentioned commands:</p>
 
 <p class="note">Note: Here we take the current directory of user as the web root.</p>
 
-<div class='hacker'>mkdir /tmp/rails_application</div>
+<div class='hacker'>mkdir /tmp/<em><u>rails_application</u></em></div>
 
-<div class='hacker'>cd /tmp/rails_application</div>
+<div class='hacker'>cd /tmp/<em><u>rails_application</u></em></div>
 
-<div class='hacker'>rails new HelloRails</div>
+<div class='hacker'>rails new <em><u>HelloRails</u></em></div>
 
-<div class='hacker'>cd HelloRails</div>
+<div class='hacker'>cd <em><u>HelloRails</u></em></div>
 
 <div class='hacker'><pre># Create a sample resource
 rails generate scaffold Task title:string note:text</pre></div>
@@ -134,30 +130,25 @@ RAILS_ENV=development rake db:migrate
 RAILS_ENV=production  rake db:migrate</pre></div>
 
 <div class='hacker'><pre># Create a directory to hold the PID files
-mkdir pids</pre></div>    
+mkdir pids</pre></div></li>    
+<li>Test the application and then bind it to the public IP to access it from any public IP.
+<div class='hacker'>rails server --binding=<em><u>public_ip</u></em> </div>
 
-<li><p>To access it from any public IP, you need to bind it to that public IP</p>
-<div class='hacker'>rails server --binding=192.169.171.148 </div>
-
-<p>This will boot up the default server on your machine. For this sample environment, WEBrick is the default server, which gets started as shown below:</p>
-<p><img src="images/17954-1.png" alt="17954" /> </p>
+<p>This will boot up the default server on the machine. For this sample environment, <strong>WEBrick</strong> is the default server, that gets started. </p>
 </li>
-<li>It should now be accessible via the web browser. 
-<p>Now you should be able to access it via web browser:</p>
-<div class='hacker'>http://192.169.171.148:3000/tasks</div>
-</li>
+<li>The application should now be accessible via web browser as http://<em><u>public_ip</u></em>:3000/tasks.</li>
 
-<li><p>To stop the server, press CTRL+C. Once the server is stopped, it will not be accessible via the web browser.</p></li>
+<li>To stop the server, press <strong>CTRL+C</strong>.</li>
 </ol>
 
 <h2>Install web-application (Unicorn) and Nginx </h2>
 
-<p>To start using Unicorn, it must be configured with your environment. There are multiple ways to configure the Unicorn servers. Below are some easy steps to configure the Unicorn server using the vim editor:</p>
+<p>To start using Unicorn, it must be configured with your environment. There are multiple ways to configure the Unicorn servers. Below are some easy steps to configure the Unicorn server using the <code>vim</code> editor:</p>
 <ol>
-<li>Create a new configuration file unicorn.rb for storing all configuration settings
-<div class='hacker'>vim config/unicorn.rb</div>
+<li>Create a new configuration file <code>unicorn.rb</code> for storing all configuration settings
+<div class='hacker'>vim config/unicorn.rb</div></li>
 
-<p>Place below code in file (simply copy from here, and paste into the file).</p>
+<li>Place below code in file.
 
 <div class='hacker'><pre># Set the working application directory
 # working_directory "/tmp/rails_application/HelloRails"
@@ -179,34 +170,30 @@ stdout_path "/tmp/rails_application/HelloRails/log/unicorn.log"
 worker_processes 5
 
 # Time-out
-timeout 20</pre></div>
+timeout 20</pre></div></li>
 
-<p>Save and Exit the Vim editor by pressing Esc and pressing ":wq".</p>
-</li>
-<li>Run the following to start Unicorn in daemon mode using the configuration file
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+
+<li>Start Unicorn in daemon mode using the configuration file.
 
 <div class='hacker'>unicorn_rails -c /tmp/rails_application/HelloRails/config/unicorn.rb -D</div>
 </li>
 </ol>
 
-<h2>Setup Nginx as Reverse-Proxy and Load-Balancer</h2>
+<h2>Setup Nginx as reverse-proxy and load-balancer</h2>
 <ol>
-<li>Install Nginx
+<li>Install Nginx.
 <div class='hacker'>pacman -S nginx</div>
 </li>
-<li>Take a note of the public IP address using ipconfig command 
-<p>Before configuring Nginx server, you need to keep a note of the public IP address of your droplet. For this, ifconfig command can be used.</p>
-
+<li>Identify the public IP and note the public IP address of your droplet, before configuring the NGINX server. For this, <code>ifconfig</code> command can be used.
 <div class='hacker'>ifconfig</div>
 
- <img src="images/17954-2.png" alt="17954" />
-
-<p>The value provided under the head inet addr is the public IP address of your droplet.</p>
+<p>The value provided under the head <code>inet addr</code> is the public IP address of the droplet.</p>
 </li>
-<li>Open the Nginx configuration file 
+<li>Open the Nginx configuration file.
 <div class='hacker'>vim /etc/nginx/nginx.conf</div>
 
-<p>Inside the block http {...}, insert the following code:</p>
+<p>Inside the block <code>http {...}</code>, insert the following code:</p>
 
 <div class='hacker'><pre># Set your server 
 # server_name www.example.com;
@@ -235,16 +222,14 @@ server {
         proxy_pass http://unicorn_servers;
     }
 
-}</pre></div>
+}</pre></div></li>
 
-<p>Save and Exit the Vim editor by pressing Esc and pressing ":wq".</p>
-</li>
-<li>To get started, run the Nginx daemon by typing the below command:
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+
+<li>Start the Nginx daemon by typing the below command:
 <div class='hacker'>systemctl start nginx</div>
-<p>To check the Nginx server, you can type in the public IP address directly into the web browser:</p>
-<div class='hacker'>http://192.169.171.148/ </div>
-<p>The welcome message by Nginx should be visible:</p>
-<img src="images/17954-3.png" alt="17954" />
+<p>To check the Nginx server, you can type in the public IP address directly into the web browser: http://<em><u>public_ip</u></em>/. The welcome message by Nginx should be visible:</p>
+<img src="images/17954/091115/welcome-message.png" alt="welcome-message" />
 </li> 
 </ol>
 

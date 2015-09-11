@@ -11,7 +11,7 @@
 
 
 <title>Deploy Rails Apps with Passenger and Apache - Fedora</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -85,31 +85,24 @@ p.note {
     <h1>Deploy Rails Apps with Passenger and Apache - Fedora</h1>
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
-    <p>This article guides you on how to deploy Rails Apps with Passenger and Apache in Fedora. Phusion Passenger is one of the fastest app server that handles traffic smoothly with low maintenance. <!--Include a short 1-2 sentence description of what Rails Apps and Passenger does for your server. --> <!-- fixed-->You will<!--Curly quotes don't display properly--><!-- fixed--> need at least 1 GB of RAM in a virtual server to run the Passenger commands that consume a lot of memory. It is assumed that the user has <em>sudo</em> privileges to access the virtual server.</p>
-    <!--These articles usually include links to the setup for the OS.-->
-    <p class='note'>This guide includes development library installation and ad hoc compilation on the machine, hence it is not recommended to use this tutorial in a production environment.</p> <!-- don't include "note" in the note class. The presentation layer for goDaddy provides it.-->
+    <p>This article guides you on how to deploy Rails Apps with Passenger and Apache in Fedora. Phusion Passenger is one of the fastest app servers. It handles traffic smoothly with low maintenance. Passenger commands consume a lot of memory. You will need at least 1 GB of RAM in a virtual server. It is assumed that the user has sudo privileges to access the virtual server.</p>
+    <p class='note'>This guide includes development library installation and ad hoc compilation on the machine; therefore, it is recommended that you do not use this tutorial in a production environment.</p>
+    
  <h2>Prerequisites</h2>
-	<ol>
-		<li><a href ="17322">17322 - Initial Server Setup - Fedora</a>.</li>
-		<li><a href ="17535">17535 - Install Ruby on Rails using RVM - Fedora</a></li>
-		<li><a href ="17714">17714 - Deploy Rails Apps with Passenger and NGINX - Fedora</a></li>
+	<ul>
+		<li><a href ="17322">Initial Server Setup - Fedora</a>.</li>
+		<li><a href ="17535">Install Ruby on Rails using RVM - Fedora</a></li>
+		<li><a href ="17714">Deploy Rails Apps with Passenger and Nginx - Fedora</a></li>
 		<li>Fully Qualified Domain Name - FQDN (Optional) </li> 
-	</ol>
+	</ul>
      
-  <h2>Install Apache</h2> <!-- Dont' include "Step" in headings --><!-- fixed-->
+  <h2>Install Apache</h2>
 	<ul>
 	<li>
-	Update the system and install Apache using the yum utility. <!-- Use periods if the step is a direction.  Use a colon if the text refers to the code.  This step should end in a period. Similar topics call out the use of yum. --><!-- fixed-->
-        <!--A single step should be a bullet.--><!-- fixed-->
+	Update the system and install Apache using the yum utility.
             <div class='hacker'>sudo yum -y update</div>
             <div class='hacker'>sudo yum -y install curl curl-devel httpd-devel httpd mod_ssl</div>
         </li>
- 
-    <!--Why is this heading a link?  If it is a real link, then create a step under this heading as the link. Please include the full URL or, at a minimum, the article number.--><!-- fixed-->
-    
-            <!--This steps should end in a colon, because it refers to the code example.  Also, this step doesn't seem related to the heading. There are missing steps?--><!-- fixed-->
-			
-			<!-- removed Steps of Ruby -->
 			</ul>
       <h2>Install Rails and Passenger</h2>
 	  <ol>
@@ -120,18 +113,18 @@ p.note {
         </li>
         <li>Install Passenger package for Apache.
             <div class='hacker'>rvmsudo passenger-install-apache2-module</div>
-            <p>This will take some time, so you will need to wait.</p><!--replace curly quotes--><!-- fixed-->
+            <p>This will take some time, so you will need to wait.</p>
         </li>
-        <li>Open a new <code>passenger.conf</code> file.<!--tag file names <code>--><!-- fixed-->
+        <li>Open a new <code>passenger.conf</code> file.
           <div class='hacker'>sudo vim /etc/apache2/conf.d/passenger.conf</div>
         </li>
-	    <li>Add the following lines at end of the file: <!--Any guidance to where to type this line, such as at the end of the file?--><!-- fixed-->
+	    <li>Add the following lines at end of the file: 
             <div class='hacker'>LoadModule passenger_module /home/newuser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10/buildout/apache2/mod_passenger.so
                 <br />PassengerRoot /home/newuser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10
                 <br />PassengerDefaultRuby /home/newuser/.rvm/wrappers/ruby-2.0.0-p247/ruby</div>
         </li>
 		<li>Save and exit.
-		<div class ="hacker">:wq!</div>
+		<div class ="hacker">:wq!</div></li>
         <li>Restart Apache service.
             <div class='hacker'>sudo service httpd restart </div>
         </li></ol>
@@ -143,25 +136,25 @@ p.note {
 		<li>Move the test app to Apache's web root folder.
             <div class='hacker'>cd /var/www/html </div>
         </li>
-		<li>Create a Rails application and go to the application directory. <!--Use <code> to tag folders, directories, filenames, and code snippets outside of the hacker tag.--><!-- fixed-->
+		<li>Create a Rails application and go to the application directory.
             <div class='hacker'>rails new <em><u>your-application</u></em></div>
 			<div class='hacker'>cd <em><u>your-application</u></em> </div>
 		</li>
-		<li>By default, Fedora doesn't have a JavaScript execution environment installed. So to manually install it, open <code>Gemfile</code> in your favourite editor.
+		<li>By default, Fedora doesn't have a JavaScript execution environment installed. So, to install it manually, open <code>Gemfile</code> in your favorite editor.
             <div class='hacker'>sudo vim Gemfile</div>
         </li>
 		
-		<li>Add the following line at the end of the file: <!--Clarify which file--><!-- fixed-->
-            <div class='hacker'>gem 'therubyracer'</div> <!--Curly quotes aren't displaying properly.--><!-- fixed-->
+		<li>Add the following line at the end of the file:
+            <div class='hacker'>gem 'therubyracer'</div>
         </li>
 		<li>Save and exit.
-		<div class ="hacker">wq!</div>
+		<div class ="hacker">wq!</div> </li>
 		<li>Install all the dependencies of <code>Gemfile</code> using the following command:
             <div class='hacker'>bundle install</div>
 		</li>
 		<li>To initialize the database, use the migration tool.
             <div class='hacker'>rake db:migrate</div>
-        </li><!--Is this an optional step? When would I use it or why?--><!-- fixed-->
+        </li>
 </ol>
 		<h2> Connect Apache server to the Rails app</h2>
 		<ol>
@@ -171,20 +164,18 @@ p.note {
 		 <li>In this file, uncomment the following line:
             <div class='hacker'>NameVirtualHost *:80</div>
           </li>
-		  <li>At the end of this file, add this block of text:<!--Be more explicit.  "Add the block of text below:" > <!-- fixed-->
-                       <!--I'm not sure what happened with this code, but it doesn't display in IE correctly. There are A's in it. --><!-- fixed-->
+		  <li>At the end of this file, add this block of text:
             <div class='hacker'><pre>
 &lt;VirtualHost *:80&gt;
-       ServerName www.mydomain.com //your server name
-	 DocumentRoot /var/www/html/<em>HelloWorld</em>/public //your rail application path
-   &lt;Directory /var/www/html/<em>HelloWorld</em>/public&gt;
+       ServerName <em><u>www.mydomain.com</u></em> //<em><u>your server name</u></em>
+	 DocumentRoot /var/www/html/<em><u>HelloWorld</u></em>/public //your rail application path
+   &lt;Directory /var/www/html/<em><u>HelloWorld</u></em>/public&gt;
       AllowOverride all
       Options -MultiViews
    &lt;/Directory&gt;
 &lt;/VirtualHost&gt;
 </pre>
             </div>		
-        <!--This is a step.--><!-- fixed-->
 		</li>
 		<li>Save and exit.
 		<div class ="hacker">wq!</div>
@@ -194,7 +185,7 @@ p.note {
             <div class='hacker'>sudo service httpd restart</div>
         </li>
     </ol>
-	<h2>Conclusion</h2><!--If there are no next steps, then this heading should be "Conclusion."  If there are additional tasks, include the links and use the heading "Next Steps." --><!-- fixed-->
-		In this article, you learned the steps involved in setting up your Rails application with Passenger and Apache to make it more secure and reliable in Fedora distribution.    <!-- No Next step so we keep conclusion --><!-- fixed-->
+	<h2>Conclusion</h2>
+		In this article, you learned the steps involved in setting up your Rails application with Passenger and Apache, which will make it more secure and reliable in a Fedora distribution.
 </body>
 </html>

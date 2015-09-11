@@ -4,13 +4,15 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
+<!--Article Number is 17910-->
 
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - CentOS, Fedora</title>
-<style>
+<title>Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - CentOS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -69,78 +71,294 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
-    
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+<p>Install  and configure an EFK stack (Elasticsearch, Fluentd, Kibana) - CentOS, Logging</p>
+<h1>Install and Configure an EFK Stack (Elasticsearch, Fluentd, Kibana) - CentOS</h1>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
+<p><strong>Difficulty: </strong><em>2</em></p>
+<p><strong>Time: </strong> <em>2 hours</em></p>
+
+<p>Using Elasticsearch, Fluentd, and  Kibana (also known as an <em>EFK stack</em>) is a common way to deal with data analysis. This combination lets you collect, index, search, and  visualize log data. In this article, you'll  learn how to install an EFK stack on CentOS platform.</p>
+<p>Before starting, make sure to complete the initial server setup for your host machine. See <a href="17323">Initial Server Setup - CentOS</a>.</p>
+<p class="note">These  tasks assume that you have  <code>sudo</code> user privileges.</p>
+<h2>Install and configure Elasticsearch</h2>
+<ol>
+	<li>Log into the CentOS machine.</li>
+	<li>Update the server.
+		<div class="hacker">
+		sudo yum -y update
+		</div>
+	</li>
+	<li>Install other required dependencies.
+		<div class="hacker">
+		sudo yum install tar
+		</div>
+	</li>
+	<li>Install Java.
+		<div class="hacker">
+		sudo yum -y install jre
+		</div>
+	</li>	
+	<li>To confirm the successful installation, check the Java version.
+
+	  <div class="hacker">
+		java -version
+		</div> 
+	</li>
+    <li>Install the Elasticsearch deb packages. 
+  
+ <p class="note">These commands are  for version 1.7.1. To obtain the latest version, visit the <a href="http://www.elasticsearch.org/download/" target="_top"> Elasticsearch download page</a>.</p>
+
+	  <div class="hacker">
+	    wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz 
+	  </div>
+	  <div class="hacker">
+	    sudo tar xzf elasticsearch-1.7.1.tar.gz 
+      </div>
+	  <div class="hacker">
+	    mv elasticsearch-1.7.1 /usr/share/elasticsearch 
+      </div>
+  </li>
+  </ol>
+  
+<h2>Configure Elasticsearch</h2>
+	<ol>
+	<li>Open  the <code>elasticsearch.yml</code> file.<br />
+	  To make Elasticsearch accessible from the public Internet, you need to disable its dynamic scripting  so that the Kibana dashboards can access it.
+		<div class="hacker">
+			cd /usr/share/elasticsearch
+		</div>
+		<div class="hacker">
+			sudo vim config/elasticsearch.yml
+		</div>
+  </li>
+  <li>Append the following code at the end of the file to set <code>script.disable_dynamic</code> to <code>true</code>.
+<div class="hacker">
+		script.disable_dynamic: true
+	</div>
+  </li>
+	<li>Start Elasticsearch.
+	  <div class="hacker">
+	  ./bin/elasticsearch
+	  </div>
+	  A successful startup shows a <strong>started</strong> message.<br />
+	</li>
+	<li> To stop the elasticsearch and continue with other tasks, you can press <strong>CTRL+C</strong>.
+	</li>
+</ol>
+<h2>Install and configure Kibana</h2>
+<ol>
+  <li> Move to the home directory.
+    <div class="hacker">
+	  cd ~
+	</div>
+  </li>
+  <li> Install Kibana. 
+    <p class="note">These commands are  for version 4.1.1. To obtain the latest version, visit the <a href="https://www.elastic.co/downloads/kibana" target="_top"> Kibana download page</a>.</p>
+	 
+    <div class="hacker">
+		sudo curl -L https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz | tar xzf -</div>
+    <div class="hacker">
+  		sudo cp -r kibana-4.1.1* /usr/share/kibana-4.1.1
+	</div>
+  </li>
+  <li>Open the Kibana configuration file to change the port from the default value 9200 to 80, which is used for interaction with Elasticsearch. 
+	<div class="hacker">
+		sudo vim /usr/share/kibana-4.1.1/config/kibana.yml
+	</div>
+  </li>  
+  <li>Locate the following code:
+	  <div class="hacker"> 
+	  <pre>
+elasticsearch_url: "http://localhost:9200"</pre>
+    </div>
+  </li>
+  <li>Update the code to the following:
+	  <div class="hacker"> 
+	  <pre>
+elasticsearch_url: "http://localhost:80"</pre>
+	  </div>
+  </li>
+    <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+	</li> 
+	
+  <li>Install Nginx, which can be used as the proxy server. This enable access to the Kibana dashboards from the Internet.
+      <div class="hacker"> 
+	  sudo yum -y install nginx
+    </div>
+  </li>
+  <li>Create the Nginx configuration file.
+	<div class="hacker"> 
+		sudo vim /etc/nginx/conf.d/default.conf
+	  </div>
+  </li>
+  <li>Put the following code into the Nginx configuration file:
+  	  <div class="hacker"> 
+		  <pre>
+#
+# Nginx config file, for setting up Nginx proxy for Elasticsearch + Kibana
+#
+# This setup will password protect the saving of dashboards. 
+# This can be extended for password protection to all paths.
+#
+# Even though these paths are being called as the result of an ajax request, the
+# browser will prompt for a username/password on the first request
+#
+# If you use this, the config.js should point at http://FQDN:80/ instead of
+# http://FQDN:9200
+#
+
+server {
+ listen                *:80 ;
+ server_name           localhost;
+ access_log            /var/log/nginx/kibana.log;
+ location / 
+ {
+   root  /usr/share/kibana-4.1.1;
+   index  index.html  index.htm;
+ }
+  
+ location ~ ^/_aliases$ 
+ {
+   proxy_pass http://127.0.0.1:9200;
+   proxy_read_timeout 90;
+ }
  
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
+ location ~ ^/.*/_aliases$ 
+ {
+   proxy_pass http://127.0.0.1:9200;
+   proxy_read_timeout 90;
+ }
+ 
+ location ~ ^/_nodes$ 
+ { 
+   proxy_pass http://127.0.0.1:9200;
+   proxy_read_timeout 90;
+}
+  
+ location ~ ^/.*/_search$ 
+ {
+   proxy_pass http://127.0.0.1:9200;
+   proxy_read_timeout 90;
+}
 
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
-   
+ location ~ ^/.*/_mapping 
+ {
+   proxy_pass http://127.0.0.1:9200;
+   proxy_read_timeout 90;
+} 
+  
+# Password protected end points
+location ~ ^/kibana-int/dashboard/.*$ 
+ {
+   proxy_pass http://127.0.0.1:9200;
+   proxy_read_timeout 90;
+   limit_except
+   GET
+   { 
+    proxy_pass http://127.0.0.1:9200;
+    auth_basic "Restricted";
+    auth_basic_user_file /etc/nginx/conf.d/kibana.myhost.org.htpasswd;
+   }
+}
+
+ location ~ ^/kibana-int/temp.*$
+ {
+   proxy_pass http://127.0.0.1:9200;
+   proxy_read_timeout 90;
+   limit_except GET 
+   {
+      proxy_pass http://127.0.0.1:9200;
+      auth_basic "Restricted";
+      auth_basic_user_file /etc/nginx/conf.d/kibana.myhost.org.htpasswd;
+   }
+ }
+}
+</pre>
+  	  </div>
+  </li>
+  <li>Restart Nginx.
+		<div class="hacker">
+			sudo service nginx restart
+		</div>
+  </li>
+</ol>
+
+<h2>Install and configure Fluentd</h2>
+<ol>
+  <li>Install Fluentd.
+  	  <div class="hacker">
+		curl -L https://td-toolbelt.herokuapp.com/sh/install-redhat-td-agent2.sh | sh
+	  </div>
+  </li>
+  <li>Install the additional plugins required to integrate elasticsearch with Fluentd. 
+
+	  <div class="hacker">  
+		  sudo yum -y install make libcurl4-gnutls-dev
+	  </div>
+	  <div class="hacker">  
+		  sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch
+	  </div> 
+	   <div class="hacker">  
+		  sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-record-reformer
+	  </div>
+  </li>
+  <li>Open the configuration file <code>td-agent.conf</code>. To allow Fluentd to listen to the syslog  messages and then forward them to Elasticsearch, this file needs to be updated. 
+	  <div class="hacker"> 
+	   sudo vim /etc/td-agent/td-agent.conf
+	  </div>
+	  <p>Add the following lines at the top of the  file:</p>
+	  <div class="hacker">
+		  <pre>&lt;source&gt;
+     type syslog
+     port 5140
+     tag system
+&lt;/source&gt;
+&lt;match system.*.*&gt;
+	 type record_reformer
+	 tag elasticsearch
+	 facility ${tag_parts[1]}
+	 severity ${tag_parts[2]}
+&lt;/match&gt;
+&lt;match elasticsearch&gt;
+	 type copy
+	 &lt;store&gt;
+             type stdout
+	 &lt;/store&gt;
+	 &lt;store&gt;
+		type elasticsearch
+		logstash_format true
+		flush_interval 5s #debug
+	 &lt;/store&gt;
+&lt;/match&gt; </pre>
+	  </div>
+	  </li>
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+  </li> 
+ 
+  <li>Start  Fluentd.
+   		<div class="hacker">
+		sudo service td-agent start
+		</div>
+  </li>
+  <li>Redirect  traffic to Fluentd by updating the <code>rsyslog.conf</code> file.
+    <div class="hacker">
+  	  sudo vim /etc/rsyslog.conf
+  </div></li>
+  <li>
+	  	Add the following line at the top of this file:
+	    <div class="hacker">
+	  	 *.* @127.0.0.1:5140 
+	  </div>
+  </li>
+  <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key. </li>
+  <li>Restart <code>rsyslogd</code>.
+	   <div class="hacker">
+	     sudo service rsyslog restart
+	   </div>
+  </li></ol>
+<h2>Next steps</h2>
+  <p>As an alternative to Fluentd, you can use Logstash. To learn more about the ELK (Elasticsearch, Logstash, and Kibana) stack and its installation, see <a href="17854">Install ELK stack (Elasticsearch, Logstash, Kibana) - CentOS</a>.</p>
+
 </body>
 </html>

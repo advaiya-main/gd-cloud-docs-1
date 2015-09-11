@@ -88,7 +88,7 @@ If prompted, enter <strong>y</strong> to continue installation.</li></ul>
       /var/www/html/wp-content/</div>   </li>
     </ol>
 
-<h2>Edit your <code>wp-config</code> file</h2>
+<h2>Edit your wp-config file</h2> <!--CT: removed code tags from heading. is that ok? looked weird-->
 
 <ol>
                 <li>Go to your WordPress document root.
@@ -105,34 +105,38 @@ If prompted, enter <strong>y</strong> to continue installation.</li></ul>
                 <li>Restart Nginx.
                     <div class="hacker">sudo service nginx restart</div></li> </ol>  
 <!--A header appears to be missing. cj -->
+<!--CT: added-->
 
-    <ol>    <li>Return to your wp-admin window <br /><!--Can you please link the images? cj -->
-                        <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-network-admin-nav-screen1.png" alt="wordpress mu domain mapping plugin network admin nav" />    <br /> </li>
+<h2>Activate Domain Mapping</h2>
+
+    <ol>    <li>Return to your wp-admin window <br /><!--Can you please link the images? cj --><!--CT: done-->
+
+                        <img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-network-admin-nav-screen1.png" alt="wordpress mu domain mapping plugin network admin nav" />    <br /> </li>
 
                 <li>In the top navigation bar, hover/mouse over <strong>My Sites</strong>,  select <strong>Network Admin</strong> from the drop-down menu, and then select <strong>Plugins</strong>. <br />   
                   <br />
-                        <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="wordpress mu domain mapping plugin network activate" />  <br />
+                        <img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="wordpress mu domain mapping plugin network activate" />  <br />
                        
       You'll see three plugins. The WordPress MU Domain Mapping plugin should be the third item.   </li>
 
-                <li>Click <strong>Network Activate</strong> under this plugin. This activates, and the plug-in box  highlights. <br />
-                  <!--The following steps look like rough notes. cj --> 
-                    LH nav bar: Settings ? Domain Mapping   <br />
-                     <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00034/083015/wordpress-mu-domain-mapping-plugin-domain-options-screen3.png" alt="wordpress mu domain mapping plugin domain options" /> </li>
+            <li>Under this plug-in, click <strong>Network Activate</strong>. The <strong>Plugins</strong> dialog will highlight, indicating it's activated.<br />
+             <img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="WordPress mu domain mapping plugin network activate" />    <br />
+            
+             </li>
+            
+           <li> In the menu bar on the left-hand side, point to <strong>Settings</strong>, and then select <strong>Domain Mapping</strong> from the menu that appears. <br />
+           <img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-domain-options-screen3.png" alt="wordpress mu domain mapping plugin domain options" /></li>       
+            <li>Under <strong>Domain Options</strong>, clear the <strong>Remote Login</strong> check box. </li>
 
-                <li>Under Domain Options</li>
+            <li>Select the <strong>Permanent Redirect</strong> check box.</li>
 
-                <li>Uncheck Remote Login </li>
+            <li>Clear the <strong>Redirect administration pages to site's original domain</strong> check box. </li>
 
-                <li>Check Permanent Redirect</li>
-
-                <li>Uncheck Redirect administration pages to site's original domain     </li>
-
-                <li>Click <strong>Save</strong>. </li>
+            <li>Click <strong>Save</strong>. </li>
 
     </ol>
 
-                   <p> Your external domain  now redirects to the subdomain you  defined. For example, <!--CT (to Crystal): Using this example domain as a placeholder until we get new domain from GD 9/08 (2 of 2)--><em>coolexample.net</em> redirects to <em>product.coolexample.com</em>.  This includes the administration pages <strong>/wp-admin</strong>.</p>
+                   <p> Your external domain now redirects to the subdomain you defined. For example, <!--CT (to Crystal): Using this example domain as a placeholder until we get new domain from GD 9/08 (2 of 2)--><em>coolexample.net</em> redirects to <em>product.coolexample.com</em>.  This includes the administration pages <strong>/wp-admin</strong>.</p>
            
 
 <h2>Map a domain name to each site based on site ID</h2>
@@ -178,7 +182,7 @@ If prompted, enter <strong>y</strong> to continue installation.</li></ul>
             <li>Make a note of the ID value for each site.</li>
             <li>Go to the <strong>Settings</strong> &gt; <strong>Domains</strong> page.</li>
             <li>Enter the site ID followed by the external domain for the site.<br />
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/00035/082815/wordpress-mu-domain-mapping-plugin-new-domain-screen5.png" alt="wordpress mu domain mapping plugin new domain" /></li>
+<img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-new-domain-screen5.png" alt="wordpress mu domain mapping plugin new domain" /></li>
 
 </ol>
 

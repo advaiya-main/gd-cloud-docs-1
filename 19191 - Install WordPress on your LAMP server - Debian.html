@@ -140,15 +140,10 @@ p.note {
 <div class="hacker">tar xzvf latest.tar.gz </div>
 <p>This command creates a directory called <code>wordpress</code> in your home directory.</p></li>
 
-       <!--CT: Commenting this out. Don't need... <li>Unhide any hidden files using <code>shopt</code> (shell options) and <code>dotglob</code>:
-            <div class="hacker">shopt -s dotglob</div>  </li>
-...-->
+
         <li>Copy files to the document root <code>/var/www/</code>.
             <div class="hacker">sudo cp -R ~/wordpress/* /var/www/</div>  </li>
 
-       <!--CT: Commenting this out. Don't need... <li>Turn off <code>dotglob</code>:
-            <div class="hacker">shopt -u dotglob</div>  </li>
-...-->
         <li>Give your web server process, <code>www-data</code>, ownership values to allow Apache to interact with the content.
             <div class="hacker">sudo chown -R www-data:www-data /var/www/</div></li>
           </ol>
@@ -171,7 +166,7 @@ p.note {
      <li>Open the configuration file in your text editor.
             <div class="hacker">sudo vim wp-config.php</div>  </li>
 
-   <li> Look for the following section of the code  (starting with <code>MySQL settings</code>…), and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
+   <li> Look for the following section of the code (starting with <code>MySQL settings</code>…), and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
 Use the credentials that you just created.
 
      <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
@@ -204,9 +199,8 @@ define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
 <li>On the next screen, WordPress confirms your installation with your user name and (hidden) password. Click <strong>Log In</strong>.</li>
 
  <li><p> WordPress then prompts you to log in again with your new credentials. Do so now and click <strong>Log In</strong>.</p>
-<img src="images/19191/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" />
-                                                          </li>
-                                                            </ol>
+<img src="images/19191/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" /></li>
+     </ol>
 
  <p>All finished!  The dashboard of your new site displays.</p>
 <img src="images/19191/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
