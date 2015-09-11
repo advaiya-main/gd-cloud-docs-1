@@ -4,9 +4,8 @@
 
 <head>
 
-<!--Please revise using the comments in the edited version of 17772 as a guide. cj -->
 
-<title>Backup your PostgreSQL databases - Debian, Ubuntu </title>
+<title>Back up your PostgreSQL databases - Debian, Ubuntu </title>
 <style>
 div.hacker {
 background-color:#666;
@@ -68,7 +67,7 @@ p.note {
 </head>
 
 <body>
-<p>Setting up backup of PostgreSQL database on Debian,Ubuntu,PostgreSQL,Ruby,Rails.</p>
+<p>Backing up PostgreSQL databases on Debian, Ubuntu, PostgreSQL, Ruby,Rails</p>
 <h1>Back Up Your PostgreSQL Databases - Debian, Ubuntu</h1>
 
 <p><strong>Difficulty:</strong> <em>1</em></p>
@@ -78,17 +77,16 @@ p.note {
 <p>Before starting, make sure that you visit <a href="17534">Ruby on Rails is installed</a> and that <a href="17524">PostgreSQL is installed</a>.</p>
 
 <h2>Back up a PostgreSQL database </h2>
-<p>You can back up a PostgreSQL database using any of the following methods:  </p>
+<p>Back up a PostgreSQL database using any of the following methods.  <code>Pg_dump</code> is the utility used to dump database information into a file for backup purposes.</p>
 <ul>
   <li> Log in with the <code>postgres</code>  user, and create a database <em><u>backup file</u></em>.
     <div class="hacker">sudo su - postgres</div>
 
-	<div class="hacker">pg_dump <em><u>database_name</u></em> >  <em><u>backup_file</u></em></div>
-  <p><code>Pg_dump</code> is the utility used to dump database information into a file for backup purposes.</p> 
-  <li>If you want  to perform the backup on a remote system, you can pass the <code>-h</code> flag to specify the remote host, and the <code>-p</code> flag to specify the remote port.
+	<div class="hacker">pg_dump <em><u>database_name</u></em> >  <em><u>backup_file</u></em>  </div>  
+  <li>If you want  to perform the backup on a remote system, pass the <code>-h</code> flag to specify the remote host, and the <code>-p</code> flag to specify the remote port.
 
-	<div class="hacker">pg_dump -h remote_host -p remote_port <em><u>database_name</u></em> > 	<em><u>backup_file</u></em></div></li>
-  <li>If you want to specify a different user, then <code>-U</code> is necessary.
+  <div class="hacker">pg_dump -h remote_host -p remote_port <em><u>database_name</u></em> > 	<em><u>backup_file</u></em></div></li>
+  <li>If you want to specify a different user, use <code>-U</code>.
 	<div class="hacker">pg_dump -U user_name -h remote_host -p remote_port <em><u>database_name</u></em> ><em><u>backup_file</u></em></div>
   </li>
 </ul>
@@ -109,17 +107,17 @@ p.note {
    
 <h2>Handle restoration errors</h2>
 <ol>
-<li>Stop any backup error in PostgreSQL. Using <code>ON_ERROR_STOP</code> command will continue the process without any interruption even if it encounters any error.
+<li>Stop any backup error in PostgreSQL. The <code>ON_ERROR_STOP</code> command  continues the process without any interruption even if it encounters an error.
                 <div class="hacker">psql --set ON_ERROR_STOP=on <em><u>restored_database_name</u></em> <                 <em><u>backup_file.</u></em></div>
 </li>    
-<li>Restore all the database in a single transaction. Using <code>Psql -1</code> command will stop the process if it encounters any error.
+<li>Restore all the database in a single transaction. Using <code>Psql -1</code> command  stops the process if it encounters an error.
                 <div class="hacker">psql -1 <em><u>restored_database_name</u></em> < <em><u>backup_file</u></em></div>
-<!--<p>The difference between <code>Psql -1</code> and the <code>ON_ERROR_STOP</code> setting is that this <!--What does "this" refer to? cj will either succeed completely or not import anything.<!--Unclear if the user needs to do only one of these commands or both. cj --><!--Fixed in line number 113 and 116-->
+
 </li>
 </ol>
 
 
-<h2>Backup and restore all databases in PostgreSQL</h2>
+<h2>Back up and restore all databases in PostgreSQL</h2>
 <ol>
 <li>To save time,  use the <code>pg_dumpall</code> utility to create a backup for all the databases in the system.
 <div class="hacker">pg_dumpall > <em><u>backup_file</u></em></div>
@@ -130,7 +128,7 @@ p.note {
 </ol> 
 
 <h2>Next steps</h2>
-<p>In this article, we reviewed the above steps involved in backing up the PostgreSQL databases on Debian, Ubuntu. For further exploration, please visit:<a href="17894"> Scaling Ruby on Rails: Setting Up A Dedicated PostgreSQL Server (Part 3) on Debian, Ubuntu</a>.</p>
+<p>Using the above steps, you backed up the PostgreSQL databases on Debian or Ubuntu. For further exploration, see<a href="17894"> Scaling Ruby on Rails: Setting Up A Dedicated PostgreSQL Server (Part 3) - Debian, Ubuntu</a>.</p>
 
 </body>
 </html>
