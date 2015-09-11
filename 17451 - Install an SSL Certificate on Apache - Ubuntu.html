@@ -8,7 +8,7 @@
 
 
 
-<title>Install an SSL Certificate on Apache - Debian, Ubuntu</title>
+<title>Install an SSL Certificate on Apache - Ubuntu</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -82,18 +82,17 @@ p.note {
 </head>
 
 <body>
- <h1>Install an SSL Certificate on Apache – Debian, Ubuntu</h1>
+ <h1>Install an SSL Certificate on Apache – Ubuntu</h1>
  <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>15 minutes</u></em></p>
-    <p> This article walks you through the installation of an SSL certificate on a Debian&reg; or Ubuntu&reg; server running Apache&trade;. A web server with SSL certificates installed on it allows secure sessions with its clients. Installing an SSL certificate activates the HTTPS protocol.</p> 
+    <p> This article walks you through the installation of an SSL certificate on a Ubuntu&reg; server running Apache&trade;. A web server with SSL certificates installed on it allows secure sessions with its clients. Installing an SSL certificate activates the HTTPS protocol.</p> 
   <p class="note">You can use SSL certificates from any company who sells them. However, these instructions assume you're using a GoDaddy SSL certificate.</p>
   
 <h2>Prerequisite</h2>   
-  <p>If you don't have Apache installed on your server, install Apache as part of a LAMP stack on your <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17341%20-%20Build%20a%20LAMP%20stack%20(Linux%2C%20Apache%2C%20MySQL%2C%20PHP)%20-%20Ubuntu.html">Ubuntu server</a> or on your 
-   <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346%20-%20Build%20a%20LAMP%20stack%20(Linux%2C%20Apache%2C%20MySQL%2C%20PHP)%20-%20Debian.html">Debian server</a>. You can ignore the instructions for MySQL and PHP, as you do not need it for this article.</p>   
+  <p>If you don't have Apache installed on your server, install Apache as part of a LAMP stack on your <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17341%20-%20Build%20a%20LAMP%20stack%20(Linux%2C%20Apache%2C%20MySQL%2C%20PHP)%20-%20Ubuntu.html">Ubuntu server</a>. You can ignore the instructions for MySQL and PHP, as you do not need it for this article.</p>   
 
 <h2>Activate the SSL module</h2>
-    <p>If you already have Apache running on a Debian or Ubuntu server, SSL support is already a part of it. You only need to activate it to get started.</p>  
+    <p>If you already have Apache running on a Ubuntu server, SSL support is already a part of it. You only need to activate it to get started.</p>  
 <ol>
     <li>Activate SSL support. 
     <div class="hacker">sudo a2enmod ssl</div>
