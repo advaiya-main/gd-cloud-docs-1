@@ -1,11 +1,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=windows-1250" />
-    <meta name="generator" content="PSPad editor, www.pspad.com" />
-         
-   <h1>      Configure Apache Virtual Hosts – Debian</h1>
+
+<head>
+
+
+<title>Configure Apache Virtual Hosts - Debian</title>
+
+<style>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
   
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
@@ -45,146 +76,128 @@
 <mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
-<title>Configure Apache Virtual Hosts - Debian</title></head>
+
+
+</head>
   <body>       
     
-    To run several domains off of one IP address, you’ll need to set up virtual hosts. This is helpful when you want to run multiple sites from a single server. Apache is the world’s most popular web server and can run a multitude of content based on IP address or hostname.<br />
-    <br />
-    This guide will walk you through how to set up two Apache virtual hosts on Debian.<br />
-    <br />
-    Remember: You need to first create a separate, non-root user and give that user sudo permissions. <!--***NOTE: LINK TO "Initial Server Setup – Debian" ARTICLE ONCE AVAILABLE -->  
-    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), you would also need to install MySQL and PHP.</p>  
-    <br />
+    <p>Configure Apache Virtual Hosts Setup on Debian.</p>
+
+    <h1>Configure Apache Virtual Hosts - Debian</h1>
     
-    <h2>To Install Apache</h2>
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
+        <strong>Time</strong>: <em><u>15 minutes</u></em></p>
     
-     Install Apache if you haven't done so already: <br /> 
-    <div class="hacker">sudo apt-get install apache2</div>         <br />
+    <p>To run multiple sites on a single IP address, you'll need to set up the virtual hosts in your web browser. Apache is the most commonly-used web server and can run a multitude of content based on IP address or hostname.</p>
+
+    <p>This guide will walk you through how to set up an Apache virtual host on an Debian virtual private server (VPS) as a non-root user with <code>sudo</code> privileges.</p>
+    
+    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Debian.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a> for instructions.
+
+    <p>Also, make sure your hostname has a valid DNS record, so that the www version of your domain works. See <a href="/article/19116?prog_id=PROG_ID">Point your domain to a GoDaddy Cloud Server</a> for instructions on setting up your domain.</p>
+    
+    <li> </p>
+    
+    <h2>Install the Apache web server</h2>
+    <ol>
+ <li>Update your packages using <code>apt-get</code>.
+      <div class="hacker">sudo apt-get update</div></li>
+
+    <li>Install Apache.
+      <div class="hacker">sudo apt-get install apache2</div></li>
+    
+   </ol> 
    
-        
-    <h2>To Create a Directory</h2>
-    
-    Create a directory that will hold the new website files.
-
-This location will be your Document Root in the Apache virtual host configuration file. We will be referring to the Document Root later in the process. </ p>
-
-    For this tutorial we will use example domain names <em><u>domain1.com</u></em> and <em><u>domain2.com</u></em><p />
+    <h2>Set up the virtual host</h2>
+    <ol>
+    <li>Create the virtual directories for the domains/sites you'll be serving from your VPS.
+    For this tutorial, we will use the example domain name <em><u>coolexample.com</u></em>.<br />
     <div class="hacker">
-    sudo mkdir -p /var/www/domain1.com/public_html<br />
-    sudo mkdir -p /var/www/domain2.com/public_html<br /> </div>
-   
-   <p class="note">Adding <code>-p</code> to the code automatically generates all parent directories.<p />
-   
-   Make sure your hostname has a valid DNS record so that the www version of your domain works.
-   
-   <h2>To Give Access to the User</h2>
+    sudo mkdir -p /var/www/<em><u>coolexample.com</u></em>/public_html</div></li>
     
-    <ol>
-    <li>Grant ownership of your directories to the user with the <code>chown</code> command, otherwise only the root user will have permission.</li>
+    <li>Set up ownership and grant permissions. Change the ownership to the Apache group using <code>chown</code>. 
+    <div class="hacker">sudo chown -R www-data:www-data /var/www/<em><u>coolexample.com</u></em>/public_html</div></li>
      
-     <div class="hacker">
-     sudo chown -R $USER:$USER /var/www/domain1.com/public_html  <br />
-     sudo chown -R $USER:$USER /var/www/domain2.com/public_html  <p /> </div> </li>
-     
-     <li>Grant read access to your new files.
-     <div class="hacker">
-      sudo chmod -R 644 /var/www </div>   </li></ol>
-     
-   <h2>To Create Sample Pages for each Virtual Host</h2>
-    <ol>
-    <li>Create a sample page for your first virtual host<br />
-    Make some sample content for your newly-created directory structure.<br />
-    For simplicity’s sake, let’s create index.html pages.<br />
-    <div class="hacker"> 
-    sudo vim /var/www/domain1.com/public_html/index.html</div>
-    Add the following contents:<br />
-    <div class="hacker"> 
-    &lt;html&gt;<br />
-    &lt;head&gt;<br />
-    &lt;title&gt;Welcome to domain1.com!&lt;/title&gt;<br />
-    &lt;/head&gt;<br />
-    &lt;body&gt;<br />
-    &lt;h1&gt;Success! The domain1.com virtual host is working!&lt;/h1&gt;<br />
-    &lt;/body&gt;<br />
-    &lt;/html&gt;<br />     </div>
-    Save and close the file.</li>
-    
-    <li>Create a sample page for your second virtual host<br />
-        <div class="hacker"> 
-    sudo vim /var/www/domain2.com/public_html/index.html</div></div>
-    
-   Update the information in the page contents for your second page.
-    
-    &lt;html&gt;<br />
-    &lt;head&gt;<br />
-    &lt;title&gt;Welcome to domain2.com!&lt;/title&gt;<br />
-    &lt;/head&gt;<br />
-    &lt;body&gt;<br />
-    &lt;h1&gt;Success! The domain2.com virtual host is working!&lt;/h1&gt;<br />
-    &lt;/body&gt;<br />
-    &lt;/html&gt;<br /></div>
-    Save and close.
+    <li>Set read permissions to the Apache web root <code>/var/www</code> directory to enable access to the files from that directory. Modify permissions so that the general web directory has read access.<br />
+    <div class="hacker">sudo chmod -R 755 /var/www/coolexample.com/public_html</div>         
     </li>
     </ol>
     
-<h2>To Configure your Virtual Hosts</h2>
+    <h2>Create a sample page for your virtual host</h2>
     
-   Enable the virtual hosts on the server.  <br />
-      <ol>
-      <li> Open the Apache configuration: <br />
-<div class="hacker">
-sudo cp /etc/apache2/sites-available/default /etc/apache2/sites-available/domain1.com.conf</div></li>
+    <ol>
+    <li>Create a sample page for your virtual host. We'll create <code>index.html</code> pages.
+    <div class="hacker">sudo vim /var/www/<em><u>coolexample.com</u></em>/public_html/index.html</div>
 
-<li>Get your virtual host file from the Apache folder:  <br />
-<div class="hacker">sudo vim /etc/apache2/sites-available/domain1.com</div> </li>
-                                        
-<li>Create a virtual host in this file. <br />
+    It'll be a blank file. Add some content: 
+        <div class="hacker"><pre>&lt;html&gt; 
+    &lt;head&gt; 
+    &lt;title&gt;Welcome to coolexample.com!&lt;/title&gt; 
+    &lt;/head&gt; 
+    &lt;body&gt; 
+    &lt;h1&gt;Hooray! Your coolexample.com virtual host is working!&lt;/h1&gt; 
+    &lt;/body&gt; 
+&lt;/html&gt;</pre></div></li>
+    <li>Save and close the file.</li>
 
-Insert a line for the <code>ServerName</code> under the <code>ServerAdmin</code> line. <br /> 
-                                                                          
-<div class="hacker">ServerName example.com </div> </li>
+</ol>
 
-<li> 	Continue to configure your virtual host. Include alternate names, such as the www, in your virtual host file by adding a <code>ServerAlias</code> line. Then, enter your file location for <code>DocumentRoot</code>. This field must not be absent.<br />
-<div class="hacker">
-&lt;VirtualHost *:80&gt;<br>
-<br>
-    ServerAdmin webmaster@domain1.com<br />
-    ServerName domain1.com<br />
-    ServerAlias www.domain1.com<br />
-    DocumentRoot /var/www/domain1.com/public_html<br />
-    ErrorLog ${APACHE_LOG_DIR}/domain1.com.error.log   <br />
-    CustomLog ${APACHE_LOG_DIR}/domain1.com.access.log <br />     </ div>
-    
-    <p class="warning">Make sure your document root is correct. You will not able to set up your virtual host without it.</br>        
-    Save and close. <br />
-    </li>
 
-<li>  Activate your host with this built-in apache shortcut:         
-  <div class="hacker">sudo a2ensite domain1.com.conf   </div> </li></ol>
-    
-Repeat these steps for additional domains.
-                    
-   
- <h2>To Restart Apache</h2>
- Restart Apache for the changes to activate. <br />
- <div class="hacker">sudo service apache2 restart</div>
+
+<h2>Create virtual host file</h2>
  
- <h2>To Add the Domain Names to Hosts File</h2>
-If you are not yet connected to an actual domain name, you can map your domain to your local IP for checking purposes. <br />
- <div class="hacker">vim /etc/hosts</div> 
 
-<h2>To Test your Setup</h2>
-Type if your IP address into your browser. You should see a page with a single line of text:<br>
-&lt;h1&gt;Success! The domain1.com virtual host is working!&lt;h1&gt;<br />
+<p>Configure your virtual host. We're going to borrow Apache's default config file called <code>default</code> from the sites-available directory as a template.</p>
 
-<!--CT: added! 7/27--> 
+<ol>
 
-<p class="note">You can test your virtual host locally by setting up local hosts on your computer alone. This is a good option if you have not yet pointed your domain name to the IP address of your VPS. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00003 - Set up Local Hosts to Test Virtual Host Setup – ALL DISTROS.html"> Set up Local Hosts to Test Virtual Host Setup – ALL DISTROS</a> for more on how to do this.</p> 
+  <li>Copy the config file.
+     <div class="hacker">sudo cp /etc/apache2/sites-available/default /etc/apache2/sites-available/coolexample.com.conf </div>
+  </li>
+  
+    <li>Open your newly-copied config file.
+        <div class="hacker">sudo vim /etc/apache2/sites-available/coolexample.com.conf</div></li>
 
-<!--future article part end-->
-             
-   <h2>Next Steps</h2>
-    You can add additional virtual hosts as there's no software limit on the number of domain names Apache can handle. Be sure to set up a new document root with your domain name for each new host.<p />
-        
+<li>In the file, find <code>DocumentRoot</code> towards the beginning of the file, and update with your own domain.
+
+ <div class="hacker">DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em></div> </li>
+
+ <li>Below <code>DocumentRoot</code>, add these two lines.
+  <div class="hacker">ServerName <em><u>www.coolexample.com</u></em></div>     
+ <div class="hacker">ServerAlias <em><u>coolexample.com</u></em></div> 
+ </li>
+ 
+<li>Save and close.</li>
+</ol>
+
+<p>Note that updating the lines ServerAdmin, ErrorLog and CustomLog are not required to set up your virtual host, but you can go ahead and update ErrorLog and CustomLog to your domain and ServerAdmin to your email.</p>
+
+<h2>Enable your virtual host</h2>
+
+<ol>
+<li>Enable your virtual host file using <code>a2ensite</code>.
+    <div class="hacker">sudo a2ensite coolexample.com.conf</div></li>
+
+
+<li>Restart Apache.
+ <div class="hacker">sudo service apache2 restart</div></li>
+
+</ol>
+ 
+ <h2>Test your setup</h2>
+
+ <p>See your virtual host in action by typing in your domain or IP address into your browser, such as <em><u>coolexample.com</u></em>. You should see your test page created earlier.</p>
+
+<p class="note">You can test your virtual host locally by setting up local hosts on your computer alone. This is a good option if you have not yet pointed your domain name to the IP address of your VPS. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00003 - Set up Local Hosts to Test Virtual Host Setup - ALL DISTROS.html"> Set up Local Hosts to Test Virtual Host Setup - ALL DISTROS</a> for more on how to do this.</p> 
+      
+
+<h2>Adding additional virtual hosts</h2>
+
+<p>Repeat the above steps to create more virtual hosts. Be sure to create new config files for each new virtual host. You can copy the <em><u>coolexample.com</u></em> confige file to create new hosts.</p>
+
+
+<h2>Next Steps</h2>
+<p>Congratulations! You now have a single server handling a site with its own domain. Again, remember that you can add additional virtual hosts since there is no limit on the number of domain names Apache can handle.</p>
+
   </body>
 </html>
