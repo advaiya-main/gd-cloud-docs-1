@@ -1,10 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
-
+<!--Article 00048-->
 <head>
 
-<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
 
 <title>Set up WordPress Multisite in Apache - Debian</title>
 <style type='text/css'>
@@ -67,7 +66,7 @@ td:nth-child(1) {font-weight:bold;}
   <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you’d otherwise have to log into different WordPress accounts.</p> 
 
 <p>For this article, we'll walk through setting up WordPress multisite for a primary domain and its subdomains. 
-We'll set up a fresh install of WordPress in Apache on an Debian system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
+We'll set up a fresh install of WordPress in Apache on an Debian system. The steps are for a non-root user with sudo privileges.</p>
 <p>We'll use these example sites: </p>
 <table>
   <tr>
@@ -90,20 +89,20 @@ aboutus.coolexample.com</td>
 
 <ul>
 
-<li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see <!--CT (to Susan): please fix my link--><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Debian</a></li>
+<li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see the articl: <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Debian</a>.</li>
 
 <li>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</li>
 
 
 
-<li>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
+<li>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. If needed, you can <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">point your domain name to a server</a>.</li>
        </ul>
 
  <h2>Create a MySQL database and administrator for WordPress</h2>
    
     <p>Set up your MySQL database with an administrator so that WordPress has a place to store all your site and user information.</p>
 
-    <!--CT (to Susan/Carla): Can you center this? Is it in the style sheet? Skj- this was a CSS Style error fixed. -->
+
 <p class="warning">Remember: All <b>MySQL</b> code statements must end with a semi-colon (;).</p>
 
 <ol>
@@ -113,15 +112,15 @@ aboutus.coolexample.com</td>
                      </li>
  
         <li>At the prompt, enter your MySQL root password.  </li>
-    <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name fittingly as “wordpress.”
-<div class="hacker">CREATE DATABASE wordpress;</div></li>
-<li>Create the database administrator account and set the user’s credentials. For this tutorial, we’ll use “wordpressadmin” as the example user name, and “wordpresspassword” as the password.
-<div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
+    <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name fittingly as <em>wordpress</em>.
+<div class="hacker">CREATE DATABASE <em><u>wordpress</u></em>;</div></li>
+<li>Create the database administrator account and set the user’s credentials. For this tutorial, we’ll use <em>wordpressadmin</em> as the example user name, and <em>wordpresspassword</em> as the password.
+<div class="hacker">CREATE USER <em><u>wordpressadmin</u></em>@localhost IDENTIFIED BY '<em><u>wordpresspassword</u></em>';</div>
 <p>As a good security practice, create a strong password. Keep your username and password handy, as you’ll need them later.</p></li>
  <li>Give, or grant, your admin permissions to the database.   
-<div class="hacker">GRANT ALL PRIVILEGES ON wordpress.* TO wordpressadmin@localhost;</div>
+<div class="hacker">GRANT ALL PRIVILEGES ON <em><u>wordpress</u></em>.* TO <em><u>wordpressadmin</u></em>@localhost;</div>
 <code>GRANT</code> is one of the account management statements the MySQL server notices and loads into memory right away. So a manual reload/restart should not be necessary. But if you’d like, you can check the permissions using <code>SHOW GRANTS</code>.
-<div class="hacker">SHOW GRANTS FOR 'wordpressadmin'@'localhost';</div>
+<div class="hacker">SHOW GRANTS FOR '<em><u>wordpressadmin</u></em>'@'localhost';</div>
 </li>
 
    <li>If, for some reason the privileges didn’t take, flush the privileges to activate the user. Flush forces a reload of the cache.     <br />
@@ -154,20 +153,16 @@ This URL will always link to a compressed file of the latest stable version of W
    <p>After you’ve configured WordPress, transfer the files to Apache’s root directory so that the application can serve content to your site visitors.</p>
       
  <ol>
- <li>Transfer your WordPress files to the website's root directory
+ <li>Transfer your WordPress files to the website's root directory.
     <div class="hacker">sudo cp -r ~/wordpress/* /var/www</div>
-This will safely copy all of the contents from the directory you unpacked to the document root.</li>
+This will safely copy all of the contents from the directory you unpacked, to the document root.</li>
  
  <li>Let's also set directory permissions at this point so that you can work with WordPress content (e.g., uploading images).
  Make the group ownership recursive to make sure it will write to your subdirectories:  
  <div class="hacker">sudo chown www-data:www-data /var/www * -R</div>
-<div class="hacker">sudo chmod u+x /var/www * -R</div> </li></ol>
-                                  
-<!--CT: internal note (alternative permissions)...
-sudo chown -R [USER NAME]:[USER NAME] /var/www
-           </p>                                   ...-->
-      
- <ol><li>Restart Apache.
+<div class="hacker">sudo chmod u+x /var/www * -R</div> </li>
+
+<li>Restart Apache.
 <div class="hacker">sudo service apache2 restart</div>
                                </li> </ol>
       
@@ -191,13 +186,13 @@ sudo chown -R [USER NAME]:[USER NAME] /var/www
 Use the credentials that you just created.
  <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
 /** The name of the database for WordPress */ <br />
-define('DB_NAME', 'wordpress'); <br />
+define('DB_NAME', '<em><u>wordpress</u></em>'); <br />
 
 /** MySQL database username */  <br />
-define('DB_USER', 'wordpressadmin');     <br />
+define('DB_USER', '<em><u>wordpressadmin</u></em>');     <br />
 
 /** MySQL database password */ <br />
-define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
+define('DB_PASSWORD', '<em><u>wordpresspassword</u></em>');   </div> </li>
  
  <li>Farther down in the file, find the line  <code>/* That's all, stop editing! Happy blogging. */</code> and add  these lines:
    <div class="hacker">/* Multisite settings */<br/>
@@ -218,8 +213,6 @@ To activate the new configuration, you need to run:
   service apache2 restart</pre></div><br/>
 
    We will be restarting Apache after this step.</li>
-   </ol>
-<ol>
   <li> First, make a copy of your virtual host config file just in case. We'll use the default Apache one.
 <div class="hacker">sudo cp 000-default 000-default.bak</div></li>
                                     
@@ -249,15 +242,15 @@ To activate the new configuration, you need to run:
       <p>Now you can access the WordPress web interface.</p>             
      <ol>
      <li>  In your web browser, enter your primary domain name. In our example, that's 
-   <strong>http://coolexample.com</strong>.
+   <strong>http://<em><u>coolexample.com</u></em></strong>.
    (If the Apache default page displays, append <code>/wp-admin/ </code>to your URL.)<br/>
   
   You may get an introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
   
 
    
-<li>Your next screen will be the main WordPress 5-minute install screen and will look something like this.<br/>
-<img src="images/00048/090815/install-wordpress-multisite-signin-screen3.png" alt="5-minute install wordpress on server welcome filled out"/><br/>
+<li>Your next screen will be the main WordPress 5-minute install screen and will look something like this.<br />
+<img src="images/00048/090815/install-wordpress-multisite-signin-screen3.png" alt="5-minute install wordpress on server welcome filled out"/><br />
 
 Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.
 </li>
@@ -266,7 +259,7 @@ Choose a user name and password. Use the password supplied if you like; just be 
 
 <li>You'll get a "Success!" screen with your login credentials. Click <strong>Log In</strong> to continue.</li>     
  
-<li>Your next screen will prompt you to log in again. Do so now with your newly-created username and password.</li>    
+<li>Your next screen will prompt you to log in again. Do so now with your newly created username and password.</li>    
       </ol>
 
       <h2>Enable multisite</h2>
@@ -285,7 +278,7 @@ Choose a user name and password. Use the password supplied if you like; just be 
 
  <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.<br/>
 <img src="images/00048/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup screen wpconfig code" />
-<br/>
+<br />
  
  The code resembles this:
  <div class="hacker"><pre>define('MULTISITE', true);
@@ -298,7 +291,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
  <li>Once you've pasted the code, save and close the file.</li>
       </ol>
 
-      <h3>Modify your .htaccess file</h3>
+<h3>Modify your .htaccess file</h3>
  <ol>
 <li>Back in the WordPress Network Setup screen, copy the <code>.htaccess</code> code in the second section. </li>  
 <li>In your terminal, pull up your <code>.htaccess</code> file
@@ -327,7 +320,7 @@ RewriteRule . index.php [L] </pre></div>
 <li>Save and close the file.</li>
 </ol>  
 
-   <h3>Enable use of .htaccess</h3>
+<h3>Enable use of .htaccess</h3>
    
 <p><code>AllowOverride All</code> allows all options in your .htaccess file. We're going to make sure this is set to All, otherwise the 000-default.conf assumes you have only one site on your server.</p>
 
@@ -346,7 +339,7 @@ Options Indexes FollowSymLinks
          Require all granted
 &lt;/Directory&gt;</pre></div>
 
-In the <code>AllowOverride</code> line, change "None" to "All."
+In the <code>AllowOverride</code> line, change <em>None</em> to <em>All</em>.
  <div class="hacker">AllowOverride <em><u>All</u></em></div>  
   </li>
 
@@ -356,25 +349,25 @@ In the <code>AllowOverride</code> line, change "None" to "All."
  <div class="hacker">sudo service apache2 restart</div></li> 
  </ol>
  
- Now you should see your WordPress serve up content.
+<p>Now you should see your WordPress serve up content.</p>
  
 <h2>Create additional sites or subdomains</h2>
 
 <ol>       
 <li>Back in your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page.<br /></li>
 
-<li>Go to <strong>My Sites</strong> in your top navigation bar. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br/>
+<li>Go to <strong>My Sites</strong> in your top navigation bar. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
 <img src="images/00048/090815/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> 
 </li>
 
-<li>At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar.<br/>
+<li>At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar.<br />
 
 </li>
 
-<li>On the main screen, next to <strong>Sites</strong>, click <strong>Add New</strong>.<br/></li>
+<li>On the main screen, next to <strong>Sites</strong>, click <strong>Add New</strong>.<br /></li>
 
-<li>Fill out your first subdomain information.<br/> 
-At the <strong>Site Address</strong> field, fill in your first subdomain. For example, for <em><u>product</u></em>.coolexample.com <!--CT (to Carla): Is it okay to do this? I want to highlight just the subdomain part-->, you'll simply put <em><u>product</u></em>.<br/></li>
+<li>Fill out your first subdomain information.<br /> 
+At the <strong>Site Address</strong> field, fill in your first subdomain. For example, for <em><u><strong>product</strong>.coolexample.com</u></em>, you'll simply put <em><u><strong>product</strong></u></em>.<br /></li>
 <li>Click <strong>Add Site</strong> to finish. This might take a few minutes.</li>
 <li>Repeat for all your subdomains.</li>
  </ol>                              
@@ -382,8 +375,8 @@ At the <strong>Site Address</strong> field, fill in your first subdomain. For ex
 
 <h2>Next Steps</h2>
  
- <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. <br />
-
+ <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. </p>
+ <p>
  There's much you can do from here. One option is to map your sub-domains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/00047 - Set Up WordPress Domain Mapping in Apache - Debian, Ubuntu.html">Set Up WordPress Domain Mapping in Apache - Debian, Ubuntu</a> for instructions. </p>
 
 
