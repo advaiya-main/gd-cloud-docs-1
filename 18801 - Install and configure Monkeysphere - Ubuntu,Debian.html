@@ -50,7 +50,7 @@
 	<p><strong>Difficulty: </strong> 2</p>
 	<p><strong>Time: </strong> 6 hours</p>
 	<p>
-		Monkeysphere is a utility suite that provides a framework for TSL/SSL communication authentication using simple tools like web browser and secure shell. The Monkeysphere system uses GPG keys to validate the servers to users. In this article, you will install and configure Monkeysphere which will allow you to have a trusted SSH login.
+		Monkeysphere is a utility suite that provides a framework for TSL/SSL communication authentication using simple tools like web browser and secure shell. The Monkeysphere system uses GPG keys to validate the servers to users. In this article, you will install and configure Monkeysphere, which will allow you to have a trusted SSH login.
 	</p>
 	<h2>Prerequisites</h2>
 	<p>You should have 3 droplets for configuring and testing purpose.</p>
@@ -61,11 +61,11 @@
 	</li>
 	<li><strong>client.coolexample.com</strong>: The client from which you initiate the connection.
 	</li>
-	<li>The SSH server should have domain name which is publically accessible.
+	<li>The SSH server should have domain name that is publically accessible.
 	</li>
 	</ul>
 	<h2>Set up GPG keys</h2>
-	<p>The GPG keys must be setup and configured on the client and admin droplets. For this, follow the steps below on both the client and the admin droplet.</p>
+	<p>The GPG keys must be setup and configured on the client and admin droplets. For this, follow the steps below on both the client and the admin droplet:</p>
 	<ol>
 	<li>
 	Initiate the GPG key generation process.
@@ -74,11 +74,11 @@
 	</li>
 	<li>When asked for the type of keys, choose option <strong>1</strong> to create two RSA keys.
 	</li>
-	<li>When asked about the length of key, choose the default option to select 2048-bit encryption
+	<li>When asked about the length of the key, choose the default option to select 2048-bit encryption.
 	</li>
-	<li>When asked about key expiry, choose <strong>O</strong> to select option <strong>key never auto expire</strong>.
+	<li>When asked about the key expiry, choose <strong>O</strong> to select option <strong>key never auto expire</strong>.
 	</li>
-	<li>Press 'Y' to confirm the details provided so far.
+	<li>Press <strong>Y</strong> to confirm the details provided so far.
 	</li>
 	<li>When asked about the information on user, provide the following information:
 	<ul>
@@ -91,7 +91,7 @@
 	<li>View the key using the following command one by one on both droplets:
 	<div class = "hacker">gpg --list-keys</div>
 	</li>
-	<li>Successful generation of key would result into the following output:
+	<li>Successful generation of the key would result into the following output:
 	<div class ="hacker">
 	<pre>/home/user/.gnupg/pubring.gpg
 ----------------------------
@@ -113,7 +113,7 @@ uid                  client &lt;client@junkdomain.com&gt;
 sub   2048R/FF569918 2015-09-06
 </pre></div>
 </li>
-	<li>Upload both the keys to key-server, by performing the following steps on both client and admin droplets:
+	<li>Upload both the keys to key-server by performing the following steps on both client and admin droplets:
 	<div class ="hacker">gpg --send-key <em><u>1258D8EF </u></em> </div>
 	<p>Uploading keys usually require few minutes, so you might have to wait for some time.</p>
 	</li>
@@ -121,10 +121,10 @@ sub   2048R/FF569918 2015-09-06
 	<h2>Sign the client key with admin key</h2>
 	<ol>
 	<li>
-	On the <strong>client droplet</strong>, get the finger print of the GPG key for the client key, by using the following command:
+	On the <strong>client droplet</strong>, get the finger print of the GPG key for the client key by using the following command:
 	<div class ="hacker">gpg --with-colons --fingerprint <em><u>client</u></em></div>
 	</li>
-<li>Successful execution would result into following output. In this, the long alpha-numeric string just after <code>fpr</code> is the fingerprint of the key. In this case, it is <em><u>BF867BD82FAF8559633336829E0613031258D8EF</u></em>
+<li>Successful execution would result into the below output. In this, the long alpha-numeric string just after <code>fpr</code> is the fingerprint of the key. In this case, it is <em><u>BF867BD82FAF8559633336829E0613031258D8EF</u></em>
 	<div class ="hacker">
 	<pre>tru::1:1441518267:0:3:1:5
 pub:u:2048:1:9E0613031258D8EF:2015-09-06:::u:client &lt;client@junkdomain.com&gt;::scESC:
@@ -134,7 +134,7 @@ sub:u:2048:1:E0150AD6FF569918:2015-09-06::::::e:
 	</div>
 	<p>The portion of the output that is highlighted is the fingerprint for client.</p>
 	</li>
-	<li>On the <strong>admin droplet</strong>, download the key and sign the key.
+	<li>On the <strong>admin droplet</strong>, download and sign the key.
 	<div class ="hacker">gpg --recv-keys <em><u>BF867BD82FAF8559633336829E0613031258D8EF</u></em></div>
 	<div class ="hacker">gpg --sign-key <em><u>BF867BD82FAF8559633336829E0613031258D8EF</u></em></div>
 	</li>
@@ -142,9 +142,9 @@ sub:u:2048:1:E0150AD6FF569918:2015-09-06::::::e:
 	<div class = "hacker">gpg --send-key <em><u>BF867BD82FAF8559633336829E0613031258D8EF</u></em></div>
 	</li>
 	</ol>
-<h2>Sign the admin key with client key</h2>
+<h2>Sign the admin key with the client key</h2>
 <ol>
-<li>On the <strong>admin droplet</strong>, get the finger print of the GPG key for the admin key, by using the following command: 
+<li>On the <strong>admin droplet</strong>, get the finger print of the GPG key for the admin key by using the following command: 
 <div class = "hacker">gpg --with-colons --fingerprint <em><u>admin</u></em></div>
 </li>
 <li>On <strong>Client droplet</strong>, download the key, sign and then upload it to key-server.
@@ -154,12 +154,12 @@ sub:u:2048:1:E0150AD6FF569918:2015-09-06::::::e:
 <p>Propagation of these changes takes some time, so you might need to wait for few minutes.</p>
 </li>
 
-<li>Refresh both the server keys using below command to ensure that the new key is accepted on that machine:
+<li>Refresh both the server keys using the below command to ensure that the new key is accepted on that machine.
 <div class ="hacker">gpg --refresh-keys</div>
 </li>
-<li>Successful propagation of the keys would show a confirmation message as below upon refresh:
+<li>Successful propagation of the keys would show a confirmation message as below on refreshing:
 <div class = "hacker">new signatures: 1</div>
-<p>If this confirmation message do not appear, you need to wait for some more time and issue the refresh command again until confirmation is received.</p>
+<p>If this confirmation message do not appear, you need to wait for some more time and run the refresh command again until the confirmation is received.</p>
 </li>
 
 </ol>
@@ -173,7 +173,7 @@ sub:u:2048:1:E0150AD6FF569918:2015-09-06::::::e:
 <div class ="hacker">gpg --update-trustdb</div>
 </li>
 <li>Choose option 4 to trust fully. </li>
-<li>Successful execution would show the following output:
+<li>On the successful execution, you will see the following output:
 <div  class = "hacker">
 <pre>gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
 gpg: depth: 0  valid:   1  signed:   1  trust: 0-, 0q, 0n, 0m, 0f, 1u
@@ -203,7 +203,7 @@ gpg: depth: 1  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 0u
 	<li>Get the GPG fingerprint on SSH server:
 	<div class ="hacker">sudo monkeysphere-host show-key</div>
 	</li>
-	<li>Note the OpenPGP fingerprint provided by the SSH server, which is same as the GPG fingerprint. In this case, the OpenPGP key is <em><u>58921230505B96E5D50A8968684414D33F68800A</u></em>.
+	<li>Note the OpenPGP fingerprint provided by the SSH server that is same as the GPG fingerprint. In this case, the OpenPGP key is <em><u>58921230505B96E5D50A8968684414D33F68800A</u></em>.
 	<div class = "hacker">
 	<pre>pub 2048R/3F68800A 2015-09-06
 uid ssh://server.coolexample.com
@@ -227,7 +227,7 @@ ssh fingerprint: 2048 35:77:0b:f6:9b:1e:7c:69:45:6a:20:54:ab:ef:84:33 (RSA)
 <li>On the client droplet, verify the identity of the SSH server.
 <div class  ="hacker">ssh -oProxyCommand='monkeysphere ssh-proxycommand %h %p' <em><u>server.coolexample.com</u></em></div>
 </li>
-<li>Type <code>no</code> when prompted with the Monkeysphere warning. This warning states that although it has found an OpenPGP key, but full validity is not available. Since it is not confirm that you are connecting to the right server, the connection request must be denied at this point.
+<li>Type <code>no</code> when prompted with the Monkeysphere warning. This warning states that although it has found an OpenPGP key, but full validity is not available. Since it is not confirmed that you are connecting to the right server, the connection request must be denied at this point.
 <div class = "hacker">
 <pre>
 -------------------- Monkeysphere warning -------------------
@@ -263,16 +263,16 @@ uid           <em><u>ssh://server.coolexample.com</u></em>
 </pre>
 </div>
 </li>
-<li>Wait for few minutes, and then refresh keys on the client droplet. 
+<li>Wait for few minutes, and then refresh the keys on the client droplet. 
 <div class = "hacker">gpg --refresh-keys</div>
 </li>
-<li>Successful propagation of the keys would show a confirmation message as below upon refresh:
+<li>Successful propagation of the keys would show a confirmation message as below on refreshing:
 <div  class = "hacker">new signatures: 1</div>
 </li>
 <li>Check the signature available on the key of SSH server:
 <div class = "hacker">gpg --list-sigs ssh://<em><u>server.coolexample.com</u></em></div>
 </li>
-<li>Successful propagation of the keys would show an output similar to following:
+<li>Successful propagation of the keys would show an output similar to the following:
 <div class = "hacker">
 <pre>pub   2048R/3F68800A 2015-09-06
 uid                  ssh://<em><u>server.coolexample.com</u></em>
@@ -281,12 +281,12 @@ sig          462908AF 2015-09-06  admin admin@junkdomain.com
 </pre>
 </div>
 </li>
-<li>Connect to server again. This this time you should not get any warning message.
+<li>Connect to the server again. This time you should not get any warning message.
 <div class ="hacker">ssh -oProxyCommand='monkeysphere ssh-proxycommand %h %p' <em><u>server.coolexample.com</u></em></div>
 <div class = "hacker"><em><u>user</u></em>@<em><u>server.coolexample.com</u></em>'s password:</div>
 </li>
 </ol>
-<h2>Make Client-Server connection easier</h2>
+<h2>Make client-server connection easier</h2>
 <ol>
 <li>On the client droplet, open the <code>ssh config</code> file.	
 <div class ="hacker">sudo vim ~/.ssh/config</div>
@@ -309,9 +309,9 @@ ProxyCommand monkeysphere ssh-proxycommand %h %p
 	<div class = "hacker">ssh <em><u>server.coolexample.com</u></em></div>
 	<div class = "hacker"><em><u>user</u></em>@<em><u>server.coolexample.com</u></em>'s password:</div></li>
 	</ol>
-<h2>Conclusion</h2>
-<p>This is all about installing and configuring Monkeysphere in Debian or Ubuntu droplet to trust the ssh server. With this, if administrator trusts 
-the server, then clients won't be asked to validate server for connection. Now after this, you can <a href="18804">use Monkeysphere to authenticate
+<h2>Nect Steps</h2>
+<p>This is all about installing and configuring Monkeysphere in Debian or Ubuntu droplet to trust the ssh server. With this, if the administrator trusts 
+the server, then clients won't be asked to validate server for connection. After this, you can <a href="18804">use Monkeysphere to authenticate
  SSH users on Debian or Ubuntu server.</a></p>	
 	
 
