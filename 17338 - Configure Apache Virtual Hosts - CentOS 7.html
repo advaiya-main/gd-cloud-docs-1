@@ -87,7 +87,7 @@ p.note {
     <h1>Configure Apache Virtual Hosts - CentOS 7</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
-        <strong>Time</strong>: <em><u>15 minutes</u></em></p>
+        <strong>Time</strong>: <em><u>30 minutes</u></em></p>
     
     <p>To run multiple sites on a single IP address, you'll need to set up the virtual hosts in your web browser. Apache is the most commonly-used web server and can run a multitude of content based on IP address or hostname.</p>
 
@@ -127,7 +127,7 @@ p.note {
     
     <ol>
     <li>Create a sample page for your virtual host. For simplicity's sake, let's create <code>index.html</code> pages.
-    <div class="hacker">sudo vim /var/www/<em><u>coolexample.com</u></em>/public_html/index.html</div>
+    <div class="hacker">vim /var/www/<em><u>coolexample.com</u></em>/public_html/index.html</div>
 
     It'll be a blank file. Add some content: 
         <div class="hacker"><pre>&lt;html&gt; 
@@ -139,11 +139,11 @@ p.note {
     &lt;/body&gt; 
 &lt;/html&gt;</pre></div></li>
     <li>Save and close the file.</li>
- 
-</ol>
+  
 
-<!--CT (Susan): Help me fix the lists/bulleting? I accidentally have some nested lists, I think...-->
-  <h2>Create sites-available and sites-enabled directories</h2
+  <h2>Create a new virtual host file</h2>  
+
+ <h3>Create sites-available and sites-enabled directories</h3>
 
  <p>Set up two directories: one to store the virtual host files and another to hold symbolic links to virtual hosts that will be published.</p>
     <div class="hacker">sudo mkdir /etc/httpd/sites-available</div>
@@ -153,20 +153,24 @@ p.note {
 
  <h3>Edit your Apache configuration file</h3>
 
-<p>Edit the main configuration file so that Apache will look for virtual hosts in the sites-enabled directory.</p>
-
-<ul>
+<ul>Edit the main configuration file so that Apache will look for virtual hosts in the sites-enabled directory.
     <li>Open your config file.
      <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div></li>
      
-     <li>Add this line at the very end of the file.
+     <li>
+    <ul>
+    <li>Add this line at the very end of the file.
     <div class="hacker">IncludeOptional sites-enabled/*.conf</div>
     This way, we're telling Apache to look for additional config files in the <code>sites-enabled</code> directory. </li>
 
+    
+    <!--CT: commenting out...<li>If you have an version earlier than Apache, use <code>Include</code> instead of <code>IncludeOptional</code>.<br />
+    <div class="hacker">Include sites-enabled/*.conf</div></li>...-->
+  
    <li>Save and close. </li>
          </ul>
 
-<h2>Create virtual host file</h2>
+<h2>Create Virtual Host File</h2>
  
 
 <p>Configure your virtual host. We're going to build it from a new file in our sites-available directory.</p>
@@ -178,18 +182,18 @@ p.note {
 <li>Paste this code in, replacing your own domain for coolexample.com.
 <p>Here's what the whole file could look like after your changes:</p>
  <div class="hacker"><pre>
-   &lt;VirtualHost *:80&gt;
-   
-    ServerName <em><u>www.coolexample.com</u></em>     
-    ServerAlias <em><u>coolexample.com</u></em> 
+    &lt;VirtualHost *:80&gt;
+    &lt;/VirtualHost&gt;</div></li>
+    ServerAdmin webmaster@coolexample.com
     DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em> 
+    ServerName <em><u>www.coolexample.com</u></em> 
+    ServerAlias <em><u>coolexample.com</u></em> 
+    ServerName <em><u>www.coolexample.com</u></em>     
     ErrorLog /var/www/coolexample.com/error.log 
     CustomLog /var/www/coolexample.com/requests.log combined 
-    
-    &lt;/VirtualHost&gt; 
-  </pre></div>
+    &lt;/VirtualHost&gt; </pre></div>
 
-<p>Note that the lines ErrorLog and CustomLog are not required to set up your virtual host, but we've included them in case you do want to tell Apache where to keep error and request logs for your site.</p>
+<p>Note that the lines ServerAdmin, ErrorLog, and CustomLog are not required to set up your virtual host, but we've included them in case you do want to tell Apache where to keep error and request logs for your site.</p>
 </li>
 
 <li>Save and close.</li>
@@ -203,18 +207,47 @@ p.note {
  <div class="hacker">sudo apachectl restart</div></li>
 
 </ol>
+
+You may see the following error, which you can disregard. This message is just a warning and your virtual hosts will work.
+ <div class="hacker">Could not reliably determine the server's fully qualified domain name, using 127.0.0.1 for ServerName</div>
  
  <h2>Test your setup</h2>
 
  <p>See your virtual host in action by typing in your domain or IP address into your browser, such as <em><u>coolexample.com</u></em>. You should see your test page created earlier.</p>
+
+ <p>To access your sites from your remote systems, add the actual domain name records in your DNS
+    server.</p>
 
 <p class="note">You can test your virtual host locally by setting up local hosts on your computer alone. This is a good option if you have not yet pointed your domain name to the IP address of your VPS. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00003 - Set up Local Hosts to Test Virtual Host Setup - ALL DISTROS.html"> Set up Local Hosts to Test Virtual Host Setup - ALL DISTROS</a> for more on how to do this.</p> 
       
 
 <h2>Adding additional virtual hosts</h2>
 
-<p>Repeat the above steps to create more virtual hosts. Be sure to create new config files for each new virtual host. You can copy the <em><u>coolexample.com</u></em> file to create new hosts.</p>
+<p>Repeat the above steps to create more virtual hosts. Be sure to create a new document root with your domain name each time. 
 
+
+<p>In your Apache config file, copy and paste the new Virtual Host information. So for example, if you were adding coolexample.net as a second host, it could look like this:</p>
+ <div class="hacker"><pre>
+   &lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@coolexample.com
+    DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em> 
+    ServerName <em><u>www.coolexample.com</u></em> 
+    ServerAlias <em><u>coolexample.com</u></em> 
+    ServerName <em><u>www.coolexample.com</u></em>     
+    ErrorLog /var/www/coolexample.com/error.log 
+    CustomLog /var/www/coolexample.com/requests.log combined 
+    &lt;/VirtualHost&gt; 
+
+   &lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@coolexample.net
+    DocumentRoot <em><u>/var/www/coolexample.net/public_html</u></em> 
+    ServerName <em><u>www.coolexample.net</u></em> 
+    ServerAlias <em><u>coolexample.net</u></em> 
+    ServerName <em><u>www.coolexample.net</u></em>     
+    ErrorLog /var/www/coolexample.net/error.log 
+    CustomLog /var/www/coolexample.net/requests.log combined 
+    &lt;/VirtualHost&gt; 
+  </pre></div>
 
 <h2>Next Steps</h2>
 <p>Congratulations! You now have a single server handling a site with its own domain. Again, remember that you can add additional virtual hosts since there is no limit on the number of domain names Apache can handle.</p>
