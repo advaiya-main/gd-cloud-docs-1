@@ -170,15 +170,15 @@ Make sure your hostname has a valid DNS record, so that the www version of your 
 
 <p>Here's what the whole section could look like after your changes:</p>
  <div class="hacker"><pre>
-   &lt;VirtualHost *:80&gt;
-    ServerAdmin webmaster@dummy-host.example.com
+    &lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@coolexample.com
     DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em> 
     ServerName <em><u>www.coolexample.com</u></em> 
     ServerAlias <em><u>coolexample.com</u></em> 
     ServerName <em><u>www.coolexample.com</u></em>     
-    ErrorLog <em><u>/var/www/coolexample.com</u></em>/error.log 
-    CustomLog <em><u>/var/www/coolexample.com</u></em>/requests.log combined 
-    &lt;/VirtualHost&gt; </pre></div>
+    ErrorLog /var/www/coolexample.com/error.log 
+    CustomLog /var/www/coolexample.com/requests.log combined 
+    &lt;/VirtualHost&gt; 
 
 <p>Note that the other lines (ServerAdmin, ErrorLog, and CustomLog) are not required to set up your virtual host. We've filled them out for this example.</p>
 </li>
@@ -206,7 +206,33 @@ You may see the following error, which you can disregard. This message is just a
 <h2>Adding additional virtual hosts</h2>
 
 <p>Repeat the above steps to create more virtual hosts. Be sure to create a new document root with your domain name each time. 
+
+
+<p>In your Apache config file, copy and paste the new Virtual Host information. So for example, if you were adding coolexample.net as a second host, it could look like this:</p>
+ <div class="hacker"><pre>
+   &lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@coolexample.com
+    DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em> 
+    ServerName <em><u>www.coolexample.com</u></em> 
+    ServerAlias <em><u>coolexample.com</u></em> 
+    ServerName <em><u>www.coolexample.com</u></em>     
+    ErrorLog /var/www/coolexample.com/error.log 
+    CustomLog /var/www/coolexample.com/requests.log combined 
+    &lt;/VirtualHost&gt; 
+
+   &lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@coolexample.net
+    DocumentRoot <em><u>/var/www/coolexample.net/public_html</u></em> 
+    ServerName <em><u>www.coolexample.net</u></em> 
+    ServerAlias <em><u>coolexample.net</u></em> 
+    ServerName <em><u>www.coolexample.net</u></em>     
+    ErrorLog /var/www/coolexample.net/error.log 
+    CustomLog /var/www/coolexample.net/requests.log combined 
+    &lt;/VirtualHost&gt; 
+  </pre></div>
+
 <h2>Next Steps</h2>
-<p>Congratulations! You now have a single server handling a site with its own domain. Remember that you can add additional virtual hosts since there is no limit on the number of domain names Apache can handle.</p>
+<p>Congratulations! You now have a single server handling a site with its own domain. Again, remember that you can add additional virtual hosts since there is no limit on the number of domain names Apache can handle.</p>
+
   </body>
 </html>
