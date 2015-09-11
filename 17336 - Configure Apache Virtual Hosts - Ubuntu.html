@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is 17336 (fill in blank)-->
+
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>Configure Apache Virtual Hosts - Ubuntu</title>
+<style>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Apache, Setup, Virtual Host</mso:ArticleKeywords>
+<mso:Complexity msdt:dt="string">3 - Somewhat complex</mso:Complexity>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts, https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts</mso:Reference>
+<mso:ArticleStatus msdt:dt="string">Tested and needs revision</mso:ArticleStatus>
+<mso:HoursEditingEstimated msdt:dt="string">0.750000000000000</mso:HoursEditingEstimated>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
+<mso:AssignedTo1 msdt:dt="string">27</mso:AssignedTo1>
+<mso:HoursDraftingEstimated msdt:dt="string">3.00000000000000</mso:HoursDraftingEstimated>
+<mso:RequestNotes msdt:dt="string">Prereq: - 'Initial Server Setup'' 'Build a LAMP stack.' FQDN pointed at server. Include simple instructions for installing Apache for those who do not want full LAMP.</mso:RequestNotes>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Christine Tzeng</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:DeliveryTarget msdt:dt="string">Phase 2</mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:Difficulty msdt:dt="string">2</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:HoursDraftingActual msdt:dt="string">3.50000000000000</mso:HoursDraftingActual>
+<mso:ArticleID msdt:dt="string">17336</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed0 msdt:dt="string"></mso:Collapsed0>
+<mso:PercentResearch msdt:dt="string">0.300000000000000</mso:PercentResearch>
+<mso:PercentWriting msdt:dt="string">0.700000000000000</mso:PercentWriting>
+<mso:Week msdt:dt="string">10.0000000000000</mso:Week>
+<mso:LinuxDistributions msdt:dt="string">;#Ubuntu;#</mso:LinuxDistributions>
+<mso:ReviewComments msdt:dt="string">The XHTML validator is returning 19 errors. Can you please correct and then send back? Also, make sure to use only one command per div. Thanks. -Carla</mso:ReviewComments>
+<mso:AssignmentAction msdt:dt="string"></mso:AssignmentAction>
+<mso:Update_x0020_profile_x0020_hours msdt:dt="string">https://blueprintcs.sharepoint.com/sites/gdcmp/_layouts/15/wrkstat.aspx?List=0e1925e5-ea8a-4b57-a7a9-c7061c953f74&amp;WorkflowInstanceName=e77c7b80-32fa-4788-90da-399f33afa5c9, Assign to a Content Creator</mso:Update_x0020_profile_x0020_hours>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Carla  Johnson</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
+<mso:TestComments msdt:dt="string">Failed - details in email</mso:TestComments>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+
+</head>
+
+<body>
+<p>Configure Apache Virtual Hosts Setup on Ubuntu.</p>
+
+    <h1>Configure Apache Virtual Hosts - Ubuntu</h1>
+    
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
+        <strong>Time</strong>: <em><u>30 minutes</u></em></p>
+
+ 
+<p>To run multiple domains or sites on a single IP address, you’ll need to set up the virtual hosts in your web browser. Use this setup if you have a server with resources that are underutilized.</p>
+
+<p>This guide will walk you through how to set up two Apache virtual hosts on an Ubuntu 14.04 virtual private server (VPS) as a non-root user with <code>sudo</code> privileges. For instructions on how to set up a <code>sudo</code> user, see our <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17321 - Initial Server Setup - Ubuntu.html">Initial Server Setup - Ubuntu</a> guide. </p>
+
+
+<p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), you would also need to install MySQL and PHP. You can learn how to do that in <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17341 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu</a>.</p>  
+
+<h2>To install the Apache webserver</h2>
+
+<ol>
+<li>Update your Ubuntu server
+<div class="hacker">sudo apt-get update</div></li>
+
+<li>Install Apache
+<div class="hacker">sudo apt-get install apache2</div></li>
+ </ol>
+
+<h2>To set up the virtual hosts</h2>
+
+<ol>
+<li>Create the virtual directories for the domains/sites that you want to serve from your VPS.
+For this tutorial we will use example domain names <em><u>domain1.com</u></em> and <em><u>domain2.com</u></em>
+<div class="hacker">sudo mkdir -p /var/www/domain1.com/public_html<br />
+sudo mkdir -p /var/www/domain2.com/public_html        </div>  </li>
+<li>Set up ownership and grant permissions.
+Your directories are now owned by the root user. Change the ownership so that regular users can modify files in your web directories.
+<div class="hacker">sudo chown -R $USER:$USER /var/www/domain1.com/public_html/<br />
+sudo chown -R $USER:$USER /var/www/domain1.com/public_html/</div>
+The <em><u>$USER</u></em> variable adopts the value of the user currently logged in. Once you hit "ENTER", regular users can own the public_html subdirectories where your content will be stored.
+Set read permissions to the Apache web root (/var/www) directory to enable access to the files from that directory.
+sudo chmod -R 755 /var/www/   </li>
+                                                      </ol>
+                                                      
+<h2>To create a sample page for your first virtual host</h2>
+<p>Create test pages for your newly-created directory structure.
+For simplicity’s sake, create index.html pages.    </p>  
+<div class="hacker">sudo vi /var/www/ domain1.com /public_html/index.html </div>
+
+<p>Add the following contents:</p>
+<div class="hacker">
+
+  &lt;html&gt;<br />
+  &lt;head&gt;<br />
+    &lt;title&gt;Welcome to domain1.com!&lt;/title&gt;<br />
+  &lt;/head&gt;<br />
+  &lt;body&gt;<br />
+    &lt;h1&gt;Success! The domain1.com virtual host is working!&lt;/h1&gt;<br />
+  &lt;/body&gt;<br />
+&lt;/html&gt;<br />    </div>
+
+Save and close the file.         </li>
+</ol>
+
+<h2>To create a sample page for your second virtual host</h2>
+
+<p>Copy the file you just created to use as a template for your second site:</p>
+<div class="hacker">cp /var/www/domain1.com/public_html/index.html /var/www/domain2.com/public_html/index.html</div
+Open the file and modify the relevant pieces of information:
+<p><div class="hacker">vim /var/www/domain2.com/public_html/index.html      </p>
+
+&lt;html&gt;<br />
+  &lt;head&gt;<br />
+    &lt;title&gt;Welcome to domain2.com!&lt;/title&gt;<br />
+  &lt;/head&gt;<br />
+  &lt;body&gt;<br />
+    &lt;h1&gt;Success!  The domain2.com virtual host is working!&lt;/h1&gt;<br />
+  &lt;/body&gt;<br />
+&lt;/html&gt;<br />
+
+</div>
+Save and close the file.        </li>
+ </ol>
+ 
+<h2>To create your first virtual host file</h2>
+
+<p>Apache comes with a default virtual host file called <code>000-default.conf.</code></p> 
+<p>Copy the contents of this file to your new virtual host files.</p>
+<div class="hacker">sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/domain1.com.conf               <br />
+sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/domain2.com.conf</div>
+
+Make sure the virtual host files contains the .conf extension at the end.
+Modify the <code>domain1.com.conf</code> file in your editor with root privileges:
+<div class="hacker">sudo vi /etc/apache2/sites-available/domain1.com.conf</div>
+Make the relevant changes to the domain1 site.
+<div class="hacker">
+<VirtualHost *:80>
+        ServerAdmin webmaster@domain1.local
+        ServerName www.domain1.com
+        ServerAlias www.domain1.com
+        DocumentRoot /var/www/domain1.com /public_html
+		ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+           </div>
+Save and close. </li>
+</ol>
+
+<h2>To create your second virtual host file</h2>
+
+<p>Copy the first Virtual Host File and update to make it work for the second.</p>
+<div class="hacker">sudo vi /etc/apache2/sites-available/domain2.com.conf</div>
+Open the current (second) file with root privileges in your editor:
+<div class="hacker">sudo vim /etc/apache2/sites-available/domain2.com.conf </div>
+Modify all fields to reference your second domain. The resulting “VirtualHost” output will look just like that of domain1.
+Save and close the file when you are finished.         </li>
+    </ol>
+
+<h2>To enable the new virtual host files</h2>
+
+<p>Use the <em><u>a2ensite tool</u></em> to enable both sites:</p>
+<div class="hacker">sudo a2ensite domain1.com.conf  <br />
+sudo a2ensite domain2.com.conf </div>
+
+<p>Restart Apache so that changes can take effect:</p>
+<div class="hacker">sudo service apache2 restart</div>
+You will likely receive a message like this:
+  <div class="hacker">* Restarting web server apache2  <br />
+  
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.0.1. Set the 'ServerName' directive globally to suppress this message</div>
+
+Don't worry, this is a harmless message that has no effect on your site.   </li>
+</ol>
+
+<h2>To test your results</h2>
+
+<p>Test your setup by simply going to the newly configured domains in your web browser.</p>
+<p>When you navigate to <em><u>http://domain1.com</u></em> for instance, you should see a page with a single line of large text with a message like:  </p>
+<p><font size="6"><b>Success! The domain1.com virtual host is working!</b></font></p>
+Test domain2.com by direct navigation to make sure that domain is also working.            </li>
+</ol>
+
+To access your sites from your remote systems, add the actual domain name records in your DNS server. 
+
+<!--Link to future article... Per Sean: This will be an additional article that all the Virtual Hosts articles will link to. I'm in the process of uploading/adding this as a new article so there's no article ID yet-->
+<!--CT: added! 7/27--> 
+
+<p class="note">You can test your virtual host locally by setting up local hosts on your computer alone. This is a good option if you have not yet pointed your domain name to the IP address of your VPS. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00003 - Set up Local Hosts to Test Virtual Host Setup – ALL DISTROS.html"> Set up Local Hosts to Test Virtual Host Setup – ALL DISTROS</a> for more on how to do this.</p> 
+
+<!--future article part end-->
+
+<h2>Next Steps</h2>
+Congratulations! You now have a single server handling two separate domains. Remember that you can add additional virtual hosts as there's no software limit on the number of domain names Apache can handle.
+
+  
+  </body>
+</html>               
+
