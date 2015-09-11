@@ -7,7 +7,7 @@
 <!--Article Number is 17338-->
 
 
-<title>Configure Apache Virtual Hosts - CentOS, Fedora</title>
+<title>Configure Apache Virtual Hosts - CentOS 7</title>
 
 <style>
 div.hacker {
@@ -83,8 +83,8 @@ p.note {
 </head>
 
 <body>
-<p>Configuring Apache Virtual Hosts for CentOS 6.</p>
-    <h1>Configure Apache Virtual Hosts - CentOS 6</h1>
+<p>Configuring Apache Virtual Hosts for CentOS 7.</p>
+    <h1>Configure Apache Virtual Hosts - CentOS 7</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>30 minutes</u></em></p>
@@ -109,7 +109,7 @@ p.note {
     <li>Create the virtual directories for the domains/sites you'll be serving from your VPS.
     For this tutorial, we will use the example domain name <em><u>coolexample.com</u></em>.<br />
     <div class="hacker">
-    sudo mkdir -p /var/www/coolexample.com/public_html</div></li>
+    sudo mkdir -p /var/www/<em><u>coolexample.com</u></em>/public_html</div></li>
     
     <li>Set up ownership and grant permissions. Change the ownership from the <code>root</code> user to a regular user using <code>chown</code>. This way, regular users can modify files in your web directories.
     <div class="hacker">sudo chown -R apache:apache /var/www/<em><u>coolexample.com</u></em>/public_html</div></li>
