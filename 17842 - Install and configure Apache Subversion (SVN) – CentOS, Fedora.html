@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 
 <head>
-    <title>17842</title>
+    <title>Install and configure Apache Subversion (SVN) – CentOS, Fedora</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <style type="text/css">
@@ -45,60 +45,60 @@
 </head>
 
 <body>
-    <p>Configuring Apache Subversion (SVN) in CentOS and Fedora, Version Control, Apache</p>
+    <p>Setting up configuration of Apache Subversion (SVN) on CentOS and Fedora, Version Control, Apache.</p>
     <h1>Install and configure Apache Subversion (SVN) – CentOS, Fedora</h1>
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
-    <p>Subversion (SVN) is an open-source project for version control system. This article will help in installing and configuring SVN in CentOS and Fedora instance by allowing access for different protocols such as <em>http://, https://</em> and many more.</p>
-	<h2>Prerequisites</h2>
-	<p> For more information on using version control in WordPress, please refer <a href="#">18716 - Using Version Control to Install and Update WordPress - CentOS, Fedora </a> link.</p>
+    <p> This article provides information about installing and configuring SVN on CentOS and Fedora instance by allowing access for different protocols such as <strong>http://, https://</strong> and many more. Subversion (SVN) is an open-source project for version control system.</p>
+	<h2>Install SVN and Apache</h2>
+	
 	<ol>
-	<li>Update the repository before proceeding with the installation and configuration of SVN:
+	<li>Update the repository before proceeding with the installation and configuration of SVN.
 	  <div class='hacker'>sudo yum update -y</div>
 	</li>
-	<li>Install subversion and mod apache
+	<li>Install subversion and mod Apache.
 	<div class='hacker'>sudo yum install subversion subversion-tools mod_dav_svn httpd</div>
 	</li>
 	</ol>
 
    <h2>Create a SVN directory</h2>
    	<ol>		
-		<li>Create a project repository directory where all the repositories will be housed. You can choose any directory for housing the repos
-   		<div class='hacker'>sudo mkdir -p /home/svn/projects</div>
-		 <p class='note'>We have taken /home/svn/projects. It can be changed as per the requirement.</p>
+		<li>Create a project repository directory where all the repositories will be housed. You can choose any directory for housing the repositories.
+   		<div class='hacker'>sudo mkdir -p <em><u>/home/svn/projects</u></em></div>
+		 <p class='note'>We have taken <em><u>/home/svn/projects</u></em>. It can be changed as per the requirement.</p>
 	  </li>
    </ol>
-    <h2>Create a Test Repository</h2>
+    <h2>Create a test repository</h2>
      <ol>
-		<li>Create a test repository
-			<div class='hacker'>cd /home/svn/projects</div>
-				<div class='hacker'>sudo mkdir ~/test</div>
-				<div class='hacker'>sudo svnadmin create /home/svn/projects/test</div>
+		<li>Create a test repository to test SVN.
+			<div class='hacker'>cd <em><u>/home/svn/projects</u></em></div>
+				<div class='hacker'>sudo mkdir <em><u>~/test</u></em></div>
+				<div class='hacker'>sudo svnadmin create <em><u>/home/svn/projects/test</u></em></div>
 		</li>
-		<li>Add files to the repository
-			<div class='hacker'>cd ~/test</div>
+		<li>Go to test repository and create the following directories:
+			<div class='hacker'>cd <em><u>~/test</u></em></div>
 			<div class='hacker'>sudo mkdir trunk tags branches</div>
 		</li>
-		<li>Import these directories into the test repositories using the following command
-			<div class='hacker'>sudo svn import ~/test file:///home/svn/projects/test -m 'Initial project directories'</div>
+		<li>Import these directories into the test repositories using the following command:
+			<div class='hacker'>sudo svn import <em><u>~/test</u></em> file:///<em><u>home/svn/projects/test</u></em> -m 'Initial project directories'</div>
 		</li>
-		<li>Grant SVN access with Apache
-			<div class='hacker'>sudo chown -R apache: apache /home/svn/projects</div>
+		<li>Grant SVN access with Apache.
+			<div class='hacker'>sudo chown -R apache:apache <em><u>/home/svn/projects</u></em></div>
 		</li>
 </ol>
 		
-   <h2>Using http:// protocol</h2>
-   <h3>Configure Apache + SVN</h3>
+   <h2>Set up SVN with Apache</h2>
+   <h3>Configure Apache and SVN</h3>
     <ol>
-        <li>Update the Apache configuration file 
+        <li>Open  the configuration file of Apache.
             <div class='hacker'>sudo vim /etc/httpd/conf.d/subversion.conf</div>
       </li>
-        <li>Add the following lines at the bottom of the file 
+        <li>Add the following lines at the bottom of the file:
           <div class='hacker'>
 		  <pre>
  &lt;Location /svn&gt;
   DAV svn
-  SVNParentPath /home/svn/projects
+  SVNParentPath <em><u>/home/svn/projects</u></em>
   AuthType Basic
   AuthName "Subversion Repository"
   AuthUserFile /etc/svn-auth
@@ -109,47 +109,51 @@
 </pre>
 </div>
 		</li>
-        <li>Restart the Apache service to implement the changes by using the following command
+		<li><p> Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key. </p></li>
+        <li>Restart the Apache service to implement the changes  using the following command:
             <div class='hacker'>sudo service httpd restart</div>
         </li>
-		<li>Create a new authenticated user using the following command
-			<div class='hacker'>sudo htpasswd -cm /etc/svn-auth svnuser</div>
-			<p>When prompted for pasword, enter the password.</p>
+		<li>Create a new authenticated user. 
+			<div class='hacker'>sudo htpasswd -cm /etc/svn-auth <em><u>svnuser</u></em></div>
+			<p>When prompted for password, enter the password.</p>
 		</li>
-		<li>Open browser and hit <em>http://your_ip_address/svn/test.</em> After hitting we will find three empty directories
+		<li><p>Open browser and hit <strong>http://your_ip_address/svn/test.</strong> Successful execution of above steps will result into creation of three new directories(<strong>trunk</strong>, <strong>tags</strong>, <strong>branches</strong>).</p>
 		</li>
 </ol>
-		<h3>Checkout the Repository and Commit files</h3>
+		<h3>Checkout the repository and commit files</h3>
        <ol> 
-	   <li>Create a new directory 
+	   <li>Create a new directory to checkout <em><u>/svn/test/</u></em> directory.
             <div class='hacker'>cd ~</div>
-			<div class='hacker'>mkdir test2</div>
-			<div class='hacker'>svn checkout http://127.0.0.1/svn/test/trunk test2</div>
+			<div class='hacker'>mkdir <em><u>test2</u></em></div>
+			<div class='hacker'>svn checkout http://<em><u>your_ip_address/svn/test/</u></em>trunk <em><u>test2</u></em></div>
         </li>
-        <li>Once the files have been created, we must perform the <code>SVN add</code> command, and pass in individual filenames as further arguments 
+        <li>
+			After checkout into the directory <code>test2</code>, create some test or sample files perform <code>svn add</code> command to push on remote repository. 
             <div class='hacker'>touch index.php</div>
 			  <div class='hacker'>svn add index.php</div>
 			  <div class='hacker'>svn add *</div>
         </li>
-		<li>Once you are done with adding all the necessary files, these may be committed using:
-        <div class='hacker'>svn commit -m 'commit message'</div>	  
+		<li>  To commit the modifications using the following command:
+		
+        <div class='hacker'>svn commit -m <em><u>'commit message'</u></em></div>
+		<p><code>-m</code> stands for message. Write some proper message or comments related to your commit changes.</p>		
 		 </li>
-		<li>The server may be updated using the <code>SVN up</code> command. Upon keying this command, SVN prompts for password, please enter correct credentials which were used while creating users of SVN.
+		<li>The server may be updated using the <code>svn up</code> command. Upon keying this command, SVN prompts for password, please enter correct credentials which were used while creating users of SVN.
         </li>
 </ol>
-		   
-		<h2>Using https:// protocol</h2>
+		 
+		<h2>Set up SVN with Apache-SSL</h2>
        <ol>
-	    <li>To use https, follow the below commands and enable SSL modules and default SSL web site
+	    <li>To use https, follow the below commands and enable SSL modules and default SSL web site.
             <div class='hacker'>sudo yum install mod_ssl openssl</div>
 			<div class='hacker'>sudo vi /etc/httpd/conf.d/ssl.conf</div>
 		 </li>
-        <li>Add following snippets to the file and restart server:
+        <li>Modify Apache ssl configuration as per the following to enable SVN on https protocol: 
 		<div class='hacker'>
 		<pre>
   &lt;Location /svn&gt;
   	DAV svn
- 	SVNParentPath /home/svn/projects
+ 	SVNParentPath <em><u>/home/svn/projects</u></em>
   	AuthType Basic
   	AuthName "Subversion Repository"
  	#AuthUserFile /etc/apache2/dav_svn.passwd
@@ -161,13 +165,17 @@
 </pre>
 	</div>
      </li>
-	 <li>Restart the server using the below command
+	 <li><p> Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key. </p></li>
+	 <li>Restart the Apache server to implement the changes.
             <div class='hacker'>sudo service httpd restart</div>
-			<div class='hacker'>svn co --username svnuser https://127.0.0.1/svn/test /home/somedir</div>
+			
         </li>
+		<li>To Checkout repository using the following command:
+		<div class='hacker'>svn checkout --username <em><u>svnuser</u></em> https://your_ip_address/svn/test/ <em><u>/home/somedir</u></em></div>
+		</li>
 </ol>
-	<h2>Next Steps</h2>
-		In this article, we reviewed the steps involved in installation and configuration of the Apache SVN and securely accessing them via both http:// and https:// protocols in CentOS and Fedora. 
+	<h2>Conclusion</h2>
+		In this article, we reviewed the steps involved in installation and configuration of the Apache SVN and securely accessing them via both http:// and https:// protocols on CentOS and Fedora. 
 </body>
 
 </html>
