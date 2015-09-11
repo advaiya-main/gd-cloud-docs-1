@@ -91,9 +91,13 @@ p.note {
     
     <p>To run multiple sites on a single IP address, you'll need to set up the virtual hosts in your web browser. Apache is the most commonly-used web server and can run a multitude of content based on IP address or hostname.</p>
 
-    <p>This guide will walk you through how to set up an Apache virtual host on a CentOS 6 virtual private server (VPS) as a non-root user with <code>sudo</code> privileges.</p>
+    <p>This guide will walk you through how to set up an Apache virtual host on a CentOS 7 virtual private server (VPS) as a non-root user with <code>sudo</code> privileges.</p>
     
-    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), you can <a href="../articels/17342 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Centos6, Fedora.html">install MySQL and PHP</a>. </p>
+    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), see <a href="../articles/17344 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Centos7.html">Build a LAMP stack - CentOS 7</a> for more instructions. </p>
+
+    <p>Also, make sure your hostname has a valid DNS record, so that the www version of your domain works. See <a href="/article/19116?prog_id=PROG_ID">Point your domain to a GoDaddy Cloud Server</a> for instructions on setting up your domain.</p>
+    
+    <li> </p>
     
     <h2>Install the Apache web server</h2>
     <ol>
@@ -135,50 +139,51 @@ p.note {
     &lt;/body&gt; 
 &lt;/html&gt;</pre></div></li>
     <li>Save and close the file.</li>
+  
+
+  <h2>Create a new virtual host file</h2>  
+
+ <h3>Create sites-available and sites-enabled directories</h3>
+
+ <p>Set up two directories: one to store the virtual host files and another to hold symbolic links to virtual hosts that will be published.</p>
+    <div class="hacker">sudo mkdir /etc/httpd/sites-available</div>
+      <div class="hacker">sudo mkdir /etc/httpd/sites-enabled</div>    
+  
+   <p>The <code>sites-available</code>, <code>sites-enabled</code> directory structure is actually a fixture of Ubuntu/Debian, but we are borrowing this setup for the ease of use in managing (enabling and disabling) virtual hosts.</p> 
+
+ <h3>Edit your Apache configuration file</h3>
+
+<ul>Edit the main configuration file so that Apache will look for virtual hosts in the sites-enabled directory.
+    <li>Open your config file.
+     <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div></li>
+     
+     <li>
+    <ul>
+    <li>Add this line at the very end of the file.
+    <div class="hacker">IncludeOptional sites-enabled/*.conf</div>
+    This way, we're telling Apache to look for additional config files in the <code>sites-enabled</code> directory. </li>
+
     
-    <h2>Modify your Apache configuration file</h2>
-    
-    <p>Edit the main configuration file so that Apache will look for virtual host.</p>
+    <!--CT: commenting out...<li>If you have an version earlier than Apache, use <code>Include</code> instead of <code>IncludeOptional</code>.<br />
+    <div class="hacker">Include sites-enabled/*.conf</div></li>...-->
+  
+   <li>Save and close. </li>
+         </ul>
 
-    <ol>
-      <li>Open the Apache config file.
-     <div class="hacker">vim /etc/httpd/conf/httpd.conf</div></li>
-      
-      XXXXXXXXXXXXX
-      at the end
-      IncludeOptional sites-enabled/*.conf
-          XXXXXXXXXXXXX
+<h2>Create Virtual Host File</h2>
+ 
 
+<p>Configure your virtual host. We're going to build it from a new file in our sites-available directory.</p>
 
-        <li>Check that Apache is listening on the default HTTP port, port 80, for the virtual host. Find these two lines in the file: 
-      <div class="hacker">#Listen 12.34.56.78:80<br/>
-        Listen 80</div>
-      And make sure they match the above and that the <code>Listen</code> line is uncommented. Most likely, this is already the case.</li>
+<ol>
+    <li>Create a new config file.
+        <div class="hacker">sudo vim /etc/httpd/sites-available/coolexample.com.conf</div></li>
 
-    <li>Further down in the file, uncomment <code>NameVirtualHost</code> so it looks like:
-     <div class="hacker">NameVirtualHost *:80</div></li>
-
-    <li>At the very end of the file, find the section beginning with <code>&lt;VirtualHost *:80&gt;</code> and make the following changes to this part:
-
-<!--CT (to Susan): Start of nested list here (help me format it, please)-->
-
-<ul><li>Starting with the first line <code>&lt;VirtualHost *:80&gt;</code>, uncomment the whole section, ending with <code>&lt;/VirtualHost&gt;</code>.
-
-<ul><li>Point <code>DocumentRoot</code> to your domain and the directory that holds it.<br/>
-In our case, that would be <code>/var/www/coolexample.com/public_html</code>. So the line will look like: 
- <div class="hacker">DocumentRoot /var/www/coolexample.com/public_html</div></li></ul>
-
-<ul><li>Point <code>ServerName</code> to your domain with the www. 
-Make sure your hostname has a valid DNS record, so that the www version of your domain works.
-  In our case, that would be <em><u>www.coolexample.com</u></em></li></ul>
-
-<ul><li>Point ServerAlias to other variations of your domain, such as the domain without the www.</li></ul>
-
-<!--CT (to Susan): End of nested list-->
-
-<p>Here's what the whole section could look like after your changes:</p>
+<li>Paste this code in, replacing your own domain for coolexample.com.
+<p>Here's what the whole file could look like after your changes:</p>
  <div class="hacker"><pre>
     &lt;VirtualHost *:80&gt;
+    &lt;/VirtualHost&gt;</div></li>
     ServerAdmin webmaster@coolexample.com
     DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em> 
     ServerName <em><u>www.coolexample.com</u></em> 
@@ -186,23 +191,20 @@ Make sure your hostname has a valid DNS record, so that the www version of your 
     ServerName <em><u>www.coolexample.com</u></em>     
     ErrorLog /var/www/coolexample.com/error.log 
     CustomLog /var/www/coolexample.com/requests.log combined 
-    &lt;/VirtualHost&gt; 
+    &lt;/VirtualHost&gt; </pre></div>
 
-<p>Note that the other lines (ServerAdmin, ErrorLog, and CustomLog) are not required to set up your virtual host. We've filled them out for this example.</p>
+<p>Note that the lines ServerAdmin, ErrorLog, and CustomLog are not required to set up your virtual host, but we've included them in case you do want to tell Apache where to keep error and request logs for your site.</p>
 </li>
 
 <li>Save and close.</li>
 
 
-<li>Enable your virtual host file. 
+<li>Enable your virtual host file with a sym link to the sites-enabled directory.
     <div class="hacker">sudo ln -s /etc/httpd/sites-available/coolexample.com.conf /etc/httpd/sites-enabled/coolexample.com.conf</div></li>
 
 
 <li>Restart Apache.
- <div class="hacker">sudo service httpd restart</div></li>
-
- ????
- sudo apachectl restart
+ <div class="hacker">sudo apachectl restart</div></li>
 
 </ol>
 
