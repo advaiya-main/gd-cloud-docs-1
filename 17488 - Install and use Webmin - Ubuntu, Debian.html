@@ -4,12 +4,10 @@
 
 <head>
 
-<!--Article Number is __17488________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17488 -->
 
 
-<title>Install and use Webmin - Ubuntu, Debian</title>
+<title>Install and use Webmin - Debian, Ubuntu</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -73,56 +71,56 @@ p.note {
 <p>Webmin is a web-based tool for managing your server.  It supports many common tasks like installing software, adding users, and managing servers.</p>
     <h1>Install Webmin - Debian, Ubuntu</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
-        <strong>Time</strong>: <em><u>15</u></em></p>
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
+        <strong>Time</strong>: <em><u>15 minutes</u></em></p>
 
-    <p>Webmin is a web-based tool for managing your server.  It supports many common tasks like installing software, adding users, and managing servers.  
-        This article describes how to install webmin.  It assumes you have a user, <em><u>yourloginuser</u></em>, who accesses your server via SSH.</p>
+    <p>Webmin is a web-based tool for managing your server. It supports many common tasks like installing software, adding users, and managing servers.  
+        This article describes how to install Webmin. It assumes you have a user, <em><u>yourloginuser</u></em>, who will access your server via SSH.</p>
 
     <h2>Create a user with sudo privileges</h2>
  <ol>
-               <li>Edit the <code>/etc/sudoers</code> file with visudo
+               <li>Edit the <code>/etc/sudoers</code> file with visudo.
                    <div class="hacker">sudo visudo</div>
                </li>
                <li>Find the section that looks like this:
                    <div class="hacker"><pre># User privilege specification
 root    ALL=(ALL:ALL) ALL</pre></div>
               </li>
-              <li>Add a line in it for the user you use to log in to your server to grant sudo privileges to that user.
+              <li>Add a line to the section for the user who will log in to your server. This line will grant sudo privileges to that user.
                    <div class="hacker"><pre># User privilege specification
 root    ALL=(ALL:ALL) ALL
-yourloginuser    ALL=(ALL:ALL) ALL</pre></div>
+<em><u>yourloginuser</u></em>    ALL=(ALL:ALL) ALL</pre></div>
               </li>
-               <li>Save and close</li>
+               <li>Save and close.</li>
     </ol>
  <h2>Install Webmin</h2>
  <ol>
-               <li>Edit the <code>/etc/apt/sources.list</code> file 
+               <li>Edit the <code>/etc/apt/sources.list</code> file. 
                    <div class="hacker">sudo vim /etc/apt/sources.list</div>
                </li>
                <li>Add the following lines to the bottom of the file:
                    <div class="hacker"><pre>deb http://download.webmin.com/download/repository sarge contrib
 deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib</pre></div>
               </li>
-      <li>Save and close</li>
+      <li>Save and close.</li>
               <li>Add the Webmin key to your apt keyring.
                    <div class="hacker">wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -</div>
               </li>
-              <li>Update your local repository
+              <li>Update your local repository.
                    <div class="hacker">sudo apt-get update</div>
               </li>
-              <li>Install webmin
+              <li>Install Webmin.
                    <div class="hacker">sudo apt-get install webmin</div>
               </li>
  </ol>
- <h2>Verification</h2>
+ <h2>Verify the new user</h2>
  <ol>
                <li>Using your browser, access the Webmin login page: 
-                   <div class="hacker">https://your IP address:10000</div>
+                   <div class="hacker">https://<em><u>your IP address</u></em>:10000</div>
                </li>
-               <li>Ignore the SSL warning (you trust this server because you own it. 
+               <li>Ignore the SSL warning. You can trust this server, because you own it. 
               </li>
-              <li>A login screen will appear.  Log in using the <em><u>yourloginuser</u></em> and start using webmin!
+              <li>A login screen will appear.  Log in using the <em><u>yourloginuser</u></em> and start using Webmin!
               </li>
 </ol>
 

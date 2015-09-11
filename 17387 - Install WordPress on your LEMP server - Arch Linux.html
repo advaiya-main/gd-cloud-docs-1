@@ -5,6 +5,8 @@
 <head>
 
 
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
 
 <title>Install WordPress on your LEMP server - Arch Linux</title>
 <style>
@@ -112,10 +114,10 @@ p.note {
 
                 <li>At the prompt, enter your MySQL root password.  </li>
 
-                <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name fittingly as "wordpress."
+                <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name fittingly as “wordpress.”
                     <div class="hacker">CREATE DATABASE wordpress;</div></li>
 
-                <li>Create the database administrator account and set the user’s credentials. For this tutorial, we’ll use "wordpressadmin" as the example user name, and "wordpresspassword" as the password.
+                <li>Create the database administrator account and set the user’s credentials. For this tutorial, we’ll use “wordpressadmin” as the example user name, and “wordpresspassword” as the password.
 <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
 
                     <p class="note">Note: Make sure to create a strong password for best security practices. Keep your username and password handy as you’ll need them later.</p></li>
@@ -145,7 +147,7 @@ p.note {
             This URL will always link to a compressed file of the latest stable version of WordPress.</li>
          
          <li>Extract, or untar, the application directory. <br />
-         Create a directory called "wordpress" in your home directory.   <br />
+         Create a directory called “wordpress” in your home directory.   <br />
                 <div class="hacker">sudo tar xzvf latest.tar.gz </div> </li>
         </ol>
 <!--CT: (END)-->
@@ -164,7 +166,7 @@ p.note {
 <div class="hacker">sudo vim wp-config.php</div>
      </li>
    
-   <li>Look for this section of the code below (starting with "MySQL settings"…) and enter your corresponding values of the three <code>DB_</code> variables (<code>DB_NAME</code>, <code>DB_USER</code>, and <code>DP_PASSWORD</code>) with your information.
+   <li>Look for this section of the code below (starting with “MySQL settings”…) and enter your corresponding values of the three <code>DB_</code> variables (<code>DB_NAME</code>, <code>DB_USER</code>, and <code>DP_PASSWORD</code>) with your information.
 
 <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
 /** The name of the database for WordPress */ <br />
@@ -315,26 +317,26 @@ And comment it out. This is an option to restrict file access to certain directo
 
       <p>Good news: The rest of your installation will be done through the WordPress web interface.</p>
 
-        <ol>
-     <li>  Enter your server’s domain name or public IP address in your web browser. <br />
-   <strong>http://your_domain_name_or_IP</strong><br/>
-   You are redirected to the WordPress admin page:<code> http://server_domain_name_or_IP/wp-admin/install.php</code><br/>
-   </li>
+     <ol>
+<li>  Enter your server’s domain name or public IP address in your web browser.
+   <div class="hacker">http://<em><u>your IP/wp-admin/install.php</u></em></div>
+   In most cases, your IP alone should redirect you to the WordPress page. But if you get the Nginx default page, make sure to include the <code>/wp-admin/install.php</code> portion to the URL.</li>
 
-  <li>If you get the preliminary page to choose your language, do so and select <strong>Continue</strong>.
-</li>
+   <li>If you get this preliminary page to choose your language, do so and select <strong>Continue</strong>.
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17387/082015/install-wordpress-on-your-server-choose-language-0.5.png" alt="install wordpress choose language"/> </li>
+<li>At the WordPress configuration page, fill out your information to create your administrator account. <br />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17387/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> <br />
+WordPress confirms your installation by displaying your user name and password.<br />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17387/082015/install-wordpress-on-your-server-success-login-confirmation-2.png" alt="install wordpress confirmation screen" />  </li>
+   <li>  <p>Click <strong>Login.</strong> WordPress  prompts you to log in with your new credentials.</p>
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17387/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" />
 
-<li>At the WordPress 5-minute installation page, fill out your information to create your administrator account. Then, click <strong>Install WordPress</strong>.
-<p><img src="images/17387/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </p></li>
-<li>On the next screen, WordPress confirms your installation with your user name and (hidden) password. Click <strong>Log In</strong>.</li>
-
- <li><p> WordPress then prompts you to log in again with your new credentials. Do so now and click <strong>Log In</strong>.</p>
-<img src="images/17387/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" /></li>
-     </ol>
+                                                          </li>
+                                                            </ol>
 
  <p>All done!  The dashboard of your new site displays.</p>
  
-<img src="images/17387/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
+<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17387/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
 
              
     <h2>Next steps</h2>

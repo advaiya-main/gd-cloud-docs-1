@@ -9,7 +9,7 @@
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>Configure Devise and Omniauth for your Rails application - ALL DISTROS</title>
+<title>Configure Devise and Omniauth for your Rails Application - ALL DISTROS</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -74,7 +74,7 @@ p.note {
 
 <body>
 <p>Configuring Devise and OmniAuth for your Rails application on all distros, Ruby, Rails, API</p>
-    <h1>Configure Devise and OmniAuth for your Rails application - ALL DISTROS</h1>
+    <h1>Configure Devise and OmniAuth for your Rails Application - ALL DISTROS</h1>
     
     <p><strong>Difficulty</strong>: <em>3</em><br/>
         <strong>Time</strong>: <em>Less than 20 minutes</em></p>
@@ -82,7 +82,7 @@ p.note {
     <p>Devise and OmniAuth are the two most popularly used user registration and authentication mechanism in most Ruby on Rail applications.  Developing these mechanisms right from the beginning needs a lot of effort and time. In such situation, you can use Devise gem. Using this you can set up an authentication mechanism within minutes. If you allow your users to login with their existing Facebook, Amazon or Twitter accounts, you can expect them to be much happier. You can perform this with the help of OmniAuth gem.</p>
 	
 	<h2>Prerequisites</h2>
-	<p>Through this tutorial, you will install Devise and OmniAuth gem with your Ruby application. You should setup a sudo user for each RethinkDB server as working with a sudo user is a good security practice.</p>
+	<p>Through this tutorial, you will install Devise and OmniAuth gem with your Ruby application. You should setup a sudo user for each RethinkDB server, as working with a sudo user is a good security practice.</p>
 	<p>Before starting with the installation steps, you should have a server (with any Linux version) with Ruby installed through <strong>RVM (Ruby Version Manager).</strong> You can refer below links to know about installing Ruby using <strong>RVM</strong></p>
 	<ul>
 	<li><a href="#">17534 - Install Ruby on Rails using RVM – Ubuntu</a>
@@ -100,26 +100,26 @@ p.note {
 	
 	<h2>Create a Rails application</h2>
 <ol> 
-<li>Before adding a new Rails application, it is always recommended to have it installed on a separate directory
+<li>Before adding a new Rails application, it is always recommended to have it installed on a separate directory.
    <div class="hacker">mkdir  rails_applications</div>
     <div class="hacker">cd rails_applications</div>
    </li>
-   <li>Since you are using sudo users for the purpose installation, RVM will be installed in user’s home directory and you can start the RVM script from <code>~/.rvm/scripts/rvm</code>
+   <li>Since you are using sudo users for the purpose installation, RVM will be installed in user’s home directory and you can start the RVM script from <code>~/.rvm/scripts/rvm</code>.
    <div class="hacker">Source ~/.rvm/scripts/rvm</div>
    <div class="hacker">rvm use ruby –default</div>
    </li>
-   <li>Create a new application. You may call it as <code>myapp</code> 
+   <li>Create a new application. You may call it as <code>myapp</code>. 
    <div class="hacker">rails new myapp</div>
    <div class="hacker">cd myapp</div>
    </li>
-   <li>You should run all Rails installations inside your application directory <code>~/.rails_applications/myapp</code>
+   <li>You should run all Rails installations inside your application directory <code>~/.rails_applications/myapp</code>.
    </li>
   </ol>
   
-  <h2>Add Required Gems to the Gemfile</h2>
+  <h2>Add required Gems to the Gemfile</h2>
   <p>In this section, you will need Devise and OmniAuth gems. Along with this, you also need a separate gems for every OAuth service provider which you would like to add. In this tutorial, you will login through Facebook for which<code> omniauth-facebook</code> gem is required for Facebook authentication.</p>
 <ol> 
-<li>Add following lines to the end of the file <code>~/rails_apps/myapp/Gemfile</code>
+<li>Add following lines to the end of the file <code>~/rails_apps/myapp/Gemfile</code>:
     <div class="hacker">gem 'therubyracer'</div>
     <div class="hacker">gem 'devise'</div>
     <div class="hacker">gem 'omniauth'</div>
@@ -137,7 +137,7 @@ p.note {
    </li>
    </ul>
    </li>
-   <li>Install the newly added gems
+   <li>Install the newly added gems.
      <div class="hacker">bundle install</div>
    </li>
   </ol>
@@ -145,11 +145,11 @@ p.note {
   <h2>Add the application for testing</h2>
   <p>Here, you will add few pages for testing. These pages will be available after you login into your application.</p>
 <ol> 
-<li>To add these pages, you will use Rails' scaffolding feature. With <code>rails g scaffold</code> command, you just need to specify the model and Ruby will generate the fully functional pages for you
+<li>To add these pages, you will use Rails' scaffolding feature. With <code>rails g scaffold</code> command, you just need to specify the model and Ruby will generate the fully functional pages for you.
    <div class="hacker">rails g scaffold Product name:string price:integer description:text</div>
    <div class="hacker">rake db:migrate</div>
    </li>
-   <li>Define the root of this application. To add the root of the application, you need to edit the file <code>~/.rails_applications/myapp/config/routers.rb</code> and then append the line <code>root 'products#index'</code>
+   <li>Define the root of this application. To add the root of the application, you need to edit the file <code>~/.rails_applications/myapp/config/routers.rb</code> and then append the line <code>root 'products#index'</code>.
    <div class="hacker">
    <pre>
 Rails.application.routes.draw do
@@ -159,13 +159,13 @@ end
 </pre>
    </div>
    </li>
-   <li>Start your application sever to test the features which you have added just now
+   <li>Start your application sever to test the features which you have added just now.
    <div class="hacker">rails s </div>
    </li>
-   <li>This will start the application in your <code>localhost</code>. If you wish to bind the same on your IP address, then you can start the application server as
+   <li>This will start the application in your <code>localhost</code>. If you wish to bind the same on your IP address, then you can start the application server as:
    <div class="hacker">rails s –bindings=ip_address</div>
    </li>
-   <li>The application will be listening to port 3000. You can access this application in either of the ways, using <code>localhost (http://localhost:3000)</code> or through the IP address on which the application is binded to.<code>(http://&lt;ip_address&gt;:3000)</code>
+   <li>The application will be listening to port 3000. You can access this application in either of the ways, using <code>localhost (http://localhost:3000)</code> or through the IP address on which the application is binded to<code>(http://&lt;ip_address&gt;:3000)</code>.
    </li>
    <li>Once you access, you can see the page to add new products. Add new products and this will be saved in your application.
    <img src="images/18309 - 1.png" alt="18309 - 1.png"/>
