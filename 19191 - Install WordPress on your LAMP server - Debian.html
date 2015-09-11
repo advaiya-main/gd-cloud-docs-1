@@ -109,7 +109,7 @@ p.note {
 <div class="hacker">CREATE DATABASE wordpress;</div></li>
 
             <li>Create the database administrator account, and set the user's credentials.  For this article, we'll use &quot;wordpressadmin&quot; as the example user name and &quot;password&quot; as the password.
-              <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'password';</div>    
+              <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>    
 ’ll need them later.</li>
 
             <li>Give, or grant, your admin permissions to the database.
@@ -140,14 +140,9 @@ p.note {
 <div class="hacker">tar xzvf latest.tar.gz </div>
 <p>This command creates a directory called <code>wordpress</code> in your home directory.</p></li>
 
-        <li>Unhide any hidden files using <code>shopt</code> (shell options) and <code>dotglob</code>:
-            <div class="hacker">shopt -s dotglob</div>  </li>
 
         <li>Copy files to the document root <code>/var/www/</code>.
             <div class="hacker">sudo cp -R ~/wordpress/* /var/www/</div>  </li>
-
-        <li>Turn off <code>dotglob</code>:
-            <div class="hacker">shopt -u dotglob</div>  </li>
 
         <li>Give your web server process, <code>www-data</code>, ownership values to allow Apache to interact with the content.
             <div class="hacker">sudo chown -R www-data:www-data /var/www/</div></li>
@@ -171,7 +166,7 @@ p.note {
      <li>Open the configuration file in your text editor.
             <div class="hacker">sudo vim wp-config.php</div>  </li>
 
-   <li> Look for the following section of the code  (starting with <code>MySQL settings</code>…), and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
+   <li> Look for the following section of the code (starting with <code>MySQL settings</code>…), and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
 Use the credentials that you just created.
 
      <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
@@ -182,7 +177,7 @@ define('DB_NAME', 'wordpress'); <br />
 define('DB_USER', 'wordpressadmin');     <br />
 
 /** MySQL database password */ <br />
-define('DB_PASSWORD', 'password');   </div> </li>
+define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
 <li>Save and close the file.</li>
 </ol>
 
@@ -192,7 +187,7 @@ define('DB_PASSWORD', 'password');   </div> </li>
 
      <ol>
      <li>  Enter your server’s domain name or public IP address in your web browser. <br />
-   <strong>http://server_domain_name_or_IP</strong><br/>
+   <strong>http://your_domain_name_or_IP</strong><br/>
    You are redirected to the WordPress admin page:<code> http://server_domain_name_or_IP/wp-admin/install.php</code><br/>
    </li>
 
