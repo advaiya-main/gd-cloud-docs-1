@@ -6,7 +6,7 @@
 
 
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
+   <!--Article Number is 17685-->
 
 <title>Set up WordPress Multisite in NGINX - Arch Linux</title>
 <style type='text/css'>
@@ -26,7 +26,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .<h1></h1>5em 4em;
+ padding: .5em 1em .5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -94,7 +94,7 @@ We'll set up a fresh install of WordPress in Nginx on an Arch Linux system. The 
 <p>We'll use these example sites: </p>
 <table>
   <tr>
-    <td><b>Site 1</b></th>
+    <th><b>Site 1</b></th>
     <td>coolexample.com (primary)</td>
   </tr>
   <tr>
@@ -114,17 +114,17 @@ aboutus.coolexample.com</td>
 <ul>
 <li>You'll need a Linux, Nginx&reg;, MySQL, and PHP (LEMP) stack configured. Make sure that Nginx, MySQL, and PHP are up and running. For instructions, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17350%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Arch%20Linux.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) – Arch Linux</a></li>
 
-<p>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</p></li> 
+<li>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.
 
-<li>Install <code>wget</code> if you haven't already. 
-        <div class="hacker">sudo pacman -S wget</div>
+    Install <code>wget</code> if you haven't already.
+        <div class="hacker">sudo pacman -S wget</div>  </li>
                                                           
-<p>Select <strong>y</strong> at the prompt to continue with the installation.</p></li>
+<li>Select <strong>y</strong> at the prompt to continue with the installation.</li>
 
 
 <li>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
 
-                    
+ </ul>
 <h3>Modify the Nginx configuration file</h3>
 
             <ol>
@@ -136,18 +136,18 @@ aboutus.coolexample.com</td>
             
               <li>Open the <code>nginx.conf</code> file.
                 <div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
-                </ol>
 
-           In the file, make these changes: 
-           <ul>
-              <li>Make <code>server_name</code> point to your domains.  
+
+            <li>In the file, make these changes:
+
+             Make <code>server_name</code> point to your domains.
                  <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div></li>
             
             <li>Make sure that <code>index.php</code> is added to the index line in the <code>http {</code> section towards the middle of the file (as already done from your LEMP installation).</li>
 
             <li>In the <code>server</code> section (probably towards the middle of the file), find the <code>root</code> line and change the root to point to <code>/var/www/wordpress;</code></li>
 
-    </ul>
+    </ol>
 <p class="note">
             You may have made some of these changes when you installed your LEMP stack.  </p>
  
@@ -172,7 +172,7 @@ worker_processes  1;
             listen 80;
             root    <em><u>/var/www/wordpress;</u></em>
             index index.php index.html index.htm;
-            server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</em></u>
+            server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</u></em>
 
             location ~ \.php$ {
                     fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
@@ -185,7 +185,7 @@ worker_processes  1;
 
 }
 </pre></div> 
- 
+
  <ul> <li>Save and close.</li>
 
  <li>Restart nginx to make your changes take:
@@ -384,7 +384,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 
 <li>To the left of that on the top navigation bar is <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
 
-At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar.<br/></li>
+At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar.<br/>
 <img src="images/17685/090215/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> </li>
 
 <li>On the main screen, next to <strong>Sites</strong>, click <strong>Add New</strong>.</li>
