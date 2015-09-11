@@ -123,10 +123,10 @@ p.note {
 
                 <li>At the prompt, enter your MySQL root password.  </li>
 
-                <li>At the MySQL prompt, create your WordPress database. We’ll use the database name   “wordpress."
+                <li>At the MySQL prompt, create your WordPress database. We’ll use the database name   "wordpress."
                   <div class="hacker">CREATE DATABASE wordpress;</div></li>
 
-                <li>Create the database administrator account, and set the user’s credentials.  We’ll use “wordpressadmin" as the example user name and “wordpresspassword" as the password.
+                <li>Create the database administrator account, and set the user’s credentials.  We’ll use "wordpressadmin" as the example user name and "wordpresspassword" as the password.
                     <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
                     <p class="note">Make sure to create a strong password for best security practices. Keep your username and password handy as you’ll need them later.</p></li>
 
@@ -135,7 +135,7 @@ p.note {
                 <code>GRANT</code> is one of the account management statements the MySQL server notices and loads into memory right away. So a manual reload/restart should not be necessary. But if you like, you can check the permissions using <code>SHOW GRANTS.</code>
                 <div class="hacker">SHOW GRANTS FOR 'wordpressadmin'@'localhost';</div></li>
 
-                <li>If  the privileges don’t take, flush the privileges to activate the user. <span class="hacker"><code>FLUSH</code></span> forces a reload of the cache.
+                <li>If the privileges don’t take, flush the privileges to activate the user. <span class="hacker"><code>FLUSH</code></span> forces a reload of the cache.
 <div class="hacker">FLUSH PRIVILEGES;</div>  </li>
 
                 <li> Exit MySQL to bring you back to your normal command prompt.
@@ -155,7 +155,7 @@ p.note {
                 <div class="hacker">wget http://wordpress.org/latest.tar.gz    </div>
             This URL  always links to a compressed file of the latest stable version of WordPress.</li>
 
-         <li>Extract, or untar, the application directory.    <div class="hacker">sudo tar xzvf latest.tar.gz </div>  This command creates a directory called “wordpress" in your home directory.</li>
+         <li>Extract, or untar, the application directory.    <div class="hacker">sudo tar xzvf latest.tar.gz </div>  This command creates a directory called "wordpress" in your home directory.</li>
         </ol>
 <!--CT: (END)-->
 
@@ -242,7 +242,7 @@ define('DB_PASSWORD', 'wordpresspassword');   </div>
           <li>Make sure that <code>index.php</code> is added to the index line in the <code>http {</code> section towards the middle of the file (likely already done from your LEMP installation). </li></ul>
          <ul><li>In the <code>server {</code> section (probably towards the middle of your file), find the <code>root</code> line and change the root to point to <code>/var/www/wordpress;</code>  </li></ul> 
       <p>   Some of these changes may have made when you installed your LEMP stack.  </p>
-      
+
          After your changes, your file may resemble this example (Some parts are truncated):
 <div class="hacker"><pre>
    # For more information on configuration, see:
