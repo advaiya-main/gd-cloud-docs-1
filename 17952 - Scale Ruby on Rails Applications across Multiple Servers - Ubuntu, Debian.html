@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 
 <head>
-    <title>17952</title>
+<!--Article number is 17952 -->
+    <title>Scale Ruby on Rails applications across multiple servers - Debian, Ubuntu</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <style type="text/css">
@@ -46,25 +47,23 @@
 
 <body>
 
-<p>Scale Ruby on Rails applications across multiple servers - Debian, Ubuntu, Ruby on Rails, Scaling</p>
-<h1>Scale Ruby on Rails applications across multiple servers - Debian, Ubuntu</h1>
+<p>Scale Ruby on Rails applications across Multiple Servers - Debian, Ubuntu, Ruby on Rails, Scaling</p>
+<h1>Scale Ruby on Rails applications across Multiple Servers - Debian, Ubuntu </h1>
 
 <p><strong>Difficulty:</strong> <em>4</em></p>
 <p><strong>Time:</strong> <em>2 hr</em></p>
 
-<p>In this article, you will learn to scale the Rails application, which is configured with database servers like PostgreSQL and MySQL and then enable the app to distribute load across multiple Debian or Ubuntu servers using Unicorn to handle multiple incoming requests.</p>
-
-<h2>Scalable application server overview</h2>
-<p>Two key elements are required to build a scalable application server:</p>
+<p>When it comes to building a scalable application server, two key elements are required:</p>
 <ul>
-	<li>Application servers – Rails or Unicorn</li>
-	<li>Webserver - NGINX</li>
+    <li>Application servers – Unicorn or Rails</li>
+    <li>Webserver - NGINX</li>
 </ul>
+<p>Unicorn is often the preferred choice for the ease-of-debugging, process management and load balancing capabilities. NGINX is popular because of its light weight web server that will be used as a load-balancer with Unicorn based application for the following example. In this article, you will see ways to scale the Rails application that is configured with database servers like PostgreSQL and MySQL, and enable the app to distribute the load across multiple Debian or Ubuntu servers using Unicorn to handle multiple incoming requests.</p> 
+<p>In this article, you need to install Ruby on Rails using RVM. For detailed steps, see <a href="17538 - Install Ruby on Rails using RVM – Debian">Install Ruby on Rails using RVM – Debian</a> or <a href="17534 - Install Ruby on Rails using RVM – Ubuntu">Install Ruby on Rails using RVM – Ubuntu</a>. In addition, this article is the first part of three '<strong>Scaling Ruby on Rails</strong>' series of articles. To refer the other two series, see <a href ="17981">Scaling Ruby on Rails: Setting Up A Dedicated MySQL Server (part 2) - Debian, Ubuntu</a> and <a href ="17894">Scaling Ruby on Rails: Setting Up A Dedicated PostgreSQL Server (Part 3) - Debian, Ubuntu</a>.</p> 
 
-<p>Unicorn is often the preferred choice because of ease-of-debugging, process management and load balancing capabilities. NGINX is popular because of its light weight web server, which will be used as a load-balancer with Unicorn based application for the following example. </p>
 
-<h3>Prepare sever build</h3>
-<p>Prepare Debian/Ubuntu by installing the latest updates available. Login into the Ubuntu/Debian machine and perform these steps using the commands described here. It is assumed that you have the sudo user privileges when performing the following tasks:</p>
+<h2>Prepare the sever build</h2>
+<p>Prepare Debian/Ubuntu by installing the latest updates available. Login into the Debian or Ubuntu machine and perform these steps using the commands described here. It is assumed that you have the sudo user privileges when performing the following tasks:</p>
 <ol> 
 <li>Update the Debian/Ubuntu server.
 
@@ -85,29 +84,27 @@ Do you want to continue? [Y/n]”</pre></div>
 </li>
 </ol>
 
-<h3>Setup application servers</h3>
-<p>To setup Ruby on Rails environment, perform the following steps:</p>
-<ol>
-<li><p>To install Ruby on Rails using RVM, and to install Node.js, see <a href="#"> Install Ruby on Rails using RVM – Ubuntu</a></p></li>
+<h2>Set up the application servers</h2>
+<ul>
 <li>Install the Unicorn web application.
 		<div class='hacker'>gem install unicorn</div>
 </li>
-</ol>
+</ul>
 
-<h3>Create a sample Rails application</h3>
+<h2>Create a sample Rails application</h2>
 
 <ol>
 <li><p>Create a sample application in Rails using the below commands:</p>
 
-<p class="note">Take the current directory of user as the web root.</p>
+<p class="note">For this article, the current directory of user is taken as web root.</p>
 
-<div class='hacker'>sudo mkdir /tmp/rails_application</div>
+<div class='hacker'>sudo mkdir /tmp/<em><u>rails_application</u></em></div>
 
-<div class='hacker'>cd /tmp/rails_application</div>
+<div class='hacker'>cd /tmp/<em><u>rails_application</u></em></div>
 
-<div class='hacker'>rails new HelloRails</div>
+<div class='hacker'>rails new <em><u>HelloRails</u></em></div>
 
-<div class='hacker'>cd HelloRails</div>
+<div class='hacker'>cd <em><u>HelloRails</u></em></div>
 
 <div class='hacker'><pre># Create a sample resource
 rails generate scaffold Task title:string note:text</pre></div>
@@ -120,33 +117,29 @@ RAILS_ENV=production  rake db:migrate</pre></div>
 sudo mkdir pids    </pre></div>
 </li>
 
-<li>Test the application.
-<p>Bind it to the public IP to access it from any public IP.</p>
-<div class='hacker'>rails server --binding=192.169.171.81 </div>
+<li>Test the application and then bind it to the public IP to access it from any public IP.
+<div class='hacker'>rails server --binding=<em><u>public_ip</u></em> </div>
 
-<p>This will boot up the default server on our machine. For this sample environment, WEBrick is the default server, which gets started as shown below:</p>
+<p>This will boot up the default server on the machine. For this sample environment, <strong>WEBrick</strong> is the default server, that gets started. </p>
 
-<img src="images/17952-1.png" alt="17952" />
  
 </li>
-<li>It will be accessible via the web browser. 
+<li>The application should now be accessible via web browser as http://<em><u>public_ip</u></em>:3000/tasks.</li>
 
-<div class='hacker'>http://192.169.171.81:3000/tasks</div>
+<li>To stop the server, press <strong>CTRL+C</strong>.</li>
 
-<p>To stop the server, press CTRL+C.</p>
 
-</li>
 </ol>
 
-<h3>Step 4: Install web-application (Unicorn) and NGINX </h3>
+<h2>Install web-application (Unicorn) and NGINX </h2>
 
-<p>To start using Unicorn, it must be configured with our environment. There are multiple ways to configure the Unicorn servers. Below are some easy steps for configuring the Unicorn server using the <code>vim</code> editor:</p>
+<p>To start using Unicorn, it must be configured with the environment. There are multiple ways to configure the Unicorn servers. Below are some easy steps for configuring the Unicorn server using the <code>vim</code> editor:</p>
 
 <ol>
 <li>Create a new configuration file <code>unicorn.rb</code> for storing all configuration settings.
-<div class='hacker'>sudo vim config/unicorn.rb</div>
+<div class='hacker'>sudo vim config/unicorn.rb</div></li>
 
-<p>Place the below code in the file (copy from here, and paste into the file).</p>
+<li>Place below code in the file.
 
 <div class='hacker'><pre># Set the working application directory
 # working_directory "/tmp/rails_application/HelloRails"
@@ -168,19 +161,17 @@ stdout_path "/tmp/rails_application/HelloRails/log/unicorn.log"
 worker_processes 5
 
 # Time-out
-timeout 20</pre></div>
+timeout 20</pre></div></li>
 
-<p>Save and Exit the Vim editor by pressing Esc and pressing “:wq”.</p>
-</li>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 
-<li>Run the following command to start Unicorn in daemon mode using the configuration file.
+<li>Start Unicorn in daemon mode using the configuration file.
 
 <div class='hacker'>unicorn_rails -c /tmp/rails_application/HelloRails/config/unicorn.rb -D</div>
-
 </li>
 </ol>
 
-<h3>Step 5: Set up NGINX as Reverse-Proxy and Load-Balancer</h3>
+<h2>Set up NGINX as reverse-proxy and load-balancer</h2>
 <ol>
 <li>Install NGINX.
 <div class='hacker'>sudo apt-get install nginx</div>
@@ -188,30 +179,27 @@ timeout 20</pre></div>
 <p>When prompted for confirmation, press <strong>Y</strong> and press <strong>Enter</strong>.</p>
 
 </li>
-<li>Identify the public IP.
-<p>Before configuring NGINX server, you need to keep a note of the public IP address of your droplet. For this, <code>ifconfig</code> command can be used.</p>
+<li>Identify the public IP and note the public IP address of your droplet, before configuring the NGINX server. For this, <code>ifconfig</code> command can be used.
 <div class='hacker'>ifconfig</div>
-<img src="images/17952-2.png" alt="17952" /> 
 
-<p>The value provided under the head <code>inet addr</code> is the public IP address of our droplet.</p>
+<p>The value provided under the head <code>inet addr</code> is the public IP address of the droplet.</p>
 </li>
-<li>Configuring NGINX. 
-<p>After installation, open the configuration file.</p>
+<li>Open the NGINX configuration file for editing.
 
 <div class='hacker'>sudo vim /etc/nginx/nginx.conf</div>
 
-<p>Find the line mentioning inclusion of all .conf files (inside the block http {…} ), and comment out that line. </p>
+<p>Locate the line about inclusion of all <code>.conf files</code> inside the block <code>http {…}</code>, and comment out that line. </p>
 
 <div class='hacker'><pre># Before:
 include /etc/nginx/conf.d/*.conf;
 
 # After:
 # include /etc/nginx/conf.d/*.conf;</pre></div>
+</li>
 
-
-<p>Also, in the same http { … } block, insert the following code:</p>
-
-<div class='hacker'><pre># Set your server 
+<li>In the same http <code>{ … } block</code>, insert the following code:
+<div class='hacker'><pre>
+# Set your server 
 # server_name www.example.com;
 
 upstream unicorn_servers {
@@ -237,25 +225,21 @@ server {
         proxy_pass http://unicorn_servers;
     }
 
-}</pre></div>
+}</pre></div></li>
 
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 
-<p>Save and Exit the Vim editor by pressing Esc and pressing “:wq”.</p>
-</li>
-<li>To get started, run the NGINX daemon by typing the below command:
+<li>Start the NGINX daemon, by typing the below command:
 	<div class='hacker'>sudo service nginx start</div>
 </li>
 </ol>
-
- <p>To check the NGINX server, type the public IP address directly into the web browser:</p>
-<div class='hacker'>http://192.169.171.81/</div>
-<p>The welcome message by NGINX would be visible:</p>
- <img src="images/17952-3.png" alt="" />
+<p>To check the NGINX server, type the public IP address directly into the web browser: http://<em><u>public_ip</u></em>/. The welcome message by NGINX would be visible:</p>
+ <img src="images/17952/091115/welcome-message.png" alt="welcome-message" />
 
 
 
-<h3>Conclusion</h3>
-<p> In this article youl learned to build a scalable application server using Unicorn or Rails applications server and NGINX webserver. This would enable any critical app (like PostgreSQL and MySQL) to distribute the load across multiple servers to handle multiple incoming requests.</p>
+<h2>Conclusion</h2>
+<p> In this article, you learned to build a scalable application server using Unicorn or Rails applications server and NGINX webserver. This would enable any critical app (like PostgreSQL and MySQL) to distribute the load across multiple servers to handle multiple incoming requests.</p>
 
 
 </body>
