@@ -98,12 +98,6 @@ p.note {
      <div class="hacker">sudo systemctl enable nginx</div></li>
  </ol>
 
-<p>A quick note about security concerns:  NGINX starts as root but runs as "nobody" by default.  This means that it is reasonably secure "as-is" and there is no need to create a special NGINX user.  
-    However, if you are so inclined make sure your user has access to the document root and whatever other resources NGINX depends on for your configuration.</p>
-
-     
-
-
 <p>Nginx is now running as a web server.&nbsp; You can verify this using your browser to navigate to the IP address of your cloudserver, e.g. <code>http://[IP Address of your cloudserver] </code></p>
   
  <h2>Next steps</h2>
