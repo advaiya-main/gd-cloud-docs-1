@@ -4,8 +4,6 @@
 
 <head>
 
-
-
 <title>Set up WordPress Multisite in NGINX - Fedora 20</title>
 <style type='text/css'>
 div.hacker {
@@ -24,7 +22,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .<h1></h1>5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -75,8 +73,7 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-<!--Christine, the images are not loading properly. Susan recently wrote up some instructions on how to link them. Can you take a look? Thanks! cj -->
-<!--CT: Yup, fixed (I think) 9/08-->
+
 
 <p>Installing Wordpress Multisite on a LEMP server for Fedora 20.</p>
     <h1>Set Up WordPress Multisite in Nginx - Fedora 20</h1>
@@ -87,7 +84,7 @@ td:nth-child(1) {font-weight:bold;}
    <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you’d otherwise have to log into different WordPress accounts.</p> 
 
 <p>For this article, we'll walk through setting up WordPress multisite for a primary domain and its subdomains. 
-We'll set up a fresh installation of WordPress in Nginx on a Fedora 20 system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
+We'll set up a fresh installation of WordPress in Nginx&#8482; on a Fedora&#8482; 20 system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
 <p>We'll use these example sites: </p>
   <table>
 
@@ -109,20 +106,19 @@ aboutus.coolexample.com<br/></td>
 </table>
 
 <h2>Prerequisites</h2>
-
 <ul>
-<li>You'll need a Linux, Nginx&reg;, MySQL, and PHP (LEMP) stack configured. Make sure that Nginx, MySQL, and PHP are up and running. For instructions, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/19187%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Fedora%2020%20.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) – Fedora 20</a>.</li>
+  <li>A Linux&#8482;, Nginx, MySQL&#8482;, and PHP (LEMP) stack configured. Make sure that Nginx, MySQL, and PHP are up and running. For instructions, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/19187%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Fedora%2020%20.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) – Fedora 20</a>. As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</li>
+  <li>
+  Install <code>tar</code> using <code>yum</code>.
 
-<li>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</li>
+<div class="hacker">
+  sudo yum install tar
+</div>
+ Select <strong>y</strong> at the prompt to continue with the installation.</li> 
+  
+   <li>Set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
+</ul>
 
-<li>Install <code>tar</code> using <code>yum</code>.
-<div class="hacker">sudo yum install tar</div>  Select <strong>y</strong> at the prompt to continue with the installation.</li> </ul>
-
-<h3>Create a designated user for WordPress</h3>
-        <p> The user can be any user you create. We'll call ours  <code>wordpress_user</code>.</p>
-       <div class="hacker">sudo adduser wordpress_user</div>
-
-<p>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</p>
 
 <h2>Create the Wordpress document root directory</h2>
 
@@ -228,22 +224,22 @@ aboutus.coolexample.com<br/></td>
                 <li>Save and close the file.</li>
                 <li>Restart Nginx for the changes to take effect.
                     <div class="hacker">sudo service nginx restart</div>
-                    </li></ol>
+                  </li></ol>
 
 
 <h2>Create a MySQL database and administrator for WordPress</h2>
     
     <p>Set up your MySQL database with an administrator so that WordPress has a place to store all your site and user information.    </p>
 
-<p class="warning">All <b>MySQL</b> code statements must end with a semi-colon (;).</p>
+<p class="warning">All <strong>MySQL</strong> code statements must end with a semi-colon (;).</p>
 
 <ol>
     <li>Log into your MySQL admin account.
 <div class="hacker">mysql -u root -p</div>
-                     </li>
+  </li>
     <li>At the prompt, enter your MySQL root password.  </li>
-    <li>At the MySQL prompt, create your WordPress database. For this article, we'll use the database name "wordpress."
-  <div class="hacker">CREATE DATABASE wordpress;</div></li>
+    <li>At the MySQL prompt, create your WordPress database. We'll use the database name "wordpress."
+      <div class="hacker">CREATE DATABASE wordpress;</div></li>
 <li>Create the database administrator account, and set the user's credentials. We'll use "wordpressadmin" as the example user name, and "wordpresspassword" as the password.
   <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
   As a best security practice, create a strong password. Keep your user name and password handy, as you'll need them later.</li>
@@ -257,7 +253,7 @@ aboutus.coolexample.com<br/></td>
 
 <li> Exit MySQL to return to your normal command prompt.
   <div class="hacker">exit</div> </li>
-  </ol>
+</ol>
 
 <p>You're finished! </p>
 
@@ -267,15 +263,14 @@ aboutus.coolexample.com<br/></td>
      <ol>
   <li>Download the WordPress files from the official site using <code>wget</code>.
     <div class="hacker">cd ~</div>
-<div class="hacker">wget http://wordpress.org/latest.tar.gz    </div>    <br />
+<div class="hacker">wget http://wordpress.org/latest.tar.gz    </div>  
  This URL always links to a compressed file of the latest stable version of WordPress.   </li>
          
 <li>Extract, or untar, the application directory.
 <div class="hacker">tar -xf latest.tar.gz</div>
 This command creates a directory called "wordpress" in your home directory.</li>
 
-<li>Copy the files into the </li>
-<li>WordPress document root.
+<li>Copy the files into the WordPress document root.
   <div class="hacker">sudo cp -r ~/wordpress/* /var/www/wordpress</div>
 </li>
 
@@ -290,16 +285,16 @@ This command creates a directory called "wordpress" in your home directory.</li>
 
 <h2>Install WordPress</h2> 
 
-      <p>Now you can access the WordPress web interface.</p>
+<p>Now you can access the WordPress web interface.</p>
      
      <ol>
      <li>  In your web browser, enter your primary domain name. In our example, that's 
    <strong>http://coolexample.com</strong>.
-   (If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL.)<br/>
-       You may get an introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
+   (If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL.)</li>
+     <li>If  an introductory page displays, click <strong>Let's go!</strong> to continue.</li>
 
      <li>On the next page, fill out your WordPress MySQL database credentials. 
-     You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. <br/>
+     You can leave  <strong>Database Host</strong> as is (localhost), since that's what we defined, and <strong>Table Prefix</strong> as wp_. <br/>
  
 <img src="images/00037/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
   </li>
@@ -308,7 +303,7 @@ This command creates a directory called "wordpress" in your home directory.</li>
   The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
 <img src="images/00037/090815/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
 </li>
-      </ol>
+</ol>
       
 <h3>Create and modify the WordPress configuration file</h3> 
    
@@ -345,12 +340,12 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
     
       <li>Restart Nginx.
      <div class="hacker">sudo service nginx restart</div></li>
-     </ol>
+</ol>
 
      <h3>Continue setup in the WordPress web interface</h3>
       
       <ol>
-        <li>Return to your browser, and click <strong>Run the Install</strong> on the screen you were just on to continue the WordPress web installation. You should be taken to the WordPress 5-minute install screen.
+        <li>Return to your browser, and click <strong>Run the Install</strong> on the screen you were just on to continue the WordPress web installation. The WordPress 5-minute install screen should display.
         
 <br />
 <img src="images/00037/090815/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
@@ -358,20 +353,20 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
         <li>Click <strong>Install WordPress</strong>.</li>
       </ol>
       
-<p class="note">During web installation, if you get an error such as a 404 or 504 page, reload the wp-admin page (<code>http://coolexample.com/wp-admin/</code>).</p>  
+<p class="note">During web installation, if you get an error such as a 404 or 504 page, reload the <code>wp-admin</code> page (<code>http://coolexample.com/wp-admin/</code>).</p>  
 
     <h2>Enable multisite</h2>
    
    <ol>
    
-  <li>In your browser, continue the WordPress web installation. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.
+  <li>In your browser, continue the WordPress web installation. Click  <strong>Tools</strong> on the left-hand panel, and then click <strong>Network Setup</strong>.
   </li>
   
   <li>Because we're working with sub-domains, choose <strong>sub-domains</strong>
   and change your Network Title if you like. Click <strong>Install</strong>.
 </li> 
 
- <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. You'll  paste this code into your configuration file.
+ <li>In the next <strong>Network Setup</strong> screen, copy the <code>wp-config</code> code in the first section. You'll  paste this code into your configuration file.
    <p class="note">For Nginx, there's no <code>htaccess</code> file. We'll ignore the <code>.htaccess</code> code.</p>
  
  <img src="images/00037/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup" /><br/>
@@ -383,7 +378,7 @@ define('DOMAIN_CURRENT_SITE', coolexample.com');
 define('PATH_CURRENT_SITE', '/');
 define('SITE_ID_CURRENT_SITE', 1);
 define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
-             </li>
+     </li>
  
    <li>In your terminal, pull up your <code>wp-config</code> file.
 <div class="hacker">cd /var/www/wordpress</div>
@@ -400,12 +395,11 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 <ol>       
 <li>Back in your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page. Then, log back in if your password isn't saved.<br /></li>
 
-<li>To the left, on the top navigation bar, mouse over  <strong>My Sites</strong>, select <strong>Network Admin</strong> from the drop-down menu, and then select <strong>Sites</strong>. <br />
+<li>On the top navigation bar, mouse over  <strong>My Sites</strong>, select <strong>Network Admin</strong>, and then select <strong>Sites</strong>. <br />
 
   <img src="images/00037/090815/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> <br/>
 
-At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar.<!--Sounds a little wishy-washy. Is there a reason it would not have been there earlier? Seems it either would be or would not be. cj -->
-<!--CT: Good point. Because I thought on my 1st run-through, it was there before. But pretty much every run after that, it didn't appear until this point. Revised to reflect--></li>
+At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar.</li>
 
 
 <li>On the main screen, next to <strong>Sites</strong>, click <strong>Add New</strong>.</li>
@@ -413,15 +407,11 @@ At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(
 <li>Fill out your first subdomain information. </li>
 <li>Click <strong>Add Site</strong> to finish. </li>
 <li>Repeat for all your subdomains.</li>
- </ol>                              
-                                  
-
+</ol>
 
 <h2>Next Steps</h2>
  
- <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. <br />
-
- There's much you can do from here. One option is to map your subdomains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00035%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20in%20NGINX%20-%CentOS%207,%20Fedora%20.html">Set up WordPress Domain Mapping - CentOS 7, Fedora</a> for instructions. </p>
+ <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. There's much you can do from here. One option is to map your subdomains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00035%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20in%20NGINX%20-%CentOS%207,%20Fedora%20.html">Set up WordPress Domain Mapping - CentOS 7, Fedora</a> for instructions. </p>
 
 
 </body>
