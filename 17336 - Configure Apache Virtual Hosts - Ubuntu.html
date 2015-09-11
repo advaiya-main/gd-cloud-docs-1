@@ -160,20 +160,23 @@ p.note {
     <li>Open your newly-copied config file.
         <div class="hacker">sudo vim /etc/apache2/sites-available/coolexample.com.conf</div></li>
 
-<li>In the file, find these following lines scattered throughtout the file, and update each with your own domain.
- <div class="hacker">ServerName <em><u>www.coolexample.com</u></em></div>     
+<li>In the file, find <code>DocumentRoot</code> towards the beginning of the file, and update with your own domain.
+
+ <div class="hacker">DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em></div> </li>
+
+ <li>Below <code>DocumentRoot</code>, add these two lines.
+  <div class="hacker">ServerName <em><u>www.coolexample.com</u></em></div>     
  <div class="hacker">ServerAlias <em><u>coolexample.com</u></em></div> 
- <div class="hacker">DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em></div> 
-  
-&lt;/VirtualHost&gt; 
-  </pre></div>
+ </li>
+ 
+<li>Save and close.</li>
+</ol>
 
 <p>Note that updating the lines ServerAdmin, ErrorLog and CustomLog are not required to set up your virtual host, but you can go ahead and update ErrorLog and CustomLog to your domain and ServerAdmin to your email.</p>
-</li>
 
-<li>Save and close.</li>
+<h2>Enable your virtual host</h2>
 
-
+<ol>
 <li>Enable your virtual host file using <code>a2ensite</code>.
     <div class="hacker">sudo a2ensite coolexample.com.conf</div></li>
 
