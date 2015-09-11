@@ -58,16 +58,16 @@ p.note {
 
 <h2>Prerequisites </h2>
 
-        <p>You should have WordPress multisite installed. Find your article based on your system:
+        <p>You should have WordPress multisite installed. Find your article based on your system:</p>
     <ul>
       <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17680%20-%20Set%20up%20WordPress%20Multisite%20in%20ApacheX%20-%20Debian%20Ubuntu.html">Set up WordPress Multisite in Apache - Ubuntu</a></li>
    <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00048%20-%20Set%20up%20WordPress%20Multisite%20in%20Apache%20-%20Debian%20Debian.html">Set up WordPress Multisite in Apache - Debian</a></li>
-                 </ul>
+
                  
-         Install unzip, if you haven't already.
+       <li> Install unzip, if you haven't already.
                     <div class="hacker">sudo apt-get install unzip</div>  <br />
-                    If prompted, enter <strong>y</strong> to continue installation. 
-       
+                    If prompted, enter <strong>y</strong> to continue installation.   </li>
+  </ul>
 
 <h2>Download the plug-in</h2>
 
@@ -78,7 +78,7 @@ p.note {
 
 
             <li>Unzip the plug-in.
-                    <div class="hacker">unzip wordpress-mu-domain-mapping.latest-stable.zip </div> 
+                    <div class="hacker">unzip wordpress-mu-domain-mapping.latest-stable.zip </div>      </li>
                     
                   
 
@@ -103,7 +103,7 @@ p.note {
             <li>Open your <code>wp-config</code> file.
             <div class="hacker">sudo vim wp-config.php</div></li>
 
-             <li>Add this line before <code>/* That's all, stop editing! Happy blogging. */</code>. 
+             <li>Add this line before <code>/* That's all, stop editing! Happy blogging. */</code>.
             <div class="hacker">define('SUNRISE', 'on'); </div> </li>
             
             <li>Save and close.</li>
@@ -184,18 +184,18 @@ function do_get_id( $columns ) {
 
             <li>Back in the WP-Admin browser window, the <strong>Sites &gt; All Sites</strong> section should now show an additional <strong>ID</strong> column. Make note of the ID for your subdomain that you'll be mapping.</li> 
  </ol> 
-
+<!--skj: Images failed to load do to a file name typo fixed issue.  -->
 
   <h2>Map your domains</h2>
     <ol>
             <li>Make a note of the ID value for each site.</li>
-            <li>Under <strong>Settings</strong>, click <strong>Domains</strong>. 
+            <li>Under <strong>Settings</strong>, click <strong>Domains</strong>.
           </li>
             <li>On the <strong>Domain Mapping</strong> page, under <strong>New Domain</strong>, enter the <strong>Site ID</strong>, followed by the external domain for the site.<br />  
             <img src="images/00047/090815/wordpress-mu-domain-mapping-plugin-new-domain-screen5.png" alt="WordPress MU Domain Mapping Plugin New Domain screen" /> <br /> </li>
             <li>Click <strong>Save</strong>.</li>
 
-       
+
 
  </ol>
 
