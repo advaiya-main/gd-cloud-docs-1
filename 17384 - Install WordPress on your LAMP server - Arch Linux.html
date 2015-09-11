@@ -89,15 +89,15 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br />
         <strong>Time</strong>: <em><u>15 minutes</u></em></p>
 
-       <p>WordPress has become much more than its humble beginnings in 2003 as a self-hosted blogging tool; it is the Internet’s leading content management system (CMS). This open-source CMS powers all types of sites, including major brands such as The New Yorker, Variety, TechCrunch, and Best Buy. With a MySQL and PHP architecture, WordPress is easy to install and has endless options for website configuration thanks to tens of thousands of plugins and themes from its rich and active community.</p>
+       <p>WordPress has become much more than its humble beginnings in 2003 as a self-hosted blogging tool; it is the Internet's leading content management system (CMS). This open-source CMS powers all types of sites, including major brands such as The New Yorker, Variety, TechCrunch, and Best Buy. With a MySQL and PHP architecture, WordPress is easy to install and has endless options for website configuration thanks to tens of thousands of plugins and themes from its rich and active community.</p>
 
 <p>This tutorial will walk you through setting up WordPress on an Arch Linux system. The steps will be for a non-root user with <code>sudo</code> privileges.</p>
 
 
     <h2>Prerequisites</h2>
-    <p>First, make sure you have a non-root user with <code>sudo</code> privileges set up on your Arch Linux server. You’ll also need a Linux, Apache, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345%20-%20Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Arch%20Linux.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Arch Linux</a></p>
+    <p>First, make sure you have a non-root user with <code>sudo</code> privileges set up on your Arch Linux server. You'll also need a Linux, Apache, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345%20-%20Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Arch%20Linux.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Arch Linux</a></p>
   
-  <p>Make note of your MySQL root account (i.e., admin) password -- the one you created when you installed the software -- as you’ll need it.</p>
+  <p>Make note of your MySQL root account (i.e., admin) password -- the one you created when you installed the software -- as you'll need it.</p>
 
 
     <h2>Create a MySQL database and administrator for WordPress</h2>
@@ -121,18 +121,18 @@ p.note {
  ...(END)-->
  
         <li>At the prompt, enter your MySQL root password.  </li>
-    <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name fittingly as “wordpress.”
+    <li>At the MySQL prompt, create your WordPress database. For this tutorial, we'll use the database name fittingly as "wordpress."
 <div class="hacker">CREATE DATABASE wordpress;</div></li>
-<li>Create the database administrator account and set the user’s credentials. For this tutorial, we’ll use “wordpressadmin” as the example user name, and “wordpresspassword” as the password.
+<li>Create the database administrator account and set the user's credentials. For this tutorial, we'll use "wordpressadmin" as the example user name, and "wordpresspassword" as the password.
 <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
-<p>As a good security practice, create a strong password. Keep your username and password handy, as you’ll need them later.</p></li>
+<p>As a good security practice, create a strong password. Keep your username and password handy, as you'll need them later.</p></li>
  <li>Give, or grant, your admin permissions to the database.   
 <div class="hacker">GRANT ALL PRIVILEGES ON wordpress.* TO wordpressadmin@localhost;</div>
-<code>GRANT</code> is one of the account management statements the MySQL server notices and loads into memory right away. So a manual reload/restart should not be necessary. But if you’d like, you can check the permissions using <code>SHOW GRANTS</code>.
+<code>GRANT</code> is one of the account management statements the MySQL server notices and loads into memory right away. So a manual reload/restart should not be necessary. But if you'd like, you can check the permissions using <code>SHOW GRANTS</code>.
 <div class="hacker">SHOW GRANTS FOR 'wordpressadmin'@'localhost';</div>
 </li>
 
-   <li>If, for some reason the privileges didn’t take, flush the privileges to activate the user. Flush forces a reload of the cache.     <br />
+   <li>If, for some reason the privileges didn't take, flush the privileges to activate the user. Flush forces a reload of the cache.     <br />
 <div class="hacker">FLUSH PRIVILEGES;</div>  </li>
 
 <li> You're finished with the MySQL part! Exit MySQL to bring you back to your normal command prompt:
@@ -194,7 +194,7 @@ define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
                             
   <h2>Copy files to document root</h2>   
      
-   <p>After you’ve configured WordPress, transfer the files to Apache’s root directory so that the application can serve content to your site visitors.</p>
+   <p>After you've configured WordPress, transfer the files to Apache's root directory so that the application can serve content to your site visitors.</p>
       
  <ol>
  <li>Transfer your WordPress files to the website's root directory
@@ -222,27 +222,33 @@ This will safely copy all of the contents from the directory you unpacked to the
 
  </li>                       </ol>
 
-      <h2>Install WordPress </h2> 
+        <h2>Install WordPress </h2> 
       
       <p>Good news: The rest of your installation will be completed in the WordPress web interface.</p>
      
-     <ol>
-     <li>  Enter your server’s domain name or public IP address, appended <strong>/wp-admin/install.php</strong> with in your web browser. 
+         <ol>
+     <li>  Enter your server's domain name or public IP address in your web browser. <br />
+   <strong>http://your_domain_name_or_IP</strong><br/>
+   You are redirected to the WordPress admin page:<code> http://server_domain_name_or_IP/wp-admin/install.php</code><br/>
+   </li>
 
-   <div class="hacker">http://<em><u>your domain name or IP</u></em>/wp-admin/install.php</div>
-   
-   Be sure to include the <strong>/wp-admin/install.php</strong> part of the address. Without it, you won't display the WordPress admin panel.</li>
-   
-  <li><p>At the WordPress configuration page, fill out your information to create your administrator account.  </p>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17384/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </li>
-  <li> <p>	WordPress confirms your installation by displaying your username and password.</p>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17384/082015/install-wordpress-on-your-server-success-login-confirmation-2.png" alt="install wordpress confirmation screen" />  </li>
-   <li>  <p>Click <strong>Log In</strong> WordPress prompts you to log in with your new credentials.</p>
-<img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17384/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" />
+  <li>If you get the preliminary page to choose your language, do so and select <strong>Continue</strong>.
+</li>
 
-                                                          </li>
-                                                              </ol>
- <p>All done! You’ll be taken to the dashboard of your new site.</p>    
+<li>At the WordPress 5-minute installation page, fill out your information to create your administrator account. Then, click <strong>Install WordPress</strong>.
+<p><img src="images/17384/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </p></li>
+<li>On the next screen, WordPress confirms your installation with your user name and (hidden) password. Click <strong>Log In</strong>.</li>
+
+ <li><p> WordPress then prompts you to log in again with your new credentials. Do so now and click <strong>Log In</strong>.</p>
+<img src="images/17384/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" /></li>
+     </ol>
+
+ <p>All done! You'll be taken to the dashboard of your new site.</p>    
+     
+     
+<img src="images/17384/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
+     
+ <p>All done! You'll be taken to the dashboard of your new site.</p>    
      
      
 <img src="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17384/082015/install-wordpress-on-your-server-admin-dashboard-4.png" alt="install wordpress admin dashboard screen" />
