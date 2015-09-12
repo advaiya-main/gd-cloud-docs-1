@@ -92,7 +92,7 @@ p.note {
     <div class="hacker">sudo service httpd restart</div></li></ol>
     <h2>Generate the CSR and key</h2>    
 
-   <p> CSR (Certificate Sigining Request) contains information such as organization, country, state, common name, and email address to be included in the certificate. It also includes a public key. You will also generate a private key that is stored on your server.</p>
+   <p> CSR (Certificate Signing Request) contains information such as organization, country, state, common name, and email address to be included in the certificate. It also includes a public key. You will also generate a private key that is stored on your server.</p>
     <ol>
       <li>
             Create the directory to store your certificate and key.
@@ -103,7 +103,7 @@ p.note {
             <div class="hacker">sudo openssl req -out CSR.csr -new -newkey rsa:2048 -nodes -keyout /etc/httpd/ssl/certkey.key</div>
         To see the newly generated CSR, use the following command.
         <div class="hacker">cat CSR.csr</div>
-        You will input this CSR in the COMPANY_NAME site while generating the certificate.
+        You'll input this CSR in the COMPANY_NAME site while generating the certificate.
         </li>
 
         <li>
