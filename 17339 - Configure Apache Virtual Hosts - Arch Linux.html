@@ -137,7 +137,7 @@ Press ENTER or type command to continue
     <li>Save and close the file.</li>
 </ol>
 
-<h2>Allow for virtual hosts/h2>
+<h2>Enable virtual hosts</h2>
 
 <p>Enable virtual hosts by making a quick change in the Apache config file.</p>
 
@@ -205,20 +205,11 @@ If you're using fully qualified domain names (FQDNs), put your domain name after
 #&lt;ip-address&gt;  &lt;hostname.domain.org&gt;   &lt;hostname&gt; 
 127.0.0.1         <em><u>coolexample.com</u></em>   <em><u>your host name (optional)</u></em>
 ::1             localhost.localdomain   localhost
-
 </pre></div>
-
  </li>
 
-<h2>Enable your virtual host</h2>
-
-<ol>
-<li>Enable your virtual host file using <code>a2ensite</code>.
-    <div class="hacker">sudo a2ensite coolexample.com.conf</div></li>
-
-
 <li>Restart Apache.
- <div class="hacker">sudo service apache2 restart</div></li>
+ <div class="hacker">sudo systemctl restart httpd</div></li>
 
 </ol>
  
