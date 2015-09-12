@@ -54,7 +54,7 @@ p.note {
             <strong>Time</strong>: <em><u>5 minutes</u></em></p>
 
 <p>The WordPress MU Domain Mapping plugin lets you  point multiple domains to one WordPress account.
-              This means that you can make a network site into its own unique, standalone domain. In this article, we'll map a subdomain to an independent domain. For example, <strong>coolexample.net</strong><!--CT (to Crystal): Using this example domain as a placeholder until we get new domain from GD 9/08--> would redirect to <strong>product.coolexample.com</strong>, a subdomain of your primary site, <strong>coolexample.com</strong>.</p>
+              This means that you can make a network site into its own unique, standalone domain. In this article, we'll map a subdomain to an independent domain. For example, <strong>coolexample.net</strong> would redirect to <strong>product.coolexample.com</strong>, a subdomain of your primary site, <strong>coolexample.com</strong>.</p>
 <h2>Prerequisites</h2>
 
         <p>You should have WordPress multisite installed:</p>
@@ -88,7 +88,7 @@ If prompted, enter <strong>y</strong> to continue installation.</li></ul>
       /var/www/html/wp-content/</div>   </li>
     </ol>
 
-<h2>Edit your wp-config file</h2> <!--CT: removed code tags from heading. is that ok? looked weird-->
+<h2>Edit your <code>wp-config</code> file</h2> 
 
 <ol>
                 <li>Go to your WordPress document root.
@@ -100,43 +100,42 @@ If prompted, enter <strong>y</strong> to continue installation.</li></ul>
                    <li>Add this line before <code>/* That's all, stop editing! Happy blogging. */</code>. 
             <div class="hacker">define('SUNRISE', 'on'); </div> </li>
 
-                <li>Save and close.</li>
+                <li>Save and close the file.</li>
     
                 <li>Restart Nginx.
-                    <div class="hacker">sudo service nginx restart</div></li> </ol>  
-<!--A header appears to be missing. cj -->
-<!--CT: added-->
+                    <div class="hacker">sudo service nginx restart</div></li> </ol>
+
 
 <h2>Activate Domain Mapping</h2>
+<ol>    
+<li> In your WP-Admin window, mouse over <strong>My Sites</strong>,  select <strong>Network Admin</strong> from the drop-down menu, and then select <strong>Plugins</strong>. <br />
 
-    <ol>    <li>Return to your wp-admin window <br /><!--Can you please link the images? cj --><!--CT: done-->
+                        <img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-network-admin-nav-screen1.png" alt="wordpress mu domain mapping plugin network admin nav" />    <br />
+                      You'll see three plugins. The WordPress MU Domain Mapping plugin is the third. <br />   
+      <br />
+            <img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="wordpress mu domain mapping plugin network activate" />  <br />
+</li>
 
-                        <img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-network-admin-nav-screen1.png" alt="wordpress mu domain mapping plugin network admin nav" />    <br /> </li>
-
-                <li>In the top navigation bar, hover/mouse over <strong>My Sites</strong>,  select <strong>Network Admin</strong> from the drop-down menu, and then select <strong>Plugins</strong>. <br />   
-                  <br />
-                        <img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="wordpress mu domain mapping plugin network activate" />  <br />
-                       
-      You'll see three plugins. The WordPress MU Domain Mapping plugin should be the third item.   </li>
-
-            <li>Under this plug-in, click <strong>Network Activate</strong>. The <strong>Plugins</strong> dialog will highlight, indicating it's activated.<br />
+            <li>Under the WordPress MU Domain Mapping plugin, click <strong>Network Activate</strong>. The <strong>Plugins</strong> dialog  highlights, indicating that it's activated.<br />
              <img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="WordPress mu domain mapping plugin network activate" />    <br />
             
-             </li>
+      </li>
             
-           <li> In the menu bar on the left-hand side, point to <strong>Settings</strong>, and then select <strong>Domain Mapping</strong> from the menu that appears. <br />
+           <li> On the left, point to <strong>Settings</strong>, and then select <strong>Domain Mapping</strong> from the menu that appears. <br />
            <img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-domain-options-screen3.png" alt="wordpress mu domain mapping plugin domain options" /></li>       
-            <li>Under <strong>Domain Options</strong>, clear the <strong>Remote Login</strong> check box. </li>
+   
+ <li>Under <strong>Domain Options</strong>, do the following:<ul>
+        <li>Clear the <strong>Remote Login</strong> check box. </li>
+      <li>Select the <strong>Permanent Redirect</strong> check box.</li>
+      <li>Clear the <strong>Redirect administration pages to site's original domain</strong> check box. </li>
+    </ul></li>
+   
+      
+      <li>Click <strong>Save</strong>. </li>
+      
+</ol>
 
-            <li>Select the <strong>Permanent Redirect</strong> check box.</li>
-
-            <li>Clear the <strong>Redirect administration pages to site's original domain</strong> check box. </li>
-
-            <li>Click <strong>Save</strong>. </li>
-
-    </ol>
-
-                   <p> Your external domain now redirects to the subdomain you defined. For example, <!--CT (to Crystal): Using this example domain as a placeholder until we get new domain from GD 9/08 (2 of 2)--><em>coolexample.net</em> redirects to <em>product.coolexample.com</em>.  This includes the administration pages <strong>/wp-admin</strong>.</p>
+                   <p> Your external domain now redirects to the subdomain you defined. For example, <em>coolexample.net</em> redirects to <em>product.coolexample.com</em>.  This includes the administration pages <strong>/wp-admin</strong>.</p>
            
 
 <h2>Map a domain name to each site based on site ID</h2>
@@ -152,7 +151,7 @@ If prompted, enter <strong>y</strong> to continue installation.</li></ul>
 
          This new file is blank.</li>
 
-            <li>Copy this whole code block, and paste it into your file.
+            <li>Copy this whole code block, and paste it into your file:
 
 
                 <div class="hacker">&gt;?php <br />
@@ -172,14 +171,14 @@ If prompted, enter <strong>y</strong> to continue installation.</li></ul>
                 }  
 ?&gt;</div> </li>
 
-            <li>Save and close.</li>
+            <li>Save and close the file.</li>
             
-    <li>Back in the WP-Admin browser window, find the additional <strong>ID</strong> column in the <strong>Sites &gt; All Sites</strong> section, and  note the ID for your subdomain that you'll be mapping.</li> 
+    <li>Back in the WP-Admin  window, find the additional <strong>ID</strong> column in the <strong>Sites &gt; All Sites</strong> section, and  note the ID for your subdomain that you'll be mapping.</li> 
 </ol> 
 
       <h2>Map your domains</h2>
     <ol>
-            <li>Make a note of the ID value for each site.</li>
+            <li>Note the ID value for each site.</li>
             <li>Go to the <strong>Settings</strong> &gt; <strong>Domains</strong> page.</li>
             <li>Enter the site ID followed by the external domain for the site.<br />
 <img src="images/00035/090815/wordpress-mu-domain-mapping-plugin-new-domain-screen5.png" alt="wordpress mu domain mapping plugin new domain" /></li>
