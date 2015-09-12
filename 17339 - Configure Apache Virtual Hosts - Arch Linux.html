@@ -70,8 +70,8 @@ p.note {
 <mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
 <mso:TestComments msdt:dt="string">Needs Vim instead of nano 
 fails in creating a page for first virtual host while saving the &lt;html&gt;
-&quot;/var/www/&quot;
-&quot;/var/www/&quot; E212: Can't open file for writing
+&quot;/srv/http/&quot;
+&quot;/srv/http/&quot; E212: Can't open file for writing
 Press ENTER or type command to continue
 </mso:TestComments>
 <mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Tester msdt:dt="string">Prabhu Mouli</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Tester>
@@ -82,7 +82,7 @@ Press ENTER or type command to continue
   <body>
   
  <!--CT: Rewritten 9/11-->
- 
+
    <p>Configure Apache Virtual Hosts Setup on Arch Linux.</p>
 
     <h1>Configure Apache Virtual Hosts - Arch Linux</h1>
@@ -102,11 +102,12 @@ Press ENTER or type command to continue
     
     <h2>Install the Apache web server</h2>
     <ol>
- <li>Update your packages using <code>apt-get</code>.
-      <div class="hacker">sudo apt-get update</div></li>
+ <!--CT...<li>Update your packages using <code>pacmman</code>.
+      <div class="hacker">sudo pacman update</div></li>
+      ...-->
 
     <li>Install Apache.
-      <div class="hacker">sudo apt-get install apache2</div></li>
+      <div class="hacker">sudo pacman -Syu apache</div></li>
     
    </ol> 
    
@@ -115,21 +116,14 @@ Press ENTER or type command to continue
     <li>Create the virtual directories for the domains/sites you'll be serving from your VPS.
     For this tutorial, we will use the example domain name <em><u>coolexample.com</u></em>.<br />
     <div class="hacker">
-    sudo mkdir -p /var/www/<em><u>coolexample.com</u></em>/public_html</div></li>
+    sudo mkdir -p /srv/http/<em><u>coolexample.com</u></em></div></li>
     
-    <li>Set up ownership and grant permissions. Change the ownership to the Apache group using <code>chown</code>. 
-    <div class="hacker">sudo chown -R www-data:www-data /var/www/<em><u>coolexample.com</u></em>/public_html</div></li>
-     
-    <li>Set read permissions to the Apache web root <code>/var/www</code> directory to enable access to the files from that directory. Modify permissions so that the general web directory has read access.<br />
-    <div class="hacker">sudo chmod -R 755 /var/www/coolexample.com/public_html</div>         
-    </li>
-    </ol>
-    
+        
     <h2>Create a sample page for your virtual host</h2>
     
     <ol>
-    <li>Create a sample page for your virtual host. We'll create <code>index.html</code> pages.
-    <div class="hacker">sudo vim /var/www/<em><u>coolexample.com</u></em>/public_html/index.html</div>
+    <li>Create a sample page for your virtual host. 
+    <div class="hacker">sudo vim /srv/http/<em><u>coolexample.com</u></em>/index.html</div>
 
     It'll be a blank file. Add some content: 
         <div class="hacker"><pre>&lt;html&gt; 
@@ -141,33 +135,51 @@ Press ENTER or type command to continue
     &lt;/body&gt; 
 &lt;/html&gt;</pre></div></li>
     <li>Save and close the file.</li>
+</ol>
 
+<h2>Allow for virtual hosts/h2>
+
+<p>Enable virtual hosts by making a quick change in the Apache config file.</p>
+
+<ol>
+  <li>Open the file to edit.
+     <div class="hacker">  sudo nano /etc/httpd/conf/httpd.conf</div>
+</li>
+
+   <li>Find this line below and uncomment it. 
+        <div class="hacker">Include conf/extra/httpd-vhosts.conf</div></li>
+    
+    <li>Save and close.</li>
 </ol>
 
 
-
-<h2>Create virtual host file</h2>
+<h2>Configure your virtual host</h2>
  
-
-<p>Configure your virtual host. We're going to borrow Apache's default config file 000-default.conf from the sites-available directory as a template.</p>
-
 <ol>
 
-  <li>Copy the 000-default.conf file.
-     <div class="hacker">sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/coolexample.com.conf </div>
+  <li>Open the virtual hosts file.
+     <div class="hacker">sudo nano /etc/httpd/conf/extra/httpd-vhosts.conf</div>
   </li>
   
     <li>Open your newly-copied config file.
         <div class="hacker">sudo vim /etc/apache2/sites-available/coolexample.com.conf</div></li>
 
-<li>In the file, find <code>DocumentRoot</code> towards the beginning of the file, and update with your own domain.
+<li>In the file, replace the 1st virtual host example with your own domain information. These lines below are the ones that need updating : 
 
- <div class="hacker">DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em></div> </li>
+ <div class="hacker"><pre>&lt;VirtualHost *:80&gt;
+   
+    DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em> 
+    ServerName <em><u>www.coolexample.com</u></em>     
+    ServerAlias <em><u>coolexample.com</u></em> 
+    ErrorLog /var/www/coolexample.com/error.log 
+    CustomLog /var/www/coolexample.com/requests.log combined 
 
- <li>Below <code>DocumentRoot</code>, add these two lines.
-  <div class="hacker">ServerName <em><u>www.coolexample.com</u></em></div>     
- <div class="hacker">ServerAlias <em><u>coolexample.com</u></em></div> 
+&lt;/VirtualHost&gt; 
+  </pre></div>
+  
+ <p>Note that updating the lines ServerAdmin, ErrorLog and CustomLog are not required to set up your virtual host, but you can go ahead and update ErrorLog and CustomLog to your domain and ServerAdmin to your email.</p>
  </li>
+
  
 <li>Save and close.</li>
 </ol>
