@@ -168,7 +168,7 @@ Press ENTER or type command to continue
 
  <div class="hacker"><pre>&lt;VirtualHost *:80&gt;
    
-    DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em> 
+    DocumentRoot "<em><u>/var/www/coolexample.com/public_html</u></em>"" 
     ServerName <em><u>www.coolexample.com</u></em>     
     ServerAlias <em><u>coolexample.com</u></em> 
     ErrorLog /var/www/coolexample.com/error.log 
@@ -176,15 +176,39 @@ Press ENTER or type command to continue
 
 &lt;/VirtualHost&gt; 
   </pre></div>
-  
- <p>Note that updating the lines ServerAdmin, ErrorLog and CustomLog are not required to set up your virtual host, but you can go ahead and update ErrorLog and CustomLog to your domain and ServerAdmin to your email.</p>
+
+ <p>Don't forget the quote marks "" around the DocumentRoot directory.</p>
+
+  <p>Note that updating the lines ServerAdmin, ErrorLog and CustomLog are not required to set up your virtual host, but you can go ahead and update ErrorLog and CustomLog to your domain and ServerAdmin to your email.</p>
  </li>
 
- 
-<li>Save and close.</li>
+ <li>Save and close.</li>
+
+<li>Run a config test to check your changes.
+  <div class="hacker">apachectl configtest</div>
+</li>
+
 </ol>
 
-<p>Note that updating the lines ServerAdmin, ErrorLog and CustomLog are not required to set up your virtual host, but you can go ahead and update ErrorLog and CustomLog to your domain and ServerAdmin to your email.</p>
+
+<h2>Put your domain name in the hosts file</h2>
+
+If you're using fully qualified domain names (FQDNs), put your domain name after the IP address in the <code>/etc/hosts</code> file. 
+
+<ol>
+<li>Open the file. 
+ <div class="hacker">sudo vim /etc/hosts</div></li>
+
+ <li>Fill in our domain information for the first IP. Your changes might look something like this:
+
+  <div class="hacker"><pre>  
+#&lt;ip-address&gt;  &lt;hostname.domain.org&gt;   &lt;hostname&gt; 
+127.0.0.1         <em><u>coolexample.com</u></em>   <em><u>your host name (optional)</u></em>
+::1             localhost.localdomain   localhost
+
+</pre></div>
+
+ </li>
 
 <h2>Enable your virtual host</h2>
 
