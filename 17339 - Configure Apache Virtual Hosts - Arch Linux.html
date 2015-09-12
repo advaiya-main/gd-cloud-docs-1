@@ -68,7 +68,7 @@ p.note {
 <mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Carla  Johnson</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
 <mso:AssignmentAction msdt:dt="string"></mso:AssignmentAction>
 <mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
-<mso:TestComments msdt:dt="string">Needs Vim instead of nano 
+<mso:TestComments msdt:dt="string">Needs Vim instead of vim 
 fails in creating a page for first virtual host while saving the &lt;html&gt;
 &quot;/srv/http/&quot;
 &quot;/srv/http/&quot; E212: Can't open file for writing
@@ -94,29 +94,28 @@ Press ENTER or type command to continue
 
     <p>This guide will walk you through how to set up an Apache virtual host on an Arch Linux virtual private server (VPS) as a non-root user with <code>sudo</code> privileges.</p>
     
-    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17341%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Arch Linux.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a> for instructions.
+    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Arch Linux.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a> for instructions.
 
     <p>Also, make sure your hostname has a valid DNS record, so that the www version of your domain works. See <a href="/article/19116?prog_id=PROG_ID">Point your domain to a GoDaddy Cloud Server</a> for instructions on setting up your domain.</p>
     
     <li> </p>
     
     <h2>Install the Apache web server</h2>
-    <ol>
+
  <!--CT...<li>Update your packages using <code>pacmman</code>.
       <div class="hacker">sudo pacman update</div></li>
       ...-->
 
-    <li>Install Apache.
-      <div class="hacker">sudo pacman -Syu apache</div></li>
+   <p>Install Apache using <code>pacman</code>.</p>
+      <div class="hacker">sudo pacman -Syu apache</div>
     
-   </ol> 
-   
-    <h2>Set up the virtual host</h2>
-    <ol>
-    <li>Create the virtual directories for the domains/sites you'll be serving from your VPS.
-    For this tutorial, we will use the example domain name <em><u>coolexample.com</u></em>.<br />
+
+       <h2>Set up the virtual host</h2>
+
+  <p>Create the virtual directory for the domains/sites you'll be serving from your VPS.
+    For this tutorial, we will use the example domain name <em><u>coolexample.com</u></em>.</p>
     <div class="hacker">
-    sudo mkdir -p /srv/http/<em><u>coolexample.com</u></em></div></li>
+    sudo mkdir -p /srv/http/<em><u>coolexample.com</u></em></div>
     
         
     <h2>Create a sample page for your virtual host</h2>
@@ -142,11 +141,11 @@ Press ENTER or type command to continue
 <p>Enable virtual hosts by making a quick change in the Apache config file.</p>
 
 <ol>
-  <li>Open the file to edit.
-     <div class="hacker">  sudo nano /etc/httpd/conf/httpd.conf</div>
+  <li>Open the <code>httpd.conf</code> file to edit.
+     <div class="hacker">  sudo vim /etc/httpd/conf/httpd.conf</div>
 </li>
 
-   <li>Find this line below and uncomment it. 
+   <li>Find this line and uncomment it. 
         <div class="hacker">Include conf/extra/httpd-vhosts.conf</div></li>
     
     <li>Save and close.</li>
@@ -158,17 +157,14 @@ Press ENTER or type command to continue
 <ol>
 
   <li>Open the virtual hosts file.
-     <div class="hacker">sudo nano /etc/httpd/conf/extra/httpd-vhosts.conf</div>
+     <div class="hacker">sudo vim /etc/httpd/conf/extra/httpd-vhosts.conf</div>
   </li>
   
-    <li>Open your newly-copied config file.
-        <div class="hacker">sudo vim /etc/apache2/sites-available/coolexample.com.conf</div></li>
-
-<li>In the file, replace the 1st virtual host example with your own domain information. These lines below are the ones that need updating : 
+<li>In the file, replace the first virtual host example with your own domain information. <code>DocumentRoot</code>, <code>ServerName</code>, and <code>ServerAlias</code> are the lines that must be updated.
 
  <div class="hacker"><pre>&lt;VirtualHost *:80&gt;
-   
-    DocumentRoot "<em><u>/var/www/coolexample.com/public_html</u></em>"" 
+    ServerAdmin youremail@coolexample.com
+    DocumentRoot "<em><u>/var/www/coolexample.com/public_html</u></em> 
     ServerName <em><u>www.coolexample.com</u></em>     
     ServerAlias <em><u>coolexample.com</u></em> 
     ErrorLog /var/www/coolexample.com/error.log 
@@ -177,15 +173,16 @@ Press ENTER or type command to continue
 &lt;/VirtualHost&gt; 
   </pre></div>
 
- <p>Don't forget the quote marks "" around the DocumentRoot directory.</p>
+ <p>
 
-  <p>Note that updating the lines ServerAdmin, ErrorLog and CustomLog are not required to set up your virtual host, but you can go ahead and update ErrorLog and CustomLog to your domain and ServerAdmin to your email.</p>
+  <p>Note that updating the other lines <code>ServerAdmin</code>, <code>ErrorLog</code>, and <code>CustomLog</code> are not required to set up your virtual host, but you can go ahead and update <code>ErrorLog</code> and <code>CustomLog</code> to your domain and <code>ServerAdmin</code> to your email.</p>
  </li>
 
  <li>Save and close.</li>
 
 <li>Run a config test to check your changes.
   <div class="hacker">apachectl configtest</div>
+You're looking for a <code>Syntax OK</code> message. If you got an error, go back to your config file and check your changes. Make sure your <code>DocumentRoot</code> entry is in quotes.
 </li>
 
 </ol>
@@ -193,7 +190,7 @@ Press ENTER or type command to continue
 
 <h2>Put your domain name in the hosts file</h2>
 
-If you're using fully qualified domain names (FQDNs), put your domain name after the IP address in the <code>/etc/hosts</code> file. 
+If you're using fully qualified domain names (FQDNs), define your domain name in the <code>/etc/hosts</code> file. 
 
 <ol>
 <li>Open the file. 
@@ -201,9 +198,8 @@ If you're using fully qualified domain names (FQDNs), put your domain name after
 
  <li>Fill in our domain information for the first IP. Your changes might look something like this:
 
-  <div class="hacker"><pre>  
-#&lt;ip-address&gt;  &lt;hostname.domain.org&gt;   &lt;hostname&gt; 
-127.0.0.1         <em><u>coolexample.com</u></em>   <em><u>your host name (optional)</u></em>
+<div class="hacker"><pre>#&lt;ip-address&gt;  &lt;hostname.domain.org&gt;   &lt;hostname&gt; 
+127.0.0.1         <em><u>coolexample.com</u></em>      <em><u>your host name (this is optional)</u></em>
 ::1             localhost.localdomain   localhost
 </pre></div>
  </li>
