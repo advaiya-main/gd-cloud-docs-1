@@ -91,11 +91,11 @@ p.note {
 <h2>Set up a PostgreSQL database</h2>
 <ol>
 <li>Download the latest EPEL repositories.
-	<div class="hacker">sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel- release-7-5.noarch.rpm</div>
+	<div class="hacker">sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm</div> <!-- correct the url-->
 	<div class="hacker">sudo rpm -ivh epel-release-7-5.noarch.rpm</div>
 </li>
 <li>Set up the PostgreSQL server, and add its libraries related to development.
-	<div class="hacker">sudo yum install postgresql-server postgresql-contrib postgresql-devel</div>
+	<div class="hacker">sudo yum install -y postgresql-server postgresql-contrib postgresql-devel</div>
 </li>
 <li>Initialize a new PostgreSQL database. 
 	<div class="hacker">sudo postgresql-setup initdb</div>
@@ -122,11 +122,11 @@ host    all             all             ::1/128                 ident</pre></div
 	<div class="hacker">sudo su - postgres</div>
 </li>        
 <li>Create a PostgreSQL super user. 
-	<div class="hacker">createuser -s PostUser</div>
+	<div class="hacker">createuser -s <em><u>psuser</u></em></div><!-- covnerted to EM-U tag -->
 </li>
 <li>Set a password for the database user.
 	<div class="hacker">psql</div>
-    <div class="hacker">postgres=# \password PostUser</div></li>
+    <div class="hacker">postgres=# \password <em><u>psuser</u></em></div></li>
 <li>Enter the new password.</li>
 <li>Close the session.
 	<div class="hacker">postgres=# \q</div>
@@ -137,18 +137,18 @@ host    all             all             ::1/128                 ident</pre></div
 <ol>
 <li>Move to your home directory to create a new Rails application.To set PostgreSQL as the database, use the <code>-d postgresql</code> option.
   <div class="hacker">cd ~</div>
-<div class="hacker">rails new <em><u>HelloWorld</u></em> -d postgresql</div>
+<div class="hacker">rails new <em><u>your_application</u></em> -d postgresql</div>
 </li>
 <li>Move into the application directory.
-  <div class="hacker">cd <em><u>HelloWorld</u></em><u></u></div>
+  <div class="hacker">cd <em><u>your_application</u></em><u></u></div>
  </li>
 <li>Open the <span class="hacker"><code>database.yml</code></span> file:
 <div class="hacker">sudo vim config/database.yml</div>
  </li>
 <li>Look for <em>pool: 5</em> in the file, and add the following lines beneath it. Enter the username and password for the postgres user.
-  <div class="hacker"><xmp>host: localhost<br />
+  <div class="hacker">host: localhost<br />
 username: <u><em>postgres user username</em></u><br />
-password: <em><u>postgres user password</u></em></xmp>
+password: <em><u>postgres user password</u></em>
   </div>
         </li>
 <li>Save and exit.</li>
@@ -159,15 +159,15 @@ password: <em><u>postgres user password</u></em></xmp>
 <li>Create the application's databases in the application directory.
   <div class="hacker">rake db:create</div>
 
-Two databases in the PostgreSQL server are created. For example, if the application's name is <code>HelloWorld</code>, the command creates databases named <code>HelloWorld _development</code> and <code>HelloWorld _test</code>. </li></ul>
+Two databases in the PostgreSQL server are created. For example, if the application's name is <code>your_application</code>, the command creates databases named <code>your_application_development</code> and <code>your_application _test</code>. </li></ul>
 
 
 <h2>Test the configuration</h2>
 <ul>
 <li>Test the Rails application.
-  <div class="hacker">Rails server</div>
+  <div class="hacker">rails server</div> <!-- changed command to execute -->
 Now you can run your Rails application on your localhost on port 3000.  You can also access your application from a web browser , if it is located on a remote server by assigning a public IP address.
-<div class="hacker">rails server --binding=server_public_IP</div>
+<div class="hacker">rails server --binding=<em><u>your_server_ip</u></em></div>
 </li>
 </ul>
 
