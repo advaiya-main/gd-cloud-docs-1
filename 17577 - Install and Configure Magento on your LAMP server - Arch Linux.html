@@ -120,7 +120,7 @@ p.note {
 <li>Search for <code>memory_limit</code>, and then change the value from <em>128M</em> to <em>512M</em>.
    <div class="hacker">memory_limit = 512M</div>
    </li>
-   <li>Search for “Dynamic Extension” and uncomment (by removing “;” before the name) for following extensions.
+   <li>Search for <code>Dynamic Extension</code> and uncomment (by removing <strong>;</strong> before the name) for the following extensions.
    <div class = "hacker"><pre>
         extension=curl.so
 	extension=gd.so
@@ -140,7 +140,7 @@ p.note {
    <li>Magento needs a few additional PHP modules. To install these, use the following commands:
    <div class="hacker">sudo pacman -Syu</div>
    <div class = "hacker">sudo pacman -Sy php-mcrypt </div>
-   <div class = "hacker">sudo pacman –Sy gd php-gd </div>
+   <div class = "hacker">sudo pacman -Sy gd php-gd </div>
    </li>
    
    <li>Restart the Apache service.
