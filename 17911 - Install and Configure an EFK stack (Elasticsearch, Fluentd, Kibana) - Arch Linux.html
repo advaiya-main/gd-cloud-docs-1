@@ -140,7 +140,9 @@
 	   ./bin/elasticsearch
 	  </div>
 	  A successful startup shows an OK message.<br />
-	  <img src="images/17911 - Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Arch Linux_clip_image002.jpg" alt="Elasticsearch start message" width="624" height="247" /> <!--The image is not displaying correctly, but if it is screen output, it should not be used. (See guidelines.) cj -->
+	  <!-- Commenting the code to remove the image. 
+	  <img src="images/17911 - Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Arch Linux_clip_image002.jpg" alt="Elasticsearch start message" width="624" height="247" /> -->
+	  <!--The image is not displaying correctly, but if it is screen output, it should not be used. (See guidelines.) cj -->
   </li>
 </ol>
 <h2>Install and configure Kibana</h2>
@@ -312,7 +314,11 @@ http
   </li>
 </ol>
 <h2>Install and configure Fluentd</h2>
-<ol><!--This section is too long. Please break it up into 2 or 3 h3 sections. Also, the first 8 steps involve installing more than what the h2 says. It would be helpful to explain why these things are needed, how they are related to the Fluentd install. cj -->
+This article covers installation of Fluentd via Ruby. To install Fluentd using Ruby, relevant dependencies, including RVM are required to be installed.
+<!--This section is too long. Please break it up into 2 or 3 h3 sections. Also, the first 8 steps involve installing more than what the h2 says. It would be helpful to explain why these things are needed, how they are related to the Fluentd install. cj -->
+<!-- Created h3 subsections. Also added introductory content to clarify the need for additional steps for dependency installtion. VS-->
+<h3>Install Fluentd dependencies</h3>
+  <ol>	
   <li>Download the RVM signatures.
 	  <div class="hacker">
 		command curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
@@ -339,7 +345,7 @@ http
        rvm  requirements
       </div>
    </li>
-   <li>Install the dependencies before installing Ruby.
+   <li>Install other dependencies before installing Ruby.
 	  <div class="hacker">
 		sudo pacman -S libyaml
 	  </div>
@@ -355,6 +361,9 @@ http
 		rvm install ruby
 	   </div>
 	</li>
+	</ol>
+<h3>Install Fluentd</h3>
+	<ol>
 	<li>Fetch the Fluentd source code.
 	  <div class="hacker">
 		git clone https://github.com/fluent/fluentd.git
@@ -378,6 +387,9 @@ http
 		gem install pkg/fluentd-0.12.15.gem
 	  </div>
 	</li>
+	</ol>
+<h3>Configure Fluentd</h3>
+	<ol>
 	<li>Set up Fluentd.
 	  <div class="hacker">
 		fluentd --setup /etc/fluent
@@ -431,7 +443,7 @@ http
 	  </div></li>
   <li>Save and close by pressing the <strong>ESC</strong> key and then typing <strong>:wq</strong>.</li>
 
-  <li>Test  Fluentd again.
+  <li>Test  Fluentd.
 	<div class="hacker">
 	  echo  '{&quot;json&quot;:&quot;message&quot;}' | fluent-cat debug.test
 	</div><!--Deleted the image because it shows screen output, which is against the guidelines. cj -->
