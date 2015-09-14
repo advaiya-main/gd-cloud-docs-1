@@ -83,11 +83,10 @@ td:nth-child(1) {font-weight:bold;}
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-   
-    <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you'd otherwise have to log into different WordPress accounts.</p> 
-
-<p>For this article, we'll walk through setting up WordPress multisite for a primary domain and its subdomains. 
+<p>For this article, we'll configure your Nginx settings to accommodate a single or multiple WordPress sites. 
+ 
 We'll set up WordPress on an Ubuntu&reg; (14.04, 14.10) or Debian system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
+
 <p>We'll use these example sites: </p>
 <table>
   <tr>
@@ -104,6 +103,11 @@ product.coolexample.com</td>
 <h2>Prerequisites</h2>
 You'll need a Linux, Nginx&reg;, MySQL, and PHP (LEMP) stack configured. Make sure that Nginx, MySQL, and PHP are up and running. For instructions, see the following:
 <ul>
-<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17347%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Ubuntu.html"> Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Ubuntu</a></li>
-<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html"> Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Debian</a></li>
+<li><a href="Articles/17347%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Ubuntu.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Ubuntu</a></li>
+<li><a href="Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Debian</a></li>
 </ul>
+
+<h2>Optimize Nginx</h2>
+
+cat /proc/cpuinfo | grep processor
+sudo vim /etc/nginx/nginx.conf
