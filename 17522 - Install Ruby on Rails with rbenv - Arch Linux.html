@@ -91,34 +91,34 @@ p.note {
 <div class="hacker">sudo git clone git://github.com/sstephenson/rbenv.git ~/.rbenv</div>
 </li>
 <li>Install rbenv, and check that rbenv is located in <code>.rbenv</code> directory.
-    <div class="hacker">cd /.rbenv</div>
+    <div class="hacker">cd ~/.rbenv</div>
 
-<div class="hacker">sudo echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
-sudo echo 'eval "$(rbenv init -)"' >> ~/.zshrc
-exec $SHELL</div>
+<div class="hacker">
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile <br/><!-- added path for rbenv command -->
+sudo echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc<br/>
+sudo echo 'eval "$(rbenv init -)"' >> ~/.zshrc<br/>
+exec $SHELL<br/>
+source ~/.bash_profile <!-- added because it requires to reqload the bash_profile and enable rbenv command -->
+</div>
 
 </li>      
 <li>Install the ruby-build plugin. 
-      <div class="hacker"> mkdir -p ~/.rbenv/plugins</div>
-    
-       <div class="hacker">cd !$</div>
-      
-<div class="hacker">git clone git://github.com/sstephenson/ruby-build.git</div>
-    
-       <div class="hacker">cd where/ever</div>
+<!-- two steps are removed and converted to single one --></li>
+<div class="hacker">git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</div>
+  <!-- <div class="hacker">cd where/ever</div> REMOVED STEP CCAUSE COULD NOT FIND DIRs :nt-->
 </li>       
 </ol>
 
 <h2>Install Ruby</h2>
 
-<p>Before you start using rbenv, you need to make sure which version of Ruby you want to install. <!--Wouldn't the user always want to install the latest version? If so, how does the user get the latest version? If the user shouldn't use the latest version, how does he decide which version to install? cj --><!--Modified the command to add the latest version-->In this article, we are installing the latest version of Ruby.</p>
+<p>Before you start using rbenv, you need to make sure which version of Ruby you want to install. <!--Wouldn't the user always want to install the latest version? If so, how does the user get the latest version? If the user shouldn't use the latest version, how does he decide which version to install? cj --><!--Modified the command to add the latest version-->In this article, we are installing the latest version of Ruby.</p><!--FIXED-->
 <ol>
-<li>Install the dependency of Rails before you install Ruby.
-	<div class="hacker">rbenv install -v <em><u>latest_version</u></em></div>
+<li>Install the Ruby using the following command:
+	<div class="hacker">rbenv install -v <em><u>2.2.3</u></em></div>
 </li>
 <li>Set the default version of Ruby that all of your shells will use.
-	<div class="hacker">rbenv global <em><u>latest_version</u></em></div></li>
-<li>Display  which version of Ruby was installed.<!--Step missing? The previous step says that only a dependency (not Ruby) is installed. cj --><!--added the missing step-->
+	<div class="hacker">rbenv global <em><u>2.2.3</u></em></div></li>
+<li>Display  which version of Ruby was installed.<!--Step missing? The previous step says that only a dependency (not Ruby) is installed. cj --><!--added the missing step--> <!-- FIXED corrected the sentence -->
 	<div class="hacker">ruby -v</div>
 </li>    
 </ol>

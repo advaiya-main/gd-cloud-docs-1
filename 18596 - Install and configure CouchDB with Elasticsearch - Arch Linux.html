@@ -95,32 +95,32 @@ p.note {
 <h2>Install and configure CouchDB</h2>
     <ol>
 	<li>Install CouchDB.
-	<div class='hacker'>pacman -S couchdb</div>
+	<div class='hacker'>sudo pacman -S couchdb</div>
 	</li>
 	<li>Start CouchDB.
-	<div class='hacker'>systemctl start couchdb.service</div>
+	<div class='hacker'>sudo systemctl start couchdb.service</div>
     </li>	
 	<li>Test CouchDB.
-	<div class='hacker'>curl -XGET http://127.0.0.1:5984/</div>
+	<div class='hacker'>sudo curl -XGET http://127.0.0.1:5984/</div>
 	<p>A successful run of CouchDB will display the following message:</p>
-	<img src="images/18596 - 1.png" alt="18596 - 1.png"/> 
+	<div class='hacker'>{"couchdb":"Welcome","uuid":"fb70ea02576a9a96af5cf9c302305eab","version":"1.6.1","vendor":{"version":"1.6.1","name":"The Apache Software Foundation"}}</div> 
 	</li>
 	<li>Open the config file <code>local.ini</code> for editing.
-	<div class='hacker'>vim /etc/couchdb/local.ini</div>
+	<div class='hacker'>sudo vim /etc/couchdb/local.ini</div>
 	</li>
-	<li>Uncomment the code by removing the <strong>#</strong>, and then update the following lines:
-	<div class="hacker">Port:5984</div>
+	<li>Uncomment the code by removing the <strong>;</strong>sign from beginning of the line, and then update the following lines:
+	<div class="hacker">port:5984</div>
 	<div class="hacker">bind_address = <em><u>YOUR_VALID_IP_HERE</u></em>;</div>
     </li>
     <li>Restart the database server CouchDB.
-	<div class='hacker'>systemctl start couchdb.service</div>
+	<div class='hacker'>sudo systemctl start couchdb.service</div>
 	</li>
 	</ol>
 	
 <h2>Install Elasticsearch </h2>
     <ol>
 	<li>Install the latest Java development kit. 
-	<div class='hacker'>pacman -S jre8-openjdk</div>
+	<div class='hacker'>sudo pacman -S jre8-openjdk</div>
 	</li>
 	<li>Verify the Java version to ensure successful installation and configuration with the following command:
 	<div class='hacker'>java -version</div>
@@ -128,7 +128,7 @@ p.note {
 	
 	<li>Install the Elasticsearch deb packages.	
 	<p class="note">These steps install version 1.7.1. For other versions, visit <strong>elasticsearch.org/download</strong>. </p>
-	<div class='hacker'>wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz</div>
+	<div class='hacker'>wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-<em><u>1.7.1</u></em>.tar.gz</div>
 	<div class='hacker'>sudo tar xzf elasticsearch-<em><u>1.7.1</u></em>.tar.gz</div>
 	<div class='hacker'>mv elasticsearch-<em><u>1.7.1</u></em> /usr/share/elasticsearch</div>
 	</li>
@@ -158,12 +158,11 @@ p.note {
 	<li>Restart the Elasticsearch service for the changes to take effect. 
 	<div class="hacker">./bin/elasticsearch</div>
 	
-	<p>A successful execution will display a <strong>Started</strong> message as shown below:</p>
-	<img src="images/18596 - 2.png" alt="18596 - 2.png"/>
+	<p>A successful execution will display a <strong>Started</strong> and then <strong>Recovered</strong> message.</p>
 	</li>
 	
 	<li>Open a new terminal (or connect to the machine using another client), and test Elasticsearch using the following command: 
-	<div class='hacker'>curl http://127.0.0.1:9200</div>
+	<div class='hacker'>sudo curl http://<em><u>YOUR_VALID_IP_HERE</u></em>:9200</div>
    A successful execution will display the following output:
 	<div class='hacker'>
 	<pre>
@@ -182,7 +181,6 @@ p.note {
 }
 </pre>
 	</div>
-	<img src="images/18596 - 3.png" alt="18596 - 3.png"/>
 	</li>
 	</ol>
 	 
@@ -190,28 +188,27 @@ p.note {
 
     <ol>
 	<li>Switch back to the terminal where Elasticsearch was running, and then press <strong>CTRL+C</strong> to stop Elasticsearch.<br />
-	<img src="images/18596 - 4.png" alt="18596 - 4.png"/>
 
 	</li>
 	
 	<li>Create a new directory for Elasticsearch Stores Indices.
-	<div class='hacker'>vim /usr/share/elasticsearch/config/elasticsearch.yml</div>
+	<div class='hacker'>sudo vim /usr/share/elasticsearch/config/elasticsearch.yml</div>
 	</li>
 	
-	<li>Locate the following code:
+	<li>Locate the following code (under the <code>Paths</code> section):
 	<div class='hacker'>#Path to where plugins are installed:
 <br />#
 <br />#path.plugins: /path/to/plugins
 </div>
 	</li>
-	
+
 	<li>Uncomment this line by removing the <strong>#</strong>, and then update it with the following:
 	<div class='hacker'>#Path to where plugins are installed:
 <br />#
 <br />path.plugins: /usr/share/elasticsearch/plugins
 </div>
 	</li>
-	
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 	<li>Install the <code>elasticsearch-river-couchdb</code> plug in.
 	<div class='hacker'>cd /usr/share/elasticsearch/bin</div>
 	<div class='hacker'>sh plugin install elasticsearch/elasticsearch-river-couchdb/2.6.0</div>
@@ -225,25 +222,26 @@ p.note {
 <h2>Create a sample CouchDB database, and set up the Elasticsearch index</h2>
 <ol>
 <li>Open a new terminal (or connect to the machine using another client), and test Elasticsearch using the following command: 
-<div class='hacker'>curl -X PUT <u>http://127.0.0.1:5984/mydb</u></div>
+<div class='hacker'>sudo curl -X PUT http://127.0.0.1:5984/mydatabase</div>
 <p>A successful execution will display the following message:</p>
 <div class='hacker'>{"ok":true}</div>
 </li>
 
    <li>Create the sample documents.
-   <div class="hacker">curl -X PUT 'http://127.0.0.1:5984/mydatabase/1' -d '{"name":"My Name 1"}'</div>
-   <div class="hacker">curl -X PUT 'http://127.0.0.1:5984/mydatabase/1' -d '{"branch:”my brach 1"}'</div>
-   <div class="hacker">curl -X PUT 'http://127.0.0.1:5984/mydatabase/1' -d '{"roll no:”my rollno  1"}'</div>
+   <div class="hacker">sudo curl -X PUT 'http://127.0.0.1:5984/mydatabase/1' -d '{"name":"My Name 1"}'</div>
+   <div class="hacker">sudo curl -X PUT 'http://127.0.0.1:5984/mydatabase/2' -d '{"branch":"My brach 1"}'</div>
+   <div class="hacker">sudo curl -X PUT 'http://127.0.0.1:5984/mydatabase/3' -d '{"roll no":"My rollno  1"}'</div>
    </li>
 	
 	<li>Set up ElasticSearch with the CouchDB database by creating an index.
 	<div class='hacker'>
-curl -X PUT '127.0.0.1:9200/_river/mydb/_meta' -d '{ "type" : "couchdb", "couchdb" : { "host" : "localhost", "port" : 5984, "db" : "mydb", "filter" : null }, "index" : { "index" : "mydb", "type" : "mydb", "bulk_size" : "100", "bulk_timeout" : "10ms" } }'
+	curl -X PUT '<em><u>YOUR_VALID_IP_HERE</u></em>:9200/_river/mydatabase/_meta' -d '{ "type" : "couchdb", "couchdb" : { "host" : "localhost", "port" : 5984, "db" : "mydatabase", "filter" : null }, "index" : { "index" : "mydatabase", "type" : "mydatabase", "bulk_size" : "100", "bulk_timeout" : "10ms" } }'
+
 	</div>
 	</li>
 	
 	<li>Test the index with the following query:
-	<div class='hacker'>curl http://127.0.0.1:9200/mydb/mydb/_search?pretty=true</div>
+	<div class='hacker'>curl http://<em><u>YOUR_VALID_IP_HERE</u></em>:9200/mydatabase/mydatabase/_search?pretty=true</div>
 	<p> Successful execution of query would result in the following output:</p>
 	<div class='hacker'>
 	<pre>

@@ -71,14 +71,14 @@ p.note {
 </head>
 
 <body>
-<p>Setting up Ruby on Rails using rbenv in Fedora, Ruby, Rails</p>
+<p>Setting up Ruby on Rails using rbenv on CentOS, Ruby, Rails</p>
     <h1>Install Ruby on Rails using rbenv – CentOS</h1>
     
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
 
     <p>Ruby is a pure, object-oriented language like PERL and Python, and Rails is a framework for web application development written in Ruby. In this article, you will learn to install Ruby on Rails on CentOS with the help of rbenv.  rbenv is a new lightweight Ruby version management tool.</p> 
-	<p class="note">This article assumes that you have sudo privileges.</p> 
+	<p class="note">This article assumes that you have <code>sudo</code> privileges.</p> 
     <h2>Prerequisites</h2>
 	<p>To setup the CentOS server, refer to the articles: <a href="#17323">Initial Server Setup - CentOS</a> or <a href="#17368">Install Git - CentOS</a>.</p>
   
@@ -92,7 +92,7 @@ p.note {
 			 <div class='hacker'>git clone git://github.com/sstephenson/rbenv.git .rbenv</div></li>
 			 <li><p>Add a directory to your <code>$PATH</code> for accessing rbenv. </p>
 			  <div class='hacker'>echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile</div></li>
-			 <li><p>Add rbenv init into the shell to enable the shims.</p>
+			 <li><p>Add <code>rbenv init</code> into the shell to enable the shims.</p>
 			  <div class='hacker'>echo 'eval "$(rbenv init -)"' >> ~/.bash_profile</div>
 			  <div class='hacker'>exec $SHELL</div>
 			 </li>
@@ -135,7 +135,7 @@ p.note {
 			 </ol>
        
        
-<h2>Set up Rails</h2>
+<h2>Set up Rails application</h2>
              <ol>
 			 <li>To install Rails, type:
 			  <div class='hacker'>gem install rails</div>
@@ -151,20 +151,20 @@ p.note {
 			 </ol>	 
 			 
 			 
-			  <h2>Install JavaScript Runtime</h2>
+			  <h2>Install JavaScript runtime</h2>
 		<p>A few Rails features, such as the Asset Pipeline, depend on a Javascript runtime. Install Node.js to get this functionality.</p>
              
 			 <p>However, before you can install Node.js, you need to install the Extra Packages for Enterprise Linux (EPEL) yum repository. This allows you to install software packages that are not included in the official CentOS or Red Hat Enterprise Linux (RHEL) repositories.</p> 
 			  <ol><li>Install the EPEL release.
         <div class='hacker'>sudo yum -y install epel-release</div>
 			 </li>
-			  <li>Install the Node.js package.
+			  <li>Install the <code>nodejs</code> package.
 			  <div class='hacker'>sudo yum install nodejs</div>
 			 </li>
 			  </ol>	
             
-    <h2>Conclusion</h2>
-    In this article, we reviewed the steps involved in installing rbenv, Ruby, RubyGems, and finally Rails in CentOs environment.
+    <h2>Next steps</h2>
+    <p>In this article, you reviewed the steps involved in installing rbenv, Ruby, Ruby Gems, and finally Rails in CentOS. For supported enterprise level application, you can also <a href="17953 - Scale Ruby on Rails Applications Across Multiple Servers - CentOS, Fedora">scale Ruby on Rails application across multiple servers</a>.</p>
    
 </body>
 </html>
