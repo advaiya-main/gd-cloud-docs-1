@@ -167,14 +167,8 @@ Select <strong>Save changes</strong>.
    
   <ol>
   <li>Since you have SSH access to the server, you can create the <code>.htaccess</code> files within your document root using the <code>touch</code> command:
-  <div class="hacker"> touch /var/www/html/.htaccess  </div> 
+  <div class="hacker">sudo touch /var/www/html/.htaccess  </div></li> 
 
-Note that if you get an error like this:
-  <div class="hacker">  touch: cannot touch `.htaccess': Permission denied</div> 
-
-It means the root user is the owner of the directory, so try the command with <code>sudo</code> instead:
-  <div class="hacker">  sudo touch /var/www/html/.htaccess </div>
-         </li>
 <li>Change ownership using <code>chown</code> to make the web server the owner:
   <div class="hacker">  sudo chown :www-data /var/www/html/.htaccess  </div>
 </li>
