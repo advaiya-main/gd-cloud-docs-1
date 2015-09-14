@@ -76,12 +76,12 @@ p.note {
 	<p class="note">You will need <code>sudo</code> privileges to complete these steps. </p>
 
      <h2>Methods for redirects</h2>
-<ol> 
-<li><strong>Temporary redirects:</strong> These redirects come into play when your web content needs to be served from a different location for a period of time. For example, during maintenance. These URLs inform the browser that content is temporarily at a different location, but that they can attempt to access the original URL.
+<ul> 
+<li><strong>Temporary redirects:</strong> These redirects come into play when your web content needs to be served from a different location for a period of time, such as during maintenance. These URLs inform the browser that content is temporarily at a different location, but that they can attempt to access the original URL.
   </li>
    <li><strong>Permanent redirects:</strong> These redirects are used when content is moved permanently to another location.
    </li>
-</ol>
+</ul>
   
   <h2>Redirect in Apache </h2>
 
@@ -112,7 +112,7 @@ p.note {
 	<td>CentOS</td>
 	<td><code>/etc/httpd/conf/httpd.conf</code></td>
 	</tr>
-  </table>
+  </table></li>
    <li>Add the following lines in<code> VirtualHost *:80 </code>block:
    <div class="hacker">
 <pre>
@@ -176,7 +176,7 @@ RedirectMatch ^/ <em><u>customers</u></em>/(.*)$ http://<em><u>customers.coolexa
 <td>CentOS</td>
 <td><code>/etc/nginx/nginx.conf</code></td>
 </tr>
-</table>
+</table></li>
    <li>In the <code>server</code> block, add the following lines:
    <div class="hacker">server_name <em><u>coolexample.com</u></em>;</div>
    <div class="hacker">return 301 $scheme://<em><u>coolexample.net</u></em>$request_uri;</div>
@@ -204,7 +204,8 @@ server {
 </ol>
   
     <h2>Conclusion</h2>
-    <p>In this article, you learned to create temporary and permanent redirects with Apache and Nginx. You should use correct redirection type, because improper use of temporary redirects may spoil your search ranking.</p>
+    <p>The improper use of temporary redirects may spoil your web site's search ranking.   
+    In this article, you learned how and when to create temporary and permanent redirects with Apache and Nginx. </p>
    
 </body>
 </html>
