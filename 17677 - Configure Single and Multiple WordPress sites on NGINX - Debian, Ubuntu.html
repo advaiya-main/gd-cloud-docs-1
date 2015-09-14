@@ -83,7 +83,7 @@ td:nth-child(1) {font-weight:bold;}
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-<p>For this article, we'll configure your Nginx settings to accommodate a single or multiple WordPress sites. 
+<p>For this article, we'll configure your Nginx settings to accommodate a single or multiple WordPress sites (Multi-site sections will be labeled with "multi-site users").
  
 We'll set up WordPress on an Ubuntu&reg; (14.04, 14.10) or Debian system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
 
@@ -101,14 +101,16 @@ product.coolexample.com</td>
 </table>
 
 <h2>Prerequisites</h2>
-You'll need a Linux, Nginx&reg;, MySQL, and PHP (LEMP) stack configured. Make sure that Nginx, MySQL, and PHP are up and running. For instructions, see the following:
+You'll need a Linux, Nginx&reg;, MySQL, and PHP (LEMP) stack configured. For instructions, see the following:
 <ul>
 <li><a href="Articles/17347%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Ubuntu.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Ubuntu</a></li>
 <li><a href="Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Debian</a></li>
 </ul>
 
-<h2>Optimize Nginx</h2>
+<p>Make sure that Nginx, MySQL, and PHP are up and running.</p>
 
+
+<h2>Optimize Nginx</h2>
 
 Take some steps to help your server load WordPress content faster.
 
@@ -141,3 +143,119 @@ Keep the file open for the next step.
 </ol>
 
 
+<h2>Create configuration files</h2>
+
+<h3>Create allsites.conf for all sites</h3>
+
+For multi-site setups especially: Instead of creating a new config on every server block, we'll create a universal config file to handle all web sites. 
+
+Let's create a directory under the /nginx directory to hold our file.
+sudo mkdir /etc/nginx/global
+
+Move into that directory.
+cd /etc/nginx/global
+
+Create an allsites.conf file.
+sudo vim allsites.conf
+
+This is a new file you're creating, so it'll be blank. Paste the following contents:
+<div class="hacker"><pre># All Sites configuration file.
+# ESSENTIAL: Configure Nginx Listening Port
+listen 80;
+# ESSENTIAL: Default file to serve. If the first file isn't found, go to the next one. Start with php. 
+index index.php index.html index.htm;
+# ESSENTIAL: no favicon logs
+location = /favicon.ico {
+    log_not_found off;
+    access_log off;
+}
+# ESSENTIAL: robots.txt
+location = /robots.txt {
+    allow all;
+    log_not_found off;
+    access_log off;
+}
+# ESSENTIAL: Configure 404 Pages
+error_page 404 /404.html;
+# ESSENTIAL : Configure 50x Pages
+error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root /usr/share/nginx/www;
+    }
+# SECURITY: Deny all attempts to access hidden files .abcde
+location ~ /\. {
+    deny all;
+}
+# PERFORMANCE: Set expires headers for static files and turn off logging.
+location ~* ^.+\.(js|css|swf|xml|txt|ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|atom|jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|doc|xls|exe|ppt|tar|mid|midi|wav|bmp|rtf)$ {
+    access_log off; log_not_found off; expires 30d;
+}</pre></div>
+
+
+<h3>Create wordpress.conf for all sites</h3>
+Now we'll create a universal WordPress configuration that'll apply to all your WordPress sites. 
+
+<li>Create the wordpress.conf file.
+sudo vim wordpress.conf</li>
+
+<li>Again, this is a new file, so it'll be blank. Paste the following contents:
+<div class="hacker"><pre># WORDPRESS: Rewrite rules, sends everything through index.php and keeps the appended query string intact. Enable Pretty Permalinks.
+location / {
+    try_files $uri $uri/ /index.php?q=$uri&$args;
+}
+
+# SECURITY: Deny all attempts to access php Files in the uploads directory
+location ~* /(?:uploads|files)/.*\.php$ {
+    deny all;
+}
+# REQUIREMENTS: Enable php Support
+location ~ \.php$ {
+    # SECURITY: Zero day Exploit Protection
+    try_files $uri =404;
+    # ENABLE: Enable php, listen to fpm socket
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    include fastcgi_params;
+}
+# PLUGINS: Enable WordPress Domain Mapping
+add_filter( 'wpmu_blogs_columns', 'do_get_id' );
+add_action( 'manage_sites_custom_column', 'do_add_columns', 10, 2 );
+add_action( 'manage_blogs_custom_column', 'do_add_columns', 10, 2 );
+
+function do_add_columns( $column_name, $blog_id ) {
+    if ( 'blog_id' === $column_name )
+        echo $blog_id;
+    return $column_name;
+}
+
+function do_get_id( $columns ) {
+    $columns['blog_id'] = 'ID';
+    return $columns;
+}
+
+#End of file. Yay!</pre></div></li>
+
+<li>Save and close.</li>
+</ol>
+
+
+
+<h3>Multi-site users: Create multisite.conf for all sites</h3>
+
+The third config file is for multi-site. A multi-site requires custom rewrite rules to format URLs for your subsites and subdomains. 
+
+<ol>
+<li>Create your multisite.conf file. 
+<div class="hacker">sudo vim multisite.conf</div></li>
+
+<li>Paste in the following contents:
+<div class="hacker"><pre># Rewrite rules for WordPress multi-site.
+if (!-e $request_filename) {
+rewrite /wp-admin$ $scheme://$host$uri/ permanent;
+rewrite ^/[_0-9a-zA-Z-]+(/wp-.*) $1 last;
+rewrite ^/[_0-9a-zA-Z-]+(/.*\.php)$ $1 last;
+}</pre></div></li>
+
+<li>Save and close.</li>
+</ol>
