@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is 00002 -->
+
+<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
+
+<title>Set up WordPress Pretty Permalinks on Apache - ALL DISTROS</title>
+<style>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string"></mso:ArticleKeywords>
+<mso:Complexity msdt:dt="string">2 - A little complex</mso:Complexity>
+<mso:Reference msdt:dt="string"></mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#ALL DISTROS;#</mso:LinuxDistributions>
+<mso:ReviewComments msdt:dt="string"></mso:ReviewComments>
+<mso:PrereqOrdering msdt:dt="string">0</mso:PrereqOrdering>
+<mso:ArticleStatus msdt:dt="string">Tested and needs revision</mso:ArticleStatus>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:ArticlePriority msdt:dt="string"></mso:ArticlePriority>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
+<mso:DeliveryTarget msdt:dt="string">Phase 2</mso:DeliveryTarget>
+<mso:Difficulty msdt:dt="string">2</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">19225</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:AssignmentAction msdt:dt="string">No action</mso:AssignmentAction>
+<mso:PercentWriting msdt:dt="string">0.400000000000000</mso:PercentWriting>
+<mso:PercentResearch msdt:dt="string">0.600000000000000</mso:PercentResearch>
+<mso:AssignedTo1 msdt:dt="string">27</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Christine Tzeng</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:HoursDraftingActual msdt:dt="string">3.50000000000000</mso:HoursDraftingActual>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Tester msdt:dt="string">Prabhu Mouli</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Tester>
+<mso:Tester msdt:dt="string">20</mso:Tester>
+<mso:TestComments msdt:dt="string">Change in workflow - editor - tester (Assign it to an editor)</mso:TestComments>
+<mso:Week msdt:dt="string">10.0000000000000</mso:Week>
+<mso:HoursDraftingEstimated msdt:dt="string">3.00000000000000</mso:HoursDraftingEstimated>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Carla  Johnson</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+<p>Set up WordPress Pretty Permalinks on Apache.</p>
+    <h1>Set up WordPress Pretty Permalinks on Apache – ALL DISTROS</h1>
+    
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
+        <strong>Time</strong>: <em><u>15 minutes</u></em></p>
+
+    <p>Permalinks are URLs of the content published on your WordPress site. Best practices state that these URLs should be permanent and never change, but you can of course change your permalink structure at any time. Doing so, however, would change the URL of all your pages, which would cause your search and referral traffic to drop since the links would be broken.</p>
+     
+<p>WordPress produces dynamic links by default that are appended with the post ID number. Though these links work on all server environments, they’re not descriptive, easily identifiable, or SEO-friendly.</p>
+
+<p>“Pretty” permalinks, on the other hand, are human-readable, descriptive, search-friendly, and depending on which format you choose, structured. You can use <code>mod_rewrite</code> or <code>lighttpd</code> to produce these, the most common and versatile being the Post Name link format.</p>
+  
+<p>This tutorial will walk you through setting up WordPress pretty permalinks on Apache. </p>
+
+    <h2>Prerequisites</h2>
+    <p>Before you begin, Wordpress has to be fully installed. See our guides to doing that:
+         
+    <ul>
+    <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17385 - Install WordPress on your LAMP server - Debian, Ubuntu.html">Install WordPress on your LAMP server - Debian, Ubuntu</a></li>
+<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17383%20-%20Install%20WordPress%20on%20your%20LAMP%20server%20-%20CentOS.html">Install WordPress on your LAMP server – Fedora, CentOS</a></li>
+<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17384 - Install WordPress on your LAMP server - Arch Linux.html.html">Install WordPress on your LAMP server - Arch Linux</a></li>
+</ul>
+
+
+Also, you should set up a non-root user with <code>sudo</code> privileges. For more on that: 
+
+<ul>
+<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17321 - Initial Server Setup - Ubuntu.html">Initial Server Setup - Ubuntu</a></li>
+
+<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">Initial Server Setup - Debian</a></li>
+
+<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17322 - Initial Server Setup - CentOS, Fedora.html">Initial Server Setup - CentOS, Fedora</a></li>
+
+<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17324 - Initial Server Setup - Arch Linux.html">Initial Server Setup - Arch Linux</a></li>
+</ul>
+
+<h2>To choose your pretty permalink type in WordPress </h2>
+
+ <ol>
+ <li><p>In your WordPress admin dashboard (http://yoursite.com/wp-admin): Go to the <strong>Settings</strong> panel on the left, then <strong>Permalinks</strong>.</p>
+ 
+ <img src="https://farm6.staticflickr.com/5580/14944373609_ce6d787ea5_o.png" alt="WordPress Admin Dashboard Settings Panel" /></li>
+ 
+  <li><p>Choose your permalink type. A common option is the <strong>Post Name</strong> option.</p>
+<img src="https://assets.digitalocean.com/articles/wordpress_1404/perma_options.png" alt="WordPress Admin Dashboard Permalink Options" /></p>
+
+Select <strong>Save changes</strong>.
+
+<p>Notice this message at the bottom of the page, right below <strong>Save Changes</strong>:</p>
+
+<!--REPLACE THIS WITH SCREENSHOT FROM PRABHU -->
+<p>If your <code>.htaccess</code> file were writable, we could do this automatically, but it isn’t so these are the mod_rewrite rules you should have in your .htaccess file. Click in the field and press CTRL + A to select all.</p> 
+<!--paste up to here-->
+
+<p> <code>.htaccess</code> files are Apache configuration files that WordPress uses along with the module mod_rewrite to create permalinks. Our .htaccess file is not writable by WordPress, but we will be enabling them.</p>  
+
+</li>
+    </ol>
+
+ <h2>To enable URL rewrites</h2>       
+  
+ <p> We have to change the configuration of Apache to read <code>.htaccess</code> files. We’ll do this by enabling <code>AllowOverride</code>. When this directive is set to None, your server ignores all <code>.htaccess</code> files, not attempting to read any of them. When <code>AllowOverride</code> is set to All, any command with <code>.htaccess</code> is allowed in.</p>
+  
+<p>You will likely have to enable <code>AllowOverride</code> in your document root directory.</p> 
+     
+<ol>
+<li>Modify your virtual host file. The default file, if you haven’t modified it, is <code>000-default.conf</code>. Usually you’ll find Apache site configuration files in <code>/etc/apache2/</code>. Let’s pull up the file:
+  <div class="hacker">sudo vim /etc/apache2/sites-available/000-default.conf </div></li>
+<li>With the file open, let’s set up the servername and create a directory. For the purposes of this tutorial, our server is named wordpressadmin@localhost:</li> 
+
+  <div class="hacker">&lt;VirtualHost *:80&gt;<br />
+    ServerAdmin <em><u>wordpressadmin@localhost</em></u>;<br />
+    DocumentRoot /var/www/html<br />
+    ServerName server_domain_name_or_IP<br />
+    &lt;Directory /var/www/html/&gt;<br />
+        AllowOverride All<br />
+    &lt;/Directory&gt;<br /></div>
+  </li>
+  
+  <li>Save and close.</li>
+    <li>Enable Apache’s rewrite module so that you can modify URLs:
+  <div class="hacker"> sudo a2enmod rewrite</div> </li>
+<li>Restart Apache so the changes can take effect.
+  <div class="hacker">sudo service apache2 restart</div>                      </li>
+     </ol>
+  
+   <h2>To create the .htaccess files</h2>
+   
+  <ol>
+  <li>Since you have SSH access to the server, you can create the <code>.htaccess</code> files within your document root using the <code>touch</code> command:
+  <div class="hacker"> touch /var/www/html/.htaccess  </div> 
+
+Note that if you get an error like this:
+  <div class="hacker">  touch: cannot touch `.htaccess': Permission denied</div> 
+
+It means the root user is the owner of the directory, so try the command with <code>sudo</code> instead:
+  <div class="hacker">  sudo touch /var/www/html/.htaccess </div>
+         </li>
+<li>Change ownership using <code>chown</code> to make the web server the owner:
+  <div class="hacker">  sudo chown :www-data /var/www/html/.htaccess  </div>
+</li>
+   </ol>
+
+ <h2>To modify .htaccess privileges</h2>
+
+ <ol>
+     <li>The permissions are currently too restrictive (only root can write to the directory), so change them:
+<div class="hacker">sudo chmod 664 /var/www/html/.htaccess</div>
+Now WordPress can rewrite the rules for you and technically anyone can write to this. Don't worry, we will be changing the setting to tighten up the restrictions in a bit.
+<li>Go back to your WordPress admin dashboard and you’ll see that the “If your <code>.htaccess</code> file were writable…” message from earlier should have disappeared. 
+<li>Select “Save changes” in the dashboard and go back to your command line.</li> 
+<li>Change your permissions from <em><u>644</em></u> to <em><u>644</em></u> so that only your web server can read and write to the file:
+<div class="hacker">sudo chmod <em><u>644</em></u> /var/www/html/.htaccess</div>
+This will give you some added security. Again, note the small, but important, difference between the two commands is that <em><u>664</em></u> is now <em><u>644</em></u>.
+
+     </li>
+ </ol>
+
+    
+   
+    <h2>Next steps</h2>
+    
+    <p>Congratulations! You have set up WordPress pretty permalinks on your Apache server.</p>
+   
+</body>
+</html>
