@@ -80,7 +80,7 @@ td:nth-child(1) {font-weight:bold;}
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-   <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you’d otherwise have to log into different WordPress accounts.</p> 
+   <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you'd otherwise have to log into different WordPress accounts.</p> 
 
 <p>For this article, we'll walk through setting up WordPress multisite for a primary domain and its subdomains. 
 We'll set up a fresh install of WordPress in Nginx on a Fedora 20 system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
@@ -131,7 +131,7 @@ aboutus.coolexample.com</td>
 </ol>
 
 <h2>Modify the configuration files</h2>
-<p>We now need to update the default  configuration files with our WordPress settings. Let’s work from our <code>nginx.conf</code> and <code>php.conf</code> files to configure them for WordPress. </p>
+<p>We now need to update the default  configuration files with our WordPress settings. Let's work from our <code>nginx.conf</code> and <code>php.conf</code> files to configure them for WordPress. </p>
 <h3>Make backup copies of the configuration files</h3>
         
     <ol>
@@ -147,7 +147,7 @@ aboutus.coolexample.com</td>
             <li>Create a backup copy just in case.
               <div class="hacker">sudo cp /etc/nginx/default.d/*.conf /etc/nginx/default.d/*.bak</div></li>
     </ol>
-    <p>Now that we have backup copies, let’s start modifying the configuration files.</p>
+    <p>Now that we have backup copies, let's start modifying the configuration files.</p>
 
 <h3>Modify the Nginx configuration file</h3>
 
