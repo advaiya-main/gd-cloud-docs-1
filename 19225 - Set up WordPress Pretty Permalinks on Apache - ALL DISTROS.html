@@ -113,7 +113,7 @@ Also, you should set up a non-root user with <code>sudo</code> privileges. For m
 <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17324 - Initial Server Setup - Arch Linux.html">Initial Server Setup - Arch Linux</a></li>
 </ul>
 
-<h2>To choose your pretty permalink type in WordPress </h2>
+<h2>Choose your pretty permalink type in WordPress </h2>
 
  <ol>
  <li><p>In your WordPress admin dashboard (http://yoursite.com/wp-admin): Go to the <strong>Settings</strong> panel on the left, then <strong>Permalinks</strong>.</p>
@@ -136,7 +136,7 @@ Select <strong>Save changes</strong>.
 </li>
     </ol>
 
- <h2>To enable URL rewrites</h2>       
+ <h2>Enable URL rewrites</h2>       
   
  <p> We have to change the configuration of Apache to read <code>.htaccess</code> files. We’ll do this by enabling <code>AllowOverride</code>. When this directive is set to None, your server ignores all <code>.htaccess</code> files, not attempting to read any of them. When <code>AllowOverride</code> is set to All, any command with <code>.htaccess</code> is allowed in.</p>
   
@@ -163,7 +163,7 @@ Select <strong>Save changes</strong>.
   <div class="hacker">sudo service apache2 restart</div>                      </li>
      </ol>
   
-   <h2>To create the .htaccess files</h2>
+   <h2>Create the .htaccess files</h2>
    
   <ol>
   <li>Since you have SSH access to the server, you can create the <code>.htaccess</code> files within your document root using the <code>touch</code> command:
@@ -174,7 +174,7 @@ Select <strong>Save changes</strong>.
 </li>
    </ol>
 
- <h2>To modify .htaccess privileges</h2>
+ <h2>Modify .htaccess privileges</h2>
 
  <ol>
      <li>The permissions are currently too restrictive (only root can write to the directory), so change them:
