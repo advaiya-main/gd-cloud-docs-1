@@ -80,7 +80,7 @@ p.note {
 <body>
 <p>Setup a MoinMoin Wiki on NGINX</p>
     <h1>Install and configure MoinMoin with NGINX - Debian, Ubuntu</h1>
-    
+
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
@@ -99,7 +99,7 @@ p.note {
                </li>
          </ol>
 <h2>Install and Configure MoinMoin</h2>
-  
+
 <h3>Installation</h3>
        <ol>
                 <li>Navigate to the <a href="https://moinmo.in/MoinMoinDownload">MoinMoin Download</a> page to check for the latest release number.  At the time of this writing, the latest release was 1.9.8
@@ -166,7 +166,7 @@ die-on-term
                </li>
                 <li>Save and close
                </li>
-        <li>Create the log directory as per the location in the <code>uwsgi.ini</code> file... 
+        <li>Create the log directory as per the location in the <code>uwsgi.ini</code> file...
                     <div class="hacker">sudo mkdir -p /var/log/uwsgi</div>
                </li>
         <li>...and change the owner to be the same as the Nginx owner
@@ -176,7 +176,7 @@ die-on-term
        </ol>
 <h3>Create moin.conf</h3>
      <ol>
-                <li>Create and open the moin initctl script 
+                <li>Create and open the moin initctl script
                     <div class="hacker">sudo vim /etc/init/moin.conf</div>
                </li>
                 <li>Insert the following contents
@@ -222,7 +222,7 @@ superuser = [u"<em><u>WikiAdmin</u></em>", ]
                </li>
         </ol>
 <h2>Configure NGINX</h2>
-     <ol>            
+     <ol>
     <li>Create and open a server block configuration file
            <div class="hacker">sudo vim /etc/nginx/sites-available/moin</div>
                </li>
@@ -243,7 +243,7 @@ superuser = [u"<em><u>WikiAdmin</u></em>", ]
           <li>Enable your configuration
                     <div class="hacker">sudo ln -s /etc/nginx/sites-available/moin /etc/nginx/sites-enabled </div>
                </li>
-        <li>Remove the default server block from sites-enabled 
+        <li>Remove the default server block from sites-enabled
                     <div class="hacker">sudo rm /etc/nginx/sites-enabled/default</div>
                </li>
           <li>Restart Nginx
@@ -251,7 +251,7 @@ superuser = [u"<em><u>WikiAdmin</u></em>", ]
                </li>
           </ol>
 <h2>Set up MoinMoin Wiki Admin</h2>
-     <ol>            
+     <ol>
     <li>Using a browser, navigate to your Nginx webserver.  The MoinMoin Wiki will display</li>
     <li>Click <strong>Login</strong></li>
     <li>At the login page, you don't have an account so click <strong>create one now</strong></li>
@@ -260,6 +260,6 @@ superuser = [u"<em><u>WikiAdmin</u></em>", ]
       </ol>
     <h2>Next steps</h2>
     <p>Your wiki is now ready for use.  There is an extensive and amusing discussion on what MoinMoin means on the<a href="https://moinmo.in/MoinMoinEtymology"> MoinMoin Wiki</a>.   </p>
-   
+ <!-- passed first try  -->
 </body>
 </html>

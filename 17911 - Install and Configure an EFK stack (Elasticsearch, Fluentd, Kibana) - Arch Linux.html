@@ -80,7 +80,7 @@
 <p><strong>Time: </strong> <em>2 hours</em></p>
 
 
-<p>Using Elasticsearch, Fluentd, and  Kibana (also known as an <em>EFK stack</em>) is a common way to perform data analysis. This combination lets you collect, index, search, and  visualize log data. In this article, you'll  learn how to install an EFK Stack on Arch Linux.</p>
+<p>Using Elasticsearch, Fluentd, and  Kibana (also known as an <em>EFK stack</em>) is a common way to perform data analysis. This combination lets you collect, index, search, and  visualize log data. In this article, you'll  learn how to install an EFK stack on Arch Linux.</p>
 <p>This article assumes that you have <a href="17324 - Initial Server Setup - Arch Linux">completed the initial server setup</a> for your host machine and <span class="note">that you have <code>sudo</code> user privileges.</span></p>
 <h2>Install and configure ElasticSearch</h2>
 <ol>
@@ -102,7 +102,7 @@
 	To confirm a successful installation, check the Java version.
 	  <div class="hacker">
 		java -version
-		</div>
+	  </div>
 	</li>
 	<li>Install the Elasticsearch deb packages.
 
@@ -122,7 +122,7 @@
 	</li>
 	<li>Open the Elasticsearch configuration file <code>elasticsearch.yml</code>.
     
-		  To make  Elasticseach accessible from the public Internet, you need to disable its dynamic scripting so that it can be accessed by the Kibana dashboards.
+		  To make  Elasticsearch accessible from the public Internet, you need to disable its dynamic scripting so that it can be accessed by the Kibana dashboards.
 		    <div class="hacker">
 			cd /usr/share/elasticsearch
 	  </div>
@@ -140,9 +140,7 @@
 	   ./bin/elasticsearch
 	  </div>
 	  A successful startup shows an OK message.<br />
-	  <!-- Commenting the code to remove the image. 
-	  <img src="images/17911 - Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Arch Linux_clip_image002.jpg" alt="Elasticsearch start message" width="624" height="247" /> -->
-	  <!--The image is not displaying correctly, but if it is screen output, it should not be used. (See guidelines.) cj -->
+	  
   </li>
 </ol>
 <h2>Install and configure Kibana</h2>
@@ -163,7 +161,7 @@
 			sudo cp -r kibana-4.1.1* /usr/share/kibana-4.1.1
 		</div>
   </li>
-  <li>Open Kibana's configuration file to change the port from default value 9200 to 80, which is used for interaction with Elasticsearch. 
+  <li>Open Kibana's configuration file to change the port from 9200 (the default)   to 80, which is used for interaction with Elasticsearch. 
 	<div class="hacker">
 		sudo vim /usr/share/kibana-4.1.1/config/kibana.yml
 	</div>
@@ -314,9 +312,8 @@ http
   </li>
 </ol>
 <h2>Install and configure Fluentd</h2>
-This article covers installation of Fluentd via Ruby. To install Fluentd using Ruby, relevant dependencies, including RVM are required to be installed.
-<!--This section is too long. Please break it up into 2 or 3 h3 sections. Also, the first 8 steps involve installing more than what the h2 says. It would be helpful to explain why these things are needed, how they are related to the Fluentd install. cj -->
-<!-- Created h3 subsections. Also added introductory content to clarify the need for additional steps for dependency installtion. VS-->
+In this section you'll install Fluentd via Ruby. First, you need to install the dependencies, including RVM.
+
 <h3>Install Fluentd dependencies</h3>
   <ol>	
   <li>Download the RVM signatures.
@@ -343,7 +340,7 @@ This article covers installation of Fluentd via Ruby. To install Fluentd using R
    <li> Install the dependencies of RVM.
      <div class="hacker">
        rvm  requirements
-      </div>
+     </div>
    </li>
    <li>Install other dependencies before installing Ruby.
 	  <div class="hacker">
@@ -361,7 +358,7 @@ This article covers installation of Fluentd via Ruby. To install Fluentd using R
 		rvm install ruby
 	   </div>
 	</li>
-	</ol>
+</ol>
 <h3>Install Fluentd</h3>
 	<ol>
 	<li>Fetch the Fluentd source code.
@@ -374,7 +371,7 @@ This article covers installation of Fluentd via Ruby. To install Fluentd using R
 	</li>
 	<li>Build and install Fluentd.
 	
-	 <p class="note">These commands are  for version 0.12.15. For other versions, see <a href="http://www.fluentd.org/download" target="_top"> Fluentd download page</a>.</p>
+	 <p class="note">These commands are  for version 0.12.15. For other versions, see the <a href="http://www.fluentd.org/download" target="_top"> Fluentd download page</a>.</p>
 	   
 	   
 	  <div class="hacker">
@@ -446,7 +443,7 @@ This article covers installation of Fluentd via Ruby. To install Fluentd using R
   <li>Test  Fluentd.
 	<div class="hacker">
 	  echo  '{&quot;json&quot;:&quot;message&quot;}' | fluent-cat debug.test
-	</div><!--Deleted the image because it shows screen output, which is against the guidelines. cj -->
+	</div>
   </li>
 </ol>
    
