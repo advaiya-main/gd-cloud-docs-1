@@ -91,11 +91,11 @@ We'll set up WordPress on an Ubuntu&reg; (14.04, 14.10) or Debian system. The st
 <table>
   <tr>
     <td><b>Site 1</b></th>
-    <td>coolexample.com (primary)</td>
+    <td>coolexample.com</td>
   </tr>
   <tr>
     <td><b>Site 2</b></td>
-    <td>coolexampleproduct.com<br/>
+    <td>coolexampleproduct.com (for multisite)<br/>
 product.coolexample.com</td>
   </tr>
 </table>
@@ -109,5 +109,35 @@ You'll need a Linux, Nginx&reg;, MySQL, and PHP (LEMP) stack configured. Make su
 
 <h2>Optimize Nginx</h2>
 
-cat /proc/cpuinfo | grep processor
-sudo vim /etc/nginx/nginx.conf
+
+Take some steps to help your server load WordPress content faster.
+
+<h3>Adjust Nginx processes and workers</h3>
+See how many Nginx processors you have running.
+<div class="hacker">cat /proc/cpuinfo | grep processor</div>
+Note that the count starts from 0, so if your output is <code>processor : 0</code>, you have 1 processor.
+
+Now change the number of Nginx workers to match the number of processes. 
+Open the Nginx configuration file to edit. 
+<div class="hacker">sudo vim /etc/nginx/nginx.conf</div>
+Find the <code>worker_connections</code> line and change the number.
+In this case, change the number from 4 to 1. 
+<div class="hacker">worker_processes 1;</div>
+Keep the file open for the next step.
+
+<h3>Enable Gzip compression</h3>
+
+<p>Gzip allows WordPress to compress large HTML and CSS files using the DEFLATE algorithm, saving significant bandwidth (up to 70%).<!--CT (to Carla/Crystal): (re:70% part) Is this too specific of a piece of trivia? I found this tidbit in one article in my research but debated about including it. If so, feel free to remove-->.</p>
+
+<ol>
+
+<li>In your nginx.conf file that you still have open, find the gzip section and make sure gzip is enabled (set to "on").
+<div class="hacker">gzip on;</div></li>
+
+<li>Also, uncomment the following line listing the file types gzip supports.
+<div class="hacker">gzip_types text/plain text/css application/json application/x-javascript text$</div></li>
+
+<li>Save and close.</li>
+</ol>
+
+
