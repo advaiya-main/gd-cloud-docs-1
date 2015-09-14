@@ -80,37 +80,39 @@ p.note {
         <strong>Time</strong>: <em><u>15</u></em>
     </p>
     <p>Let's assume that have a domain with and without the "www" prefix. <em><u>www.coolexample.com</u></em> and <em><u>coolexample.com</u></em>. Both of them display the same content. <em>A permanent redirect</em> or <em>301 Redirect</em> is the type of redirect, where you would be redirecting your users from one domain to the other. </p>
+    <p>This guide walks you through the process of redirecting from a www URL to a non-www URL and vice versa.</p>
 
     <h2>Prerequisite</h2>
     <p>
         You must have <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17323 - Initial Server Setup - CentOS.html">Initial Server Setup</a> done on your server and installed Apache. If you haven't installed it yet, the following articles explain how to install it.  </p>
-<!--Not sure what happened here, but these are steps, not articles.-->
+<!--Not sure what happened here, but these are steps, not articles.--> <!--Steps to add apache. Missed adding the  line "To install apache" -->
+    <p>To install Apache</p>
         <div class="hacker">sudo yum update</div>
         <div class="hacker">sudo yum install httpd</div>
 
-    <h2>Configure DNS Records</h2>
-    For this guide we will use COMPANY_NAME domain. Assuming that you have a domain with COMPANY_NAME, log into <a href="https://mya.godaddy.com/default.aspx">COMPANY_NAME account manager</a>
+        <h2>Configure DNS Records</h2>
+        For this guide we will use GoDaddy domain. Assuming that you have a domain with GoDaddy, log into <a href="https://mya.godaddy.com/default.aspx">account manager</a> page.
 
-    <ol>
-        <li>
-            After you log in, click <strong>Manage</strong>, in the <strong>Domains</strong> section.
-            <!--Given that this article depends on these pages, please fix the images so that they appear in the article. -->
-            <img src="/images/17813/Manage_Domains.png" alt="Manage Domains" />
-        </li>
-        <li>
-            This will take you to the list of domains you have with COMPANY_NAME. Click the drop-down button on the domain that you want to work with, and then click <strong>MANAGE DNS</strong>.
-            <img src="/images/17813/DNS_Manage.png" alt="DNS Manage" />
-        </li>
-        <li>
-        </li>
-        <li>
-            If you don't see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname <em>www</em> in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field. Here's how both the records will look:
-            <img src="/images/17813/A_CNAME_Record.png" alt="DNS Records" />
-            You should now be able to access both the www and non-www domains of your server.
-        </li>
+        <ol>
+            <li>
+                After you log in, click <strong>Manage</strong>, in the <strong>Domains</strong> section.
+                <!--Given that this article depends on these pages, please fix the images so that they appear in the article. -->
+                <img src="/images/17813/091115/Manage_Domains.png" alt="Manage Domains" />
+            </li>
+            <li>
+                This will take you to the list of domains you have with COMPANY_NAME. Click the drop-down button on the domain that you want to work with, and then click <strong>MANAGE DNS</strong>.
+                <img src="/images/17813/091115/DNS_Manage.png" alt="DNS Manage" />  
+            </li>
+            <li>
+            </li>
+            <li>
+                If you don't see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname <em>www</em> in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field. Here's how both the records will look:
+                <img src="/images/17813/091115/A_CNAME_Record.png" alt="DNS Records" />
+                You should now be able to access both the www and non-www domains of your server.
+            </li>
 
-    </ol>
-    <h2>Enable rewrite and create .htaccess</h2>
+        </ol>
+        <h2>Enable rewrite and create .htaccess</h2>
     <p>We will make use of <code>.htaccess</code> file to hold our redirect rules. By default, the <code>Rewrite</code> module is enabled. In case it isnt, you can do so by editing the Apache configuration as follows:</p>
     <ol>
         <li>
@@ -163,8 +165,8 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 </pre>
             </div></li>
             <li>
-            Save and exit. </li>
-    <!--Is there something here?-->        
+            Save and exit. 
+    <!--Is there something here?-->     <!--PN: There was a rogue </li> tag , removed it-->   
             <p class="note">If you are using HTTPS, you need to replace <code>http</code> with <code>https</code> in the last line <code>RewriteRule</code></p>
         </li>
         <li>
@@ -219,8 +221,9 @@ Content-Type: text/html; charset=iso-8859-1
         </li>
     </ol>
 
-    <h2>Next steps</h2>
+    <h2>Conclusion</h2>
  <!--What are the next steps?-->
+    With this guide you have learnt to create permanent redirect with Apache using the Rewrite module.
 
 </body>
 </html>

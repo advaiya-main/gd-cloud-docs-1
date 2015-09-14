@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is _______00033 (fill in blank)-->
+
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>Redirect www to Non-www with Apache - CentOS, Fedora</title>
+<style>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Apache,</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-redirect-www-to-non-www-with-apache-on-centos-7, https://www.digitalocean.com/community/tutorials/how-to-redirect-www-to-non-www-with-apache-on-centos-7</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#CentOS;#Fedora;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">2</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">2</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17814</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:ArticleStatus msdt:dt="string">Not started</mso:ArticleStatus>
+<mso:HoursDraftingEstimated msdt:dt="string">3.00000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.250000000000000</mso:HoursEditingEstimated>
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string">Phase 2</mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">3</mso:PrereqOrdering>
+<mso:Week msdt:dt="string">7.00000000000000</mso:Week>
+<mso:AssignedTo1 msdt:dt="string">17</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Pooja Nadubettu</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:ReviewComments msdt:dt="string"></mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+ <h1>Redirect www to Non-www with Apache - CentOS 7</h1>
+
+    <p>
+        <strong>Difficulty</strong>: <em><u>2</u></em><br />
+        <strong>Time</strong>: <em><u>15</u></em>
+    </p>
+    <p>Let's assume that you have a domain with and without the <code>www</code> prefix: <em><u>www.coolexample.com</u></em> and <em><u>coolexample.com</u></em>. Both display the same content. <strong>Permanent redirect</strong> or "301 Redirect" is the type of redirect where you would be redirecting your users from one domain to the other.<!--What will the user be doing in this article? cj --></p>
+    <p>This guide walks you through the process of redirecting from a www URL to a non-www URL and vice versa.</p>
+    <p>
+Before starting, make sure to complete the <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">initial server setup</a>  on your server and to install Apache. </p>
+    <p>To install Apache<!--What does "it" refer to - Apache? cj -->:</p> <!--PN: Added apache-->
+<div class="hacker">sudo yum update</div>
+<div class="hacker">sudo yum install httpd</div>
+
+    <h2>Configure DNS records</h2>
+    For this article we'll use a GoDaddy domain. <!--Intro says that the domains are www.coolexample.com and coolexample.com. cj -->   <!-- PN:This is talking about a domain bought from GoDaddy and not the example domain-->
+    <ol>
+        <li>
+      Assuming that you have a domain with GoDaddy, log into <a href="https://mya.godaddy.com/default.aspx">account manager</a> page.</li>
+        <li>Click <strong>Manage</strong> in the <strong>Domains</strong> section. <!--Can you please correct the links for these images? cj --><br />
+            <img src="/images/17813/091115/Manage_Domains.png" alt="Manage Domains" />
+          <br />
+        The list of your domains with GoDaddy displays. </li>
+        <li>Click the drop-down button on the domain that you want to work with, and click  <strong>MANAGE DNS</strong>. <br />
+          <img src="/images/17813/091115/DNS_Manage.png" alt="DNS Manage" />        <br />
+      If you don't see a record for your domain, create one. Also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. </li>
+        <li>Make sure to type  the IP address of your server in the <strong>POINTS TO </strong> field. <br />
+          Both the records will look like this: <br />
+          <img src="/images/17813/091115/A_CNAME_Record.png" alt="DNS Records" />
+          <br />
+          You should now be able to access both the www and non-www domains of your server. </li>
+
+</ol>
+    <h2>Enable Rewrite, and create <code>.htaccess</code></h2>
+    <p>We'll  use the <code>.htaccess</code> file to hold the redirect rules. By default, the Rewrite module is enabled. In case it isn't enabled, edit the Apache configuration file.<!--Can they skip this section if the module is enabled? How do they know if it is enabled? cj --><!--PN: The next lines talk about that- Adding the LoadModule line.--></p>
+    <ol>
+        <li>
+            Open the modules section of the Apache configuration file.
+            <div class="hacker">sudo vim /etc/httpd/conf.modules.d/00-base.conf</div>
+        </li>
+<li>
+            Add the following line if it isn't already present:
+              <div class="hacker">LoadModule rewrite_module modules/mod_rewrite.so</div>
+      </li>
+        <li>
+            Open the configuration file.
+            <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
+        </li>
+        
+        <li>
+            In the configuration block that corresponds to the DocumentRoot (in this case <code>/var/www/html</code>), replace <code>AllowOverride None</code> with <code>AllowOverride All</code>. <br />
+          The <code>Directory</code> section  resembles this:
+            <div class="hacker">
+                <pre>
+&lt;Directory /var/www/html>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride All
+    Order allow,deny
+    allow from all
+ &lt;/Directory>
+</pre>
+      </div></li>
+        <li>
+            Save and exit the file.
+      </li>
+        <li>
+            Restart Apache for the changes to take effect.
+            <div class="hacker">sudo systemctl restart httpd</div>
+        </li>
+
+
+        <li>
+            Navigate to the DocumentRoot directory (in this case <code>/var/www/html</code>).
+            <div class="hacker">cd /var/www/html</div>
+        </li>
+        <li>
+            Create a <code>.htaccess</code> file to enter the redirection information. There are two options.<!--Two options to do what? cj --> <!--PN: The subheaders are the options. I now added the word "option" in front of it.-->We will take a look at both.<!--Does the following command really look at both options? These two sentences seem to be in the wrong place. cj -->
+<div class="hacker">sudo vim .htaccess</div>
+      </li>
+    </ol>
+    <h3>Option 1: Redirect www to non-www</h3>
+    <ol>
+        <li>
+            If you want to redirect from www to non-www, type the following block of text in the <code>.htaccess</code> file.
+<div class="hacker">
+      <pre>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+</pre>
+          </div></li><li>
+            Save and exit.
+            <p class="note">If  using HTTPS, replace <strong>http</strong> with <strong>https</strong> in the last line <code>RewriteRule</code>.</p>
+      </li>
+      <li>
+            To validate your redirection, use the  <code>curl</code> <!--Is it possible to use an actual verb instad of a command? cj --> command to retreive your domain. <!--PN: Re-phrased it -->
+<div class="hacker">curl -I www.coolexample.com</div>
+            The following displays on the console:
+            <div class="hacker">
+                <pre>
+HTTP/1.1 301 Moved Permanently
+Date: Thu, 20 Aug 2015 20:52:30 GMT
+Server: Apache/2.4.6 (CentOS) OpenSSL/1.0.1e-fips
+Location: http://coolexample.com/
+Content-Type: text/html; charset=iso-8859-1
+</pre>
+          </div>
+        
+          You can also verify the redirection by going to <em><u>www.coolexample.com</u></em> in your browser. You are redirected to <em><u>coolexample.com</u></em>
+        </li>
+    </ol>
+<h3>Option 2: Redirect non-www to www</h3>
+    <ol>
+        <li>
+            If you want to redirect from www to non-www, type in the below block of text in the <code>.htaccess</code> file.
+<div class="hacker">
+        <pre>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+</pre>
+          </div> </li>
+        <li>
+            Save and exit.
+            <p class="note">If using HTTPS, replace <strong>http</strong> with <strong>https</strong> in the last line <code>RewriteRule</code></p>
+      </li>
+      <li>
+            To validate your redirection, use the  <code>curl</code><!--Same comment here as above. cj --> command to retreive your domain.
+            <div class="hacker">curl -I coolexample.com</div>
+            The following displays on the console:
+        <div class="hacker">
+                <pre>
+ HTTP/1.1 301 Moved Permanently
+Date: Sun, 23 Aug 2015 00:11:10 GMT
+Server: Apache/2.4.6 (CentOS) 
+Location: http://www.coolexample.com/
+Content-Type: text/html; charset=iso-8859-1
+
+</pre>
+          </div>
+        You can also verify the redirection by going to http://<em><u>coolexample.com</u></em> in your browser. You are redirected to  www.<em><u>coolexample.com</u></em>.</li>
+    </ol>
+
+    <h2>Conclusion</h2>
+<!--Section missing. cj -->
+    With this guide you have learnt to create permanent redirect with Apache using the Rewrite module.
+
+ 
+</body>
+</html>
