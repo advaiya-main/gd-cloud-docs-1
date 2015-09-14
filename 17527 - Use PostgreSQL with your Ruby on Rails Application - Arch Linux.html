@@ -109,13 +109,13 @@ p.note {
 <h2>Create a database user</h2>
 	<ol>
 		<li>Log in with the <code>postgres</code> system user, and then create a new user.
-			<div class="hacker">sudo -u postgres createuser -s <em><u>UserName</u></em>
+			<div class="hacker">sudo -u postgres createuser -s <em><u>psuser</u></em>
 			</div>
 		</li>
 		<li>Set a password for the database user.
 			<div class="hacker">sudo -u postgres psql
 			</div>
-			<div class="hacker">postgres=# \password <em><u>UserName</u></em>
+			<div class="hacker">postgres=# \password <em><u>psuser</u></em>
 			</div>
 		</li>
 		<li>Modify the template. (To drop a template, first you need to modify it.)
@@ -154,11 +154,11 @@ p.note {
 		<li>Move to your home directory to create a new Rails application. To set PostgreSQL as the database, use the <code>-d postgresql</code> option.
 			<div class = "hacker">cd ~
 			</div>
-			<div class = "hacker">rails new <em><u>helloworld</u></em> -d postgresql
+			<div class = "hacker">rails new <em><u>your_application</u></em> -d postgresql
 			</div>
 		</li>
 		<li>Move into the application directory.
-			<div class = "hacker">cd <em><u>helloworld</u></em>
+			<div class = "hacker">cd <em><u>your_application</u></em>
 			</div>
 		</li>
 		<li>Open the <code>database.yml</code> file for editing.
@@ -180,15 +180,15 @@ password: <em><u>postgres user password</u></em><br />
 	<ul>
 	  <li>Create the application's databases in the application directory.
         <div class="hacker">rake db:create
-	    </div>Two databases in the PostgreSQL server are created. For example, if the application's name is <code>HelloWorld</code>, the command creates databases named <code>HelloWorld _development</code> and <code>HelloWorld _test</code>.</li>
+	    </div>Two databases in the PostgreSQL server are created. For example, if the application's name is <code>your_application</code>, the command creates databases named <code>your_application_development</code> and <code>your_application_test</code>.</li>
 	</ul>
 	<h2>Test the configuration</h2>
   <ul>
 		<li>Test the Rails application.
-		  <div class="hacker">Rails server
+		  <div class="hacker">rails server <!-- correct the command -->
 		  </div>
 		  You can run your Rails application on your <code>localhost</code> on port 3000.  You can also access your application from a web browser, if it's located on a remote server, by assigning a public IP address.
-			<div class="hacker">rails server --binding=<em><u>server_public_IP</u></em>
+			<div class="hacker">rails server --binding=<em><u>your_server_ip</u></em> <!-- Change to your server IP -->
 		  </div>
 		</li>
 </ul>
