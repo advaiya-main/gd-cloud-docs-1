@@ -122,8 +122,12 @@ sudo systemctl enable iptables.service
 <ol>
 
      <li>Enable UFW:
+        <div class="hacker">sudo ufw enable</div></li>
+
+
+        <!--CT: For some weird reason, this command w/systemctl doesn't work in enabling ufw (9/15)...
        <div class="hacker">sudo systemctl enable ufw</div></li>
-       
+       ...-->
   <!--CT: don't need...Enter <strong>y</strong> to at the prompt, &quot;Command may disrupt existing ssh connections. Proceed with operation (y|n)?&quot;<br />
     The system returns the output, <code>Firewall is active and enabled on system startup</code>.</li>
 
