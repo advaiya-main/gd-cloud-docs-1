@@ -85,16 +85,26 @@ p.note {
     <p><strong>Time</strong>: <em>30 minutes</em></p>
     <p>Ruby on Rails&reg; is a well-known open source stack for web application development. With Ruby Version Manager (RVM) you can easily manage multiple Ruby application environments and switch between them in a most efficient way. </p>
     <p>This article will assist you on how to install Ruby on Rails in Arch Linux using RVM, and assumes that you have sudo privileges to perform this task. You may want to visit the <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17324%20-%20Initial%20Server%20Setup%20-%20Arch%20Linux.html">Initial Server Setup - Arch Linux</a> article to setup your Arch Linux server.</p>
-    <h2>Install RVM</h2>
-   
+    <h2>Prepare your system</h2>
+Before you install Ruby on Rails, prepare your system with the required system software.    
     <ol>
-        <li>Update all the packages.
-            <div class='hacker'>sudo pacman -Sy</div>      
-        </li>
-        <li>Start with installing curl, if it's not already installed.
+        <li>Update the system software and access root by running the following command:
+          <div class='hacker'>sudo pacman -Syu</div>      
+      </li>
+        <li>Install curl by typing:
             <div class='hacker'>sudo pacman -S curl</div>
         </li>
-        <li>Install RVM by typing: 
+		 <li>Install tar.
+            <div class='hacker'>sudo pacman -S tar</div>
+        </li>
+        </ol>
+	
+	
+	<h2>Install RVM</h2>
+   
+    <ol>
+       
+        <li>If your system doesn't have RVM already installed, type the following command to install RVM:
             <div class='hacker'>sudo curl -L get.rvm.io | bash -s stable </div>
         </li>
 		<li>After you have run the above command, there is one more dependency that needs to be fixed, so type the following command:
@@ -108,58 +118,57 @@ p.note {
         <li>Add the lines in this example at the end of the file.
             <div class='hacker'> [[ -s "$HOME/.rvm/scripts/rvm" ]]  &amp;&amp;  source "$HOME/.rvm/scripts/rvm" </div>
         </li>
-        <li>Close the session, log in back to apply the changes, and then install the dependencies of RVM. 
+		<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+        <li>Log in back to apply the changes, and then install the dependencies of RVM. 
             <div class='hacker'>rvm requirements</div>
       </li></ol>
 <h2>Install Ruby</h2>
      <ol>
-        <li>Before you can install Ruby, you need to install Rails.
+        <li>Install the following dependencies of Ruby.
             <div class='hacker'>sudo pacman -S libyaml</div>      
         </li>
     
     <li>Install Ruby with RVM.
      <div class='hacker'>rvm install ruby</div>
+	 <p>To check ruby version, type:</p>
+	 <div class = "hacker">ruby -v</div>
     </li>
         <li>The Rail asset pipeline needs JavaScript runtime to compile code. On Arch Linux, Node.js (a server-side JavaScript environment) is preferred. To install Node.js, type the following command:
      <div class='hacker'>sudo pacman -S nodejs</div>
     </li>
 </ol>
   <h2>Install RubyGems</h2>
-    <ol><li>
+    <ul><li>
         Install gems using RVM.
             <div class='hacker'>rvm rubygems current</div>      
     </li>    
-    </ol>
-   <h2>Setup Rails</h2>
-   <p> This task will take some time, so have patience. Once completed, Ruby on Rails will be installed.</p>
-     <ol>
-        <li>To install Rails, type:
-            <div class='hacker'>gem install rails</div>      
- </li>
-     <li>Check the installed versions of Ruby and Rails.
-            <div class='hacker'>ruby -v</div>  
+    </ul>
+   <h2>Install Rails</h2>
+<ol>    
+        <li>Use gem to install the most recent stable release of Rails.
+          <div class='hacker'>gem install rails</div>
+    <p>To check the version, type:</p>
       <div class='hacker'>rails -v</div>    
-       </li>
-	   <li>Create the project directory for your Rail project by typing the following commands:
-          <div class='hacker'>sudo mkdir -p /usr/local/src/rail_project</div>
+	  </li>
+	  
+	  <li>Create the project directory for your Rail project, by typing the following commands:
+          <div class='hacker'>sudo mkdir -p /usr/local/src/<em><u>rail_project_directory</u></em></div>
       </li>
-	 <li>Move to the newly created directory, and grant all the required access using following commands:
-          <div class='hacker'>cd  /usr/local/src/rail_project</div>
-		  <div class='hacker'>sudo chmod 777 /usr/local/src/rail_project</div>
-		  <div class='hacker'>rails new HelloWorld</div>
-		  <div class='hacker'>cd HelloWorld</div>
+	 <li>Move to the newly created directory, and grant all the required access using the following commands:
+          <div class='hacker'>cd  /usr/local/src/<em><u>rail_project_directory</u></em></div>
+		  <div class='hacker'>sudo chmod -R 770 /usr/local/src/<em><u>rail_project_directory</u></em></div>
+		  <div class='hacker'>rails new <em><u>Your_application</u></em></div>
+		  <div class='hacker'>cd <em><u>Your_application</u></em></div>
 		   <div class='hacker'>rails server</div>
-		   
-		   <p>Your Rails server should be running now.</p></li>
-		   <li>You can bind your Rails application using the following command:
-		   <div class='hacker'>rails server --binding=[your public IP]</div>
-		   <p> Your new application is ready and can be accessed by visiting <strong><em><u>your_public_IP_or_domain</u></em>:3000</strong> (3000 is default port).</p>
-		   </li>
-      </ol>
-   
-     
-     <h2>Next steps</h2>
-<p>In this article, we reviewed the steps involved in installing RVM, Ruby, RubyGems, and finally Rails in Arch Linux environment, which is known for being lightweight and flexible.</p>
-<p>For more information on RVM, read the article: <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17912%20-%20Use%20RVM%20to%20manage%20Ruby%20installations%20and%20Environments%20-%20ALL%20DISTROS.html">Use RVM to manage Ruby installations.</a> </p>  
+		   <p>Now your Rails server should be running. Press <strong>CTRL+C</strong> to terminate the process.</p>
+      </li> 
+	 <li>You can bind your Rails application using the following command:
+          <div class='hacker'>rails server --binding=<em><u>your public IP</u></em></div>
+		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_IP_or_domain</em></u>:3000</strong>. 3000 is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
+      </li> 
+	  
+    </ol>
+  <h2>Next steps</h2>
+<p>In this article, you learned the steps involved in setting up Ruby on Rails using RVM for your web application in Arch Linux distribution. For more information on RVM, read the article: <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17912%20-%20Use%20RVM%20to%20manage%20Ruby%20installations%20and%20Environments%20-%20ALL%20DISTROS.html">Use RVM to manage Ruby installations.</a></p>
 </body>
 </html>
