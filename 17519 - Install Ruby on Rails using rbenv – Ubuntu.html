@@ -53,7 +53,8 @@
 <p><strong>Time:</strong> <em>30 minutes</em></p>
 <p>Ruby is a pure object oriented language like PERL and Python while Rails is a web application development framework written in Ruby. This article will assist you to install Ruby on Rails on Ubuntu, with the help of rbenv. rbenv is a new lightweight Ruby version management tool.</p>
 
-<p class="note">Make sure that you are logged in as a <code>sudo</code> user.</p>
+<p class="note">You need <code>sudo</code> privileges to run the  commands.</p>
+<p>To set up the Ubuntu server,  refer to <a href="17321"> Initial Server Setup - Ubuntu</a>. Optionally, you can also <a href="17366"> install Git</a>.</p> 
 
 <h2>Install rbenv</h2>
 <ol>
@@ -66,7 +67,7 @@
 <li>To install rbenv, run the following command to check rbenv into <code>.rbenv</code> directory. 
         <div class='hacker'>cd</div>
 
-        <div class='hacker'>git clone git://github.com/sstephenson/rbenv.git .rbenv</div>
+        <div class='hacker'>git clone git://github.com/<em><u>sstephenson</u></em>/rbenv.git .rbenv</div>
 </li>
 <li>Add a directory to your <code>$PATH</code> for accessing the rbenv.
 
@@ -133,6 +134,7 @@
 </ol>
 
 <h2>Install the JavaScript Runtime</h2>
+			<p>There are a few Rails features like the <strong>Asset Pipeline</strong>, that requires a Javascript runtime to execute. JavaScript runtime can be installed in a couple of ways. In this article, we will use <code>nodejs</code> from Debian package system.</p>
 <ol>
 <li>Add the <code>node.js</code> PPA to <code>apt-get</code>:
       <div class='hacker'>sudo add-apt-repository ppa:chris-lea/node.js</div>
@@ -142,10 +144,9 @@
 </li>
 </ol>
 
-<h2>Conclusion</h2>
-<p>By using the above steps, you will be able to install rbenv, Ruby, RubyGems and  Rails  application on Ubuntu. </p>
+<h2>Next steps</h2>
+  <p>In this article, you reviewed the steps involved in installing rbenv, Ruby, Ruby Gems, and finally Rails in Ubuntu. For supported enterprise level application, you can also <a href="17952 - Scale Ruby on Rails Applications Across Multiple Servers - Debian, Ubuntu">scale Ruby on Rails application across multiple servers</a>.</p>
 
-
-
+  
 </body>
 </html>

@@ -123,11 +123,13 @@
 		sudo vim /etc/elasticsearch/elasticsearch.yml
 		</div>
   </li>
-  <li>Set  <code>script.disable_dynamic</code> to <code>true</code> by appending the following code at  the end:
+  <li>Append the following code at the end of the file to set <code>script.disable_dynamic</code> to <code>true</code>: <!-- Updated the content as per the feedback from tester-->
 <div class="hacker">
 		script.disable_dynamic: true
 	</div>
   </li>
+    <li>Save and close by pressing the  <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.<br /> <!-- Added new line to close the file as per the feedback from tester-->
+  </li> 
 	<li>Start Elasticsearch.
 	  <div class="hacker">
 	  sudo service elasticsearch start
@@ -160,22 +162,24 @@
   </li>  
   <li>Locate the following code:
 	  <div class="hacker"> 
-	  <pre>#default port value is 9200
-elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:9200&quot;,</pre>
+	  <pre>elasticsearch_url: "http://localhost:9200"</pre>
     </div>
   </li>
   <li>Update the code to the following:
 	  <div class="hacker"> 
-	  <pre>#Updated to port value 80
-elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:80&quot;,</pre>
+	  <pre>
+elasticsearch_url: "http://localhost:80"</pre>
 	  </div>
   </li>
+        <li>Save and close by pressing the  <strong>ESC</strong> key and then entering <code>:wq</code>.<br />	  <!-- Added new line to close the file as per the feedback from tester-->
+		</li>
   <li>Install Nginx, which can be used as the proxy server. This enable access to the Kibana dashboards from the Internet.
       <div class="hacker"> 
 	  sudo apt-get install nginx --yes
     </div>
   </li>
   <li>Create the Nginx configuration file.
+  <p class="note">When removing the existing file and replacing it with a new file with the below code, it is recommended to validate the configurations and settings mentioned in the code. You may also try updating the code in the existing file to append the below configuration settings.</p>
 <div class="hacker"> 
 		sudo rm /etc/nginx/sites-available/default
 	  </div>
@@ -200,11 +204,11 @@ elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:80&quot;,</pr
 &nbsp;
 server {
 	listen                *:80 ;
-	server_name           localhost;
-	access_log            /var/log/nginx/kibana.log;
+	server_name           <em><u>localhost</u></em>;
+	access_log            /var/log/nginx/<em><u>kibana</u></em>.log;
 	location / 
 	 {
-	   root  /usr/share/kibana-4.1.1;
+	   root  /usr/share/<em><u>kibana-4.1.1</u></em>;
 	   index  index.html  index.htm;
 	 }
 	location ~ ^/_aliases$ 
