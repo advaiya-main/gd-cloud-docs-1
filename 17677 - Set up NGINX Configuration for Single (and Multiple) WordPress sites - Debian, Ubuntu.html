@@ -301,7 +301,7 @@ server {
 Include subdomains:
 <div class="hacker"><pre>server {
     # URL: Correct way to redirect URLs
-    server_name <em><u>www.coolexample.com product.coolexample.com aboutus.coolexample.com</u></em>;
+    server_name <em><u>www.coolexample.com</u></em> <em><u>product.coolexample.com</u></em> <em><u>aboutus.coolexample.com</u></em>;
     rewrite ^/(.*)$ <em><u>http://www.coolexample.com</u></em>/$1 permanent;
 }
 server {
@@ -318,10 +318,10 @@ server {
 <p>If you have a multi-site setup and need sub-directories, include some rewrite rules in your multisite.conf file.</p>
 
 Open your multisite.conf file to edit. 
-sudo vim multisite.conf
+<div class="hacker">sudo vim multisite.conf</div>
 
 Add this content to the end of the file. 
-# URL: add a permanent redirect if required.
+<div class="hacker"><pre># URL: add a permanent redirect if required.
 server {
     server_name <em><u>www.coolexample.com</u></em>;
     root /usr/share/nginx/wordpress;
@@ -330,21 +330,35 @@ server {
     include global/allsites.conf;
     include global/wordpress.conf;
     include global/multisite.conf;
-}
+}</pre></div>
 
 <h3>Multi-site with sub-domains</h3>
 
-<p>If you have sub-domains, use a wilcard in the servername line (the rest of the lines are the same). So for example, if we wanted to account for the coolexample.com subdomains, product.coolexample.com and aboutus.coolexample.com, we can use a wildcard *.coolexample.com.</p>
+<p>If you have sub-domains, use a wildcard in the servername line (the rest of the lines are the same). So for example, if we wanted to account for the coolexample.com subdomains, product.coolexample.com and aboutus.coolexample.com, we can use a wildcard *.coolexample.com.</p>
 
-server_name *.coolexample.com;
+<div class="hacker">server_name *.coolexample.com;</div>
+
+The entire multisite.conf file will look like this:
+<div class="hacker"><pre># URL: add a permanent redirect if required.
+server {
+    server_name <em><u>*.coolexample.com</u></em>;
+    root /usr/share/nginx/wordpress;
+    access_log /var/log/nginx/<em><u>www.coolexample.com</u></em>.access.log;
+    error_log /var/log/nginx/<em><u>www.coolexample.com</u></em>.error.log;
+    include global/allsites.conf;
+    include global/wordpress.conf;
+    include global/multisite.conf;
+}</pre></div>
 
 <h2>Enable Server Block Files</h2>
 
-Create a symlink between the sites-enabled and sites-enabled directories.
-sudo ln -s /etc/nginx/sites-available/<em><u>coolexample</u></em> /etc/nginx/sites-enabled/<em><u>coolexample</u></em>
+<ol>
+    <li>Create a symlink between the sites-enabled and sites-enabled directories.
+<div class="hacker">sudo ln -s /etc/nginx/sites-available/<em><u>coolexample</u></em> /etc/nginx/sites-enabled/<em><u>coolexample</u></em></div></li>
 
-Restart Nginx so your changes can take effect.
-sudo service nginx restart
+<li>Restart Nginx so your changes can take effect.
+<div class="hacker">sudo service nginx restart</div></li>
+</ol>
 
 <h2>Next Steps</h2>
 
