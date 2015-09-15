@@ -97,11 +97,13 @@ p.note {
 			  <div class='hacker'>exec $SHELL</div>
 			 </li>
 			 <li>Install the latest development version of ruby-build into the <code>~/.rbenv/plugins/ruby-build</code> directory.
-			 <div class='hacker'>  git clone git://github.com/sstephenson/ruby-build.git~/.rbenv/plugins/ruby-build</div>
+			 <div class='hacker'>  git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</div> <!-- corrected command -->
 			 </li>
 			 <li>Add a directory to your <code>$PATH</code> for accessing Ruby. 
-			 <div class='hacker'> echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >>   ~/.bash_profile</div>
-			  <div class='hacker'>exec $SHELL</div>
+			 <div class='hacker'> echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bash_profile</div>
+			 <div class='hacker'>exec $SHELL</div>
+			 <div class="hacker">source ~/.bash_profile</div> <!-- added because it requires to reqload the bash_profile and enable rbenv command -->
+			  
 			 </li>
       </ol>
 <p>This command installs rbenv into your home directory, and sets appropriate environment variables that will allow rbenv to the active version of Ruby.
@@ -111,10 +113,10 @@ p.note {
 		<p>Before you start using rbenv, make sure that you install the latest version of Ruby and the dependencies.</p>
              <ol>
 			 <li>Install the dependency of Rails before you install Ruby by typing:
-			 <div class='hacker'>rbenv install -v <em>latest_version</em></div>
+			 <div class='hacker'>rbenv install -v <em><u>2.2.3</u></em></div>
 			 </li>
 			 <li>Set the default version of Ruby that all of your shells will use.
-			 <div class='hacker'>rbenv global <em>latest_version</em></div>
+			 <div class='hacker'>rbenv global <em><u>2.2.3</u></em></div>
 			 </li>
 			 <li>Display which version of Ruby was installed.
 			  <div class='hacker'>ruby -v</div>
@@ -146,7 +148,7 @@ p.note {
 			 </li>
 			  <li>Find out the version of both Ruby and Rails.
 			  <div class='hacker'>ruby -v</div>
-			   <div class='hacker'>rails –v</div>
+			   <div class='hacker'>rails -v</div>
 			 </li>
 			 </ol>	 
 			 
