@@ -129,11 +129,11 @@ Keep the file open for the next step.
 
 <h3>Enable Gzip compression</h3>
 
-<p>Gzip allows WordPress to compress large HTML and CSS files using the DEFLATE algorithm, saving significant bandwidth (up to 70%).<!--CT (to Carla/Crystal): (re:70% part) Is this too specific of a piece of trivia? I found this tidbit in one article in my research but debated about including it. If so, feel free to remove--></p>
+<p>Gzip allows WordPress to compress large HTML and CSS files using the DEFLATE algorithm, saving significant bandwidth (potentially up to 70%).<!--CT (to Carla/Crystal): (re:70% part) Is this too specific of a piece of trivia? I found this tidbit in one article in my research but debated about including it. If so, feel free to remove--></p>
 
 <ol>
 
-<li>In your nginx.conf file that you still have open, find the gzip section and make sure gzip is enabled (set to "on").
+<li>In your nginx.conf file that you still have open, find the gzip section and make sure gzip is enabled, or set to "on" (it should be).
 <div class="hacker">gzip on;</div></li>
 
 <li>Also, uncomment the following line listing the file types gzip supports.
@@ -145,23 +145,26 @@ Keep the file open for the next step.
 
 <h2>Create configuration files</h2>
 
-We'll start from the broadest use case (all web sites), down to the most narrow (WordPress multi-site). But whether you're running a single or multi-site, this should be a more efficient setup.
+We'll start from the broadest use case (all web sites), down to the most narrow (WordPress multi-site). But whether you're running a single or multi-site, this should be a more efficient setup than writing the same configuration on every individual server block.
 
 <h3>Create allsites.conf for all sites</h3>
 
 <p>Instead of creating a new config on every server block, we'll create a universal config file to handle all web content, even non-WordPress-hosted sites. </p>
 
 <ol>
-<li>Let's create a directory under the /nginx directory to hold our file.
-sudo mkdir /etc/nginx/global</li>
+<li>First, create a directory within the /nginx directory to hold our file.
+<div class="hacker">sudo mkdir /etc/nginx/global</div></li>
 
 <li>Move into that directory.
-cd /etc/nginx/global</li>
+<div class="hacker">cd /etc/nginx/global</div></li>
 
 <li>Create an allsites.conf file.
-sudo vim allsites.conf</li>
+<div class="hacker">sudo vim allsites.conf</div></li>
 
-<li>This is a new file you're creating, so it'll be blank. Paste the following contents:
+<li>This is a new file you're creating, so it'll be blank. 
+For this tutorial, we'll set the root directory for all web content to <em><u>/usr/share/nginx/www</u></em>.<br/>
+Paste the following contents:<br/>
+
 <div class="hacker"><pre># All Sites configuration file.
 # ESSENTIAL: Configure Nginx Listening Port
 listen 80;
@@ -183,7 +186,7 @@ error_page 404 /404.html;
 # ESSENTIAL : Configure 50x Pages
 error_page 500 502 503 504 /50x.html;
     location = /50x.html {
-        root /usr/share/nginx/www;
+        root <em><u>/usr/share/nginx/www</u></em>;
     }
 # SECURITY: Deny all attempts to access hidden files .abcde
 location ~ /\. {
@@ -198,10 +201,10 @@ location ~* ^.+\.(js|css|swf|xml|txt|ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|a
 </ol>
 
 <h3>Create wordpress.conf for all sites</h3>
-Now we'll create a universal WordPress configuration that'll apply to all your WordPress sites. 
+Now we'll create a universal WordPress configuration that'll apply to all your WordPress sites. <p>So this applies to both single site and multi-site users.</p>
 
 <li>Create the wordpress.conf file.
-sudo vim wordpress.conf</li>
+<div class="hacker">sudo vim wordpress.conf</div></li>
 
 <li>Again, this is a new file, so it'll be blank. Paste the following contents:
 <div class="hacker"><pre># WORDPRESS: Rewrite rules, sends everything through index.php and keeps the appended query string intact. Enable Pretty Permalinks.
@@ -239,7 +242,7 @@ function do_get_id( $columns ) {
     return $columns;
 }
 
-#End of file. Yay!</pre></div></li>
+# End of file. Yay!</pre></div></li>
 
 <li>Save and close.</li>
 </ol>
@@ -248,7 +251,7 @@ function do_get_id( $columns ) {
 
 <h3>Multi-site users: Create multisite.conf for all sites</h3>
 
-The third config file is for multi-site. A multi-site requires custom rewrite rules to format URLs for subsites and subdomains. 
+The third config file is for multi-site users only. A multi-site requires custom rewrite rules to format URLs for subsites and subdomains. 
 
 <ol>
 <li>Create your multisite.conf file. 
@@ -267,13 +270,16 @@ rewrite ^/[_0-9a-zA-Z-]+(/.*\.php)$ $1 last;
 
 <h2>Build server blocks</h2>
 
-Remove the default server block file. 
-sudo rm /etc/nginx/sites-enabled/default
+<ol>
+<li>Remove the default server block file. 
+<div class="hacker">sudo rm /etc/nginx/sites-enabled/default</div></li>
 
-Create your first server block file.
-sudo vim /etc/nginx/sites-available/coolexample
+<li>Create your first server block file.<br/>
 
-Paste in the configuration from Simple / Single site or Multi-site.
+Paste in the contents depending on if you're configuring a single or multi-site. 
+Regardless of which you choose, we'll use <em><u>coolexample.com</u></em> as the primary domain and set the WordPress root directory to <em><u>/usr/share/nginx/wordpress</u></em>.<br/></li>
+
+</ol>
 
 <h3>Simple / Single site</h3>
 
