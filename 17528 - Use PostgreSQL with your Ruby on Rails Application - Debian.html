@@ -4,10 +4,6 @@
 
 <head>
 
-<!--Article Number is 17528-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
 
 <title>Use PostgreSQL with your Ruby on Rails Application - Debian</title>
 <style type='text/css'>
@@ -71,30 +67,28 @@ p.note {
 </head>
 
 <body>
-<p>Setting up Rails Application with PostgreSQL in Debian, PostgreSQL, Ruby, Rails</p>
-    <h1>Use PostgreSQL with your Ruby on Rails Application - Debian</h1>
+<p>Setting Up a Rails Application with PostgreSQL in Debian, PostgreSQL, Ruby, Rails</p>
+    <h1>Use PostgreSQL with Your Ruby on Rails Application - Debian</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>30 mins</u></em></p>
 
-    <p>This article will assist you to create a PostgreSQL server that will be used as a database layer for scaling Ruby on Rails (RoR) application. It describes how you can use PostgreSQL for Rails application. These tasks assume that you have <code>sudo</code> privileges.</p>
-
-    <h2>Prerequisites: </h2>
-    <p>If you have not installed Ruby on Rails, then please visit: <a href ="17523">Install Ruby on Rails with rbenv - Debian</a> </p>
-    <h2>Install PostgreSQL </h2>
+    <p>This article will help you create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails (RoR) application. </p>
+    <p>The tasks in this article assume that you have <code>sudo</code> privileges.    If you have not installed Ruby on Rails,  please visit <a href ="17523">Install Ruby on Rails with rbenv - Debian</a>. </p>
+<h2>Install PostgreSQL </h2>
     <ol>
 		<li>To install PostgreSQL, open the terminal and type: 
 			<div class="hacker">sudo apt-get install postgresql postgresql-contrib
 			</div>
 		</li>
-		<li>Install <code>pgadmin3</code> for the administrator. This is an easy to access GUI for PostgresSQL, and is an optional installation.  
+		<li>Install <code>pgadmin3</code> for the administrator. This is an easy-to-access GUI for PostgresSQL and is an optional installation.  
 			<div class="hacker">sudo apt-get install pgadmin3
 			</div>
 		</li>
 	</ol>	
-	<h2>Create database user</h2>
+	<h2>Create a database user</h2>
 	<ol>
-		<li>Login with the <code>postgres</code> system user and create a new user.
+		<li>Log in with the <code>postgres</code> system user, and create a new user.
 			<div class="hacker">sudo -u postgres createuser -s <em><u>User_Name</u></em></div>
 		</li>
 		<li>Set a password for the database user.
@@ -102,7 +96,7 @@ p.note {
 			</div>
 			<div class="hacker">postgres=# \password <em><u>User_Name</u></em></div>
 		</li>
-		<li>Close the session by typing:
+		<li>Close the session.
 			<div class="hacker">postgres=# \q
 			</div>
 		</li>
@@ -111,9 +105,9 @@ p.note {
 			</div>
 		</li>
 	</ol>
-	<h2>Setup a Rails application</h2>
+	<h2>Set up a Rails application</h2>
 	<ol>
-		<li>Move to your home directory to create a new Rails app. To set PostgreSQL as the database, use the <code>-d postgresql</code> option.
+		<li>Move to your home directory to create a new Rails application. To set PostgreSQL as the database, use the <code>-d postgresql</code> option.
 			<div class = "hacker">cd ~
 			</div>
 			<div class = "hacker">rails new <em><u>Your_application</u></em> -d postgresql
@@ -123,11 +117,11 @@ p.note {
 			<div class = "hacker">cd <em><u>Your_application</u></em>
 			</div>
 		</li>
-		<li>Open the following file:
-			<div class = "hacker">sudo vim config/database.yml
+		<li>Open the <span class="hacker"><code>database.yml</code></span> file.
+          <div class = "hacker">sudo vim config/database.yml
 			</div>
 		</li>
-		<li>Look for "<code>pool: 5</code>" in the file and add the following lines beneath it. Enter the username and password for the <code>postgres</code> user when prompted.
+		<li>Look for "<code>pool: 5</code>" in the file, and add the following lines beneath it. Enter the user name and password for the <code>postgres</code> user when prompted.
 			<div class = "hacker">
 				<pre>
 host: localhost
@@ -139,38 +133,35 @@ password: <em><u>User_Password</u></em>
 		<li>Save and exit.
 		</li>
 	</ol>
-	<h2>Create a database for your application</h2>
+<h2>Create a database for your application</h2>
 	<ol>
-		<li>Use the rake command to create your application's databases in the application directory.
-			<div class="hacker">rake db:create
+		<li>Use the <code>rake</code> command to create your application's databases in the application directory.
+<div class="hacker">rake db:create
 			</div>
 		</li>
-		<li>If you get an error, then install the following package:
+		<li>If you get an error,  install the following package:
 			<div class="hacker">sudo apt-get install libpq-dev
-			</div>
+		  </div>
 			<div class="hacker">bundle install
 			</div>
 		</li>
-		<li>Again run the rake command.
-			<div class="hacker">rake db:create
+		<li>Again run the <code>rake</code> command.
+<div class="hacker">rake db:create
 			</div>
-		</li>
-		<li>This will create two databases in your PostgreSQL server. For example, if your application's name is "<em><u>Your_application</u></em>", then it will create the two databases as "<code><em><u>Your_application</u></em>_development</code>" and "<code><em><u>Your_application</u></em>_test</code>".
-		</li>
+		This command creates two databases on your PostgreSQL server: <code><em><u>Your_application</u></em>_development</code> and <code><em><u>Your_application</u></em>_test</code>.		</li>
 	</ol>
-	<h2>Test configuration</h2>
-	<ol>
+<h2>Test the configuration</h2>
+	<ul>
 		<li>Test your Rails application.
 			<div class="hacker">Rails server
 			</div>
-		</li>
-		<li>You can run your Rails application on your <code>localhost</code> on port 3000.  You can also access your application from a web browser, if it is located on a remote server by assigning a public IP address
+		You can run your Rails application on your <code>localhost</code> on port 3000.  You can also access your application from a web browser, if it's located on a remote server by assigning a public IP address
 			<div class="hacker">rails server --binding=<em><u>server_public_IP</u></em>
 			</div>
 		</li>
-	</ol>
-    <h2>Next steps</h2>
-    <p>In this article, you configured a PostgreSQL with a Rails application in Debian. For further exploration, visit <a href ="17518">Deploy a Rails App with Unicorn and NGINX - Debian</a> </p>
+	</ul>
+<h2>Next steps</h2>
+    <p>You have configured a PostgreSQL server with a Rails application in Debian. For further exploration, visit <a href ="17518">Deploy a Rails App with Unicorn and Nginx - Debian</a>. </p>
    
 </body>
 </html>
