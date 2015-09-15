@@ -96,8 +96,8 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
     <h2>Install Dependencies</h2>
            <ol>
                <li>Update your installation package
-                   <div class="hacker"><pre>sudo rpm -Uvh  https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-               </pre>  </div>
+                   <div class="hacker">sudo rpm -Uvh  https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+                </div>
                </li>
                <li>Install Webtatic
                    <div class="hacker">
@@ -119,14 +119,7 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
       <li>Create a physical location for the Laravel server.
                  <div class="hacker">sudo mkdir -p /var/www/laravel</div>
       </li>
-  <li>Create a directory for server-level include files.
-                 <div class="hacker">sudo mkdir /etc/nginx/servers</div>
-      </li>
-      <li>Create a directory for location-level include files.
-                 <div class="hacker">sudo mkdir /etc/nginx/locations</div>
-      </li>
-
-      <li>Open the nginx.conf file
+        <li>Open the nginx.conf file
                   <div class="hacker">sudo vim /etc/nginx/nginx.conf</div>
       </li>
        <li>Verify / modify the file such that the index directive and a server-level include reference is specified in the http context.
@@ -135,52 +128,56 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
          <pre>        http
           {
           ...
-          index index.php index.html index.htm
-          ...
-          include /etc/nginx/servers/*.conf
+          index index.php index.html index.htm;
+          include /etc/nginx/conf.d/*.conf;
           server {
           ...</pre></div>
       </li>
-       <li>Create a new server block for Laravel.
-                  <div class="hacker">sudo vim /etc/nginx/servers/laravel.conf</div>
-      </li>
-  <li>Add the following contents:
-    <div class="hacker"><pre># server context
-                server {
-        listen       80;
-        server_name  localhost/laravel;
-        root /var/www/laravel/public;
-
-        location /laravel {
-        }
-
-        include /etc/nginx/locations/*.conf;
-        }
-
-</pre></div>
-     </li>
-          <li>Save and close the file.       </li>
-          <li>Create an Nginx PHP location block configuration file and open it for editing.
-              <div class="hacker">sudo vim /etc/nginx/locations/php.conf</div>
-          </li>
-
-      <li>If you already have a php configuration include file you may copy it to <code>/etc/nginx/locations/</code> and modify it as shown below.
-          If not, create a new file and edit it so it looks&nbsp; like this:
-        <div class="hacker"><pre>
-#location context
- location ~ \.php$ {
+         <li>Modify the&nbsp; php configuration section of the file to look like this:
+        <div class="hacker"><pre>location ~ \.php$ {
        try_files $uri /index.php =404;
     fastcgi_split_path_info ^(.+\.php)(/.+)$;
-       <b><i>fastcgi_pass unix:/run/php-fpm/php5-fpm.sock;</i></b>
+       <b><i>fastcgi_pass unix:/run/php-fpm/php-fpm.sock;</i></b>
         <b><i>fastcgi_index index.php</i></b>;
        <b><i> fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  </i></b>
        <b><b> include fastcgi_params;</b></b>
     }
 </pre></div>
+      </Save and close the file.&nbsp; </li> 
+         <li>Create a new server block for Laravel.
+                  <div class="hacker">sudo vim /etc/nginx/conf.d/laravel.conf</div> 
       </li>
-         <li>Save and close the file.
+  <li>Add the following contents:
+    <div class="hacker"><pre># server context
+                server {
+        listen       81;
+        server_name  localhost;
+        root /var/www/laravel/public;
+        index   index.php index.html index.htm;
+        
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+        }
+
+        # redirect server error pages to the static page /40x.html
+        #
+        error_page  404              /404.html;
+        location = /40x.html {
+        }
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+        }
+     }</pre></div>
+     </li> 
+        <li>Save and close the file.
        </li>
-<li>Start Nginx<div class="hacker">sudo service start nginx</div>
+      
+<li>Start Nginx
+  <div class="hacker">  sudo service restart nginx</div>
        </li>
         </ol>
 
@@ -197,8 +194,7 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
                    <div class="hacker">sudo mv composer.phar /usr/local/bin/composer</div>
                </li>
 
-                       </ol>
-<h2>Install Laravel</h2>
+                Install Laravel</h2>
     <ol>
                <li>Use composer to retrieve and install Laravel into the directory we created earlier
                    <div class="hacker">sudo /usr/local/bin/composer create-project laravel/laravel /var/www/laravel 4.2</div>
@@ -209,11 +205,9 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
 <li> Change the permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
                </li>
               <li>Verify success by navigating to yourcloudserver
-                                    <div class="hacker">http://your server IP address.com/laravel</div>
+                                    <div class="hacker">http://your server IP address.com:81</div>
                </li>
            </ol>
-
-
     <h2>Next steps</h2>
     <p>You have arrived.&nbsp; Now you can use the Laravel framework to make beautiful apps.</p>
 

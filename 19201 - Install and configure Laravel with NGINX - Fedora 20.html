@@ -129,7 +129,22 @@ p.note {
           include /etc/nginx/conf.d/*.conf;
           server {
           ...</pre></div> 
-      </li>  
+      </li> 
+        <li>Create / modify an Nginx PHP location block configuration file.
+<div class="hacker">sudo vim /etc/nginx/default.d/php.conf</div> 
+Modify the file so it looks  like this:
+<div class="hacker"><pre>#location context
+ location ~ \.php$ {
+       try_files $uri /index.php =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+       fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  
+        include fastcgi_params;
+    }</pre></div>
+            </li>
+<li>Save and close the file.
+       </li>
        <li>Create a new server block for Laravel.
                   <div class="hacker">sudo vim /etc/nginx/conf.d/laravel.conf</div> 
       </li>
@@ -159,27 +174,9 @@ p.note {
         }
      }</pre></div>
      </li> 
-          <li>Save and close the file.       </li>
-          <li>Create an Nginx PHP location block configuration file and open it for editing.  
-              If you already have a php configuration include file you may copy it to <code>/etc/nginx/locations/</code> and modify it as shown below:
-            <div class="hacker">sudo vim /etc/nginx/default.d/php.conf</div> 
-          </li>
-
-      <li>Modify the file so it looks&nbsp; like this:
-        <div class="hacker"><pre>
-#location context
- location ~ \.php$ {
-       try_files $uri /index.php =404;
-    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-       <b><i>fastcgi_pass unix:/run/php-fpm/php-fpm.sock;</i></b>
-        <b><i>fastcgi_index index.php</i></b>;
-       <b><i> fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  </i></b>
-       <b><b> include fastcgi_params;</b></b>
-    }
-</pre></div>
-      </li> 
-         <li>Save and close the file.
+        <li>Save and close the file.
        </li>
+      
 <li>Restart Nginx.
   <div class="hacker">sudo systemctl restart nginx</div>
       </li> 
