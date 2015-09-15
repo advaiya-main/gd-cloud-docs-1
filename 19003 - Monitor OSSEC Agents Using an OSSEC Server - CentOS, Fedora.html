@@ -70,12 +70,11 @@ p.note {
 	<h1>Monitor OSSEC Agents using OSSEC Server - CentOS, Fedora</h1>
 	<p><strong>Difficulty: </strong> 4<br />
 	<strong>Time: </strong> 1 hour</p>
-	<p>OSSEC is an open-source, host-based intrusion detection system. It performs log integrity checking, analysis, rootkit detection, Windows registry monitoring, active response and time based alerting. It can monitor one or more servers and can be configured to give real time alerts. For proper communication between server and agent, <strong>rules</strong> are added into Iptables. Iptables is a flexible firewall utility, built for Linux operating systems. 
+	<p>OSSEC is an open-source, host-based intrusion detection system. It performs log integrity checking, analysis, rootkit detection, Windows registry monitoring, active response, and time based alerting. It can monitor one or more servers and can be configured to give real time alerts. For proper communication between server and agent, <strong>rules</strong> are added into Iptables. Iptables is a flexible firewall utility, built for Linux operating systems. 
 	</p>
 	<p>
 	This article explains how to monitor OSSEC agents with OSSEC server on CentOS and Fedora..
 	</p>
-	 <!--What does OSSEC stand for?--><!--updated-->
 	<p class="note">You will need access to sudo privileges to complete all the steps.
 	</p>
 	<h2>Prerequisites</h2>
@@ -114,36 +113,35 @@ p.note {
 			On both the droplets, download OSSEC and its <strong>checksum</strong> file. 
 			<div class="hacker">
 				
-			wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1.tar.gz<br/>
+			wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1.tar.gz<br />
 			wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1-checksum.txt
 				
-			</div></li>
-  <!--Please continue formatting the rest of the produres as list items. Remember that the close </li> tag goes after the div. No close break is needed before a <div> tag.  Also, tag buttons as <strong>. -->    
-			<li>
-				Type the following command to verify md5sum of the compressed tarball.
-				<strong>md5sum</strong> is a computer program that calculates and verifies 128-bit MD5 hashes. The MD5 hash (or checksum) functions as a compact digital fingerprint of a file.
+			</div></li>  
+			<li><strong>md5sum</strong> is a computer program that calculates and verifies 128-bit MD5 hashes. The MD5 hash (or checksum) functions as a compact digital fingerprint of a file.<br />
+				Type the following command to verify md5sum of the compressed tarball:
+				
 				<div class="hacker">
 					md5sum -c ossec-hids-2.8.1-checksum.txt
 				</div>
 				The output should be:
 				<div class="hacker">
-					ossec-hids-2.8.1.tar.gz: OK<br/>
+					ossec-hids-2.8.1.tar.gz: OK<br />
 					md5sum: WARNING: 1 line is improperly formatted
 				</div>
-				Ignore the warning.
+				You can ignore the warning.
 			</li>
-			<li>
+			<li><strong>SHA1</strong> produces a 160-bit output called a message digest. Message digest can be input to a signature algorithm which generates or verifies the signature for the message. US Secure Hash Algorithm 1 is used by SHA1. <br />
 				Type the following command to verify SHA1 of the compressed tarball.
-				<strong>SHA1</strong> produces a 160-bit output called a message digest. Message digest can be input to a signature algorithm which generates or verifies the signature for the message. US Secure Hash Algorithm 1 is used by SHA1.
+				
 				<div class="hacker">
 				sha1sum -c ossec-hids-2.8.1-checksum.txt
 				</div>
 				It should display:
 				<div class="hacker">
-					ossec-hids-2.8.1.tar.gz: OK<br/>
+					ossec-hids-2.8.1.tar.gz: OK<br />
 					sha1sum: WARNING: 1 line is improperly formatted
 				</div>
-				Ignore the warning.
+				You can ignore the warning.
 
 			</li>
 			
@@ -176,13 +174,12 @@ p.note {
 			</div>
 		</li>
 		<li>
-			During the installation it will prompt to answer a few questions, just press <strong>Enter</strong>
-			to accept the default answers. 
+			During the installation, you will be prompted to answer a few questions, just press <strong>Enter</strong> to accept the default answers. 
 		</li>
 		<li>Choose a language. To accept the default, <em><u>English(en)</u></em>, press <strong>Enter</strong>.
  		</li>
 		<li>
-			Choose the kind of installation. To select <em><u>server</u></em>, type <em><u>server</u></em> <strong>Enter</strong>.
+			Choose the kind of installation. To select <em><u>server</u></em>, type <em><u>server</u></em>, and then press <strong>Enter</strong>.
 			<div class="hacker">
 				1- What kind of installation do you want (server, agent, local, hybrid or help)? <em><u>server</u></em>
 			</div>
@@ -196,7 +193,7 @@ p.note {
 			<div class="hacker">
 				<pre>
 In order to connect agent and server, you need to add each agent to the server.
-Run the 'manage_agents' to add or remove them:
+Run the <code>manage_agents</code> to add or remove them:
 
 /var/ossec/bin/manage_agents
 
@@ -208,20 +205,21 @@ http://www.ossec.net/en/manual.html#ma
 	</ol>
 
 	<h2>Configure OSSEC Server</h2>
-	The OSSEC agent is not installed yet, but you can configure the server.
+	<p>The OSSEC agent is not installed yet, but you can configure the server.</p>
 	<ol>
 		<li>
 			Open the <code>ossec.conf</code> file.
 			<div class="hacker">
 				sudo vim /var/ossec/etc/ossec.conf
 			</div>
-			At the top of the file, there are a few fields described below:
+			At the top of the file, there are a few fields as described here:
 			<ul>
-				<li><code>&lt;email_to> </code>is the email you entered during installation.</li>
-				<li><code>&lt;email_from> </code>is where the emails appear to be coming from.</li>
-				<li>Change <code>&lt;smtp_server> </code> to <code>localhost</code>, if you have your own email
+				<li><code>email_to</code>is the email you entered during installation.</li>
+				<li><code>email_from </code>is where the emails appear to be coming from.</li>
+				<li>Change <code>smtp_server </code> to <code>localhost</code>, if you have your own email
 				 server installed on same the host as OSSEC.</li>
-			</ul>
+			</ul></li>
+      <li>
 			Update these settings as per need. After all the changes, the section will look like:
 			<div class="hacker">
 				<pre>
@@ -269,7 +267,7 @@ http://www.ossec.net/en/manual.html#ma
 			</div>
 		</li>
 		<li>
-			Most of the prompts are same as before, except a few. When asked about the type of installation, type <code>agent</code> and press
+			Most of the prompts are same as before, except a few. When asked about the type of installation, type <code>agent</code>, and then press
 			<strong>Enter</strong>
 		</li>
 		<li>
@@ -403,7 +401,7 @@ Added.
 			If you don't have a drop rule, it might get a <em>bad rule</em> message.
 		</li>
 		<li>
-			Add following rule at OSSEC server with the agent's IP.
+			Add the following rule at OSSEC server with the agent's IP.
 			<div class="hacker">
 				sudo iptables -A INPUT -p UDP --dport 1514 -s <em><u>ip_of_agent</u></em> -j ACCEPT
 			</div>
@@ -416,7 +414,7 @@ Added.
 		</li>
 		<li>
 			These rules should persist after reboot. We have installed <strong>iptables-persistant</strong> to take care of this. Type the following command to 
-			save any.
+			save:
 			<div class="hacker">
 			sudo service iptables save
 			</div>
@@ -424,31 +422,31 @@ Added.
 	</ol>
 
 	<h2>Restart OSSEC Agent and Server</h2>
-	<ul>
+	<ol>
 		<li>
 			Restart both the servers.
 			<div class="hacker">
 				/var/ossec/bin/ossec-control restart
-			</div>
+			</div></li>
 		
 		
-			OSSEC agent can be started from server using the following command:
+			<li>OSSEC agent can be started from server using the following command:
 			<div class="hacker">
 				/var/ossec/bin/agent_control -R <em><u>001</u></em>
-			</div>
-			<strong>001</strong> is the agent ID. Following message will be displayed.
+			</div> </li>
+			<li><strong>001</strong> is the agent ID. Following message will be displayed.
 			<div class="hacker">
 				<em><u>agent-name</u></em>-<em><u>ip_of_agent</u></em> is active.
 			</div>
 		</li>
-	</ul>
+	</ol>
 	<h2>Next steps</h2>
 	<p>
 		After following all these steps, email alerts should be received from both the ends. Settings may be further customized 
 		for file addition or real time alerts. For configuration settings to the article: <a href="18477 - Install and Configure OSSEC Security Notifications - CentOS, Fed">Install and Configure OSSEC Security Notifications - CentOS, Fedora</a>
 	</p>
 	<p>
-		To monitor more than two droplets, add them as OSSEC agents using same steps as described in this article. If you come across any issue during set up, you can go through the logs in the <code>/var/ossec/logs/ossec.log</code> file.
+		To monitor more than two droplets, add them as OSSEC agents using same steps as described in this article. If you come across any issue during setup, you can go through the logs in the <code>/var/ossec/logs/ossec.log</code> file.
 	</p>
 </body>
 </html>

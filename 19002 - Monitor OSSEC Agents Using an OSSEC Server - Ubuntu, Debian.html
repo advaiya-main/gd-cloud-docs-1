@@ -1,11 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">                                                             
+                                                                    
 <head>
 
 <!--Article Number is 19002-->
-
 
 
 <title>Monitor OSSEC Agents using OSSEC Server - Ubuntu, Debian</title>
@@ -109,7 +108,7 @@ p.note {
 			<div class="hacker">
 				sudo apt-get install iptables-persistent
 			</div>
-			<p>It will ask if you would like to save current IPv4 and IPv6 Iptables rules to be automatically loaded. If you have created any rule and want to save that,
+			<p>You can save current IPv4 and IPv6 Iptables rules to be automatically loaded. If you have created any rules and want to save them,
 			press <strong>Enter</strong> for both the prompts.</p>
 		</li>
 		<li>
@@ -145,7 +144,7 @@ p.note {
 				ossec-hids-2.8.1.tar.gz: OK<br/>
 				sha1sum: WARNING: 1 line is improperly formatted
 			</div>
-			Ignore the warnings.
+			You can ignore the warnings.
 		</li>
 	</ol>
 	
@@ -173,7 +172,7 @@ p.note {
 			During the installation it will prompt to answer a few questions, just press <strong>Enter</strong>
 			to accept the default answers.
 		</li>
-		<li>Choose a language. To accept the default, <em><u>English(en)</u></em>, and then press <strong>Enter</strong>.
+		<li>Choose a language. To accept the default, <em><u>English(en)</u></em>, press <strong>Enter</strong>.
  		</li>
 		<li>
 			Choose the kind of installation. To select <em><u>server</u></em>, type <em><u>server</u></em>, and then press <strong>Enter</strong>.
@@ -209,7 +208,7 @@ http://www.ossec.net/en/manual.html#ma
 			<div class="hacker">
 				sudo vim /var/ossec/etc/ossec.conf
 			</div>
-			At the top of the file, there are a few fields described below:
+			At the top of the file, there are a few fields as described here:
 			<ul>
 				<li><code>email_to </code>is the email you entered during installation.</li>
 				<li><code>email_from </code>is where the emails appear to be coming from.</li>
@@ -264,7 +263,7 @@ http://www.ossec.net/en/manual.html#ma
 			</div>
 		</li>
 		<li>
-			Most of the prompts are same as before, except a few. When asked about the type of installation, type <code>agent</code> and press <strong>Enter</strong>.
+			Most of the prompts are same as before, except a few. When asked about the type of installation, type <code>agent</code>, and then press <strong>Enter</strong>.
 		</li>
 		<li>
 			When asked, type IP address of the server.
@@ -399,7 +398,7 @@ Added.
 			If you don't have a drop rule, it might get a <em>bad rule</em> message.
 		</li>
 		<li>
-			Add following rule at OSSEC server with the agent's IP.
+			Add the following rule at OSSEC server with the agent's IP.
 			<div class="hacker">
 				sudo iptables -A INPUT -p UDP --dport 1514 -s <em><u>ip_of_agent</u></em> -j ACCEPT
 			</div>
@@ -412,7 +411,7 @@ Added.
 		</li>
 		<li>
 			These rules should persist after reboot. We have installed <strong>iptables-persistant</strong> to take care of this. Type the following command to 
-		save any: 
+		save: 
 			<div class="hacker">
 			sudo invoke-rc.d iptables-persistent save
 			</div>
