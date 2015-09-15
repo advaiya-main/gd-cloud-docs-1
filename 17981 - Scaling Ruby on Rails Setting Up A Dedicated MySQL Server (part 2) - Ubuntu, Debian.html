@@ -83,16 +83,15 @@ p.note {
 <p>Setting up a dedicated MySQL server to host Ruby on Rails application servers, Ruby, Rails, MariaDB,MySQL,NoSQL,Scaling.</p>
 
 <h1>Scaling Ruby on Rails: Setting up a dedicated MySQL server (part 2) - Debian , Ubuntu</h1>
-<!--The OS's should be in alphabetical order. Update filename, title, and H1.--> <!-- fixed -->
-<p><strong>Difficulty: </strong><em> 4</em></p>
-<p><strong>Time: </strong> <em>1 hour</em></p>
+<p><strong>Difficulty: </strong><em><u> 4</u></em></p>
+<p><strong>Time: </strong> <em><u>1 hour</u></em></p>
 <p>This article provides information about creating a database layer using MySQL to host application servers running Ruby on Rails. </p>
-<!--If this is Part 2, include the link to Part 1.--><!-- Added on  line number 109 -->
 <h2>Architecture of database server layer - an overview</h2>
-<p>To make the database server centrally accessible, you will require a load-balancer, two application servers and a database server to set-up the database server layer. The architecture will look like the following diagram:</p>
+<p>To make the database server centrally accessible, a load-balancer, two application servers, and a database server to set-up the database server layer are required. The architecture will look like the following diagram:</p>
 
-<img src="images/17981.png" alt="17981" /> <!--Send images to Gary or Thomas and update the link to the image. --><!-- All images are stored in images folder in Github-->
-<p> This articles will assist you in setting up a dedicated MySQL server and scaling Ruby on Rails applications between the servers in Debian or Ubuntu Linux distributions.</p>
+<img src="images/17981.png" alt="17981" />
+<p> This article will assist you in setting up a dedicated MySQL server and scaling Ruby on Rails applications between the servers in Debian or Ubuntu Linux distributions.</p>
+
 <h2>Prerequisites</h2>
 This article assumes that the host machine has Ruby on Rails using RVM installed and running. For more details, see:
 <ul>
@@ -103,41 +102,39 @@ This article assumes that the host machine has Ruby on Rails using RVM installed
 <a href ="17534">Install Ruby on Rails using RVM on Ubuntu</a>
 </li>
 </ul>
-This article is a part 2 article of the scaling Ruby on Rails series articles. To refer the first and third part, visit:
+This article is part 2 of the scaling Ruby on Rails series articles. To refer the first and third part, visit:
 <ul>
 <li>
-<a href = "17952">Scale Ruby on Rails Applications Across Multiple Servers - Debian, Ubuntu</a>
+<a href = "17952">Scale Ruby on Rails Applications across multiple Servers - Debian, Ubuntu</a>
 </li>
 <li>
-<a href = "17894">Scaling Ruby on Rails: Setting Up A Dedicated PostgreSQL Server (Part 3) - Debian, Ubuntu</a>
+<a href = "17894">Scaling Ruby on Rails: Setting up a dedicated PostgreSQL server (Part 3) - Debian, Ubuntu</a>
 </li>
 </ul>
 
-<p class="note">This article  assumes that you are logged in as a <code>sudo</code> user.</p>  <!--You do not need to include word "Note" in the class tag.  The presentation layer will add the word.  Use periods. Include the entire link or at least the filename or article number.--><!-- fixed -->
- <!--Do not include the word "Step" and number in a Heading.  I made this a H2.  Titles are sentence case with imperative mood.  Please duplicate this formating with the other headings.<!-- fixed 
-<p>Based on the needs and application type, choose your database server to build a database layer for your application development. Following are some popular databases:</p>
+<p class="note">This article  assumes that you are logged in as a <code>sudo</code> user.</p>  
+
+<p>Based on your needs and application type, choose the database server to build a database layer for your application development. Here are some popular databases:</p>
 
 <h3>Relational database servers</h3>
 <ul>
 <li>MySQL and derivatives</li>
-<li>Postgre SQL</li>
+<li>PostgreSQL</li>
 </ul>
 
-
-<ul><!--Make this into a list into a H2 with bullets for the list.  Make it easily scannable for readers.  I did the one above.<!-- fixed 
-<li>For Non-relational database servers: Use Column-based Cassandra and HBase, Document-based MongoDB and Couchbase and Graph-based OrientDB, Neo4J and related databases</li>
-
-<li>Understand the Database Server Layer
-<!--This section could also be a list.--><!-- Since this section is informational and is not being used in this article, so we are removing this section completely. < -->
-
-
+<h3>Non-relational database servers</h3>
+<ul>
+<li>Column-based Cassandra and HBase</li> 
+<li>Document-based MongoDB and Couchbase and Graph-based OrientDB</li>
+<li>Neo4J and related databases</li>
+</ul> 
 
 
 
 <h2>Install MySQL and other dependencies</h2>
-<!--Ideally, no procedure should be more than 6-7 steps.  Break this one into a few small subprocedures with a <h3>.--><!-- fixed -->
+
 <ol>
-<li>Update operating system  packages and install MySQL. <!--At the end of steps, before the code example, please use periods or colons.  Periods for statements like "Initiate the MySQL server daemon." or colons if the text refers to the following example: "..a Welcome screen displays the following:"--><!-- fixed -->
+<li>Update operating system  packages and install MySQL. 
 <div class="hacker"> sudo apt-get install mysql-server mysql-client libmysqlclient-dev </div>
 <div class= "hacker">sudo apt-get install build-essential </div>
 <div class ="hacker">sudo  apt-get -y update</div>
@@ -145,13 +142,13 @@ This article is a part 2 article of the scaling Ruby on Rails series articles. T
 <li>Initiate the MySQL server daemon by typing:
 <div class="hacker"> sudo /etc/init.d/mysql start </div>
 </li>
-<li>To tell MySQL to create a database directory structure for storing MySQL database directory information, type:
+<li>Tell MySQL to create a database directory structure for storing MySQL database directory information by typing:
   <div class="hacker"> sudo mysql_install_db </div>
 </li>
-<li>Run the MySQL installation process by typing :
+<li>Run the MySQL installation process by typing:
       <div class="hacker"> sudo mysql_secure_installation </div>
 </li>
-<li>After you give the above command, a welcome screen displays the following:
+<li>After the above command completes, a Welcome screen displays the following:
   <div class="hacker">
 <pre>
   NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL 
@@ -165,15 +162,17 @@ This article is a part 2 article of the scaling Ruby on Rails series articles. T
   
   Enter current password for root (enter for none): 
     </pre>
-</div>
-Enter the current password for root. If you have not created a root password, create it by using the following command: <!--According to the MS style guide, which we are using to supplement the Editorial Guidelines, use "press" instead of hit.  Button names are tagged <strong>--><!-- fixed -->
+</div></li
+>
+<li>Enter the current password for root. If you have not created a root password, create it now using the following command:
 <div class="hacker">
 <pre>
-   /usr/bin/mysqladmin -u root password 'new-password'
+   /usr/bin/mysqladmin -u root password '<em><u>new-password</u></em>'
      </pre>
-</div>
-Press <strong>Enter.</strong>
-<p>Answer the following questions by pressing <strong>Y</strong>.</p>
+</div></li>
+<li>
+Press <strong>Enter.</strong></li>
+<li>Answer the following questions by pressing <strong>Y</strong>.
 <div class="hacker">
 <pre>
     Set root password?                     --> Y
@@ -185,9 +184,9 @@ Press <strong>Enter.</strong>
 </div>
 </li>
 </ol>
-<h2>Create a database, database user and database connection</h2>
+<h2>Create a database, database user, and database connection</h2>
 <ol>
-<li>Establish a database connection using MySQL client and enter the password for root that was previously set up.<!-- "set up" is the verb.  "setup" is the noun.--><!-- fixed -->
+<li>Establish a database connection using MySQL client, and then enter the password for root that was previously set up.
 
   <div class="hacker"> sudo mysql -u root -p </div>
 </li>
@@ -196,7 +195,7 @@ Press <strong>Enter.</strong>
 <li>Create a sample database.
 <div class="hacker"> create database <em><u>rails_Database_name</u></em>; </div>
 </li>
-<li>Create a new user for your database and grant remote and local access to this user.
+<li>Create a new user for your database, and then grant remote and local access to this user.
   <div class="hacker"> CREATE USER '<em><u>rails_UserName</u></em>'@'localhost' IDENTIFIED BY 'pwd'; </div>
 
   <div class="hacker"> CREATE USER '<em><u>rails_UserName</u></em>'@'%' IDENTIFIED BY 'pwd'; </div>
@@ -209,16 +208,16 @@ Press <strong>Enter.</strong>
   GRANT ALL ON rails_myapp.* TO '<em><u>rails_UserName</u></em>'@'%';
 </div>
 
-  <P>Revoke the privileges.</P>
+  <p>Revoke the privileges.</p>
 
     <div class="hacker"> FLUSH PRIVILEGES; </div>
   </li>
   <li>Exit from database.
     <div class="hacker"> Exit </div>
 </li>
-<li>Open the MySQL database configuration <code>my.cnf</code> to enable remote connections, and edit using the <code>vim</code> text editor.
+<li>Open the MySQL database configuration <code>my.cnf</code> to enable remote connections, and then edit it using the <code>vim</code> text editor.
 <div class="hacker"> sudo vim  /etc/my.cnf </div>
-                Type the below mentioned line in this file :
+                Type the below mentioned line in this file:
 
                 <div class="hacker">
 <pre> 
@@ -229,16 +228,16 @@ bind-address   =  0.0.0.0
 </pre>
 </div>
 </li>
-<li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
 
 </li>
 <li>Start MySQL Daemon.
 <div class="hacker"> sudo /etc/init.d/mysql start </div>
 </li>
 </ol>
-<h2>Create Rails application</h2>
+<h2>Create the Rails application</h2>
 <ol>
-<li>Install gem for Mysql and updates.
+<li>Install the gems for MySQL and updates.
   <div class="hacker">
 sudo gem install mysql2
       sudo gem update --system
@@ -254,11 +253,11 @@ sudo gem install mysql2
   <div class="hacker"> cd rails new <em><u>Your_application</u></em> </div>
 </li>
 <li>
- Go to <code>config</code> directory and open <code>database.yml</code> file.
+ Go to <code>config</code> directory, then and open <code>database.yml</code> file.
 <div class ="hacker">cd config/</div>
   <div class="hacker"> sudo vim database.yml </div>
 </li>
-<li>Replace with the following code in production section:
+<li>Replace with following code in production section:
 <div class="hacker">
 <pre>
 production:
@@ -274,7 +273,7 @@ production:
 </div>
 
 </li>
-<li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
 <div class = "hacker">wq!</div>
 </li>
 </ol>
@@ -286,14 +285,13 @@ production:
       Add the following line:
        <div class="hacker"> gem 'mysql' </div>
 </li>
-<li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
-<div class ="hacker">wq!</div>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
 </li>
-<li>Install all the dependenices of <code>Gemfile</code>.
+<li>Install all the dependencies of <code>Gemfile</code>.
     <div class="hacker"> bundle install </div>
 </li>
 </ol>
 <h2>Conclusion</h2>
-<p>In this article, you learned to scale Ruby on Rails application and set up a dedicated MySQL Server on Debian, Ubuntu.</p>
+<p>In this article, you learned to scale a Ruby on Rails application, and then set up a dedicated MySQL Server on Debian or Ubuntu.</p>
 </body>
 </html>
