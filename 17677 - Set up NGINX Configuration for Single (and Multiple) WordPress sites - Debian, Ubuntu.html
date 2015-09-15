@@ -214,6 +214,7 @@ location ~* ^.+\.(js|css|swf|xml|txt|ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|a
 <h3>Create wordpress.conf for all WordPress sites</h3>
 Now we'll create a universal WordPress configuration that'll apply to all your WordPress sites. <p>So this applies to both single site and multi-site users.</p>
 
+<ol>
 <li>Create the wordpress.conf file.
 <div class="hacker">sudo vim wordpress.conf</div></li>
 
@@ -255,13 +256,12 @@ function do_get_id( $columns ) {
 # End of file. Yay!</pre></div></li>
 
 What do the different sections mean?
-<ul>    
-    <li><code>try_files $uri $uri/ /index.php?q=$uri&$args;</code>: Enables WordPress pretty permalinks</li>
-     <li><code>location ~* /(?:uploads|files)/.*\.php$ {deny all;}</code>: Blocks malicious code from being uploaded into your media directory.</li>
-    <li><code>location ~ \.php$</code></li>: WordPress uses php so this part tells Nginx how to pass php files.
- <li><code>try_files $uri =404;</code>: A security rule saying to serve the php file, otherwise show a 404 error. </li> 
- <li>Additional Rules: Plugins: Add any additional Nginx rules you might have. For our tutorial, we added the configuration for enabling the WordPress Domain Mapping plugin.</li>
-    </ul>
+<!--CT (to Susan): nested list. thanks!-->
+<ul><li><code>try_files $uri $uri/ /index.php?q=$uri&$args;</code>: Enables WordPress pretty permalinks</li></ul>
+<ul> <li><code>location ~* /(?:uploads|files)/.*\.php$ {deny all;}</code>: Blocks malicious code from being uploaded into your media directory.</li></ul>
+<ul><li><code>location ~ \.php$</code>: WordPress uses php so this part tells Nginx how to pass php files.</li></ul>
+ <ul><li><code>try_files $uri =404;</code>: A security rule saying to serve the php file, otherwise show a 404 error. </li></ul> 
+ <ul><li>Additional Rules: Plugins: Add any additional Nginx rules you might have, including plugins. For our tutorial, we added the configuration for enabling the WordPress Domain Mapping plugin.</li></ul>
 
 <li>Save and close.</li>
 </ol>
