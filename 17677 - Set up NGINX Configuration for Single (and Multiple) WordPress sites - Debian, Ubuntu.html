@@ -119,9 +119,9 @@ Take some steps to help your server load WordPress content faster.
 <p>Set the number of Nginx workers equal the number of processors to optimize performance.</p>
 
 <ol>
-    <li>See how many Nginx processors you have running. This command will show you the master, its workers, 
+    <li>See how many Nginx processors you have running. This command will show you the master and number of workers. 
 <div class="hacker">ps aux -P | grep nginx</div>
-Or for a more concise output.
+Or for a more concise output, enter this command.
 <div class="hacker">grep worker_processes /etc/nginx/nginx.conf</div>
 
 The default Nginx configuration is 4 (child) worker processes for 1 master, which is probably what you'll see if you're working on a fresh LEMP install.</li>
@@ -136,11 +136,11 @@ In this case, the number is 4, so there's no need to change it.
 <div class="hacker">worker_processes 4;</div></li>
 </ol>
 
-Keep the file open for the next step.
+Keep the nginx.conf file open for the next step.
 
 <h3>Enable Gzip compression</h3>
 
-<p>Gzip allows WordPress to compress large HTML and CSS files using the DEFLATE algorithm, saving significant bandwidth (potentially up to 70%).<!--CT (to Carla/Crystal): (re:70% part) Is this too specific of a piece of trivia? I found this tidbit in one article in my research but debated about including it. If so, feel free to remove--></p>
+<p>Gzip allows WordPress to compress large HTML and CSS files by providing smaller file sizes (can save potentially up to 70% of the original file size)<!--CT (to Carla/Crystal): (re:70% part) Is this too specific of a piece of trivia? I found this tidbit in one article in my research but debated about including it. If so, feel free to remove--> that load faster for your website users and utilizes less bandwidth overall. Enabling compression is the standard on modern web browsers.</p>
 
 <ol>
 
@@ -218,25 +218,24 @@ Now we'll create a universal WordPress configuration that'll apply to all your W
 <div class="hacker">sudo vim wordpress.conf</div></li>
 
 <li>Again, this is a new file, so it'll be blank. Paste the following contents:
-<div class="hacker"><pre># WORDPRESS: Rewrite rules, sends everything through index.php and keeps the appended query string intact. Enable Pretty Permalinks.
+<div class="hacker"><pre># WORDPRESS: Enable Pretty Permalinks. Rewrite rules, sends everything through index.php and keeps the appended query string intact. 
 location / {
     try_files $uri $uri/ /index.php?q=$uri&$args;
 }
 
-# SECURITY: Deny all attempts to access php Files in the uploads directory
+# SECURITY: Deny all attempts to access php files in the uploads directory
 location ~* /(?:uploads|files)/.*\.php$ {
     deny all;
 }
 # REQUIREMENTS: Enable php Support
 location ~ \.php$ {
-    # SECURITY: Zero day Exploit Protection
     try_files $uri =404;
-    # ENABLE: Enable php, listen to fpm socket
     fastcgi_split_path_info ^(.+\.php)(/.+)$;
     fastcgi_pass unix:/var/run/php5-fpm.sock;
     fastcgi_index index.php;
     include fastcgi_params;
 }
+# ADDITIONAL RULES
 # PLUGINS: Enable WordPress Domain Mapping
 add_filter( 'wpmu_blogs_columns', 'do_get_id' );
 add_action( 'manage_sites_custom_column', 'do_add_columns', 10, 2 );
@@ -254,6 +253,15 @@ function do_get_id( $columns ) {
 }
 
 # End of file. Yay!</pre></div></li>
+
+What do the different sections mean?
+<ul>    
+    <li><code>try_files $uri $uri/ /index.php?q=$uri&$args;</code>: Enables WordPress pretty permalinks</li>
+     <li><code>location ~* /(?:uploads|files)/.*\.php$ {deny all;}</code>: Blocks malicious code from being uploaded into your media directory.</li>
+    <li><code>location ~ \.php$</code></li>: WordPress uses php so this part tells Nginx how to pass php files.
+ <li><code>try_files $uri =404;</code>: A security rule saying to serve the php file, otherwise show a 404 error. </li> 
+ <li>Additional Rules: Plugins: Add any additional Nginx rules you might have. For our tutorial, we added the configuration for enabling the WordPress Domain Mapping plugin.</li>
+    </ul>
 
 <li>Save and close.</li>
 </ol>
