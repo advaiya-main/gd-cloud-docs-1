@@ -10,7 +10,7 @@
 
 
 <title>Install and configure Moodle on your LAMP server - Ubuntu, Debian</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -68,78 +68,117 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Install and configure Moodle on your LAMP server on Debian and Ubuntu, PHP, Applications </p>
+    <h1>Install and configure Moodle on your LAMP server – Debian, Ubuntu </h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em>1</em><br/>
+        <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+    <p>Moodle is an acronym for Modular Object Oriented Dynamic Learning Environment. It is an open source Course Management System, that enables the creation of online learning site. Moodle has default features as easy to use interface, personalized dashboard, track progress and many others. In administration, Moodle offers the facility of customizable site design and layout, secure authentication and mass enrolment, bulk course creation and easy backup.</p>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
+    <p>It is assumed that you have sudo priviliges to perform the below mentioned steps. In addition, you need to install and configure LAMP for Debian and Ubuntu. Please refer the below links:</p>
+	 <ul>
+	<li><a href="17346">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a></li>
+	<li><a href="17341">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu</a></li>
+	</ul> 
     
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
+	
+	<h2>Install the required dependency</h2>
+<ol> 
+<li>Install curl and GD extensions for Moodle use.
+   <div class="hacker">sudo apt-get install php5-curl php5-gd</div>
+   </li>
+   <li>Moodle uses <code>mysqli</code> extension for database manipulation. Install <code>mysqli</code> using the following command:
+   <div class="hacker">sudo apt-get install  php5-mysql php5-mysqlnd</div>
+   </li>
+   <li>Restart the Apache services to make the changes effective.
+   <div class="hacker">sudo service apache2 restart</div>
+   </li>
+  </ol>
 
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
+
+<h2>Basic configuration</h2>
+<ol> 
+<li>Download the Moodle source from the official site by using the following command:
+   <div class="hacker">cd /var/www/html</div>
+   <div class="hacker">sudo wget <em><u>http://download.moodle.org/download.php/direct/stable25/moodle-latest-25.tgz</u></em></div>
+   </li>
+   <li>Extract the downloaded source using the following command:
+   <div class="hacker">sudo tar xzvf moodle-latest-25.tgz</div>
+   </li>
+   <li>You will find the new directory added in the folder named <code>moodle</code>.
+   </li>
+   <li>To secure <code>moodle</code> from outside writable permission, change owner to root and change the permission.
+   <div class="hacker">sudo chown -R root moodle</div>
+   <div class="hacker">sudo chmod -R 0755 moodle</div>
+   </li>
+   <li>Moodle needs a folder for its temporary operations and it shouldn’t be accessed from web, so put it outside the server web root. To create it in home directory, use the following command:
+   <div class="hacker">sudo mkdir <em><u>/moodledata</u></em></div>
+   </li>
+   <li>Make it writeable by the machine:
+   <div class="hacker">sudo chmod 0777 <em><u>/moodledata</u></em></div>
+   </li>
+
+  </ol>
+
+
+
+<h2>Create a database</h2>
+<ol> 
+<li>Create a blank database for the backend operation.
+   <div class="hacker">mysql –u root –p</div>
+   <div class="hacker">CREATE DATABASE <em><u>moodle</u></em>;</div>
+   </li>
+   <li>Exit.
+   </li>
+   </ol>
    
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
+<h2>Install Moodle</h2>
+   <ol>
+   <li>Open the browser and type public IP or URL of moodle server as http://<em><u>public_ip</u></em>/moodle
+   </li>
+   <li>After pressing <strong>Enter</strong>, you will find the first step of moodle installation process.
+   </li>
+   <li>Choose a language as per your need.
+   <br/><img src="images/17587/091515/Choose-language.png" alt="Choose-language.png"/>
+   </li>
+   <li>Set the <strong>Data directory</strong>, that you have created earlier.
+ <br/><img src="images/17587/091515/data-directory.png" alt="data-directory.png"/>
+   </li>
+   <li>Select a <strong>database driver</strong> to connect with the database.
+      <br/><img src="images/17587/091515/Choose-database-driver.png" alt="Choose-database-driver.png"/>
+	   <p class="note">To avoid errors, use the driver that the database engine has installed.</p>
+   </li>
+	
+  
+   <li>Enter the database credentials to connect with the database.
+   <br/><img src="images/17587/091515/Database-settings.png" alt="Database-settings.png"/>
+	 </li>
+	 <li>Go to the moodle server, create a file <code>config.php</code> and paste the code that you see in your browser.
+    <div class="hacker">cd /var/www/html/moodle</div>
+	  <div class="hacker">sudo vim config.php</div>
+      <p>Copy and paste the raw text into file. The browser output will look similar to the below screenshot:</p>
+    <img src="images/17587/091515/Configuration-completed.png" alt="Configuration-completed.png"/>
+   </li>
+    <li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+    </li>
+  </ol>
+
+
+<h2>Update the site profile</h2>
+<ol> 
+   <li>Update the profile for your site, fill the mandatory information fields and update the profile.
+   <br/><img src="images/17587/091515/Site-profile.png" alt="Site-profile.png"/>
+   </li>
+   <li>After updating the profile, you will be redirected to the site settings. Enter your site name. 
+    <br/><img src="images/17587/091515/Front-page-settings.png" alt="Front-page-settings.png"/>
+   </li>
+   <li>After saving the changes, you will be redirected to the home page of Moodle where you can manage your courses and site.
+   </li>
+   </ol>
+  
+	<h2>Conclusion</h2>
+    <p>In this article, you learned to install and configure Moodle on your LAMP server with Debian and Ubuntu. </p>
    
 </body>
 </html>
