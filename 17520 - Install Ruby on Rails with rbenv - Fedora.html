@@ -93,7 +93,7 @@ p.note {
 			  <div class='hacker'>exec $SHELL</div>
 			 </li>
 			 <li> Install the latest development version of Ruby-build into the <code>~/.rbenv/plugins/ruby-build</code> directory.
-			   <div class='hacker'>git clone git://github.com/sstephenson/ruby-           build.git~/.rbenv/plugins/ruby-build</div>
+			   <div class='hacker'>git clone git://github.com/sstephenson/ruby-build.git~/.rbenv/plugins/ruby-build</div>
 			 </li>
 			 <li>Add a directory to your <code>$PATH</code> for accessing Ruby.
 <div class='hacker'> echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >>   ~/.bash_profile</div>
@@ -111,10 +111,10 @@ p.note {
 		<!--All seems fine. Thanks. VS-->
 <ol>
 			 <li>Install the dependency of Rails, before you install Ruby.
-			   <div class='hacker'>rbenv install -v <em><u>version</u></em></div>
+			   <div class='hacker'>rbenv install -v <em><u>latest_version of Ruby</u></em></div>
 			 </li>
 			 <li>Set the default version of Ruby to be used by all the shells.
-			   <div class='hacker'>rbenv global <em><u>version</u></em></div>
+			   <div class='hacker'>rbenv global <em><u>latest_version of Ruby</u></em></div>
 			 </li>
 			 <li>Display the version of Ruby that was installed.
 			   <div class='hacker'>ruby -v</div>
@@ -142,8 +142,8 @@ p.note {
 			    <div class='hacker'>rbenv rehash</div>
 			 </li>
 			  <li>Find out the version of both Ruby and Rails.
-			    <div class='hacker'>ruby -v</div>
-			   <div class='hacker'>rails –v</div>
+			    <div class='hacker'>ruby  -v</div>
+			   <div class='hacker'>rails -v</div>
 			 </li>
 			 </ol>	 
 			 
@@ -161,8 +161,8 @@ p.note {
 			 </li>
 			  </ol>	
             
-    <h2>Next Steps</h2>
-    <p>In this article, you reviewed the steps involved in installing rbenv, Ruby, Ruby Gems, and finally Rails in Fedora. For supported enterprise level application, you can also <a href="17593 - Scale Ruby on Rails Applications Across Multiple Servers - CentOS, Fedora">scale Ruby on Rails application across multiple servers</a>.</p>
+    <h2>Next steps</h2>
+    <p>In this article, you reviewed the steps involved in installing rbenv, Ruby, Ruby Gems, and finally Rails in Fedora. For supported enterprise level application, you can also <a href="17953 - Scale Ruby on Rails Applications Across Multiple Servers - CentOS, Fedora">scale Ruby on Rails application across multiple servers</a>.</p>
 
    
 </body>
