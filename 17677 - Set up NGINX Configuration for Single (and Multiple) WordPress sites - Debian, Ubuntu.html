@@ -4,7 +4,7 @@
 
 <head>
 
-<title>Set up NGINX Configuration for Single (and Multiple) WordPress sites - Debian, Ubuntu</title>
+<title>Set up Nginx Configuration for Single (and Multiple) WordPress sites - Debian, Ubuntu</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -77,8 +77,8 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-<p>Set up NGINX Configuration for Single (and Multiple) WordPress sites for Debian, Ubuntu</p>
-    <h1>Set up NGINX Configuration for Single (and Multiple) WordPress sites - Debian, Ubuntu</h1>
+<p>Set up Nginx Configuration for Single (and Multiple) WordPress sites for Debian, Ubuntu</p>
+    <h1>Set up Nginx Configuration for Single (and Multiple) WordPress sites - Debian, Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
@@ -103,8 +103,8 @@ td:nth-child(1) {font-weight:bold;}
 <h2>Prerequisites</h2>
 You'll need a Linux, Nginx, MySQL, and PHP (LEMP) stack configured. For instructions, see the following:
 <ul>
-<li><a href="Articles/17347%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Ubuntu.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Ubuntu</a></li>
-<li><a href="Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Debian</a></li>
+<li><a href="Articles/17347%20-%20Build%20a%20LEMP%20stack%20(Linux,%20Nginx,%20MySQL,%20PHP)%20-%20Ubuntu.html">Build a LEMP stack (Linux, Nginx, MySQL, PHP) - Ubuntu</a></li>
+<li><a href="Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20Nginx,%20MySQL,%20PHP)%20-%20Debian.html">Build a LEMP stack (Linux, Nginx, MySQL, PHP) - Debian</a></li>
 </ul>
 
 <p>Make sure that Nginx, MySQL, and PHP are up and running.</p>
@@ -116,21 +116,24 @@ Take some steps to help your server load WordPress content faster.
 
 <h3>Adjust Nginx processes and workers</h3>
 
-<p>Set the number of NGINX workers equal the number of processors to optimize performance.</p>
+<p>Set the number of Nginx workers equal the number of processors to optimize performance.</p>
 
 <ol>
-    <li>See how many Nginx processors you have running.
-<div class="hacker">cat /proc/cpuinfo | grep processor</div>
-Note that the count starts from 0, so if your output is <code>processor : 0</code>, you have 1 processor.</li>
+    <li>See how many Nginx processors you have running. This command will show you the master, its workers, 
+<div class="hacker">ps aux -P | grep nginx</div>
+Or for a more concise output.
+<div class="hacker">grep worker_processes /etc/nginx/nginx.conf</div>
 
-<li>Now change the number of Nginx workers to match the number of processes.<br/>
+The default Nginx configuration is 4 (child) worker processes for 1 master, which is probably what you'll see if you're working on a fresh LEMP install.</li>
+
+<li>Now check the number of Nginx workers to see if it matches the number of processes.<br/>
 
 First, open the Nginx configuration file to edit. 
 <div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
 
-<li>Find the <code>worker_connections</code> line and change the number. It'll be towards the top.
-In this case, change the number from 4 to 1. 
-<div class="hacker">worker_processes 1;</div></li>
+<li>Find the <code>worker_processes</code> line to check the number. It'll be towards the top.
+In this case, the number is 4, so there's no need to change it.
+<div class="hacker">worker_processes 4;</div></li>
 </ol>
 
 Keep the file open for the next step.
