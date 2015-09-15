@@ -115,16 +115,24 @@ You'll need a Linux, Nginx, MySQL, and PHP (LEMP) stack configured. For instruct
 Take some steps to help your server load WordPress content faster.
 
 <h3>Adjust Nginx processes and workers</h3>
-See how many Nginx processors you have running.
-<div class="hacker">cat /proc/cpuinfo | grep processor</div>
-Note that the count starts from 0, so if your output is <code>processor : 0</code>, you have 1 processor.
 
-Now change the number of Nginx workers to match the number of processes. 
-Open the Nginx configuration file to edit. 
-<div class="hacker">sudo vim /etc/nginx/nginx.conf</div>
-Find the <code>worker_connections</code> line and change the number. It'll be towards the top.
+<p>Set the number of NGINX workers equal the number of processors to optimize performance.</p>
+
+<ol>
+    <li>See how many Nginx processors you have running.
+<div class="hacker">cat /proc/cpuinfo | grep processor</div>
+Note that the count starts from 0, so if your output is <code>processor : 0</code>, you have 1 processor.</li>
+
+<li>Now change the number of Nginx workers to match the number of processes.<br/>
+
+First, open the Nginx configuration file to edit. 
+<div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
+
+<li>Find the <code>worker_connections</code> line and change the number. It'll be towards the top.
 In this case, change the number from 4 to 1. 
-<div class="hacker">worker_processes 1;</div>
+<div class="hacker">worker_processes 1;</div></li>
+</ol>
+
 Keep the file open for the next step.
 
 <h3>Enable Gzip compression</h3>
