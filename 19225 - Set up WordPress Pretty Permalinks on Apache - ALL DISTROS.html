@@ -9,7 +9,7 @@
 <!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
 
 <title>Set up WordPress Pretty Permalinks on Apache - ALL DISTROS</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -92,51 +92,45 @@ p.note {
 <p>This tutorial will walk you through setting up WordPress pretty permalinks on Apache. </p>
 
     <h2>Prerequisites</h2>
-    <p>Before you begin, Wordpress has to be fully installed. See our guides to doing that:
+    <p>Before you begin, Wordpress has to be fully installed. See our guides to doing that:</p>
          
-    <ul>
-    <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17385 - Install WordPress on your LAMP server - Debian, Ubuntu.html">Install WordPress on your LAMP server - Debian, Ubuntu</a></li>
-<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17383%20-%20Install%20WordPress%20on%20your%20LAMP%20server%20-%20CentOS.html">Install WordPress on your LAMP server – Fedora, CentOS</a></li>
-<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17384 - Install WordPress on your LAMP server - Arch Linux.html.html">Install WordPress on your LAMP server - Arch Linux</a></li>
-</ul>
-
-
-Also, you should set up a non-root user with <code>sudo</code> privileges. For more on that: 
-
 <ul>
-<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17321 - Initial Server Setup - Ubuntu.html">Initial Server Setup - Ubuntu</a></li>
-
-<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">Initial Server Setup - Debian</a></li>
-
-<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17322 - Initial Server Setup - CentOS, Fedora.html">Initial Server Setup - CentOS, Fedora</a></li>
-
-<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17324 - Initial Server Setup - Arch Linux.html">Initial Server Setup - Arch Linux</a></li>
+    <li><a href="17385 - Install WordPress on your LAMP server - Debian, Ubuntu.html">Install WordPress on your LAMP server - Debian, Ubuntu</a></li>
+    <li><a href="17385 - Install WordPress on your LEMP server - Ubuntu">Install WordPress on your LAMP server – Fedora, CentOS</a></li>
+    <li><a href="17384 - Install WordPress on your LAMP server - Arch Linux.html.html">Install WordPress on your LAMP server - Arch Linux</a></li>
 </ul>
+
+
+        <p>Also, you should set up a non-root user with <code>sudo</code> privileges. For more on that: </p>
+
+    <ul>
+        <li><a href="17321 - Initial Server Setup - Ubuntu.html">Initial Server Setup - Ubuntu</a></li>
+        <li><a href="17325 - Initial Server Setup - Debian.html">Initial Server Setup - Debian</a></li>
+        <li><a href="17322 - Initial Server Setup - CentOS, Fedora.html">Initial Server Setup - CentOS, Fedora</a></li>
+        <li><a href="17324 - Initial Server Setup - Arch Linux.html">Initial Server Setup - Arch Linux</a></li>
+    </ul>
 
 <h2>Choose your pretty permalink type in WordPress </h2>
 
- <ol>
- <li><p>In your WordPress admin dashboard (http://yoursite.com/wp-admin): Go to the <strong>Settings</strong> panel on the left, then <strong>Permalinks</strong>.</p>
+    <ol>
+        <li>In your WordPress admin dashboard (http://yoursite.com/wp-admin): Go to the <strong>Settings</strong> panel on the left, then <strong>Permalinks</strong>.<br/>
+             <img src="https://farm6.staticflickr.com/5580/14944373609_ce6d787ea5_o.png" alt="WordPress Admin Dashboard Settings Panel" /></li>
  
- <img src="https://farm6.staticflickr.com/5580/14944373609_ce6d787ea5_o.png" alt="WordPress Admin Dashboard Settings Panel" /></li>
- 
-  <li><p>Choose your permalink type. A common option is the <strong>Post Name</strong> option.</p>
-<img src="https://assets.digitalocean.com/articles/wordpress_1404/perma_options.png" alt="WordPress Admin Dashboard Permalink Options" /></p>
+        <li>Choose your permalink type. A common option is the <strong>Post Name</strong> option.   <br/>
+            <img src="https://assets.digitalocean.com/articles/wordpress_1404/perma_options.png" alt="WordPress Admin Dashboard Permalink Options" />  </li>
 
-Select <strong>Save changes</strong>.
-
-<p>Notice this message at the bottom of the page, right below <strong>Save Changes</strong>:</p>
+        <li>Select <strong>Save changes</strong>.
+             <p class="note"> Notice this message at the bottom of the page, right below <strong>Save Changes</strong>:</p>
 
 <!--REPLACE THIS WITH SCREENSHOT FROM PRABHU -->
-<p>If your <code>.htaccess</code> file were writable, we could do this automatically, but it isn’t so these are the mod_rewrite rules you should have in your .htaccess file. Click in the field and press CTRL + A to select all.</p> 
+If your <code>.htaccess</code> file were writable, we could do this automatically, but it isn’t so these are the mod_rewrite rules you should have in your .htaccess file. Click in the field and press CTRL + A to select all.<br />
 <!--paste up to here-->
 
-<p> <code>.htaccess</code> files are Apache configuration files that WordPress uses along with the module mod_rewrite to create permalinks. Our .htaccess file is not writable by WordPress, but we will be enabling them.</p>  
 
-</li>
+            <br/><code>.htaccess</code> files are Apache configuration files that WordPress uses along with the module mod_rewrite to create permalinks. Our .htaccess file is not writable by WordPress, but we will be enabling them.</li>
     </ol>
 
- <h2>Enable URL rewrites</h2>       
+<h2>Enable URL rewrites</h2>
   
  <p> We have to change the configuration of Apache to read <code>.htaccess</code> files. We’ll do this by enabling <code>AllowOverride</code>. When this directive is set to None, your server ignores all <code>.htaccess</code> files, not attempting to read any of them. When <code>AllowOverride</code> is set to All, any command with <code>.htaccess</code> is allowed in.</p>
   
@@ -145,17 +139,17 @@ Select <strong>Save changes</strong>.
 <ol>
 <li>Modify your virtual host file. The default file, if you haven’t modified it, is <code>000-default.conf</code>. Usually you’ll find Apache site configuration files in <code>/etc/apache2/</code>. Let’s pull up the file:
   <div class="hacker">sudo vim /etc/apache2/sites-available/000-default.conf </div></li>
-<li>With the file open, let’s set up the servername and create a directory. For the purposes of this tutorial, our server is named wordpressadmin@localhost:</li> 
+<li>With the file open, let’s set up the servername and create a directory. For the purposes of this tutorial, our server is named wordpressadmin@localhost:
 
   <div class="hacker">&lt;VirtualHost *:80&gt;<br />
-    ServerAdmin <em><u>wordpressadmin@localhost</em></u>;<br />
+    ServerAdmin <em><u>wordpressadmin@localhost</u></em>;<br />
     DocumentRoot /var/www/html<br />
     ServerName server_domain_name_or_IP<br />
     &lt;Directory /var/www/html/&gt;<br />
         AllowOverride All<br />
     &lt;/Directory&gt;<br /></div>
   </li>
-  
+
   <li>Save and close.</li>
     <li>Enable Apache’s rewrite module so that you can modify URLs:
   <div class="hacker"> sudo a2enmod rewrite</div> </li>
@@ -179,11 +173,11 @@ Select <strong>Save changes</strong>.
  <ol>
      <li>The permissions are currently too restrictive (only root can write to the directory), so change them:
 <div class="hacker">sudo chmod 664 /var/www/html/.htaccess</div>
-Now WordPress can rewrite the rules for you and technically anyone can write to this. We will be changing the setting to tighten up the restrictions right after this step.
-<li>Go back to your WordPress admin dashboard and you’ll see that the “If your <code>.htaccess</code> file were writable…” message from earlier should have disappeared. 
-<li>Select “Save changes” in the dashboard and go back to your command line.</li> 
-<li>Now, change your permissions from <em><u>664</em></u> to <em><u>644</em></u> so that only your web server can read and write to the file:
-<div class="hacker">sudo chmod <em><u>644</em></u> /var/www/html/.htaccess</div>
+Now WordPress can rewrite the rules for you and technically anyone can write to this. We will be changing the setting to tighten up the restrictions right after this step. </li>
+<li>Go back to your WordPress admin dashboard and you’ll see that the “If your <code>.htaccess</code> file were writable…” message from earlier should have disappeared.  </li>
+<li>Select “Save changes” in the dashboard and go back to your command line.</li>
+<li>Now, change your permissions from <em><u>664</u> </em> to <em><u>644</u> </em> so that only your web server can read and write to the file:
+<div class="hacker">sudo chmod <em><u>644</u> </em> /var/www/html/.htaccess</div>
 This will give you some added security.</li>
  </ol>
 
