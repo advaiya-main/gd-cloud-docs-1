@@ -81,7 +81,7 @@ p.note {
 <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>15 mins</u></em></p>
          <p>Installing a Secure Sockets Layer (SSL) certificate on your server can improve the security of your website. Using a combination of the certificate and a key pair, a third-party certificate authority (CA) validates the identity of both parties in a transaction. A website protected by an SSL certificate is identified by a URL that starts with <strong>https</strong>.</p>
-  <p> This article guides you through the installation of an SSL certificate on a CentOS or Fedora server running Apache. A web server with SSL certificates installed on it allows secure sessions with its clients. Installing an SSL certificate activates the HTTPS protocol. </p>
+  <p> This article guides you through the installation of an SSL certificate on a CentOS or Fedora server running Apache. A web server with SSL certificates allows secure sessions with its clients. Installing an SSL certificate activates the HTTPS protocol. </p>
   
   <p>If you don't have Apache installed on your server, see the Apache installation section in this article for help: <a href="/article/17342?prog_id =PROG_ID">Build a LAMP (Linux, Apache, MySQL, PHP) stack on a server running CentOS 6 or Fedora</a>. </p> 
 
@@ -92,18 +92,18 @@ p.note {
     <div class="hacker">sudo service httpd restart</div></li></ol>
     <h2>Generate the CSR and key</h2>    
 
-   <p> CSR (Certificate Sigining Request) contains information such as organization, country, state, common name, and email address to be included in the certificate. It also includes a public key. You will also generate a private key that is stored on your server.</p>
+   <p> CSR (Certificate Signing Request) contains information such as organization, country, state, common name, and email address to be included in the certificate. It also includes a public key. You will also generate a private key that is stored on your server.</p>
     <ol>
       <li>
-            Create the directory to store your certificate and key:
+            Create the directory to store your certificate and key.
               <div class="hacker">sudo mkdir /etc/httpd/ssl</div>
            
         </li>
-        <li>Generate the CSR and private key:
+        <li>Generate the CSR and private key.
             <div class="hacker">sudo openssl req -out CSR.csr -new -newkey rsa:2048 -nodes -keyout /etc/httpd/ssl/certkey.key</div>
-        To see the newly generated CSR, use the following command:
+        To see the newly generated CSR, use the following command.
         <div class="hacker">cat CSR.csr</div>
-        You will input this CSR in the COMPANY_NAME site while generating the certificate.
+        You'll input this CSR in the COMPANY_NAME site while generating the certificate.
         </li>
 
         <li>

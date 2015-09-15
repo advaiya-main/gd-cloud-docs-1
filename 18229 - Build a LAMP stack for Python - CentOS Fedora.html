@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+
+<title>Build a LAMP stack for Python - CentOS, Fedora Linux</title>
+<style type='text/css'>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Django, NGINX, Python, Frameworks, Deployment</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-deploy-a-local-django-app-to-a-vps, https://www.digitalocean.com/community/tutorials/how-to-deploy-a-local-django-app-to-a-vps</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#Arch Linux;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">3</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">1</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17999</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:ArticleStatus msdt:dt="string">Editing in progress</mso:ArticleStatus>
+<mso:HoursDraftingEstimated msdt:dt="string">1.50000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.100000000000000</mso:HoursEditingEstimated>
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string">Phase 2</mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+<mso:Week msdt:dt="string">7.00000000000000</mso:Week>
+<mso:AssignedTo1 msdt:dt="string">39</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Conrad James</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:ReviewComments msdt:dt="string">Completed XHTML vailidation complete: skj</mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Carla  Johnson</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+        <p> Describes how to install Apache, MySQL, PHP (LAMP) stack on Arch Linux</p>
+    <h1>Build a LAMP stack for Python - CentOS, Fedora Linux</h1>
+
+                <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
+                <strong>Time</strong>: <em><u>4.00</u></em></p>
+
+            <p>The <em>LAMP stack</em> is a group of open source software used to get web servers up and running. The acronym stands for Linux, Apache, MySQL, and PHP. Debian and Ubuntu use the <code>apt-get</code> installer, which can update the system and install all of the required packages for each part of the LAMP stack. </p>
+            <p>The steps in this article require you to have root privileges.<!--Is this approach appropriate, given the security concerns that GD raised? cj--></p>
+
+<h2>Install Apache</h2>
+<ol>
+
+            <li> Start by typing these commands in:
+                <div class="hacker">sudo yum install httpd</div>
+            <p class=>If you are not in the <code><em><u> /etc/sudoers</u></em></code> file Centos/Fedora will ask for your regular user's password to verify your intentions. <br />Afterwards, your web server is installed.</p> </li>
+
+            <li>Once it installs, you can start Apache on your server:
+                <div class="hacker">sudo systemctl start httpd.service</div></li>
+
+            <li>Type in your servers public ip address in your favorite web browser
+                    <div class="hacker">http://your_server_IP_address/</div>
+            You will see the default CentOS 7 Apache web page, which is there for informational and testing purposes. If you see this page, then your web server is now correctly installed.<br />
+                <img src="images/18229/090815/Build-a-LAMP-stack-for-Python-CentOS-Fedora.png" width="600" height="181" alt="Build-a-LAMP-stack-for-Python-CentOS-Fedora" /> </li>
+
+
+            <li>The last thing you will want to do is enable Apache to start on boot. Use the following command to do so:
+                     <div class="hacker">sudo systemctl enable httpd.service</div> </li>
+
+            <li>And you should see this after you run the command above:
+            <div class="hacker">ln -s '/usr/lib/systemd/system/httpd.service' '/etc/systemd/system/multi-user.target.wants/httpd.service'</div> </li>
+
+</ol>
+
+
+<h2>Install MySQL (MariaDB)</h2>
+
+<ol>        <li> To install MySQL, in the same terminal type in these commands:
+                    <div class="hacker">sudo yum install mariadb-server mariadb</div></li>
+
+            <li>Once you have installed MySQL, start it up:
+                    <div class="hacker">sudo systemctl start mariadb</div></li>
+
+            <li>Finish up by running the MySQL set up script:
+                    <div class="hacker">sudo mysql_secure_installation</div></li>
+
+</ol>
+
+         <p>During this process it will ask you for your current MySQL root password (not to be confused with your server password) and, since it has not yet been set, simply press enter.</p>
+        <p>When prompted, “Set root password?” type Y, and afterwards enter in your new MySQL root password.<br/> Once root password is set just say YES to the remaining options as seen below:</p>
+ <!--Conrad - this would be better as a table. Susan can help.-->
+
+        <table style="width:100%;">
+            <tr style ='font-weight: bold;'>
+                <td width='60%'>Prompt</td>
+                <td style="text-align:center;">Action</td>
+                <td>Success Message</td>
+            </tr>
+                <tr>
+                    <td><div class='hacker'>By default, a MySQL installation has an anonymous user, allowing anyone to log into MySQL without having to have a user account created for them. This is intended only for testing, and to make the installation go a bit smoother. You should remove them before moving into a production environment. Remove anonymous users? [Y/n]</div></td>
+
+                    <td style="vertical-align: top; text-align:center;">y</td>
+                    <td style="vertical-align: top;">Success!</td>
+                </tr>
+
+                <tr>
+                    <td><div class='hacker'>Normally, root should only be allowed to connect from 'localhost'. This ensures that someone cannot guess at the root password from the network. Disallow root login remotely? [Y/n]</div></td>
+
+                    <td style="vertical-align: top; text-align:center;">y</td>
+                    <td style="vertical-align: top;">Success!</td>
+                </tr>
+
+                <tr>
+                    <td><div class='hacker'>By default, MySQL comes with a database named 'test' that anyone can access. This is also intended only for testing, and should be removed before moving into a production environment. Remove test database and access to it? [Y/n]</div></td>
+
+                    <td style="vertical-align: top; text-align:center;">y</td>
+                    <td style="vertical-align: top;">Dropping test database... ... Success!</td>
+                </tr>
+
+                <tr>
+                    <td><div class='hacker'>Removing privileges on test database</div></td>
+
+                    <td style="vertical-align: top; text-align:center;"></td>
+                    <td style="vertical-align: top;">Success!</td>
+                </tr>
+
+                <tr>
+                    <td><div class='hacker'>Reloading the privilege tables will ensure that all changes made so far will take effect immediately. Reload privilege tables now? [Y/n]</div></td>
+                    <td style="vertical-align: top; text-align:center;">y</td>
+                    <td style="vertical-align: top;">Success!</td>
+                </tr>
+
+                <tr>
+                    <td><div class='hacker'>Cleaning up...</div></td>
+                    <td style="vertical-align: top; text-align:center;"></td>
+                    <td style="vertical-align: top;"></td>
+                </tr>
+
+        </table>
+
+        <p>All done!  If you've completed all of the above steps, your MariaDB installation should now be secure.</p>
+        <p>Thanks for using MariaDB!</p>
+
+        <p>Once you're done installing MySQL, finish the LAMP stack by installing PHP.</p>
+
+
+
+<h2> Install PHP</h2>
+
+        <p>PHP is an open source web scripting language that is widely used to build dynamic web pages.</p>
+
+        <ol>
+          <li>To install PHP, open terminal and type in this command.
+            <div class="hacker">sudo yum install php php-mysql</div></li>
+
+          <li>This should install PHP without any problems. We need to restart the Apache web server in order for it to work with PHP. You can do this by typing this:
+             <div class="hacker">sudo systemctl restart httpd.service</div> </li>
+
+
+        </ol>
+
+    <h2>Next steps</h2>
+        <p>Now that you have a LAMP stack installed, you've installed a platform that will allow you to install most kinds of websites and web software on your server. </p>
+
+</body>
+</html>

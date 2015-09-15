@@ -70,15 +70,8 @@
 </head>
 
 
-
-
-
-
-
-
 <body>
 
-<!--Please revise, using the edited version of 17909 as a guide. Also, make sure to use <code> tags for filenames and directory names. Do not use any span tags. cj -->
 
 <p>Install  and configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Arch Linux, Logging</p>
 <h1>Install and Configure an EFK Stack (Elasticsearch, Fluentd, Kibana) - Arch Linux</h1>
@@ -87,15 +80,8 @@
 <p><strong>Time: </strong> <em>2 hours</em></p>
 
 
-<p>Using Elasticsearch, Fluentd, and  Kibana (also known as an <em>EFK stack</em>) is a common way to deal with data analysis. This combination lets you collect, index, search, and  visualize log data. In this article, you'll  learn how to install an EFK Stack on Arch Linux.</p>
-
-<h2>Prerequisites</h2>
-<ul>
-<li>This article assumes that you have done the initial server setup for your host machine. For detailed steps, see <a href="17324 - Initial Server Setup - Arch Linux">Initial Server Setup - Arch Linux</a>.
-</li>
-</ul>
-
-<p class="note">These  tasks assume that you have  <code>sudo</code> user privileges.</p>
+<p>Using Elasticsearch, Fluentd, and  Kibana (also known as an <em>EFK stack</em>) is a common way to perform data analysis. This combination lets you collect, index, search, and  visualize log data. In this article, you'll  learn how to install an EFK stack on Arch Linux.</p>
+<p>This article assumes that you have <a href="17324 - Initial Server Setup - Arch Linux">completed the initial server setup</a> for your host machine and <span class="note">that you have <code>sudo</code> user privileges.</span></p>
 <h2>Install and configure ElasticSearch</h2>
 <ol>
 	<li>Log into the Arch Linux machine.</li>
@@ -113,10 +99,10 @@
 		<div class="hacker">
 		pacman -S jre8-openjdk
 		</div>
-		<p>To confirm the successful installation, check the Java version using the following command:</p>
-		<div class="hacker">
+	To confirm a successful installation, check the Java version.
+	  <div class="hacker">
 		java -version
-		</div>
+	  </div>
 	</li>
 	<li>Install the Elasticsearch deb packages.
 
@@ -134,11 +120,12 @@
 			mv  elasticsearch-1.7.1 /usr/share/elasticsearch
 		</div>
 	</li>
-	<li>Open the Elasticsearch configuration file <code>elasticsearch.yml</code>.</br>
-		  To make  Elasticseach accessible from the public Internet, its dynamic scripting needs to be  disabled so that it can be accessed by the Kibana dashboards.
-		<div class="hacker">
+	<li>Open the Elasticsearch configuration file <code>elasticsearch.yml</code>.
+    
+		  To make  Elasticsearch accessible from the public Internet, you need to disable its dynamic scripting so that it can be accessed by the Kibana dashboards.
+		    <div class="hacker">
 			cd /usr/share/elasticsearch
-		</div>
+	  </div>
 		<div class="hacker">
 			sudo vim config/elasticsearch.yml
 		</div>
@@ -153,8 +140,8 @@
 	   ./bin/elasticsearch
 	  </div>
 	  A successful startup shows an OK message.<br />
-	  <img src="images/17911 - Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Arch Linux_clip_image002.jpg" alt="Elasticsearch start message" width="624" height="247" /> </p>
-	</li>
+	  
+  </li>
 </ol>
 <h2>Install and configure Kibana</h2>
 <ol>
@@ -174,7 +161,7 @@
 			sudo cp -r kibana-4.1.1* /usr/share/kibana-4.1.1
 		</div>
   </li>
-  <li>Open Kibana's configuration file to change the port from default value 9200 to 80, which is used for interaction with Elasticsearch. 
+  <li>Open Kibana's configuration file to change the port from 9200 (the default)   to 80, which is used for interaction with Elasticsearch. 
 	<div class="hacker">
 		sudo vim /usr/share/kibana-4.1.1/config/kibana.yml
 	</div>
@@ -192,17 +179,17 @@ elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:<span class="
 elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:<span class="style1">80</span>&quot;,</pre>
 	  </div>
   </li>
-  <li>Install NGINX, which can be used as the proxy server. This enable access to the Kibana dashboards from the Internet.
+  <li>Install Nginx, which can be used as the proxy server. This enables access to the Kibana dashboards from the Internet.
 	  <div class="hacker"> 
 		sudo pacman -S nginx
 	  </div>
   </li>
-  <li>Create the NGINX configuration file.
+  <li>Create the Nginx configuration file.
 	  <div class="hacker"> 
 		sudo vim /etc/nginx/nginx.conf
 	  </div>
   </li>
-  <li>Put the following code into the NGINX configuration file:
+  <li>Put the following code into the Nginx configuration file:
 	  <div class="hacker"> 
 		  <pre>#user html;
 worker_processes  1;
@@ -316,16 +303,19 @@ http
         
      }
 }
-	</div>
+	</pre></div>
   </li>
-  <li>Restart NGINX.
+  <li>Restart Nginx.
 		<div class="hacker">
 			sudo systemctl restart nginx
 		</div>
   </li>
 </ol>
 <h2>Install and configure Fluentd</h2>
-<ol>
+In this section you'll install Fluentd via Ruby. First, you need to install the dependencies, including RVM.
+
+<h3>Install Fluentd dependencies</h3>
+  <ol>	
   <li>Download the RVM signatures.
 	  <div class="hacker">
 		command curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
@@ -336,7 +326,7 @@ http
 		sudo curl -L get.rvm.io | bash -s stable
 	  </div>
   </li>
-  <li>Open <code>.bashrc</code> file.
+  <li>Open the <code>.bashrc</code> file.
 	  <div class="hacker"> 
 		sudo vim .bashrc
 	  </div>
@@ -346,12 +336,13 @@ http
 		[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;&amp; source &quot;$HOME/.rvm/scripts/rvm&quot;
 	  </div>
    </li>
-   <li>Close the session and log in back to apply the  changes and then install the dependencies of RVM.
-	  <div class="hacker">
-		rvm  requirements
-	  </div>
+  <li>Close the session, and log in  to apply the  changes.</li>
+   <li> Install the dependencies of RVM.
+     <div class="hacker">
+       rvm  requirements
+     </div>
    </li>
-   <li>Install the dependencies before installing Ruby.
+   <li>Install other dependencies before installing Ruby.
 	  <div class="hacker">
 		sudo pacman -S libyaml
 	  </div>
@@ -367,6 +358,9 @@ http
 		rvm install ruby
 	   </div>
 	</li>
+</ol>
+<h3>Install Fluentd</h3>
+	<ol>
 	<li>Fetch the Fluentd source code.
 	  <div class="hacker">
 		git clone https://github.com/fluent/fluentd.git
@@ -377,7 +371,7 @@ http
 	</li>
 	<li>Build and install Fluentd.
 	
-	 <p class="note">These commands are  for version 0.12.15. For other versions, see <a href="http://www.fluentd.org/download" target="_top"> Fluentd download page</a>.</p>
+	 <p class="note">These commands are  for version 0.12.15. For other versions, see the <a href="http://www.fluentd.org/download" target="_top"> Fluentd download page</a>.</p>
 	   
 	   
 	  <div class="hacker">
@@ -390,7 +384,10 @@ http
 		gem install pkg/fluentd-0.12.15.gem
 	  </div>
 	</li>
-	<li>Setup Fluentd.
+	</ol>
+<h3>Configure Fluentd</h3>
+	<ol>
+	<li>Set up Fluentd.
 	  <div class="hacker">
 		fluentd --setup /etc/fluent
 	  </div>
@@ -400,8 +397,8 @@ http
 	  <div class="hacker">
 		echo '{&quot;json&quot;:&quot;message&quot;}' | fluent-cat debug.test
 	  </div>
-	  </div>
-	</li>
+	
+</li>
 	<li>Install additional plugins.        
 	  <div class="hacker">
 		gem install fluent-plugin-elasticsearch
@@ -409,8 +406,8 @@ http
 	  <div class="hacker">
 		gem install fluent-plugin-record-reformer
 	  </div>
-	  </div>
-	</li>
+	 
+</li>
 	<li>Update the configuration file.
 	  <div class="hacker">
 		sudo vim /etc/fluent/fluent.conf
@@ -440,19 +437,17 @@ http
          flush_interval 5s #debug
     &lt;/store&gt;
 &lt;/match&gt; </pre>
-	  </div>
-  <li>Save and close by pressing <strong>ESC</strong> key and then <strong>:wq</strong>.</li>
-	</li>
-  <li>Test the Fluentd again.
+	  </div></li>
+  <li>Save and close by pressing the <strong>ESC</strong> key and then typing <strong>:wq</strong>.</li>
+
+  <li>Test  Fluentd.
 	<div class="hacker">
 	  echo  '{&quot;json&quot;:&quot;message&quot;}' | fluent-cat debug.test
 	</div>
   </li>
-  <li>Successfully running Fluentd  will show the following message:<br />
-  <img src="images/17911 - Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Arch Linux_clip_image002_0000.jpg" alt="Successful run of Fluentd" width="624" height="84" /> </li>
 </ol>
    
-	    <h2>Next steps</h2>
+    <h2>Next steps</h2>
   <p>As an alternative to Fluentd, many users prefer to work with Logstash. To learn more about the ELK (Elasticsearch, Logstash, and Kibana) stack and its installation, see <a href="17855 - Install ELK stack (Elasticsearch, Logstash, Kibana) - Arch Linux">Install ELK stack (Elasticsearch, Logstash, Kibana) - Arch Linux</a>.</p>
   
 </body>

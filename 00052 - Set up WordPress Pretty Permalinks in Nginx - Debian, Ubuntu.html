@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+
+<title>Set up WordPress Pretty Permalinks in Nginx - ALL DISTROS</title>
+<style type='text/css'>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .<h1></h1>5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleID msdt:dt="string">00052</mso:ArticleID>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+<p>Set up WordPress Pretty Permalinks in Nginx.</p>
+    <h1>Set up WordPress Pretty Permalinks in Nginx – ALL DISTROS</h1>
+    
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
+        <strong>Time</strong>: <em><u>10 minutes</u></em></p>
+
+    <p>Permalinks are URLs of the content published on your WordPress site. Best practices state that these URLs should be permanent and never change, but you can of course change your permalink structure at any time. Doing so, however, would change the URL of all your pages, which would cause your search and referral traffic to drop since the links would be broken.</p>
+     
+<p>WordPress produces dynamic links by default that are appended with the post ID number. Though these links work on all server environments, they’re not descriptive, easily identifiable, or SEO-friendly.</p>
+
+<p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly, and depending on which format you choose, structured. You can use <code>mod_rewrite</code> or <code>lighttpd</code> to produce these, the most common and versatile being the Post Name link format.</p>
+  
+<p>This tutorial will walk you through setting up WordPress pretty permalinks in Nginx. </p>
+
+    <h2>Prerequisites</h2>
+    <p>Before you begin, Wordpress has to be fully installed. See our guides to doing that:
+         
+    <ul>
+    <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17385 - Install WordPress on your LAMP server - Debian, Ubuntu.html">Install WordPress on your LAMP server - Debian, Ubuntu</a></li>
+<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17383%20-%20Install%20WordPress%20on%20your%20LAMP%20server%20-%20CentOS.html">Install WordPress on your LAMP server – Fedora, CentOS</a></li>
+<li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17384 - Install WordPress on your LAMP server - Arch Linux.html.html">Install WordPress on your LAMP server - Arch Linux</a></li>
+</ul>
+
+
+Also, you should set up a non-root user with <code>sudo</code> privileges.

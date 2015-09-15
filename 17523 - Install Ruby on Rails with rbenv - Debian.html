@@ -84,7 +84,7 @@
 
 <body>
 
-<p>Setting up Ruby on Rails with rbenv on Debian, Ruby, Rails</p>
+<p>Setting up Ruby on Rails with rbenv on Debian, Ruby, Rails.</p>
 <h1>Install Ruby on Rails with rbenv – Debian</h1>
 
 <p><strong>Difficulty:</strong> <em>2</em></p>
@@ -94,7 +94,7 @@
 
 	<p class="note">This article assumes that you have sudo privileges.</p> 
     
-<h2>Prerequisites</h2> <!-- For this article, we have used the header 'Prerequisites' to keep it consistent with other sibling article 17521.-->
+ <!-- For this article, we have used the header 'Prerequisites' to keep it consistent with other sibling article 17521.-->
 	<p>To setup the Debian server, refer to the articles: <a href="#17325">Initial Server Setup - Debian</a> and <a href="#17370">Install Git - Debian</a>.</p>  <!-- For this article, GitHub installtion is not optional, but an essential step as pre-requisite.-->
 
 <h2>Install rbenv</h2>
@@ -134,10 +134,10 @@
 			<div class='hacker'>rbenv install --list</div>
 		</li>    
 		<li>Install Ruby.
-			<div class='hacker'>rbenv install <em><u>Ruby_version</u></em> -k</div>
+			<div class='hacker'>rbenv install <em><u>latest_version of Ruby</u></em> -k</div>
 		</li>
 		<li>Set the default version of Ruby that all of your shells will use.
-			<div class='hacker'>rbenv global <em><u>Ruby_version</u></em></div>
+			<div class='hacker'>rbenv global <em><u>latest_version of Ruby</u></em></div>
 		</li>    
 		<li>Display the version of Ruby that was installed.
 			<div class='hacker'>ruby -v</div>
@@ -170,35 +170,10 @@ deb-src http://ftp.us.debian.org/debian/ wheezy-backports main
 		<li>Press <strong>Y</strong> to continue when prompted <strong>Do you want to continue [Y/n]?</strong></li>
 		</ol>
 		
-<h2>Ruby on Rails installation</h2>
-		<ol>
-		<li>Install <strong>sqlite</strong>, which is the default database used by Rails.
-			<div class='hacker'>sudo apt-get install sqlite3 libsqlite3-dev</div>
-		</li>		
-		<li>Install Ruby on Rails.
-			<div class='hacker'>gem install rails</div>
-		</li>    
-		</ol>
 
-<h2>Create a sample application</h2>
-		<ol>
-		<li>Create a sample application <code>myfirstapp</code>.
-			<div class='hacker'>rails new <em><u>myfirstapp</u></em></div>
-		</li>    
-		<li>Change the directory to <code>myfirstapp</code>.
-			<div class='hacker'>cd <em><u>myfirstapp</u></em></div>
-		</li>    
-		<li>Run the application by using the following command:
-		<div class='hacker'>rails server</div>
-		</li>
-		<li>Open the browser and type: <em>http://<em><u>your_ip_address</u></em>:3000</em>
-		 </li>
-		<li>On the successful exection of the above process, you would see a welcome screen of the Rails application on the broswer.
-		</li>
-		</ol> 
 
-<h2>Conclusion</h2>
-		<p>In this article, you learned to install Ruby on Rails with rbenv and tested it by creating Ruby on Rails app in Debian. </p>
+<h2>Next steps</h2>
+		  <p>In this article, you reviewed the steps involved in installing rbenv, Ruby, Ruby Gems, and finally Rails in Debian. For supported enterprise level application, you can also <a href="17952 - Scale Ruby on Rails Applications Across Multiple Servers - Debian, Ubuntu">scale Ruby on Rails application across multiple servers</a>.</p>
 
 
 </body>

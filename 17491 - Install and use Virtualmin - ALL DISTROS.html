@@ -4,9 +4,7 @@
 
 <head>
 
-<!--Article Number is 17491 (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17491  -->
 
 
 <title>Install and use Virtualmin - ALL DISTROS</title>
@@ -84,34 +82,28 @@ p.note {
         <strong>Time</strong>: <em><u>Time value</u></em></p>
 
     <p>Webmin is a GUI tool that helps you manage the software packages installed on your server.  
-        Virtualmin is an extension of Webmin that extends its functionality to managing Virtual Private Servers (VPS).</p>
+        Virtualmin is an extension of Webmin that extends its functionality to manage Virtual Private Servers (VPS).</p>
 
 
     <h2>Install Virtualmin</h2>
      <ol>
-               <li>Download the Virtualmin software
+               <li>Download the Virtualmin software.
                  <div class="hacker"> sudo wget http://software.virtualmin.com/gpl/scripts/install.sh -O /root/virtualmin-install.sh</div>
-               </li>
-               <li>Your screen will display something like this:
+               Your screen will display something like this:
                    <div class="hacker">2015-09-03 13:32:53 (710 KB/s) - ‘/root/virtualmin-install.sh’ saved [47633/47633]</div>
                </li>
-               <li>Install Virtualmin
+               <li>Install Virtualmin.
                    <div class="hacker">sudo sh /root/virtualmin-install.sh</div>
                </li>
-               <li>You may have logged in to your server using an IP address rather fully qualified domain name (FQDN).  
+               <li>You may have logged into your server using an IP address rather than a fully qualified domain name (FQDN).  
                    The script may prompt you for your FQDN.  If this is the case, provide it.
                 </li>
-               <li>Navigate to your webmin page (<em><u>MyCoolWebsite.com</u></em>:10000)
-                   <div class="hacker">https://<em><u>MyCoolWebsite.com</u></em>:10000</div>
-               </li>
+               <li>Navigate to your webmin page: <strong>http://<em><u>coolexample.com</u></em>:10000</strong></li>
     </ol>
-               <p>On the left hand side of the page there is a menu.  Clicking on the name toggles the UI between Virtualmin and Webmin.  
-                   You will notice some differences from the standard Webmin interface because the two tools offer slightly different functionality.  
-                   Webmin manages your server while Virtualmin manages the individual VPS you have installed on your physical server.  
-                   </p>
- 
-   
+<h2>Review the Virtualmin and Webmin UI</h2>    
+<ul><li>On the left hand side of the page, there is a menu. Click on the name to toggle the UI between Virtualmin and Webmin.</li> </ul> 
+<p>You will notice some differences from the standard Webmin interface, because the two tools offer slightly different functionality. Webmin manages your physical server, while Virtualmin manages the individual VPS that you have installed on your physical server.</p>   
     <h2>Next steps</h2>
-  <p>Use the post-installation wizard to familiarize yourself with Virtualmin and use it to help you build out some VPS and the software running on them.</p>         
+  <p>Use the post-installation wizard to familiarize yourself with Virtualmin, and use it to help you build out VPS and the software running on them.</p>         
 </body>
 </html>

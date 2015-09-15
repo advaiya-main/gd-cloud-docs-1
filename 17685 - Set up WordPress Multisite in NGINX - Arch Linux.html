@@ -4,9 +4,7 @@
 
 <head>
 
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
+   <!--Article Number is 17685-->
 
 <title>Set up WordPress Multisite in NGINX - Arch Linux</title>
 <style type='text/css'>
@@ -26,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .<h1></h1>5em 4em;
+ padding: .5em 1em .5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -87,14 +85,14 @@ td:nth-child(1) {font-weight:bold;}
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-  <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you’d otherwise have to log into different WordPress accounts.</p> 
+  <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you'd otherwise have to log into different WordPress accounts.</p> 
 
 <p>For this article, we'll walk through setting up WordPress multisite for a primary domain and its subdomains. 
-We'll set up a fresh install of WordPress in Nginx on an Arch Linux system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
+We'll set up a fresh install of WordPress in Nginx on an Arch Linux system. The steps are for a non-root user with sudo privileges.</p>
 <p>We'll use these example sites: </p>
 <table>
   <tr>
-    <td><b>Site 1</b></th>
+    <th><b>Site 1</b></th>
     <td>coolexample.com (primary)</td>
   </tr>
   <tr>
@@ -114,45 +112,45 @@ aboutus.coolexample.com</td>
 <ul>
 <li>You'll need a Linux, Nginx&reg;, MySQL, and PHP (LEMP) stack configured. Make sure that Nginx, MySQL, and PHP are up and running. For instructions, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17350%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Arch%20Linux.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) – Arch Linux</a></li>
 
-<p>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</p></li> 
+<li>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.
 
-<li>Install <code>wget</code> if you haven't already. 
-        <div class="hacker">sudo pacman -S wget</div>
+    Install <code>wget</code> if you haven't already.
+        <div class="hacker">sudo pacman -S wget</div>  </li>
                                                           
-<p>Select <strong>y</strong> at the prompt to continue with the installation.</p></li>
+<li>Select <strong>y</strong> at the prompt to continue with the installation.</li>
 
 
 <li>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
 
-                    
+ </ul>
 <h3>Modify the Nginx configuration file</h3>
 
             <ol>
                 <li>Make sure that you have the Nginx configuration file.
               <div class="hacker">sudo vim /etc/nginx/nginx.conf</div>  </li>
 
-            <li>Create a backup copy just in case.
+            <li>Create a backup copy, just in case.
               <div class="hacker">sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.bak</div></li>
             
               <li>Open the <code>nginx.conf</code> file.
                 <div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
-                </ol>
 
-           In the file, make these changes: 
-           <ul>
-              <li>Make <code>server_name</code> point to your domains.  
-                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div></li>
+
+            <li>In the file, make these changes:<br />
+
+             Make <code>server_name</code> point to your domains.
+                 <div class="hacker">server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com</u></em>;</div></li>
             
             <li>Make sure that <code>index.php</code> is added to the index line in the <code>http {</code> section towards the middle of the file (as already done from your LEMP installation).</li>
 
-            <li>In the <code>server</code> section (probably towards the middle of the file), find the <code>root</code> line and change the root to point to <code>/var/www/wordpress;</code></li>
+            <li>In the <code>server</code> section (probably towards the middle of the file), find the <code>root</code> line and change the root to point to <code>/var/www/wordpress;</code>.</li>
 
-    </ul>
+    </ol>
 <p class="note">
             You may have made some of these changes when you installed your LEMP stack.  </p>
  
  
-<p>After your changes, your file may look something like this (Use this file to double check the config in your server block. Note that this example below is truncated):</p>
+<p>After your changes, your file may look something like the following example. Use this file to double-check the config in your <em>server</em> block. Note that this example below is truncated:</p>
 
 <div class="hacker"><pre>
 #user html;
@@ -172,7 +170,7 @@ worker_processes  1;
             listen 80;
             root    <em><u>/var/www/wordpress;</u></em>
             index index.php index.html index.htm;
-            server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</em></u>
+            server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</u></em>
 
             location ~ \.php$ {
                     fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
@@ -184,33 +182,34 @@ worker_processes  1;
     }
 
 }
-</pre></div> 
- 
- <ul> <li>Save and close.</li>
+</pre></div></ul> 
 
- <li>Restart nginx to make your changes take:
+ <li>Save and close.</li>
+
+ <li>Restart Nginx to make your changes take.
 <div class="hacker">sudo systemctl restart nginx</div>  </li>
  </ul>
 
  <h2>Open your basedir restriction</h2>
 
-In the php file, make this single, but important, change.
+<p>In the php file, make this single, but important, change.</p>
 
 <ol>
-<li>Open your php.ini file.
+<li>Open your <code>php.ini</code> file.
 <div class="hacker">sudo nano /etc/php/php.ini</div></li>
 
 
-<li>Find this line: 
-<div class="hacker">open_basedir = /srv/http/:/home/:/tmp/:/usr/share/pear/:/usr/share/webapps/</div>
-And comment it out. This is an option to restrict file access to certain directories defined in php.ini.</li>
+<li>Locate this line: 
+<div class="hacker">open_basedir = /srv/http/:/home/:/tmp/:/usr/share/pear/:/usr/share/webapps/</div></li>
 
- <li>Save and close</li>
+<li>Comment the line out. This restricts file access to certain directories defined in <strong>php.ini</strong>.</li>
+
+ <li>Save and close.</li>
   
-  <li>Restart php
+  <li>Restart php.
   <div class="hacker">sudo systemctl restart php-fpm</div></li>
   
-  <li>Restart Nginx
+  <li>Restart Nginx.
 <div class="hacker">sudo systemctl restart nginx</div></li>
 
   </ol>          
@@ -227,9 +226,9 @@ And comment it out. This is an option to restrict file access to certain directo
 <div class="hacker">mysql -u root -p</div>
                      </li>
     <li>At the prompt, enter your MySQL root password.  </li>
-    <li>At the MySQL prompt, create your WordPress database. For this article, we'll use the database name "wordpress."
+    <li>At the MySQL prompt, create your WordPress database. For this article, we'll use the database name <em>wordpress</em>.
   <div class="hacker">CREATE DATABASE wordpress;</div></li>
-<li>Create the database administrator account, and set the user's credentials. We'll use "wordpressadmin" as the example user name, and "wordpresspassword" as the password.
+<li>Create the database administrator account, and set the user's credentials. We'll use <em>wordpressadmin</em> as the example user name, and <em>wordpresspassword</em> as the password.
   <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
   As a best security practice, create a strong password. Keep your user name and password handy, as you'll need them later.</li>
  <li>Give, or grant, your admin permissions to the database.   
@@ -256,7 +255,7 @@ And comment it out. This is an option to restrict file access to certain directo
          
 <li>Extract, or untar, the application directory.
 <div class="hacker">tar -xf latest.tar.gz</div>
-This command creates a directory called "wordpress" in your home directory.</li>
+This command creates a directory called <em>wordpress</em> in your home directory.</li>
                                                                      
 <li>Create the document root directory. 
   <div class="hacker">sudo mkdir -p /var/www/wordpress</div>
@@ -266,7 +265,7 @@ This command creates a directory called "wordpress" in your home directory.</li>
 <div class="hacker">sudo cp -r ~/wordpress/* /var/www/wordpress</div></li>
 
  
- <li>Change ownership of the directory and grant read-write permissions to the group. This way you'll be able to work with WordPress uploads, plugins, and themes.
+ <li>Change ownership of the directory and grant read-write permissions to the group. This way, you'll be able to work with WordPress uploads, plug ins, and themes.
 <div class="hacker">sudo chown http:http /var/www</div>
 <div class="hacker">sudo chmod g+w /var/www</div>
 </li>
@@ -279,11 +278,14 @@ This command creates a directory called "wordpress" in your home directory.</li>
      <ol>
      <li>  In your web browser, enter your primary domain name. In our example, that's 
    <strong>http://coolexample.com</strong>.
-   (If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL.)<br/>
-    You may get an introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
+   <ul>
+   <li>If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL and try again.</li>
+    <li>If you get an introductory page, click <strong>Let's go!</strong> to continue.</li>
+    </ul>
+    </li>
 
      <li>On the next page, fill out your WordPress MySQL database credentials. 
-     You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. </li>
+     You can leave the <strong>Database Host</strong> as is (<em>localhost</em>), since that's what we defined, and <strong>Table Prefix</strong> as <em>wp_</em>. </li>
   <li>Click <strong>Submit</strong>.<br />
 <img src="images/17685/090215/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
   <br />
@@ -299,7 +301,7 @@ This command creates a directory called "wordpress" in your home directory.</li>
    <li>Back in your terminal, navigate to your WordPress document root.
      <div class="hacker">cd /var/www/wordpress</div></li>
 
- <li>List files using <code>ls</code> to make sure that <code>wp-config-sample.php</code> is among them.</li>   
+ <li>View a list of files using the <code>ls</code> command to make sure that <code>wp-config-sample.php</code> is among them.</li>   
 
  <li>Copy the sample configuration file.
    <div class="hacker">sudo cp wp-config-sample.php wp-config.php</div></li>
@@ -311,15 +313,15 @@ This command creates a directory called "wordpress" in your home directory.</li>
 
     <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
 /** The name of the database for WordPress */ <br />
-define('DB_NAME', 'wordpress'); <br />
+define('DB_NAME', '<em><u>wordpress</u></em>'); <br />
 
 /** MySQL database username */  <br />
-define('DB_USER', 'wordpressadmin');     <br />
+define('DB_USER', '<em><u>wordpressadmin</u></em>');     <br />
 
 /** MySQL database password */ <br />
-define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
+define('DB_PASSWORD', '<em><u>wordpresspassword</u></em>');   </div> </li>
 
- <li>Farther down in the file, find the line  <code>/* That's all, stop editing! Happy blogging. */</code> and add  these lines:
+ <li>Further down in the file, find the line  <code>/* That's all, stop editing! Happy blogging. */</code> and add  these lines:
    <div class="hacker">/* Multisite settings */<br/>
 define( 'WP_ALLOW_MULTISITE', true );</div></li>
     
@@ -340,7 +342,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
         <li>Click <strong>Install WordPress</strong>.</li>
       </ol>
       
-<p class="note">If at any point during web installation you get an error such as a 404 or 504 page, reload the wp-admin page (<code>http://coolexample.com/wp-admin/</code>).</p>  
+<p class="note">If at any point during web installation you get an error such as a <strong>404</strong> or <strong>504</strong> page, reload the wp-admin page (<code>http://coolexample.com/wp-admin/</code>).</p>  
 
     <h2>Enable multisite</h2>
    
@@ -353,10 +355,10 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
   and change your Network Title if you like. Click <strong>Install</strong>.
 </li> 
 
- <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.
-   <p class="note">For Nginx, there's no <code>htaccess</code> file. We'll ignore the <code>.htaccess</code> code.</p>
+ <li>In the next <strong>Network Setup</strong> screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.
+   <p class="note">For Nginx, there's no <code>htaccess</code> file. You'll ignore the <code>.htaccess</code> code.</p>
  
- <img src="images/17685/090215/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup" /><br/>
+ <img src="images/17685/090215/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup" /><br />
  
  The code resembles this:
  <div class="hacker"><pre>define('MULTISITE', true);
@@ -372,7 +374,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
    <div class="hacker">sudo vim wp-config.php</div>
    
  </li>
-   <li>Find the section torwards the end of the file we were modifying, and paste the code you copied right before <code>/* That's all, stop editing! Happy blogging. */</code>.</li>
+   <li>Locate the section towards the end of the file that you were modifying, and paste the code you copied right before <code>/* That's all, stop editing! Happy blogging. */</code>.</li>
     
   <li>Save and close the file.</li>
 </ol>  
@@ -380,11 +382,11 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 <h2>Create additional sites or subdomains</h2>
 
 <ol>       
-<li>Back in your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page. Then, log back in if your password isn't saved.<br /></li>
+<li>In your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page. Then, log back in, if your password isn't saved.<br /></li>
 
-<li>To the left of that on the top navigation bar is <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
+<li>On the top-left navigation bar, hover over <strong>My Sites</strong>, and from the drop-down menu, select <strong>Network Admin</strong>, and then <strong>Sites</strong>. <br />
 
-At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar.<br/></li>
+At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar.<br/>
 <img src="images/17685/090215/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> </li>
 
 <li>On the main screen, next to <strong>Sites</strong>, click <strong>Add New</strong>.</li>
@@ -398,9 +400,8 @@ At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(
 
 <h2>Next Steps</h2>
  
- <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. <br />
-
- There's much you can do from here. One option is to map your sub-domains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00039%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20in%20NGINX%20-%Arch%2Linux.html">Set up WordPress Domain Mapping - Arch Linux</a> for instructions. </p>
+ <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. </p>
+ <p> There's much you can do from here. One option is to map your sub-domains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00039%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20in%20NGINX%20-%Arch%2Linux.html">Set up WordPress Domain Mapping - Arch Linux</a> for instructions. </p>
 
 
 </body>

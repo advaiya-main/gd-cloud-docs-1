@@ -80,15 +80,12 @@ p.note {
         <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
             <strong>Time</strong>: <em><u>15 minutes</u></em></p>
 
-        <p>WordPress has become much more than its humble beginnings in 2003 as a self-hosted blogging tool. It's the Internet's leading content management system (CMS). This open-source CMS powers all types of sites, including many major brands. With a MySQL and PHP architecture, WordPress is easy to install and has endless options for website configuration thanks to tens of thousands of plugins and themes from its rich and active community.</p>
+        <p>WordPress has become much more than its humble beginnings in 2003 as a self-hosted blogging tool. It's the Internet's leading content management system (CMS). This open-source CMS powers all types of sites, including many major brands. With a MySQL&#8482;, and PHP architecture, WordPress is easy to install and has endless options for website configuration thanks to tens of thousands of plugins and themes from its rich and active community.</p>
 
-        <p>This article walks you through setting up WordPress on a Debian system. The steps are for a non-root user with <code>sudo</code>, or administrative, privileges.</p>
+    <p>This article walks you through setting up WordPress on a Debian system. The steps are for a non-root user with <code>sudo</code>, or administrative, privileges.</p>
 
     <h2>Prerequisites</h2>
-        <p>Make sure you that have a non-root user with <code>sudo</code> (administrator) privileges set up. You also need a Linux, Nginx, MySQL, and PHP (LEMP) stack configured. Be sure that Nginx, MySQL, and PHP are up and running. To install a LEMP stack, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">Build a LEMP stack (Linux, Nginx, MySQL, PHP) – Debian</a>.   </p>
-
-        <p>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</p>
-
+        <p>Make sure you that have a non-root user with <code>sudo</code> (administrator) privileges set up. You also need <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">a Linux&#8482;, Nginx&#8482;, MySQL, and PHP (LEMP) stack configured</a>. Be sure that Nginx, MySQL, and PHP are up and running. As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</p>
 <h2>Create a MySQL database and administrator for WordPress</h2>
 
         <p>Set up your MySQL database with an administrator so that WordPress has a place to store all your site and user information. </p>
@@ -110,8 +107,8 @@ p.note {
 
         <li>Give, or grant, your admin permissions to the database.
             <div class="hacker">GRANT ALL PRIVILEGES ON wordpress.* TO wordpressadmin@localhost;</div>
-            <code>GRANT</code> is one of the account management statements the MySQL server notices and loads into memory right away. So a manual reload/restart should not be necessary. But if you like, you can check the permissions using <code>SHOW GRANTS</code>.
-            <div class="hacker">SHOW GRANTS FOR 'wordpressadmin'@'localhost';</div> </li>
+            <code>GRANT</code> is one of the account management statements that the MySQL server notices and loads into memory right away. So a manual reload/restart should not be necessary. But you can check the permissions using <code>SHOW GRANTS</code>.
+      <div class="hacker">SHOW GRANTS FOR 'wordpressadmin'@'localhost';</div> </li>
         <li>If the privileges don't take effect, flush the privileges to activate the user. <code>FLUSH</code> forces a reload of the cache.
 <div class="hacker">FLUSH PRIVILEGES;</div>  </li>
 
@@ -121,7 +118,7 @@ p.note {
 <p>You finished! </p>
 <h2>Download and install WordPress</h2>
 
-     Your system is now ready to install WordPress into your directory. WordPress is available in a <code>tar.gz</code> or <code>zip</code> format. We'll the <code>tar.gz</code> file.
+     Your system is now ready to install WordPress into your directory. WordPress is available in a <code>tar.gz</code> or <code>zip</code> format. We'll use the <code>tar.gz</code> file.
 
      <ol>
         <li>Download the WordPress files from the official site using <code>wget</code>.
@@ -150,7 +147,7 @@ p.note {
    <div class="hacker">sudo vim wp-config.php</div>
          </li>
 
-   <li> Look for following section of the code  (starting with <code>MySQL settings</code>…), and replace the values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
+   <li> Look for the following section of the code  (starting with <code>MySQL settings</code>…), and replace the values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
 
 
      <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
@@ -181,7 +178,7 @@ define('DB_PASSWORD', <em><u>'wordpresspassword'</u></em>);   </div> </li>
   </li>
       </ol>
 
-<h2>Create uploads folder</h2>
+<h2>Create an uploads folder</h2>
 
   <ol>
   <li>Switch back to the root directory before creating a new folder.
@@ -221,8 +218,9 @@ Open the new file for editing.
          <div class="hacker">location / <code>{</code><br/>
                 # try_files $uri $uri/ =404;<br/>try_files $uri $uri/ /index.php?q=$uri&amp;$args;<br/> <code>}</code></div>
 
-               If the entire <code>try_files</code> part is missing, paste in this block after <code>server name</code>:
-               <div class="hacker">
+               This enables WordPress pretty permalinks. 
+               If the entire <code>try_files</code> part is missing, paste this block after <code>server name</code>:
+              <div class="hacker">
 
                   location / {        <br/>
                 try_files $uri $uri/ /index.php?q=$uri&amp;$args;<br/>
@@ -281,20 +279,19 @@ server {
       <p>Good news! The rest of your installation uses the WordPress web interface.</p>
 
          <ol>
-     <li>  Enter your server’s domain name or public IP address in your web browser. <br />
-   <strong>http://your_domain_name_or_IP</strong><br/>
+     <li>  Enter your server’s domain name or public IP address in your web browser:  <strong>http://your_domain_name_or_IP</strong>.<br/>
    You are redirected to the WordPress admin page:<code> http://server_domain_name_or_IP/wp-admin/install.php</code><br/>
    </li>
 
-  <li>If you get the preliminary page to choose your language, do so and select <strong>Continue</strong>.
+  <li>If  prompted, choose your language and click <strong>Continue</strong>.
 </li>
 
-<li>At the WordPress 5-minute installation page, fill out your information to create your administrator account. Then, click <strong>Install WordPress</strong>.
-<p><img src="images/19193/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </p></li>
-<li>On the next screen, WordPress confirms your installation with your user name and (hidden) password. Click <strong>Log In</strong>.</li>
-
- <li><p> WordPress then prompts you to log in again with your new credentials. Do so now and click <strong>Log In</strong>.</p>
-<img src="images/19193/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" /></li>
+<li>On the WordPress five-minute installation page, fill out your information to create your administrator account. Then, click <strong>Install WordPress</strong>.
+  <p><img src="images/19193/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </p>
+  WordPress confirms your installation with your user name and (hidden) password. </li>
+<li>Click <strong>Log In</strong>. WordPress then prompts you to log in again with your new credentials. </li>
+<li>Log in  with your new credentials, and click <strong>Log In</strong>.<br />
+  <img src="images/19193/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" /></li>
      </ol>
 
  <p>All finished! The dashboard of your new site displays.</p>
@@ -307,8 +304,8 @@ server {
 
     <p>Congratulations! You have installed WordPress and created the beginning of your own website.</p>
 
-<!--CT: Will insert article ID once I have it-->
-                <p>From here you have many options for customizing your WordPress setup. A popular one is to make pretty permalinks. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00002%20-%20Set%20up%20WordPress%20Pretty%20Permalinks%20on%20NGINX%20-%20ALL%20DISTROS.html"> Set up WordPress Pretty Permalinks on Nginx - ALL DISTROS</a> for a step-by-step guide.</p>
+
+                <p>From here, you have many options for customizing your WordPress setup. A popular one is to make pretty permalinks. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00002%20-%20Set%20up%20WordPress%20Pretty%20Permalinks%20on%20NGINX%20-%20ALL%20DISTROS.html"> Set Up WordPress Pretty Permalinks on Nginx - ALL DISTROS</a> for a step-by-step guide.</p>
 
 <p>To install WordPress on a LAMP stack, see
  <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00013%20-%20Install%20WordPress%20on%20your%20LAMP%20server%20–%20Debian.html">Install WordPress on your LAMP server - Debian</a>.

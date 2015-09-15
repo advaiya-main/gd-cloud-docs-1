@@ -74,6 +74,7 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
+<!-- Validated -->
 <p>Install WordPress Multisite in Apache on a LAMP stack for CentOS, Fedora</p>
     <h1>Set up WordPress Multisite in Apache - CentOS, Fedora</h1>
      
@@ -82,7 +83,7 @@ td:nth-child(1) {font-weight:bold;}
 
   <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you’d otherwise have to log into different WordPress accounts.</p> 
 
-<p>For this article, we'll walk through setting up WordPress multisite for a primary domain and its subdomains. 
+<p>For this article, we'll walk through setting up WordPress multisite for a primary domain and its subdomains.
 We'll set up a fresh install of WordPress in Apache on an Debian system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
 <p>We'll use these example sites: </p>
 <table>
@@ -265,7 +266,7 @@ Choose a user name and password. Use the password supplied if you like; just be 
  <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.<br/>
 <img src="images/17681/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup screen wpconfig code" />
 <br/>
- 
+
  The code resembles this:
  <div class="hacker"><pre>define('MULTISITE', true);
 define('SUBDOMAIN_INSTALL', true);

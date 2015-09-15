@@ -88,7 +88,7 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-    <p>Laravel is a framework used to create web applications.&nbsp; </p>
+    <p>Laravel is a framework used to create web applications.&nbsp; This article assumes you have <a href="http://17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">installed a LEMP stack</a> and have created a <a href="http://17326%20-%20Add%20Memory%20Swap%20-%20Debian,%20Ubuntu.html">swap file</a>.</p>
 
     <h2>Install dependencies</h2>
            <ol>
@@ -96,19 +96,13 @@ p.note {
                    <div class="hacker">sudo apt-get update</div>
                </li>
                <li>Install additional items.
-                   <div class="hacker">sudo apt-get install php5-fpm php5-cli php5-mcrypt git nginx</div>
+                   <div class="hacker">sudo apt-get install php5-fpm php5-cli php5-mcrypt git </div>
                </li>
            </ol>
      <h2>Configure PHP</h2>  
     
     <ol>
-       <li>Open the file <code>/etc/php5/fpm/php.ini</code>.</li>
-              <li>Find the <code>cgi.fix_pathinfo</code> directive under the   <code>Paths and Directories</code> section, and modify the<code></code> directive as follows: 
-                <div class="hacker">cgi.fix_pathinfo=0</div>
-              </li> 
-        <li>Save and close the file.
-       </li> 
-               <li>Enable mcrypt.
+        <li>Enable mcrypt.
                  <div class="hacker">sudo php5enmod mcrypt</div>
        </li> 
                <li>Restart PHP. 
@@ -121,31 +115,58 @@ p.note {
                  <div class="hacker">sudo mkdir -p /var/www/laravel</div>
        </li> 
                 
-  <li>Edit the default server block file, <code>/etc/nginx/sites-available/default</code>, as follows (changes are <i> <b>bold italic</b></i>): 
+
+ <li>Open the nginx.conf file 
+                  <div class="hacker">sudo vim /etc/nginx/nginx.conf</div> 
+      </li> 
+       <li>Verify / modify the file such that the index directive and a server-level include reference is specified in the http context.  
+           The end result should look something like this:
+                  <div class="hacker">
+         <pre>        http 
+          {
+          ...
+          index index.php index.html index.htm
+          ...
+          include /etc/nginx/servers/*.conf
+          server {
+          ...</pre></div> 
+      </li>  
+       <li>Create a new server block for Laravel.
+                  <div class="hacker">sudo vim /etc/nginx/servers/laravel.conf</div> 
+      </li>
+  <li>Add the following contents:
     <div class="hacker"><pre># server context
-             server {
-        listen 80 default_server;
-        listen [::]:80 default_server ipv6only=on;
+                server {
+        listen       80;
+        server_name  localhost/laravel;
+        root /var/www/laravel/public;
 
-        <b><i>root /var/www/laravel/public;</i></b>
-        <b><i>index index.php index.html index.htm;</i></b>
+        location /laravel {
+        }
 
-        <strong><em>server_name <u>yourcloudserver</u>.com;</em></strong>
-# location context (default location)
-        location / {
-               <strong><em> try_files $uri $uri/ /index.php?$query_string;</em></strong>
-            }
-             
-# location context (php)
-    <strong><i>location ~ \.php$ {
-        </i></strong><i><strong>try_files $uri /index.php =404;</strong></i><strong><i>
-        </i></strong><i><strong>fastcgi_split_path_info ^(.+\.php)(/.+)$;</strong></i><strong><i>
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
-        fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include fastcgi_params;
-    }</i></strong>
- }
+        include /etc/nginx/locations/*.conf;
+        }
+
+</pre></div>
+     </li> 
+          <li>Save and close the file.       </li>
+          <li>Create an Nginx PHP location block configuration file and open it for editing.  
+              
+            <div class="hacker">sudo vim /etc/nginx/locations/php.conf</div> 
+          </li>
+
+      <li>If you already have a php configuration include file you may copy it to <code>/etc/nginx/locations/</code> and modify it as shown below.  
+          If not, create a new file and edit it so it looks&nbsp; like this:
+        <div class="hacker"><pre>
+#location context
+ location ~ \.php$ {
+       try_files $uri /index.php =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+       <b><i>fastcgi_pass unix:/run/php-fpm/php-fpm.sock;</i></b>
+        <b><i>fastcgi_index index.php</i></b>;
+       <b><i> fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  </i></b>
+       <b><b> include fastcgi_params;</b></b>
+    }
 </pre></div>
       </li> 
          <li>Save and close the file.
@@ -154,19 +175,7 @@ p.note {
   <div class="hacker">sudo service nginx restart</div>
        </li> 
         </ol>
-<h2>Create a swap file</h2>
-    <p>If your server does not have sufficient memory ( > 2GB) to handle the requirements of Composer and Laravel, you probably need to create a swap file.</p>
-           <ol>
-               <li>Create a 1GB file.
-                   <div class="hacker">sudo fallocate -l 1G /myswapfile</div>
-               </li>
-               <li>Format the file as swap space.
-                   <div class="hacker">sudo mkswap /myswapfile</div>
-               </li> 
-                <li>Turn on the file.
-                   <div class="hacker">sudo swapon /myswapfile</div>
-               </li> 
-                       </ol>
+
 <h2>Install Composer</h2>
     <p>Composer is a tool  to manage the Laravel implementation. </p>
            <ol>
@@ -190,7 +199,7 @@ p.note {
                  <div class="hacker">sudo chmod -R 775 /var/www/laravel/app/storage</div>
                </li>   
               <li>Verify success by navigating to <em><u>yourcloudserver</u></em>.
-<div class="hacker">http://<em><u>yourcloudserver</u></em>.com</div>
+<div class="hacker">http://your server IP address.com/laravel</div>
                </li>
            </ol>
 

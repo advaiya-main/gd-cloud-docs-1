@@ -4,10 +4,6 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
 
 <title>Install and configure PostgreSQL - CentOS 6</title>
 <style type="text/css">
@@ -70,15 +66,15 @@ p.note {
 </head>
 
 <body>
-<p>Setting up installation and configuration of PostgreSQL in CentOS 6, Databases, and PostgreSQL.</p>
+<p>Installation and configuration of PostgreSQL in CentOS 6, Databases, and PostgreSQL.</p>
     <h1>Install and configure PostgreSQL - CentOS 6</h1>
     
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>15 minutes</em></p>
 
-    <p>This article describes installation and configuration of PostgreSQL  on CentOS 6.
+    <p>This article describes the installation and configuration of PostgreSQL  on CentOS 6.
 PostgreSQL is an open-source relational database management system. PostgreSQL uses the Structured Query Language (SQL) to manipulate data. </p>
-    <p>To perform these tasks, we assume that you have <code>sudo</code> privileges. </p>
+    <p>The tasks in this article assume that you have <code>sudo</code> privileges. </p>
     <h2>Install PostgreSQL</h2>
 <ol> 
 <li>Update all the system packages. 
@@ -96,7 +92,7 @@ PostgreSQL is an open-source relational database management system. PostgreSQL u
    </li>
    <li>Start the PostgreSQL service.
      <div class="hacker">sudo service postgresql start</div>
-     Once PostgreSQL installs completely, the<code>Postgres</code> system user and database are automatically created.
+     Once PostgreSQL installs completely, the <code>Postgres</code> system user and database are automatically created.
    </li>
    
   </ol>
@@ -107,7 +103,7 @@ PostgreSQL is an open-source relational database management system. PostgreSQL u
      <div class="hacker">sudo -i -u postgres</div>
    </li>
    <li>Log into the database.
-     <div class="hacker">Psql</div>
+     <div class="hacker">psql</div>
   </li>
    <li>Exit from the <code>Postgres=# </code>prompt.
      <div class="hacker">\q</div>
