@@ -81,14 +81,14 @@ p.note {
 <h2>Install rbenv</h2>
 <ol>
   <li>Upgrade and install all the latest dependencies.
-    <div class="hacker">sudo pacman -Syyu</div>
+    <div class="hacker">sudo pacman -Syu</div> <!-- changed from yy to y -->
 <div class="hacker">sudo pacman -Sy base-devel</div>
 </li>
 <li>Install rbenv and Ruby dependencies.
 
   <div class="hacker">sudo pacman -Sy git zsh</div>
 
-<div class="hacker">sudo git clone git://github.com/sstephenson/rbenv.git ~/.rbenv</div>
+<div class="hacker">git clone git://github.com/sstephenson/rbenv.git ~/.rbenv</div> <!-- corrected the command -->
 </li>
 <li>Install rbenv, and check that rbenv is located in <code>.rbenv</code> directory.
     <div class="hacker">cd ~/.rbenv</div>
