@@ -139,10 +139,10 @@ Now that we have a backup copy, let's start editing the configuration file.</li>
             <ul>
     <li>In the first <code>location</code> section toward the top (probably right under the <code>server {</code> section):
           <ul>
-               <li>Find the line that begins with <code>root</code> and point root to <code>/var/www/wordpress;</code></li>
+               <li>Find the line that begins with <code>root</code> and point root to <code>/var/www/html;</code></li>
                <li>Make sure that <code>index.php</code> is added to the index line right underneath that (it should be).</li></ul></li>
-            <li>In the <code>location ~ \.php$ {</code> section (toward the bottom of the file), make sure that the <code>root</code> line is uncommented, and make it point to <code>/var/www/wordpress;</code>. The change looks like this:
-                     <div class="hacker">root     /var/www/wordpress;</div>
+            <li>In the <code>location ~ \.php$ {</code> section (toward the bottom of the file), make sure that the <code>root</code> line is uncommented, and make it point to <code>/var/www/html;</code>. The change looks like this:
+                     <div class="hacker">root     /var/www/html;</div>
             </li>
                 
                 <li>Make <code>server_name</code> point to your domains.
@@ -164,7 +164,7 @@ Now that we have a backup copy, let's start editing the configuration file.</li>
                include /etc/nginx/default.d/*.conf;                         <br />
                                                                             <br />
                location / {                                                 <br />
-                   root    <em><u>/var/www/wordpress;</u></em>              <br />
+                   root    <em><u>/var/www/html;</u></em>              <br />
                    index  <em><u>index.php</u></em> index.html index.htm;   <br />
                }                                                            <br />
                                                                             <br />
@@ -184,7 +184,7 @@ Now that we have a backup copy, let's start editing the configuration file.</li>
                # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000     <br />
                #                                                            <br />
                location ~ \.php$ {                                          <br />
-                   root   <em><u>/var/www/wordpress;</u></em>               <br />
+                   root   <em><u>/var/www/html;</u></em>               <br />
                    fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;        <br />
                    fastcgi_index  index.php;                                <br />
                    fastcgi_param  SCRIPT_FILENAME                           <br />
