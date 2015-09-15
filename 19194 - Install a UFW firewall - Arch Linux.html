@@ -84,19 +84,41 @@ p.note {
     
 <p>This article walks you through the basics of installing and enabling UFW.</p>   
 
-    <h2>Install UFW</h2>
+<h2>Install Iptables</h2>
+
+<p>UFW won't function without Iptables, so let's make sure it's installed and enabled.</p>
+
 <ol>
-<li>It's always good practice to update your packages before installing anything new. Update your packages:
+<li>First, it's always good practice to update your packages before installing anything new. Update your packages:
   <div class="hacker">sudo pacman -Syu</div>
- 
-  
-<li> Install UFW:
+ Enter <strong>y</strong> at the prompt to continue.</li>
+
+<li>Check the status of Iptables.
+  <div class="hacker">systemctl status iptables</div>
+  If your output shows that Iptables is inactive (<code>Active: inactive (dead)</code>), let's enable it.</li>
+
+ the service won't start unless it finds an /etc/iptables/iptables.rules file, which is not provided by the Arch iptables package. So to start the service for the first time
+sudo cp /etc/iptables/empty.rules /etc/iptables/iptables.rules
+
+ iptables to be loaded automatically on boot, 
+sudo systemctl enable iptables.service
+
+
+<li></li>
+
+<li>If you haven't already, install Iptables</li>
+<li>sudo pacman -Syu iptables</li>
+<li></li>
+<li></li>
+
+  </ol>
+
+  <h2>Install UFW</h2>
+
+  <p>Install UFW using <code>pacman</code>.</p>
     <div class="hacker">sudo pacman -Syu ufw</div>
+     Enter <strong>y</strong> at the prompt to continue.
 
-     Enter <strong>y</strong> at the prompt to continue.</li>
-    </li>
-
-    </ol>
          
     <h2>Enable UFW</h2>
      
