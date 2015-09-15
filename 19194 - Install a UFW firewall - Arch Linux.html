@@ -82,7 +82,7 @@ p.note {
     <p>Uncomplicated Firewall (UFW) is the front end for IPtables. Its command-line user interface makes it easy to configure your Linux&trade; firewall. 
     UFW is available in the Arch Linux repositories.</p> 
     
-<p>This article walks you through the  basics of installing and enabling UFW.</p>   
+<p>This article walks you through the basics of installing and enabling UFW.</p>   
 
     <h2>Install UFW</h2>
 <ol>
@@ -100,19 +100,21 @@ p.note {
     <h2>Enable UFW</h2>
      
 <ol>
-<!--CT: commenting out 9/11...
-<li>Check the status of UFW to make sure it's not already running:
-     <div class="hacker">sudo ufw status</div>
-  <li>View the output:
-    <ul> 
-  <li>If the output is similar to <code>ufw start/running</code>,  the firewall is active. You're finished!</li>...-->
 
      <li>Enable UFW:
-       <div class="hacker">sudo ufw enable</div>
+       <div class="hacker">sudo systemctl enable ufw</div></li>
        
-  Enter <strong>y</strong> to at the prompt, &quot;Command may disrupt existing ssh connections. Proceed with operation (y|n)?&quot;<br />
+  <!--CT: don't need...Enter <strong>y</strong> to at the prompt, &quot;Command may disrupt existing ssh connections. Proceed with operation (y|n)?&quot;<br />
     The system returns the output, <code>Firewall is active and enabled on system startup</code>.</li>
+    ...-->
+    <li>Start UFW:
+       <div class="hacker">sudo systemctl start ufw</div></li>
+
+<li>To check the status of UFW:
+<div class="hacker">sudo ufw status verbose</div></li>
+
 </ol>
+
 
              
     <h2>Next steps</h2>
