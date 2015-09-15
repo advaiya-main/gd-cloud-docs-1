@@ -82,21 +82,19 @@ p.note {
     <p>Uncomplicated Firewall (UFW) is the front end for IPtables. Its command-line user interface makes it easy to configure your Linux&trade; firewall. 
     UFW is available in the Arch Linux repositories.</p> 
     
-<p>This article  walks you through the  basics of installing and enabling UFW.</p>   
+<p>This article walks you through the  basics of installing and enabling UFW.</p>   
 
     <h2>Install UFW</h2>
 <ol>
-<li>Update your packages:
+<li>It's always good practice to update your packages before installing anything new. Update your packages:
   <div class="hacker">sudo pacman -Syu</div>
-  It's always good practice to update your packages before installing anything new.</li>
+  
     
+ Enter <strong>y</strong> at the prompt to continue.</li>
 <li> Install UFW:
     <div class="hacker">sudo pacman -Syu ufw</div>
-    
-  </li>
-<li>(Debian only) <br />If you get an error message  about missing dependencies (such as &quot;E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?&quot;), update your package manager: <br/>
-    <div class="hacker">sudo apt-get install --fix-missing</div>
-</li>
+    </li>
+
     </ol>
          
     <h2>Enable UFW</h2>
