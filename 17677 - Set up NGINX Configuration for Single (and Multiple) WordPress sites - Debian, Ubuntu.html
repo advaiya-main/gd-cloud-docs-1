@@ -83,7 +83,7 @@ td:nth-child(1) {font-weight:bold;}
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-<p>For this article, we'll configure your Nginx settings to accommodate a single or multiple WordPress sites (those section labeled "multi-site users") on an Ubuntu&reg; (14.04, 14.10) or Debian system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
+<p>For this article, we'll configure your Nginx&reg; settings to accommodate a single or multiple WordPress sites (those section labeled "multi-site users") on an Ubuntu&reg; (14.04, 14.10) or Debian system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
 
 <p>We'll use these example sites: </p>
 <table>
@@ -101,7 +101,7 @@ td:nth-child(1) {font-weight:bold;}
 </table>
 
 <h2>Prerequisites</h2>
-You'll need a Linux, Nginx&reg;, MySQL, and PHP (LEMP) stack configured. For instructions, see the following:
+You'll need a Linux, Nginx, MySQL, and PHP (LEMP) stack configured. For instructions, see the following:
 <ul>
 <li><a href="Articles/17347%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Ubuntu.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Ubuntu</a></li>
 <li><a href="Articles/17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Debian</a></li>
@@ -122,14 +122,14 @@ Note that the count starts from 0, so if your output is <code>processor : 0</cod
 Now change the number of Nginx workers to match the number of processes. 
 Open the Nginx configuration file to edit. 
 <div class="hacker">sudo vim /etc/nginx/nginx.conf</div>
-Find the <code>worker_connections</code> line and change the number.
+Find the <code>worker_connections</code> line and change the number. It'll be towards the top.
 In this case, change the number from 4 to 1. 
 <div class="hacker">worker_processes 1;</div>
 Keep the file open for the next step.
 
 <h3>Enable Gzip compression</h3>
 
-<p>Gzip allows WordPress to compress large HTML and CSS files using the DEFLATE algorithm, saving significant bandwidth (up to 70%).<!--CT (to Carla/Crystal): (re:70% part) Is this too specific of a piece of trivia? I found this tidbit in one article in my research but debated about including it. If so, feel free to remove-->.</p>
+<p>Gzip allows WordPress to compress large HTML and CSS files using the DEFLATE algorithm, saving significant bandwidth (up to 70%).<!--CT (to Carla/Crystal): (re:70% part) Is this too specific of a piece of trivia? I found this tidbit in one article in my research but debated about including it. If so, feel free to remove--></p>
 
 <ol>
 
@@ -288,7 +288,7 @@ server {
     root /usr/share/nginx/wordpress;
     access_log /var/log/nginx/www.coolexample.com.access.log;
     error_log /var/log/nginx/www.coolexample.com.error.log;
-    include global/common.conf;
+    include global/allsites.conf;
     include global/wordpress.conf;
 }</pre></div>
 
@@ -303,7 +303,7 @@ server {
     root /usr/share/nginx/wordpress;
     access_log /var/log/nginx/www.coolexample.com.access.log;
     error_log /var/log/nginx/www.coolexample.com.error.log;
-    include global/common.conf;
+    include global/allsites.conf;
     include global/wordpress.conf;
 }</pre></div>
 
@@ -321,7 +321,7 @@ server {
     root /usr/share/nginx/wordpress;
     access_log /var/log/nginx/www.coolexample.com.access.log;
     error_log /var/log/nginx/www.coolexample.com.error.log;
-    include global/common.conf;
+    include global/allsites.conf;
     include global/wordpress.conf;
     include global/multisite.conf;
 }
