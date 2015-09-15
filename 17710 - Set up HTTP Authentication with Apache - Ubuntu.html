@@ -39,6 +39,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+
+
+td:nth-child(1) {font-weight:bold;}
 </style>
 
 
@@ -103,8 +113,8 @@ AuthType Basic
 AuthName "Restricted. Only authorized users."
 AuthUserFile "/etc/apache2/.htpasswd"
 Require valid-user
-</pre></div></li>
-        <li> Below is an explanation of what each of these mean :
+</pre></div>
+         Below is an explanation of what each of these mean :
 
 <table>
     <tr>
@@ -121,19 +131,17 @@ Require valid-user
         <td> You can set it to anything you want. This is the message that is displayed at the password prompt.</td>
     </tr>
     <tr><td> AuthUserFile</td><td> This is the location where you would store the password file.</td> </tr>
-    <tr><td>Require valid-user</td><td> This indicates that only users who are stored in the password file will be granted access to the phpMyAdmin login screen.</td> </tr>
+    <tr><td>Require valid-user</td><td> This indicates that only users who are stored in the password file will be granted access to the resource.</td> </tr>
 </table></li>
+        <li>Save and exit the file.</li>
     </ol>
-    <h2>Create user</h2>
-    <ol>
-        <li>To generate user/passwords we need the <code>htpasswd</code> tool. Prior to using the <code>htpasswd</code> we need to install apache utilities.
-        <div class=" hacker">sudo apt-get update</div>
-        <div class=" hacker">sudo apt-get install apache2-utils</div>
-        </li>
-        <li>Create the .htpasswd file in the path mentioned in the previous section along with the user name. You will be prompted to set and confirm a password for the user.
-        <div class="hacker">sudo htpasswd -c /etc/apache2/.htpasswd <em>newuser1</em></div>
-          </li>
-    </ol>
+    <h3>Create user</h3>
+  
+       <p>To generate user/passwords we need the <code>htpasswd</code> tool. 
+        Create the .htpasswd file in the path mentioned in the previous section along with the user name. You will be prompted to set and confirm a password for the user. </p>
+        <div class="hacker">sudo htpasswd -c /etc/apache2/.htpasswd <em><u>newuser1</u></em></div>
+         
+  
     <h2>Update Apache Configuration file</h2>
     <ol>
         <li>Open the Apache configuration file.
@@ -150,7 +158,7 @@ Require valid-user
         </li>
         <li>Restart Apache.
         <div class="hacker">sudo service apache2 restart</div></li>
-        <li>If you navigate to <strong>http://<em><u>server-ip-address/</u></em></strong> on your web browser. You will be challenged by a prompt asking for a valid username and password. Enter the newly created user <em>newuser1</em> and the password you set. After authentication you should see the Apache test page.</li>
+        <li>If you navigate to <strong>http://<em><u>your server address or domain name/</u></em></strong> on your web browser. You will be challenged by a prompt asking for a valid username and password. Enter the newly created user <em><u>newuser1</u></em> and the password you set. After authentication you should see the Apache test page.</li>
 
     </ol>   
     
