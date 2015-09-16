@@ -10,7 +10,7 @@
 
 
 <title>Install and configure Concrete5 on your LAMP server - CentOS, Fedora</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -68,78 +68,101 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Install and configure Concrete5 on your LAMP server - CentOS, Fedora, PHP, Applications </p>
+    <h1>Install and configure Concrete5 on your LAMP server – CentOS, Fedora</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em>1</em><br/>
+        <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
+    <h2>Introduction</h2>
+    <p>Concrete5 is an open source Content Management System (CMS) made in PHP. Concrete5 is easy to understand and learn.</p>
     
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
+    <p>In this article, you will learn how to install and configure Concrete5 in CentOS and Fedora.</p>
 
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
+     <h2>Prerequisites</h2>
+	 <ol>
+	 <li>Ubuntu</li>
+	 <li>LAMP <a href="#">Install and configure LAMP Ubuntu </a></li>
+	 <li>sudo user</li>
+	 </ol>
+	 
+	 <h2>Install required dependency</h2>
+<ol> 
+<li>Install the unzip tool which is required to extract file.
+   <div class="hacker">sudo yum install unzip </div>
+   </li>
+   <li>Install php libraries for Graphics and xml.
+   <div class="hacker">sudo apt-get install php-gd php-xml</div>
+   </li>
+   <li>Restart the apache services for changes to take effect.
+   <div class="hacker">sudo service restart httpd</div>
+   </li>
+  </ol>
+  
+  <h2>Basic configuration</h2>
+<ol> 
+<li>Run the following command to download Concrete5 source from official site:
+   <div class="hacker">cd /var/www/html </div>
+   <div class="hacker">sudo wget --trust-server-names http://www.concrete5.org/download_file/-/view/58379/8497/ -O concrete5.zip</div>
+   </li>
+   <li>Extract downloaded source using the following command:
+   <div class="hacker">sudo unzip concrete5.zip</div>
+   </li>
+   <li>Rename file to short name. The new directory is added in folder namely ‘concrete5.6.2.1’.
+   <div class="hacker">sudo mv concrete5.6.2.1 concrete5</div>
+   </li>
+   <li>Change Directory to concrete5.
+   <div class="hacker">cd concrete5</div>
+   </li>
+   </ol>
+  
+  <h2>Create database</h2>
+<ol> 
+<li>Create blank database for backend operation.
+   <div class="hacker">mysql –u root –p</div>
+   <div class="hacker">CREATE DATABASE concrete5;</div>
+   </li>
+   <li>Exit.
+   </li>
+   </ol>
    
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
+   <h2>Install Concrete5</h2>
+   <ol>
+   <li>Change permission and group of following to make writable for concrete5.
+   <div class="hacker">sudo chown -R root:apache files/</div>
+   <div class="hacker">sudo chown -R root:apache config/</div>
+   <div class="hacker">sudo chown -R root:apache packages/ </div>
+   <p>Change permission of following folders.</p>
+   <div class="hacker">sudo chmod -R 775 files/</div>
+   <div class="hacker">sudo chmod -R 775 config/</div>
+   <div class="hacker">sudo chmod -R 775 packages/</div>
+   </li>
+   <li>Open browser and type public IP or URL of concrete5 server. <em><u>http://&lt;server_ip&gt;</u></em>/concrete5  </li>
+   <li>Hit Enter to see the first step of concrete5 installation process.
+   </li>
+   <li>Press on continue to install concrete5.
+   <br/><img src="x" alt="#"/>
+   </li>
+   <li>Enter settings and text for site configuration concrete5.
+    <br/><img src="x" alt="#"/>
+   </li>
+   <li>Click on Install Concrete5. The installation process screen will show up. 
+   <br/><img src="x" alt="#"/>
+   </li>
+   <li>The Installation process is complete. 
+   <br/><img src="x" alt="#"/>
+   </li>
+   <li>Press on continue site, you will be redirected to Welcome screen of concrete5. 
+   <br/><img src="x" alt="#"/>
+   </li>
+   <li>Select process as per your requirement.  
+    </li>
+  </ol>
+  
+          
+    <h2>Conclusion</h2>
+    <p>In this article, you have learnt to install and configure Concrete5 in CentOS and Fedora. </p>
    
 </body>
 </html>

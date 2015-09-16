@@ -10,7 +10,7 @@
 
 
 <title>Configure ProFTPd to use SFTP instead of FTP - Arch Linux</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -68,78 +68,102 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Configure ProFTPd to use SFTP instead of FTP - CentOS, Fedora, Security, Linux Basics</p>
+    <h1>Configure ProFTPd to use SFTP instead of FTP - CentOS, Fedora</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em>TBD</em><br/>
+        <strong>Time</strong>: <em>TBD</em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
-
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
+    <h2>Introduction</h2>
+    <p>ProFTPd is an FTP daemon for Linux or UNIX like operating systems. ProFTPd is an open source package to connect FTP securely over the internet.</p>
     
-    <p>Include any of the following elements as needed:</p>
+    <p>In this article you will learn, how to install and configure ProFTPd in centOS and Fedora.</p>
+	
+	<h2>Prerequisites</h2>
+	<ol>
+	<li>CentOS or Fedora.
+	</li>
+	<li>Sudo user.
+	</li>
+	</ol>
+	
+	<h2>Install Essential Library</h2>
+<ol> 
+<li>Install the C library and make command using the following command:
+   <div class="hacker">sudo pacman -S gcc make</div>
+</li>
+ </ol>  
  
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
-
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
+ <h2>Intall ProFTPd</h2>
+ <ol>  
+   <li>Download the source ProFTPd using the following the command:
+   <div class="hacker">sudo  wget ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.6rc1.tar.gz</div>
+   </li>
+   <li>Extract the package and change directory to ProFTPd using the following command:
+   <div class="hacker">sudo tar -xf proftpd-1.3.6rc1.tar.gz</div>
+   <div class="hacker">cd proftpd-1.3.6rc1</div>
+   </li>
+   <li>Use the following command to install ProFTPd.
+   <div class="hacker">sudo ./configure</div>
+   <div class="hacker">sudo make &amp;&amp; sudo make install</div>
+   </li>
+   <li>Install sample configuration file using the following command:
+   <div class="hacker">sudo sh sample-configurations/PFTEST.install</div>
+   </li>
+   <li>Open the file <code>/tmp/PFTEST/PFTEST.conf </code>in your favorite editor to modify.
+   <div class="hacker">sudo vim /tmp/PFTEST/PFTEST.conf</div>
+   </li>
+   <li>Set the user and group as nobody and set the document root to access default directory as shown below.
+   <div class="hacker">
+<pre>
+User                     nobody
+Group                    nobody
+DefaultRoot 	        /home/user !adm
+</pre>
+   </div>
+   </li>
+   <li>Save and exit the file by pressing ESC key and, then type : wq!, followed by the Enter Key.</li>
+</ol>
+  
+  <h2>Configure ProFTPd</h2>
+<ol> 
+<li>Open the <code>PFTEST.conf</code> file to modify.
+   <div class="hacker">sudo vim /tmp/PFTEST/PFTEST.conf</div>
+  </li>
+   <li>Change the ServerName to your FQDN or your public IP.
+   <div class="hacker">ServerName		“Your-public-ip” </div>
+   <p>Add the Port below the DefaultServer variable label.</p>
+   </li>
+   <li>Change the default server port to hide from public scan.
+   <div class="hacker">Port		2021</div>
+   </li>
+   <li>To start the ProFTPd services, use the following command:
+   <p>non-daemon:</p>
+   <div class="hacker">sudo proftpd -n -d 5 -c /tmp/PFTEST/PFTEST.conf</div>
+   <p>daemon:</p>
+   <div class="hacker">sudo proftpd -d 5 -c /tmp/PFTEST/PFTEST.conf</div>
+   </li>
+</ol>
+  
+  <h2>Test ProFTPd</h2>
+<ol> 
+<li>Open the filezilla or any other client having SFTP or FTP like WinSCP.
+   <br/><img src="x" alt="#"/>
+  </li>
+   <li>Type your public IP or FQDN in Host textbox. 
+   </li>
+   <li>Enter your user name in the textbox. 
+   </li>
+   <li>Enter your password in the textbox.  
+    </li>
+   <li>Type Port which is typed in the <code>proftpd.conf</code> file, in the textbox which is aside of Port label.   
+   </li>
+   <li>Press the Quickconnect.
+   </li>
+</ol>
+  
+    <h2>Conclusion</h2>
+    <p>In this article, you have learnt to install and configure ProFTPd in centOS and Fedora. </p>
    
 </body>
 </html>

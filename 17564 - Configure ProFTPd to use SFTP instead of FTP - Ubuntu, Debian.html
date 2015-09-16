@@ -10,7 +10,7 @@
 
 
 <title>Configure ProFTPd to use SFTP instead of FTP - Ubuntu, Debian</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -68,78 +68,134 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Setting up configuration of ProFTPd to use SFTP instead of FTP on Debian and Ubuntu, Security, Linux Basics.</p>
+    <h1>Configure ProFTPd to use SFTP instead of FTP – Debian, Ubuntu</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em>1</em><br/>
+        <strong>Time</strong>: <em>20 minutes</em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
-
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
+    <h2>Introduction</h2>
+    <p>ProFTPd is a File Transfer Protocol (FTP) server and an open source software, compatible with Linux/Unix systems and Microsoft windows. SFTP (Secure File Transfer Protocol) which stands for SSH File Transfer Protocol, or Secure File Transfer Protocol, is a separate protocol packaged with SSH that works in a similar way over a secure connection.</p>
     
-    <p>Include any of the following elements as needed:</p>
+    <p>In this article, you will learn about configuration of ProFTPd, to use SFTP on Debian and Ubuntu.</p>
  
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
+  <h2>Install ProFTPd</h2>
+<ol> 
+<li>Update all the packages of operating system and install ProFTPd package  using  the following commands:
+   <div class="hacker">sudo  apt-get  -y  update</div>
+   <div class="hacker">sudo apt-get install proftpd</div>
+   </li>
+   <li>Open the configuration file of <code> ProFTPd</code>.
+   <div class="hacker">Sudo vim /etc/proftpd/proftpd.conf</div>
+   </li>
+   <li>Change the <code>ServerName</code> parameter to match your domain name or IP address.
+   <div class="hacker">ServerName      "<em><u>yourDomainOrIPAddress</u></em>"</div>
+   </li>
+   <li>Uncomment the following line:
+   <div class="hacker">DefaultRoot     ~</div>
+   </li>
+   <li>Save and exit.
+   <div class="hacker">wq!</div>
+   </li>
+  </ol>
+  
+  <h2>Configure SFTP Access with ProFTPd</h2>
+<ol> 
+<li>Create a blank file in  the <code>/etc/proftpd/conf.d/ </code>directory, to configure SFTP.
+   <div class="hacker">sudo vim /etc/proftpd/conf.d/<em><u>sftp.conf</u></em></div>
+   </li>
+   <li>Add the following lines into  the file:
+   <div class="hacker">
+<pre>
+&lt;IfModule mod_sftp.c&gt;
 
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
+        SFTPEngine on
+        Port 2222
+        SFTPLog /var/log/proftpd/sftp.log
+
+        # Configure both the RSA and DSA host keys, using the same host 	key
+        # files that OpenSSH uses.
+        SFTPHostKey /etc/ssh/ssh_host_rsa_key
+        SFTPHostKey /etc/ssh/ssh_host_dsa_key
+
+        SFTPAuthMethods publickey
+
+        SFTPAuthorizedUserKeys file:/etc/proftpd/authorized_keys/%u
+
+        # Enable compression
+        SFTPCompression delayed
+&lt;/IfModule&gt;
+</pre>
+   </div>
+   </li>
+   <li>Save and exit.
+   <div class="hacker">Wq!</div>
+   </li>
+  </ol>
+  
+  <h2>Configure Key Based Authentication</h2>
+<ol> 
+<li>Generate authorized key to create a secure connection.
+   <div class="hacker">ssh-keygen</div>
+   </li>
+   <li>Go to  /home/<em><u>UserName</u></em>/.ssh directory.
+   <div class="hacker">Cd /home/<em><u>UserName</u></em>/.ssh/</div>
+   </li>
+   <li>View the content of the following file.
+   <div class="hacker">sudo cat id_rsa</div>
+   </li>
+   <li>Copy all the content from this file and save it into a new file on your local Desktop with .ppk extension. For this article test.ppk is used.
+   </li>
+   <li>Create a directory to hold authorized private key.
+   <div class="hacker">sudo mkdir /etc/proftpd/<em><u>authorized_keys</u></em></div>
+   </li>
+   <li>Convert the authorized private keys that are currently used to log into the server.
+   <div class="hacker">sudo ssh-keygen -e -f /home/<em><u>UserName</u></em>/.ssh/id_rsa.pub | sudo tee /etc/proftpd/authorized_keys//<em><u>UserName</u></em></div>
+   </li>
+   <li>Restart the ProFTPd service.
+   <div class="hacker">sudo service proftpd restart</div>
+   </li>
+  </ol>
+  
+  <h2>Disable SFTP access on the SSH Port</h2>
+<ol> 
+<li>Open the configuration file of SSHD to enable SFTP.  
+   <div class="hacker">sudo vim /etc/ssh/sshd_config</div>
+   </li>
+   <li>Comment the following line using #(hash):
+   <div class="hacker">Subsystem sftp /usr/lib/openssh/sftp-server</div>
+   </li>
+   <li>Save and exit.
+   <div class="hacker">wq!</div>
+   </li>
+   <li>Restart the SSH server services.
+   <div class="hacker">sudo service ssh restart</div>
+   </li>
    
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
+  </ol>
+  
+  <h2>Connect with a Client</h2>
+<ol> 
+<li>Open FileZilla's preferences and go to Edit &rarr; Settings &rarr; SFTP.
+   </li>
+   <li>Click on add key file button to Add the private key.
+  <br/> <img src="x" alt="#"/>
+   </li>
+   <li>Browse the private file which is saved on local Desktop with file name test.ppk.
+   </li>
+   <li>Click Ok to save on FileZilla, after adding the private key.
+   </li>
+   <li>Restart the ProFTPd service.
+   <div class="hacker">sudo service proftpd restart</div>
+   </li>
+   <li>Enter Host 0r IP address, Username, Password and Port number and click Quick Connect button. FileZilla should connect automatically using your SSH keys.
+   <br/><img src="x" alt="#"/>
+   </li>
+  </ol>
+  
+  
+    <h2>Conclusion</h2>
+    <p>In this article, you have learnt to Configure ProFTPd, to use SFTP instead of FTP on Debian and Ubuntu. </p>
    
 </body>
 </html>
