@@ -84,7 +84,7 @@ td:nth-child(1) {font-weight:bold;}
   <p>You can manage multiple sites under one WordPress installation. This setup is a great convenience if you manage many sites completely independent of each other (or sites that are related, such as subdomains), as you’d otherwise have to log into different WordPress accounts.</p> 
 
 <p>For this article, we'll walk through setting up WordPress multisite for a primary domain and its subdomains.
-We'll set up a fresh install of WordPress in Apache on an Debian system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
+We'll set up a fresh installation of WordPress in Apache on a CentOS or Debian system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
 <p>We'll use these example sites: </p>
 <table>
   <tr>
@@ -107,30 +107,26 @@ aboutus.coolexample.com</td>
 
 <ul>
 
-<li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see instructions based on your system:  </li>
+<li>A Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see instructions based on your system:  </li>
 
- <!--CT (to Susan): please fix my links-->
+ <!--CT (to Susan): please fix my links--><a href="17342 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Centos6, Fedora.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – CentOS6, Fedora<br />
+ </a><a href="17344 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Centos7.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – CentOS7<br />
+ </a>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks. 
 
-
- <li><a href="17342 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Centos6, Fedora.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Centos6, Fedora</a></li>
- <li><a href="17344 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Centos7.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Centos7</a></li>
-
-
-<li>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks. </li>
-
-<li>Also, make sure you have these PHP extensions installed.
-<div class="hacker">sudo yum install php5-gd php5-fpm php5-mysql</div> </li>
+ <li>Make sure that you have these PHP extensions installed:
+   <div class="hacker">sudo yum install php5-gd php5-fpm php5-mysql</div>
+ </li>
 
 
-<li>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
+ <li>Set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
        </ul>
                     
- <h2>Create a MySQL database and administrator for WordPress</h2>
+<h2>Create a MySQL database and administrator for WordPress</h2>
    
     <p>Set up your MySQL database with an administrator so that WordPress has a place to store all your site and user information.</p>
 
     <!--CT (to Susan/Carla): Can you center this? Is it in the style sheet?-->
-<p class="warning">Remember: All <b>MySQL</b> code statements must end with a semi-colon (;).</p>
+<p class="warning">Remember that all <b>MySQL</b> code statements must end with a semi-colon (;).</p>
 
 <ol>
 
@@ -139,39 +135,38 @@ aboutus.coolexample.com</td>
                      </li>
  
         <li>At the prompt, enter your MySQL root password.  </li>
-    <li>At the MySQL prompt, create your WordPress database. For this tutorial, we’ll use the database name fittingly as “wordpress.”
-<div class="hacker">CREATE DATABASE wordpress;</div></li>
-<li>Create the database administrator account and set the user’s credentials. For this tutorial, we’ll use “wordpressadmin” as the example user name, and “wordpresspassword” as the password.
-<div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
-<p>As a good security practice, create a strong password. Keep your username and password handy, as you’ll need them later.</p></li>
+    <li>At the MySQL prompt, create your WordPress database. We’ll use the database name  “wordpress.”
+  <div class="hacker">CREATE DATABASE wordpress;</div></li>
+<li>Create the database administrator account, and set the user’s credentials. We’ll use “wordpressadmin” as the example user name, and “wordpresspassword” as the password.
+  <div class="hacker">CREATE USER wordpressadmin@localhost IDENTIFIED BY 'wordpresspassword';</div>
+As a good security practice, create a strong password. Keep your user name and password handy, as you’ll need them later.</li>
  <li>Give, or grant, your admin permissions to the database.   
 <div class="hacker">GRANT ALL PRIVILEGES ON wordpress.* TO wordpressadmin@localhost;</div>
-<code>GRANT</code> is one of the account management statements the MySQL server notices and loads into memory right away. So a manual reload/restart should not be necessary. But if you’d like, you can check the permissions using <code>SHOW GRANTS</code>.
+<code>GRANT</code> is one of the account management statements that the MySQL server notices and loads into memory right away. So a manual reload/restart should not be necessary. However, you can check the permissions using <code>SHOW GRANTS</code>.
 <div class="hacker">SHOW GRANTS FOR 'wordpressadmin'@'localhost';</div>
 </li>
 
-   <li>If, for some reason the privileges didn’t take, flush the privileges to activate the user. Flush forces a reload of the cache.     <br />
-<div class="hacker">FLUSH PRIVILEGES;</div>  </li>
-
-<li> You're finished with the MySQL part! Exit MySQL to bring you back to your normal command prompt:
-<div class="hacker">exit</div> </li>
+   <li>If the privileges don’t take effect, flush the privileges to activate the user. <code>FLUSH</code> forces a reload of the cache. <br />
+<div class="hacker">FLUSH PRIVILEGES;</div>  You're finished with the MySQL part! </li>
+<li>Exit MySQL to return to your normal command prompt.
+  <div class="hacker">exit</div> 
+</li>
   </ol>
 
               
-   <h2>Download WordPress</h2>           
+<h2>Download WordPress</h2>           
      
-     Your system is now ready for installing WordPress into your directory. WordPress is available in a tar.gz or zip format. We will be getting the tar.gz file.
-     
+     Your system is now ready for installing WordPress into your directory. WordPress is available in a <code>tar.gz</code> or <code>zip</code> format. We'll get the tar.gz file.
      <ol>
-     <li>Download the WordPress files from the official site using <code>wget</code>.
+  <li>Download the WordPress files from the official site using <code>wget</code>.
 <div class="hacker">cd ~</div>
 <div class="hacker">wget http://wordpress.org/latest.tar.gz    </div>
-This URL will always link to a compressed file of the latest stable version of WordPress.      </li>
+This URL  always links to a compressed file of the latest stable version of WordPress.      </li>
          
-         <li>Extract, or untar, the application directory:
+         <li>Extract, or untar, the application directory.
 
-<div class="hacker">tar xzvf latest.tar.gz </div>
-<p>This creates a directory <code>wordpress</code> in your home directory.</p></li>
+           <div class="hacker">tar xzvf latest.tar.gz </div>
+<p>This command creates a directory <code>wordpress</code> in your home directory.</p></li>
 </ol>
 
                             
@@ -180,14 +175,14 @@ This URL will always link to a compressed file of the latest stable version of W
    <p>After you’ve configured WordPress, transfer the files to Apache’s root directory so that the application can serve content to your site visitors.</p>
       
  <ol>
- <li>Transfer your WordPress files to the website's root directory
+ <li>Transfer your WordPress files to the website's root directory.
     <div class="hacker">sudo cp -r ~/wordpress/* /var/www/html</div>
-This will safely copy all of the contents from the directory you unpacked to the document root.
+This  safely copies all of the contents from the directory you unpacked to the document root.
       </li>   
  
- <li>Let's also set directory permissions at this point so that you can work with WordPress content (e.g., uploading images).
- Make the group ownership recursive to make sure it will write to your subdirectories:  
- <div class="hacker">sudo chown www-data:www-data /var/www/html * -R</div>
+ <li>Let's also set directory permissions  so that you can work with WordPress content (for example, uploading images).
+ Make the group ownership recursive to make sure it will write to your subdirectories.  
+   <div class="hacker">sudo chown www-data:www-data /var/www/html * -R</div>
 <div class="hacker">sudo chmod u+x /var/www/html * -R</div> </li>
 
  <li>Restart Apache.
@@ -202,17 +197,17 @@ This will safely copy all of the contents from the directory you unpacked to the
    <li>Navigate to your WordPress document root.
      <div class="hacker">cd /var/www/html</div></li>
 
-  <li>Make a copy of your sample <code>wp-config.php</code> file .
+  <li>Make a copy of your sample <code>wp-config.php</code> file.
 
-<div class="hacker">sudo cp wp-config-sample.php wp-config.php</div>
+    <div class="hacker">sudo cp wp-config-sample.php wp-config.php</div>
                                                                </li>
                                                                
  <li>Open the config file in your text editor.
 <div class="hacker">sudo vim wp-config.php</div>  </li>
 
-  <li> Look for this section of the code below (starting with <code>MySQL settings</code>…) and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
-Use the credentials that you just created.
- <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
+  <li> Look for this section of the code below (starting with <code>MySQL settings</code>…), and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
+
+    <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
 /** The name of the database for WordPress */ <br />
 define('DB_NAME', 'wordpress'); <br />
 
@@ -235,25 +230,20 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
      <ol>
      <li>  In your web browser, enter your primary domain name. In our example, that's 
    <strong>http://coolexample.com</strong>.
-   (If the Apache default page displays, append <code>/wp-admin/ </code>to your URL.)<br/>
-  
-     You may get an introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
-
-   
-<li>Your next screen will be the main WordPress 5-minute install screen and will look something like this.<br/>
+   (If the Apache default page displays, append <code>/wp-admin/ </code>to your URL.)</li>
+     <li>If you get an introductory page, click <strong>Let's go!</strong> to continue.<br />
+       Your next screen will be the main WordPress 5-minute install screen and will look something like this:<br/>
 <img src="images/17680/090815/install-wordpress-multisite-signin-screen3.png" alt="5-minute install wordpress on server welcome filled out"/><br/>
-
-Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.
 </li>
+     <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
 
-<li>Click <strong>Install WordPress</strong>. The install might take a few minutes.</li>
-
-<li>You'll get a "Success!" screen with your login credentials. Click <strong>Log In</strong> to continue.</li>     
- 
-<li>Your next screen will prompt you to log in again. Do so now with your newly-created username and password.</li>    
+<li>Click <strong>Install WordPress</strong>. The installation might take a few minutes.<br />
+  You'll get a "Success!" screen with your login credentials. Click <strong>Log In</strong> to continue.<br />
+  Your next screen  prompts you to log in again. </li>
+<li>Log in with your newly-created username and password.</li>    
       </ol>
 
-      <h2>Enable multisite</h2>
+<h2>Enable multisite</h2>
    
    <h3>Update your wp-config file</h3>
    <ol>
