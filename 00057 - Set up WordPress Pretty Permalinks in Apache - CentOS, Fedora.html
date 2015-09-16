@@ -168,7 +168,10 @@ DocumentRoot "/var/www/html"
        <div class="hacker">sudo chmod 664 /var/www/html/.htaccess</div>
 
 Now WordPress can rewrite the rules for you, and technically anyone can write to this. We'll be changing the setting to tighten up the restrictions right after this step.</li>
-<li>Go back to your WordPress admin dashboard, and you'll see that the "If your <code>.htaccess</code> file were writable..." message from earlier has disappeared.  </li>
+<li>Go back to your WordPress admin dashboard, 
+
+
+    
 <li>Select <strong>Save changes</strong> in the dashboard, and go back to your command line.</li>
 <li>Change your permissions from <em><u>664</u> </em> to <em><u>644</u> </em> so that only your web server can read and write to the file.
   <div class="hacker">sudo chmod <em><u>644</u> </em> /var/www/html/.htaccess</div>
