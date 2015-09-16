@@ -215,18 +215,18 @@ To resolve this issue, set your correct time zone, and then synchronize the syst
 
 <h3>Configure time zones</h3>
 
-<ol><li>Set your server's time zone.
+<ol><li>Get a list of time zones
 
 <div class="hacker">sudo timedatectl list-timezones</div>
 
 </li>
 <li>In the resulting (long) list, find your region (of your server) and include it your command.
 
-<div class="hacker">sudo timedatectl set-timezone <em><u>your region/geographic area</u></em> </div>
+<div class="hacker"><em><u>your regio </div>
+   </li>
+ <li>Close the file and issue the command to set the time zone. For example, if you live in Los Angeles:
 
-For example, if you live in Los Angeles:
-
-<div class="hacker">sudo timedatectl set-timezone America/Los_Angeles</div>
+<div class="hacker">sudo timedatectl set-timezone America/Los_Angelesmezone America/Los_Angeles</div>
 
 Your system updates to your selected time zone.</li>
 
