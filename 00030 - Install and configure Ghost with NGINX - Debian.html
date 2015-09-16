@@ -93,14 +93,14 @@ p.note {
 		 <li>Select the appropriate version from the list of provided version numbers. (In this example, version v0.12.7 is installed.)
 		   <div class='hacker'>cd node</div>
 		  <div class='hacker'>git tag</div>
-		  <div class='hacker'>git checkout v0.12.7</div>
+		  <div class='hacker'>git checkout <em><u>v0.12.7</u></em></div>
 		  </li>
 		  <li>Compile <code>node.js</code>.
 			<div class='hacker'>sudo ./configure &amp;&amp; sudo make &amp;&amp; sudo make install</div>
 		 </li>
-		 <li>Check the version numbers to ensure successful installations. Also ensure that path variables are configured properly.
+		 <li>Check the version numbers to ensure successful installations and to ensure that path variables are configured properly.
 		 <div class='hacker'>node -v</div>
-		 <div class='hacker'>npm –v</div>
+		 <div class='hacker'>npm --v</div>
 		 </li>
 		 </ol>
 		
@@ -148,7 +148,7 @@ p.note {
 </pre>
 		    </div>
 </li>
-			 
+			 <li>Save and exit the editor by pressing the <strong>Esc</strong> key and then entering <strong>:wq</strong>.</li>
 			<li>Start Ghost (production environment).
 			<div class='hacker'>sudo npm start --production</div>
 			The default port used by Ghost is 127.0.0.1:2368.
@@ -167,11 +167,16 @@ p.note {
 			   <br />
 			   <img src='images/00030- GhostOnBroowser.png' alt='00030- GhostOnBroowser.png'/>
 			 </li>
-			 <li>Stop the server.
+			 <li>Display the list of processes running with forever. 
 			   <div class='hacker'>sudo forever list</div>
-			  <div class='hacker'>sudo forever stop 0 # if of Ghost process</div>
-			  <p>or</p>
+			   </li>
+			   <li>Stop the server (just for sake of learning the process).
+			  <div class='hacker'>sudo forever stop <em><u>0</u></em> # where 0 is the process id of Ghost process</div>
+			  <p>or you can use following command to stop all processes running with forever:</p>
 			   <div class='hacker'>sudo forever stopall</div>
+			 </li>
+			 <li>Start Ghost again.
+			 <div class='hacker'>sudo NODE_ENV=production forever start index.js</div>
 			 </li>
 			 </ol>
 			 
@@ -183,7 +188,7 @@ p.note {
 			 <li>Create a new Ghost configuration file, and open it for editing. 
 			   <div class='hacker'>sudo vim /etc/nginx/nginx.conf</div>
 			 </li>
-			 <li>Put the following code into the file: 
+			 <li>Update the file with following code: 
 			   <div class='hacker'>
 			 <pre>
 user www-data;
@@ -245,10 +250,10 @@ http {
 			 </li>
 			 <li>Save and exit the editor by pressing the <strong>Esc</strong> key and then entering <strong>:wq</strong>.</li>
 				
-			 <li>Create the Ghost configuration file, and open it for editing.
+			 <li>Create the Ghost configuration file for Nginx, and open it for editing.
 			   <div class='hacker'>sudo vim /etc/nginx/sites-enabled/ghost
 			 </div></li>
-			 <li>Put the following code into the configuration file:
+			 <li>Put the following code into the configuration file (replacing the highlighted content with appropriate values):
 			   <div class='hacker'>
 			 <pre>
 server {
@@ -258,7 +263,7 @@ server {
     index index.php;
 
     if ($http_host != "<em><u>Your IP Address</u></em>") {
-         rewrite ^ http://<em><u>Your IP Address or domain name</u></em>request_uri permanent;
+         rewrite ^ http://<em><u>Your IP Address or domain name</u></em>$request_uri permanent;
     }
 
     location / {
