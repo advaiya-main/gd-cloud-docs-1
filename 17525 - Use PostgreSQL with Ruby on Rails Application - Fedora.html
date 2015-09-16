@@ -107,7 +107,7 @@
 <li>Set up a PostgreSQL server, and add its development-related libraries.
 	<div class='hacker'>sudo yum install postgresql-server postgresql-contrib postgresql-devel</div>
 
-<div class='hacker'>Initialize a new PostgreSQL database </div>
+<p>Initialize a new PostgreSQL database.</p>
 	<div class='hacker'>sudo postgresql-setup initdb</div></li>
   <li>Open the <code>pg_hba.conf</code> file, so that you can modify the host-based authentication of PostgreSQL. It does not allow for password authentication by default.
        <div class='hacker'>sudo vim /var/lib/pgsql/data/pg_hba.conf</div></li>
@@ -146,13 +146,13 @@ host    all             all             ::1/128                 ident</pre></div
 <ol>
 <li>Move to the home directory to create a new Rails application, and  set PostgreSQL as the database.
   <div class='hacker'>cd ~</div>
-<div class='hacker'>rails new <em><u>HelloWorld</u></em> -d postgresql</div>
+<div class='hacker'>rails new <em><u>your_application</u></em> -d postgresql</div>
 </li>
 <li>Move to the application directory.
-  <div class='hacker'>cd <em><u>HelloWorld</u></em></div>
+  <div class='hacker'>cd <em><u>your_application</u></em></div>
  </li>
 <li>Open the following file:
- <div class='hacker'>sudo vim config/database.yml</div>
+ <div class='hacker'>vim config/database.yml</div> <!-- If you use sudo, sometimes the file will assign to root so please don't use sudo -->
  </li>
 <li>Look for <code>pool: 5</code> in the file, and add the following lines beneath it. Enter the username and password for the <code>postgres</code>  user.
   <div class='hacker'>
@@ -168,7 +168,7 @@ password: <em><u>UserName_password</u></em><br /></div>
 <ul>
 <li>Create the application's databases in the application directory.
   <div class='hacker'>rake db:create</div>
-Two databases in the PostgreSQL server are created. For example, if the application's name is <code>HelloWorld</code>, the command creates  databases named <code>HelloWorld _development</code> and <code>HelloWorld _test</code>.
+Two databases in the PostgreSQL server are created. For example, if the application's name is <code>your_application</code>, the command creates databases named <code>your_application_development</code> and <code>your_application_test</code>.
 </li>
 </ul>
 

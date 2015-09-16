@@ -295,14 +295,17 @@ rewrite ^/[_0-9a-zA-Z-]+(/.*\.php)$ $1 last;
 
 <li>Create your first server block file.<br/>
 
-Paste in the contents depending on if you're configuring a single or multi-site. 
+<div class="hacker">sudo vim /etc/nginx/sites-available/<em><u>coolexample</u></em></div>
+
+<p>Paste in the contents depending on if you're configuring a single or multiple sites.</p> 
+
 Regardless of which you choose, we'll use <em><u>coolexample.com</u></em> as the primary domain and set the WordPress root directory to <em><u>/usr/share/nginx/wordpress</u></em>.<br/></li>
 
 </ol>
 
-<h3>Simple / Single site</h3>
+<h3>Single site</h3>
 
-No subdomains:
+If you have a simple site with no subdomains, copy this text into your server block file.
 <div class="hacker"><pre>server {
     # URL: Correct way to redirect URLs
     server_name coolexample.com;
@@ -317,7 +320,7 @@ server {
     include global/wordpress.conf;
 }</pre></div>
 
-Include subdomains:
+If you have a single site with subdomains, copy this text:
 <div class="hacker"><pre>server {
     # URL: Correct way to redirect URLs
     server_name <em><u>www.coolexample.com</u></em> <em><u>product.coolexample.com</u></em> <em><u>aboutus.coolexample.com</u></em>;
@@ -354,8 +357,10 @@ server {
 <h3>Multi-site with sub-domains</h3>
 
 <p>If you have sub-domains, use a wildcard in the servername line (the rest of the lines are the same). So for example, if we wanted to account for the coolexample.com subdomains, product.coolexample.com and aboutus.coolexample.com, we can use a wildcard *.coolexample.com.</p>
-
 <div class="hacker">server_name *.coolexample.com;</div>
+
+Open your multisite.conf file to edit. 
+<div class="hacker">sudo vim multisite.conf</div>
 
 The entire multisite.conf file will look like this:
 <div class="hacker"><pre># URL: add a permanent redirect if required.

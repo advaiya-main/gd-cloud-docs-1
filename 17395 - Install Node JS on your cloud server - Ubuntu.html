@@ -2,9 +2,8 @@
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 <head>
-    <!--Article Number is 17352 (fill in blank)-->
-    <!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
-    <title>Set up Node.js application for production – Ubuntu</title>
+    <!--Article Number is 17352 -->
+    <title>Set up Node.js application for production - Ubuntu</title>
     <style>
         div.hacker {
             background-color: #666;
@@ -74,33 +73,33 @@
 </head>
 <body>
     <p>Node.js NGINX</p>
-    <h1>Set up Node.js application for production – Ubuntu</h1>
+    <h1>Set up Node.js application for production - Ubuntu</h1>
 
     <p>
-        <strong>Difficulty</strong>:
-        <em><u>4</u></em>
+        <strong>Difficulty</strong>: <em><u>4</u></em>
         <br />
-        <strong>Time</strong>:
-        <em><u>3.5</u></em>
+        <strong>Time</strong>: <em><u>3.5 hours</u></em>
     </p>
     <p>This article guides you through setting up Node.js application for production.</p>
-    <h2>Pre-Requisites</h2>
+    
+    <h2>Prerequisites</h2>
     <p>
-        You need to create a Server (Ubuntu) with a valid <code>HostName</code> and credentials at <code>https://cloud.godaddy.com/servers</code> with your GoDaddy registered credential.
+        You need to create a server (Ubuntu) with a valid <code>HostName</code> and credentials at <code>https://cloud.godaddy.com/servers</code> with your GoDaddy registered credential.
+        <!--Articles shouldn't refer to GoDaddy. Replace this reference with something generic. -->
     </p>
-    <p class="note">Please visit &lt;hyper-link&gt; on how to create an Ubuntu server on cloud.</p>
+    <p class="note">If needed, <a href="x">create an Ubuntu server on the cloud</a>.</p>
+    <!--Missing Link-->
     <ul>
         <li>A server to install <code>Node.js.</code></li>
         <li>A server to install <code>Nginx</code> web server, which will act as a reverse proxy.</li>
-        <li>A regular user added to <code>SUDO</code> group.</li>
+        <li>A regular user added to <code>SUDO</code> group. If needed, <a href="x">add user to sudo group.</a></li>
     </ul>
-    <p class="note">Please visit &lt;hyper-link&gt; on how add user to <code>SUDO</code> group.></p>
-
+    
     <h2>Installation</h2>
-    <ul>
-        <li>Update apt-get package using the following command</li>
-    </ul>
-    <p>
+    <!-- This whole section is messed up.  It should be steps. --> 
+    <ol>
+     <li>Update apt-get package using the following command.</li>
+
         <div class="hacker">sudo apt-get update </div>
     </p>
     <ul>
@@ -110,7 +109,7 @@
         <div class="hacker">sudo apt-get install –y build-essential openssl libssl-dev pkg-config</div>
     </p>
     <ul>
-        <li>Copy Source code download link from <code>‘https://nodejs.org/download/’</code>, and download the<code>Node.js</code> using the command below</li>
+        <li>Copy Source code download link from <a href="https://nodejs.org/download/">https://nodejs.org/download/’</a>, and then download <code>Node.js</code> using the following command.</li>
     </ul>
     <p>
         <div class="hacker">cd ~</div>
@@ -145,6 +144,9 @@
     </p>
 
     <h2>Create an Application</h2>
+    
+    <!-- These need to be steps.  -->
+    
     <p>Make sure to configure the sample application to respond to appropriate IP and ports. Also, application should server the request from reverse proxy server.</p><p>
         Retrieve the IP address from the server (Private IP Address) or by using the following command
     </p>
@@ -206,7 +208,7 @@
         <div class="hacker">pm2 start sample.js</div>
     </p>
     <p>
-        This adds application to the process list and outputs the following
+        This adds application to the process list and outputs the following:
     </p>
 
     <img src="http://img4.wsimg.com/support/images/cloudserver/17352/07092015/set-up-node.js-application-in-production-ubuntu.png" alt="Output" /> 
@@ -214,39 +216,35 @@
     <p>
         As you notice, it contains all the information about the process/service.
     </p><p>
-        Execute the following command to enable automatic startup with the server reboots. The platform needs to be specified as well.
+        Execute the following command to enable automatic startup with the server reboots. The platform needs to be specified, as well.
     </p>
     <p>
         <div class="hacker">pm2 startup Ubuntu</div>
     </p>
     <p>
         The resulting output will have the command that needs to be run as root user or super user. Copy the command from the output to clipboard and execute the same.
-    </p><p>
-        Execute the following command to stop the service or process
+    </p>
+    <p>Stop the service or process.
     </p>
     <p>
         <div class="hacker">pm2 stop sample.js</div>
     </p>
-    <p>
-        Execute the following command to restart the service or process
+    <p>Restart the service or process.
     </p>
     <p>
         <div class="hacker">pm2 restart sample.js</div>
     </p>
-    <p>
-        Execute the following command to obtain the list of application managed by Process Manager.
+    <p>Execute the following command to obtain the list of application managed by Process Manager.
     </p>
     <p>
         <div class="hacker">pm2 list</div>
     </p>
-    <p>
-        Execute the following command to obtain available information of the process or service
+    <p>Obtain available information of the process or service.
     </p>
     <p>
         <div class="hacker">pm2 info sample.js</div>
     </p>
-    <p>
-        Execute the following command to obtain application status of the Process Manager
+    <p>Obtain application status of the Process Manager.
     </p>
     <p>
         <div class="hacker">pm2 monit</div>
@@ -254,29 +252,24 @@
 
     <h2>Setting Up Reverse Proxy Server</h2>
     <p>
-        It’s vital that you set up a way, so the users are able to access it. We will walk through the process of setting up <code>Nginx</code>
-        web server as a reverse proxy for this purpose.
-    </p><p>
-        Update the apt-get package list using the following command
+        It’s vital that you set up a way, so the users are able to access it. We will walk through the process of setting up Nginx web server as a reverse proxy for this purpose.
     </p>
+    <p>Update the apt-get package list.</p>
     <p>
         <div class="hacker">sudo apt-get update</div>
     </p>
-    <p>
-        Install <code>Nginx</code>
-        using apt-get using the following command
-    </p>
+    <p>Install Nginx using apt-get using the following command.</p>
     <p>
         <div class="hacker">sudo apt-get install nginx</div>
     </p>
     <p>
-        Open the default server block using the following command
+        Open the default server block.
     </p>
     <p>
         <div class="hacker">sudo vi /etc/nginx/sites-available/default</div>
     </p>
     <p>
-        The configuration file will open up. Press key ‘I’ to switch to edit mode and replace it with the following.
+        The configuration file will open up. Press key <strong>I</strong> to switch to edit mode and replace it with the following.
     </p>
     <p>
         <code>
@@ -294,13 +287,13 @@
         </code>
     </p>
     <p>
-        This enables the server to respond to the requests. The server can be accessed at <code>http://&lt;servername&gt;.com/</code>
+        This enables the server to respond to the requests. The server can be accessed at <strong>http://<em><u>servername</u></em>.com/</strong>.
         - the request will then be served by <code>
             Node.js
         </code>
         application.
     </p><p>
-        Restart the Nginx server using the following command
+        Restart the Nginx server.
     </p>
     <p>
         <div class="hacker">sudo service nginx service restart.</div>

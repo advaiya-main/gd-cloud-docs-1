@@ -5,9 +5,6 @@
 
 <head>
 
-<!--Article Number is 17523-->
-
-
     <title>Install Ruby on Rails with rbenv - Debian</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
@@ -79,23 +76,22 @@
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
 
-
 </head>
 
 <body>
 
-<p>Setting up Ruby on Rails with rbenv on Debian, Ruby, Rails.</p>
-<h1>Install Ruby on Rails with rbenv – Debian</h1>
+<p>Install Ruby on Rails with rbenv on Debian, Ruby, Rails.</p>
+<h1>Install Ruby on Rails with rbenv - Debian</h1>
 
 <p><strong>Difficulty:</strong> <em>2</em></p>
 <p><strong>Time:</strong> <em>30 mins</em></p>
 
-<p>Ruby is a pure object-oriented language like PERL and Python. Rails is a framework for web application development written in Ruby. In this article, you will learn to install Ruby on Rails on Debian with the help of rbenv. rbenv is a new lightweight Ruby version management tool.</p>
+<p>Ruby is a pure object-oriented language like Perl and Python. Rails is a framework for web application development written in Ruby. In this article, you'll learn to install Ruby on Rails on Debian with the help of rbenv, a  lightweight Ruby version management tool.</p>
 
 	<p class="note">This article assumes that you have sudo privileges.</p> 
     
- <!-- For this article, we have used the header 'Prerequisites' to keep it consistent with other sibling article 17521.-->
-	<p>To setup the Debian server, refer to the articles: <a href="#17325">Initial Server Setup - Debian</a> and <a href="#17370">Install Git - Debian</a>.</p>  <!-- For this article, GitHub installtion is not optional, but an essential step as pre-requisite.-->
+
+	<p>To set up the Debian server, refer to <a href="#17325">Initial Server Setup - Debian</a> and <a href="#17370">Install Git - Debian</a>.</p>  
 
 <h2>Install rbenv</h2>
 		<ol>	
@@ -103,7 +99,7 @@
 			<div class='hacker'>sudo apt-get update</div>
 		</li>    
 
-		<li>Create a clone for rbenv from github and install it.
+		<li>Create a clone for rbenv from GitHub, and install it.
 			<div class='hacker'>git clone https://github.com/sstephenson/rbenv.git ~/.rbenv</div>
 		</li>    
 		
@@ -115,14 +111,14 @@
 		</li>    
 		<li>Restart the shell by either opening a new tab or closing the current terminal and starting it again.
 		</li>
-		<li>Install rbenv using the following command:
+		<li>Install rbenv.
 			<div class='hacker'>rbenv</div>
 		</li>    
 		<li>Install the latest development version of <code>ruby-build</code> into the <code>~/.rbenv/plugins/ruby-build</code> directory.
 			<div class='hacker'>git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</div>
 		</li>
-		<li>Install the <strong>rbenv rehash</strong> plugin to automate the run of <code>rehash</code> command. 
-			<div class='hacker'>git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash</div>
+		<li>Install the <strong>rbenv rehash</strong> plugin to automate running the <code>rehash</code> command. 
+		  <div class='hacker'>git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash</div>
 		</li>
 		</ol>
 <h2>Install Ruby</h2>
@@ -144,22 +140,21 @@
 		</li>    
 		</ol>    
 		
-
 <h2>Install JavaScript runtime</h2>
-A few Rails features, such as the <strong>Asset Pipeline</strong>, depend on a Javascript runtime. There are couple of ways to install JavaScript Runtime. Here, we will use <code>nodejs</code> from Debian package system.
+A few Rails features depend on a JavaScript runtime.The JavaScript runtime can be installed in a couple of ways.  We'll use <code>nodejs</code> from the Debian package system.
 		<ol>
 		<li>Open the file where the Debian repositories are located.
 			<div class='hacker'>sudo vim /etc/apt/sources.list</div>
 		</li>    
 		<li>Add the following lines at the end of the file:
 		<div class='hacker'>
-<pre>
-deb http://ftp.us.debian.org/debian/ wheezy-backports main
+
+deb http://ftp.us.debian.org/debian/ wheezy-backports main<br />
 deb-src http://ftp.us.debian.org/debian/ wheezy-backports main
-</pre></div>
+</div>
 		</li>
 		<li>
-		Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+		Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong> followed by the <strong>Enter</strong> key.
 		</li>
 		<li>Update the repository.
 			<div class='hacker'>sudo apt-get update</div>
@@ -167,14 +162,11 @@ deb-src http://ftp.us.debian.org/debian/ wheezy-backports main
 		<li>Install <code>nodejs</code>.
 			<div class='hacker'>sudo apt-get -t wheezy-backports install nodejs</div>
 		</li>
-		<li>Press <strong>Y</strong> to continue when prompted <strong>Do you want to continue [Y/n]?</strong></li>
+		<li>Press <strong>Y</strong> to continue when prompted, <strong>Do you want to continue [Y/n]?</strong></li>
 		</ol>
 		
-
-
 <h2>Next steps</h2>
-		  <p>In this article, you reviewed the steps involved in installing rbenv, Ruby, Ruby Gems, and finally Rails in Debian. For supported enterprise level application, you can also <a href="17952 - Scale Ruby on Rails Applications Across Multiple Servers - Debian, Ubuntu">scale Ruby on Rails application across multiple servers</a>.</p>
-
+		  <p>In this article, you reviewed the steps to install rbenv, Ruby, RubyGems, and finally Rails in Debian. For supported enterprise level application, you can also <a href="17952 - Scale Ruby on Rails Applications Across Multiple Servers - Debian, Ubuntu">scale Ruby on Rails application across multiple servers</a>.</p>
 
 </body>
 </html>

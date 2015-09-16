@@ -4,11 +4,11 @@
 
 <head>
 
-<!--Article Number is 17451-->
+<!--Article Number is 00051-->
 
 
 
-<title>Install an SSL Certificate on Apache - Debian, Ubuntu</title>
+<title>Install an SSL certificate on Apache - Debian</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -81,19 +81,18 @@ p.note {
 </xml><![endif]-->
 </head>
 
-<body>
- <h1>Install an SSL Certificate on Apache – Debian, Ubuntu</h1>
+<body> 
+ <h1>Install an SSL Certificate on Apache – Debian</h1>
  <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>15 minutes</u></em></p>
-    <p> This article walks you through the installation of an SSL certificate on a Debian&reg; or Ubuntu&reg; server running Apache&trade;. A web server with SSL certificates installed on it allows secure sessions with its clients. Installing an SSL certificate activates the HTTPS protocol.</p> 
+    <p> This article walks you through the installation of an SSL certificate on a Debian&reg; server running Apache&trade;. A web server with SSL certificates installed on it allows secure sessions with its clients. Installing an SSL certificate activates the HTTPS protocol.</p> 
   <p class="note">You can use SSL certificates from any company who sells them. However, these instructions assume you're using a GoDaddy SSL certificate.</p>
   
 <h2>Prerequisite</h2>   
-  <p>If you don't have Apache installed on your server, install Apache as part of a LAMP stack on your <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17341%20-%20Build%20a%20LAMP%20stack%20(Linux%2C%20Apache%2C%20MySQL%2C%20PHP)%20-%20Ubuntu.html">Ubuntu server</a> or on your 
-   <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346%20-%20Build%20a%20LAMP%20stack%20(Linux%2C%20Apache%2C%20MySQL%2C%20PHP)%20-%20Debian.html">Debian server</a>. You can ignore the instructions for MySQL and PHP, as you do not need it for this article.</p>   
+  <p>If you don't have Apache installed on your server, install Apache as part of a LAMP stack on your <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346%20-%20Build%20a%20LAMP%20stack%20(Linux%2C%20Apache%2C%20MySQL%2C%20PHP)%20-%20Debian.html">Debian server</a>. You can ignore the instructions for MySQL and PHP, as you do not need it for this article.</p>   
 
 <h2>Activate the SSL module</h2>
-    <p>If you already have Apache running on a Debian or Ubuntu server, SSL support is already a part of it. You only need to activate it to get started.</p>  
+    <p>If you already have Apache running on a Debian server, SSL support is already a part of it. You only need to activate it to get started.</p>  
 <ol>
     <li>Activate SSL support. 
     <div class="hacker">sudo a2enmod ssl</div>
@@ -104,7 +103,7 @@ p.note {
 </ol>
     
 <h2>Generate CSR and key</h2>
-    A certificate signing request (CSR) contains information such as organization, country, state, common name, and email that will be included in the certificate. It also includes a public key. You will also generate a private key which will be stored on your server.
+    A certificate signing request (CSR) contains information such as organization, country, state, common name, and email that will be included in the certificate. It also includes a public key. You will also generate a private key, which will be stored on your server.
     
     <ol>
         <li>
@@ -112,14 +111,14 @@ p.note {
             <div class="hacker">sudo mkdir /etc/apache2/ssl</div>
            
         </li>
-        <li>Generate CSR and private key.
+        <li>Generate the CSR and private key.
             <div class="hacker">sudo openssl req -out CSR.csr -new -newkey rsa:2048 -nodes -keyout /etc/apache2/ssl/<em><u>certkey</u></em>.key</div>
         In order to see the newly generated CSR, use the following command:
         <div class="hacker">cat CSR.csr</div>
         Input the CSR into the certificate authority's web site when you generate the certificate. 
         </li>
         <li>
-            Enter information that will be included in your certificate request, such as country, state, common name, and email. The common name field is the Fully Qualified Domain Name (FQDN) of the server for which you are trying to obtain a certificate.<br />
+            Enter information that will be included in your certificate request, such as country, state, common name, and email. The <strong>common name</strong> field is the Fully Qualified Domain Name (FQDN) of the server for which you are trying to obtain a certificate.<br />
                        
         </li>
         <li>Point your domain name to your server's IP address.</li>
@@ -150,7 +149,7 @@ p.note {
        <h3>Unzip and create the certificate file</h3>
        <ol>
          
-        <li>Open the certificate in a text editor (such as Notepad) and copy the contents.</li> 
+        <li>Open the certificate in a text editor (such as vim) and copy the contents.</li> 
         <li>Go back to your console and create a new file.
           <div class=" hacker">sudo vim /etc/apache2/ssl/gdcert.crt</div>
         </li>
@@ -158,7 +157,7 @@ p.note {
         <li>Save and exit.</li>
         </ol>
 <h3>Create the bundle file</h3>
-        <ol><li>Open the bundle file in a text editor (such as Notepad) and copy the contents.</li>            
+        <ol><li>Open the bundle file in a text editor (such as vim) and copy the contents.</li>            
         <li>Go back to your console and open a new file.
            <div class="hacker">sudo vim /etc/apache2/ssl/gdBundle.crt</div></li>
             <li>Paste the copied contents to this file.</li> 
@@ -166,11 +165,11 @@ p.note {
         </ol>
     <p class="note">You can also move the certificate files from your local machine to your server via FTP</p>
     <h2>Configure Apache to use SSL</h2>
-    <p>We need to edit our configuration file to make sure that the SSL entries there are pointing to the right artifacts.</p>
+    <p>You need to edit our configuration file to make sure that the SSL entries are pointing to the right artifacts.</p>
     <ol>
         <li>
-            Open the <code>default-ssl.conf</code> file. 
-            <div class="hacker" >sudo vim /etc/apache2/sites-available/default-ssl.conf</div>  
+            Open the <code>default-ssl</code> file. 
+            <div class="hacker" >sudo vim /etc/apache2/sites-available/default-ssl</div>  
         </li>
         <li>
             Make the following changes in the <code>Virtual host</code> section: 
@@ -191,7 +190,7 @@ SSLCertificateChainFile /etc/apache2/ssl/gdBundle.crt
         </li>
         <li>
             Enable the SSL-enable virtual host.
-            <div class="hacker">sudo a2ensite default-ssl.conf</div>
+            <div class="hacker">sudo a2ensite default-ssl</div>
         </li>
         <li>
             Restart Apache to load the new virtual host file.

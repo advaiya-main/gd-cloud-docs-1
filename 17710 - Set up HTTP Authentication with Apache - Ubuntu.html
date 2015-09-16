@@ -4,13 +4,10 @@
 
 <head>
 
-<!--Article Number is 17710 (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
+<!--Article Number is 17710 -->
 
 <title>Set up HTTP Authentication with Apache - Ubuntu</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -39,6 +36,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+
+
+td:nth-child(1) {font-weight:bold;}
 </style>
 
 
@@ -78,24 +85,27 @@ p.note {
 </head>
 
 <body>
-<p>This article walks thorugh setting up basic http authentication in Apache using .htaccess</p>
-    <h1>Set up HTTP Authentication with Apache - Debian</h1>
+<p>This article walks through setting up basic http authentication in Apache on a Debian system using .htaccess.</p>
+    <h1>Set up HTTP authentication with Apache - Debian</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
-        <strong>Time</strong>: <em><u>10</u></em></p>
+        <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-    <p>In this guide you will learn to protect your directories or websites using HTTP authentication. You will accomplish this with the use of .htaccess file. For the below example we will consider requiring user authentication in order to view the Apache test page.</p>
+    <p>In this article, you will learn to protect your directories or websites using HTTP authentication. You will use an <code>.htaccess</code> file. For the following example, you will require user authentication in order to view the Apache test page.</p>
 
     <h2>Prerequisite</h2>
-    <p>You must have <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">Initial Server Setup</a> done on your server and installed Apache. If you haven't installed it yet, do the following to install it.
+    <p>You must have completed the <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">initial Server Setup</a> on your server, and installed Apache. If you haven't installed Apache yet, install it now. </p>
+    <ul><li>
     <div class="hacker">sudo apt-get update</div>
     <div class="hacker">sudo apt-get install apache2</div>
-     </p>
+    </li>
+    </ul>
+
 
     <h2>Create .htaccess File</h2>
-    <p>.htaccess stands for <strong>Hypertext Access</strong>. This file contains the authentication details.</p>
+    <p><code>.htaccess</code> stands for <strong>Hypertext Access</strong>. This file contains the authentication details.</p>
     <ol>
-        <li>Create the .htaccess file under Document Root directory to apply the authentication to the entire site or a particular directory.
+        <li>Create the <code>.htaccess</code> file under document root directory, which applies the authentication to the entire site, or to a particular directory.
         <div class="hacker">sudo vim /var/www/.htaccess</div></li>
         <li>Type in the following block of text:
         <div class="hacker"><pre>
@@ -103,8 +113,8 @@ AuthType Basic
 AuthName "Restricted. Only authorized users."
 AuthUserFile "/etc/apache2/.htpasswd"
 Require valid-user
-</pre></div></li>
-        <li> Below is an explanation of what each of these mean :
+</pre></div>
+         Below is an explanation of what each of these mean:
 
 <table>
     <tr>
@@ -113,32 +123,34 @@ Require valid-user
     </tr>
     <tr>
         <td>AuthType Basic</td>
-        <td>This  specifies the kind of authentication that is being implemented. "Basic" implies that it uses a password file to implement the password authentication.</td>
+        <td>Specifies the kind of authentication that is being implemented. <em>Basic</em> indicates a password file is used to implement the password authentication.</td>
 
     </tr>
     <tr>
         <td> AuthName</td>
-        <td> You can set it to anything you want. This is the message that is displayed at the password prompt.</td>
+        <td>Displays the message that is displayed at the password prompt. You can set it to anything you want.</td>
     </tr>
-    <tr><td> AuthUserFile</td><td> This is the location where you would store the password file.</td> </tr>
-    <tr><td>Require valid-user</td><td> This indicates that only users who are stored in the password file will be granted access to the phpMyAdmin login screen.</td> </tr>
+    <tr><td> AuthUserFile</td><td>Defines the location where you would store the password file.</td> </tr>
+    <tr><td>Require valid-user</td><td>Indicates that only users who are stored in the password file will be granted access to the resource.</td> </tr>
 </table></li>
+        <li>Save and exit the file.</li>
     </ol>
-    <h2>Create user</h2>
-    <ol>
-        <li>To generate user/passwords we need the <code>htpasswd</code> tool. Prior to using the <code>htpasswd</code> we need to install apache utilities.
-        <div class=" hacker">sudo apt-get update</div>
-        <div class=" hacker">sudo apt-get install apache2-utils</div>
+    <h2>Create users</h2>
+<p>The <code>htpasswd</code> tool generates users and passwords.  </p>
+    <ul>
+     
+        <li>
+            Create the <code>.htpasswd</code> file in the path mentioned in the previous section along with the user name. You will be prompted to set, and then confirm a password for the user.
+            <div class="hacker">sudo htpasswd -c /etc/httpd/.htpasswd <em><u>newuser1</u></em></div>
         </li>
-        <li>Create the .htpasswd file in the path mentioned in the previous section along with the user name. You will be prompted to set and confirm a password for the user.
-        <div class="hacker">sudo htpasswd -c /etc/apache2/.htpasswd <em>newuser1</em></div>
-          </li>
-    </ol>
-    <h2>Update Apache Configuration file</h2>
+    </ul>
+         
+  
+    <h2>Update Apache configuration file</h2>
     <ol>
         <li>Open the Apache configuration file.
         <div class="hacker">sudo vim /etc/apache2/sites-available/default</div></li>
-        <li>You need to include the <strong>AllowOverride AuthConfig</strong> directive in the Apache configuration file under the document root directory. In this case it is <code>/var/www</code>. The &lt;Directory> section looks something like:
+        <li>In the Apache configuration file, which is under the document root directory <code>/var/www/html</code>, replace the <code>AllowOverride None</code> directive with the <code>AllowOverride Authconfig</code> directive. <br />The <code>Directory</code> section looks something like:
         <div class="hacker"><pre>
 &lt;Directory /var/www/>
     Options Indexes FollowSymLinks
@@ -150,11 +162,9 @@ Require valid-user
         </li>
         <li>Restart Apache.
         <div class="hacker">sudo service apache2 restart</div></li>
-        <li>If you navigate to <strong>http://<em><u>server-ip-address/</u></em></strong> on your web browser. You will be challenged by a prompt asking for a valid username and password. Enter the newly created user <em>newuser1</em> and the password you set. After authentication you should see the Apache test page.</li>
-
+        <li>If you navigate to <strong>http://<em><u>server-ip-address</u></em>/</strong> on your web browser, a prompt will ask you for a valid username and password. Enter the newly created user <em><u>newuser1</u></em>, and the password you set. After authentication, you should see the Apache test page.</li> 
     </ol>   
-    
-             
+              
     <h2>Conclusion</h2>
     <p>You have successfully secured your website using HTTP authentication.  </p>
    

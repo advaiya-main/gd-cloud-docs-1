@@ -109,7 +109,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
           </li>     
          
         <li>To apply RVM, you need to execute the following command:
-           <div class='hacker'>source /home/<em><u>UserName</u></em>/.rvm/scripts/rvm</div>
+           <div class='hacker'>source ~/.rvm/scripts/rvm</div>
             
 			     If your system already has RVM installed, update it.
 			    <div class='hacker'>rvm get stable --autolibs=enable</div>
@@ -153,11 +153,11 @@ Before you install Ruby on Rails, prepare your system with the required system s
 	  </li>
 	  
 	  <li>Create the project directory for your Rail project, by typing the following commands:
-          <div class='hacker'>sudo mkdir -p /usr/local/src/<em><u>rail_project_directory</u></em></div>
+          <div class='hacker'>sudo mkdir -p ~/<em><u>rail_project_directory</u></em></div><!-- corrected the command :nt -->
       </li>
 	 <li>Move to the newly created directory, and grant all the required access using the following commands:
-          <div class='hacker'>cd  /usr/local/src/<em><u>rail_project_directory</u></em></div>
-		  <div class='hacker'>sudo chmod -R 770 /usr/local/src/<em><u>rail_project_directory</u></em></div>
+          <div class='hacker'>cd  ~/<em><u>rail_project_directory</u></em></div><!-- corrected the command :nt-->
+		  <!--<div class='hacker'>sudo chmod -R 770 /usr/local/src/<em><u>rail_project_directory</u></em></div>-->
 		  <div class='hacker'>rails new <em><u>Your_application</u></em></div>
 		  <div class='hacker'>cd <em><u>Your_application</u></em></div>
 		   <div class='hacker'>rails server</div>

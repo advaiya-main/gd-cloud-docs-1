@@ -81,61 +81,61 @@ p.note {
 <h2>Install rbenv</h2>
 <ol>
   <li>Upgrade and install all the latest dependencies.
-    <div class="hacker">sudo pacman -Syu</div> <!-- changed from yy to y :nt-->
+    <div class="hacker">sudo pacman -Syyu</div>
 <div class="hacker">sudo pacman -Sy base-devel</div>
 </li>
 <li>Install rbenv and Ruby dependencies.
 
   <div class="hacker">sudo pacman -Sy git zsh</div>
 
-<div class="hacker">git clone git://github.com/sstephenson/rbenv.git ~/.rbenv</div> <!-- corrected the command :nt-->
+<div class="hacker">sudo git clone git://github.com/sstephenson/rbenv.git ~/.rbenv</div>
 </li>
 <li>Install rbenv, and check that rbenv is located in <code>.rbenv</code> directory.
     <div class="hacker">cd ~/.rbenv</div>
 
-<div class="hacker">
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile <br/><!-- added path for rbenv command :nt-->
-sudo echo 'eval "$(rbenv init -)"' >> ~/.bash_profile<br/>
+<div class="hacker"><!--Each command needs to be in its own div. cj -->
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile <br/>
+sudo echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc<br/>
+sudo echo 'eval "$(rbenv init -)"' >> ~/.zshrc<br/>
 exec $SHELL<br/>
-source ~/.bash_profile <!-- added because it requires to reqload the bash_profile and enable rbenv command :nt-->
+source ~/.bash_profile 
 </div>
 
 </li>      
 <li>Install the ruby-build plugin. 
-<!-- two steps are removed and converted to single one --></li>
+
 <div class="hacker">git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</div>
-  <!-- <div class="hacker">cd where/ever</div> REMOVED STEP CCAUSE COULD NOT FIND DIRs :nt-->
 </li>       
 </ol>
 
 <h2>Install Ruby</h2>
 
-<!-- <p> Before you start using rbenv, you need to make sure which version of Ruby you want to install.--> <!--Wouldn't the user always want to install the latest version? If so, how does the user get the latest version? If the user shouldn't use the latest version, how does he decide which version to install? cj --><!--Modified the command to add the latest version--><!-- In this article, we are installing the latest version of Ruby.</p>--><!--FIXED REMOVED Before ... line because it does not require reader will some confuse here and also forcing to leave the article to find the latest version so as now lates_version changed to version so user will get know which version going to install. :nt-->
+<p>Before you start using rbenv, you need to make sure which version of Ruby you want to install.<!--Sept 15: How? cj --> 
+In this article, we are installing the latest version of Ruby.<!--Sept 15: You still haven't explained how the user gets the latest version. 2.2.3 will not always be the latest version. -cj --></p>
 <ol>
-<li>Install the Ruby using the following command:
-	<div class="hacker">rbenv install -v <em><u>2.2.3</u></em></div> <!-- changed to version-->
+<li>Install  Ruby:
+	<div class="hacker">rbenv install -v <em><u>2.2.3</u></em></div>
 </li>
-<li>Set Ruby as default to use.
-Set the default version of Ruby that all of your shells will use.
+<li>Set the default version of Ruby that all of your shells will use.
 	<div class="hacker">rbenv global <em><u>2.2.3</u></em></div></li>
-<li>Display which version of Ruby was installed.<!--Step missing? The previous step says that only a dependency (not Ruby) is installed. cj --><!--added the missing step--> <!-- FIXED corrected the sentence -->
+<li>Display  which version of Ruby was installed.
 	<div class="hacker">ruby -v</div>
 </li>    
 </ol>
     
-<h2>Install bundler</h2>
+<h2>Install RubyGems</h2>
 <ol>
-<li>Disable document installation. (By default, when you install gems<!--Is "gems" the same thing as "RubyGems"? RubyGems isn't mentioned anywhere in this section except the header. Confusing. cj --><!--Explained in line no 131-->, documentation files are also installed. But this takes time, so let's stop the document installation.)
+<li>Disable document installation. (By default, when you install gems<!--Is "gems" the same thing as "RubyGems"? RubyGems isn't mentioned anywhere in this section except the header. Confusing. cj --><!--Explained in line no 131--><!--Sept 15: Not true. Rubygems still is not mentioned anywhere but the header. cj -->, documentation files are also installed. But this takes time, so let's stop the document installation.)
     <div class="hacker">echo "gem: --no-document" > ~/.gemrc</div>
 </li>
-<li>Install the bundler gem which is an essential tool for managing gems when developing and running Rails applications.
+<li>Install the bundler gem. The bundler gem is an essential tool for managing gems when developing and running Rails applications.
   <div class="hacker">gem install bundler</div>
 </li>    
 </ol>
 
 <h2>Set up Rails</h2>
 <ol>
-<li>Install the Rails. 
+<li>Install Rails. 
 	<div class="hacker">gem install rails</div>
 <p>This installation takes some time.</p>
 </li>
@@ -156,8 +156,8 @@ Set the default version of Ruby that all of your shells will use.
 </ul>
 
 
-<h2>Next Step</h2>
-<p>In this article, you reviewed the steps involved in installing rbenv, Ruby, Ruby Gems, and finally Rails in Ubuntu. For supported enterprise level application, you can also <a href="17954">scale Ruby on Rails application across multiple servers</a>.<!--What might the user want to do next? cj --><!-- Changed to "Conclusion"--> </p> <!-- FIXED with next step -->
-  <p></p>
+<h2>Conclusion</h2>
+<p>In this article, you learned the steps involved in installing <code>rbenv</code>, Ruby, RubyGems, and finally Rails on Arch Linux.<!--Sept 15: You still haven't explained what the user might want to do next. cj--> </p>
+
 </body>
 </html>
