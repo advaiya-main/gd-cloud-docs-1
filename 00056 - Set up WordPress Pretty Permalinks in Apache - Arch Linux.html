@@ -55,7 +55,7 @@ p.note {
 
     <p>Permalinks are URLs of the content published on your WordPress site. Best practices state that these URLs should be permanent and never change, but you can of course change your permalink structure at any time. Doing so, however, would change the URL of all your pages, which would cause your search and referral traffic to drop since the links would be broken.</p>
      
-<p>WordPress produces dynamic links by default that are appended with the post ID number. Though these links work on all server environments, they’re not descriptive, easily identifiable, or SEO-friendly.</p>
+<p>WordPress produces dynamic links by default that are appended with the post ID number. Though these links work on all server environments, they're not descriptive, easily identifiable, or SEO-friendly.</p>
 
 <p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly, and depending on which format you choose, structured. You can use <code>mod_rewrite</code> or <code>lighttpd</code> to produce these, the most common and versatile being the Post Name link format.</p>
   
@@ -86,14 +86,14 @@ p.note {
          
  Notice this message at the bottom of the page, right below <strong>Save Changes</strong>:
 
-<p>If your <code>.htaccess</code> file were writable, we could do this automatically, but it isn’t so these are the mod_rewrite rules you should have in your .htaccess file. Click in the field and press CTRL + A to select all.</p>
+<p>If your <code>.htaccess</code> file were writable, we could do this automatically, but it isn't so these are the mod_rewrite rules you should have in your .htaccess file. Click in the field and press CTRL + A to select all.</p>
 
 <code>.htaccess</code> files are Apache configuration files that WordPress uses along with the module mod_rewrite to create permalinks. Our .htaccess file is not writable by WordPress, but we will be enabling them.</li>
     </ol>
 
 <h2>Enable URL rewrites</h2>
   
- <p> We have to change the configuration of Apache to read <code>.htaccess</code> files. We’ll do this by enabling <code>AllowOverride</code>. When this directive is set to None, your server ignores all <code>.htaccess</code> files, not attempting to read any of them. When <code>AllowOverride</code> is set to All, any command with <code>.htaccess</code> is allowed in.</p>
+ <p> We have to change the configuration of Apache to read <code>.htaccess</code> files. We'll do this by enabling <code>AllowOverride</code>. When this directive is set to None, your server ignores all <code>.htaccess</code> files, not attempting to read any of them. When <code>AllowOverride</code> is set to All, any command with <code>.htaccess</code> is allowed in.</p>
   
 <p>You will likely have to enable <code>AllowOverride</code> in your document root directory.</p> 
      
@@ -145,7 +145,7 @@ p.note {
 <div class="hacker">sudo chmod u+x /srv/http/.htaccess * -R</div>
 
 Now WordPress can rewrite the rules for you.</li>
-<li>Go back to your WordPress admin dashboard, reload, and you’ll see that the "If your <code>.htaccess</code> file were writable…" message from earlier should have disappeared.  </li>
+<li>Go back to your WordPress admin dashboard, reload, and you'll see that the "If your <code>.htaccess</code> file were writable…" message from earlier should have disappeared.  </li>
 <li>Select "Save changes" in the dashboard and go back to your command line.</li>
 
 <!--CT:...
