@@ -73,7 +73,7 @@ p.note {
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>Ruby is a pure object-oriented language like Perl and Python. Rails is a framework for web application development written in Ruby. In this article, you'll learn to install Ruby on Rails on Fedora, with the help of rbenv, a  lightweight Ruby version management tool.</p>
+    <p>Ruby is a pure object-oriented language like Perl and Python. Rails is a framework for web application development written in Ruby. In this article, you'll learn to install Ruby on Rails on Fedora with the help of rbenv, a  lightweight Ruby version management tool.</p>
 <p class="note">You need <code>sudo</code> privileges to run the  commands.</p>
 <p>To set up the Fedora server,  refer to <a href="17322"> Initial Server Setup - Fedora</a>. Optionally, you can also <a href="17367#"> install Git</a>.</p> 
 	<h2>Install rbenv</h2>
@@ -105,12 +105,10 @@ p.note {
 			 
 	<h2>Install Ruby</h2>
 		<p>Before you start using rbenv, you need to install Ruby. Install the latest version unless another specific version is needed for any application dependencies.
-<!--Would the user ever not want to install the latest version? What things should the user consider when making this decision? cj --> </p>
-		<!--Updated the above content accordingly-->
-        <!--Edited. Please make sure that these changes do not affect the technical accuracy. cj-->
-		<!--All seems fine. Thanks. VS-->
+ </p>
+	
 <ol>
-			 <li>Install the dependency of Rails, before you install Ruby.
+			 <li>Install the  Rails dependency before you install Ruby.
 			   <div class='hacker'>rbenv install -v <em><u>latest_version of Ruby</u></em></div>
 			 </li>
 			 <li>Set the default version of Ruby to be used by all the shells.
@@ -124,7 +122,7 @@ p.note {
 			 
 <h2>Install RubyGems </h2>
 		<ol>
-			 <li> Stop the document installation by disabling them. (When you install gems, by default the documentation files  install but take time.)
+			 <li> Stop the document installation by disabling it. (When you install gems, by default the documentation files  install but take time.)
 			   <div class='hacker'>echo "gem: --no-document" > ~/.gemrc</div>
 		  </li>
 			 <li> Install the Bundler gem. The Bundler gem is an essential tool for managing gems when developing and running Rails applications.
@@ -136,7 +134,7 @@ p.note {
              <ol>
 			 <li>Install Rails.
 			   <div class='hacker'>gem install rails</div>
-			  <p>This installation takes some time.</p>
+			  This installation takes some time.
 			 </li>
 			  <li>Install Shims for all Ruby executables known to rbenv, using the subcommand <code>rehash</code>.
 			    <div class='hacker'>rbenv rehash</div>
@@ -148,10 +146,9 @@ p.note {
 			 </ol>	 
 			 
 			 
-			<h2>Install Javascript Runtime</h2>
-		    <p><!--This intro is copied from the DO article. Please use original wording. cj --> 
-			<!-- Updated the content accordingly. VS-->
-			There are a few Rails features like the <strong>Asset Pipeline</strong>, that requires a Javascript runtime to execute. JavaScript runtime can be installed in a couple of ways. In this article, we will use <code>nodejs</code> from Debian package system.</p>
+			<h2>Install Javascript runtime</h2>
+		    <p>
+			A few Rails features  require a Javascript runtime to execute. The JavaScript runtime can be installed in a couple of ways. We'll use <code>nodejs</code> from the Debian package system.</p>
 <ol>
 			 <li>Add Fedora's Extra Packages for Enterprise Linux (EPEL) yum repository. This addition lets you install software packages that are not included in the official Fedora or Red Hat Enterprise Linux (RHEL) repositories.
 			   <div class='hacker'>sudo yum -y install epel-release</div>
@@ -162,7 +159,7 @@ p.note {
 			  </ol>	
             
     <h2>Next steps</h2>
-    <p>In this article, you reviewed the steps involved in installing rbenv, Ruby, Ruby Gems, and finally Rails in Fedora. For supported enterprise level application, you can also <a href="17953 - Scale Ruby on Rails Applications Across Multiple Servers - CentOS, Fedora">scale Ruby on Rails application across multiple servers</a>.</p>
+    <p>In this article, you reviewed the steps to install rbenv, Ruby, Ruby Gems, and finally Rails in Fedora. For supported enterprise level application, you can also <a href="17953 - Scale Ruby on Rails Applications Across Multiple Servers - CentOS, Fedora">scale Ruby on Rails application across multiple servers</a>.</p>
 
    
 </body>
