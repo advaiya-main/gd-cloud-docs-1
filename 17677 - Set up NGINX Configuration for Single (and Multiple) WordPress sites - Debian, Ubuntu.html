@@ -305,7 +305,7 @@ Regardless of which you choose, we'll use <em><u>coolexample.com</u></em> as the
 
 <h3>Single site</h3>
 
-If you have a simple site with no subdomains, copy this text into your server block file.:
+If you have a simple site with no subdomains, copy this text into your server block file.
 <div class="hacker"><pre>server {
     # URL: Correct way to redirect URLs
     server_name coolexample.com;
@@ -357,8 +357,10 @@ server {
 <h3>Multi-site with sub-domains</h3>
 
 <p>If you have sub-domains, use a wildcard in the servername line (the rest of the lines are the same). So for example, if we wanted to account for the coolexample.com subdomains, product.coolexample.com and aboutus.coolexample.com, we can use a wildcard *.coolexample.com.</p>
-
 <div class="hacker">server_name *.coolexample.com;</div>
+
+Open your multisite.conf file to edit. 
+<div class="hacker">sudo vim multisite.conf</div>
 
 The entire multisite.conf file will look like this:
 <div class="hacker"><pre># URL: add a permanent redirect if required.
