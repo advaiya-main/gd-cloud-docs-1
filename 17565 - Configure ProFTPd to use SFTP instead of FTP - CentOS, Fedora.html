@@ -68,24 +68,18 @@ p.note {
 </head>
 
 <body>
-<p>Configure ProFTPd to use SFTP instead of FTP - CentOS, Fedora, Security, Linux Basics</p>
+<p>Configure ProFTPd to use SFTP instead of FTP - CentOS, Fedora, Security, Linux Basics.</p>
     <h1>Configure ProFTPd to use SFTP instead of FTP - CentOS, Fedora</h1>
     
-    <p><strong>Difficulty</strong>: <em>TBD</em><br/>
-        <strong>Time</strong>: <em>TBD</em></p>
+    <p><strong>Difficulty</strong>: <em>1</em><br/>
+        <strong>Time</strong>: <em>20 minutes</em></p>
 
-    <h2>Introduction</h2>
-    <p>ProFTPd is an FTP daemon for Linux or UNIX like operating systems. ProFTPd is an open source package to connect FTP securely over the internet. </p>
     
-    <p>In this article you will learn, how to install and configure ProFTPd in centOS and Fedora.</p>
+    <p>ProFTPd is a File Transfer Protocol (FTP) server and an open source software, compatible with Linux/Unix systems and Microsoft windows. SFTP (Secure File Transfer Protocol) which stands for SSH File Transfer Protocol, or Secure File Transfer Protocol, is a separate protocol packaged with SSH that works in a similar way over a secure connection.</p>
+    
+    <p>In this article you will learn, how to install and configure ProFTPd in CentOS and Fedora.</p>
  
-    <h2>Prerequisites</h2>
-<ol> 
-<li>CentOS or Fedora.
-  </li>
-   <li>Sudo user.
-   </li>
-</ol>
+    <p class ="note">You need <code>sudo</code> privileges to run the commands.</p>
   
   <h2>Intall ProFTPd</h2>
   <ol>
@@ -95,22 +89,21 @@ p.note {
    <li>Enable ProFTPd  services for boot startup, using the following command:
    <div class="hacker">sudo systemctl enable proftpd.service</div>
    </li>
-   <li>Use the below commands to start, restart and stop the ProFTPd services.
-   <ol type="a">
-   <li>Start PrpFTPd services.
+  
+
+   <li>Start ProFTPd services.
    <div class="hacker">sudo systemctl start proftpd.service</div>
    </li>
-   <li>Stop PrpFTPd services.
+   <li>Stop ProFTPd services.
    <div class="hacker">sudo systemctl stop proftpd.service</div>
    </li>
-   <li>Restart PrpFTPd services.
+   <li>Restart ProFTPd services.
    <div class="hacker">sudo systemctl restart proftpd.service</div>
    </li>
-   <li>Check status of PrpFTPd services.
+   <li>Check the status of ProFTPd services.
    <div class="hacker">sudo systemctl status proftpd.service</div>
    </li>
-   </ol>
-   </li>
+   
   </ol>
   
   <h2>Configure ProFTPd</h2>
@@ -118,19 +111,19 @@ p.note {
 <li>Open the <code>proftpd.conf</code> file to modify.
    <div class="hacker">sudo vim /etc/proftpd.conf</div>
   </li>
-   <li>Change the ServerName to your FQDN or your public IP.
-   <div class="hacker">ServerName		“Your-public-ip” </div>
+   <li>Change the <code>ServerName</code> to your FQDN or your public IP.
+   <div class="hacker">ServerName		“<em><u>Your-public-ip</u></em>” </div>
    </li>
    <li>Change the default server port to hide from public scan.
    <div class="hacker">Port		9011</div>
-   <p>Add the Port below the DefaultServer variable label.</p>
+   <p>Add the Port below the <code>DefaultServer</code> variable label.</p>
    </li>
    <li>Restart the ProFTPd services using the following command:
    <div class="hacker">sudo systemctl restart proftpd.service</div>
    </li>
-   <li>Check status service is running or not using the following command: 
+   <li>Check the status service is running or not using the following command: 
    <div class="hacker">sudo systemctl status proftpd.service</div>
-   <p>If you found Active (Running) in green color, it means services is running.</p>
+   <p>If you find <code>Active (Running)</code> in green color, it means services is running.</p>
    </li>
 </ol>
   
@@ -146,7 +139,7 @@ p.note {
    <li>Verify the rule added successful using the following command:
    <div class="hacker">firewall-cmd --list-ports</div>
    </li>
-   <li>Change the SELINUX to allow read/write the files.
+   <li>Change the <code>SELINUX</code> to allow read/write the files.
    <div class="hacker">setsebool -P allow_ftpd_full_access=1</div>
    </li>
    <li>Restart the ProFTPd using the following command:
@@ -156,23 +149,16 @@ p.note {
   
   <h2>Test ProFTPd</h2>
 <ol> 
-<li>Open the filezilla or any other client having SFTP or FTP like WinSCP.
-	<br/><img src="x" alt="#"/>
+<li>Open the FileZilla or any other client having SFTP or FTP like WinSCP.
+	<br/><img src="images/17565/091615/FileZilla.png" alt="FileZilla.png"/>
   </li>
-   <li>Type your public IP or FQDN in textbox which is aside of Host label. 
+   <li>Enter <strong>Host</strong> or IP address, <strong>Username</strong>, <strong>Password</strong> and <strong>Port</strong> number and click the <strong>Quickconnect</strong> button. FileZilla should connect automatically using your SSH keys.
    </li>
-   <li>Type your user name in the textbox which is aside of Username label.
-   </li>
-   <li>Type your password in the textbox which is aside of Password label.
-   </li>
-   <li>Type Port which is typed in the <code>proftpd.conf</code> file in the textbox which is aside of Port label.
-   </li>
-   <li>Press the Quickconnect.
-   </li>
+   
 </ol>
   
   <h2>Conclusion</h2>
-    <p>In this article, you have learnt to install and configure ProFTPd in centOS and Fedora. </p>
+    <p>In this article, you have learnt to install and configure ProFTPd in CentOS and Fedora. </p>
    
 </body>
 </html>
