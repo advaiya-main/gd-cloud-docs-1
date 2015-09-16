@@ -65,7 +65,7 @@ td:nth-child(1) {font-weight:bold;}
      
 <p>By default, WordPress produces dynamic links that are appended with the post ID number. Though these links work on all server environments, they're not descriptive, easily identifiable, or SEO-friendly.</p>
 
-<p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly and, depending on which format you choose, structured. You can use <code>mod_rewrite</code> or <code>lighttpd</code> to produce these, the most common and versatile being the Post Name link format.</p>
+<p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly and, depending on which format you choose, structured. <!--CT: too much, i think 9/16...You can use <code>mod_rewrite</code> or <code>lighttpd</code> to produce these, the most common and versatile being the Post Name link format.--></p>
   
 <p>This article will walk you through setting up WordPress pretty permalinks in Apache. </p>
 
@@ -73,9 +73,9 @@ td:nth-child(1) {font-weight:bold;}
     <p>Before you begin, Wordpress has to be fully installed. See the following articles:</p>
          
 <ul>
-    <li><a href="17385 - Install WordPress on your LAMP server - CentOS, Fedora.html">Install WordPress on your LAMP server - CentOS, Fedora</a></li>
-    <li><a href="17385 - Install WordPress on your LEMP server - Ubuntu">Install WordPress on your LAMP server - Fedora, CentOS</a></li>
-    <li><a href="17384 - Install WordPress on your LAMP server - Arch Linux.html">Install WordPress on your LAMP server - Arch Linux</a></li>
+    <li><a href="17385 - Install WordPress on your LAMP server - CentOS.html">Install WordPress on your LAMP server - CentOS</a></li>
+    <li><a href="19192 - Install WordPress on your LEMP server - Fedora">Install WordPress on your LAMP server - Fedora</a></li>
+    <li><a href="17681 - Set up WordPress Multisite in Apache - CentOS, Fedora.html">Set up WordPress Multisite in Apache - CentOS, Fedora</a></li>
 </ul>
 
 
@@ -103,18 +103,15 @@ td:nth-child(1) {font-weight:bold;}
      
 <ol>
 <li>Modify your virtual host file. The default file, if you haven't modified it, is <code>/httpd.conf</code>.  Let's pull up the file.
-  <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf </div></li>
+  <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf </div>
+With the file open, find these lines and make these changes.</li>
 
-<li>With the file open, find these lines and make these changes.
-
-
-<li><code>AllowOverride All</code> allows all options in your .htaccess file. Make sure this is set to All.<br/>
-
+<li><code>AllowOverride All</code> allows all options in your .htaccess file. 
 Find all instances of AllowOverride and change "none" to "all."
- the <code>&lt;Directory /&gt;</code> section. Underneath it will be <code>AllowOverride</code>. In this line, change "None" to "All."
- <div class="hacker">AllowOverride <em><u>All</u></em></div>  
+ <div class="hacker">AllowOverride <em><u>All</u></em></div></li>  
  
-#
+<!--CT: Don't think i need to show this...
+<div class="hacker"><pre>#
 DocumentRoot "/var/www/html"
 
 #
@@ -125,11 +122,10 @@ DocumentRoot "/var/www/html"
     # Allow open access:
     Require all granted
 </Directory>
+...-->
 
 
-  </li>
-
-<li>Find the DirectoryIndex line. Add index.php to the front of the index files, if it's not already there. The line could look like this after your change.
+<li>Find the DirectoryIndex line and add index.php to the front of the index files, if it's not already there. The line could look like this after your change.
      <div class="hacker">DirectoryIndex <em><u>index.php</u></em> index.html index.html.var</div></li>
 
 <!--CT...
