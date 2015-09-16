@@ -4,11 +4,11 @@
 
 <head>
                         
-<!--Article Number is 00028 (fill in blank)-->
+<!--Article Number is 00028-->
 
 
 
-<title>Set up HTTP Authentication with Apache - Ubuntu</title>
+<title>Set up HTTP authentication with Apache - Ubuntu</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -92,15 +92,15 @@ td:nth-child(1) {font-weight:bold;}
 
 <body>
   <p>This article walks thorugh setting up basic HTTP authentication in Apache using .htaccess</p>
-    <h1>Set up HTTP Authentication with Apache - Debian</h1>
+    <h1>Set up HTTP authentication with Apache - Debian</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-    <p>In this article, you will learn to protect your directories or websites using HTTP authentication and the the <code>.htaccess</code> file. In the following example, we will require user authentication in order to view the Apache&reg; test page.</p>
+    <p>In this article, you will learn to protect your directories or websites using HTTP authentication and the <code>.htaccess</code> file. In the following example, we will require user authentication in order to view the Apache&reg; test page.</p>
 
     <h2>Prerequisite</h2>
-    <p>You must have <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">Initial Server Setup</a> done on your server, and installed Apache.  </p>
+    <p>You must have completed the <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">initial Server Setup</a> on your server, and installed Apache.  </p>
     <ul>
     <li>If you haven't installed Apache yet, run these commands to install it.
     <div class="hacker">sudo apt-get update</div>
@@ -110,9 +110,9 @@ td:nth-child(1) {font-weight:bold;}
 
 
     <h2>Create .htaccess file</h2>
-    <p>.htaccess stands for <strong>Hypertext Access</strong>. This file contains the authentication details.</p>
+    <p><code>.htaccess</code> stands for Hypertext Access. This file contains the authentication details.</p>
     <ol>
-        <li>Create the <code>.htaccess</code> file under Document Root directory to apply the authentication to the entire site or a particular directory.
+        <li>Under <code>Document Root</code> directory, create the <code>.htaccess</code> file to apply the authentication to the entire site or a particular directory.
         <div class="hacker">sudo vim /var/www/.htaccess</div></li>
         <li>Type in the following block of text:
         <div class="hacker"><pre>
@@ -130,30 +130,31 @@ Below is an explanation of what each of these directives mean:
     </tr>
     <tr>
         <td>AuthType Basic</td>
-        <td>Specifies the kind of authentication that is being implemented. "Basic" implies that it uses a password file to implement the password authentication.</td>
+        <td>Specifies the kind of authentication that is being implemented. <em>Basic</em> implies that it uses a password file to implement the password authentication.</td>
 
     </tr>
     <tr>
         <td> AuthName</td>
-        <td> The message that is displayed at the password prompt. Set it to anything you want.</td>
+        <td>Displays a message at the password prompt. Set it to anything you want.</td>
     </tr>
-    <tr><td> AuthUserFile</td><td>The location where you would store the password file.</td> </tr>
+    <tr><td> AuthUserFile</td><td>Defines the location where you would store the password file.</td> </tr>
     <tr><td>Require valid-user</td><td>Indicates that only users who are stored in the password file will be granted access to the resource.</td> </tr>
 </table></li>
         <li>Save and exit the file.</li>
     </ol>
-    <h3>Create user</h3>
-   <p>To generate user/passwords, you need the <code>htpasswd</code> tool. 
-       Create the <code>.htpasswd</code> file in the path mentioned in the previous section along with the user name. You will be prompted to set and confirm a password for the user. </p> 
+    <h3>Create users</h3>
+   <p>To generate user/passwords, you need the <code>htpasswd</code> tool.</p>
+   <ul><li> 
+       Create the <code>.htpasswd</code> file in the path mentioned in the previous section along with the username. You will be prompted to set and confirm a password for the user. </p> 
         <div class="hacker">sudo htpasswd -c /etc/apache2/.htpasswd <em><u>newuser1</u></em></div>
-       
+   </li></ul>    
 
 
     <h2>Update Apache configuration file</h2>
     <ol>
         <li>Open the Apache configuration file.
         <div class="hacker">sudo vim /etc/apache2/sites-available/default</div></li>
-        <li>You need to include the <strong>AllowOverride AuthConfig</strong> directive in the Apache configuration file under the document root directory. In this case, it is <code>/var/www</code>. The <code>&lt;Directory></code> section looks something like:
+        <li>In the Apache configuration file, under the document root directory <code>/var/www</code>, include the <code>AllowOverride AuthConfig</code> directive. The <code>Directory</code> section looks something like:
         <div class="hacker"><pre>
 &lt;Directory /var/www/>
     Options Indexes FollowSymLinks
@@ -167,7 +168,7 @@ Save and exit the file.
         </li>
         <li>Restart Apache.
         <div class="hacker">sudo service apache2 restart</div></li>
-        <li>If you navigate to <strong>http://<em><u>your server address or domain name/</u></em></strong> on your web browser. You will be challenged by a prompt asking for a valid username and password. Enter the newly created user <em><u>newuser1</u></em> and the password you set. After authentication you should see the Apache test page.</li>
+        <li>If you navigate to <strong>http://<em><u>your server address or domain name/</u></em></strong> on your web browser, you will be prompted for a valid username and password. Enter the newly created user <em><u>newuser1</u></em> and the password you set. After authentication, you should see the Apache test page.</li>
 
     </ol> 
     <h2>Conclusion</h2>
