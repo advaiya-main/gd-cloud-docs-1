@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 
 <head>
-    <title>17515</title>
+    <title>Deploy Rails App with Unicorn and Nginx – Fedora</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <style type="text/css">
@@ -83,166 +83,167 @@
 </head>
 
 <body>
-    <p>Setting up Rails application with Unicorn and NGINX in Fedora, Ruby, Rails, NGINX</p>
-    <h1>Deploy Rails App with Unicorn and NGINX – Fedora</h1>
+    <p>Setting up Rails application with Unicorn and Nginx on Fedora, Ruby, Rails, Nginx.</p>
+    <h1>Deploy Rails App with Unicorn and Nginx – Fedora</h1>
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
-    <p>In this article, we will be configuring a multi-layer deployment installation to host Rails based Ruby web applications. To do this, we will use the powerful, flexible, and extremely successful Unicorn application server running behind Nginx. </p>
+    <p>In this article, you will configure a multi-layer deployment installation to host Rails-based Ruby web applications. To do this, you will use a Unicorn application server running behind Nginx.  </p>
 	 <p class='note'>Please make sure that you are logged in as a <code>sudo</code> user.</p>
-   <h2>Prerequisites</h2>
-   <p>Before we proceed, we need to install rbenv and PostgreSQL on our Ruby on Rails application. So please visit <a href="#">17520 - Install Ruby on Rails with rbenv – Fedora</a> and <a href="#">17525 - Use PostgreSQL with your Ruby on Rails Application - Fedora</a> links.
-   <h2>Prepare the Deployment Server</h2>
+      <p>Before you proceed, you need to install rbenv and PostgreSQL on the Ruby on Rails application. So please visit <a href="17520">Install Ruby on Rails with rbenv – Fedora</a> and <a href="17525">Use PostgreSQL with your Ruby on Rails Application - Fedora</a> links.</p>
+   <h2>Prepare the deployment server</h2>
      <ol>
-        <li>Install the bundle of development tool by using the following command
+        <li>Install the bundle of development tool by using the following command:
 			<div class='hacker'>sudo yum groupinstall -y 'development tools'</div>
 		</li>
-		<li>Install EPEL repository and update the operating system
+		<li>Install <code>EPEL</code> repository and update all the package of operating system.
 			<div class='hacker'>sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-	release-7-5.noarch.rpm</div>
 			<div class='hacker'>sudo rpm -ivh epel-release-7-5.noarch.rpm</div>
 			<div class='hacker'>sudo yum –y update</div>
 		</li>
-		<li>Install <code>curl-devel</code> and some other dependencies  by using  following command
+		<li>Install <code>curl-devel</code> and some other dependencies  by using  following command:
 			<div class='hacker'>sudo yum install -y curl-devel nano sqlite-devel libyaml-devel</div>
 		</li>
-		<li>Install NGINX
-			<div class='hacker'>sudo service nginx start</div>
+		<li>Install Nginx.
+			<div class='hacker'>sudo yum install nginx</div>
 		</li>
-		<li>Start the NGINX service
-			<div class='hacker'>gem install unicorn</div>
-		</li>
-		<li>Tell the server to start NGINX upon reboot
+		
+		<li>Tell the server to start Nginx upon reboot.
 			<div class='hacker'>sudo systemctl enable nginx</div>
 		</li>
-		<li>Install Unicorn
+		<li>Install Unicorn.
 			<div class='hacker'>gem install unicorn</div>
 		</li>
 	</ol>
-   <h2>Prepare a Rails Application for Deployment</h2>
+   <h2>Prepare a Rails application for deployment</h2>
     <ol>
-        <li>Create a new directory 
+        <li>Create a directory, provide all the permissions for this directory, and then go to that directory.
             <div class='hacker'>sudo mkdir –p /var/www</div>
-		</li>
-        <li>Provide all permissions for this directory and go to that directory
-            <div class='hacker'>cd /var/</div>
-			<div class='hacker'>sudo chmod 777  www/</div>
+		<div class='hacker'>sudo chmod 777 -R /var/www/</div>
+            <div class='hacker'>cd /var/www/</div>	
       </li>
-        <li>Create a Rails Application in this directory
-          <div class='hacker'>rails new HelloWorld
+        <li>Create a Rail application in this directory, and then move to the application directory.
+          <div class='hacker'>rails new <em><u>Your_application</u></em>
 		 </div>
-      </li>
-        <li>Move to the application directory
-            <div class='hacker'>cd HelloWorld/</div>
+		<div class='hacker'>cd <em><u>Your_application</u></em>/</div>
         </li>
-		<li>Create a sample resource
-            <div class='hacker'>rails generate scaffold Task title:string note:text</div>
-        </li>
-		<li>Create a sample database
-            <div class='hacker'>  RAILS_ENV=development rake db:migrate
-		<br/> RAILS_ENV=production  rake db:migrate
+		
+		<li>Create a sample database, and then generate a scaffold controller to manage the production database.
+            <div class='hacker'>  RAILS_ENV=development rake db:migrate</div>
+		<div class ="hacker">RAILS_ENV=production  rake db:migrate
 		</div>
+		       <div class='hacker'>rails generate scaffold Task title:string note:text/</div>
         </li>
-		<li>Create a directory to hold the PID files
+		<li>Create a directory to hold the PID files.
             <div class='hacker'>mkdir pids</div>
         </li>
-		<li>Enter the application directory and run the following command to run the application
+		<li>Enter the application directory, and then run the following command:
             <div class='hacker'>rails s</div>
-			<p>To terminate the user, hit CTRL+C.</p>
+			<p>To terminate the user, press <strong>CTRL+C</strong>.</p>
         </li>
-		<li>For binding to web browser, run the following command
-            <div class='hacker'>rails server --binding=[your droplet's IP]</div>
+		<li>For binding to web browser, run the following command:
+            <div class='hacker'>rails server --binding=[<em><u>your droplet's IP</u></em>]</div>
         </li>
-		<li>You can now access it on any browser by visiting at <em>http://[your_droplet's_IP]:3000/tasks</em>
+		<li>You can now access it on any browser by visiting:
+		  <div class='hacker'>http://[<em><u>your droplet's IP</u></em>]:3000/tasks</div>
       </li>
-		<li>Upload source code from 
-            <a href="#">Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTROS</a> link
+		
+		<li>Refer to the following article to upload the source code: <a href="17414 ">Use SFTP to Securely Transfer Files with a Remote Server on ALL DISTRO</a>
         </li>
 		
 </ol>
 		
-		<h2>Configure the Server</h2>
-       <ol> <li>To configure Unicorn, move to the rail Application directory
-            <div class='hacker'>Cd /var/www/HelloWorld</div>
+		<h2>Configure server</h2>
+       <ol> <li>To configure Unicorn, move to the Rail application directory.
+            <div class='hacker'>Cd /var/www/<em><u>Your_application</u></em></div>
         </li>
-        <li>Create a blank <code>unicorn.rb</code> document
+        <li>Create a blank <code>unicorn.rb</code>. 
             <div class='hacker'>sudo vim config/unicorn.rb</div>
         </li>
-		<li>Add the following code in this file
-            <div class='hacker'># Set the working application directory
-<br/>	# working_directory "/path/to/your/app"
-<br/>	working_directory "/var/www/HelloWorld"
-<br/>
-<br/>	# Unicorn PID file location
-<br/>	# pid "/path/to/pids/unicorn.pid"
-<br/>	pid "/var/www/HelloWorld"/pids/unicorn.pid"
-<br/>
-<br/>	# Path to logs
-<br/>	# stderr_path "/path/to/log/unicorn.log"
-<br/>	# stdout_path "/path/to/log/unicorn.log"
-<br/>	stderr_path "/var/www/HelloWorld/log/unicorn.log"
-<br/>	stdout_path "/var/www/HelloWorld/log/unicorn.log"
-<br/>
-<br/>	# Unicorn socket
-<br/>	listen "/tmp/unicorn.[app name].sock"
-<br/>	
-listen "/tmp/unicorn.HelloWorld.sock"
-<br/>
-<br/>	# Number of processes
-<br/>	# worker_processes 4
-<br/>	worker_processes 2
-<br/>
-<br/>	# Time-out
-<br/>	timeout 30
+		<li>Add the following code to the file:
+            <div class='hacker'><pre>
+# Set the working application directory
+# working_directory "/path/to/your/app"
+working_directory "/var/www/<em><u>Your_application</u></em>"
+
+# Unicorn PID file location
+# pid "/path/to/pids/unicorn.pid"
+pid "/var/www/<em><u>Your_application</u></em>/pids/unicorn.pid"
+
+# Path to logs
+# stderr_path "/path/to/log/unicorn.log"
+# stdout_path "/path/to/log/unicorn.log"
+stderr_path "/var/www/<em><u>Your_application</u></em>/log/unicorn.log"
+stdout_path "/var/www/<em><u>Your_application</u></em>/log/unicorn.log"
+	
+# Unicorn socket
+listen "/tmp/unicorn.[app name].sock"
+listen "/tmp/unicorn.myapp.sock"
+
+# Number of processes
+# worker_processes 4
+worker_processes 2
+
+# Time-out
+timeout 30
+		</pre>
 	</div>
-	<p>Save and exit.</p>
- 	<p class='note'>Run the <code>unicorn_rails</code> inside the app directory to check the application.</p>
+	</li>
+	<li> Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, following by the <strong>Enter</strong> key. 
+ 	<p class='note'>You can check the application with Unicorn by running the <em><u>unicorn_rails</u></em> inside the app directory.</p>
         </li>
-		<li>Configure Nginx and enable it to communicate with Unicorn. To do this, you need to edit the default configuration file <code>default.conf</code> and leave <code>nginx.conf</code> 
+		<li>Configure Nginx and enable it to communicate with Unicorn. To do this, edit the default configuration file: <code>default.conf</code> and leave <code>nginx.conf</code>. 
             <div class='hacker'>sudo vim /etc/nginx/nginx.conf.default</div>
         </li>
-		<li>Swap the file’s content with the following lines
-            <div class='hacker'>upstream app {
-<br/>   	 # Path to Unicorn SOCK file, as defined previously
-<br/>   	 server unix:/tmp/unicorn.HelloWorld.sock fail_timeout=0;
-<br/>	}
-<br/>
-<br/>	server {
-<br/>
-<br/>   	 listen 80;
-<br/>   	 server_name localhost;
-<br/>
-<br/>   	 # Application root, as defined previously
-<br/>  	  root /root/HelloWorld/public;
-<br/>
-<br/>   	 try_files $uri/index.html $uri @app;
-<br/>
-<br/>   	 location @app {
-<br/>          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-<br/>          proxy_set_header Host $http_host;
-<br/>          proxy_redirect off;
-<br/>          proxy_pass http://app;
-<br/>   	 }
-<br/>
-<br/>    	error_page 500 502 503 504 /500.html;
-<br/>     	client_max_body_size 4G;
-<br/>    	keepalive_timeout 10;
-<br/>	}  
-	</div>
-	<p>Save and exit.</p>
+		<li>Replace the file's content with the following lines:
+            <div class='hacker'><pre>
+upstream app {
+# Path to Unicorn SOCK file, as defined previously
+   	 server unix:/tmp/unicorn.<em><u>Your_application</u></em>.sock fail_timeout=0;
+	}
+
+	server {
+
+   	 listen 80;
+   	 server_name localhost;
+
+   	 # Application root, as defined previously
+  	  root /root/<em><u>Your_application</u></em>/public;
+
+  	 try_files $uri/index.html $uri @app;
+
+   	 location @app {
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header Host $http_host;
+          proxy_redirect off;
+          proxy_pass http://app;
+   	 }
+
+    	error_page 500 502 503 504 /500.html;
+     	client_max_body_size 4G;
+    	keepalive_timeout 10;
+	}  
+	</pre>
+</div>
+	
         </li>
+		<li> Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, following by the <strong>Enter</strong> key. 
+		</li>
 </ol>
 		
-		<h2>Manage the Servers</h2>
-       <ol> <li>Once you finish configuring both the servers, initiate Unicorn and run it as a daemon by using the configuration file. Ensure that you are inside the application directory and run the following command
+		<h2>Manage servers</h2>
+       <ol> <li>After you finish configuring both the servers, initiate Unicorn and run it as a daemon by using the configuration file. Ensure that you are inside the application directory, and then run the following command:
             <div class='hacker'>unicorn_rails -c config/unicorn.rb –D</div>
         </li>
-        <li>Restart the NGINX service
+        <li>Restart the Nginx service.
             <div class='hacker'>sudo service nginx restart
-	      </div>
-		 </li>
-        <li>Test the droplet's IP address (or the domain name associated to it) at <em>http://[Your_droplet's_IP address]/tasks</em>
-          </li></ol>
+		     </div>
+			 </li>
+        <li>Test your droplet's IP address or the domain name associated to it.
+            <div class='hacker'>http://<em><u>Your droplet's IP address</u></em>/tasks</div>
+          
+        </li></ol>
 		<h2>Conclusion</h2>
-		By using all the above steps we will be able to deploy our Rails application with Unicorn and Nginx on Fedora.    
+		By using all of the above steps, you will be able to deploy the Rails application with Unicorn and Nginx on Fedora.    
 </body>
 
 </html>
