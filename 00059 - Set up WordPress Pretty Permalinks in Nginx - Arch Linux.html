@@ -88,10 +88,10 @@ td:nth-child(1) {font-weight:bold;}
         <li>In your WordPress admin dashboard (http://coolexample.com/wp-admin): Go to the <strong>Settings</strong> panel on the left, then <strong>Permalinks</strong>.<br/>
       
 
-        <li>Choose your permalink type. A common option is the <strong>Post Name</strong> option.<br/>
+        Choose your permalink type. A common option is the <strong>Post Name</strong> option.<br/>
         <img src="images/00059/091615/wordpress-pretty-permalinks-page.png" alt="wordpress pretty permalinks page" /></li>
 
-        <li><p>Select <strong>Save changes</strong>.</p>
+        <li>Select <strong>Save changes</strong>.</li>
 </ol>
 
 <h2>Enable URL rewrites</h2>
@@ -103,8 +103,8 @@ td:nth-child(1) {font-weight:bold;}
 <div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
 
 <li>In your file, check to see if you have this location defined in your WordPress block. If not, add it as an extra location.
-<div class="hacker">location / { </br>
-                try_files $uri $uri/ /index.php?q=$uri&$args;<br/>
+<div class="hacker">location / { <br />
+                try_files $uri $uri/ /index.php?q=$ur&amp;$args;<br/>
         }</div>
 
 So the entire section may look like this:
@@ -116,7 +116,7 @@ So the entire section may look like this:
 
 <!--CT (to Susan): This section is added but looks kind of weird. should we break up the em/u so there aren't 2 huge underlines? I'll defer to you-->
             <em><u>location / {
-                try_files $uri $uri/ /index.php?q=$uri&$args;
+                try_files $uri $uri/ /index.php?q=$uri&amp;$args;
             }</u></em>
             
             location ~ \.php$ {
@@ -128,10 +128,10 @@ So the entire section may look like this:
             }
     }
 
-}</pre></div></li>
+}</pre></div>
 
  
-These two changes should already be made with your WordPress install, but double check:
+These two changes should already be made with your WordPress install, but double check:   </li>
 <li>Make sure root is pointed to your WordPress document root.</li>
 <li>Make sure index.php is added to the beginning of the line of index filetypes.   </li>
 
