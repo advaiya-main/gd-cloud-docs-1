@@ -89,7 +89,6 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
 </head>
-
 <body>
 <p>This article walks through installing and securing phpMyAdmin on your server.</p>
     <h1>Install and secure phpMyAdmin with Apache - Fedora</h1>
@@ -137,8 +136,8 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
        Allow from 127.0.0.1
        [...]
 </pre>
-            </div></li>
-        <li>Save and exit the file.
+            </div>
+            Save and exit the file.
        </li>
       
          <li>
@@ -147,18 +146,51 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
         </li>
 
         <li>
-         In your browser, navigate to <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong> to see the web interface. You will see a <strong>Welcome to phpMyAdmin</strong> page.<br />
-            <img src='https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17639/082115/phpAdminpage1.png ' alt='Welcome to phpMyAdmin' />
+         In your browser, navigate to <strong>http://<em><u>your server address or domain name</u></em>/phpmyadmin</strong> to see the web interface. You will see a <strong>Welcome to phpMyAdmin</strong> page.<br />
+            <img src='/images/17641/090915/Welcome-to-phpMyAdmin.png' alt='Welcome to phpMyAdmin' />
         </li>
         <li>
             Log into the user interface using the username <strong>root</strong>, and the MySQL/MariaDB root password. You can also use other valid MySQL/MariaDB users. You will see the phpMyAdmin user interface.<br />
-            <img src='https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/images/17639/082115/phpAdminpage2.png ' alt='phpMyAdmin User Interface' />
+            <img src='/images/17641/090915/phpMyAdmin-user-interface.png' alt='phpMyAdmin user interface' />
         </li>
     </ol>
    
     <h2>Configure phpMyAdmin to be secure</h2>
-    Although your phpMyAdmin interface is up and running, you need to secure it further by adding another layer of authorization to prevent unauthorized users. You will do this by creating a user/password prompt.
-
+    Although your phpMyAdmin interface is up and running, you need to secure it further by adding another layer of authorization to prevent unauthorized users. You will do this in two steps.
+    <ul>
+        <li>
+            Change the default directory.
+        </li>
+        <li>
+            Apache authorization.
+        </li>
+    </ul>
+    <h3>Change the default phpMyAdmin directory.</h3>
+    The default installation of phpMyAdmin creates an alias to <code>/usr/share/phpMyAdmin</code>. You can change the alias on the configuration file from <code>/phpmyadmin</code> to something else, in this case <code>/mysqllogin</code> . This way you  fend off any automated attacks that are likely to go after the default directory on the web server.
+    <ol>
+        <li>
+            Open the configuration file.
+            <div class="hacker">sudo vim /etc/httpd/conf.d/phpMyAdmin.conf </div>
+        </li>
+        <li>
+            Comment out the line(s) that start with <code>Alias</code> and replace with the new alias.
+            <div class="hacker">
+                <pre>
+# Alias /phpmyadmin /usr/share/phpMyAdmin
+# Alias /phpmyadmin /usr/share/phpMyAdmin
+Alias /<em><u>mysqllogin</u></em> /usr/share/phpMyAdmin
+</pre>
+            </div>
+            Save and exit the file.
+        </li>
+        <li>
+            Restart Apache for the change to take effect.
+            <div class="hacker">sudo service httpd restart</div>
+        </li>
+        <li>You will now find the application at <strong>http://<em><u>your server address or domain name</u></em>/<em><u>mysqllogin</u></em></strong> instead of <strong>http://<em><u>your server address or domain name</u></em>/phpmyadmin</strong> </li>
+    </ol>
+    <h3>Apache authorization</h3>
+    We will also add Apache authorization to the <code>phpMyAdmin</code> directory with an .htaccess and .htpasswd file. 
     <ol>
         <li>
             To allow the <code>.htaccess file</code> access the <code>phpMyAdmin</code> directory, you need to make some changes in the phpMYAdmin configuration file.
@@ -172,7 +204,7 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
 &lt;Directory /usr/share/phpMyAdmin>
 [...]
 AllowOverride All
-&lt;IfModule mod_authz_core.c=mod_authz_core.c>
+&lt;IfModule mod_authz_core.c&gt;
 [.....]
 </pre>
             </div>
@@ -199,8 +231,7 @@ AuthUserFile /etc/httpd/pass_file
 Require valid-user
 </pre>
             </div>
-        </li>
-        <li>
+       
             Below is an explanation of what each of these directives mean:
 
             <table>
@@ -227,18 +258,18 @@ Require valid-user
     <ol>
         <li>
             Create a first user to be stored in the password file.
-            <div class="hacker">sudo htpasswd -c /etc/httpd/pass_file <em>newuser1</em></div>
+            <div class="hacker">sudo htpasswd -c /etc/httpd/pass_file <em><u>newuser1</u></em></div>
             Set and confirm password.
         </li>
         <li>
             If you want to enter an additional user, you need to do so without the <code>-c</code> flag.
-            <div class="hacker">sudo htpasswd /etc/httpd/pass_file <em>newuser2</em></div>
+            <div class="hacker">sudo htpasswd /etc/httpd/pass_file <em><u>newuser2</u></em></div>
         </li>
         <li>
             Restart Apache for the changes to take effect.
             <div class="hacker">sudo service httpd restart</div>
         </li>
-        <li>Now, when you navigate to the browser and type <strong>http://<em><u>server-ip-address-or-your-domain-name</u></em>/phpmyadmin</strong>, you will be presented with the username/password prompt. Enter the <code>newuser1</code> credentials that you included in the <code>htpasswd</code> file.</li>
+        <li>Now, when you navigate to the browser and type <strong>http://<em><u>your server address or domain name</u></em>/<em><u>mysqllogin</u></em></strong>, you will be presented with the username/password prompt. Enter the <em><u>newuser1</u></em> credentials that you included in the <code>htpasswd</code> file.</li>
     </ol>
     <h2>Next steps</h2>
     You have successfully installed phpMyAdmin and provided additional security to accessing it. Now, you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17649 - Set up SSL Certificate with phpMyAdmin and Apache - Fedora, CentOS.html">set up SSL Certificate with phpMyAdmin</a>.
