@@ -126,7 +126,7 @@ Nginx is used to enable connections from outside on port 80 to connect to the po
 	
 	<li>Create a new Ghost configuration file, and open it for editing.
       <div class='hacker'>cd sites-available</div>
-	<div class='hacker'>sudo vi ghost</div>
+	<div class='hacker'>sudo vim ghost</div>
     </li>
 	<li>Put the following code into the file, modifying it to adapt to your own configuration (the only thing you should need to change is the domain name).
 	  <div class='hacker'><pre>
@@ -154,14 +154,14 @@ server {
     </li>
 	
 	<li>Open the Ghost configuration file <code>/var/www/ghost/config.js</code> for editing.
-      <div class='hacker'>sudo vi /var/www/ghost/config.js</div>
+      <div class='hacker'>sudo vim /var/www/ghost/config.js</div>
     </li>
 	
 	<li>Put the following code into the Ghost configuration file. The URL can be your domain name (<em><u>http://your-domainname.com</u></em>) or the public IP address of your droplet.
 <div class='hacker'>
   <pre>
 	production: {
-        url: '<em><u>http://Your domain name or IP address</u></em>',
+        url: 'http://<em><u>Your domain name or IP address</u></em>',
         mail: {},
         database: {
             client: 'sqlite3',
@@ -201,7 +201,7 @@ server {
     <ol>
 	<li>Create a new Upstart configuration file, and open it for editing.
 	  <div class='hacker'>cd /etc/init</div>
-	<div class='hacker'>sudo vi ghost.conf</div>
+	<div class='hacker'>sudo vim ghost.conf</div>
 	</li>
 	<li>Put the following code into the configuration file:
 	  <div class='hacker'>
@@ -219,9 +219,11 @@ end script
     </li>
 	
 	<li>Save and exit by pressing the <strong>Esc</strong> key and entering <code>:wq</code></li>
-	
+	<li>Restart the Ghost service to make changes effetice.
+	<div class ="hacker">sudo service ghost restart</div>
+</li>
 	</ol>
-<p>This Upstart configuration ensures that Ghost servers start at the time of server bootup. It also allows better control on Ghost using <code>service ghost start</code>, <code>service ghost stop</code>, and <code>service ghost restart</code>.</p>	
+<p>This Upstart configuration ensures that Ghost servers start at the time of server bootup. It also allows better control on Ghost using <code>service ghost start</code>, <code>service ghost stop</code>.</p>	
 
 	      
 <h2>Next steps</h2>

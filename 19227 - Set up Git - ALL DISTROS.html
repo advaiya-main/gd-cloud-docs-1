@@ -4,8 +4,6 @@
 
 <head>
 
-
-
 <title>Set up Git - ALL DISTROS</title>
 <style type="text/css">
 div.hacker {
@@ -71,34 +69,31 @@ p.note {
 </head>
 
 <body>
-<!-- skj code validated -->
+
 <p>Getting started with setting up (configuring) Git on all distros</p>
     <h1>Set Up Git - ALL DISTROS</h1>
     
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
         <strong>Time</strong>: <em><u>5 minutes</u></em></p>
 
- <!--CT: Added-->  
- <h2>Prerequisites</h2>
-    <p>Before you begin, you'll need to have Git installed. Choose your system for instructions:</p>
-     <ul>
-     <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17366 - Install Git - Ubuntu.html">Install Git - Ubuntu</a></li>
-     <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17370 - Install Git - Debian.html">Install Git - Debian</a></li>
-     <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17367 - Install Git - CentOS, Fedora.html">Install Git - CentOS, Fedora</a></li>
-     <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17369 - Install Git - Arch Linux.html">Install Git - Arch Linux</a></li>
-       </ul>
- 
-  <!--CT: Revised-->           
-    <p>After installing Git, set up your GitHub user name and email address. Every Git commit uses these details. Without them, you get an error message (and have to revise) each comment you make. </p>
-    <h2>Set up your GitHub user name and email address</h2><p>Git comes with a configuration tool called <code>git config</code> that defines how it looks and works. </p>
+    <p>After installing Git, you can set up your Git user name and email address. Every Git commit uses these details. Without them, you get an error message (and have to revise) each comment you make. </p>
+<p>Before you begin, you'll need to have Git installed. Choose your system for instructions:</p>
+<ul>
+  <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17369 - Install Git - Arch Linux.html">Install Git - Arch Linux</a></li>
+  <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17367 - Install Git - CentOS, Fedora.html">Install Git - CentOS, Fedora</a></li>
+  <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17370 - Install Git - Debian.html">Install Git - Debian</a></li>
+     
+  <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17366 - Install Git - Ubuntu.html">Install Git - Ubuntu</a></li>
+  </ul>
+<h2>Set up your Git user name and email address</h2><p>Git comes with a configuration tool called <code>git config</code> that defines how it looks and works. </p>
 <ol>
-    <li> Specify your user name and email address. Replace the username and email with your own:
+    <li> Specify your user name and email address. Replace the user name and user email with your own:
 
         <div class="hacker">git config --global user.name "<em><u>your username</u></em>"   </div>
 <div class="hacker"> git config --global user.email <em><u>youremail@yourdomain.com</u></em></div> 
 </li> 
 
-<li>Check your settings:
+<li>Check your settings.
   <div class="hacker">git config --list</div>
 
 Git  lists all the settings it can find. The output  looks like this:
@@ -118,7 +113,5 @@ user.email=<em><u>youremail@yourdomain.com</u></em></div>
 <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17469 - Use Git Hooks to Automate Development and Deployment - ALL DISTROS.html">Use Git Hooks to Automate Development and Deployment - ALL DISTROS</a></li>
 </ul>
 
-       
-   
 </body>
 </html>

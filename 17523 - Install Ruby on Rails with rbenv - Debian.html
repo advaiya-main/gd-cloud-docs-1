@@ -108,11 +108,12 @@
 		</li>    
 		<li>Add <code>rbenv init</code> into the <code>bashbc</code> shell.
 			<div class='hacker'>echo 'eval "$(rbenv init -)"' >> ~/.bashrc</div>
+			<div class='hacker'>source ~/.bashrc</div>
 		</li>    
 		<li>Restart the shell by either opening a new tab or closing the current terminal and starting it again.
 		</li>
-		<li>Install rbenv.
-			<div class='hacker'>rbenv</div>
+		<li>Check <code>rbenv</code> installed correctly using the following command.
+			<div class='hacker'>type rbenv</div>
 		</li>    
 		<li>Install the latest development version of <code>ruby-build</code> into the <code>~/.rbenv/plugins/ruby-build</code> directory.
 			<div class='hacker'>git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</div>

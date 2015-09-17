@@ -9,7 +9,7 @@
 
 <title>Configure Apache Virtual Hosts - CentOS 7, Fedora</title>
 
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -93,16 +93,16 @@ p.note {
 
     <p>This guide will walk you through how to set up an Apache virtual host on a CentOS 7 or Fedora 20, 21 virtual private server (VPS) as a non-root user with <code>sudo</code> privileges.</p>
     
-    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), find your system: 
+    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), find your system: </p>
         <ul>
           <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17344%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20CentOS%207.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 7</a></li> 
-            <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17342%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20CentOS%207.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 6, Fedora</a></li> 
-            </ul>
+            <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17342%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20CentOS%207.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 6, Fedora</a></li>
 
-    <p>Also, make sure your hostname has a valid DNS record, so that the www version of your domain works. See <a href="/article/19116?prog_id=PROG_ID">Point your domain to a GoDaddy Cloud Server</a> for instructions on setting up your domain.</p>
+
+    <li>Also, make sure your hostname has a valid DNS record, so that the www version of your domain works. See <a href="/article/19116?prog_id=PROG_ID">Point your domain to a GoDaddy Cloud Server</a> for instructions on setting up your domain.</li>
     
-    <li> </p>
-    
+     </ul>
+
     <h2>Install the Apache web server</h2>
     <ol>
      <li>Update your packages using <code>yum</code>.
@@ -151,9 +151,9 @@ p.note {
 </ol>
 
 <!--CT (Susan): Help me fix the lists/bulleting? I accidentally have some nested lists, I think...-->
-  <h2>Create sites-available and sites-enabled directories</h2
+  <h2>Create sites-available and sites-enabled directories</h2>
 
- <p>Set up two directories: one to store the virtual host files and another to hold symbolic links to virtual hosts that will be published.</p>
+<p> Set up two directories: one to store the virtual host files and another to hold symbolic links to virtual hosts that will be published.</p>
     <div class="hacker">sudo mkdir /etc/httpd/sites-available</div>
       <div class="hacker">sudo mkdir /etc/httpd/sites-enabled</div>    
   

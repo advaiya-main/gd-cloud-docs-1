@@ -10,7 +10,7 @@
 
 
 <title>Install and configure Apache Subversion (SVN) - Arch Linux</title>
-<style>
+<style type ="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -69,78 +69,148 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Setting up configuration of Apache Subversion (SVN) on Arch Linux, Version Control, Apache.</p>
+    <h1>Install and configure Apache Subversion (SVN) - Arch Linux</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
+        <strong>Time</strong>: <em><u>30 minutes</u></em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+    <p>This article provides information about installing and configuring Apache Subversion (SVN) on Arch Linux instance by allowing access for different protocols, such as <strong>http</strong>, <strong>https</strong>, and many more. SVN is an open-source project for version control system.</p>
+<h2>Install SVN and Apache</h2>
+<ol>
+<li>Update the repository before proceeding with the installation and configuration of SVN.
+<div class = "hacker">sudo pacman -Syu</div>
+</li>
+<li>Install subversion and Apache.
+<div class = "hacker">sudo pacman -S subversion http</div>
+</li>
+</ol>
+ <h2>Create a SVN directory</h2>
+ <ul>
+ <li>Create a project repository directory, where all the repositories will be housed. You can choose any directory for housing the repositories.
+<div class='hacker'>sudo mkdir -p <em><u>/home/svn/projects</u></em></div>
+		 <p class='note'>We have taken <em><u>/home/svn/projects</u></em>. It can be changed as per the requirement.</p>
+	  </li>
+	  </ul>
+	   <h2>Create a test repository</h2>
+     <ol>
+		<li>Create a test repository to test SVN.
+			<div class='hacker'>cd <em><u>/home/svn/projects</u></em></div>
+				<div class='hacker'>sudo mkdir <em><u>~/test</u></em></div>
+				<div class='hacker'>sudo svnadmin create <em><u>/home/svn/projects/test</u></em></div>
+		</li>
+		<li>Go to the test repository, and create the following directories:
+			<div class='hacker'>cd <em><u>~/test</u></em></div>
+			<div class='hacker'>sudo mkdir trunk tags branches</div>
+		</li>
+		<li>Import these directories into the test repositories using the following command:
+			<div class='hacker'>sudo svn import <em><u>~/test</u></em> file:///<em><u>home/svn/projects/test</u></em> -m 'Initial project directories'</div>
+		</li>
+		<li>Change the ownership of repository for web access.
+			<div class='hacker'>sudo chown -R http:http <em><u>/home/svn/projects</u></em></div>
+		</li>
+</ol>
+<h2>Set up SVN with Apache</h2>
+   <h3>Configure Apache and SVN</h3>
+    <ol>
+        <li>Open the configuration file of Apache to enable SVN with web.
+            <div class='hacker'>sudo vim /etc/httpd/conf/httpd.conf</div>
+			</li>
+			<li>Add the following lines at the bottom of the file:
+			<div class ="hacker"><pre>
+LoadModule dav_module           modules/mod_dav.so
+LoadModule dav_fs_module        modules/mod_dav_fs.so
+LoadModule dav_svn_module       modules/mod_dav_svn.so
+LoadModule authz_svn_module     modules/mod_authz_svn.so
+</pre>
+</div>
+</li>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <strong>:wq</strong>, and then pressing <strong>Enter</strong> key.</li>
+<li>Restart the Apache service to make the changes effective.
+<div class = "hacker">sudo systemctl restart httpd</div>
+</li>
+<li>Open the file <code>httpd-vhosts.conf</code> to add host.	
+<div class = "hacker">sudo vim /etc/httpd/conf/extra/httpd-vhosts.conf</div>
+</li>
+<li>Add the following lines in this file:
+<div class = "hacker">
+<pre>
+&lt;Location /svn&gt;
+   DAV svn
+   SVNParentPath <em><u>/home/svn/projects</u></em>
+   AuthzSVNAccessFile /home/svn/.svn-policy-file
+   AuthName "SVN Repositories"
+   AuthType Basic
+   AuthUserFile /etc/svn-auth
+   Require valid-user
+&lt;/Location&gt;
+ </pre>
+ </div>
+ </li>
+ <li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <strong>:wq</strong>, and then pressing <strong>Enter</strong> key.</li>
+	 <li>Restart the Apache service to implement the changes using the following command:
+	 <div class = "hacker">sudo systemctl restart httpd</div>
+	 </li>
+	 <li>Create a new authenticated user. 
+			<div class='hacker'>sudo htpasswd -cm /etc/svn-auth <em><u>svnuser</u></em></div>
+			<p>When prompted for password, enter the password.</p>
+		</li>
+		<li>Open a browser, and go to http://<em><u>your_ip_address/svn/test</u></em>. Successful execution of the above steps will result into creation of three new directories (<strong>trunk</strong>, <strong>tags</strong>, <strong>branches</strong>).
+	
+		</li>
+		</ol>
+		<h3>Checkout the repository and commit files</h3>
+       <ol> 
+	   <li>Create a new directory to <code>checkout</code> the <code><em><u>/svn/test/</u></em></code> directory. The command <code>checkout</code> will clone the files.
+            <div class='hacker'>cd ~</div>
+			<div class='hacker'>mkdir <em><u>test2</u></em></div>
+			<div class='hacker'>svn checkout http://<em><u>your_ip_address/svn/test/</u></em>trunk <em><u>test2</u></em></div>
+        </li>
+        <li>
+			After cloning the directory <code>test2</code>, create some test or sample files. Run the <code>svn add</code> command to push into the remote repository. 
+            <div class='hacker'>touch index.php</div>
+			  <div class='hacker'>svn add index.php</div>
+			  <div class='hacker'>svn add *</div>
+        </li>
+		<li>  To commit the modifications, use the following command:
+		
+        <div class='hacker'>svn commit -m <em><u>'commit message'</u></em></div>
+		<p><code>-m</code> stands for message. Here, you need to write proper message or comments related to your commit changes.</p>		
+		 </li>
+		<li>Update the server using the <code>svn up</code> command. Upon keying this command, SVN prompts for password, please enter correct credentials which were used while creating users of SVN.
+        </li>
+</ol>
+<h2>Set up SVN with Apache-SSL</h2>
+<ol>
+	    <li>To use <strong>https</strong>, follow the below command and enable SSL modules and default SSL web site.
+			<div class='hacker'>sudo vi /etc/httpd/conf.d/ssl.conf</div>
+		 </li>
+		 <li>Modify Apache SSL configuration as per the following to enable SVN on <strong>https</strong> protocol: 
+		 <div class = "hacker"><pre> &lt;Location /svn&gt;
+  DAV svn
+  SVNParentPath /home/svn/projects
+  AuthType Basic
+  AuthName "Subversion Repository"
+  #AuthUserFile /etc/apache2/dav_svn.passwd
+  AuthUserFile /etc/svn-auth
+  &lt;LimitExcept GET PROPFIND OPTIONS REPORT&gt;
+    Require valid-user
+  &lt;/LimitExcept&gt;
+ &lt;/Location&gt;
+</pre>
+</div>
+</li>
+ <li><p>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key. </p></li>
+ <li>Restart the Apache server to implement the changes.
+            <div class='hacker'>/etc/init.d/apache2 restart</div>
+			
+        </li>
+		<li>To checkout repository, use the following command:
+		<div class='hacker'>svn checkout --username <em><u>svnuser</u></em> https://<em><u>your_ip_address/svn/test/</u></em> <em><u>/home/somedir</u></em></div>
+		</li>
+</ol>
+<h2>Conclusion</h2>
+		In this article, you learned the steps involved in installation and configuration of the Apache SVN and securely accessing them via both <strong>http</strong> and <strong>https</strong> protocols on Arch Linux. 
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
-
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
-   
-</body>
+	 </body>
 </html>

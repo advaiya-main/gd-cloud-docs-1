@@ -60,14 +60,14 @@ p.note {
 <div class="hacker">sudo a2enmod rewrite</div>
 </li>
 <li>Restart the <code>apache2</code> webserver to make the changes effective.
-<div class="hacker">service apache2 restart</div>
+<div class="hacker">sudo service apache2 restart</div>
 </li>
 <li>Create a database for Drupal to store basic settings and user data.
 <div class="hacker">mysql -uroot -p<em><u>password</u></em></div>
 <div class="hacker">CREATE DATABASE <em><u>drupal</u></em>;</div>
 </li>
 <li>Add a new user for Drupal database.
-<div class="hacker">CREATE USER drupaluser@localhost IDENTIFIED BY <em><u>'drupalpassword'</u></em>;</div>
+<div class="hacker">CREATE USER <em><u>drupaluser@localhost</u></em> IDENTIFIED BY <em><u>'drupalpassword'</u></em>;</div>
 </li>
 <li>Grant all privileges to the Drupal user.
 <div class="hacker">GRANT ALL PRIVILEGES ON drupal.* TO drupaluser@localhost;</div>
@@ -84,6 +84,8 @@ p.note {
 <ol>
 <li>Download the Drupal stable version from the official site, using the following command:
 <div class="hacker">cd /var/www/html</div>
+<p>For Debian.</p>
+<div class = "hacker">cd /var/www/</div>
 <div class="hacker">sudo wget http://ftp.drupal.org/files/projects/drupal-7.39.tar.gz</div>
 </li>
 <li>Extract Drupal compressed file using the following command:
@@ -94,7 +96,12 @@ p.note {
 </li>
 <li>Change permission to 755 to the Drupal directory:
 <div class="hacker">sudo chmod -R 755 /var/www/html/<em><u>drupal</u></em></div>
+<p>For Debian.</p>
+<div class="hacker">sudo chmod -R 755 /var/www/<em><u>drupal</u></em></div>
+
 <div class="hacker">sudo chown -R www-data:www-data /var/www/html/<em><u>drupal</u></em></div>
+<p>For Debian.</p>
+<div class="hacker">sudo chown -R www-data:www-data /var/www/<em><u>drupal</u></em></div>
 </li>
 </ol>
 

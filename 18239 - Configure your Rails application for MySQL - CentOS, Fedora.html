@@ -107,9 +107,8 @@
 </li>
 <li>Install MySQL.
       <div class="hacker">sudo mysql_secure_installation </div>
-</li>
-<li>
-After you have finished the previous command, a Welcome screen displays the following:
+
+After you have finished the previous command, a Welcome screen displays. Provide appropriate passowrd to continue.
 <div class="hacker">
 <pre>
 	NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
@@ -133,10 +132,12 @@ After you have finished the previous command, a Welcome screen displays the foll
 	  Reload privilege tables now?           --> y
 </pre>
 </div> </li>
+<!--
 <li>If you could not set a password earlier, use the following command to set the password now: 
 <div class="hacker">
-	/usr/bin/mysqladmin -u root password 'new-password'
+	/usr/bin/mysqladmin -u root password '<em><u>new-password</u></em>'
 </div></li>
+-->
 </ol>
 
 <h2>Install MySQL adapter</h2>
@@ -178,7 +179,8 @@ default: &amp;default
   socket: /var/lib/mysql/mysql.sock
 </pre>
 </div></li>
-<li>Save and exit.<div class="hacker">:wq!</div></li>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+</li>
 </ol>
 <h2>Create a new MySQL database</h2>
 
@@ -187,7 +189,7 @@ default: &amp;default
 	<div class="hacker">mysql -uroot -p</div>
 </li>
 <li>Create a new database.
-<div class="hacker">create database <em><u>rails_myapp</u></em>; </div>
+<div class="hacker">create database <em><u>your_database_name</u></em>; </div>
 <p class="note">In MySQL, commands are known as <b>Query Set</b> .</p>
 </li>
 <li>Revoke the privileges.
