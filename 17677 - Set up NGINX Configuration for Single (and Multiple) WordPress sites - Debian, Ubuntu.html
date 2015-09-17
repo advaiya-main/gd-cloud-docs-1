@@ -36,11 +36,11 @@ p.note {
 }
 
 table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
-tr:nth-child(odd) {background-color: #f7f7f7 
+tr:nth-child(odd) {background-color: #f7f7f7
 ;}
 tr:nth-child(1) {background-color:#ddd;}
 th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
-td{border: 1px solid #b2b2b2 
+td{border: 1px solid #b2b2b2
 ;padding: 5px;vertical-align:top;}
 td:nth-child(1) {font-weight:bold;}
 
@@ -88,14 +88,15 @@ td:nth-child(1) {font-weight:bold;}
 <p>We'll use these example sites: </p>
 <table>
   <tr>
-    <td><b>Site 1</b></th>
+    <td><b>Site 1</b></td>
     <td>coolexample.com</td>
   </tr>
   <tr>
     <td><b>Site 2</b></td>
     <td>product.coolexample.com (for multisite)</td>
   </tr>
-    <th>Site 3<br/></th>
+  <tr>
+    <td>Site 3<br/></td>
     <td>aboutus.coolexample.com</td>
   </tr>
 </table>
@@ -221,7 +222,7 @@ Now we'll create a universal WordPress configuration that'll apply to all your W
 <li>Again, this is a new file, so it'll be blank. Paste the following contents:
 <div class="hacker"><pre># WORDPRESS: Enable Pretty Permalinks. Rewrite rules, sends everything through index.php and keeps the appended query string intact. 
 location / {
-    try_files $uri $uri/ /index.php?q=$uri&$args;
+    try_files $uri $uri/ /index.php?q=$uri&amp;$args;
 }
 
 # SECURITY: Deny all attempts to access php files in the uploads directory
@@ -253,15 +254,57 @@ function do_get_id( $columns ) {
     return $columns;
 }
 
-# End of file. Yay!</pre></div></li>
+# End of file. Yay!</pre></div>
 
 What do the different sections mean?
-<!--CT (to Susan): check my nested list. thanks!-->
-<ul><li><code>try_files $uri $uri/ /index.php?q=$uri&$args;</code>: Enables WordPress pretty permalinks</li></ul>
-<ul> <li><code>location ~* /(?:uploads|files)/.*\.php$ {deny all;}</code>: Blocks malicious code from being uploaded into your media directory.</li></ul>
-<ul><li><code>location ~ \.php$</code>: WordPress uses php so this part tells Nginx how to pass php files.</li></ul>
- <ul><li><code>try_files $uri =404;</code>: A security rule saying to serve the php file, otherwise show a 404 error. </li></ul> 
- <ul><li>Additional Rules: Plugins: Add any additional Nginx rules you might have, including plugins. For our tutorial, we added the configuration for enabling the WordPress Domain Mapping plugin.</li></ul>
+<!--CT (to Susan): check my nested list. thanks! the table looks better you can switch it back if you like-->
+
+ <table>
+        <tr>
+                <td>Section</td>
+                <td>Description</td>
+        </tr>
+
+        <tr>
+                <td><code>try_files $uri $uri/ /index.php?q=$uri&amp;$args;</code>:</td>
+                <td>Enables WordPress pretty permalinks</td>
+        </tr>
+
+        <tr>
+                <td><code>location ~* /(?:uploads|files)/.*\.php$ {deny all;}</code>:</td>
+                <td>Blocks malicious code from being uploaded into your media directory.</td>
+        </tr>
+
+        <tr>
+                <td><code>location ~ \.php$</code>: </td>
+                <td>WordPress uses php so this part tells Nginx how to pass php files.</td>
+        </tr>
+
+        <tr>
+                <td><code>try_files $uri =404;</code>:</td>
+                <td>A security rule saying to serve the php file, otherwise show a 404 error.</td>
+        </tr>
+
+ </table>  </li>
+
+<!-- table worked better thank a nested list <ul>
+
+            <li><code>try_files $uri $uri/ /index.php?q=$uri&$args;</code>: Enables WordPress pretty permalinks</li>
+
+
+        <li><code>location ~* /(?:uploads|files)/.*\.php$ {deny all;}</code>: Blocks malicious code from being uploaded into your media directory.</li>
+
+
+        <li><code>location ~ \.php$</code>: WordPress uses php so this part tells Nginx how to pass php files.</li>
+
+
+
+        <li><code>try_files $uri =404;</code>: A security rule saying to serve the php file, otherwise show a 404 error. </li>
+
+
+        <li>Additional Rules: Plugins: Add any additional Nginx rules you might have, including plugins. For our tutorial, we added the configuration for enabling the WordPress Domain Mapping plugin.</li>
+
+</ul> <br />-->
 
 <li>Save and close.</li>
 </ol>
@@ -339,7 +382,7 @@ server {
 
 <p>If you have a multi-site setup and need sub-directories, include some rewrite rules in your multisite.conf file.</p>
 
-Open your multisite.conf file to edit. 
+Open your multisite.conf file to edit.
 <div class="hacker">sudo vim multisite.conf</div>
 
 Add this content to the end of the file. 
@@ -396,4 +439,5 @@ server {
 <li><a href="Articles/19193 - Install WordPress on your LEMP server - Debian.html">Install and set up a WordPress multisite for Debian</a></li>
 </ul>
 
-
+  </body>
+  </html>
