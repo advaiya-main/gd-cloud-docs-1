@@ -9,7 +9,7 @@
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>17590 - Install and configure Concrete5 on your LAMP server - Debian, Ubuntu</title>
+<title>17592 - Install and configure Concrete5 on your LAMP server - Arch Linux</title>
 <style>
 div.hacker {
 background-color:#666;
@@ -68,32 +68,45 @@ p.note {
 </head>
 
 <body>
-<p>Install and configure Concrete5 on your LAMP server - Debian, Ubuntu, PHP, Applications </p>
+<p>Install and configure Concrete5 on your LAMP server - Arch Linux, PHP, Applications </p>
 
-<h1>Install and configure Concrete5 on your LAMP server - Debian, Ubuntu </h1>
+<h1>Install and configure Concrete5 on your LAMP server - Arch Linux</h1>
 
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>30 minutes</em></p>
 
 <h2>Introduction</h2>
-<p>Concrete5 is an open source Content Management System (CMS) made in PHP. Concrete5 is easy to understand and learn. In this article you will learn, how to install and configure Concrete5 on your LAMP server - Debian and Ubuntu.</p>
+<p>Concrete5 is an open source Content Management System (CMS) made in PHP. Concrete5 is easy to understand and learn. In this article you will learn, how to install and configure Concrete5 on your Arch Linux LAMP server.</p>
 
 <p>Before you proceed, you must have access to <code>sudo</code> priviledges to perform the steps mentioned in this article. In addition, you will need to build a LAMP stack by referring the following links:</p>
 	<ul>
-	<li><a href="17346">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a></li>
-	<li><a href="17341">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu</a></li>
-   	</ul> 
+	<li><a href="17345">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a></li>
+	</ul> 
 
 <h2>Install the required dependency</h2>
 <ol>
 <li>Install the unzip tool which is required to extract the file.
-<div class="hacker">sudo apt-get install unzip </div>
+<div class="hacker">sudo pacman -S unzip</div>
 </li>
-<li>Install the PHP libraries for graphics and XML.
-<div class="hacker">sudo apt-get install php-gd php-xml</div>
+<li>Install the PHP libraries for graphics.
+<div class="hacker">sudo pacman -S php-gd</div>
+</li>
+</ol>
+<h2>Update the PHP configuration file</h2>
+<ol>
+<li>Open <code>php.ini</code> to enable various graphics and modules.
+<div class="hacker">sudo vim /etc/php/php.ini</div>
+</li>
+<li>Uncomment the following lines in the file.
+<pre>
+extension=mysql.so
+extension=mysqli.so
+extension=iconv.so
+extension=gd.so
+</pre>
 </li>
 <li>Restart the Apache services to make the changes effective.
-<div class="hacker">sudo service restart httpd</div>
+<div class="hacker">sudo systemctl restart httpd.service</div>
 </li>
 </ol>
 
@@ -112,16 +125,6 @@ p.note {
 <li>Change directory to concrete5.
 <div class="hacker">cd concrete5</div>
 </li>
-<li>Update the Apache configuration before proceeding with the next step. Check if <code>mod_rewrite</code> is enabled or not, using the following command:
-<div class="hacker">apache2ctl -M</div>
-<p>If you find <code>rewrite_module</code> in the list, then, <code>mod_rewrite</code> is enabled.</p>
-</li>
-<li>Enable rewrite module using the following command:
-<div class="hacker">a2enmod rewrite</div>
-</li>
-<li>Restart the Apache server.
-<div class="hacker">sudo services apache2 restart</div>
-</li>
 </ol>
 
 <h2>Create database</h2>
@@ -136,9 +139,9 @@ p.note {
 <h2>Install Concrete5</h2>
 <ol>
 <li>Change permissions of the following to make them writable for concrete5.
-<div class="hacker"><xmp>sudo chown -R root:www-data files/
-sudo chown -R root:www-data config/
-sudo chown -R root:www-data packages/</xmp> </div>
+<div class="hacker"><xmp>sudo chown -R root:http files/
+sudo chown -R root:http config/
+sudo chown -R root:http packages/</xmp> </div>
 
 <p>Change permissions of the following folders:</p>
 
@@ -164,7 +167,7 @@ sudo chmod -R 775 packages/</xmp></div>
 
 <h2>Conclusion</h2>
 
-<p>In this article, you have learnt to install and configure Concrete5 on your LAMP server - Debian and Ubuntu.</p>
+<p>In this article, you have learnt to install and configure Concrete5 on your Arch Linux LAMP server.</p>
  
 </body>
 </html>
