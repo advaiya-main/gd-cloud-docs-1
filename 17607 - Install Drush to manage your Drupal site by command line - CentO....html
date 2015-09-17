@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+
+<!--Article Number is __________ (fill in blank)-->
+
+<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+
+
+<title>Install Drush to manage your Drupal site by command line - Debian, Ubuntu</title>
+<style type="text/css">
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">SSH, Security</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-install-authy-and-configure-two-factor-authentication-for-ssh, https://www.digitalocean.com/community/tutorials/how-to-install-authy-and-configure-two-factor-authentication-for-ssh</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#Arch Linux;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string">Prereqs - None, but lead off by having reader download Authy app on Android/iOS device.</mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">1</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">17507</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:Week msdt:dt="string">3.00000000000000</mso:Week>
+<mso:ArticleStatus msdt:dt="string">Not started</mso:ArticleStatus>
+<mso:HoursDraftingEstimated msdt:dt="string">0.300000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.100000000000000</mso:HoursEditingEstimated>
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string"></mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body>
+<p>Setting up Drush, Drupal, PHP, Applications</p>
+    <h1>Install Drush to manage your Drupal site by command line - Debian, Ubuntu</h1>
+    
+    <p><strong>Difficulty</strong>: <em>1</em><br/>
+        <strong>Time</strong>: <em>1 hour</em></p>
+
+   
+
+     <p>Drush is a command-line interface that manages a Drupal framework. When compared to the user interface (UI) of Drupal, Drush provides a much faster way to manage Drupal sites by eliminating various time-consuming tasks. </p>
+	<p>In this article, you will learn how to install Drush in Arch Linux.</p>
+	<p class ="note">You need access to sudo privileges to complete these steps.</p>
+	<p>Confirm that you have LAMP installed on your server. If needed, you can refer to this article: <a href="17344">Build a LAMP stack (Linux, Apache, MySQL, PHP) – CentOS 7</a> and <a href="17342"> Build a LAMP stack (Linux, Apache, MySQL, PHP) - Fedora</a>.</p>
+
+  <h2>Install server requirements for Drupal</h2>  
+<ol> 
+   <li>Update the packages.
+   <div class="hacker">sudo yum update</div>
+   </li>
+   <li>Install Unzip.
+   <div class="hacker">sudo yum install unzip</div>
+   </li>
+    <li>Install the <code>php-gd</code> graphic library.
+   <div class="hacker">sudo yum install php-gd phpunit tar</div>
+   </li>
+   <li>Make the following corresponding changes to the <code>Directory</code> block of <code>/etc/httpd/conf/httpd.conf  </code>file to let <code>.htaccess </code> file override the default Apache instructions.
+   <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
+  <p>Updated <code>Directory</code> block should look like:</p>
+   <div class="hacker">
+<pre>
+&lt;Directory /var/www/html&gt;
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+&lt;/Directory&gt;
+</pre>
+   </div>
+   </li>
+   <li>Save and exit file by pressing <strong>Esc </strong>key and then typing :<strong>wq</strong> followed by the <strong>Enter</strong> key.</li>
+   <li>Restart Apache.
+   <div class="hacker">sudo service httpd restart</div>
+   </li>
+  </ol>
+  
+  <h2>Download Drush files</h2>
+<ul> 
+<li>Download Drush using the following command.
+   <div class="hacker">sudo wget <em><u>https://github.com/drush-ops/drush/archive/master.zip</u></em></div>
+   </li>
+   </ul>
+   
+   <h2>Install Drush</h2>
+   <ol>
+   <li>Unzip Drush file archive.
+   <div class="hacker">sudo unzip -q master.zip</div>
+   </li>
+   <li>Rename <code>~/drush-master</code> directory for ease of use.
+   <div class="hacker">sudo mv ./drush-master ./drush</div>
+   </li>
+   <li>Add <code> alias drush='~/drush/drush'</code> into <code>.bashrc</code> file using the following command to let bash executable recognize the alias <code>drush</code>.
+   <div class="hacker">echo "alias drush='~/drush/drush'" >> .bashrc</div>
+   </li>
+   </ol>
+   
+   <h2>Install composer</h2>
+   <ol>
+   <li>Get ownership of <code>drush</code> directory.
+   <div class="hacker">sudo chown –R user_name:user_name drush/</div>
+   </li>
+   <li>Change the directory to <code>drush</code>.
+   <div class="hacker">cd drush</div>
+   </li>
+   <li>Get composer files and pipe them to PHP for execution.
+   <div class="hacker">sudo curl -sS https://getcomposer.org/installer | php</div>
+   </li>
+   <li>Install Drush using the following command.
+   <div class="hacker">sudo php composer.phar install</div>
+   </li>
+  </ol>
+  
+  <h2>Cleanup</h2>
+<ol> 
+<li>Navigate to the root directory.
+   <div class="hacker">cd ~</div>
+   </li>
+   <li>Reset bash settings.
+   <div class="hacker">source .bashrc</div>
+   </li>
+   <li>Confirm the <code>drush</code> installation with following command. This will display the help options of Drush.
+   <div class="hacker">drush help</div>
+   </li>
+   </ol>
+   
+   <h2>Create a MySQL database and user </h2>
+   <ol>
+   <li>Log into the MySQL.
+   <div class="hacker">mysql -u root –p</div>
+   <p>It will prompt you for the root password.</p>
+   </li>
+   <li>Create a database with the following command.
+   <div class="hacker">CREATE DATABASE <em><u>drupal</u></em>;</div>
+   </li>
+   <li>Create a user.
+   <div class="hacker">CREATE USER <em><u>drupal_user@localhost</u></em>;</div>
+   </li>
+   <li>Set password for the new user.
+   <div class="hacker">SET PASSWORD FOR drupal_user@localhost= PASSWORD("<em><u>password</u></em> ");</div>
+   </li>
+   <li>Grant privileges.
+   <div class="hacker">GRANT ALL PRIVILEGES ON drupal.* TO drupal_user@localhost IDENTIFIED BY '<em><u>password</u></em> ';</div>
+   </li>
+	<li>Refresh MySQL.
+   <div class="hacker">FLUSH PRIVILEGES;</div>
+   </li>
+	<li>Exit from the MySQL shell.
+   <div class="hacker">exit</div>
+   </li>
+  </ol>
+  
+  
+  <h2>Download and Configure Drupal</h2>
+<ol> 
+<li>Change ownership of the main <code>html</code> folder.
+   <div class="hacker">sudo chown -R user_name:user_name /var/www/html/ </div>
+   </li>
+   <li>Navigate to the root folder.
+   <div class="hacker">cd /var/www/html</div>
+   </li>
+   <li>Download Drupal. You can give any name to your Drupal project/site.
+   <div class="hacker">drush dl drupal --drupal-project-rename=drupal_site</div>
+   </li>
+   <li>Run the following command to configure Drupal and change parameters as per your need.
+   <div class="hacker">drush site-install standard --db-url=mysql://drupal_user:password@localhost/db_name --site-name=your_site_name --account-name=admin --account-pass=your_password</div>
+   <p>It will create a user with username <code>account-name</code> and given password. </p>
+   </li>
+   <li>Assign the <code>sites/default/</code> group ownership to the <code>apache</code> group.
+   <div class="hacker">sudo chown -R root:apache sites/default/files</div>
+   </li>
+   <li>Change permissions of <code>sites/default/files</code> for <code>apache</code> group.
+   <div class="hacker">sudo chmod -R 775 sites/default/files</div>
+   </li>
+   <li>Access your Drupal installation and give admin credential that you have created.
+   <div class="hacker">http://<em><u>server_ip /drupal_site /</u></em></div>
+   </li>
+  </ol>
+           
+    <h2>Conclusion </h2>
+    <p>In this article, you have learnt to install Drush on your CentOS and Fedora server. You can easily manage your site via the command line using Drush. To execute drush commands, you need to be on the document root of your Drupal site.</p>
+   
+</body>
+</html>
