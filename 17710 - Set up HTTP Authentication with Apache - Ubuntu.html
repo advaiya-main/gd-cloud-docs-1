@@ -85,8 +85,8 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-<p>This article walks through setting up basic http authentication in Apache on a Debian system using .htaccess.</p>
-    <h1>Set up HTTP authentication with Apache - Debian</h1>
+<p>This article walks through setting up basic http authentication in Apache on a Ubuntu system using .htaccess.</p>
+    <h1>Set up HTTP authentication with Apache - Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
@@ -94,7 +94,7 @@ td:nth-child(1) {font-weight:bold;}
     <p>In this article, you will learn to protect your directories or websites using HTTP authentication. You will use an <code>.htaccess</code> file. For the following example, you will require user authentication in order to view the Apache test page.</p>
 
     <h2>Prerequisite</h2>
-    <p>You must have completed the <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">initial Server Setup</a> on your server, and installed Apache. If you haven't installed Apache yet, install it now. </p>
+    <p>You must have completed the <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17321 - Initial Server Setup - Ubuntu.html">initial Server Setup</a> on your server, and installed Apache. If you haven't installed Apache yet, install it now. </p>
     <ul><li>
     <div class="hacker">sudo apt-get update</div>
     <div class="hacker">sudo apt-get install apache2</div>
@@ -159,10 +159,11 @@ Require valid-user
     Allow from all
 &lt;/Directory>
 </pre></div>
+Save and exit the file.
         </li>
         <li>Restart Apache.
         <div class="hacker">sudo service apache2 restart</div></li>
-        <li>If you navigate to <strong>http://<em><u>server-ip-address</u></em>/</strong> on your web browser, a prompt will ask you for a valid username and password. Enter the newly created user <em><u>newuser1</u></em>, and the password you set. After authentication, you should see the Apache test page.</li> 
+        <li>If you navigate to <strong>http://<em><u>your server address or domain name</u></em>/</strong> on your web browser, a prompt will ask you for a valid username and password. Enter the newly created user <em><u>newuser1</u></em>, and the password you set. After authentication, you should see the Apache test page.</li> 
     </ol>   
               
     <h2>Conclusion</h2>
