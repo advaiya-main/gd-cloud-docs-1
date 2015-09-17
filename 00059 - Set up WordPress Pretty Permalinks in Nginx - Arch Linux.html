@@ -102,30 +102,31 @@ td:nth-child(1) {font-weight:bold;}
 <li>Open your <code>nginx.conf</code> file to edit.
 <div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
 
-<li>In your server block, find try_files and modify so it looks like this:
+<li>In your file, check to see if you have this location defined in your WordPress block. If not, add it as an extra location.
+<div class="hacker">location / { <br />
+                try_files $uri $uri/ /index.php?q=$ur&amp;$args;<br/>
+        }</div>
 
-<div class="hacker">try_files $uri $uri/ /index.php?q=$ur&amp;$args;</div>
+  So, the entire section may look like this:
+  <div class="hacker"><pre>server {
+           listen 80;
+           root    /var/www/wordpress;
+           index index.php index.html index.htm;
+           server_name coolexample.com
+            <em><u>location / {</u></em>
+                <em><u>try_files $uri $uri/ /index.php?q=$uri&amp;$args;</u></em>
+            <em><u>}</u></em>
+            
+            location ~ \.php$ {
+                   fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
+                   fastcgi_index index.php;
+                   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script$
+                   include /etc/nginx/fastcgi_params;
+                   #include fastcgi.conf;
+            }
+    }
 
-So, the section may look like this (it's a long file, so this is truncated):
-
- <div class="hacker"><pre>server {
-        listen 80 default_server;
-        listen [::]:80 default_server ipv6only=on;
-
-        root /var/www/html;
-        index index.php index.html index.htm;
-
-        # Make site accessible from http://localhost/
-        server_name localhost;
-
-        location / {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                   <em><u>try_files $uri $uri/ /index.php?q=$uri&$args;</u></em>
-                # Uncomment to enable naxsi on this location
-                # include /etc/nginx/naxsi.rules
-        }
-        ...</pre></div>
+}</pre></div>
 
 Also, you should have made these two changes in your WordPress installation already, but double-check that:  <ul>
 <li><code>root</code> is pointed to your WordPress document root.</li>
