@@ -4,10 +4,6 @@
 
 <head>
 
-<!--Article Number is 17641 (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
 
 <title>Install and secure phpMyAdmin with NGINX - Debian</title>
 <style type='text/css'>
@@ -85,32 +81,32 @@ http://your server IP address/phpmyadmin/info.php not showing any phpmyadmin UI,
         <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
         
-  <p>This article describes how to install phpMyAdmin and provide a baseline level of security for it in an Nginx environment.&nbsp; It assumes you have already <a href="http://17325%20-%20Initial%20Server%20Setup%20-%20Debian.html">set up a Debian server</a> and installed a <a href="http://17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">LEMP stack</a>.</p>
+  <p>This article describes how to install phpMyAdmin and provide a baseline level of security for it in an Nginx environment. These tasks assume you have already <a href="http://17325%20-%20Initial%20Server%20Setup%20-%20Debian.html">set up a Debian server</a> and installed a <a href="http://17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">LEMP stack</a>.</p>
  
     
     <h2>Install phpMyAdmin</h2>
 
                  <ol>
-               <li>Ensure that your server has the latest apt packages:
+               <li>Ensure that your server has the latest apt packages.
                  <div class="hacker">sudo apt-get update</div></li>
-     <li>Install phpMyAdmin:
+     <li>Install phpMyAdmin.
        <div class="hacker">sudo apt-get install phpmyadmin</div>
          </li>
      <li>When prompted to select <strong>Apache</strong> or <strong>lighttpd</strong> as your web server for automated configuration, press <strong>Tab</strong> to clear the selections (because you are installing Nginx) and advance to <strong>&lt;OK&gt;</strong>.  Type <strong>enter</strong> and continue. </li>
      <li>When prompted to set up <code>dbconfig-common</code>, select <strong>yes</strong>.</li>
        
-<li>Link the phpMyAdmin installed files to the Nginx document root:       
+<li>Link the phpMyAdmin installed files to the Nginx document root.
               
     <div class="hacker">sudo ln -s /usr/share/phpmyadmin /usr/share/nginx/www</div>
                      </li>  
-  <li>Enable the <code>mcrypt</code> PHP module:
+  <li>Enable the <code>mcrypt</code> PHP module.
               
     <div class="hacker">sudo php5enmod mcrypt</div> </li>
- <li>Restart PHP:
+ <li>Restart PHP.
               
     <div class="hacker">sudo service php5-fpm restart</div> 
   </li>
-<li>Restart nginx:
+<li>Restart Nginx
               
     <div class="hacker">sudo service nginx restart</div> 
   </li>
@@ -129,9 +125,10 @@ http://your server IP address/phpmyadmin/info.php not showing any phpmyadmin UI,
 
     <h3>Rename the phpMyAdmin page</h3>
     <p>Right now, every hacker knows that the name of your phpMyAdmin page is <code>http://<em><u>your server or domain name</u></em>/phpmyadmin</code>.  Let's  make that name a bit more arcane.    </p>
-    <ol><li>Navigate to your document root directory:
-<div class="hacker">cd /usr/share/nginx/www</div></li>
-        <li>Change the name (actually, rename the symbolic link):
+    <ol>
+        <li>Navigate to your document root directory.
+          <div class="hacker">cd /usr/share/nginx/www</div></li>
+        <li>Change the name (actually, rename the symbolic link).
             <div class="hacker">sudo mv phpmyadmin nodbhere</div></li>
 <li>Test the new name by navigating in your browser to <code>http://<em><u>your server or domain name</u></em>/nodbhere/info.php</code>.<br />
 Your browser  displays the phpMyAdmin screen.  (You can also go to the old <code>http://your server or domain name/phpmyadmin</code> address but, unless the page has been cached, you should get a "404 Not Found" error.)</li></ol>
@@ -140,14 +137,14 @@ Your browser  displays the phpMyAdmin screen.  (You can also go to the old <code
 <p>Your Nginx installation comes with OpenSSL, a tool that lets you encrypt passwords.</p>
     <ol>
       <li>Create a password file, <code>/etc/nginx/mypasswordfile</code>, and open it for editing.  </li>
-        <li>Add your web user name (make one up) followed by a colon (:):
+        <li>Add your web user name (make one up) followed by a colon (:).
           <div class="hacker"><em><u>MyWebUserName</u></em>:</div>
         </li>
         <li>Save and close the file.</li>
 
-        <li>Encrypt a password:
+        <li>Encrypt a password.
           <div class="hacker">openssl passwd</div>
-  <p>Once you enter and confirm your password, OpenSSL  returns the encrypted version of it.</p></li>
+ Once you enter and confirm your password, OpenSSL  returns the encrypted version of it.</li>
         <li>Copy the encrypted version, and paste it into your password file, which now looks like this:
           <div class="hacker"><em><u>MyWebUserName</u></em>:<em><u>V.Cj1d1d1kew2</u></em></div>
 </li>
