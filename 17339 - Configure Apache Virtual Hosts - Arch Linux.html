@@ -2,7 +2,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
   <head>
-    <style>
+    <style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -36,7 +36,6 @@ p.note {
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
 <mso:Editor0 msdt:dt="string">Carla</mso:Editor0>
-<mso:KpiDescription msdt:dt="string">Christine, I added comments via &lt;!--comment--!&gt; tags within the document. Can you take a look and address? Thanks! -Carla</mso:KpiDescription>
 <mso:Last_x0020_updated msdt:dt="string">2015-07-09T00:00:00Z</mso:Last_x0020_updated>
 <mso:Author0 msdt:dt="string">Christine</mso:Author0>
 <mso:Dependency msdt:dt="string"></mso:Dependency>
@@ -94,12 +93,12 @@ Press ENTER or type command to continue
 
     <p>This guide will walk you through how to set up an Apache virtual host on an Arch Linux virtual private server (VPS) as a non-root user with <code>sudo</code> privileges.</p>
     
-    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Arch Linux.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a> for instructions.
+    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Arch Linux.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a> for instructions.    </p>
 
     <p>Also, make sure your hostname has a valid DNS record, so that the www version of your domain works. See <a href="/article/19116?prog_id=PROG_ID">Point your domain to a GoDaddy Cloud Server</a> for instructions on setting up your domain.</p>
     
-    <li> </p>
-    
+
+
     <h2>Install the Apache web server</h2>
 
  <!--CT...<li>Update your packages using <code>pacmman</code>.
@@ -168,15 +167,14 @@ Press ENTER or type command to continue
     ServerName <em><u>www.coolexample.com</u></em>     
     ServerAlias <em><u>coolexample.com</u></em> 
     ErrorLog /var/www/coolexample.com/error.log 
-    CustomLog /var/www/coolexample.com/requests.log combined 
+    CustomLog /var/www/coolexample.com/requests.log combined
 
-&lt;/VirtualHost&gt; 
+&lt;/VirtualHost&gt;
   </pre></div>
 
- <p>
 
-  <p>Note that updating the other lines <code>ServerAdmin</code>, <code>ErrorLog</code>, and <code>CustomLog</code> are not required to set up your virtual host, but you can go ahead and update <code>ErrorLog</code> and <code>CustomLog</code> to your domain and <code>ServerAdmin</code> to your email.</p>
- </li>
+
+ Note that updating the other lines <code>ServerAdmin</code>, <code>ErrorLog</code>, and <code>CustomLog</code> are not required to set up your virtual host, but you can go ahead and update <code>ErrorLog</code> and <code>CustomLog</code> to your domain and <code>ServerAdmin</code> to your email. </li>
 
  <li>Save and close.</li>
 
