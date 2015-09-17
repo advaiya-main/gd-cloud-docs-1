@@ -126,13 +126,14 @@ If your system doesn't have RVM already installed, type the following command to
       <div class='hacker'>rails -v</div>    
 	  </li>
 <li>Create the project directory for your Rail project, by typing the following commands:
-<div class="hacker">mkdir -p  ~/<em><u>rail_project_directory</u></em>
+<div class="hacker">sudo mkdir -p  /usr/local/src/<em><u>rail_project_directory</u></em>
 </div>
 </li>
 <li>Move to the directory just created, and grant all the required access using the following commands:
-<div class="hacker">cd  ~/<em><u>rail_project_directory</u></em></div>
-<div class="hacker">rails new <em><u>your_application</u></em></div>
-<div class="hacker">cd <em><u>your_application</u></em></div>
+<div class="hacker">cd  /usr/local/src/<em><u>rail_project_directory</u></em></div>
+<div class="hacker">sudo chmod -R 777 /usr/local/src/<em><u>rail_project_directory</u></em></div>
+<div class="hacker">rails new <em><u>Your_application</u></em></div>
+<div class="hacker">cd <em><u>Your_application</u></em></div>
 <div class="hacker">rails server</div>
 <p>Now your Rails server should be running. Press <strong>CTRL+C</strong> to terminate the process.</p>
 </li>
