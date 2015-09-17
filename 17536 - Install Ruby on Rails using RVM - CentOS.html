@@ -110,14 +110,16 @@ Before you install Ruby on Rails, prepare your system with the required system s
         
 <h2>Update and install RVM and Ruby</h2>
 <ol> 		
-        <li>If your system doesn't have RVM already installed, type the following command to install RVM:
+      <li>Install the RVM dependencies using the following commands:
+		<div class='hacker'>sudo curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -</div>
+		<div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable</div>
+      </li>   
+
+	  <li>If your system doesn't have RVM already installed, type the following command to install RVM:
           <div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable --ruby</div>
       <p>The <code>--ruby</code> flag will install the latest version of Ruby.</p>
 	  </li>
-	  <li>After you have run the above command, there are more dependencies that need to be fixed, so run the following commands again:
-      <div class='hacker'>sudo curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -</div>
-      <div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable</div>
-          </li>     
+	    
          
         <li>To apply RVM, you need to execute the following command:
            <div class='hacker'>source /home/<em><u>UserName</u></em>/.rvm/scripts/rvm</div>
@@ -168,7 +170,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
       </li>
 	 <li>Move to the newly created directory, and grant all the required access using the following commands:
           <div class='hacker'>cd  /usr/local/src/<em><u>rail_project_directory</u></em></div>
-		  <div class='hacker'>sudo chmod -R 770 /usr/local/src/<em><u>rail_project_directory</u></em></div>
+		  <div class='hacker'>sudo chmod -R 777 /usr/local/src/<em><u>rail_project_directory</u></em></div>
 		  <div class='hacker'>rails new <em><u>Your_application</u></em></div>
 		  <div class='hacker'>cd <em><u>Your_application</u></em></div>
 		   <div class='hacker'>rails server</div>
