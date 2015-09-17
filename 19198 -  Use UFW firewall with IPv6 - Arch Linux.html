@@ -69,28 +69,28 @@ p.note {
 
 <body>
 <p>Set up UFW firewall to work with with IPv6</p>
-    <h1>Use UFW firewall with IPv6 - Arch Linux</h1>                                                                                          
+    <h1>Use  Uncomplicated Firewall (UFW) with IPv6 - Arch Linux</h1>  
     
-    <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
+<p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
         <strong>Time</strong>: <em><u>5 minutes</u></em></p>
 
     <p>Internet Protocol Version 6 (IPv6) is the standard network-layer protocol supporting the Internet
-    and is the followup version to IPv4 (also referred to as "IP"). Ubuntu and Debian come with all the tools you need to use IPv6. 
-    This article walks you through how to use Uncomplicated Firewall (UFW) with IPv6 as well as IPV4. 
+    and is the followup version to IPv4 (also referred to as "IP"). Arch Linux comes with all the tools you need to use IPv6. 
+    This article walks you through how to use Uncomplicated Firewall (UFW) with IPv6 as well as IPv4. 
 </p>
-<p>First, make sure you have UFW installed. See <a href="Articles/19194- Install UFW firewall - Arch Linux.html">Install a UFW firewall - Arch Linux</a> for instructions.
+<p>First, make sure that you have UFW installed. See <a href="Articles/19194- Install UFW firewall - Arch Linux.html">Install a UFW firewall - Arch Linux</a> for instructions.
     </p>
 <h2>Set up UFW to work with IPv6</h2>
      
      <ol>
-     <li>Open the UFW configuration file: 
+     <li>Open the UFW configuration file.
        <div class="hacker">sudo vim /etc/default/ufw</div>
        </li>
       
       <li>
    Look for this section, which should be near the top:
    
-   <!--CT: Note: This is a block of code in a configuration file-->
+  
    <div class="hacker"># Set to yes to apply rules to support IPv6 (no means only IPv6 on loopback<br/>
 # accepted). You will need to 'disable' and then 'enable' the firewall for<br/>
 # the changes to take affect.<br/>
@@ -103,7 +103,7 @@ IPV6=yes   </div>
      <li>Save and close the file.  
        </li>
         
-     <li>Reload UFW by disabling it first and then enabling it:
+     <li>Reload UFW by disabling it first and then enabling it.
        <div class="hacker">sudo ufw disable</div>
        
          <div class="hacker">sudo ufw enable</div> </li>
@@ -117,8 +117,7 @@ IPV6=yes   </div>
              
  <h2>Next steps</h2>
     <p>You have set up UFW to work with IPv6. If you haven't already, you can also 
-     <a href="Articles/17851 - Set up UFW firewall - Arch Linux.html">Set up UFW firewall - Arch Linux</a> 
-     by allowing/denying connections and defining rules. 
+     <a href="Articles/17851 - Set up UFW firewall - Arch Linux.html">set up the UFW firewall</a> by allowing or denying connections and defining rules. 
 </p>          
     
 </body>
