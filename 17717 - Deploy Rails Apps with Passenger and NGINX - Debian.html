@@ -88,8 +88,8 @@ p.note {
 <h2>Prerequisites</h2>
 <ul>
 <li><a href="17325 - Initial Server Setup - Debian"> Initial Server Setup - Debian</a>.</li>
-<li><a href="17538 - Install Ruby on Rails using RVM - Debian">Install Ruby on Rails using RVM</a>.</li>
-<li><a href ="17722 - Deploy Rails Apps with Passenger and Apache - Debian"> Deploy Rails Apps with Passenger and Apache - Debian</a>.</li>
+<li><a href="17523 - Install Ruby on Rails with rbenv - Debian">Install Ruby on Rails with rbenv - Debian</a>.</li>
+<!--<li><a href ="17722 - Deploy Rails Apps with Passenger and Apache - Debian"> Deploy Rails Apps with Passenger and Apache - Debian</a>.</li>-->
 <li>Fully Qualified Domain Name (FQDN) should point to the server.</li>
 </ul>
 <h2>Install NGINX and Passenger</h2>
@@ -101,50 +101,37 @@ p.note {
       </li>
       
         <li>Add the <code>gpg</code> key and install the Phusion Passenger.
-          <div class='hacker'>gpg --keyserver keyserver.debian.com --recv-keys 561F9B9CAC40B2F7    </div>
-    <div class='hacker'>gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
-sudo apt-get install apt-transport-https    </div>
+          <div class='hacker'>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7</div> <!-- dont change to debian. This key is provided by passenger official site-->
+    <div class='hacker'>gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add - </div>
+	<div class="hacker">sudo apt-get install apt-transport-https</div>
      </li>
         <li>Add the Passenger repository in the source list.
-            <div class='hacker'>sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main' >> /etc/apt/sources.list.d/passenger.list"</div>
+            <div class='hacker'>sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger wheezy main > /etc/apt/sources.list.d/passenger.list'</div>
       <div class='hacker'>sudo chown root: /etc/apt/sources.list.d/passenger.list    </div>
     <div class='hacker'>sudo chmod 600 /etc/apt/sources.list.d/passenger.list    </div>
     <div class='hacker'>sudo apt-get update    </div>
         </li>
     
      <li>Install NGINX and Passenger.
-        <div class='hacker'>sudo apt-get install nginx-full passenger    </div>
+        <div class='hacker'>sudo apt-get install nginx-extras passenger</div>
     </li>
-	<li>For  language, select <code>Ruby</code>, and then press the <strong>Enter</strong> key.
-          <div class='hacker'>Use &lt;space&gt; to select. If the menu doesn't display correctly, ensure that your terminal supports UTF-8.
-      <ul>
-        <li>Ruby</li>
-          <li>Python</li>
-            <li>Node.js</li>
-          <li>Meteor</li>
-        </ul>
-</div>
-</li>
-<li>Select  <code>1</code> and press the <strong>Enter</strong> key to continue. This action downloads, compiles, and installs the NGINX files with Passenger support.
-   <div class='hacker'>1. Yes: download, compile and install Nginx for me.(recommended)
-       <br /> 
-       The easiest way to get started. A stock NGINX 1.4.4 with Passenger support, but with no other additional third party modules, will be installed for you to a directory of your choice.</div>
-
-</li></ol>
+	
+</ol>
 <h2>Set up a Test Rails Application</h2>
 		<ol>
-	
-    <li>Create a directory.
-      <div class='hacker'>sudo mkdir -p  <em><u>/var/www</u></em>    </div>
-    </li>
-	  <li>Move to the <code>www</code> directory, and create a Rails application.
-        <div class='hacker'>cd  <em><u>/var/www</u></em></div>
-      <div class='hacker'>rails new <em><u>SampleApp</u></em></div>  
-      <div class='hacker'>cd <em><u>SampleApp</u></em></div>
+	  <li>Create a Rails application.
+        <div class='hacker'>cd  <em><u>~</u></em></div>
+      <div class='hacker'>rails new <em><u>your_application</u></em></div>  
+      <div class='hacker'>cd <em><u>your_application</u></em></div>
 	  </li>
-   <li> Create sample resources.
-      <div class='hacker'>rails generate scaffold Task title:string note:text</div>
-	  <div class='hacker'>rake db:migrate RAILS_ENV=development</div>
+	  <li> Open the <code>Gemfile</code> to set up the Javascript enviornment.
+		<div class="hacker">vim Gemfile</div>
+	  </li>
+	  <li> Add the following gem at end of the file.
+		<div class="hacker">gem 'therubyracer',  platforms: :ruby</div>
+	  </li>
+	  <li>
+		To save and exit file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong> following by <strong>Enter</strong>.
 	  </li>
     <li> To test your application, run the following command in application directory:
       <div class='hacker'>rails s --bind=<em><u>Public-IP</u></em></div> 
@@ -158,7 +145,7 @@ sudo apt-get install apt-transport-https    </div>
     
             <div class='hacker'>
             passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;<br/>
-passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv   
+			passenger_ruby /home/nirav/.rvm/gems/ruby-2.2.1@global/wrappers/ruby;  
             </div>
         </li>
         <li>Save and Exit.<div class ="hacker">:wq</div></li>
@@ -166,22 +153,27 @@ passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv
             <div class='hacker'>sudo service nginx restart</div>
           </li>
        
-        <li>Open the following configuration file to configure host <code>/etc/nginx/sites-enabled/default</code>:</p>
+        <li>Open the following configuration file to configure host <code>/etc/nginx/sites-enabled/default</code>:
+		Opent the file Rails application:
+		<div class="hacker">sudo vim /etc/nginx/sites-enabled/default</div>
+		<p>Update the configuration as per the following.</p>
             <div class='hacker'>
       server {<br/>
         listen 80 default_server;<br/>
         listen [::]:80 default_server ipv6only=on;<br/>
 
-        server_name <em><u>www.coolexample.com</u></em>; // Replace coolexample.com witch FQDN or Public-IP<br/>
+        server_name <em><u>www.coolexample.com</u></em>; # Replace coolexample.com witch FQDN or Public-IP<br/>
         passenger_enabled on;<br/>
         rails_env    production;<br/>
-        root         <em><u>/var/www/SampleApp</u></em>/public; // Your rails application's path<br/>
+        root         <em><u>/var/www/your_application</u></em>/public; 
+		#Your rails application's path<br/>
 <br/>
         # redirect server error pages to the static page /50x.html<br/>
         error_page   500 502 503 504  /50x.html;<br/>
         location = /50x.html {<br/>
             root   html;<br/>
         }<br/>
+	 }
 
 </div>
       </li>  <!--Save and close the file? cj --><!--fixed-->   
