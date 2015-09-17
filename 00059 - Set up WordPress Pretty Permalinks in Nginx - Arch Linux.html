@@ -6,8 +6,8 @@
 
 <!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
 
-<title>Title</title>
-<style type="text/css">
+<title>Set up WordPress Pretty Permalinks in Nginx - Arch Linux</title>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -36,8 +36,17 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
-</style>
 
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
@@ -47,79 +56,109 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Set up WordPress Pretty Permalinks in Nginx for Arch Linux.</p>
+    <h1>Set up WordPress Pretty Permalinks in Nginx - Arch Linux</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
+        <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-    <p>Opening paragraph. Summarize the process and tasks that this article includes. Use no more than four sentences. If there are any prerequisite tasks, mention them here and include links if appropriate.</p>
+    <p>Permalinks are URLs of the content published on your WordPress site. Best practices state that these URLs should be permanent and never change, but you can of course change your permalink structure at any time. Doing so, however, would change the URL of all your pages, which would cause your search and referral traffic to drop since the links would be broken.</p>
+     
+<p>WordPress produces dynamic links by default that are appended with the post ID number. Though these links work on all server environments, they're not descriptive, easily identifiable, or SEO-friendly.</p>
 
-    <h2>Section 1 title ("To do such and such")</h2>
-    <p>Present the procedure's steps in a numbered list preceded by an optional explanatory blurb. Typically, use one step per list item, but you can also combine short related steps into one list item. If the procedure has a single step, use a bullet instead of a numbered step.</p>
+<p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly and, depending on which format you choose, structured. <!--CT: too much, i think 9/16...You can use <code>mod_rewrite</code> or <code>lighttpd</code> to produce these, the most common and versatile being the Post Name link format.--></p>
+  
+<p>This tutorial will walk you through setting up WordPress pretty permalinks on an Arch Linux system. </p>
+
+    <h2>Prerequisites</h2>
+    <p>Before you begin, Wordpress has to be fully installed. You most likely have already done this, but if not, choose your guide for either a single or mult-site install:</p>
+         
+<ul>
+    <li><a href="17387 - Install WordPress on your LEMP server - Arch Linux.html">Install WordPress on your LEMP server - Arch Linux</a></li>
+    <li><a href="17685 - Set up WordPress Multisite in Nginx - Arch Linux.html">Set up WordPress Multisite in Nginx - Arch Linux</a></li>
+</ul>
+
+
+<p>This tutorial is for a non-root user with <code>sudo</code> privileges. </p>
+
     
+<h2>Choose your pretty permalink type in WordPress </h2>
+
     <ol>
-    <li>List item</li>
-    <li>List item</li>
-    <li>List item</li>
-    <li>List item</li>
-    </ol>
-    
-    <p>Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
- 
-    <div class="hacker">command (Put each command on a separate line.)</div>
+        <li>In your WordPress admin dashboard (http://coolexample.com/wp-admin): Go to the <strong>Settings</strong> panel on the left, then <strong>Permalinks</strong>.<br/>
+      
 
-    <p class="note">note</p>   
-    <p class="warning">warning</p> 
-    
-	<table>
-		<tr>
-			<th>Table head</th>
-			<th>Table head</th>
-			<th>Table head</th>
-		</tr>
-		<tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-		</tr>
-		<tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-        </tr>
-        <tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-        </tr>
-        <tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-        </tr>
-    </table>
-              
-	<p>Bulleted list:</p>
-    <ul>
-        <li>List item</li>
-        <li>List item</li>
-        <li>List item</li>
-        <li>List item</li>
-    </ul>       
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title ("To do such and such")</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title ("To do such and such")</h2>
-   <p>Section 3 content.</p>
-             
+        <li>Choose your permalink type. A common option is the <strong>Post Name</strong> option.<br/>
+        <img src="images/00056/091615/wordpress-pretty-permalinks-page.png" alt="wordpress pretty permalinks page" /></li>
+
+        <li><p>Select <strong>Save changes</strong>.</p>
+</ol>
+
+<h2>Enable URL rewrites</h2>
+  
+<p>Modify your Nginx config file to enable permalinks.</p>
+
+<ol>
+<li>Open your <code>nginx.conf</code> file to edit.
+<div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
+
+<li>In your file, check to see if you have this location defined in your WordPress block. If not, add it as an extra location.
+<div class="hacker">location / { </br>
+                try_files $uri $uri/ /index.php?q=$uri&$args;<br/>
+        }</div>
+
+So the entire section may look like this:
+ <div class="hacker"><pre>server {
+            listen 80;
+            root    <em><u>/var/www/wordpress;</u></em>
+            index index.php index.html index.htm;
+            server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</u></em>
+
+            <em><u>location / {
+                try_files $uri $uri/ /index.php?q=$uri&$args;
+            }</u></em>
+            
+            location ~ \.php$ {
+                    fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
+                    fastcgi_index index.php;
+                    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script$
+                    include /etc/nginx/fastcgi_params;
+                    #include fastcgi.conf;
+            }
+    }
+
+}</pre></div></li>
+
+<li>Save and close.</li>
+
+
+</ul> 
+
+<li>Make sure index.php is added to the beginning of the line of index filetypes.   </li>
+     </ol>
+  
+   <h2>Create the .htaccess files</h2>
+
+<li>Change ownership using <code>chown</code> to make the web server the owner:
+  <div class="hacker">sudo chown http:http /var/www/</div>
+</li>
+
+     <li>Grant read-write permissions.
+<div class="hacker">sudo chmod u+x /var/www/.htaccess * -R</div>
+
+Now WordPress can rewrite the rules for you.</li>
+<li>Go back to your WordPress admin dashboard, reload, and select "Save changes" in the dashboard and go back to your command line.</li>
+
+ <li>        Restart Nginx.
+     <div class="hacker">sudo systemctl restart nginx</div></li>
+
+
+ </ol>
+
+       
     <h2>Next steps</h2>
-    <p>A brief summary of what the user just accomplished. Direct the user to explore a related subject or to complete a related task. Add links to procedural articles if appropriate. For example, if the user just installed NGINX, you might include links to NGINX tuning articles.</p>
+    
+    <p>Congratulations! You have set up WordPress pretty permalinks on your Nginx server.</p>
    
 </body>
 </html>
