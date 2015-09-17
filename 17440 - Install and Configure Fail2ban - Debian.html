@@ -77,7 +77,7 @@ Completed skj 08/10</mso:ReviewComments>
 </head>
 
 <body>
-<p>Install and Configure Fail2ban for Debian to increase security.</p>
+<p>Install and configure Fail2ban for Debian to increase security.</p>
     <h1>Install and Configure Fail2ban – Debian</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
@@ -88,7 +88,7 @@ Completed skj 08/10</mso:ReviewComments>
   <p>  This article  guides you through a basic configuration of Fail2ban on Debian 7.  First, make sure that  <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17400 - Set up a Firewall using IPtables – ALL DISTROS.html"> your firewall (IPtables) is set up</a>.</p>
 <h2>Install Fail2ban</h2> 
        <ul>
-       <li>Update your local packages, and install Fail2ban using <code>apt-get</code>:
+       <li>Update your local packages, and install Fail2ban using <code>apt-get</code>.
          <div class="hacker">sudo apt-get update</div>
 <div class="hacker">sudo apt-get install fail2ban</div></li></ul>
 
@@ -104,8 +104,8 @@ Fail2ban comes with filters out of the box, and you can also add your own. The p
  
 <ul>
   <li>
-See your available filters by listing them:
-<div class="hacker">ls /etc/fail2ban/filter.d</div></li></ul>
+See your available filters by listing them.
+  <div class="hacker">ls /etc/fail2ban/filter.d</div></li></ul>
 
 
 <h3>Actions</h3>
@@ -113,7 +113,7 @@ See your available filters by listing them:
 <p>Actions ban hosts if they find matches from the filters. Conversely, actions can also unban hosts. Actions are scripts in <code>/etc/fail2ban/action.d/</code>. Each service can have multiple actions.</p> 
 <ul>
   <li>
-See your actions by listing them:
+See your actions by listing them.
   <div class="hacker">ls /etc/fail2ban/action.d</div>
 The default actions are adequate for Fail2ban to work.</li></ul>
 
@@ -133,14 +133,13 @@ There are  predetermined rules that apply to all apps as well as application-spe
 </p>
 <h3>Open the configuration file </h3>
 <ol>
-<li>Duplicate the Fail2ban configuration file so that you can make changes to your local copy only:
+<li>Duplicate the Fail2ban configuration file so that you can make changes to your local copy only.
   <div class="hacker">sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local</div>
 This  backup copy keeps your default file safe and intact. </li>
-<li>Open the jail file so that you can make changes: 
+<li>Open the jail file so that you can make changes.
   <div class="hacker">sudo vim /etc/fail2ban/jail.local</div>      
 
- </li>
-                                           
+ </li>        
       </ol>                
   
   You'll work within this configuration file to change  settings. 
@@ -155,11 +154,11 @@ Find the following lines in the configuration<code></code> file, and modify as n
 <li><strong><code>findtime</code></strong>, <strong><code>Maxretry</code></strong>: When a given number of attempts (<code>maxretry</code>) are made within a certain period (<code>findtime</code>), that IP is banned for a time set by <code>bantime</code>. The default setting of <code>findtime</code> is 10 minutes, indicated by the line <code>findtime = 600</code> in your file. The default maxretry is 3. 
 
 <br />
-On Debian 7, <code>findtime</code> may be missing from fail2ban’s default file. Search for “findtime” in the file to confirm. To add it back in, define <code>findtime</code> in the Default section, under the <code>maxretry</code> line. <br />
+On Debian 7, <code>findtime</code> may be missing from Fail2ban’s default file. Search for “findtime” in the file to confirm. To add it back in, define <code>findtime</code> in the Default section, under the <code>maxretry</code> line. <br />
 For example, to add a <code>findtime</code> of 10 minutes (or 600 seconds), add the following line under <code>maxretry = 3</code>:
  <div class="hacker">Findtime = 600  </div></li>
-<li><strong><code>bantime</code></strong>: The amount of time (in seconds) a banned user is locked out. The default setting is 10 minutes, indicated by the line <code>bantime = 600</code> in your file. Change this to a higher lockout time, if you like. To set your lockout period to 1 day (24 hours), for instance, change the <code>bantime</code> setting to 86400. Users set their bantime anywhere from an hour to a year. You can even use a negative number, such as -1, for a permanent ban.
-  <p>Here is an example configuration:</p>
+<li><strong><code>bantime</code></strong>: The amount of time (in seconds) a banned user is locked out. The default setting is 10 minutes, indicated by the line <code>bantime = 600</code> in your file. Change this to a higher lockout time, if you like. To set your lockout period to 1 day (24 hours), for example, change the <code>bantime</code> setting to 86400. Users set their bantime anywhere from an hour to a year. You can even use a negative number, such as -1, for a permanent ban.
+  <p>Here's an example configuration:</p>
 
 <div class="hacker">maxretry = 3</div>
 <div class="hacker">findtime = 10800 </div>
@@ -174,7 +173,7 @@ Any IP with three failed login attempts within 10800 seconds (3 hours) is banned
 In the <code>ACTIONS</code> section, you can change your default action to either of the following:<br />   
 
 <ul>
-<li><code>action_mw</code>: Ban and email notify with the <code>whois</code> report (IPs)    </li>
+<li><code>action_mw</code>: Ban and email notify with the <code>whois</code> report (IPs).    </li>
 <li><code>action_mwl</code>: Ban and email notify with the <code>whois</code> report and relevant log lines (if you want to troubleshoot).    </li>
 
   </ul>
@@ -204,21 +203,20 @@ sendername = Fail2Ban</div>
 <ol>
 <li>Save and close the configuration file. </li>  
 
-<li>Shut down Fail2ban:
+<li>Shut down Fail2ban.
   <div class="hacker">sudo service fail2ban stop</div>
 </li>
- <li>Start Fail2ban again so that it runs when your system starts:  
+ <li>Start Fail2ban again so that it runs when your system starts.
    <div class="hacker">sudo service fail2ban start</div>
  </li>
  
- <li>     Optionally, check the status:
+ <li>     Optionally, check the status.
    <div class="hacker">sudo service fail2ban status</div>
       You should see a message such as <code>Status of authentication failure monitor:[....] fail2ban is running</code> within the  output. </li>
  </ol>
 <p>Fail2ban starts automatically on each server restart.</p>
 
-   
-        
+     
              
     <h2>Next steps</h2>
     <p>Congratulations, you set up Fail2ban!       For ideas to further utilize Fail2ban, see the following articles:    </p>
@@ -228,9 +226,5 @@ sendername = Fail2Ban</div>
 
 <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17445 - Protect SSH with Fail2ban - Debian.html"> Protect SSH with Fail2ban - Debian</a></li>
 </ul>
-
-
-
-   
 </body>
 </html>
