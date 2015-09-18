@@ -82,7 +82,7 @@ p.note {
         <strong>Time</strong>: <em><u>5 minutes</u></em></p>
 
     <!--CT (to editor): This is borrowed from edited material in 17331. This is just fleshed out more. Feel free to edit!-->
-    <p>Uncomplicated Firewall (UFW) is the front end for IPtables. Its command-line user interface makes it easy to configure your Linux&trade; firewall. 
+    <p>Uncomplicated Firewall (UFW) is the front end for IPtables. Its command-line user interface makes it easy to configure your Linux&trade; firewall.
     Ubuntu comes prepackaged with UFW, but sometimes it's missing from Debian systems.</p> 
     
 <p>This article  walks you through the  basics of installing and enabling UFW.</p>   
@@ -97,25 +97,25 @@ p.note {
     <div class="hacker">sudo apt-get install ufw</div>
     
   </li>
-<li>(Debian only) </b> If you get an error message  about missing dependencies (such as &quot;E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?&quot;), update your package manager: <br/>
+<li>(Debian only)<br/>If you get an error message  about missing dependencies (such as &quot;E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?&quot;), update your package manager: <br/>
     <div class="hacker">sudo apt-get install --fix-missing</div>
 </li>
     </ol>
          
     <h2>Enable UFW</h2>
-     
+
 <ol>
 <li>
 Check the status of UFW to make sure it's not already running:
-     <div class="hacker">sudo ufw status</div>
+     <div class="hacker">sudo ufw status</div></li>
   <li>View the output:
-    <ul> 
+    <ul>
   <li>If the output is similar to <code>ufw start/running</code>,  the firewall is active. You're finished!</li>
      <li>If the firewall is not active, enable UFW:
-       <div class="hacker">sudo ufw enable</div>
+       <div class="hacker">sudo ufw enable</div></li>
        
-  Enter <strong>y</strong> to at the prompt, &quot;Command may disrupt existing ssh connections. Proceed with operation (y|n)?&quot;<br />
-    The system returns the output, <code>Firewall is active and enabled on system startup</code>.</ul>
+  <li>Enter <strong>y</strong> to at the prompt, &quot;Command may disrupt existing ssh connections. Proceed with operation (y|n)?&quot;<br />
+    The system returns the output, <code>Firewall is active and enabled on system startup</code>.</li></ul>
 </li></ol>
 
              
