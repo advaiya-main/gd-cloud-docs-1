@@ -176,23 +176,35 @@ openssl rsa \         <br />
        -out decrypted.key    </div>
 <h3>Create New Private Keys and CSR due to the Heartbleed bug</h3>
 <p>If you removed your install of OpenSSL due to the Heartbleed bug and have already updated to the latest version of OpenSSL, then you likely backed up your certificate files. (If you haven't, it's a good idea to do so now by creating a directory tree where you can copy all your certificate files to).</p>
-<ol>Generate new keys and a new CSR.
 
-<li>In the /etc/pki/tls/private directory run the following command:<br />
-<div class="hacker">openssl genrsa -out coolexample.com.privatekey.new 2048</div></li>
-<li>Generate a CSR.<br />
-In the /etc/pki/tls/certs directory run the following command:<br />
-<div class="hacker"> openssl req -new -key coolexample.com.privatekey.new -out coolexample.com.new.csr</div></li>
-<li>Submit the information needed to complete the CSR. The information you enter must match that of your original CSR for the keys being replaced, especially the "Common Name" (CN), which is the fully qualified domain name (FQDN) of your website. For example, the FQDN for "https://www.coolexample.com/page" would be coolexample.com
-Move the private key into a private directory (assuming your directory structure is /etc/ssl/private)
-<li>Update your Apache Configuration file
-Once you receive your new certificate, make sure your ssl.conf file is pointing at the privatekey.new file as the SSLCertificateKeyFile.</li>
-<li>Save and close the file.</li>
-<li>Restart Apache:
-<div class="hacker"> service apache2 restart</div></li>
-<li>To confirm that your certificates updated, visit your website and look for the certificate file in your browser window. Check that the "issued on" date is the day your CA created the new certificate you just installed.</li>
+<ol>
+
+    <li>Generate new keys and a new CSR.</li>
+
+    <li>In the /etc/pki/tls/private directory run the following command:<br />
+        <div class="hacker">openssl genrsa -out coolexample.com.privatekey.new 2048</div></li>
+
+    <li>Generate a CSR.<br />
+        In the /etc/pki/tls/certs directory run the following command:<br />
+        <div class="hacker"> openssl req -new -key coolexample.com.privatekey.new -out coolexample.com.new.csr</div></li>
+
+    <li>Submit the information needed to complete the CSR. The information you enter must match that of your original CSR for the keys being replaced, especially the "Common Name" (CN), which is the fully qualified domain name (FQDN) of your website. For example, the FQDN for "https://www.coolexample.com/page" would be coolexample.com
+    Move the private key into a private directory (assuming your directory structure is /etc/ssl/private)</li>
+
+    <li>Update your Apache Configuration file
+        Once you receive your new certificate, make sure your ssl.conf file is pointing at the privatekey.new file as the SSLCertificateKeyFile.</li>
+
+    <li>Save and close the file.</li>
+
+    <li>Restart Apache:
+    <div class="hacker"> service apache2 restart</div></li>
+    <li>To confirm that your certificates updated, visit your website and look for the certificate file in your browser window. Check that the "issued on" date is the day your CA created the new certificate you just installed.</li>
+  </ol>
+
 <h2>SSL Certificates</h2>
+
 <p>The -days 365 option means your certificate will be valid for 365 days.</p>
+
 <h3>Generate Self-Signed Certificate </h3>
 <div class="hacker">openssl req \    <br />
        -newkey rsa:2048 -nodes -keyout coolexample.key \   <br />
