@@ -202,6 +202,22 @@ define('DB_PASSWORD', 'wordpresspassword');   </div>
 </li>
         </ol>
  
+ <h2>Enable MySQL extensions in php.ini</h2>
+
+<ol>
+ 
+ <li> Open your php.ini file. 
+<div class="hacker">sudo vim /etc/php.ini</div></li>
+
+<li>Find this line and uncomment it. 
+<div class="hacker">extension=mysql.so</div></li>
+
+<li>Since you're here, let's double-check this line is correctly set to 0 and also uncommented. 
+<div class="hacker">cgi.fix_pathinfo=0</div></li>
+
+<li>Save and close.</li>
+</ol>
+
 
  <h2>Make a copy of your NGINX config file</h2>
   
