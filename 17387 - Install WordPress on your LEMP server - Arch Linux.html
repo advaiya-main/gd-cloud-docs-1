@@ -9,7 +9,7 @@
 
 
 <title>Install WordPress on your LEMP server - Arch Linux</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -222,7 +222,7 @@ define('DB_PASSWORD', 'wordpresspassword');   </div>
 
         <p>Now that we have a backup, let's start editing the config file.</p>
 <ol><li>Open the <code>.conf</code> file.
-                <div class="hacker">sudo vim /etc/nginx/nginx.conf</div>
+                <div class="hacker">sudo vim /etc/nginx/nginx.conf</div>    </li>
                 
 
           <li> Once you have the file open, in the server section (find it by searching <code>server {</code>): change the root to point to <code>/var/www/wordpress;</code>.
@@ -233,7 +233,7 @@ define('DB_PASSWORD', 'wordpresspassword');   </div>
 <li>And make sure all the lines in this <code>location ~ \.php$ {</code> block is uncommented (they should be from your LEMP install).<br/>
  Again, these changes, minus the first one, have probably already been made when you installed your LEMP stack.</li>
 
-<p>After your changes, your file may look something like this (Use this file to double check the config in your server block):</p>
+<li>After your changes, your file may look something like this (Use this file to double check the config in your server block):
 
 <div class="hacker"><pre>
 #user html;
@@ -280,7 +280,7 @@ http {
     }
 
 }
-</pre></div>  
+</pre></div>    </li>
 
   <li>Save and close.</li>
 
