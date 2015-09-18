@@ -88,16 +88,14 @@
 	<h2>Download the Ejabberd installer</h2>
 	<ol>
 		<li>Run the following command to download Ejabber:
-			<div class="hacker">wget http://www.process-one.net/downloads/downloads-action.php?file=/ejabberd/14.12/ejabberd-14.12-linux-x86_64-installer.run -o ejabberd-14.12-linux-x86_64-installer.run</div>
+			<div class="hacker">sudo wget http://www.process-one.net/downloads/downloads-action.php?file=/ejabberd/14.12/ejabberd-14.12-linux-x86_64-installer.run -O ejabberd-14.12-linux-x86_64-installer.run</div>
 
 		</li>
-		<li>Change the file name.
-			<div class="hacker">mv downloads-action.php\?file\=%2Fejabberd%2F14.12%2Fejabberd-14.12-linux-x86_64-installer.run ejabberd-14.12-linux-x86_64-installer.run</div> </li>
-			<li>Change permissions.
+		<li>Change permissions.
 			<div class="hacker">sudo chmod +x ejabberd-14.12-linux-x86_64-installer.run</div>
 		</li>
 		<li>Execute the installer.
-			<div class="hacker">d.	sudo ./ ejabberd-14.12-linux-x86_64-installer.run</div>
+			<div class="hacker">sudo ./ejabberd-14.12-linux-x86_64-installer.run</div>
 		</li>
 	</ol>
 	<h2>Set up EJabberd</h2>
@@ -170,7 +168,7 @@
 			</div>
 		</li>
 
-		<li>Open your browser and type <em>http://your_ip:5280/</em> and press <strong>Enter</strong>. It will prompt for authentication credentials. Enter the credentials that you entered during installation.<br /><br /> 
+		<li>Open your browser and type <em>http://your_ip:5280/admin</em> and press <strong>Enter</strong>. It will prompt for authentication credentials. Enter the credentials that you entered during installation.<br /><br /> 
 After successfully logging in, you will see this the screen.<br />
 <img src="images/18707_jabber_brwser_look.png" alt="18707_jabber_brwser_look.png" />
 		</li>
