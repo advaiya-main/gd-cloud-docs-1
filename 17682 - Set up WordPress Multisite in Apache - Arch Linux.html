@@ -23,7 +23,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .<h1></h1>5em 4em;
+ padding: .5em 1em .4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -86,7 +86,7 @@ We'll set up a fresh install of WordPress in Apache on an Arch Linux system. The
 <p>We'll use these example sites: </p>
 <table>
   <tr>
-    <td><b>Site 1</b></th>
+    <td><b>Site 1</b></td>
     <td>coolexample.com (primary)</td>
   </tr>
   <tr>
@@ -104,9 +104,9 @@ aboutus.coolexample.com</td>
 <h2>Prerequisites</h2>
 
 <ul>
-<li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345%20-%20Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Arch%20Linux.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Arch Linux</a></p>
+<li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345%20-%20Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Arch%20Linux.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Arch Linux</a><br/>
 
-<p>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</p></li> 
+As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</li>
 
 <li>Install <code>wget</code> if you haven't already. 
         <div class="hacker">sudo pacman -S wget</div></li>
@@ -115,7 +115,7 @@ aboutus.coolexample.com</td>
 <div class="hacker">sudo pacman -Sy php5-gd</div></li>
 
                                                           
-<p>Select <strong>y</strong> at each prompt to continue with the installation.</p></li>
+<li>Select <strong>y</strong> at each prompt to continue with the installation.</li>
 
 
 <li>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
@@ -228,7 +228,7 @@ This will safely copy all of the contents from the directory you unpacked to the
 <li>Let's also set directory permissions at this point so that you can work with WordPress content (e.g., uploading images).
  Make the group ownership recursive to make sure it will write to your subdirectories:  
  <div class="hacker">sudo chown http:http /srv/http * -R</div>
-<div class="hacker">sudo chmod u+x /srv/http * -R</div>
+<div class="hacker">sudo chmod u+x /srv/http * -R</div>   </li>
 
  <!--CT: commenting this out for now...<div class="hacker">sudo chmod -R 666 /srv/http/wp-content</div> </li>
  -->
@@ -250,7 +250,7 @@ This will safely copy all of the contents from the directory you unpacked to the
      You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. </li>
   <li>Click <strong>Submit</strong>.<br />
 
-<li>Your next screen will look something like this.<br/>
+Your next screen will look something like this.<br/>
 <img src="images/17682/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup screen wpconfig code" />
 </li>
       </ol>
@@ -259,7 +259,7 @@ This will safely copy all of the contents from the directory you unpacked to the
 
   <h3>Modify your wp-config file to enable multisites</h3>     
    <ol>
-   
+
    <li>Back in the terminal, navigate to your WordPress document root.
      <div class="hacker">cd /srv/http</div></li>
 
@@ -285,11 +285,11 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 <li>Find the <code>DirectoryIndex</code> and add index.php to the line so it reads:
 <div class="hacker">DirectoryIndex <em><u>index.php</u></em> index.html</div>                 
 </li>
-</ol>
-         
- Restart Apache.
+
+
+<li>Restart Apache.
      <div class="hacker">sudo systemctl restart httpd</div></li>
- 
+</ol>
 
      <h3>Continue setup in WordPress web interface</h3>
       
@@ -340,10 +340,10 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
   <h3>Modify your .htaccess file</h3>
   <ol>
 <li>Back in the WordPress Network Setup screen, copy the <code>.htaccess</code> code in the second section. </li>  
-<li>In your terminal, pull up your <code>.htaccess</code> file</li>
+<li>In your terminal, pull up your <code>.htaccess</code> file
 <div class="hacker">sudo vim /srv/http/.htaccess</div></li>
 
-<li>Replace all the existing code (delete it manually) with the entire block of <code>.htaccess</code> code from WordPress. 
+<li>Replace all the existing code (delete it manually) with the entire block of <code>.htaccess</code> code from WordPress.</li>
 
 <li>Save and close the file.</li>
 
@@ -355,7 +355,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
 <li>Back in your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page. Then, log back in if your password isn't saved.<br /></li>
 
 <li>Go to <strong>My Sites</strong> in your top navigation bar. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
-  <img src="images/17682/090815/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> </li>
+  <img src="images/17682/090815/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> <br/>
 
 At the top, there should now be a <strong>Network Admin:</strong> <code><em><u>(your domain name)</u></em></code> option in the menu bar, if it wasn't there earlier.<br/></li>
 
