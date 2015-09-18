@@ -146,7 +146,7 @@ server {
 	<div class='hacker'>sudo vim /var/www/ghost/config.js</div>
     </li>
 	
-	<li>Put the following code into the Ghost configuration file. The URL can be your domain name (<em><u>http://your-domainname.com</u></em>) or the public IP address of your droplet.
+	<li>Put the following code into the Ghost configuration file. The URL can be your domain name (<em><u>http://your-domainname.com</u></em>) or the public IP address of your server.
 	<div class='hacker'>
 	<pre>
     production: {
@@ -170,6 +170,9 @@ server {
 </pre></div>
     </li>
 	<li>Save and exit the editor by pressing the <strong>Esc</strong> key and then entering <strong>:wq</strong>.</li>
+        <li>Start NGINX
+	<div class='hacker'>sudo service nginx restart</div>
+    </li>
 	</ol>
 	
 <h2>Start the Ghost server</h2>
