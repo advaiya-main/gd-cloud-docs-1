@@ -4,10 +4,7 @@
 
 <head>
 
-<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
-
-<title>Title</title>
-<style type="text/css">
+<title>Set up WordPress pretty permalinks in Nginx - CentOS 7</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -58,79 +55,89 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Set up WordPress pretty permalinks in Nginx for CentOS 7.</p>
+    <h1>Set up WordPress pretty permalinks in Nginx - CentOS 7</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
+        <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-    <p>Opening paragraph. Summarize the process and tasks that this article includes. Use no more than four sentences. If there are any prerequisite tasks, mention them here and include links if appropriate.</p>
+    <p>Permalinks are URLs of the content published on your WordPress site. Best practices state that these URLs should be permanent and never change, but you can of course change your permalink structure at any time. Doing so, however, would change the URL of all your pages, which would cause your search and referral traffic to drop since the links would be broken.</p>
+     
+<p>WordPress produces dynamic links by default that are appended with the post ID number. Though these links work on all server environments, they're not descriptive, easily identifiable, or SEO-friendly.</p>
 
-    <h2>Section 1 title ("To do such and such")</h2>
-    <p>Present the procedure's steps in a numbered list preceded by an optional explanatory blurb. Typically, use one step per list item, but you can also combine short related steps into one list item. If the procedure has a single step, use a bullet instead of a numbered step.</p>
+<p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly, and depending on which format you choose, structured.</p>
+  
+<p>Setting up permalinks is a surprisingly easy process in Nginx. This article will walk you through it on a CentOS 7 system. </p>
+
+    <h2>Prerequisites</h2>
+    <p>Before you begin, WordPress has to be fully installed. You most likely have already done this, but if not, choose the appropriate article for either a single or a multi-site installation:</p>
+         
+<ul>
+    <li><a href="17386 - Install WordPress on your LEMP server - CentOS 7.html">Install WordPress on your LEMP server - CentOS 7</a></li>
+    <li><a href="17684 - Set up WordPress Multisite in Nginx - CentOS 7.html">Set up WordPress Multisite in Nginx - CentOS 7</a></li>
+</ul>
+
+
+<p>This article is for a non-root user with <code>sudo</code> privileges. </p>
+
     
+<h2>Choose your pretty permalink type in WordPress </h2>
+
     <ol>
-    <li>List item</li>
-    <li>List item</li>
-    <li>List item</li>
-    <li>List item</li>
-    </ol>
-    
-    <p>Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
- 
-    <div class="hacker">command (Put each command on a separate line.)</div>
+        <li>In your WordPress admin dashboard (http://<em><u>coolexample.com</u></em>/wp-admin), go to the <strong>Settings</strong> panel on the left, then to the <strong>Permalink Settings</strong>.<br /></li>
+      
 
-    <p class="note">note</p>   
-    <p class="warning">warning</p> 
-    
-	<table>
-		<tr>
-			<th>Table head</th>
-			<th>Table head</th>
-			<th>Table head</th>
-		</tr>
-		<tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-		</tr>
-		<tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-        </tr>
-        <tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-        </tr>
-        <tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-        </tr>
-    </table>
-              
-	<p>Bulleted list:</p>
-    <ul>
-        <li>List item</li>
-        <li>List item</li>
-        <li>List item</li>
-        <li>List item</li>
-    </ul>       
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title ("To do such and such")</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title ("To do such and such")</h2>
-   <p>Section 3 content.</p>
-             
+        <li>Choose your permalink type. A common option is the <strong>Post name</strong> option.<br />
+        <img src="images/00060/091715/wordpress-pretty-permalinks-page.png" alt="wordpress pretty permalinks page" /></li>
+
+        <li>Select <strong>Save changes</strong>.</li>
+</ol>
+
+<h2>Enable URL rewrites</h2>
+  
+<p>Modify your Nginx config file to enable permalinks.</p>
+
+<ol>
+<li>Open your <code>nginx.conf</code> file to edit.
+<div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
+
+<li>In your file, find your WordPress block and add this try_files line in the location context.
+<div class="hacker">try_files $uri $uri/ /index.php?q=$ur&amp;$args;</div>
+
+  So, the entire section may look like this:
+
+  <div class="hacker"><pre>server {
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        server_name  _;
+        root         /var/www/wordpress;
+        index index.php index.html index.htm;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+        <em><u>try_files $uri $uri/ /index.php?q=$uri&amp;$args;</u></em>
+        }</pre></div>
+
+
+Also, you should have made these two changes in your WordPress installation already, but double-check that:  <ul>
+<li><code>root</code> is pointed to your WordPress document root.</li>
+<li><code>index.php</code> is added to the beginning of the line of index file types.   </li></ul></li>
+
+<li>Save and close.</li>
+
+
+<li>Restart Nginx.
+     <div class="hacker">sudo service nginx restart</div></li>
+
+ </ol>
+
+<p>That's it, you're done!</p>
+
     <h2>Next steps</h2>
-    <p>A brief summary of what the user just accomplished. Direct the user to explore a related subject or to complete a related task. Add links to procedural articles if appropriate. For example, if the user just installed NGINX, you might include links to NGINX tuning articles.</p>
+    
+    <p>Congratulations! You have set up WordPress pretty permalinks on your Nginx server.</p>
    
 </body>
 </html>
