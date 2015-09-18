@@ -171,10 +171,12 @@ In this example, we open all ports from 20 to 25. Choose any range of ports you 
 <h3>Delete rules</h3>
 <p>You can delete rules by inserting the delete command in the add rule But, by far, the easiest way is to list out your rules with your current rules first. </p>
 <p>To  delete rules by inserting the <code>delete</code> command in the add rule:</p>
-<ul><li>As an example, delete the rule for port 20:
-<div class="hacker">sudo ufw delete allow 20/tcp</div></li></ul>
-<p>To delete rules by listing out your rules with your current rules first:<br />
-</p>
+<ul><li>As an example, delete the rule for port 21:
+<div class="hacker">sudo ufw delete allow 21/tcp</div></li></ul>
+    <li>Enable your firewall:
+
+   <div class="hacker">sudo ufw enable</div></li>
+
 <ol><li> List out your current rules in a numbered list:
 <div class="hacker">sudo ufw status numbered</div>
 
@@ -200,15 +202,17 @@ Enter <strong>y</strong> at the prompt to continue. </li></ol>
 <h3>Reset UFW</h3>
 
 <ul>
-  <li>Reset UFW to its default settings:
+  <li>Reset UFW to its default settings (this will turn the firewall off):
   <div class="hacker">sudo ufw reset </div></li></ul>
 
 <h2>Review and enable your firewall</h2>
  <ol>
+   <li>  Re-enable your firewall and whatever rules you like as per the instructions above.  The <code>ufw show added</code> command lists your configured firewall rules in human-readable format, even when your firewall is inactive.</li>
 <li>Review your exceptions:
    <div class="hacker"> sudo ufw show added </div>
 
-The <code>ufw show added</code> command lists your configured firewall rules in human-readable format, even when your firewall is inactive.</li><li>If the <code>ufw show added</code> command lists all the rules you want, enable your firewall:
+
+     <li>If the <code>ufw show added</code> command lists all the rules you want, enable your firewall:
 
    <div class="hacker">sudo ufw enable</div></li>
 </ol>    
