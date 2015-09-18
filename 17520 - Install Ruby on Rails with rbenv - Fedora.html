@@ -78,10 +78,10 @@ p.note {
 <p>To set up the Fedora server,  refer to <a href="17322"> Initial Server Setup - Fedora</a>. Optionally, you can also <a href="17367#"> install Git</a>.</p> 
 	<h2>Install rbenv</h2>
              <ol>
-			 <li>Install the dependencies of rbenv and Ruby.
+			 <li>Install the dependencies of <code>rbenv</code> and <code>Ruby</code>.
 			   <div class='hacker'>sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel</div>
 			 </li>
-			 <li>Install rbenv, and check for rbenv in the<code>.rbenv</code> directory. 
+			 <li>Install <code>rbenv</code>. 
 			   <div class='hacker'>cd</div>
 			 <div class='hacker'>git clone git://github.com/sstephenson/rbenv.git .rbenv</div></li>
 			  <li>
@@ -93,13 +93,14 @@ p.note {
 			  <div class='hacker'>exec $SHELL</div>
 			 </li>
 			 <li> Install the latest development version of Ruby-build into the <code>~/.rbenv/plugins/ruby-build</code> directory.
-			   <div class='hacker'>git clone git://github.com/sstephenson/ruby-build.git~/.rbenv/plugins/ruby-build</div>
+			   <div class='hacker'>git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</div><!-- corrected command-->
 			 </li>
 			 <li>Add a directory to your <code>$PATH</code> for accessing Ruby.
 <div class='hacker'> echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >>   ~/.bash_profile</div>
 			 </li>
-			 <li>Execute the shell to install rbenv into your home directory. This also sets the appropriate environment variables for Ruby.
-			 <div class='hacker'>exec $SHELL</div>			 
+			 <li>Execute the shell to install <code>rbenv</code> into your home directory. This also sets the appropriate environment variables for Ruby.
+			 <div class='hacker'>exec $SHELL</div>
+			 <div class='hacker'>source ~/.bash_profile</div>
 			 </li>
  </ol> 
 			 

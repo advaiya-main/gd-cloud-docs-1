@@ -116,7 +116,7 @@ p.note {
             <p>This will take some time, so you will need to wait.</p>
         </li>
         <li>Open a new <code>passenger.conf</code> file.
-          <div class='hacker'>sudo vim /etc/apache2/conf.d/passenger.conf</div>
+          <div class='hacker'>sudo vim /etc/httpd/conf.d/passenger.conf</div>
         </li>
 	    <li>Add the following lines at end of the file: 
             <div class='hacker'>LoadModule passenger_module /home/newuser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10/buildout/apache2/mod_passenger.so
@@ -137,7 +137,7 @@ p.note {
             <div class='hacker'>cd /var/www/html </div>
         </li>
 		<li>Create a Rails application and go to the application directory.
-            <div class='hacker'>rails new <em><u>your-application</u></em></div>
+            <div class='hacker'>rails new <em><u>your-application</u></em></div> <!-- Error from -->
 			<div class='hacker'>cd <em><u>your-application</u></em> </div>
 		</li>
 		<li>By default, Fedora doesn't have a JavaScript execution environment installed. So, to install it manually, open <code>Gemfile</code> in your favorite editor.

@@ -107,35 +107,36 @@ td:nth-child(1) {font-weight:bold;}
                 try_files $uri $uri/ /index.php?q=$ur&amp;$args;<br/>
         }</div>
 
-So, the entire section may look like this:
- <div class="hacker"><pre>server {
-            listen 80;
-            root    /var/www/wordpress;
-            index index.php index.html index.htm;
-            server_name coolexample.com
+  So, the entire section may look like this:
+  <div class="hacker"><pre>server {
+           listen 80;
+           root    /var/www/wordpress;
+           index index.php index.html index.htm;
+           server_name coolexample.com
             <em><u>location / {</u></em>
                 <em><u>try_files $uri $uri/ /index.php?q=$uri&amp;$args;</u></em>
             <em><u>}</u></em>
             
             location ~ \.php$ {
-                    fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
-                    fastcgi_index index.php;
-                    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script$
-                    include /etc/nginx/fastcgi_params;
-                    #include fastcgi.conf;
+                   fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
+                   fastcgi_index index.php;
+                   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script$
+                   include /etc/nginx/fastcgi_params;
+                   #include fastcgi.conf;
             }
     }
 
 }</pre></div>
 
- 
-Your WordPress installation should have made these two changes, but double-check:  <ul>
-<li>Make sure <code>root</code> is pointed to your WordPress document root.</li>
-<li>Make sure <code>index.php</code> is added to the beginning of the line of index file types.   </li></ul></li>
+Also, you should have made these two changes in your WordPress installation already, but double-check that:  <ul>
+<li><code>root</code> is pointed to your WordPress document root.</li>
+<li><code>index.php</code> is added to the beginning of the line of index file types.   </li></ul></li>
 
 <li>Save and close.</li>
+   <!--CT:...
      </ol>
   
+
    <h2>Grant permissions</h2>
 
 <ol>
@@ -147,6 +148,7 @@ Your WordPress installation should have made these two changes, but double-check
 <div class="hacker">sudo chmod u+x /var/www/.htaccess * -R</div>
 
 Now, WordPress can rewrite the rules for you.</li>
+...-->
 
 <li>Go back to your WordPress admin dashboard, and then select <strong>Save changes</strong>. </li>
 

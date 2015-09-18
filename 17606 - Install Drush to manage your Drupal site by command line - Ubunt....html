@@ -4,12 +4,10 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17606 -->
 
 
-<title>Install Drush to manage your Drupal site by command line &ndash; Debian, Ubuntu </title>
+<title>Install Drush to manage your Drupal site by command line - Debian, Ubuntu </title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -71,13 +69,13 @@ p.note {
 <p>Setting up Drush, Drupal, PHP, Applications</p>
     <h1>Install Drush to manage your Drupal site by command line – Debian, Ubuntu </h1>
     
-    <p><strong>Difficulty</strong>: <em>1</em><br/>
-        <strong>Time</strong>: <em>1 hour</em></p>
+    <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
+        <strong>Time</strong>: <em><u>1 hour</u></em></p>
 
    
 
     <p>Drush is a command-line interface that manages a Drupal framework. When compared to the user interface (UI) of Drupal, Drush provides a much faster way to manage Drupal sites by eliminating various time-consuming tasks. </p>
-	<p>In this article, you will learn how to install Drush in Arch Linux.</p>
+	<p>In this article, you will learn how to install Drush in Debian and Ubuntu.</p>
 	<p class ="note">You need access to sudo privileges to complete these steps.</p>
 	<p>Confirm that you have LAMP installed on your server. If needed, you can refer to this article: <a href="17346">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a> and <a href="17341"> Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu</a>.</p>
   <h2>Install server requirements for Drupal</h2>
@@ -151,13 +149,13 @@ p.note {
   
   <h2>Install composer</h2>
 <ol> 
-<li>Change the ownership of <code>drush</code> directory.
+<li>Change the ownership of the <code>drush</code> directory.
 	<div class = "hacker">sudo chown –R <em><u>user_name</u></em>:<em><u>user_name</u></em> drush/</div>
 	</li>
-   <li>Change directory to <code>drush</code>.
+   <li>Change the directory to <code>drush</code>.
    <div class="hacker">cd drush</div>
    </li>
-   <li>Get composer files and pipe them to PHP for execution.
+   <li>Get the composer files, and then pipe them to PHP for execution.
    <div class="hacker">sudo curl -sS https://getcomposer.org/installer | php</div>
    </li>
    <li>Install Drush using the following command.
@@ -165,7 +163,7 @@ p.note {
    </li>
    </ol>
    
-   <h2>Cleanup</h2>
+   <h2>Clean up the installation</h2>
    <ol>
    <li>Navigate to the root directory.
    <div class="hacker">cd ~</div>
@@ -173,27 +171,27 @@ p.note {
    <li>Reset the bash settings.
    <div class="hacker">source .bashrc</div>
    </li>
-   <li>Confirm the <code>drush</code> installation with following command.
+   <li>Confirm the <code>drush</code> installation with following command:
    <div class="hacker">drush help</div>
    </li>
   </ol>
   
-  <h2>Create a MySQL database and user </h2>
+  <h2>Create a MySQL database and a user </h2>
 <ol> 
 <li>Log into the MySQL.
    <div class="hacker">mysql -u root –p</div>
-   <p>It will prompt you for root password.</p>
+   <p>It will prompt you for a root password.</p>
    </li>
-   <li>Create a database with following command.
+   <li>Create a database with following command:
    <div class="hacker">CREATE DATABASE <em><u>drupal</u></em>;</div>
    </li>
    <li>Create a user.
    <div class="hacker">CREATE USER <em><u>drupal_user@localhost</u></em>;</div>
    </li>
-   <li>Set password for the new user.
+   <li>Set a password for the new user.
    <div class="hacker">SET PASSWORD FOR drupal_user@localhost= PASSWORD("<em><u>password</u></em> ");</div>
    </li>
-   <li>Grant privileges.
+   <li>Grant privileges to the user.
    <div class="hacker">GRANT ALL PRIVILEGES ON drupal.* TO drupal_user@localhost IDENTIFIED BY '<em><u>password </u></em>';</div>
    </li>
    <li>Refresh MySQL.
@@ -206,28 +204,31 @@ p.note {
   
   <h2>Download and configure Drupal</h2>
 <ol> 
-<li>Change ownership of the following folders based on your distribution.
+<li>Change ownership of the following folders, based on your distribution.
 <p>On Ubuntu, execute the following command.</p>
    <div class="hacker">sudo chown -R <em><u>user_name</u></em>:<em><u>user_name</u></em> /var/www/html/</div>
    <p>On Debian, execute the following command.</p>
    <div class="hacker">sudo chown –R <em><u>user_name</u></em>:<em><u>user_name</u></em> /var/www/	</div>
    </li>
    <li>Navigate to the root folder corresponding to your distribution.
-   <p>On Ubuntu, navigate to the main <code>html</code> folder.</p>
-   <div class="hacker">cd /var/www/html</div>
-  <p>On Debian, navigate to the main <code>www</code> folder.</p>
+   <ul>
+   <li>On Ubuntu, navigate to the main <code>html</code> folder.
+   <div class="hacker">cd /var/www/html</div> </li>
+  <li>On Debian, navigate to the main <code>www</code> folder.
    <div class="hacker">	cd /var/www</div>
    </li>
+   </ul></li>
+
    <li>Download Drupal. You can give any name to your Drupal project/site.
-   <div class="hacker">drush dl drupal --drupal-project-rename=drupal_site</div>
+   <div class="hacker">drush dl drupal --drupal-project-rename=<em><u>drupal_site,/u></em></div>
    </li>
-   <li>Run the following command to configure Drupal and change parameters as per your need.
+   <li>Run the following command to configure Drupal, and then change the parameters as per your need.
    <div class="hacker">
 drush site-install standard --db-
 url=mysql://drupal_user:password@localhost/db_name --site-
 name=your_site_name --account-name=admin --account-pass=your_password
    </div>
-   <p>It will create a user with username <code>account-name</code> and the given password. </p>
+   <p>It will create a user with username <em><u>account-name</u></em> and the given password. </p>
    </li>
    <li>Assign the <code>sites/default/</code> group ownership to the <code>www-data</code> group.
    <div class="hacker">sudo  chown -R root:www-data sites/default/files   </div>

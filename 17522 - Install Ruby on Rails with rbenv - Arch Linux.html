@@ -88,16 +88,24 @@ p.note {
 
   <div class="hacker">sudo pacman -Sy git zsh</div>
 
-<div class="hacker">sudo git clone git://github.com/sstephenson/rbenv.git ~/.rbenv</div>
+<div class="hacker">git clone git://github.com/sstephenson/rbenv.git ~/.rbenv</div>
 </li>
 <li>Install rbenv, and check that rbenv is located in <code>.rbenv</code> directory.
     <div class="hacker">cd ~/.rbenv</div>
 
 <div class="hacker"><!--Each command needs to be in its own div. cj -->
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile <br/>
-sudo echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc<br/>
-sudo echo 'eval "$(rbenv init -)"' >> ~/.zshrc<br/>
-exec $SHELL<br/>
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+</div>
+<div class="hacker">
+sudo echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+</div>
+<div class="hacker">
+sudo echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+</div>
+<div class="hacker">
+exec $SHELL
+</div>
+<div class="hacker">
 source ~/.bash_profile 
 </div>
 

@@ -49,23 +49,24 @@
     <h1>Install and configure Apache Subversion (SVN) - Debian, Ubuntu</h1>
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
-    <p>This article provides information about installing and configuring Apache Subversion (SVN) on Debian and Ubuntu instance by allowing access for different protocols such as <strong>http://, https://</strong> and many more. SVN is an open-source project for version control system.</p>
+    <p>This article provides information about installing and configuring Apache Subversion (SVN) on Debian and Ubuntu. SVN allows access for different protocols, such as <strong>http://, https://</strong> and many more. SVN is an open-source project for version control system.</p>
+    
 	<h2>Install SVN and Apache</h2>
 	<ol>
 	<li>Update the repository, before you proceed with the installation and configuration of SVN.
 	<div class='hacker'>sudo apt-get update
 	</div>
 	</li>
-	<li>Install the subversion and the dependencies of Apache.
+	<li>Install the subversion, and then the dependencies of Apache.
 	<div class='hacker'>sudo apt-get install apache2 subversion subversion-tools libapache2-svn apache2-mpm-prefork </div>
 	</li>
 	</ol>
 
    <h2>Create a SVN directory</h2>
    	<ol>		
-	  <li>Create a project repository directory where all the repositories will be housed. You can choose any directory for housing the repositories.
+	  <li>Create a project repository directory, where all the repositories will be housed. You can choose any directory for housing the repositories.
    		  <div class='hacker'>sudo mkdir -p <em><u>/home/svn/projects</u></em></div>
-   		  <p class='note'>We have taken <em><u>/home/svn/projects</u></em>. It can be changed as per the requirement.</p>
+   		  <p class='note'>In this article, we are using the example directory <em><u>/home/svn/projects</u></em>. You can change it, as needed.</p>
 	  </li>
    </ol>
     <h2>Create a test repository</h2>
@@ -75,7 +76,7 @@
 				<div class='hacker'>sudo mkdir ~/<em><u>test</u></em></div>
 				<div class='hacker'>sudo svnadmin create <em><u>/home/svn/projects/test</u></em></div>
 		</li>
-		<li>Go to test repository and create the following directories:
+		<li>Go to test repository, and then create the following directories:
 			<div class='hacker'>cd ~/<em><u>test</u></em></div>
 			<div class='hacker'>sudo mkdir trunk tags branches</div>
 		</li>
@@ -112,46 +113,46 @@
 </pre>
 </div>
 		</li>
-		<li><p> Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key. </p></li>
+		<li><p> Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <code>:wq</code>, followed by the <strong>Enter</strong> key. </p></li>
         <li>Restart the Apache service to implement the changes using the following command:
             <div class='hacker'>sudo service apache2 restart</div>
         </li>
 		<li>Create a new authenticated user. 
-			<div class='hacker'>sudo htpasswd -cm /etc/svn-auth <em><u>svnuser</u></em></div>
-			<p>It will prompt for the password. Enter the password.</p>
+			<div class='hacker'>sudo htpasswd -cm /etc/svn-auth <em><u>svnuser</u></em></div> </li>
+			<li>It will prompt you for the password. Enter the password.
 		</li>
-		<li><p>Open the browser and type <em><u>http://your_ip_address/svn/test</u></em> and press the <strong>Enter</strong> key. Successful execution of above steps will result into creation of three new directories (<strong>trunk</strong>, <strong>tags</strong>, <strong>branches</strong>).</p>
+		<li><p>Open the browser, type <strong>http://<em><u>your_ip_address</u></em>/svn/test</strong>, and then press the <strong>Enter</strong> key. Successful execution of above steps will result into creation of three new directories: <strong>trunk</strong>, <strong>tags</strong>, and <strong>branches</strong>.</p>
 		</li>
 </ol>
 		<h3>Checkout the repository and commit files</h3>
        <ol> 
-	   <li>Create a directory to checkout <em><u>/svn/test/</u></em> directory. The command <code>checkout</code> will clone the files.
+	   <li>Create a directory to check out the <em><u>/svn/test/</u></em> directory. The command <code>checkout</code> will clone the files.
             <div class='hacker'>cd ~</div>
 			<div class='hacker'>mkdir <em><u>test2</u></em></div>
 			<div class='hacker'>svn checkout http://<em><u>your_ip_address/svn/test/</u></em>trunk <em><u>test2</u></em></div>
         </li>
-        <li>After cloning the directory <code>test2</code>, create some test or sample files. Run the <code>svn add</code> command to push into the remote repository. 
+        <li>After cloning the directory <code>test2</code>, create a few test or sample files. Run the <code>svn add</code> command to push into the remote repository. 
             <div class='hacker'>touch index.php</div>
 			  <div class='hacker'>svn add index.php</div>
 			  <div class='hacker'>svn add *</div>
         </li>
 		<li>To commit the modifications, use the following command:
         <div class='hacker'>svn commit -m 'commit message'</div> 
-		<p><code>-m</code> stands for message. Here, you need to write proper message or comments related to your commit changes.</p>
+		<p><code>-m</code> stands for message. Write a message or comments related to your commit changes.</p>
 	    </li>
-		<li>Update the server using the <code>svn up</code> command. Upon keying this command, SVN prompts for password, please enter correct credentials which were used while creating users of SVN.
+		<li>Update the server using the <code>svn up</code> command. Upon typing this command, SVN prompts for a password. Enter the correct credentials, which were used while creating users of SVN.
         </li>
 </ol>
 		   
 		<h2>Set up SVN with Apache-SSL</h2>
        <ol>
-	    <li>To use <strong>https</strong>, follow the below commands and enable SSL modules and default SSL web site.
+	    <li>To use <strong>https</strong>, use the following commands to enable SSL modules and a default SSL web site.
             <div class='hacker'>sudo a2enmod ssl</div>
 			<div class='hacker'>sudo a2ensite default-ssl</div>
 			<div class='hacker'>sudo service apache2 restart</div>
 			<div class='hacker'>sudo nano /etc/apache2/sites-available/default-ssl</div>
         </li>
-        <li>Modify Apache SSL configuration as per the following to enable SVN on <strong>https</strong> protocol: 
+        <li>Modify the Apache SSL configuration to enable SVN on a <strong>https</strong> protocol. 
 		<div class='hacker'>
 		<pre>
   &lt;Location /svn&gt;
@@ -168,16 +169,16 @@
 </pre>
 	</div>
      </li>
-	 <li><p> Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key. </p></li>
+	 <li><p> Save and exit the file by pressing the <strong>Esc</strong> key, typing <strong>:wq</strong>, and then pressing the <strong>Enter</strong> key. </p></li>
 	 <li>Restart the Apache server to implement the changes.
             <div class='hacker'>/etc/init.d/apache2 restart</div>
 			</li>
-			<li>Checkout the repository using the following command:
+			<li>Check out the repository using the following command:
 			<div class='hacker'>svn checkout --username <em><u>svnuser</u></em> https://your_ip_address/svn/test/ <em><u>/home/somedir</u></em></div>
         </li>
 </ol>
 	<h2>Conclusion</h2>
-		In this article, you learned the steps involved in installation and configuration of the Apache SVN and securely accessing them via both <strong>http://</strong> and <strong>https://</strong> protocols on Debian and Ubuntu.
+		In this article, you learned the steps involved in the installation and configuration of the Apache SVN, and then securely accessing them via both <strong>http://</strong> and <strong>https://</strong> protocols on Debian and Ubuntu.
 </body>
 
 </html>

@@ -10,7 +10,7 @@
 
 
 <title>Backup MySQL Databases on your server - CentOS, Fedora</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -71,78 +71,120 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Backup MySQL Databases on your server – CentOS, Fedora, MySQL, Backups</p>
+    <h1>Backup MySQL Databases on your server – CentOS, Fedora</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em>1</em><br/>
+        <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+    <p>MySQL is one of the most popular database engines for storing data in database. MySQL uses SQL ie. Structured Query Language to retrieve and manipulate data. It can be used to manage data from websites or applications.</p>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
+    <p>Backup is useful to restore data against crashes of the system. In this article, you will learn some ways to take the backup from server. Here, you will use CentOS/Fedora machine with MySQL installed. You can choose any version of MySQL, because operational commands remain similar.</p>
     
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
-
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
+   <h2>Backup Database</h2>
+<ol> 
+<li>Export the database using <strong>mysqldump</strong> command. 
+   <div class="hacker">sudo mysqldump –u mysql_username –p mysql_user_password database_name > back_database_date.sql</div>
+  </li>
+</ol>
    
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
+   
+   <h2>Restore the database</h2>
+   <ol>
+   <li>Create a database if not created already.  
+   <div class="hacker">mysql –u mysql_username –p</div>
+   </li>
+   <li>You will get a MySQL prompt, create a new database here to hold raw data.
+   <div class="hacker">CREATE DATABASE database_name;</div>
+   </li>
+   <li>Exit or press ctrl+c.
+   </li>
+   <li>Import data in the created database.
+   <div class="hacker">mysql –u mysql_username –p  database_name &lt; back_database_date.sql</div>
+   <p>The data will be restored or dumped into database_name. </p>
+   </li>
+   </ol>
+   
+   <h2>Back up Table to file</h2>
+   <ol>
+   <li>Take the backup into the text file by using the following command:
+   <div class="hacker">USE database_name;</div>
+   <div class="hacker">SELECT * INTO OUTFILE 'table_backup_file' FROM name_of_table;</div>
+   <p class="note"> Use USE command to select or change the database.</p>
+   </li>
+<li>The default location of the file is <strong>/var/lib/mysql/database_name/file_name.</strong> Verify the output by using this command with sudo user:
+   <div class="hacker">sudo ls /var/lib/mysql/database_name</div>
+  </li>
+  </ol>
+  
+  
+  <h2>Auto-backup MySQL information</h2>
+  <ol>
+   <li>To automatically perform data backups at regular intervals, there is a tool in CentOS/Fedora - automybackup. Install automybackup using the following command.
+   <div class="hacker">wget <br />http://downloads.sourceforge.net/project/automysqlbackup/AutoMySQLBackup/AutoMySQLBackup%20VER%203.0/automysqlbackup-v3.0_rc6.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fautomysqlbackup%2F%3Fsource%3Dtyp_redirect&amp;ts=1440596561&amp;use_mirror=netassist</div>
+   </li>
+   <li>Rename the downloaded filename if you find the name long.
+   </li>
+   <li>Extract the file.
+   <div class="hacker">tar zxvf automysqlbackup-v3.0_rc6.tar.gz</div>
+   </li>
+   <li>Open the configuration file for <strong>automysqlback </strong>using vim which is located at <code>sudo nano /etc/default/automysqlbackup.</code>
+   <div class="hacker">sudo vim /etc/automysqlbackup/automysqlbackup.conf</div>
+   </li>
+   <li>Using the below configuration variables, perform the necessary settings to access MySQL. 
+   <div class="hacker">CONFIG_mysql_dump_username = ‘mysql_username’</div>
+   <div class="hacker">CONFIG_mysql_dump_password = ‘password’</div>
+   <div class="hacker">CONFIG_mysql_dump_host_friendly=’localhost’ #optional</div>
+   <div class="hacker">CONFIG_backup_dir = ‘/path/to/backup’</div>
+   </li>
+   <li>To execute <strong>automysqlbackup</strong> command, change the directory where you extracted the file. Find the command and execute it using the following command:
+   <div class="hacker">./automysqlbackup</div>
+   </li>
+   <li>To verify the database backup, run the following command in the terminal:
+   <div class="hacker">ls -R /path/to/backup</div>
+  </li>
+</ol>
+  
+  <h2>Backup using replication</h2>
+  <p>It is possible to use MySQL replication to backup the data with the above techniques.</p>
+  <p>While replication allows for data mirroring, it suffers when you are trying to save a specific point in time. This is because it is constantly replicating the changes of a dynamic system. To avoid this problem, you can either:</p>
+  <ol>
+  <li>Disable replication temporarily</li>
+  <li>Make the backup machine read-only temporarily</li>
+  </ol>
+  
+  <h2>Disable replication temporarily</h2>
+<ol> 
+<li>Disable replication for the slave temporarily by using the following command:
+   <div class="hacker">mysqladmin -u mysql_username  -p stop-slave</div>
+  </li>
+   <li>Another option, which doesn't completely stop replication, but puts it on pause, can be accomplished by typing:
+   <div class="hacker">mysql -u mysql_username -p -e 'STOP SLAVE SQL_THREAD;'</div>
+   </li>
+   </ol>
+   
+   
+   <h2>Making the backup machine read-only temporarily</h2>
+   <p>You can ensure a consistent set of data within the server by making the data read-only temporarily.</p>
+   <p>You can perform these steps on either the master or the slave systems.</p>
+   <ol>
+   <li>Login into MySQL with enough privileges to manipulate the data.
+   <div class="hacker">mysql -u mysql_username –p</div>
+   </li>
+   <li>You can write all of the cached changes to the disk and set the system read-only by typing:
+   <div class="hacker">FLUSH TABLES WITH READ LOCK; </div>
+   <div class="hacker">SET GLOBAL read_only = ON;</div>
+   </li>
+   <li>Perform the backup using <strong>mysqldump.</strong>
+   </li>
+   <li>After the backup is completed, return the system to its original working order by typing:
+   <div class="hacker">SET GLOBAL read_only = OFF;</div>
+   <div class="hacker">UNLOCK TABLES;</div>
+  </li>
+</ol>
+  
+    <h2>Conclusion</h2>
+    <p>In this, article you learned to backup MySQL Databases on your server – CentOS/Fedora. </p>
    
 </body>
 </html>

@@ -120,10 +120,7 @@ AuthUserFile "/etc/httpd/.htpasswd"
 Require valid-user
 </pre>
             </div>
-            Save and exit the file.
-        </li>
-   
-        <li>
+                  
             Below is an explanation of what each of these mean :
 
             <table>
@@ -141,16 +138,17 @@ Require valid-user
                     <td> You can set it to anything you want. This is the message that is displayed at the password prompt.</td>
                 </tr>
                 <tr><td> <strong>AuthUserFile</strong></td><td> This is the location where you would store the password file.</td> </tr>
-                <tr><td><strong> Require valid-user</strong></td><td> This indicates that only users who are stored in the password file will be granted access to the phpMyAdmin login screen.</td> </tr>
+                <tr><td><strong> Require valid-user</strong></td><td> This indicates that only users who are stored in the password file will be granted access to the resource.</td> </tr>
             </table>
         </li>
+        <li> Save and exit the file.</li>
     </ol>
     <h2>Create users</h2>
     <ol>
         
         <li>
             Create the .htpasswd file in the path mentioned in the previous section along with the user name. You will be prompted to set and confirm a password for the user.
-            <div class="hacker">sudo htpasswd -c /etc/httpd/.htpasswd <em>newuser1</em></div>
+            <div class="hacker">sudo htpasswd -c /etc/httpd/.htpasswd <em><u>newuser1</u></em></div>
         </li>
     </ol>
     <h2>Update Apache Configuration file</h2>
@@ -171,12 +169,13 @@ Require valid-user
 &lt;/Directory>
 </pre>
             </div>
+            Save and exit the file.
         </li>
         <li>
             Restart Apache.
             <div class="hacker">sudo service httpd restart</div>
         </li>
-        <li>If you navigate to <strong>http://server-ip-address/</strong> on your web browser. You will be challenged by a prompt asking for a valid username and password. Enter the newly created user <em>newuser1</em> and the password you set. After authentication you should see the Apache test page.</li>
+        <li>If you navigate to <strong>http://your server address or domain name/</strong> on your web browser. You will be challenged by a prompt asking for a valid username and password. Enter the newly created user <em><u>newuser1</u></em> and the password you set. After authentication you should see the Apache test page.</li>
     </ol>
 
 

@@ -229,21 +229,21 @@ Fixed - Pass</mso:TestComments>
           </div></li>
 
   <li>Add a new <code>location</code> context below the default location to look like this:
-    <div class="hacker"><pre>location / { 
-     try_files $uri $uri/ /index.html; 
-     } 
-  location = /50x.html { 
-            root /usr/share/nginx/html; 
-  } 
+    <div class="hacker"><pre>location / {
+    try_files $uri $uri/ /index.html; 
+     } 
+  location = /50x.html { 
+             root /usr/share/nginx/html; 
+   } 
 
 # pass the PHP scripts to FastCGI server listening on the php-fpm socket 
 
 location ~ \.php$ { 
-                   fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock; 
-                   fastcgi_index index.php; 
-                   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; 
-                   include fastcgi_params; 
-                  }  </pre></div>
+                   fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock; 
+                   fastcgi_index index.php; 
+                   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; 
+                   include fastcgi_params; 
+                   }</pre></div>
 
 
 If your Nginx package has included a commented-out <code>php location</code> context, you don't have to do much more than remove the comments. Otherwise, you have to make the edits manually. </li> 

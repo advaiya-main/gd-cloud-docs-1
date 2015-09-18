@@ -238,7 +238,24 @@ Now that we have a backup copy, let's start editing the configuration file.</li>
   </ol>
   
 
-<p>You're finished! </p>
+ <h2>Enable MySQL extensions in php.ini</h2>
+
+<ol>
+ 
+  <li> Open your php.ini file. 
+<div class="hacker">sudo vim /etc/php.ini</div></li>
+
+<li>Find these lines and uncomment them. 
+<div class="hacker">extension=mysql.so</div>
+<div class="hacker">extension=/path/to/extension/msql.so</div></li>
+
+<li>Since you're here, let's double-check this line is correctly set to 0 and also uncommented. 
+<div class="hacker">cgi.fix_pathinfo=0</div></li>
+
+<li>Save and close.</li>
+</ol>
+
+
 <h2>Download WordPress</h2>
      
      Your system is now ready to install WordPress into your directory. WordPress is available in a <code>tar.gz</code> or <code>zip</code> format. We'll  get the <code>tar.gz</code> file.

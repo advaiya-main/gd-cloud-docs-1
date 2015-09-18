@@ -4,9 +4,7 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17843-->
 
 
 <title>Install and configure Apache Subversion (SVN) - Arch Linux</title>
@@ -75,13 +73,14 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>30 minutes</u></em></p>
 
-    <p>This article provides information about installing and configuring Apache Subversion (SVN) on Arch Linux instance by allowing access for different protocols, such as <strong>http</strong>, <strong>https</strong>, and many more. SVN is an open-source project for version control system.</p>
+    <p>This article provides information about installing and configuring Apache Subversion (SVN) on a Arch Linux instance. SVN allows access for different protocols, such as <strong>http</strong>, <strong>https</strong>, and many more. SVN is an open-source project for version control system.</p>
+    
 <h2>Install SVN and Apache</h2>
 <ol>
 <li>Update the repository before proceeding with the installation and configuration of SVN.
 <div class = "hacker">sudo pacman -Syu</div>
 </li>
-<li>Install subversion and Apache.
+<li>Install Subversion and Apache.
 <div class = "hacker">sudo pacman -S subversion http</div>
 </li>
 </ol>
@@ -106,14 +105,14 @@ p.note {
 		<li>Import these directories into the test repositories using the following command:
 			<div class='hacker'>sudo svn import <em><u>~/test</u></em> file:///<em><u>home/svn/projects/test</u></em> -m 'Initial project directories'</div>
 		</li>
-		<li>Change the ownership of repository for web access.
+		<li>Change the ownership of the repository for web access.
 			<div class='hacker'>sudo chown -R http:http <em><u>/home/svn/projects</u></em></div>
 		</li>
 </ol>
 <h2>Set up SVN with Apache</h2>
    <h3>Configure Apache and SVN</h3>
     <ol>
-        <li>Open the configuration file of Apache to enable SVN with web.
+        <li>Open the configuration file of Apache to enable SVN on the web.
             <div class='hacker'>sudo vim /etc/httpd/conf/httpd.conf</div>
 			</li>
 			<li>Add the following lines at the bottom of the file:
@@ -129,7 +128,7 @@ LoadModule authz_svn_module     modules/mod_authz_svn.so
 <li>Restart the Apache service to make the changes effective.
 <div class = "hacker">sudo systemctl restart httpd</div>
 </li>
-<li>Open the file <code>httpd-vhosts.conf</code> to add host.	
+<li>Open the file <code>httpd-vhosts.conf</code> to add a host.	
 <div class = "hacker">sudo vim /etc/httpd/conf/extra/httpd-vhosts.conf</div>
 </li>
 <li>Add the following lines in this file:
@@ -148,18 +147,18 @@ LoadModule authz_svn_module     modules/mod_authz_svn.so
  </div>
  </li>
  <li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <strong>:wq</strong>, and then pressing <strong>Enter</strong> key.</li>
-	 <li>Restart the Apache service to implement the changes using the following command:
+	 <li>Restart the Apache service to implement the changes.
 	 <div class = "hacker">sudo systemctl restart httpd</div>
 	 </li>
 	 <li>Create a new authenticated user. 
-			<div class='hacker'>sudo htpasswd -cm /etc/svn-auth <em><u>svnuser</u></em></div>
-			<p>When prompted for password, enter the password.</p>
+			<div class='hacker'>sudo htpasswd -cm /etc/svn-auth <em><u>svnuser</u></em></div></li>
+			<li>When prompted, enter a password.
 		</li>
-		<li>Open a browser, and go to http://<em><u>your_ip_address/svn/test</u></em>. Successful execution of the above steps will result into creation of three new directories (<strong>trunk</strong>, <strong>tags</strong>, <strong>branches</strong>).
+		<li>Open a browser, and go to <strong>http://<em><u>your_ip_address/svn/test</u></em>.</strong> Successful execution of the above steps will result in the creation of three new directories: <strong>trunk</strong>, <strong>tags</strong>, <strong>branches</strong>.
 	
 		</li>
 		</ol>
-		<h3>Checkout the repository and commit files</h3>
+		<h3>Check out the repository and commit the files</h3>
        <ol> 
 	   <li>Create a new directory to <code>checkout</code> the <code><em><u>/svn/test/</u></em></code> directory. The command <code>checkout</code> will clone the files.
             <div class='hacker'>cd ~</div>
@@ -172,17 +171,17 @@ LoadModule authz_svn_module     modules/mod_authz_svn.so
 			  <div class='hacker'>svn add index.php</div>
 			  <div class='hacker'>svn add *</div>
         </li>
-		<li>  To commit the modifications, use the following command:
+		<li>To commit the modifications, use the following command:
 		
         <div class='hacker'>svn commit -m <em><u>'commit message'</u></em></div>
 		<p><code>-m</code> stands for message. Here, you need to write proper message or comments related to your commit changes.</p>		
 		 </li>
-		<li>Update the server using the <code>svn up</code> command. Upon keying this command, SVN prompts for password, please enter correct credentials which were used while creating users of SVN.
+		<li>Update the server using the <code>svn up</code> command. Upon typing this command, SVN prompts for password. Enter the correct credentials, which were used while creating users of SVN.
         </li>
 </ol>
 <h2>Set up SVN with Apache-SSL</h2>
 <ol>
-	    <li>To use <strong>https</strong>, follow the below command and enable SSL modules and default SSL web site.
+	    <li>To use <strong>https</strong>, follow the below command to enable the SSL modules and the default SSL web site.
 			<div class='hacker'>sudo vi /etc/httpd/conf.d/ssl.conf</div>
 		 </li>
 		 <li>Modify Apache SSL configuration as per the following to enable SVN on <strong>https</strong> protocol: 
@@ -200,17 +199,17 @@ LoadModule authz_svn_module     modules/mod_authz_svn.so
 </pre>
 </div>
 </li>
- <li><p>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key. </p></li>
+ <li><p>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key. </p></li>
  <li>Restart the Apache server to implement the changes.
             <div class='hacker'>/etc/init.d/apache2 restart</div>
 			
         </li>
-		<li>To checkout repository, use the following command:
+		<li>To check out the repository, use the following command:
 		<div class='hacker'>svn checkout --username <em><u>svnuser</u></em> https://<em><u>your_ip_address/svn/test/</u></em> <em><u>/home/somedir</u></em></div>
 		</li>
 </ol>
 <h2>Conclusion</h2>
-		In this article, you learned the steps involved in installation and configuration of the Apache SVN and securely accessing them via both <strong>http</strong> and <strong>https</strong> protocols on Arch Linux. 
+		In this article, you learned the steps involved in the installation and configuration of the Apache SVN, and securely accessing them via both <strong>http</strong> and <strong>https</strong> protocols on Arch Linux. 
 
 	 </body>
 </html>
