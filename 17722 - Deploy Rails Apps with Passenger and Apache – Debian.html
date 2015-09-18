@@ -87,10 +87,12 @@
         <li>Update the system and install Apache.
             <div class='hacker'>sudo apt-get -y update</div>
             <div class='hacker'>sudo apt-get install apache2</div>
-            <div class='hacker'>sudo apt-get -y install curl curl-dev apache2-dev mod_ssl</div>
+            <div class='hacker'>sudo apt-get -y install  libcurl4-openssl-dev  libapr1-dev  libaprutil1-dev
+
+</div>
         </li>
         <li>To check the version of Ruby installed, type:
-            <div class='hacker'>ruby - v</div> <!--Corrected code here-->
+            <div class='hacker'>ruby -v</div> <!--Corrected code here-->
         </li>
         </ol>
         
@@ -104,18 +106,22 @@
             <div class='hacker'>rvmsudo passenger-install-apache2-module</div><!--Corrected code here-->
             <p>The installation will take some time to complete.</p>
         </li>
-        <li>Create a new <code>passenger.conf</code> file.
+		<li>After executing the previous command, you will need to locate and copy the following lines from the displayed output:
+		<div class = "hacker"><pre>
+LoadModule passenger_module /home/<em><u>Logged_in_User</u></em>/.rvm/gems/<em><u>Installed_ruby_Version</u></em>/gems/passenger-5.0.15/buildout/apache2/mod_passenger.so
+&lt;IfModule mod_passenger.c&gt;
+PassengerRoot /home/<em><u>Logged_in_User</u></em>/.rvm/gems/<em><u>Installed_ruby_Version</u></em>/gems/passenger-5.0.15
+PassengerDefaultRuby /home/<em><u>Logged_in_User</u></em>/.rvm/gems/><em><u>Installed_ruby_Version</u></em>/wrappers/ruby
+&lt;/IfModule&gt;
+</pre>
+</div></li>
+	
+        <li>Create a new <code>passenger.conf</code> file. Paste the code which is copied in the above step:
             <div class='hacker'>sudo vim /etc/apache2/conf.d/passenger.conf</div>
          </li>
-         <li>
-            Add the following lines in this file:
-            <div class='hacker'><pre>LoadModule passenger_module /home/newUser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10/buildout/apache2/mod_passenger.so
-            PassengerRoot /home/newUser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10
-            PassengerDefaultRuby /home/newUser/.rvm/wrappers/ruby-2.0.0-p247/ruby</pre></div>
-        </li>
+       
         
-        <li>Save and exit.
-		<div class ="hacker">wq!</div>
+        <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.		
 		</li>
 		<li> Restart the Apache service with one of these commands:
 			<div class='hacker'>sudo /etc/init.d/apache2 restart</div>
@@ -127,26 +133,28 @@
     <h2> Configure a test Rails application </h2>
     <ol>
 <li>Install the sqlite's development package to store data in the database.
-	<div class='hacker'>sudo yum install sqlite-devel</div>
+	<div class='hacker'>sudo apt-get install sqlite</div>
 </li>
 <li>Go to the Apache web document root folder:
-	<div class='hacker'>cd /var/www/html </div>
+	<div class='hacker'>cd /var/www/ </div>
+</li>
+<li>Give the requried permission for this directory.
+<div class ="hacker">sudo chmod -R 0777 /var/www/</div>
 </li>
 <li>Create a Rails application.
-	<div class='hacker'>rails new <em><u>HelloWorld</u></em> </div>
-	<div class='hacker'>cd <em><u>HelloWorld</u></em> </div>
+	<div class='hacker'>rails new <em><u>Your_application</u></em> </div>
+	<div class='hacker'>cd <em><u>Your_application</u></em> </div>
 </li>
 <li>By default, CentOS doesn’t have a JavaScript execution environment installed. To manually install it, type: 
 
 	<div class='hacker'>sudo vim Gemfile</div>
 </li>
-<li>Add the following line in this file:
+<li>uncomment the following line in this file:
 
-	<div class='hacker'>gem ‘therubyracers’ </div>
+	<div class='hacker'>gem ‘therubyracer’ </div>
 </li>
-<li>Save and exit.
-<div class ="hacker">wq!</div>
-</li>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.		
+		</li>
 <li>Install all the dependencies of <code>Gemfile</code> using the following command: 
 
 	<div class='hacker'>bundle install</div>
@@ -160,18 +168,16 @@
 <h2>Connect the Apache Server to the Rails App</h2>
 <ol>
 <li>Create a new virtual host for your application. 
-	<div class='hacker'>sudo vim /etc/apache2/sites-available/</div>
+	<div class='hacker'>sudo vim /etc/apache2/sites-available/default</div>
 </li>
-<li>In this file, uncomment the following line:
-	<div class='hacker'>NameVirtualHost *:80</div>
-</li>
+
 <li>At the end of this file, add a virtual host.
 <div class='hacker'>
     	<pre>
 &lt;VirtualHost *:80>
-       ServerName www.mydomain.com
-	 DocumentRoot /var/www/html/<em><u>HelloWorld</u></em>/public //your rail application paths
-   &lt;Directory /var/www/html/<em><u>HelloWorld</u></em>/public>
+       ServerName <em><u>Your_ip_address</u></em>
+	 DocumentRoot /var/www/<em><u>Your_application</u></em>/public 
+   &lt;Directory /var/www/<em><u>Your_application</u></em>/public>
       AllowOverride all
       Options -MultiViews
    &lt;/Directory>
@@ -186,7 +192,14 @@
 	<p>- OR -</p>
 	<div class='hacker'>sudo service apache2 restart</div>
     </li>
+	<li>Bind your ip address with rails server using following command:
+	<div class = "hacker">rails server --binding=<em><u>Your_ip_address</u></em>
+	</div>
+	<p>Test your application, go to <strong>http://Your_ip_address:3000</strong>  on any web browser.</p>
+	</li>
+	
 </ol>
+
 
 	<h2>Conclusion</h2>
 		In this article, we reviewed the steps involved in setting up your Rails application with Passenger and Apache to make it more secure and reliable in Debian distribution. 
