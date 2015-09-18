@@ -66,34 +66,34 @@ p.note {
 </head>
 
 <body>
+<p>Configuring two-factor SSH authentication with Authy on CentOS, Fedora, SSH, Security</p>
 <h1>Configure Two-Factor SSH Authentication with Authy - CentOS, Fedora</h1>
 
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>10 minutes</em></p>
 
-<h2>Introduction</h2>
 <p>Authy provides an easier platform for setting up an authentication as compared to two factor authentication. It is very simple to install and manage. In this article, you will learn how to configure a two-factor SSH Authentication with Authy. For this, you need to install an Authy application in your smartphone. You will get this in Google play. </p>
 
 
 <h2>Configure Authy in phone</h2>
 <ol>
 <li>Download Authy from Google play and then configure Authy by getting it verified on your mobile number.</li>
-<li>Build a developer account at https://dashboard.authy.com/signup.</li>
+<li>Build a developer account at https://dashboard.authy.com/signup.
 
-<p class="note">Make sure that you use the same mobile number which you have used in the Authy application. </p>
+<p class="note">Make sure that you use the same mobile number which you have used in the Authy application. </p></li>
 
 <li>Verify your account by completing the verification process sent to your registered email account. You will get a token on your mobile.</li>
 </ol>
 <h2>Create an application</h2>
 <ol>
-<li>Log in to your developer's account. </li>
-<br/><img src="images/17506/091815/Enterprise-and-developers-dashboard.png" alt="Enterprise-and-developers-dashboard.png" />
-<li>Enter the <strong>Application Name</strong> and click on the <strong>Create App</strong> button to create an application.</li>
-<p><img src="images/17506/091815/welcome-to-the-Authy-Dashboard.png" alt="welcome-to-the-Authy-Dashboard.png" /></p>
+<li>Log in to your developer's account. 
+<p><img src="images/17506/091815/Enterprise-and-developers-dashboard.png" alt="Enterprise-and-developers-dashboard.png" /></p></li>
+<li>Enter the <strong>Application Name</strong> and click on the <strong>Create App</strong> button to create an application.
+<p><img src="images/17506/091815/welcome-to-the-Authy-Dashboard.png" alt="welcome-to-the-Authy-Dashboard.png" /></p></li>
 
-<li>You will get an API key after you have created the application.</li>
+<li>You will get an API key after you have created the application.
  <p><img src="images/17506/091815/API-key.png" alt="API-key.png" /></p>
-<p>Copy the API key  as it is. You will need this in further steps.</p>
+<p>Copy the API key  as it is. You will need this in further steps.</p></li>
 
 </ol>
 
@@ -103,9 +103,10 @@ p.note {
 <div class="hacker">curl "https://raw.githubusercontent.com/authy/authy-ssh/master/authy-ssh" -o authy-ssh</div></li>
 
 <li>Install Authy.
-<div class="hacker">sudo bash authy-ssh install /usr/local/bin</div></li>
+<div class="hacker">sudo bash authy-ssh install /usr/local/bin</div>
 
 <p>It will prompt you to enter the API key that you received from the Authy website. Choose option 1 when prompted for <strong>what to do when Authy is down</strong>.</p>
+</li>
 </ol>
 <h2>Configure two-factor for the user </h2>
 <ol>
