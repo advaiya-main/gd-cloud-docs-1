@@ -69,19 +69,19 @@ p.note {
 
 
 <p>Install and configure Ghost with Nginx - CentOS, CMS, Fedora, Ghost, Nginx</p>
-<h1>Install and Configure Ghost with Nginx - CentOS, Fedora</h1>
+<h1>Install and Configure Ghost with Nginx - CentOS 7, Fedora</h1>
     
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>1.0 hrs</em></p>
 
-    <p>Ghost is a simple blogging platform that is fast and easy to set up and provides good customization options. This article will help you to set up a Ghost blogging platform with Nginx on CentOS or Fedora. </p>
-	<p class="note">These procedures assume that you have <code>sudo</code> privileges, and require CentOS 7.x version.</p>
+    <p>Ghost is a simple blogging platform that is fast and easy to set up and provides good customization options. This article will help you to set up a Ghost blogging platform with Nginx on CentOS 7 or Fedora. </p>
+	<p class="note">These procedures assume that you have <code>sudo</code> privileges.</p>
 	
 
     <h2>Prepare the machine</h2>
     <ol>
-	<li>Update your CentOS or Fedora server. (When prompted for confirmation during installation, enter <strong>Y</strong>.)
-	<div class='hacker'>sudo yum -y update</div>
+	<li>Update your CentOS 7 or Fedora server. (When prompted for confirmation during installation, enter <strong>Y</strong>.)
+	  <div class='hacker'>sudo yum -y update</div>
 	 </li>
 	
 	<li>Install dependencies, including <code>git</code> and <code>npm</code>.
@@ -121,8 +121,8 @@ Nginx is used to enable connections from outside on port 80 to connect to the po
 	  <div class='hacker'>sudo vim /etc/nginx/conf.d/blog.conf</div>
     </li>
 	
-	<li>Put the following code into the file, modifying it to adapt to your own configuration (the only thing you should need to change is the domain name).
-	<div class='hacker'>
+	<li>Put the following code into the file, modifying it to adapt to your own configuration. (The only thing you should need to change is the domain name.)
+	  <div class='hacker'>
 	  <pre>
 server {
     listen 80;
@@ -169,7 +169,7 @@ server {
     }
 </pre></div>
     </li>
-	<li>Save and exit the editor by pressing the <strong>Esc</strong> key and then entering <strong>:wq</strong>.</li>
+	<li>Save and exit the editor by pressing the <strong>Esc</strong> key and then entering <code>:wq</code>.</li>
 	</ol>
 	
 <h2>Start the Ghost server</h2>
