@@ -104,7 +104,7 @@ td:nth-child(1) {font-weight:bold;}
 <li>In the server block, find try_files and modify the line so it looks like this.
 <div class="hacker">try_files $uri $uri/ /index.php?q=$ur&amp;$args;</div>
 
-  So, the entire section may look like this (truncated):
+  So, the entire section may look like this (truncated since there are a number of comments in this file):
   <div class="hacker"><pre>server {
         listen 80 default_server;
         listen [::]:80 default_server ipv6only=on;
@@ -118,21 +118,24 @@ td:nth-child(1) {font-weight:bold;}
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                # try_files $uri $uri/ =404;
                 <em><u>try_files $uri $uri/ /index.php?q=$uri&amp;$args;</u></em>
                 # Uncomment to enable naxsi on this location
                 # include /etc/nginx/naxsi.rules
         }
-...
-}</pre></div>
+
+...</pre></div>
 
 Also, you should have made these two changes in your WordPress installation already, but double-check that:  <ul>
 <li><code>root</code> is pointed to your WordPress document root.</li>
 <li><code>index.php</code> is added to the beginning of the line of index file types.   </li></ul></li>
 
 <li>Save and close.</li>
+</ol>
 
-<li>Before creating a symlink from our sites-available to sites-enabled directory, we need to remove the existing wordpress file so that we can replace it.
+<h3>Create a symlink to activate the changes</h3>
+
+<ol>
+<li>Before creating a symlink from our sites-available to sites-enabled directory, we need to remove the existing wordpress file (which will be replaced with our new one).
  <div class="hacker">sudo rm /etc/nginx/sites-enabled/wordpress</div></li>
 
  <li>Now create the symlink. 
