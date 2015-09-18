@@ -80,7 +80,6 @@ p.note {
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
 </head>
-
 <body> 
  <h1>Install an SSL Certificate on Apache – Debian</h1>
  <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
@@ -123,49 +122,11 @@ p.note {
         </li>
         <li>Point your domain name to your server's IP address.</li>
     </ol>
-    <h2>Obtain and install a certificate</h2>
-    <ol>
-        <li>
-            After you generate the CSR and the key, log into <a href="https://mya.godaddy.com/default.aspx">GoDaddy account manager.</a> 
-        </li>
-        <li>    
-            Go to the <strong>SSL CERTIFICATES </strong> section and set up the certificate. Your certificate appears in your account after a few minutes.  
-         </li>
-        <li>
-            After you have obtained the certificate, click <strong> Manage</strong>, and then in the <strong>Action</strong> column, click <strong>Set-up</strong>.
-            
-        </li>
-        <li>
-            You will be asked to provide the CSR. Copy and paste the CSR that you generated as described in the previous section.
-          </li>
-        <li>
-            This starts the Certificate Verification Process. Your certificate will be generated after the GoDaddy site checks your domain ownership. 
-        </li>
-        <li>
-            You can now download your certificate to your local machine, which will be a zip file containing the certificate and the bundle. 
-        </li>
-        <li>After the zip files are downloaded, extract/unzip the two files.</li>
-        </ol>
-       <h3>Unzip and create the certificate file</h3>
-       <ol>
-         
-        <li>Open the certificate in a text editor (such as vim) and copy the contents.</li> 
-        <li>Go back to your console and create a new file.
-          <div class=" hacker">sudo vim /etc/apache2/ssl/gdcert.crt</div>
-        </li>
-        <li>Paste the copied contents to this file.</li> 
-        <li>Save and exit.</li>
-        </ol>
-<h3>Create the bundle file</h3>
-        <ol><li>Open the bundle file in a text editor (such as vim) and copy the contents.</li>            
-        <li>Go back to your console and open a new file.
-           <div class="hacker">sudo vim /etc/apache2/ssl/gdBundle.crt</div></li>
-            <li>Paste the copied contents to this file.</li> 
-            <li>Save and exit. </li>
-        </ol>
-    <p class="note">You can also move the certificate files from your local machine to your server via FTP</p>
+    <h2>Install the certificate</h2>
+    Now that you have your CSR generated, you can go to your certificate authority and get the certificate bundle and follow their instruction on installing the certificate. If you're getting your certificate from COMPANY_NAME, check out <a href="https://www.godaddy.com/help/ssl-certificates">this</a> guide on how to install your certificate. Make sure that you you move the certificates to the directory you created in the previous section where you have you your key, in this case <em><u>ssl</u></em>
+     
     <h2>Configure Apache to use SSL</h2>
-    <p>You need to edit our configuration file to make sure that the SSL entries are pointing to the right artifacts.</p>
+    <p>You need to edit your configuration file to make sure that the SSL entries are pointing to the right artifacts.</p>
     <ol>
         <li>
             Open the <code>default-ssl</code> file. 
@@ -179,9 +140,9 @@ p.note {
 ServerName <em><u>yourdomainname.com</u></em>
 ServerAlias <em><u>www.yourdomainname.com</u></em>
 SSLEngine on
-SSLCertificateFile  /etc/apache2/ssl/gdcert.crt
-SSLCertificateKeyFile /etc/apache2/ssl/keys/certkey.key
-SSLCertificateChainFile /etc/apache2/ssl/gdBundle.crt
+SSLCertificateFile  /etc/apache2/ssl/<em><u>gdcert.crt</u></em>
+SSLCertificateKeyFile /etc/apache2/ssl/keys/<em><u>certkey.key</u></em>
+SSLCertificateChainFile /etc/apache2/ssl/<em><u>gdBundle.crt</u></em>
 </pre>
         </div>
         </li>
