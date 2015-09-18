@@ -68,75 +68,71 @@ p.note {
 </head>
 
 <body>
+<p>Configuring two-factor SSH authentication with Authy on Arch Linux, SSH, Security</p>
 <h1>Configure Two-Factor SSH Authentication with Authy - Arch Linux</h1>
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>10 minutes</em>.</p>
 
-<h2>Introduction</h2>
-<p>Authy provides an easier platform for setting up authentication compared to two-factor authentication.  It is very simple to install and manage.</p>
-<p>In this article, you will learn how to configure two factor authentication in SSH server using Authy. For this, you need to install Authy application in your smartphone. You will get this in Google play.</p>
+<p>Authy provides an easier platform for setting up an authentication as compared to two factor authentication. It is very simple to install and manage. In this article, you will learn how to configure a two-factor SSH Authentication with Authy. For this, you need to install an Authy application in your smartphone. You will get this in Google play. </p>
 
 <h2>Configure Authy in phone</h2>
-<p>Download Authy from Google play and then you need to configure Authy by getting verified your mobile number.</p>
-
-<h2>Configure Authy in phone </h2>
-<p>Build a developer account in following URL.</p>
-<code>https://dashboard.authy.com/signup</code>
-
-<p>Make sure that you have used the same mobile number which you have used in the Authy application. </p>
-
-<p>Verify your account by completing the verification process sent in to your registered email account. You will get a token in your mobile.</p>
-
-<h2>Create an application</h2>
-<p>Log in to your developer account. You will be asked to create an application. </p>
-<p><img src="images/17507 - 1.png" alt="17507" /></p>
-<p><img src="images/17507 - 2.png" alt="17507" /></p>
-
-<p>You will get an API key once you finish with the application.</p>
- <p><img src="images/17507 - 3.png" alt="17507" /></p>
-
-<p>Copy the API key as it is. You will need this in further steps.</p>
-
-
-<h2>Configure server </h2>
 <ol>
-<li>Download Authy Installer.
-<div class="hacker">curl "https://raw.githubusercontent.com/authy/authy-ssh/master/authy-ssh" -o authy-ssh</div>
+<li>Download Authy from Google play and then configure Authy by getting it verified on your mobile number.</li>
+<li>Build a developer account at https://dashboard.authy.com/signup.
+
+<p class="note">Make sure that you use the same mobile number which you have used in the Authy application.</p>
 </li>
-<li>Install Authy.
-<div class="hacker">sudo bash authy-ssh install /usr/local/bin</div>
-<p>It will ask you a prompt.You need to enter the API key here, which you have received from Authy website. Choose what to do when Authy is down. Here you can choose option 1.</p>
-</li>
+<li>Verify your account by completing the verification process sent to your registered email account. You will get a token on your mobile.</li>
 </ol>
 
-<h2>Configure two-factor for user </h2>
+<h2>Create an application</h2>
 <ol>
-<li>Run below command to configure user.
-<div class="hacker"><xmp>sudo /usr/local/bin/authy-ssh enable <whoami> email country number</xmp></div>
-<p>Give the user name in <code>whoami</code> field followed by email and mobile number with country code.</p>
+<li>Log in to your developer's account. 
+<p><img src="images/17507/091815/Enterprise-and-developers-dashboard.png" alt="Enterprise-and-developers-dashboard.png" /></p></li>
+<li>Enter the <strong>Application Name</strong> and click on the <strong>Create App</strong> button to create an application.
+<p><img src="images/17507/091815/welcome-to-the-Authy-Dashboard.png" alt="welcome-to-the-Authy-Dashboard.png" /></p></li>
+
+<li>You will get an API key after you have created the application.
+ <p><img src="images/17507/091815/API-key.png" alt="API-key.png" /></p>
+
+<p>Copy the API key as it is. You will need this in further steps.</p></li>
+</ol>
+<h2>Configure server</h2>
+<ol>
+<li>Download the Authy installer.
+<div class="hacker">curl "https://raw.githubusercontent.com/authy/authy-ssh/master/authy-ssh" -o authy-ssh</div></li>
+
+<li>Install Authy.
+<div class="hacker">sudo bash authy-ssh install /usr/local/bin</div>
+
+<p>It will prompt you to enter the API key that you received from the Authy website. Choose option 1 when prompted for <strong>what to do when Authy is down</strong>.</p>
+</li>
+</ol>
+<h2>Configure two-factor for the user </h2>
+<ol>
+<li>Run the following command to configure the user.
+<div class="hacker">sudo /usr/local/bin/authy-ssh enable <em><u>User_name</u></em> <em><u>email_id</u></em> <em><u>country_code</u></em></div>
 </li>
 
-<li>Restart SSH server.
+<li>Restart the SSH server.
 <div class="hacker">sudo systemctl restart sshd.service</div>
 </li>
 
-<li>Make sure that command is in <code>your/etc/ssh/sshd_config file.</code>
+<li>Make sure that the command is located at <code>your/etc/ssh/sshd_config</code> file.
 <div class="hacker">cat /etc/ssh/sshd_config | grep ForceCommand</div>
 </li>
 
-<li>If the command was not installed in your /etc/ssh/sshd_config file, manually enter it and restart SSH again.
+<li>If the command was not installed at <code>/etc/ssh/sshd_config</code> file, manually enter it and restart the SSH service again.
 <div class="hacker">ForceCommand /usr/local/bin/authy-ssh login</div>
 <div class="hacker">sudo systemctl restart sshd.service</div>
 </li>
-
-<li>Uninstall using below command.
+<li>Uninstall <code>authy-ssh</code> using the following command:
 <div class="hacker">sudo /usr/local/bin/authy-ssh uninstall</div>
 </li>
 </ol>
 
 <h2>Conclusion</h2>
-<p>In this article, you have learnt to configure two factor authentication in SSH server using Authy. You can know more about configuring two factor authentication by using Google Authenticator from below URL.</p>
-<p><a href="#"> Configure Two-factor SSH Authentication with PAM</a></p>
+<p>In this article, you have learnt to configure two factor authentication in SSH server using Authy. To know more about configuring two factor authentication using Google Authenticator visit, <a href="17507">Configure Two-factor SSH Authentication with Authy - Arch Linux</a></p>
 
 </body>
 </html>
