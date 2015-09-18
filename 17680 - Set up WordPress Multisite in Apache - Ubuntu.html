@@ -23,7 +23,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .<h1></h1>5em 4em;
+ padding: .5em 1em .5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -87,7 +87,7 @@ We'll set up a fresh install of WordPress in Apache on an Ubuntu system. The ste
 <p>We'll use these example sites: </p>
 <table>
   <tr>
-    <td><b>Site 1</b></th>
+    <td><b>Site 1</b></td>
     <td>coolexample.com (primary)</td>
   </tr>
   <tr>
@@ -105,25 +105,25 @@ aboutus.coolexample.com</td>
 <h2>Prerequisites</h2>
 
 <ul>
-<li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17341%20-%20Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Ubuntu.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Ubuntu</a></p>
-
-<p>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</p></li> 
+<li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17341%20-%20Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Ubuntu.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Ubuntu</a>
+  <br/>
+As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</li>
 
 <li>Install <code>wget</code> if you haven't already. 
         <div class="hacker">sudo apt-get install wget</div></li>
-        
+
 <li>Install this php module that WordPress needs to run properly.
 <div class="hacker">sudo apt-get install php5-gd</div></li>
 
-                                                          
-<p>Select <strong>y</strong> at each prompt to continue with the installation.</p></li>
+
+<li>Select <strong>y</strong> at each prompt to continue with the installation.</li>
 
 
 <li>You'll also need to set up the DNS for all your domains. Point them to the IP that will host your WordPress. Make sure to <a href="https://www.godaddy.com/help/setting-up-wildcard-dns-3301">set up wildcard DNS</a> if you're creating subdomains. To point your domain name to a cloud server, see <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">Point your domain name to a server</a>.</li>
        </ul>
-                    
+
  <h2>Create a MySQL database and administrator for WordPress</h2>
-   
+
     <p>Set up your MySQL database with an administrator so that WordPress has a place to store all your site and user information.</p>
 
     <!--CT (to Susan/Carla): Can you center this? Is it in the style sheet?-->
@@ -185,7 +185,7 @@ This will safely copy all of the contents from the directory you unpacked to the
  <li>Let's also set directory permissions at this point so that you can work with WordPress content (e.g., uploading images).
  Make the group ownership recursive to make sure it will write to your subdirectories:  
  <div class="hacker">sudo chown www-data:www-data /var/www/html * -R</div>
-<div class="hacker">sudo chmod u+x /var/www/html * -R</div>
+<div class="hacker">sudo chmod u+x /var/www/html * -R</div>  </li>
                                   
 <!--CT: internal note (alternative permissions)...
 sudo chown -R [USER NAME]:[USER NAME] /var/www
@@ -212,7 +212,7 @@ sudo chown -R [USER NAME]:[USER NAME] /var/www
 <div class="hacker">sudo vim wp-config.php</div>  </li>
 
   <li> Look for this section of the code below (starting with <code>MySQL settings</code>…) and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
-Use the credentials that you just created. </li>
+Use the credentials that you just created.
  <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
 /** The name of the database for WordPress */ <br />
 define('DB_NAME', 'wordpress'); <br />
@@ -226,37 +226,37 @@ define('DB_PASSWORD', 'wordpresspassword');   </div> </li>
  <li>Farther down in the file, find the line  <code>/* That's all, stop editing! Happy blogging. */</code> and add  these lines:
    <div class="hacker">/* Multisite settings */<br/>
 define( 'WP_ALLOW_MULTISITE', true );</div></li>
-    
+
     <li>Save and close the file.</li>
                     </ol>
   
   <h3>Enable mod rewrite</h3>
-  
-  <p>Activate the Apache Mod_Rewrite module.</p>
+  <ol>
+    <li>Activate the Apache Mod_Rewrite module.
+            <div class="hacker">sudo a2enmod rewrite</div> </li>
 
-  <div class="hacker">sudo a2enmod rewrite</div>         
-
-Your output message might look like this.
+<li>Your output message might look like this.
   <div class="hacker"><pre>Enabling module rewrite.
 To activate the new configuration, you need to run:
   service apache2 restart</pre></div>
-         
-   We will be restarting Apache after this step.
-   
-   Open your virtual host config file. We'll use the default Apache one.
-<div class="hacker"> sudo vim /etc/apache2/sites-enabled/000-default.conf</div>
+
+   We will be restarting Apache after this step.   </li>
+   <li> Open your virtual host config file. We'll use the default Apache one.
+<div class="hacker"> sudo vim /etc/apache2/sites-enabled/000-default.conf</div>  </li>
             
-Search for DocumentRoot, and add the following lines under it: 
+<li>Search for DocumentRoot, and add the following lines under it:
 <div class="hacker"><pre>&lt;Directory /var/www/html&gt;
     AllowOverride All
-&lt;/Directory&gt;</pre></div>
+&lt;/Directory&gt;</pre></div> </li>
 
 
  <li>Save and close.</li>
 
  <li>Restart Apache.
 <div class="hacker">sudo service apache2 restart</div>
-                               </li> </ol>
+                               </li>
+
+                               </ol>
 
 
 <h2>Install WordPress</h2> 
@@ -313,7 +313,7 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
       <h3>Modify your .htaccess file</h3>
  <ol>
 <li>Back in the WordPress Network Setup screen, copy the <code>.htaccess</code> code in the second section. </li>  
-<li>In your terminal, pull up your <code>.htaccess</code> file</li>
+<li>In your terminal, pull up your <code>.htaccess</code> file
 <div class="hacker">sudo vim /var/www/html/.htaccess</div></li>
 
 <li>Replace all the existing code (delete it manually) with the entire block of <code>.htaccess</code> code from WordPress.<br/>
@@ -371,18 +371,18 @@ In the <code>AllowOverride</code> line, change "None" to "All."
 
 <ol>
 <li>Back at your terminal, go to your <code>/mods-enabled/</code> directory.
- <div class="hacker">cd /etc/apache2/mods-enabled/</div></li>
-  
- <div class="hacker">sudo vim dir.conf</div> 
+ <div class="hacker">cd /etc/apache2/mods-enabled/</div>
+
+ <div class="hacker">sudo vim dir.conf</div></li>
  
  <li>Find the <code>DirectoryIndex</code> line; it's followed by a line of index files. Add <code>index.php</code> as the first item in that list, right after <code>DirectoryIndex</code>. This way, Apache will look for and load and index.php files before other extensions.</li>
  
-  <li>Save and close.</li> 
- 
+  <li>Save and close.</li>
+
  <li>Restart Apache.
- <div class="hacker">sudo service apache2 restart</div></li> 
+ <div class="hacker">sudo service apache2 restart</div></li>
  </ol>
- 
+
  Now you should see your WordPress serve up content.
  
 <h2>Create additional sites or subdomains</h2>
@@ -390,10 +390,10 @@ In the <code>AllowOverride</code> line, change "None" to "All."
 <ol>       
 <li>Back in your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page.<br /></li>
 
-<li>Go to <strong>My Sites</strong> in your top navigation bar. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>.<br/> 
+<li>Go to <strong>My Sites</strong> in your top navigation bar. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>.<br/>
 <img src="images/17680/090815/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> </li>
 
-<li>At the top menu bar, "Network Admin" should now appear before your site name.<br/> 
+<li>At the top menu bar, "Network Admin" should now appear before your site name.<br/>
 So the option will look like <strong>Network Admin:</strong> <code><em><u>your domain name</u></em></code>.<br/></li>
 
 
@@ -412,7 +412,7 @@ At the <strong>Site Address</strong> field, fill in your first subdomain. For ex
 
  There's much you can do from here. One option is to map your sub-domains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/00047 - Set Up WordPress Domain Mapping in Apache - Debian, Ubuntu.html.html">Set Up WordPress Domain Mapping in Apache - Debian, Ubuntu</a> for instructions. </p>
 
-
+ <!-- validated -->
 </body>
 </html>                                
                              
