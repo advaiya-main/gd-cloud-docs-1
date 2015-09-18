@@ -125,6 +125,8 @@ p.note {
     &lt;/body&gt; 
 &lt;/html&gt;</pre></div></li>
     <li>Save and close the file.</li>
+
+    </ol>
     
     <!--CT: Not relevant for Centos 6...
     <h2>Create your new virtual host file</h2>
@@ -154,17 +156,17 @@ p.note {
 
 <!--CT (to Susan): Start of nested list here (help me format it, please)-->
 
-<ul><li>Starting with the first line <code>&lt;VirtualHost *:80&gt;</code>, uncomment the whole section, ending with <code>&lt;/VirtualHost&gt;</code>.
 
-<ul><li>Point <code>DocumentRoot</code> to your domain and the directory that holds it.<br/>
-In our case, that would be <code>/var/www/coolexample.com/public_html</code>. So the line will look like: 
- <div class="hacker">DocumentRoot /var/www/coolexample.com/public_html</div></li></ul>
-
-<ul><li>Point <code>ServerName</code> to your domain with the www. 
-Make sure your hostname has a valid DNS record, so that the www version of your domain works.
-  In our case, that would be <em><u>www.coolexample.com</u></em></li></ul>
-
-<ul><li>Point ServerAlias to other variations of your domain, such as the domain without the www.</li></ul>
+        <ul>
+            <li>Starting with the first line <code>&lt;VirtualHost *:80&gt;</code>, uncomment the whole section, ending with <code>&lt;/VirtualHost&gt;</code>. </li>
+            <li>Point <code>DocumentRoot</code> to your domain and the directory that holds it.</li>
+            <li>In our case, that would be <code>/var/www/coolexample.com/public_html</code>. So the line will look like:
+                <div class="hacker">DocumentRoot /var/www/coolexample.com/public_html</div></li>
+            <li>Point <code>ServerName</code> to your domain with the www.</li>
+            <li>Make sure your hostname has a valid DNS record, so that the www version of your domain works.</li>
+            <li>In our case, that would be <em><u>www.coolexample.com</u></em></li>
+            <li>Point ServerAlias to other variations of your domain, such as the domain without the www.</li>
+        </ul>
 
 <!--CT (to Susan): End of nested list-->
 
@@ -172,15 +174,15 @@ Make sure your hostname has a valid DNS record, so that the www version of your 
  <div class="hacker"><pre>
     &lt;VirtualHost *:80&gt;
     ServerAdmin webmaster@coolexample.com
-    DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em> 
+    DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em>
     ServerName <em><u>www.coolexample.com</u></em> 
     ServerAlias <em><u>coolexample.com</u></em> 
     ServerName <em><u>www.coolexample.com</u></em>     
     ErrorLog /var/www/coolexample.com/error.log 
     CustomLog /var/www/coolexample.com/requests.log combined 
-    &lt;/VirtualHost&gt; 
+    &lt;/VirtualHost&gt; </pre> </div>
 
-<p>Note that the other lines (ServerAdmin, ErrorLog, and CustomLog) are not required to set up your virtual host. We've filled them out for this example.</p>
+<p class="note">Note that the other lines (ServerAdmin, ErrorLog, and CustomLog) are not required to set up your virtual host. We've filled them out for this example.</p>
 </li>
 
 <li>Save and close.</li>
@@ -205,7 +207,7 @@ You may see the following error, which you can disregard. This message is just a
 
 <h2>Adding additional virtual hosts</h2>
 
-<p>Repeat the above steps to create more virtual hosts. Be sure to create a new document root with your domain name each time. 
+<p>Repeat the above steps to create more virtual hosts. Be sure to create a new document root with your domain name each time.  </p>
 
 
 <p>In your Apache config file, copy and paste the new Virtual Host information. So for example, if you were adding coolexample.net as a second host, it could look like this:</p>
@@ -214,7 +216,7 @@ You may see the following error, which you can disregard. This message is just a
     ServerAdmin webmaster@coolexample.com
     DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em> 
     ServerName <em><u>www.coolexample.com</u></em> 
-    ServerAlias <em><u>coolexample.com</u></em> 
+    ServerAlias <em><u>coolexample.com</u></em>
     ServerName <em><u>www.coolexample.com</u></em>     
     ErrorLog /var/www/coolexample.com/error.log 
     CustomLog /var/www/coolexample.com/requests.log combined 
