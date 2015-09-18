@@ -89,13 +89,13 @@ Press ENTER or type command to continue
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>15 minutes</u></em></p>
     
-    <p>To run multiple sites on a single IP address, you'll need to set up the virtual hosts in your web browser. Apache is the most commonly used web server, and can run a multitude of content, based on IP address or hostname.</p>
+    <p>To run multiple sites on a single IP address, you'll need to set up the virtual hosts in your web browser. Apache is the most commonly used web server, and can run a multitude of content based on IP address or hostname.</p>
 
     <p>This guide will walk you through how to set up an Apache virtual host on an Arch Linux virtual private server (VPS) as a non-root user with <code>sudo</code> privileges.</p>
     
-    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Arch Linux.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a> for instructions.    </p>
+    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), see the article <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17345%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Arch Linux.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a> for instructions.    </p>
 
-    <p>Also, make sure your hostname has a valid DNS record, so that the www version of your domain works. See <a href="/article/19116?prog_id=PROG_ID">Point your domain to a GoDaddy Cloud Server</a> for instructions on setting up your domain.</p>
+    <p>Also, make sure your hostname has a valid DNS record, so that the www version of your domain works. See the article <a href="/article/19116?prog_id=PROG_ID">Point your domain to a GoDaddy Cloud Server</a> for instructions on setting up your domain.</p>
     
 
 
@@ -122,13 +122,13 @@ Press ENTER or type command to continue
     <div class="hacker">sudo vim /srv/http/<em><u>coolexample.com</u></em>/index.html</div>
     </li>
     <li>
-    It'll be a blank file. Add some content: 
+    It will be a blank file. Add some content: 
         <div class="hacker"><pre>&lt;html&gt; 
     &lt;head&gt; 
-    &lt;title&gt;Welcome to coolexample.com!&lt;/title&gt; 
+    &lt;title&gt;Welcome to <em><u>coolexample.com</u></em>!&lt;/title&gt; 
     &lt;/head&gt; 
     &lt;body&gt; 
-    &lt;h1&gt;Hooray! Your coolexample.com virtual host is working!&lt;/h1&gt; 
+    &lt;h1&gt;Hooray! Your <em><u>coolexample.com</u></em> virtual host is working!&lt;/h1&gt; 
     &lt;/body&gt; 
 &lt;/html&gt;</pre></div></li>
     <li>Save and close the file.</li>
@@ -161,19 +161,19 @@ Press ENTER or type command to continue
 <li>In the file, replace the first virtual host example with your own domain information. <code>DocumentRoot</code>, <code>ServerName</code>, and <code>ServerAlias</code> are the lines that must be updated.
 
  <div class="hacker"><pre>&lt;VirtualHost *:80&gt;
-    ServerAdmin youremail@coolexample.com
+    ServerAdmin <em><u>youremail@coolexample.com</u></em>
     DocumentRoot "<em><u>/var/www/coolexample.com/public_html</u></em> 
     ServerName <em><u>www.coolexample.com</u></em>     
     ServerAlias <em><u>coolexample.com</u></em> 
-    ErrorLog /var/www/coolexample.com/error.log 
-    CustomLog /var/www/coolexample.com/requests.log combined
+    ErrorLog <em><u>/var/www/coolexample.com/error.log</u></em> 
+    CustomLog <em><u>/var/www/coolexample.com/requests.log combined</u></em>
 
 &lt;/VirtualHost&gt;
   </pre></div>
 
 
 
- Note that updating the other lines <code>ServerAdmin</code>, <code>ErrorLog</code>, and <code>CustomLog</code> are not required to set up your virtual host, but you can go ahead and update <code>ErrorLog</code> and <code>CustomLog</code> to your domain and <code>ServerAdmin</code> to your email. </li>
+Updating the other lines <code>ServerAdmin</code>, <code>ErrorLog</code>, and <code>CustomLog</code> are not required to set up your virtual host, but you can go ahead and update <code>ErrorLog</code> and <code>CustomLog</code> to your domain and <code>ServerAdmin</code> to your email. </li>
 
  <li>Save and close.</li>
 

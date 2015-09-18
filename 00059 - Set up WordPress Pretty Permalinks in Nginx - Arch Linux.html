@@ -4,9 +4,9 @@
 
 <head>
 
-<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
+<!--Article 00059 -->
 
-<title>Set up WordPress Pretty Permalinks in Nginx - Arch Linux</title>
+<title>Set up WordPress pretty permalinks in Nginx - Arch Linux</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -56,8 +56,8 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-<p>Set up WordPress Pretty Permalinks in Nginx for Arch Linux.</p>
-    <h1>Set up WordPress Pretty Permalinks in Nginx - Arch Linux</h1>
+<p>Set up WordPress pretty permalinks in Nginx for Arch Linux.</p>
+    <h1>Set up WordPress pretty permalinks in Nginx - Arch Linux</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
@@ -66,12 +66,12 @@ td:nth-child(1) {font-weight:bold;}
      
 <p>WordPress produces dynamic links by default that are appended with the post ID number. Though these links work on all server environments, they're not descriptive, easily identifiable, or SEO-friendly.</p>
 
-<p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly and, depending on which format you choose, structured. <!--CT: too much, i think 9/16...You can use <code>mod_rewrite</code> or <code>lighttpd</code> to produce these, the most common and versatile being the Post Name link format.--></p>
+<p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly, and depending on which format you choose, structured.</p>
   
-<p>Setting up permalinks is a surprisingly easy process in Nginx.This tutorial will walk you through it on an Arch Linux system. </p>
+<p>Setting up permalinks is a surprisingly easy process in Nginx. This article will walk you through it on an Arch Linux system. </p>
 
     <h2>Prerequisites</h2>
-    <p>Before you begin, Wordpress has to be fully installed. You most likely have already done this, but if not, choose your guide for either a single or mult-site install:</p>
+    <p>Before you begin, WordPress has to be fully installed. You most likely have already done this, but if not, choose the appropriate article for either a single or a multi-site installation:</p>
          
 <ul>
     <li><a href="17387 - Install WordPress on your LEMP server - Arch Linux.html">Install WordPress on your LEMP server - Arch Linux</a></li>
@@ -79,16 +79,16 @@ td:nth-child(1) {font-weight:bold;}
 </ul>
 
 
-<p>This tutorial is for a non-root user with <code>sudo</code> privileges. </p>
+<p>This article is for a non-root user with <code>sudo</code> privileges. </p>
 
     
 <h2>Choose your pretty permalink type in WordPress </h2>
 
     <ol>
-        <li>In your WordPress admin dashboard (http://coolexample.com/wp-admin): Go to the <strong>Settings</strong> panel on the left, then <strong>Permalinks</strong>.<br/>
+        <li>In your WordPress admin dashboard (http://<em><u>coolexample.com</u></em>/wp-admin), go to the <strong>Settings</strong> panel on the left, then to the <strong>Permalink Settings</strong>.<br /></li>
       
 
-        Choose your permalink type. A common option is the <strong>Post Name</strong> option.<br/>
+        <li>Choose your permalink type. A common option is the <strong>Post name</strong> option.<br />
         <img src="images/00059/091615/wordpress-pretty-permalinks-page.png" alt="wordpress pretty permalinks page" /></li>
 
         <li>Select <strong>Save changes</strong>.</li>
@@ -107,52 +107,52 @@ td:nth-child(1) {font-weight:bold;}
                 try_files $uri $uri/ /index.php?q=$ur&amp;$args;<br/>
         }</div>
 
-So the entire section may look like this:
- <div class="hacker"><pre>server {
-            listen 80;
-            root    /var/www/wordpress;
-            index index.php index.html index.htm;
-            server_name coolexample.com
-
-<!--CT (to Susan): This section is added but looks kind of weird. should we break up the em/u so there aren't 2 huge underlines? I'll defer to you-->
-            <em><u>location / {
-                try_files $uri $uri/ /index.php?q=$uri&amp;$args;
-            }</u></em>
+  So, the entire section may look like this:
+  <div class="hacker"><pre>server {
+           listen 80;
+           root    /var/www/wordpress;
+           index index.php index.html index.htm;
+           server_name coolexample.com
+            <em><u>location / {</u></em>
+                <em><u>try_files $uri $uri/ /index.php?q=$uri&amp;$args;</u></em>
+            <em><u>}</u></em>
             
             location ~ \.php$ {
-                    fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
-                    fastcgi_index index.php;
-                    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script$
-                    include /etc/nginx/fastcgi_params;
-                    #include fastcgi.conf;
+                   fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;
+                   fastcgi_index index.php;
+                   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script$
+                   include /etc/nginx/fastcgi_params;
+                   #include fastcgi.conf;
             }
     }
 
 }</pre></div>
 
- 
-These two changes should already be made with your WordPress install, but double check:   </li>
-<li>Make sure root is pointed to your WordPress document root.</li>
-<li>Make sure index.php is added to the beginning of the line of index filetypes.   </li>
+Also, you should have made these two changes in your WordPress installation already, but double-check that:  <ul>
+<li><code>root</code> is pointed to your WordPress document root.</li>
+<li><code>index.php</code> is added to the beginning of the line of index file types.   </li></ul></li>
 
 <li>Save and close.</li>
+   <!--CT:...
      </ol>
   
+
    <h2>Grant permissions</h2>
 
 <ol>
-    <li>Change ownership using <code>chown</code> to make the web server the owner:
+    <li>Change ownership using <code>chown</code> to make the web server the owner.
   <div class="hacker">sudo chown http:http /var/www/</div>
 </li>
 
      <li>Grant read-write permissions.
 <div class="hacker">sudo chmod u+x /var/www/.htaccess * -R</div>
 
-Now WordPress can rewrite the rules for you.</li>
+Now, WordPress can rewrite the rules for you.</li>
+...-->
 
-<li>Go back to your WordPress admin dashboard and select "Save changes." </li>
+<li>Go back to your WordPress admin dashboard, and then select <strong>Save changes</strong>. </li>
 
- <li>Then, go back to your command line. Restart Nginx.
+ <li>Go back to your command line, and then restart Nginx.
      <div class="hacker">sudo systemctl restart nginx</div></li>
 
 

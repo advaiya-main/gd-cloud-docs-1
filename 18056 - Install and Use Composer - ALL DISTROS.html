@@ -81,8 +81,9 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-    <p>Composer is a tool used to manage program dependencies.  This article assumes that you have already installed PHP, Git, and curl.</p>
 
+    <p>Composer is a tool used to manage program dependencies.  You will learn how to install Composer.  This article assumes you have already installed PHP, Git and curl.</p>
+ 
 
 <h2>Install Composer</h2>
               <ol>
@@ -104,10 +105,12 @@ export PATH</pre></div>
                </li> 
                        </ol>
     <h2>Using Composer</h2>
+
  <p>   There are two ways you can use Composer: Create a file to manage your project or use the <code>create-project</code> command.</p> 
 <h3>Create a <code>composer.json</code> file to manage your project</h3> 
     <ol>
         <li>Run this command:
+
 <div class="hacker">sudo vim composer.json/</div>
        </li>
        <li>Add the following contents to your file:
@@ -128,12 +131,16 @@ export PATH</pre></div>
    <div class="hacker">php composer install</div>
        </li>
     </ol>    
+
    <h3>Use the <code>create-project</code> command</h3> 
     <p>Because the ultimate goal when using Composer is to create a project, it may make sense to simply create the project using Composer's <code>create-project</code> command rather than configure dependencies.</p>
     <ul>
-        <li>Run this command:
+        <li>Create-project syntax:
+
 <div class="hacker">composer create-project [vendor]/[project] {target directory} [version]</div>
-For example, use Laravel:
+</li>
+        <li>
+            The example below will create a Laravel project:
 <div class="hacker">composer create-project laravel/laravel /var/www/laravel 4.2</div>
        </li>
     </ul>            

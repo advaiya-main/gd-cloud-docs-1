@@ -156,7 +156,7 @@ This command creates a directory called "wordpress" in your home directory.</li>
 
 <div class="hacker">cp wp-config-sample.php wp-config.php</div> </li>
  <li>Open the config file in your text editor.
-<div class="hacker">vim wp-config.php</div> </li>
+<div class="hacker">sudo vim wp-config.php</div> </li>
    
    <li> Look for this section of the code below (starting with "MySQL settings"…) and enter your corresponding values of the three <code>DB_</code> variables (<em><u>database name</u></em>, <em><u>database username</u></em>,<em><u> mysql root password</u></em>) with the credentials you just created.
 
@@ -189,10 +189,12 @@ This will safely copy all of the contents from the directory you unpacked to the
       </li>   
           <li>Go to the document root to get back ownership for the files in <code>/var/www/html</code>.
 <div class="hacker">cd /var/www/html</div>        </li>
-<li><p>For security purposes, change ownership to a sudo non-root user to interact with your site. This user can be your regular user or an additional user you create. </p>
-<p>For this tutorial, we'll work with an example account that we'll assume is already created called "wordpress_user."</p> 
-<p>Give your web server process, <code>www-data</code>, which was created when you installed your package, ownership values to allow the server to interact with the content:                                           </p>
-<div class="hacker">sudo chown -R wordpress_user:www-data /var/www/html/*</div>
+<li>
+
+  <!--CT: commenting out...<p>For security purposes, change ownership to a sudo non-root user to interact with your site. This user can be your regular user or an additional user you create. </p>
+<p>For this tutorial, we'll work with an example account that we'll assume is already created called "wordpress_user."</p> ...-->
+Give your web server process, <code>www-data</code>, which was created when you installed your package, ownership values to allow the server to interact with the content:                                           
+<div class="hacker">sudo chown -R www-data:www-data /var/www/html/*</div>
                     </li>
                         </ol>
  
@@ -215,7 +217,7 @@ This will be the parent directory.       </li>
   
   <h2>Populate NGINX config file with your WordPress information</h2>
   
-   <p>You now need to update the default NGINX config file with our WordPress settings. Use the <code>default 17385 server block</code> as a base for your new server block. </p>
+   <p>You now need to update the default NGINX config file with our WordPress settings. Use the default server block <!--CT: that server block doesn't need to be wrapped in code. I think it'll actually cause confusion so I'm taking those off-->as a base for your new server block. </p>
    <ol>
    <li> Copy over the block.
 
@@ -239,7 +241,7 @@ This will be the parent directory.       </li>
   <p>Create a symlink to reference your new location and delete the old file.</p>    
         
         <ol>
-         <li>Link your <code>sites-enabled directory</code> to this new file.
+         <li>Link your <code>sites-enabled</code> directory to this new file.
          <div class="hacker">sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/</div>        </li>
          
          <li>Remove the default site.

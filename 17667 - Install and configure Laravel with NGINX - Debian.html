@@ -88,7 +88,7 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-    <p>Laravel is a framework used to create web applications.&nbsp; This article assumes you have <a href="http://17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">installed a LEMP stack</a> and have created a <a href="http://17326%20-%20Add%20Memory%20Swap%20-%20Debian,%20Ubuntu.html">swap file</a>.</p>
+    <p>Laravel is a framework used to create web applications.&nbsp; You will learn how to install Laravel.&nbsp; This article assumes you have <a href="http://17351%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Debian.html">installed a LEMP stack</a> and have created a <a href="http://17326%20-%20Add%20Memory%20Swap%20-%20Debian,%20Ubuntu.html">swap file</a>.</p>
 
     <h2>Install dependencies</h2>
            <ol>
@@ -127,50 +127,48 @@ p.note {
           ...
           index index.php index.html index.htm
           ...
-          include /etc/nginx/servers/*.conf
+          include /etc/nginx/conf.d/*.conf
           server {
           ...</pre></div> 
       </li>  
        <li>Create a new server block for Laravel.
-                  <div class="hacker">sudo vim /etc/nginx/servers/laravel.conf</div> 
+                  <div class="hacker">sudo vim /etc/nginx/conf.d/laravel.conf</div> 
       </li>
-  <li>Add the following contents:
+ <li>Add the following contents:
     <div class="hacker"><pre># server context
                 server {
-        listen       80;
-        server_name  localhost/laravel;
+        listen       81;
+        server_name  localhost;
         root /var/www/laravel/public;
-
-        location /laravel {
+        index   index.php index.html index.htm;
+        
+        location / {
         }
 
-        include /etc/nginx/locations/*.conf;
+        # redirect server error pages to the static page /40x.html
+        #
+        error_page  404              /404.html;
+        location = /40x.html {
         }
 
-</pre></div>
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+        }
+        location ~ \.php$ {
+       try_files $uri /index.php =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+       fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  
+        include fastcgi_params;
+    }
+     }</pre></div>
      </li> 
           <li>Save and close the file.       </li>
-          <li>Create an Nginx PHP location block configuration file and open it for editing.  
-              
-            <div class="hacker">sudo vim /etc/nginx/locations/php.conf</div> 
-          </li>
-
-      <li>If you already have a php configuration include file you may copy it to <code>/etc/nginx/locations/</code> and modify it as shown below.  
-          If not, create a new file and edit it so it looks&nbsp; like this:
-        <div class="hacker"><pre>
-#location context
- location ~ \.php$ {
-       try_files $uri /index.php =404;
-    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-       <b><i>fastcgi_pass unix:/run/php-fpm/php-fpm.sock;</i></b>
-        <b><i>fastcgi_index index.php</i></b>;
-       <b><i> fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  </i></b>
-       <b><b> include fastcgi_params;</b></b>
-    }
-</pre></div>
-      </li> 
-         <li>Save and close the file.
-       </li>
+    
+      
 <li>Restart Nginx.
   <div class="hacker">sudo service nginx restart</div>
        </li> 
@@ -199,7 +197,7 @@ p.note {
                  <div class="hacker">sudo chmod -R 775 /var/www/laravel/app/storage</div>
                </li>   
               <li>Verify success by navigating to <em><u>yourcloudserver</u></em>.
-<div class="hacker">http://your server IP address.com/laravel</div>
+<div class="hacker">http://your server IP address.com:81</div>
                </li>
            </ol>
 

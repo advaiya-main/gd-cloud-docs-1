@@ -225,6 +225,7 @@ Require valid-user
 </pre>
             </div>        
       
+<<<<<<< HEAD
         Below is an explanation of what each of these directives mean:
 
         <table>
@@ -260,5 +261,29 @@ Require valid-user
     Now that you have succesfully installed phpMyAdmin along with providing additional security while accessing it, you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17650 - Set up SSL Certificate with phpMyAdmin and Apache - Debian, Ubuntu.html">Set up SSL Certificate with phpMyAdmin</a>
     
 
+=======
+              <br />
+          These lines mean the following:
+          <ul>
+<li><strong> <code>AuthType Basic</code></strong>: Specifies the kind of authentication that is being implemented. "Basic" implies that it uses a password file to implement the password authentication.</li>
+                <li>
+                    <strong><code>AuthName</code></strong>: Can be set  to anything you want. This message displays at the password prompt.
+                </li>
+                <li> <strong><code>AuthUserFile</code></strong>: Is the location where you would store the password file. </li>
+                <li><strong> <code>Require valid-user</code></strong>: Indicates that only usernames <!--Does "user names" work? Otherwise, it sounds as though people are living in the file. cj-->that are stored in the password file are granted access to the phpMyAdmin login screen. </li>
+          </ul>
+        </li>
+
+
+
+           <li>   Create a first user to be stored in the password file.
+            <div class="hacker">sudo htpasswd -c /etc/webapps/phpmyadmin/.htpasswd <em><u>your_username<!--I wonder if there is a more descriptive name we could use to better satisfy GD requirements regarding variables. Also, please format it correctly. Thanks. cj --></u></em></div></li>
+<li>Set and confirm the password.
+ 
+              <br />
+      Now when you enter <strong>http://server-ip-address-or-your-domain-name/phpmyadmin</strong> in the browser, you receive the username/password prompt. Enter the <em><u>newuser1</u></em> credentials that you included in the htpasswd file.   </li></ol>
+<h2>Next steps</h2>
+    Now that you have  installed phpMyAdmin along with providing additional security while accessing it, you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17650 - Set up SSL Certificate with phpMyAdmin and Apache - Debian, Ubuntu.html">set up an SSL certificate with phpMyAdmin</a>.
+>>>>>>> origin/master
 </body>
 </html>
