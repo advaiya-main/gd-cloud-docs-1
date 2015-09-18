@@ -103,7 +103,7 @@ p.note {
 </ol>
     
 <h2>Generate CSR and key</h2>
-    A certificate signing request (CSR) contains information such as organization, country, state, common name, and email that will be included in the certificate. It also includes a public key. You will also generate a private key which will be stored on your server.
+    A certificate signing request (CSR) contains information such as organization, country, state, common name, and email that will be included in the certificate. It also includes a public key. You will also generate a private key, which will be stored on your server.
     
     <ol>
         <li>
@@ -158,7 +158,7 @@ p.note {
         </ol>
 <h3>Create the bundle file</h3>
         <ol><li>Open the bundle file in a text editor (such as Notepad) and copy the contents.</li>            
-        <li>Go back to your console and open a new file.
+        <li>Go back to your console, and then open a new file.
            <div class="hacker">sudo vim /etc/apache2/ssl/gdBundle.crt</div></li>
             <li>Paste the copied contents to this file.</li> 
             <li>Save and exit. </li>
@@ -197,7 +197,7 @@ SSLCertificateChainFile /etc/apache2/ssl/gdBundle.crt
             <div class="hacker">sudo service apache2 restart</div>
         </li>
         <li>
-            You can test your setup by typing <strong>https://<em><u>yourdomainname</u></em>.com</strong> in your web browser. You can also use your server's public IP address instead of the domain name. 
+            You can test your setup by typing <strong>https://<em><u>yourdomainname</u></em>.com</strong> in your web browser. You can also use your server's public IP address, instead of the domain name. 
            
         </li>
     </ol>
