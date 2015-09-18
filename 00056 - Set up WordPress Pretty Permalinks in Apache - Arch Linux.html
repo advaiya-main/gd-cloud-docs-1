@@ -76,7 +76,7 @@ p.note {
 <h2>Choose your pretty permalink type in WordPress </h2>
 
     <ol>
-        <li>In your WordPress admin dashboard (http://coolexample.com/wp-admin): Go to the <strong>Settings</strong> panel on the left, then <strong>Permalinks</strong>.<br/>
+        <li>In your WordPress admin dashboard (http://coolexample.com/wp-admin): Go to the <strong>Settings</strong> panel on the left, then <strong>Permalinks</strong>.<br/> </li>
       
 
         <li>Choose your permalink type. A common option is the <strong>Post Name</strong> option.<br/>
@@ -84,11 +84,11 @@ p.note {
 
         <li><p>Select <strong>Save changes</strong>.</p>
          
- Notice this message at the bottom of the page, right below <strong>Save Changes</strong>:
+ Notice this message at the bottom of the page, right below <strong>Save Changes</strong>:   </li>
 
-<p>If your <code>.htaccess</code> file were writable, we could do this automatically, but it isn't so these are the mod_rewrite rules you should have in your .htaccess file. Click in the field and press CTRL + A to select all.</p>
+<li>If your <code>.htaccess</code> file were writable, we could do this automatically, but it isn't so these are the mod_rewrite rules you should have in your .htaccess file. Click in the field and press CTRL + A to select all.</li>
 
-<code>.htaccess</code> files are Apache configuration files that WordPress uses along with the module mod_rewrite to create permalinks. Our .htaccess file is not writable by WordPress, but we will be enabling them.</li>
+<li><code>.htaccess</code> files are Apache configuration files that WordPress uses along with the module mod_rewrite to create permalinks. Our .htaccess file is not writable by WordPress, but we will be enabling them.</li>
     </ol>
 
 <h2>Enable URL rewrites</h2>
@@ -97,7 +97,7 @@ p.note {
   
 <p>You will likely have to enable <code>AllowOverride</code> in your document root directory.</p> 
      
-<ol>
+
 
 <h3>Modify your httpd file to enable mod rewrite</h3>     
 
@@ -135,9 +135,9 @@ Find all instances of AllowOverride and change "none" to "all."
 
  <ol>
      <li>Grant read-write permissions.
-<div class="hacker">sudo chmod u+x /srv/http/.htaccess * -R</div>
+<div class="hacker">sudo chmod u+x /srv/http/.htaccess * -R</div>  </li>
 
-Now WordPress can rewrite the rules for you.</li>
+<li>Now WordPress can rewrite the rules for you.</li>
 <li>Go back to your WordPress admin dashboard, reload, and you'll see that the "If your <code>.htaccess</code> file were writable..." message from earlier should have disappeared.  </li>
 <li>Select "Save changes" in the dashboard and go back to your command line.</li>
 
