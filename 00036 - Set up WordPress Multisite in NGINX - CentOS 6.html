@@ -242,11 +242,12 @@ Now that we have a backup copy, let's start editing the configuration file.</li>
 
 <ol>
  
- <li> Open your php.ini file. 
+  <li> Open your php.ini file. 
 <div class="hacker">sudo vim /etc/php.ini</div></li>
 
-<li>Find this line and uncomment it. 
-<div class="hacker">extension=mysql.so</div></li>
+<li>Find these lines and uncomment them. 
+<div class="hacker">extension=mysql.so</div>
+<div class="hacker">extension=/path/to/extension/msql.so</div></li>
 
 <li>Since you're here, let's double-check this line is correctly set to 0 and also uncommented. 
 <div class="hacker">cgi.fix_pathinfo=0</div></li>
