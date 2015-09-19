@@ -61,16 +61,16 @@ td:nth-child(1) {font-weight:bold;}
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-    <p>Permalinks are URLs of the content published on your WordPress site. Best practices state that these URLs should be permanent and never change, but you can of course change your permalink structure at any time. Doing so, however, changes the URL of all your pages, which causes your search and referral traffic to drop because the links are broken.</p>
+    <p>Permalinks are URLs of the content published on your WordPress site. Best practices state that these URLs should be permanent and never change, but you can, of course, change your permalink structure at any time. Doing so, however, changes the URL of all your pages, which causes your search and referral traffic to drop because the links are broken.</p>
      
 <p>By default, WordPress produces dynamic links that are appended with the post ID number. Though these links work on all server environments, they're not descriptive, easily identifiable, or SEO-friendly.</p>
 
 <p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly and, depending on which format you choose, structured. <!--CT: too much, i think 9/16...You can use <code>mod_rewrite</code> or <code>lighttpd</code> to produce these, the most common and versatile being the Post Name link format.--></p>
   
-<p>This article will walk you through setting up WordPress pretty permalinks in Apache on CentOS 6, 7 and Fedora 20, 21. </p>
+<p>This article will walk you through setting up WordPress pretty permalinks in Apache on CentOS 6 or 7 and on Fedora 20 or 21. </p>
 
     <h2>Prerequisite</h2>
-    <p>Before you begin, Wordpress has to be fully installed. You most likely have already done this, but choose see the following articles if you haven't:</p>
+    <p>Before you begin, Wordpress has to be fully installed. If you haven't already installed it,  see one of the following articles:</p>
          
 <ul>
     <li><a href="17385 - Install WordPress on your LAMP server - CentOS.html">Install WordPress on your LAMP server - CentOS</a></li>
@@ -85,19 +85,16 @@ td:nth-child(1) {font-weight:bold;}
 <h2>Choose your pretty permalink type in WordPress </h2>
 
     <ol>
-        <li>In your WordPress admin dashboard (http:/<em><u>/coolexample.com</u></em>/wp-admin), go to the <strong>Settings</strong> panel on the left, then <strong>Permalinks</strong>.</li>
+        <li>In your WordPress admin dashboard (http:/<em><u>/coolexample.com</u></em>/wp-admin), go to the <strong>Settings</strong> panel on the left, then to <strong>Permalinks</strong>.</li>
       
    
       <li>Choose your permalink type. A common option is <strong>Post Name</strong>.<br/>
         <img src="images/00057/091615/wordpress-pretty-permalinks-page.png" alt="wordpress pretty permalinks page" /></li>
 
         <li>Select <strong>Save changes</strong>.
-            At this point, Fedora users might see a message appear below saying:
-            
-          <p>If your <code>.htaccess</code> file were writable, we could do this automatically, but it isn't so these are the mod_rewrite rules you should have in your .htaccess file. Click in the field and press CTRL + A to select all.</p>
-
-            We will be creating an .htaccess file shortly, which will take care of this. 
-         </li>
+            <br />
+          If using Fedora, you might see the message, &quot;If your <code>.htaccess</code> file were writable, we could do this automatically, but it isn't so these are the mod_rewrite rules you should have in your .htaccess file. Click in the field and press CTRL + A to select all&quot;.
+      We'll  create an<code> .htaccess</code> file shortly, which will take care of this. </li>
 
     </ol>
 
@@ -110,50 +107,26 @@ td:nth-child(1) {font-weight:bold;}
 <ol>
 <li>Modify your virtual host file. The default file, if you haven't modified it, is <code>/httpd.conf</code>.  Let's pull up the file.
   <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf </div>
-With the file open, find these lines and make these changes.</li>
+</li>
+<li>With the file open, find these lines and make these changes:
+  <ul>
 
-<li><code>AllowOverride All</code> allows all options in your .htaccess file. 
-Find all instances of AllowOverride and change "none" to "all."
- <div class="hacker">AllowOverride <em><u>All</u></em></div></li>  
- 
-<!--CT: Don't think i need to show this...
-<div class="hacker"><pre>#
-DocumentRoot "/var/www/html"
-
-#
-# Relax access to content within /var/www.
-#
-<Directory "/var/www">
-    AllowOverride All
-    # Allow open access:
-    Require all granted
-</Directory>
-...-->
+<li><code>AllowOverride All</code> allows all options in your <code>.htaccess</code> file. 
+Find all instances of <code>AllowOverride</code> and change None to All.
+ <div class="hacker">AllowOverride <em><u>All</u></em></div></li> 
 
 
-<li>Find the <code>DirectoryIndex</code> line and add index.php to the front of the index files, if it's not already there. The line could look like this after your change.
-     <div class="hacker">DirectoryIndex <em><u>index.php</u></em> index.html index.html.var</div></li>
-
-<!--CT...
-  OLD
-    let's set up the server name and create a directory. For this example, our server is named wordpressadmin@localhost.
-
-  <div class="hacker">&lt;VirtualHost *:80&gt;<br />
-    ServerAdmin <em><u>wordpressadmin@localhost</u></em>;<br />
-    DocumentRoot /var/www/html<br />
-    ServerName server_domain_name_or_IP<br />
-    &lt;Directory /var/www/html/&gt;<br />
-        AllowOverride All<br />
-    &lt;/Directory&gt;<br /></div>
-  </li>
-...-->
-  <li>Save and close.</li>
+<li>Find the <code>DirectoryIndex</code> line, and add <code>index.php</code> to the front of the index files, if it's not already there. The line could look like this after your change:
+  <div class="hacker">DirectoryIndex <em><u>index.php</u></em> index.html index.html.var</div></li>
+ </ul></li>
+  <li>Save and close the file.</li>
    
-<li>Restart Apache so that the changes can take effect.
-  <div class="hacker">sudo service httpd restart</div> </li>
+<li>Restart Apache so that the changes  take effect.
+  <div class="hacker">sudo service httpd restart</div> 
+  </li>
      </ol>
   
-   <h2>Create the <code>.htaccess</code> file</h2>
+ <h2>Create the <code>.htaccess</code> file</h2>
    
   <ol>
   <li>Create the <code>.htaccess</code> file within your document root using the <code>touch</code> command.
@@ -167,11 +140,11 @@ DocumentRoot "/var/www/html"
  <h2>Modify <code>.htaccess</code> privileges</h2>
 
  <ol>
-     <li>Change the permissions so WordPress can write to the .htaccess directory.
-       <div class="hacker">sudo chmod 664 /var/www/html/.htaccess</div>
+     <li>Change the permissions so that WordPress can write to the <code>.htaccess</code> directory.
+<div class="hacker">sudo chmod 664 /var/www/html/.htaccess</div>
 
-Now WordPress can rewrite the rules for you, and technically anyone can write to this. We'll be changing the setting to tighten up the restrictions right after this step.</li>
-<li>Go back to your WordPress admin dashboard, </li>
+Now WordPress can rewrite the rules for you, and technically anyone can write to this. We'll change the setting to tighten up the restrictions right after this step.</li>
+<li>Go back to your WordPress admin dashboard. </li>
 
 
 
