@@ -95,23 +95,24 @@
     </p>
 
     <p>Joomla is an open source content management system that helps you build websites and online applications. Joomla is built in PHP and uses  a database system such as MySQL.    </p>
-    <p>This article walks you through the installation of Joomla on your Debian server. Before getting started, you need to have LAMP (Linux, Apache, MySQL, PHP) set up on your server. For instructions, see <a href="http://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian"> install the LAMP stack</a> </p>
+    <p>This article walks you through the installation of Joomla on your Debian server. Before getting started, you need to have LAMP (Linux, Apache, MySQL, PHP) set up on your server. For instructions, see <a href="http://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian"> Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a>.</p>
 <h2>Download Joomla</h2>
     <ol>
         <li>
-            Before you download the installation files, create a directory:
+            Before you download the installation files, create a directory.
               <div class="hacker">sudo mkdir temp</div>
         </li>
-        <li>Go to that directory:
+        <li>Go to that directory.
           <div class="hacker">cd temp</div></li>
         <li>
-           Download the latest version of Joomla from the <a href="http://joomlacode.org/gf/project/joomla/frs/">Joomla website:</a>
+           Download the latest version of Joomla from the <a href="http://joomlacode.org/gf/project/joomla/frs/">Joomla website</a>.
             <div class="hacker">sudo wget http://joomlacode.org/gf/download/frsrelease/17410/76021/Joomla_2.5.7-Stable-Full_Package.tar.gz</div>
         </li>
         <li>
-            Unzip the downloaded package, moving it to the default Apache directory:
-              <div class="hacker">sudo tar zxvf Joomla_2.5.7-Stable-Full_Package.tar.gz  -C /var/www</div></li><li>
-            If the command <code>tar</code> is not found, install <code>tar</code>:
+            Unzip the downloaded package, moving it to the default Apache directory.
+              <div class="hacker">sudo tar zxvf Joomla_2.5.7-Stable-Full_Package.tar.gz  -C /var/www</div></li>
+        <li>
+            If the command <code>tar</code> is not found, install <code>tar</code>.
             <div class="hacker">sudo apt-get install tar</div>
         </li>
         
@@ -127,39 +128,39 @@
 </li>
 
     </ul>
-    <h2>Create Joomla database and user</h2>
+    <h2>Create a Joomla database and user</h2>
     <ol>
       <li>
-            Log into MySQL:
-        <div class="hacker">sudo mysql -u root -p</div></li>
+            Log into MySQL.
+              <div class="hacker">sudo mysql -u root -p</div></li>
           <li>When prompted, enter the MySQL root password that you set during the MySQL installation.
       </li>
         <li>
-            Create a database with any name:
+            Create a database with any name.
               <div class="hacker">CREATE DATABASE <em><u>testdb</u></em>;</div>
               The following displays:
               <div class="hacker"><pre>Query OK, 1 row affected (0.00 sec)</pre></div>
         </li>
         <li>
-            Create a user:
+            Create a user.
               <div class="hacker">CREATE USER <em><u>newuser</u></em>@localhost;</div>
         </li>
-        <li>Set the password for the newly created user:
+        <li>Set the password for the newly created user.
             <div class="hacker">SET PASSWORD FOR <em><u>newuser</u></em>@localhost= PASSWORD(<em><u>"pass"</u></em>);</div>
         </li>
-        <li>Grant privileges to the newly created user:
+        <li>Grant privileges to the newly created user.
           <div class="hacker">GRANT ALL PRIVILEGES ON <em><u>testdb</u></em>.* TO <em><u>newuser</u></em>@localhost IDENTIFIED BY '<em><u>pass</u></em>';</div>
         </li>
         <li>
-            Refresh MySQL:
+            Refresh MySQL.
               <div class="hacker">FLUSH PRIVILEGES;</div>
         </li>
         <li>
-            Exit the MySQL shell:
+            Exit the MySQL shell.
               <div class="hacker">exit</div>
         </li>
         <li>
-            Restart Apache:
+            Restart Apache.
               <div class="hacker">sudo service apache2 restart</div>
         </li>
     </ol>
@@ -177,7 +178,7 @@
               <div class="hacker">sudo rm -rf /var/www/installation/</div>
             <div class="hacker">sudo chmod 755 /var/www/configuration.php</div>
         </li>
-        <li>In your browser, navigate to <code>http://server-ip-address/index.php </code>or domain name. The new Joomla page displays.</li>
+        <li>In your browser, navigate to <code>http://server-ip-address/index.php </code>or the domain name. The new Joomla page displays.</li>
     </ol>
 <h2>Next steps</h2>
    Now that you have set up a Joomla site, you can <a href="http://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17610 - Install Joomla Console to manage your Joomla site by command line - CentOS, Fedora.html">install Joomla Console to manage your Joomla site by command line</a>.
