@@ -100,10 +100,10 @@ p.note {
            
         </li>
         <li>Generate the CSR and private key.
-            <div class="hacker">sudo openssl req -out CSR.csr -new -newkey rsa:2048 -nodes -keyout /etc/httpd/ssl/certkey.key</div>
+            <div class="hacker">sudo openssl req -out CSR.csr -new -newkey rsa:2048 -nodes -keyout /etc/httpd/ssl/<em><u>certkey.key</u></em></div>
         To see the newly generated CSR, use the following command.
         <div class="hacker">cat CSR.csr</div>
-        You'll input this CSR in the COMPANY_NAME site while generating the certificate.
+            Input the CSR into the certificate authority's web site when you generate the certificate. 
         </li>
 
         <li>
@@ -112,39 +112,9 @@ p.note {
         </li>
         <li>Point your domain name to your server's IP address.</li>
     </ol>
-<h2>Obtain and install the certificate</h2>
- <p>Once you have generated the CSR and the key, you can obtain and install the certificate.</p>
-    <ol>
-        <li>Log into
-             <a href="https://mya.godaddy.com/default.aspx">COMPANY_NAME account manager</a>. 
-      </li> <li>Go to the <strong>SSL CERTIFICATES </strong> section, and set up the certificate. <br />The certificate appears in your account after a few minutes.
-</li>
-        <li>
-    Once you obtain the certificate, click the <strong>Manage</strong> button, and then click the <strong>Set-up</strong> link in the <strong>Action</strong> column. </li>
-        <li>
-            When prompted to provide the CSR, copy and paste the CSR that you generated in the previous section.
-        <br />
-            The Certificate Verification Process begins, and COMPANY_NAME checks your domain ownership.
-        </li>
-        <li>
-            Download your certificate to your local machine. A zip file contains the certificate and the bundle. 
-        </li>
-         <li>Extract (unzip) the two files from the zip file.</li>
-         <li>Open the certificate in a text editor (such as Notepad or TextEdit), and copy the contents. </li>
-         <li>In the console,  open a new file:
-           <div class=" hacker">sudo vim /etc/httpd/ssl/gdcert.crt</div>
-      </li>
-         <li> Paste the copied contents into this file. Save and exit.
-         </li>
-        <li>Open the bundle file in a text editor (such as Notepad or TextEdit), and copy the contents. </li>
-        <li>In the console,  open a new file:
-          <div class="hacker">sudo vim /etc/httpd/ssl/gdBundle.crt</div>
-      </li>
-        <li> Paste the copied contents into this file. Save and exit.
-        </li>       
-       
-    </ol>
-<p class="note">You can also move the certificate files from your local machine to your server via FTP.</p>
+
+    <h2>Install the certificate</h2>
+    Now that you have your CSR generated, you can go to your certificate authority and get the certificate bundle and follow their instructions on installing the certificate. If you're getting your certificate from COMPANY_NAME, check out <a href="https://www.godaddy.com/help/ssl-certificates">this</a> guide on how to install your certificate. Make sure that you you move the certificates to the directory you created in the previous section where you have you your key, in this case <em><u>ssl</u></em>
 
     <h2>Configure Apache to use SSL</h2>
     <p>Finally, you need to edit your SSL configuration file to make sure that its SSL entries point to the right artifacts.</p>
@@ -155,15 +125,16 @@ p.note {
         </li>
         <li>
             Make the following changes in the <code>Virtual host </code>section:
-            
-<pre>
+            <div class="hacker">
+                <pre>
     ServerName <em><u>yourdomainname.com</u></em>
     ServerAlias www.<em><u>yourdomainname.com</u></em> 
     SSLEngine on 
-    SSLCertificateFile  /etc/httpd/ssl/gdcert.crt 
-    SSLCertificateKeyFile /etc/httpd/ssl/certkey.key
-    SSLCertificateChainFile /etc/httpd/ssl/gdBundle.crt
+    SSLCertificateFile  /etc/httpd/ssl/<em><u>gdcert.crt</u></em>
+    SSLCertificateKeyFile /etc/httpd/ssl/<em><u>certkey.key</u></em>
+    SSLCertificateChainFile /etc/httpd/ssl/<em><u>gdBundle.crt</u></em>
 </pre>
+            </div>
       </li><li>Save and close the file.
         </li>
         
