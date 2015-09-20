@@ -4,11 +4,6 @@
 
 <head>
 
-<!--Article Number is 17336 (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
-
 <title>Configure Apache Virtual Hosts - Ubuntu</title>
 <style type='text/css'>
 div.hacker {
@@ -86,13 +81,13 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>15 minutes</u></em></p>
     
-    <p>To run multiple sites on a single IP address, you'll need to set up the virtual hosts in your web browser. Apache is the most commonly-used web server and can run a multitude of content based on IP address or hostname.</p>
+    <p>To run multiple sites on a single IP address, you'll need to set up the virtual hosts in your web browser. Apache is the most commonly used web server and can run a multitude of content based on IP address or hostname.</p>
 
-    <p>This guide will walk you through how to set up an Apache virtual host on an Ubuntu virtual private server (VPS) as a non-root user with <code>sudo</code> privileges.</p>
+    <p>This article will walk you through setting up an Apache virtual host on an Ubuntu virtual private server (VPS) as a non-root user with <code>sudo</code> privileges.</p>
     
     <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17341%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Ubuntu.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu</a> for instructions.  </p>
 
-    <p>Also, make sure your hostname has a valid DNS record, so that the www version of your domain works. See <a href="/article/19116?prog_id=PROG_ID">Point your domain to a GoDaddy Cloud Server</a> for instructions on setting up your domain.</p>
+    <p>Also, make sure that your hostname has a valid DNS record, so that the www version of your domain works. See <a href="/article/19116?prog_id=PROG_ID">Point your domain to a COMPANY_NAME Cloud Server</a> for instructions on setting up your domain.</p>
 
 
     
@@ -109,7 +104,7 @@ p.note {
     <h2>Set up the virtual host</h2>
     <ol>
     <li>Create the virtual directories for the domains/sites you'll be serving from your VPS.
-    For this tutorial, we will use the example domain name <em><u>coolexample.com</u></em>.<br />
+    We'll use the example domain name <em><u>coolexample.com</u></em>.<br />
     <div class="hacker">
     sudo mkdir -p /var/www/<em><u>coolexample.com</u></em>/public_html</div></li>
     
@@ -145,30 +140,29 @@ p.note {
 <h2>Create virtual host file</h2>
  
 
-<p>Configure your virtual host. We're going to borrow Apache's default config file 000-default.conf from the sites-available directory as a template.</p>
+<p>Configure your virtual host. We're going to borrow Apache's default config file<code> 000-default.conf</code> from the <code>sites-available</code> directory as a template.</p>
 
 <ol>
 
-  <li>Copy the 000-default.conf file.
-     <div class="hacker">sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/coolexample.com.conf </div>
+  <li>Copy the <code>000-default.conf</code> file.
+<div class="hacker">sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/coolexample.com.conf </div>
   </li>
   
-    <li>Open your newly-copied config file.
+    <li>Open your newly copied config file.
         <div class="hacker">sudo vim /etc/apache2/sites-available/coolexample.com.conf</div></li>
 
 <li>In the file, find <code>DocumentRoot</code> towards the beginning of the file, and update with your own domain.
 
  <div class="hacker">DocumentRoot <em><u>/var/www/coolexample.com/public_html</u></em></div> </li>
 
- <li>Below <code>DocumentRoot</code>, add these two lines.
-  <div class="hacker">ServerName <em><u>www.coolexample.com</u></em></div>     
- <div class="hacker">ServerAlias <em><u>coolexample.com</u></em></div> 
+ <li>Below <code>DocumentRoot</code>, add these two lines:
+   <div class="hacker">ServerName <em><u>www.coolexample.com</u></em><br />ServerAlias <em><u>coolexample.com</u></em></div> 
  </li>
  
-<li>Save and close.</li>
+<li>Save and close the file.</li>
 </ol>
 
-<p>Note that updating the lines ServerAdmin, ErrorLog and CustomLog are not required to set up your virtual host, but you can go ahead and update ErrorLog and CustomLog to your domain and ServerAdmin to your email.</p>
+<p>Note that updating the lines ServerAdmin, ErrorLog, and CustomLog are not required to set up your virtual host, but you can go ahead and update ErrorLog and CustomLog to your domain and ServerAdmin to your email.</p>
 
 <h2>Enable your virtual host</h2>
 
@@ -191,11 +185,11 @@ p.note {
 
 <h2>Adding additional virtual hosts</h2>
 
-<p>Repeat the above steps to create more virtual hosts. Be sure to create new config files for each new virtual host. You can copy the <em><u>coolexample.com</u></em> confige file to create new hosts.</p>
+<p>Repeat the above steps to create more virtual hosts. Be sure to create new config files for each new virtual host. You can copy the <em><u>coolexample.com</u></em> config file to create new hosts.</p>
 
 
 <h2>Next Steps</h2>
-<p>Congratulations! You now have a single server handling a site with its own domain. Again, remember that you can add additional virtual hosts since there is no limit on the number of domain names Apache can handle.</p>
+<p>Congratulations! You now have a single server handling a site with its own domain. Again, remember that you can add additional virtual hosts because there is no limit on the number of domain names Apache can handle.</p>
 
   </body>
 </html>
