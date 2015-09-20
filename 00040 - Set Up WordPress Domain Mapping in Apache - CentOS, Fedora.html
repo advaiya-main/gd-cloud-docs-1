@@ -4,7 +4,7 @@
 
 <head>
 
-<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
+
 
 <title>Set up WordPress domain mapping in Apache - CentOS, Fedora</title>
 <style type="text/css">
@@ -48,26 +48,26 @@ p.note {
 
 <body>
  <p>Set Up WordPress Domain Mapping in Apache on a LAMP server - CentOS, Fedora</p>
-<h1>Set up WordPress domain mapping in Apache - CentOS, Fedora</h1>
+<h1>Set Up WordPress Domain Mapping in Apache - CentOS, Fedora</h1>
 
                 <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
                 <strong>Time</strong>: <em><u>5 minutes</u></em></p>
 
            <p>The WordPress MU Domain Mapping plug-in allows you to point multiple domains to one WordPress account.
-           This means that you can map any site to another domain, subdomains to independent stand-alone domainsIn our tutorial, we'll map our subdomains to independent stand-alone domains. For instance, <strong>coolexample.net</strong><!--CT (to Crystal): Using this example domain as a placeholder until we get new domain from GD 9/08--> would redirect to <strong>product.coolexample.com</strong>, a subdomain of your primary site, <strong>coolexample.com</strong>.</p>
+           This means that you can map any site to another domain, and subdomains to independent standalone domains. In this article, we'll map our subdomains to independent standalone domains. For instance, <strong>coolexample.net</strong> would redirect to <strong>product.coolexample.com</strong>, a subdomain of your primary site, <strong>coolexample.com</strong>.</p>
            
-           <p>This tutorial applies to CentOS 6, 7 and Fedora 20, 21.</p>
+           <p>This article applies to CentOS 6 and 7 and to Fedora 20 and 21.</p>
 
 <h2>Prerequisites </h2>
 
-        <p>You should have WordPress multisite installed. Find your article based on your system:</p>
+        <p>You should have WordPress multisite installed:</p>
     <ul>
       <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17383%20-%20Set%20up%20WordPress%20Multisite%20in%20Apache%20-%20CentOS.html">Set up WordPress Multisite in Apache - CentOS</a></li>
    <li> <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/19192%20-%20Set%20up%20WordPress%20Multisite%20in%20Apache%20-%20Fedora.html">Set up WordPress Multisite in Apache - Fedora</a></li>
                  </ul>
                  
          Install unzip, if you haven't already.
-                    <div class="hacker">sudo yum install unzip</div>  <br />
+                    <div class="hacker">sudo yum install unzip</div>
                     If prompted, enter <strong>y</strong> to continue installation. 
        
 
@@ -88,7 +88,7 @@ p.note {
                     <div class="hacker">sudo mv wordpress-mu-domain-mapping <br />
                      /var/www/html/wp-content/plugins/</div>   </li>
 
-            <li>Copy the <code>sunrise.php</code> into your WordPress document root.
+            <li>Copy  <code>sunrise.php</code> into your WordPress document root.
                     <div class="hacker">sudo cp /var/www/html/wp-content/plugins/wordpress-mu-domain-mapping/sunrise.php    <br />
                     /var/www/html/wp-content/</div>   </li>
 
@@ -99,16 +99,16 @@ p.note {
 
     <ol>
 
-            <li>Let's go to your WordPress document root.
-            <div class="hacker">cd /var/www/html</div> </li>
+            <li>Go to your WordPress document root.
+              <div class="hacker">cd /var/www/html</div> </li>
 
             <li>Open your <code>wp-config</code> file.
             <div class="hacker">sudo vim wp-config.php</div></li>
 
-             <li>Add this line before <code>/* That's all, stop editing! Happy blogging. */</code>. 
-            <div class="hacker">define('SUNRISE', 'on'); </div> </li>
+             <li>Add this line before <code>/* That's all, stop editing! Happy blogging. */</code>:
+               <div class="hacker">define('SUNRISE', 'on'); </div> </li>
             
-            <li>Save and close.</li>
+            <li>Save and close the file.</li>
               
                <li>Restart Apache.
 
@@ -119,20 +119,20 @@ p.note {
 <h2>Activate Domain Mapping</h2>
          
 
-    <ol>    <li>Return to your <strong>wp-admin</strong> window.  </li>
+    <ol>    <li>Return to your <strong>wp-admin</strong> window.</li>
 
-            <li>In the top navigation bar, point to <strong>My Sites</strong>, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Plugins</strong>. <br />
+            <li>In the top navigation bar, point to <strong>My Sites</strong> and, from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Plugins</strong>. <br />
                      <img src="images/00040/083015/wordpress-mu-domain-mapping-plugin-network-admin-nav-screen1.png" alt="wordpress mu domain mapping plugin network admin nav" /><br />
                 
 
-                 You will see three plug-ins. The WordPress MU Domain Mapping plug-in should be the third item.   </li>
+                 You'll see three plug-ins. The WordPress MU Domain Mapping plug-in should be the third item.   </li>
 
-            <li>Under this plug-in, click <strong>Network Activate</strong>. The <strong>Plugins</strong> dialog will highlight, indicating it's activated.<br />
+            <li>Under this plug-in, click <strong>Network Activate</strong>. The <strong>Plugins</strong> dialog  highlights, indicating that it's activated.<br />
              <img src="images/00040/083015/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="WordPress mu domain mapping plugin network activate" />    <br />
             
              </li>
             
-           <li> In the menu bar on the left-hand side, point to <strong>Settings</strong>, and then select <strong>Domain Mapping</strong> from the menu that appears. <br />
+           <li> In the left-hand menu bar, point to <strong>Settings</strong>, and then select <strong>Domain Mapping</strong> from the menu that appears. <br />
            <img src="images/00040/083015/wordpress-mu-domain-mapping-plugin-domain-options-screen3.png" alt="wordpress mu domain mapping plugin domain options" /></li>
             <li>Under <strong>Domain Options</strong>, clear the <strong>Remote Login</strong> check box. </li>
 
@@ -144,26 +144,26 @@ p.note {
 
     </ol>
 
-              <p> Your external domain will now redirect to the subdomain you have defined. For example, <!--CT (to Crystal): Using this example domain as a placeholder until we get new domain from GD 9/08 (2 of 2)--><em>coolexample.net</em> redirects to <em>product.coolexample.com</em>.  This includes the administration pages <strong>/wp-admin</strong>.</p>
+  <p> Your external domain  now redirects to the subdomain you have defined. For example, <strong>coolexample.net</strong> redirects to <strong>product.coolexample.com</strong><em><strong>.</strong></em> This includes the administration pages <strong>/wp-admin</strong>.</p>
            
-            <p>    In the next step, we map a domain name to each site based on its site ID. There's more than one way to find the ID of a site, but for easier administration, we will create a simple WordPress Multi-use plug-in that displays an additional ID column on the <strong>Sites</strong> page. </p>
+            <p>    In the next step, we'll map a domain name to each site based on its site ID. There's more than one way to find the ID of a site, but for easier administration, we'll create a simple WordPress Multi-use plug-in that displays an additional ID column on the <strong>Sites</strong> page. </p>
 
 
 <h2>Map a domain name to each site based on site ID</h2>
 
     <ol>
             <li>In your terminal, create a directory to house the plug-in.
-                <div class="hacker">cd ~  <br  />
-                sudo mkdir /var/www/html/wp-content/mu-plugins  </div>  </li>
+                <div class="hacker">cd ~  </div>
+            <div class="hacker">    sudo mkdir /var/www/html/wp-content/mu-plugins  </div>  </li>
 
             <li>Create a new file.
                 <div class="hacker">sudo vim /var/www/html/wp-content/mu-plugins/wpms_blogid.php</div>
 
-               It is a new file, so it will be blank.</li>
+               It's a new file, so it will be blank.</li>
 
-            <li>Copy this whole code block and paste it into your file.
+            <li>Copy this whole code block, and paste it into your file:
 
-<div class="hacker"><pre>&lt;?php
+              <div class="hacker"><pre>&lt;?php
 add_filter( 'wpmu_blogs_columns', 'do_get_id' );
 add_action( 'manage_sites_custom_column', 'do_add_columns', 10, 2 );
 add_action( 'manage_blogs_custom_column', 'do_add_columns', 10, 2 );
@@ -182,9 +182,9 @@ function do_get_id( $columns ) {
 
 
  </li>
-            <li>Save and close.</li>
+            <li>Save and close the file.</li>
 
-<li>Back in the WP-Admin browser window, the <strong>Sites &gt; All Sites</strong> section should now show an additional <strong>ID</strong> column. Make note of the ID for your subdomain that you'll be mapping.</li> 
+<li>Back in the WP-Admin browser window, the <strong>Sites &gt; All Sites</strong> section should now show an additional <strong>ID</strong> column. Make a note of the ID for your subdomain that you'll be mapping.</li> 
  </ol>
 
 
@@ -202,7 +202,7 @@ function do_get_id( $columns ) {
 
 <h2>Next steps</h2>
 
-<p>Congratulations! Each site that you've defined with its own domain name can now be accessed that way. You can test it by visiting one of those domains. You will see the URL redirect to the subdomain of your primary site.</p><p>
+<p>Congratulations! Each site that you've defined with its own domain name can now be accessed that way. You can test it by visiting one of those domains. You'll see the URL redirect to the subdomain of your primary site.</p><p>
 
 Now each site can be maintained separately through its own WordPress admin panel. Just append <code>/wp-admin/</code> to the URL, such as <strong>coolexampleproduct.com/wp-admin/.</strong> </p>
 
