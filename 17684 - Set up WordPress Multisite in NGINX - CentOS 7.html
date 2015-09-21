@@ -26,7 +26,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .<h1></h1>5em 4em;
+ padding: .5em 1em .5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -93,7 +93,7 @@ We'll set up WordPress on a CentOS 7 system. The steps are for a non-root user w
 <p>We'll use these example sites: </p>
 <table>
   <tr>
-    <td><b>Site 1</b></th>
+    <td><b>Site 1</b></td>
     <td>coolexample.com (primary)</td>
   </tr>
   <tr>
@@ -119,75 +119,65 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
      
 <p>Let's create the WordPress root directory for us to transfer the files into later.</p>   
 
-<ol>                                                                        
+   <ol>
 <li>Create the document root directory. We'll use <code>/var/www/wordpress</code> for this article.
   <div class="hacker">sudo mkdir -p /var/www/wordpress</div>
-</li>
+</li>  </ol>
 
 <h2>Make a copy of your NGINX config file</h2>
   
-   <p>We now need to update the default NGINX config file with our WordPress settings. Let's work from our <code>nginx.conf</code> file to configure it for WordPress. </p>
+                <p>We now need to update the default NGINX config file with our WordPress settings. Let's work from our <code>nginx.conf</code> file to configure it for WordPress. </p>
 
-<ol>
-<li>Double-check that you have the file first (you should).
+        <ol>
+                <li>Double-check that you have the file first (you should).
 
-<div class="hacker">sudo vim /etc/nginx/nginx.conf</div>  </li>
+                <div class="hacker">sudo vim /etc/nginx/nginx.conf</div>  </li>
 
-<li>Create a backup copy just in case.
-<div class="hacker">sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.bak</div></li>
-</ol>
-               
-             Open the <code>.conf</code> file.
-<div class="hacker"> sudo vim /etc/nginx/nginx.conf</div>
-         
- Inside the file, make these changes.
+                <li>Create a backup copy just in case.
+                <div class="hacker">sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.bak</div></li>
 
-     <!--CT: Susan: This is one sub-section (but a nested list inside this w/sub-bullets would be fine 8/19 (START)-->
-         
-  <!--CT: main bullet or section heading-->
- In the server section (search: <code>server {</code>) about halfway through the file:
-  
-  <!--CT: sub-bullet #1-->                 
-              <ul><li>    Find the line that begins with <code>root</code> and point root to <code>/var/www/wordpress;</code></li> </ul>
- 
-  <!--CT: sub-bullet #2-->              
- <li>Under root is a line that begins with index. 
- Make sure <code>index.php</code> is within this index line. 
- If the line is missing entirely, add the whole line after the <code>root</code> line.
- <div class="hacker">   index index.php  index.html index.htm; </div>
-</li> 
- 
-  <li>Make <code>server_name</code> point to your domains.  
-                 <div class="hacker">server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</em></u></div></li>
- 
-  <!--CT: sub-bullet #3--> 
- <li>Modify the <code>location ~ \.php$ {</code> block:
 
-<!--CT: Nested list (START)-->	
-<ul>
-<li>Make sure this section is uncommented and make root point to <code>/var/www/wordpress;</code></li>
-<li>If this <code>location ~ \.php$ {</code> block does not exist, copy and paste in this entire block under the last error page (the section beginning with <code>error_page 500 502 503 504 /50x.html;</code>).<br/> 
+                <li> Open the <code>.conf</code> file.
+                <div class="hacker"> sudo vim /etc/nginx/nginx.conf</div>    </li>
+
+              <li>  Inside the file, make these changes.
+              <ul>   <li>In the server section (search: <code>server {</code>) about halfway through the file:   <br />      </li>
+
+
+                        <li>Find the line that begins with <code>root</code> and point root to <code>/var/www/wordpress;</code>  </li>
+                            <li>Under root is a line that begins with index. Make sure <code>index.php</code> is within this index line.
+                                 If the line is missing entirely, add the whole line after the <code>root</code> line.
+                                 <div class="hacker">   index index.php  index.html index.htm; </div></li>
+
+                                <li>Make <code>server_name</code> point to your domains.
+                                <div class="hacker">server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</u></em></div></li>
+                                <li>Modify the <code>location ~ \.php$ {</code> block:</li> </ul>   </li>
+<!--CT: Nested list (START)-->
+
+<li>Make sure this section is uncommented and make root point to <code>/var/www/wordpress;</code> <br />
+ <ul>
+<li>If this <code>location ~ \.php$ {</code> block does not exist, copy and paste in this entire block under the last error page (the section beginning with <code>error_page 500 502 503 504 /50x.html;</code>).<br/>
 See the full file below to double-check your work.
  <!--CT: Susan: Can you make this code block (that the user adds) display the indents showing here, starting w/the "root" line?-->
- <div class="hacker"> 
-  location ~ \.php$ {   <br/>
-        root           /var/www/wordpress;     <br/>
-        fastcgi_pass   127.0.0.1:9000;  <br/>
-        fastcgi_index  index.php;    <br/>
-        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;   <br/>
-        include        fastcgi_params;  <br/>
-    } </div>
-</li> 
-</ul>
-<!--(END)--> 
+ <div class="hacker">  <pre>
+  location ~ \.php$ {
+        root           /var/www/wordpress;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    } </pre> </div>
+</li>
+</ul> </li>
+<!--(END)-->
 
-The fastcgi_param arguments helps the PHP interpreter find the PHP script that we stored in the document root.</li>
+<li>The fastcgi_param arguments helps the PHP interpreter find the PHP script that we stored in the document root.
 
-</ul>
- 
- Some of these changes may have already been made when you installed your LEMP stack.
 
- After your changes, your file may look something like this (this example file is truncated):
+
+ Some of these changes may have already been made when you installed your LEMP stack.</li>
+
+ <li>After your changes, your file may look something like this (this example file is truncated):
 
 <div class="hacker"><pre>
 # For more information on configuration, see:
@@ -220,7 +210,7 @@ http {
     server {
         listen       80 default_server;
         listen       [::]:80 default_server;
-        server_name  <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</em></u>
+        server_name  <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</u></em>
         root          <em><u>/var/www/wordpress;</u></em>
 <em><u># Added this line</u></em> 
         <em><u>index index.php  index.html index.htm;</u></em>
@@ -251,11 +241,11 @@ http {
    <em><u> }</u></em> 
     }
 }
-</pre></div>
+</pre></div> </li>
 
-<p>Save and close.</p>
-            
- <li>Restart nginx to make your changes take:
+<li>Save and close.</li>
+</ol>
+ <p>Restart nginx to make your changes take:</p>
 <div class="hacker">sudo service nginx restart</div> 
 
                          
@@ -309,10 +299,10 @@ This command creates a directory called "wordpress" in your home directory.</li>
 <div class="hacker">sudo chown nginx:nginx * -R</div> </li>
 
 <li>Let's add a designated WordPress user. For this tutorial, we'll call ours <code>wordpress_user</code>.
-<div class="hacker">sudo adduser wordpress_user</div> 
+<div class="hacker">sudo adduser wordpress_user</div>  </li>
 
 <li>Give your user permissions to modify the content.
-<div class="hacker">sudo usermod -a -G nginx wordpress_user</div> 
+<div class="hacker">sudo usermod -a -G nginx wordpress_user</div>   </li>
 
 
 </ol>
@@ -419,31 +409,31 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
    <li>Find the section torwards the end of the file we were modifying, and paste the code you copied right before <code>/* That's all, stop editing! Happy blogging. */</code>.</li>
     
   <li>Save and close the file.</li>
-</ol>  
+</ol>
 
 <h2>Create additional sites or subdomains</h2>
 
-<ol>       
+<ol>
 <li>Back in your browser, click <strong>Log In</strong> at the bottom of the page or simply reload the page. (Log back in if your password isn't saved.) <br /></li>
 
 <li>To the left of that on the top navigation bar is <strong>My Sites</strong>. Hover/mouse over it, and from the drop-down menu, select <strong>Network Admin</strong>, then <strong>Sites</strong>. <br />
 
 <img src="images/17684/083115/install-wordpress-multisite-network-setup-sites-nav-screen7.png" alt="install wordpress multisite network setup sites nav" /> </li>
 
-</li>At the top, there should now be a <strong>&quot;Network Admin: <code><em><u>(your domain name)</u></em></code></strong> option in the menu bar.<br/></li>
+<li>At the top, there should now be a <strong>&quot;Network Admin: <code><em><u>(your domain name)</u></em></code></strong> option in the menu bar.<br/></li>
 
 <li>On the main screen, next to Sites, click <strong>Add New</strong>.</li>
 
 <li>Fill out your first subdomain information. </li>
 <li>Click <strong>Add Site</strong> to finish. </li>
 <li>Repeat for all your subdomains.</li>
- </ol>  
+ </ol>
 
 <h2>Next Steps</h2>
  
  <p>Congratulations! You have successfully set up a WordPress multisite. You'll be able to manage all your sites from your WordPress panel. <br />
 
- There's much you can do from here. One option is to map your sub-domains to external domains. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00035%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20in%20NGINX%20-%CentOS%207,%20Fedora%20.html">Set up WordPress Domain Mapping - CentOS 7, Fedora</a> for instructions. </p>
+ There's much you can do from here. One option is to map your sub-domains to external domains. See <a href="00035%20-%20Set%20Up%20WordPress%20Domain%20Mapping%20in%20NGINX%20-%CentOS%207,%20Fedora%20.html">Set up WordPress Domain Mapping - CentOS 7, Fedora</a> for instructions. </p>
 
  </body>
  </html>
