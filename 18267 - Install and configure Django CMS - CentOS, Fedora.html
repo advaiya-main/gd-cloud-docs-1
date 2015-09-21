@@ -86,8 +86,8 @@ p.note {
 
 
     <h2>Installing Django CMS</h2>
- <!-->
-            <h3>Python Package Manager: pip</h3>
+
+<!--            <h3>Python Package Manager: pip</h3>
              <p>pip is a package manager which will help us to install the software packages (tools, libraries, applications).   </p>
 
 
@@ -103,18 +103,17 @@ p.note {
 <ol>
 <li>Upgrade the software repository list followed by upgrading the installed tools on our machine to more recent versions:</p>
                <div class="hacker">sudo yum -y update</div></li>
-
-    <li>Install the Virtual Environment.<br />
-    <!--Too much intermediary content. Move this to the introduction, and then try to limit the procedure to just the steps.-->
-    Everything we need runs on Python. Default Debian 7 installation comes with Python <code>version 2.7</code>. As this suits our requirements, we can continue with installing pip, which we need for the virtualenv (and other packages') installation.
-
+  <li>Install the Virtual Environment.<br /> -->
+     <!--Too much intermediary content. Move this to the introduction, and then try to limit the procedure to just the steps.-->
+   <p> Everything we need runs on Python. Default Debian 7 installation comes with Python <code>version 2.7</code>. As this suits our requirements, we can continue with installing pip, which we need for the virtualenv (and other packages') installation. </p>
+<ol>
 <li>Install setuptools with curl to securely get these files. These setup files will not only allow us to have the installation process automated, but also ensures that we have the latest stable versions running on our system. curl here will
             verify the SSL certificates from the source and pass the data to the Python interpreter.<br /> 
-            Run the following command</p>
+            Run the following command:
 
               <div class="hacker">$ curl http://pypi.python.org/pypi/setuptools</div>
               We can now install and set up pip on our linux server.</li>
-<li>Install pip system-wide. 
+<li>Install pip system-wide.
 <div class="hacker">$ sudo yum install python-pip</div></li>
 <li>By default, pip installs its files under <code>/usr/local/bin location</code>. We need to append it to our PATH so that we will be able to run it with calling pip command directly.
 <div class="hacker">export PATH="/usr/local/bin:$PATH"</div>
