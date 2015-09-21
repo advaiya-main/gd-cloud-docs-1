@@ -6,7 +6,7 @@
 
 <!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
 
-<title>Set up WordPress Pretty Permalinks on Apache - Ubuntu</title>
+<title>Set up WordPress Pretty Permalinks on Apache - Debian</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -57,8 +57,8 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-<p>Set Up WordPress Pretty Permalinks in Apache for Ubuntu.</p>
-    <h1>Set Up WordPress Pretty Permalinks in Apache - Ubuntu</h1>
+<p>Set Up WordPress Pretty Permalinks in Apache on a LAMP stack for Debian.</p>
+    <h1>Set Up WordPress Pretty Permalinks in Apache - Debian</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
@@ -67,7 +67,7 @@ td:nth-child(1) {font-weight:bold;}
      
 <p>By default, WordPress produces dynamic links that are appended with the post ID number. Though these links work on all server environments, they're not descriptive, easily identifiable, or SEO-friendly.</p>
 
-<p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly and, depending on which format you choose, structured. You can use <code>mod_rewrite</code> or <code>lighttpd</code> to produce these, the most common and versatile being the Post Name link format.</p>
+<p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly and, depending on which format you choose, structured. </p>
   
 <p>This article will walk you through setting up WordPress pretty permalinks an a Debian system. </p>
 
@@ -90,7 +90,7 @@ td:nth-child(1) {font-weight:bold;}
       
    
       <li>Choose your permalink type. A common option is <strong>Post Name</strong>.<br/>
-        <img src="images/19225/091515/wordpress-pretty-permalinks-page.png" alt="wordpress pretty permalinks page" /></li>
+        <img src="images/00061/092115/wordpress-pretty-permalinks-page.png" alt="wordpress pretty permalinks page" /></li>
 
         <li>Select <strong>Save changes</strong>. </li>
     </ol>
@@ -106,25 +106,25 @@ td:nth-child(1) {font-weight:bold;}
 Open your file to edit.
   <div class="hacker">sudo vim /etc/apache2/sites-enabled/000-default </div></li>
 
-<li>With the file open, change <code>AllowOverride</code> to All in two places. 
+<li>Change <code>AllowOverride</code> to All in two places. <br/>
 
 
-So with the change, your file may look like this:
-  <div class="hacker"><pre>&lt;VirtualHost *:80&gt;<br />
-        ServerAdmin webmaster@localhost<br />
-        DocumentRoot /var/www<br />
-        <Directory>
-                Options FollowSymLinks<br />
-                AllowOverride <em><u>All</u></em><br />
-                DirectoryIndex index.php<br />
-        &lt;/Directory&gt; <br />
-        &lt;Directory /var/www/&gt;<br />
-                Options Indexes FollowSymLinks MultiViews<br />
-                AllowOverride <em><u>All</u></em><br />
-                Order allow,deny<br />
-                allow from all<br />
-       &lt;/Directory&gt;
-    </pre></div>
+After your changes, your file may look like this:<br>
+  <div class="hacker"><pre>&lt;VirtualHost *:80&gt;
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www
+        &lt;Directory&gt; 
+                Options FollowSymLinks
+                AllowOverride <em><u>All</u></em>
+                DirectoryIndex index.php
+        &lt;/Directory&gt; 
+        &lt;Directory /var/www/&gt;
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride <em><u>All</u></em>
+                Order allow,deny
+                allow from all
+       &lt;/Directory&gt;  </pre></div>
+  
   </li>
 
   <li>Save and close.</li>
