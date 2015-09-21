@@ -108,14 +108,16 @@ p.note {
     </ol>
 <h2>Create a database user</h2>
 	<ol>
-		<li>Log in with the <code>postgres</code> system user, and then create a new user.
-			<div class="hacker">sudo -u postgres createuser -s <em><u>psuser</u></em>
+		<li>Log in with the <code>postgres</code> system user.
+			<div class="hacker">sudo -i -u postgres
 			</div>
 		</li>
-		<li>Set a password for the database user.
-			<div class="hacker">sudo -u postgres psql
+		<li>Create a  database user and set a password.
+			<div class="hacker">createuser -s <em><u>user_name</u></em>
 			</div>
-			<div class="hacker">postgres=# \password <em><u>psuser</u></em>
+			<div class="hacker">psql
+			</div>
+			<div class="hacker"> \password <em><u>user_name</u></em>
 			</div>
 		</li>
 		<li>Modify the template. (To drop a template, first you need to modify it.)
@@ -141,9 +143,12 @@ p.note {
 			</div>
 		</li>
 		<li>Close the session.
-			<div class="hacker">postgres=# \q
+			<div class="hacker"> \q
+			</div>
+			<div class="hacker">logout
 			</div>
 		</li>
+		
 		<li>Start the PostgresSQL service.
 			<div class="hacker">sudo systemctl start postgresql
 			</div>
@@ -169,8 +174,8 @@ p.note {
 		  <div class = "hacker">
 				
 host: localhost<br />
-username: <em><u>postgres user username</u></em><br />
-password: <em><u>postgres user password</u></em><br />
+username: <em><u>user_name</u></em><br />
+password: <em><u>your_password</u></em><br />
 		  </div>
 	  </li>
 		<li>Save and exit.
