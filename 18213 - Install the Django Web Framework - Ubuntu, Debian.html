@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
+
+<title>Install the Django Web Framework - Ubuntu, Debian</title>
+<style type="text/css">
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+</head>
+
+<body>
+            <p>Describe how to install Django Web Framework on Debian and Ubuntu.</p>
+<h1>How To Install the Django Web Framework on Debian, Ubuntu</h1>
+    
+                <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
+                <strong>Time</strong>: <em><u>1.50</u></em></p>
+
+            <p>Django is a powerful framework for writing Python web applications. Frameworks let you focus on the unique portions of your application and let the tools do the heavy lifting. In this guide, we will demonstrate various methods of installing Django on a Debian and Ubuntu server.</p>
+
+<h2>Installing Django w/ different Methods</h2>
+            <p>There are a number of different ways in which you can install Django depending upon your needs and how you want to configure your development environment. These have different advantages and one method may lend itself better to your specific situation than others.<br/>
+               Here are some of the methods below:</p>
+
+    <ol>
+            <li><b>Global Install from Packages:</b> The EPEL repository contain Django packages that can be installed easily with the conventional <code>apt-get</code> package manager.</li>
+            <li><b>Global Install through <code>pip</code>:</b> The <code>pip</code> tool is a package manager for Python packages. If you install<code>pip</code>, you can easily install Django on the system level for use by any user.</li>
+            <li><b>Install through pip in a <code>Virtualenv</code>: </b>The Python <code>Virtualenv</code> package allows you to create self-contained environments for various projects. </li>
+            <li><b>Development Version Install through <code><code>git</code></code>: </b>If you wish to install the latest development version instead of the stable release, you will have to acquire the code from the <code>git</code> repo. </li>
+    </ol>
+
+            <p>With the above caveats and qualities in mind, select the installation method that best suites your needs out of the below instructions.</p>
+
+<h2>Global Install from Packages</h2>
+
+            <p>If you wish to install Django using the Ubuntu repositories, the process is very straight forward.</p>
+
+    <ol>
+            <li>First, update your local package index with apt, and then install the python-django package:
+                <div class="hacker">    sudo apt-get update <br />
+                sudo apt-get install python-django</div></li>
+
+            <li>You can test that the installation was successful by typing:
+                 <div class="hacker">django-admin --version  <br/>
+                                    1.6.1      </div>  </li>
+    </ol>
+
+            <p>This means that the software was successfully installed. You may also notice that the Django version is not the latest stable. To learn a bit about how to use the software, skip ahead to learn <a href="https://www.digitalocean.com/community/tutorials/how-to-install-the-django-web-framework-on-ubuntu-14-04%20/l%20creating-a-sample-project">how to create sample project</a>.</p>
+
+
+<h2>Global Install through pip</h2>
+
+            <p>If you wish to install the latest version of Django globally, a better option is to use pip, the Python package manager. First, we need to install the pip package manager.</p>
+
+    <ol>
+            <li> You can install pip from the EPEL repositories by typing:
+                <div class="hacker">sudo apt-get install python-pip</div></li>
+
+            <li>Once you have pip, you can easily install Django globally by typing:
+                <div class="hacker">sudo pip install django</div></li>
+
+            <li>You can verify that the installation was successful by typing:
+                <div class="hacker">django-admin --version <br/>
+                                    1.7.5</div></li>
+    </ol>
+            <p>As you can see, the version available through pip is more up-to-date than the one from the EPEL repository (yours will likely be different from the above).</p>
+
+<h2>Install through pip in a Virtualenv</h2>
+
+            <p>This allows you to select Python packages on a per-project basis regardless of conflicts with other project's requirements.</p>
+    <ol>
+             <li>We will begin by installing pip from the EPEL repository:
+                <div class="hacker">sudo apt-get install python-pip</div></li>
+
+             <li>Once pip is installed, you can use it to install the virtualenv package by typing:
+                <div class="hacker">sudo pip install virtualenv</div></li>
+
+             <li>Now, whenever you start a new project, you can create a virtual environment for it. Start by creating and moving into a new project directory:
+                <div class="hacker">mkdir ~/newproject  <br/>
+                                    cd ~/newproject  </div></li>
+
+            <li> Now, create a virtual environment within the project directory by typing:
+                <div class="hacker">virtualenv newenv</div></li>
+
+                <p class="note">Note: This will install a standalone version of Python, as well as pip, into an isolated directory structure within your project directory. </p>
+            <li> To install packages into the isolated environment, you must activate it by typing:
+                <div class="hacker">source newenv/bin/activate</div></li>
+
+            <li>Your prompt should change to reflect that you are now in your virtual environment. It will look something like
+                <div class="hacker">(newenv)username@hostname:~/newproject$.</div></li>
+
+            <li>In your new environment, you can use pip to install Django. Note that you do not need to use sudo since you are installing locally:
+                <div class="hacker">pip install django</div></li>
+
+            <li> You can verify the installation by typing:
+                <div class="hacker">django-admin --version  <br/>
+                                    1.7.5 </div></li>
+
+            <li>To leave your virtual environment, you need to issue the deactivate command from anywhere on the system:
+                <div class="hacker">cd ~/newproject  <br/>
+                                    source newenv/bin/activate  </div></li>
+
+    </ol>
+
+
+<h2>Install Through git</h2>
+
+            <p>If you need a development version of Django, you will have to download and install Django from its gitrepository.</p>
+
+    <ol>
+            <li>To do so, you will need to install git on your system with apt-get. We will also install the pip Python package manager. We will use this to handle the installation of Django after it has been downloaded:
+                <div class="hacker">sudo apt-get install git python-pip</div></li>
+
+            <li>Once you have git, you can clone the Django repository. Between releases, this repository will have more up-to-date features and bug fixes at the possible expense of stability. You can clone the repository to a directory called django-dev within your home directory by typing:
+                <div class="hacker">git clone git://github.com/django/django ~/django-dev</div></li>
+
+            <li>Once the repository is cloned, you can install it using pip. We will use the -e option to install in "editable" mode, which is needed when installing from version control:
+                <div class="hacker">sudo pip install -e ~/django-dev</div></li>
+
+            <li>You can verify that the installation was successful by typing:
+                <div class="hacker">django-admin --version
+                                    1.9.dev20150305200340</div>
+                <p class="note">Note that you can also combine this strategy with the use of virtualenv above if you wish to install a development version of Django in a single environment.</p></li>
+    </ol>
+
+
+<h2>Creating a Sample Project</h2>
+
+    <ol>
+            <li>Now that you have Django installed, we can show you briefly how to get started on a project.
+                You can use the django-admin command to create a project:
+                <div class="hacker">django-admin startproject projectname
+                                    cd projectname</div>
+                This will create a directory called projectname within your current directory. Within this, a management script will be created and another directory called projectname will be created with the actual code.
+            <p class="note">Note: If you were already in a project directory that you created for use with the virtualenv command, you can tell Django to place the management script and inner directory into the current directory without the extra layer by typing this (notice the ending dot):
+                            django-admin startproject projectname.</p> </li>
+
+            <li>To bootstrap the database (this uses SQLite by default) on more recent versions of Django, you can type:
+                <div class="hacker">python manage.py migrate</div></li>
+
+            <li>If the migrate command doesn't work, you likely are using an older version of Django (perhaps instal. Instead, you can type:
+                <div class="hacker">python manage.py syncdb</div></li>
+
+            <li>You will be asked to create an administrative user as part of this process. Select a username, email address, and password for the user. If you used the migrate command above, you'll need to create the administrative user manually. You can create an administrative user by typing:
+                <div class="hacker">python manage.py createsuperuser</div></li>
+
+            <li>You will be prompted for a username, an email address, and a password for the user. Once you have a user, you can start up the Django development server to see what a fresh Django project looks like. You should only use this for development purposes. Run:
+                 <div class="hacker">python manage.py runserver 0.0.0.0:8000</div></li>
+
+            <li> Visit your server's IP address followed by :8000 in your web browser
+                <div class="hacker">server_ip_address:8000</div></li>
+
+            <li>Now, append /admin to the end of your URL to get to the admin login page:
+                <div class="hacker">server_ip_address:8000/admin  </div>
+                Congratulations you have just learned how to setup Django Framework on Debian and Ubuntu! </li>
+
+
+
+    </ol>
+
+
+</body>
+</html>
