@@ -273,12 +273,14 @@ Use the <code>!</code> parameter. You need to escape it first with an "\", so th
 	
 	<h3>Filter by time</h3>
 	
-	<p>Linux stores the access times, modification times, and the change times for the files in the system. This table explains the parameters you can use. You can also use the plus and minus symbols for greater or less than.</p>
+	<p>Linux stores the access times, modification times, and the change times for the files in the system. </p>
   
   <div class="hacker">
-	find / -size <em><u>time parameter</u></em>
+	find / -<em><u>time parameter</u></em> -<em><u>amount of time</u></em> 
 	</div>
   
+  <p>This table explains the parameters you can use. You can also use the plus and minus symbols for greater or less than.</p>
+
   <table>
     <tr>
     <th>Parameter</th>
@@ -320,7 +322,7 @@ Use the <code>!</code> parameter. You need to escape it first with an "\", so th
 	<li>To search by minutes instead of days:
 	
 	<div class="hacker">
-	find / -min -1
+	find / -mmin -1
 	</div></li>
 	
 	<li> To compare against a certain file and return the newer files.
