@@ -109,11 +109,12 @@ p.note {
  </p>
 	
 <ol>
-			 <li>Install the  Rails dependency before you install Ruby.
-			   <div class='hacker'>rbenv install -v <em><u>latest_version of Ruby</u></em></div>
+			<li>Check the latest version of Ruby using the following command.<div class="hacker">rbenv install --list</div><p class="note">Above command will display the list in unsorted format.</p></li>
+			 <li>Install the Ruby using the following command. In this article Ruby <code>2.2.3</code> is used for example.
+			   <div class='hacker'>rbenv install -v <em><u>2.2.3</u></em></div>
 			 </li>
 			 <li>Set the default version of Ruby to be used by all the shells.
-			   <div class='hacker'>rbenv global <em><u>latest_version of Ruby</u></em></div>
+			   <div class='hacker'>rbenv global <em><u>2.2.3</u></em></div>
 			 </li>
 			 <li>Display the version of Ruby that was installed.
 			   <div class='hacker'>ruby -v</div>
