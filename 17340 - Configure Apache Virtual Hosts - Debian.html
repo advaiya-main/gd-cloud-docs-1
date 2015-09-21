@@ -7,7 +7,7 @@
 
 <title>Configure Apache Virtual Hosts - Debian</title>
 
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -92,12 +92,12 @@ p.note {
 
     <p>This guide will walk you through how to set up an Apache virtual host on an Debian virtual private server (VPS) as a non-root user with <code>sudo</code> privileges.</p>
     
-    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Debian.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a> for instructions.
+    <p class="note">If you need the full LAMP stack (Linux, Apache, MySQL, and PHP), see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346%20-Build%20a%20LAMP%20stack%20(Linux,%20Apache,%20MySQL,%20PHP)%20-%20Debian.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a> for instructions.     </p>
 
     <p>Also, make sure your hostname has a valid DNS record, so that the www version of your domain works. See <a href="/article/19116?prog_id=PROG_ID">Point your domain to a GoDaddy Cloud Server</a> for instructions on setting up your domain.</p>
-    
-    <li> </p>
-    
+
+
+
     <h2>Install the Apache web server</h2>
     <ol>
  <li>Update your packages using <code>apt-get</code>.
@@ -106,7 +106,7 @@ p.note {
     <li>Install Apache.
       <div class="hacker">sudo apt-get install apache2</div></li>
     
-   </ol> 
+   </ol>
    
     <h2>Set up the virtual host</h2>
     <ol>
