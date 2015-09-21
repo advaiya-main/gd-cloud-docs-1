@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
-
+ <!--article# 17536-->
 <head>
     <title>Install Ruby on Rails using RVM - CentOS</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -100,7 +100,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
         <li>Update the system software and access root by running the following command:
           <div class='hacker'>sudo yum update</div>      
       </li>
-        <li>Install curl by typing:
+        <li>Install curl.
             <div class='hacker'>sudo yum install curl</div>
         </li>
 		 <li>Install tar.
@@ -121,10 +121,10 @@ Before you install Ruby on Rails, prepare your system with the required system s
 	  </li>
 	    
          
-        <li>To apply RVM, you need to execute the following command:
+        <li>To apply RVM, execute the following command:
            <div class='hacker'>source /home/<em><u>UserName</u></em>/.rvm/scripts/rvm</div>
             
-			     If your system already has RVM installed, update it.
+			     If your system already has RVM installed, then update it.
 			    <div class='hacker'>rvm get stable --autolibs=enable</div>
 		
 			</li>
@@ -161,7 +161,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
 <ol>    
         <li>Use gem to install the most recent stable release of Rails.
           <div class='hacker'>gem install rails</div>
-    <p>To check the version, type:</p>
+   To check the version, type:
       <div class='hacker'>rails -v</div>    
 	  </li>
 	  
@@ -179,7 +179,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
       </li> 
 	 <li>You can bind your Rails application using the following command:
           <div class='hacker'>rails server --binding=<em><u>your public IP</u></em></div>
-		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_IP_or_domain</em></u>:3000</strong>. 3000 is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
+		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_IP_or_domain</em></u>:3000</strong>. <em>3000</em>. is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
       </li> 
 	  
     </ol>

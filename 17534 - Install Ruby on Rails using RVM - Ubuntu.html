@@ -4,7 +4,7 @@
 
 <head>
 
-<!--Article Number is 17534-->
+<!--Article Number is 17534 -->
 
 
 <title>Install Ruby on Rails using RVM - Ubuntu</title>
@@ -92,16 +92,16 @@ p.note {
 <h2>Prepare your system</h2>
 Before you install Ruby on Rails, prepare your system with the required system software.    
     <ol>
-        <li>Update the system software and access root by running the following command:
+        <li>Update the system software and access root.
           <div class='hacker'>sudo apt-get update</div>      
       </li>
-        <li>Install curl by typing:
+        <li>Install curl.
             <div class='hacker'>sudo apt-get install curl</div>
         </li>
 		 <li>Install tar.
             <div class='hacker'>sudo apt-get install tar</div>
         </li>
-		<li>Install all the dependencies using the following command:
+		<li>Install all the dependencies.
 		<div class = "hacker">sudo apt-get install libgdbm-dev libncurses5-dev automake libtool bison libffi-dev</div>
 		</li>
         </ol>
@@ -118,7 +118,7 @@ If your system doesn't have RVM already installed, type the following command to
 <li>To apply RVM, you need to execute the following command:
 <div class="hacker">source ~/.rvm/scripts/rvm</div>
 </li>
-<li>Install Ruby and check Ruby version using following command:
+<li>Install Ruby, and then check the Ruby version.
 <div class="hacker">rvm install ruby</div>
 <div class="hacker">ruby -v</div>
 </li>
@@ -155,24 +155,24 @@ If your system doesn't have RVM already installed, type the following command to
 <li>Use gem to install Rails. This will take some time to install. 
 
   <div class="hacker">gem  install rails </div>
-  <p>To check the version, type:</p>
+  To check the version, type:
       <div class='hacker'>rails -v</div>    
 	  </li>
-<li>Create the project directory for your Rail project, by typing the following commands:
+<li>Create the project directory for your Rail project.
 <div class="hacker">sudo mkdir -p  ~/<em><u>rail_project_directory</u></em>
 </div>
 </li>
-<li>Move to the directory just created, and grant all the required access using the following commands:
+<li>Move to the directory just created, and grant all the required access.
 <div class="hacker">cd  ~/<em><u>rail_project_directory</u></em></div>
 <div class="hacker">sudo chmod -R 777 ~/<em><u>rail_project_directory</u></em></div>
 <div class="hacker">rails new <em><u>Your_application</u></em></div>
 <div class="hacker">cd <em><u>Your_application</u></em></div>
 <div class="hacker">rails server</div>
-<p>Now your Rails server should be running. Press <strong>CTRL+C</strong> to terminate the process.</p>
+<p>Now, your Rails server should be running. Press <strong>CTRL+C</strong> to terminate the process.</p>
 </li>
 <li>You can bind your Rails application using the following command:
 <div class='hacker'>rails server --binding=<em><u>your public IP</u></em></div>
-		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_IP_or_domain</em></u>:3000</strong>. 3000 is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
+		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_IP_or_domain</em></u>:3000</strong>. <strong>3000</strong> is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
       </li> 
 	  </ol>
 <h2>Next steps</h2>

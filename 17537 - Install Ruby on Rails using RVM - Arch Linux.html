@@ -4,7 +4,7 @@
 
 <head>
 
-<!--Article Number is 17537-->
+<!--Article Number is 17537 -->
 
 <title>Install Ruby on Rails using RVM - Arch Linux</title>
 <style type='text/css'>
@@ -83,15 +83,15 @@ p.note {
     <h1>Install Ruby on Rails using RVM - Arch Linux</h1>
     <p><strong>Difficulty</strong>: <em>1</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
-    <p>Ruby on Rails&reg; is a well-known open source stack for web application development. With Ruby Version Manager (RVM) you can easily manage multiple Ruby application environments and switch between them in a most efficient way. </p>
-    <p>This article will assist you on how to install Ruby on Rails in Arch Linux using RVM, and assumes that you have sudo privileges to perform this task. You may want to visit the <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17324%20-%20Initial%20Server%20Setup%20-%20Arch%20Linux.html">Initial Server Setup - Arch Linux</a> article to setup your Arch Linux server.</p>
+    <p>Ruby on Rails&reg; is a well-known, open source stack for web application development. With Ruby Version Manager (RVM) you can easily manage multiple Ruby application environments and switch between them efficiently. </p>
+    <p>This article will assist you to install Ruby on Rails in Arch Linux using RVM, and assumes that you have sudo privileges to perform this task. You may want to visit the <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17324%20-%20Initial%20Server%20Setup%20-%20Arch%20Linux.html">Initial Server Setup - Arch Linux</a> article to setup your Arch Linux server.</p>
     <h2>Prepare your system</h2>
 Before you install Ruby on Rails, prepare your system with the required system software.    
     <ol>
-        <li>Update the system software and access root by running the following command:
+        <li>Update the system software and access root.
           <div class='hacker'>sudo pacman -Syu</div>      
       </li>
-        <li>Install curl by typing:
+        <li>Install curl.
             <div class='hacker'>sudo pacman -S curl</div>
         </li>
 		 <li>Install tar.
@@ -107,7 +107,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
 			<div class='hacker'>gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3</div>
 		</li>
 		
-        <li>If your system doesn't have RVM already installed, type the following command to install RVM:
+        <li>If your system doesn't have RVM already installed, install RVM:
             <div class='hacker'>sudo curl -L get.rvm.io | bash -s stable </div>
         </li>
 		<li>After you have run the above command, there is one more dependency that needs to be fixed, so type the following command:
@@ -115,14 +115,14 @@ Before you install Ruby on Rails, prepare your system with the required system s
 			 <div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable </div>
         </li>
 		
-        <li>Open <code>.bashrc</code> file by typing:
+        <li>Open <code>.bashrc</code> file.
             <div class='hacker'>sudo vim .bashrc</div>
         </li>
         <li>Add the following code at the end of the file:
             <div class='hacker'> [[ -s "$HOME/.rvm/scripts/rvm" ]]  &amp;&amp;  source "$HOME/.rvm/scripts/rvm" </div>
         </li>
-		<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
-        <li>Log in back to apply the changes, and then install the dependencies of RVM. 
+		<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.</li>
+        <li>Log back in to apply the changes, and then install the dependencies of RVM. 
             <div class='hacker'>rvm requirements</div>
       </li></ol>
 <h2>Install Ruby</h2>
@@ -133,7 +133,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
     
     <li>Install Ruby with RVM.
      <div class='hacker'>rvm install ruby</div>
-	 <p>To check ruby version, type:</p>
+	 To check ruby version, type:
 	 <div class = "hacker">ruby -v</div>
     </li>
         <li>The Rail asset pipeline needs JavaScript runtime to compile code. On Arch Linux, Node.js (a server-side JavaScript environment) is preferred. To install Node.js, type the following command:
@@ -150,7 +150,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
 <ol>    
         <li>Use gem to install the most recent stable release of Rails.
           <div class='hacker'>gem install rails</div>
-    <p>To check the version, type:</p>
+    To check the version, type:
       <div class='hacker'>rails -v</div>    
 	  </li>
 	  
@@ -163,11 +163,11 @@ Before you install Ruby on Rails, prepare your system with the required system s
 		  <div class='hacker'>rails new <em><u>your_application</u></em></div>
 		  <div class='hacker'>cd <em><u>your_application</u></em></div>
 		   <div class='hacker'>rails server</div>
-		   <p>Now your Rails server should be running. Press <strong>CTRL+C</strong> to terminate the process.</p>
+		   <p>Now, your Rails server should be running. Press <strong>CTRL+C</strong> to terminate the process.</p>
       </li> 
 	 <li>You can bind your Rails application using the following command:
           <div class='hacker'>rails server --binding=<em><u>your public IP</u></em></div>
-		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_IP_or_domain</em></u>:3000</strong>. 3000 is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
+		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_IP_or_domain</em></u>:3000</strong>. <em>3000</em> is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
       </li> 
 	  
     </ol>
