@@ -127,7 +127,7 @@ sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger tr
 <li>Install NGINX and Passenger.
 <div class="hacker"> sudo apt-get install nginx-full passenger </div>
 </li>
-<li>Select <strong>Ruby</strong> from the provided language options, and then press the <strong>Enter</strong> key.
+<!--<li>Select <strong>Ruby</strong> from the provided language options, and then press the <strong>Enter</strong> key.
           <div class='hacker'>Use &lt;space&gt; to select. If the menu doesn't display correctly, ensure that your terminal supports UTF-8.
       <ul>
         <li>Ruby</li>
@@ -143,22 +143,18 @@ sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger tr
 will be installed for you to a directory of your choice.</pre>
           </div>
 
-</li></ol>
+</li>--> <!-- Removed command because it does not prompted--></ol>
 		<h2>Configure a Test Rails Application</h2>
 		<ol>
-
-   <li>Create a directory.
-         <div class='hacker'>sudo mkdir -p <em><u>/var/www</u></em></div>
-        </li>
-  <li>Change directory to the <code>www</code>  directory, and create a Rails application.
-    <div class="hacker">  cd  <em><u>/var/www</u></em></div>
-    <div class="hacker">rails new <em><u>SampleApp</u></em></div>
-	  <div class="hacker">  cd <em><u>SampleApp</u></em></div>
+  <li>Change directory to the <code>home</code>  directory, and create a Rails application.
+    <div class="hacker">  cd  <em><u>~</u></em></div>
+    <div class="hacker">rails new <em><u>Your_application</u></em></div>
+	  <div class="hacker">  cd <em><u>Your_application</u></em></div>
 	</li>
   <li>Create sample resources.
   <div class="hacker"> rails generate scaffold Task title:string note:text </div>
   <div class="hacker">rake db:migrate RAILS_ENV=development</div></li>
-  <li>Test <em><u>SampleApp</u></em> application by running the following command in the application directory:
+  <li>Test <em><u>Your_application</u></em> application by running the following command in the application directory:
   <div class='hacker'>rails s --bind=<em><u>Your-Public-IP</u></em></div>
   On successful execution, you will see default page of Rails Application.
 </li>
@@ -168,8 +164,7 @@ will be installed for you to a directory of your choice.</pre>
   <div class="hacker"> sudo vim /etc/nginx/nginx.conf </div>
 <li>
 Uncomment the following line:
-<div class="hacker"><pre> passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini; 
- passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv</pre> </div></li>
+<div class="hacker">passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;<!-- # passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv--> <!-- comment passenger_ruby because raise error of ruby --></div></li>
 <li>Save the changes.</li>
 <li> Restart the NGINX service.
   <div class="hacker"> sudo service nginx restart </div>
@@ -183,10 +178,10 @@ Uncomment the following line:
         listen 80 default_server;
         listen [::]:80 default_server ipv6only=on;
 
-        server_name <em><u>www.coolexample.com</u></em>; // Replace coolexample.com with FQDN or Your-Public-IP
+        server_name <em><u>www.coolexample.com</u></em>; # Replace coolexample.com with FQDN or Your-Public-IP
         passenger_enabled on;
-        rails_env    production;
-        root         <em><u>/var/www/SampleApp</u></em>/public; // Your rails application's path
+        rails_env    development;
+        root         <em><u>/home/username/Your_application</u></em>/public; # Your rails application's path
 
         # redirect server error pages to the static page /50x.html
         error_page   500 502 503 504  /50x.html;
