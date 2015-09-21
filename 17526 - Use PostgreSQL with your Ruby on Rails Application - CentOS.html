@@ -67,7 +67,7 @@ p.note {
 </head>
 
 <body>
-<p>Setting up a Rails Application with PostgreSQL in CentOS, PostgreSQL, Ruby, Rails</p>
+<p>Setting up a Rails Application with PostgreSQL in CentOS, PostgreSQL, Ruby, Rails.</p>
 <h1>Use PostgreSQL with Ruby on Rails Application - CentOS</h1>
 
 <p><strong>Difficulty:</strong> <em>2</em></p>
@@ -75,22 +75,14 @@ p.note {
 <!--Text updated-->
 <p>This article will assist you to create a PostgreSQL server that will be used as a database layer for scaling Ruby on Rails (RoR) application. It describes how you can use PostgreSQL for Rails application.  These tasks assume that you have <code>sudo</code> privileges and that <a href="17521"> Ruby on Rails is installed</a>.</p>
 
-<h2>Disable SELinux</h2>
-<ol>
-  <li>Open the following file, and disable <code>SELinux</code>.
-    <div class="hacker">sudo vim /etc/selinux/config</div>
-<div class="hacker">SELINUX=disabled</div>
 
-</li>
-  <li>Save and exit the file by pressing <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
-</ol>
 
 
 
 <h2>Set up a PostgreSQL database</h2>
 <ol>
 <li>Download the latest EPEL repositories.
-	<div class="hacker">sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel- release-7-5.noarch.rpm</div>
+	<div class="hacker">sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm</div>
 	<div class="hacker">sudo rpm -ivh epel-release-7-5.noarch.rpm</div>
 </li>
 <li>Set up a PostgreSQL server, and add its development-related libraries.
@@ -125,10 +117,13 @@ host    all             all             ::1/128                 ident</pre></div
 </li>
 <li>Set a password for the database user.
 	<div class="hacker">psql</div>
-    <div class="hacker">postgres=# \password <em><u>username</u></em></div></li>
+    <div class="hacker">\password <em><u>username</u></em></div></li>
 <li>Enter the new password.</li>
 <li>Close the session.
-	<div class="hacker">postgres=# \q</div>
+	<div class="hacker">\q</div>
+</li>
+<li>Logout form <code>postgres</code> user.
+<div class= "hacker">logout</div>
 </li>
 </ol>
 
@@ -136,10 +131,10 @@ host    all             all             ::1/128                 ident</pre></div
 <ol>
 <li>Move to the home directory to create a new Rails application, and  set PostgreSQL as the database.
   <div class="hacker">cd ~</div>
-<div class="hacker">rails new <em><u>HelloWorld</u></em> -d postgresql</div>
+<div class="hacker">rails new <em><u>Your_application</u></em> -d postgresql</div>
 </li>
 <li>Move to the application directory.
-  <div class="hacker">cd <em><u>HelloWorld</u></em><u></u></div>
+  <div class="hacker">cd <em><u>Your_application</u></em><u></u></div>
  </li>
 <li>Open the following file:
 <div class="hacker">sudo vim config/database.yml</div>
@@ -147,8 +142,8 @@ host    all             all             ::1/128                 ident</pre></div
 <li>Look for <code>pool: 5</code> in the file, and add the following lines beneath it. Enter the username and password for the <code>postgres</code> user.
   <div class='hacker'>
 host: localhost<br />
-username: <em><u>UserName</u></em><br />
-password: <em><u>UserName_password</u></em><br /></div>
+username: <em><u>username</u></em><br />
+password: <em><u>username_password</u></em><br /></div>
         </li>
 <li>Save and exit the file by pressing <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 </ol>
@@ -164,7 +159,7 @@ Two databases in the PostgreSQL server are created. For example, if the applicat
 <h2>Test the configuration</h2>
 <ul>
 <li>Test the Rails application.
-  <div class="hacker">Rails server</div>
+  <div class="hacker">rails server</div>
 You can run the Rails application on your localhost on port 3000. You can also access the application from a web browser, if it is located on a remote server, by assigning a public IP address.
 <div class="hacker">rails server --binding=<em><u>server_public_IP</u></em></div>
 </li>

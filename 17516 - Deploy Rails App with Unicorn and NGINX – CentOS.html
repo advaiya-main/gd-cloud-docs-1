@@ -50,7 +50,7 @@
     <p><strong>Difficulty</strong>: <em>2</em></p>
     <p><strong>Time</strong>: <em>30 minutes</em></p>
     <p>In this article, you will configure a multi-layer deployment installation to host Rails-based Ruby web applications. To do this, you will use a Unicorn application server running behind Nginx. </p>
-	 <p class='note'>We assume that you are logged in as a sudo user.</p>
+	 <p class='note'>We assume that you are logged in as a <code>sudo</code> user.</p>
 	  <h2>Prerequisites</h2>
   In this article, it is assumed that you have already installed Ruby on Rails with rbenv and your Rails application uses PostgreSQL. If not, please visit:
     <ul>
@@ -67,7 +67,7 @@
 			<div class ="hacker">sudo yum install git</div>
 		</li>
 		<li>Install the <code>epel</code> repository, and then update the operating system.
-			<div class='hacker'>sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-	release-7-5.noarch.rpm</div>
+			<div class='hacker'>sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm</div>
 			<div class='hacker'>sudo rpm -ivh epel-release-7-5.noarch.rpm</div>
 			<div class='hacker'>sudo yum –y update</div>
 		</li>
@@ -96,10 +96,11 @@
         </li>
 		
 		<li>Create a sample database, and then generate a scaffold controller to manage the production database.
-            <div class='hacker'>  RAILS_ENV=development rake db:migrate</div>
+			 <div class='hacker'>rails generate scaffold Task title:string note:text/</div>
+		 <div class='hacker'>  RAILS_ENV=development rake db:migrate</div>
 		<div class ="hacker">RAILS_ENV=production  rake db:migrate
 		</div>
-		       <div class='hacker'>rails generate scaffold Task title:string note:text/</div>
+		      
         </li>
 		<li>Create a directory to hold the PID files.
             <div class='hacker'>mkdir pids</div>
@@ -115,8 +116,7 @@
 		  <div class='hacker'>http://[<em><u>your droplet's IP</u></em>]:3000/tasks</div>
       </li>
 		
-		<li>Refer to the following article to upload the source code: <a href="17414 ">Use SFTP to Securely Transfer Files with a Remote Server on ALL DISTRO</a>
-        </li>
+	
 		
 </ol>
 		
@@ -156,8 +156,8 @@ timeout 30
 		</pre>
 	</div>
 	</li>
-	<li>Save and exit.
-	<div class ="hacker">wq!</div>
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>;wq</strong>, followed by  the <strong>Enter</strong> key.
+	
  	<p class='note'>You can check the application with Unicorn by running the <em><u>unicorn_rails</u></em> inside the app directory.</p>
         </li>
 		<li>Configure Nginx and enable it to communicate with Unicorn. To do this, edit the default configuration file: <code>default.conf</code> and leave <code>nginx.conf</code>. 
@@ -176,7 +176,7 @@ upstream app {
    	 server_name localhost;
 
    	 # Application root, as defined previously
-  	  root /root/<em><u>HelloWorld</u></em>/public;
+  	  root /var/www/<em><u>Your_application</u></em>/public;
 
   	 try_files $uri/index.html $uri @app;
 
@@ -195,8 +195,7 @@ upstream app {
 </div>
 	
         </li>
-		<li>Save and exit.
-		<div class ="hacker">wq!</div>
+		<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>;wq</strong>, followed by  the <strong>Enter</strong> key.
 		</li>
 </ol>
 		
@@ -208,6 +207,9 @@ upstream app {
             <div class='hacker'>sudo service nginx restart
 		     </div>
 			 </li>
+			 <li>For binding to web browser, run the following command:
+            <div class='hacker'>rails server --binding=[<em><u>your droplet's IP</u></em>]</div>
+        </li>
         <li>Test your droplet's IP address or the domain name associated to it.
             <div class='hacker'>http://<em><u>Your droplet's IP address</u></em>/tasks</div>
           

@@ -151,12 +151,13 @@
 	<ol>
 		<li>
 		Ejabber protocol is ready to be used. Use the following command to start the Jabber protocol:
-			<div class="hacker">
-				 cd /opt/ejabberd-14.12/bin/
-				sudo ./ejabberdctl start
-
-			</div>
+			<div class="hacker">cd /opt/ejabberd-14.12/bin/</div>
+			</li><li>
+			Create admin user using the following command.
+			<div class="hacker">sudo ./ejabberdctl register <em><u>admin1</u></em> <em><u>your-server_ip</u></em> <em><u>userpassword</u></em></div>
+				
 		</li>
+		<li>Start the ejabberd service using the following command.<div class="hacker">sudo ./ejabberdctl start</div></li>
 		<li>Verify if the Ejabber serviced has been started by using the following command:
 			<div class="hacker">
 			sudo netstat -plunt | grep 5280
@@ -164,13 +165,13 @@
 		</li>
 		<li>If you get the output as shown below, then you have successfully installed the Jabber instant messaging service.
 			<div class="hacker">
-		tcp        0      0 0.0.0.0:5280            0.0.0.0:*               LISTEN      27744/be
+		tcp        0      0 0.0.0.0:5280            0.0.0.0:*               LISTEN      27744/beam.smp
 			</div>
 		</li>
 
 		<li>Open your browser and type <em>http://your_ip:5280/admin</em> and press <strong>Enter</strong>. It will prompt for authentication credentials. Enter the credentials that you entered during installation.<br /><br /> 
 After successfully logging in, you will see this the screen.<br />
-<img src="images/18707_jabber_brwser_look.png" alt="18707_jabber_brwser_look.png" />
+<img src="images/18707/092115/18707_jabber_brwser_look.png" alt="18707_jabber_brwser_look.png" />
 		</li>
 				
 	</ol>
