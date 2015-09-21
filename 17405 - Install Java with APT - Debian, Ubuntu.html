@@ -113,12 +113,29 @@ td:nth-child(1) {font-weight:bold;}
    <div class="hacker">sudo ln -s /usr/lib/jvm/java-7-openjdk-amd64 /usr/java/default</div>
 </li>
        </ol>
-         
-   <h2>Check your default Java version</h2>
+   
+   <!--CT: Added this 9/21 (start), result of testing and per Chris and Gary. Susan/Carla: Feel free to format differently. i thought it's simpler like this but you can change to a list if that's better-->      
+   <h2>Check your Java version</h2>
+
+<p>Check the versions of Java you have installed on your server.</p>
+ <div class="hacker">java -version</div>
+
+ <p>If your output shows that you have just one version of Java installed, like in this example:</p>
+<div class="hacker"><pre>java version "1.7.0_79"
+OpenJDK Runtime Environment (IcedTea 2.5.6) (7u79-2.5.6-0ubuntu1.14.04.1)
+OpenJDK 64-Bit Server VM (build 24.79-b02, mixed mode)</pre></div>
+
+<p>Then you are all done!</p>
+
+<p>If you have more than one Java version installed, continue on where you'll select your default version and set the environment.</p>
 
 
+         <h2>Optional: Select and verify the default Java version</h2>
+ 
+ <p>If you have multiple versions of Java on the same server, choose your default version.</p>
+<!--CT: (end)-->
 
-         <h2>Select and verify the default Java version</h2>
+<!--CT: Made the 2nd part its own bullet-->
  <ol>
      <li>Select the default version of Java.
        <div class="hacker">sudo update-alternatives --config java</div>
@@ -130,12 +147,20 @@ td:nth-child(1) {font-weight:bold;}
   2            /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java   1051      manual mode
 
 Press enter to keep the current choice[*], or type selection number:
+</pre></div></li>
 
-</pre></div>
-   Make a selection (We'll keep it set to <code>0</code> for simplicity). </li>
-        <li>Create a file,  <code>/etc/environment</code>.
+<li>Make a selection (We'll keep it set to <code>0</code> for simplicity). </li></ol>
+        
+<!--CT: Added this 9/21 (start)-->
+<h3>Set your environment</h3>
+
+<p>Also important when you have multiple Java versions is setting your environment. Let's do that now.</p>
+<!--CT (end)-->
+<ol>
+        <li>Create a file, <code>/etc/environment</code>.
           <div class="hacker">sudo vim /etc/environment</div>
 </li>
+
  <li>Select your <code>Java_home</code>
      by trimming   <code>jre/bin/java</code> off the path of your preferred alternative chosen above and  entering it into the file.
      <div class="hacker">JAVA_HOME="/usr/lib/jvm/java-6-openjdk-amd64"
@@ -152,8 +177,10 @@ Press enter to keep the current choice[*], or type selection number:
 </div>
 </li>
 </ol>
+
     <h2>Conclusion</h2>
-    <p>You have just installed three versions of Java and selected one to be your default. </p>
+    <!--CT: Revised this since it's not always going to be installing multiple versions-->
+    <p>Congratulations! You have succesfully installed Java on your server. </p>
 
 </body>
 </html>
