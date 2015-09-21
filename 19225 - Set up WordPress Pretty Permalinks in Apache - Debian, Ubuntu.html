@@ -125,19 +125,24 @@ p.note {
   
  <p> We have to change the configuration of Apache to read <code>.htaccess</code> files. We'll do this by enabling <code>AllowOverride</code>. When this directive is set to None, your server ignores all <code>.htaccess</code> files, attempting to read none of them. When <code>AllowOverride</code> is set to All, any command with <code>.htaccess</code> is allowed in.</p>
   
-<p>You'll likely have to enable <code>AllowOverride</code> in your document root directory.</p> 
+<p>You'll likely have to enable <code>AllowOverride</code> in your Apache config in your document root directory.</p> 
      
 <ol>
-<li>Modify your virtual host file. The default file, if you haven't modified it, is <code>000-default.conf</code>. Usually you'll find Apache site configuration files in <code>/etc/apache2/</code>. Let's pull up the file.
+<li>Modify your virtual host file. <!--CT: commenting out 9/21... The default file, if you haven't modified it, is <code>000-default.conf</code>. Usually you'll find Apache site configuration files in <code>/etc/apache2/</code>.
+...--> 
+Pull up the file.
   <div class="hacker">sudo vim /etc/apache2/sites-available/000-default.conf </div></li>
-<li>With the file open, let's set up the server name and create a directory. For this example, our server is named wordpressadmin@localhost.
+<li>With the file open, set <code>AllowOverride</code> to All. 
 
+  <!--CT: commenting out 9/21... let's set up the server name and create a directory. For this example, our server is named wordpressadmin@localhost.
+  ...-->
+So with the change, your file may look like this:
   <div class="hacker">&lt;VirtualHost *:80&gt;<br />
-    ServerAdmin <em><u>wordpressadmin@localhost</u></em>;<br />
+    ServerAdmin wordpressadmin@localhost;<br />
     DocumentRoot /var/www/html<br />
     ServerName server_domain_name_or_IP<br />
     &lt;Directory /var/www/html/&gt;<br />
-        AllowOverride All<br />
+        AllowOverride <em><u>All</u></em><br />
     &lt;/Directory&gt;<br /></div>
   </li>
 
@@ -148,7 +153,7 @@ p.note {
   <div class="hacker">sudo service apache2 restart</div>                      </li>
      </ol>
   
-   <h2>Create the <code>.htaccess</code> files</h2>
+   <h2>Create the <code>.htaccess</code> file</h2>
    
   <ol>
   <li>Because you have SSH access to the server, you can create the <code>.htaccess</code> files within your document root using the <code>touch</code> command.
