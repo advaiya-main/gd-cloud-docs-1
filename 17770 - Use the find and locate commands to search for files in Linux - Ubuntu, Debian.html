@@ -7,7 +7,7 @@
 <!--Article Number is 17770-->
 
 
-<title>Use the find and locate commands to search for files in Linux - Debian,Ubuntu</title>
+<title>Use the find command to search for files in Linux - Debian,Ubuntu</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -90,14 +90,14 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-    <h1>Use the find and locate commands to search for files in Linux - Debian, Ubuntu</h1>
+    <h1>Use the find command to search for files in Linux - Debian, Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-    <p>This article will explain how to locate the files that you are looking for in your COMPANY_NAME cloud server.</p>
+    <p>This article will explain how to locate the files that you are looking for on your Debian or Ubuntu server.</p>
 	
-	<p>Linux environments use the <code>find</code> and <code>locate</code> commands to find files based on a set of parameters, and to find the location of files and directories.</p>
+	<p>Linux environments use the <code>find</code> command to find files based on a set of parameters, and to find the location of files and directories.</p>
 
 <h2>Use the Find command</h2>
   The Find command can be used with parameters that filter the results according to properties, such as name, file type, and time since creation.
@@ -226,7 +226,12 @@ Use the <code>!</code> parameter. You need to escape it first with an "\", so th
 	find / -size <em><u>type suffix</u></em>
 	</div>
 	
-	<p>You can add different types of sizes to the <code>-size</code> parameter, by default it uses 512 byte blocks. If you want to change this, the sizes available are:</p>
+	<!--CT: Added per GD edit 9/21 (start)-->
+	<p>Use the + or - sign with the <em><u>type suffix</u></em> to filter by sizes larger or smaller than the filesize you specify. For example, -1M equals anything smaller than 1 Megabyte.
+	</p>	
+	<!--end-->
+
+		<p>You can add different types of sizes to the <code>-size</code> parameter, by default it uses 512 byte blocks. If you want to change this, the sizes available are:</p>
 	
 	<table>
     <tr>
@@ -258,11 +263,18 @@ Use the <code>!</code> parameter. You need to escape it first with an "\", so th
 	
 <h3>Examples of filtering by size</h3>
 <ul>
-  <li>To find files that are 2 Megabytes in size:
+  <li>To find files that are exactly 2 Megabytes in size:
 	
 	<div class="hacker">
-	find / -size -2M
+	find / -size 2M
 	</div></li>
+
+  <li>To find files that are less than 4 Megabytes in size:
+	
+	<div class="hacker">
+	find / -size -4M
+	</div></li>
+
 	
 	<li>To find all files that are more than 1 Gigabytes:
 	
@@ -385,8 +397,9 @@ Use the <code>!</code> parameter. You need to escape it first with an "\", so th
 <ol>	
 	<li>To make this structure you execute the following set of commands.
 	
+	<div class="hacker">cd ~</div>
 	<div class="hacker">
-	<pre>cd
+	<pre>
 mkdir -p ~/testDirectory/levelAdir{A..J}/levelBdir{A..J}/levelCdir{A..J}
 touch ~/testDirectory/{file{A..J},levelAdir{A..J}/{file{A..J},levelBdir{A..J}/{file{A..J},levelCdir{A..J}/file{A..J}}}}
 cd ~/testDirectory</pre>
@@ -548,6 +561,7 @@ find . -type f -perm 644 -exec chmod 664 {} \;</pre>
 	</div></li>
   </ul>
 	
+<!--CT: commenting out per Sean. To be moved into its own article. 9/21 (start)...	
 <h2>Use the Locate command</h2>
 	
 <p>The <code>locate</code> command is faster than <code>find</code>, because it uses a database of the files on the file system, rather than the entire hard drive.</p>
@@ -600,10 +614,11 @@ sudo apt-get install mlocate</pre>
 	
 
   </ul>
+  ...(end)-->
 	
 	<h2>Conclusion</h2>
 	
-	<p>The <code>find</code> and <code>locate</code> commands are useful to help you find files in your system.</p>
+	<p>The <code>find</code> command is useful to help you search for files in your system.</p>
 	
 	<p>Try both commands with their different parameters and filters to see which one is more helpful for the type of searches you will be performing.</p>
    
