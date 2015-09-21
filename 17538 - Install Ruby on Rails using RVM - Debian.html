@@ -52,23 +52,23 @@
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>30 minutes</em></p>
 
-<p>Ruby on Rails&trade; is a well-known framework for web application development. The Ruby Version Manager (RVM) allows developers to easily manage multiple Ruby application environments and switch between them in a most efficient way. </p>
+<p>Ruby on Rails&trade; is a well-known framework for web application development. The Ruby Version Manager (RVM) allows developers to easily manage multiple Ruby application environments and switch between them efficiently. </p>
 
 <p>This article will assist you on how to install Ruby on Rails in Debian using RVM, and assumes that you have <code>sudo</code> privileges to perform this task. You may want to visit the <a href="17325">Initial Server Setup - Debian</a> article to setup your Debian server.</p>
 
 <h2>Prepare your system</h2>
 Before you install Ruby on Rails, prepare your system with the required system software.    
     <ol>
-        <li>Update the system software and access root by running the following command:
+        <li>Update the system software and access root.
           <div class='hacker'>sudo apt-get update</div>      
       </li>
-        <li>Install curl by typing:
+        <li>Install curl.
             <div class='hacker'>sudo apt-get install curl</div>
         </li>
 		 <li>Install tar.
             <div class='hacker'>sudo apt-get install tar</div>
         </li>
-		<li>Install all the dependencies using the following command:
+		<li>Install all the dependencies.
 		<div class = "hacker">sudo apt-get install libgdbm-dev libncurses5-dev automake libtool bison libffi-dev</div>
 		</li>
         </ol>
@@ -85,7 +85,7 @@ If your system doesn't have RVM already installed, type the following command to
 <li>To apply RVM, you need to execute the following command:
 <div class="hacker">source ~/.rvm/scripts/rvm</div>
 </li>
-<li>Install Ruby and check Ruby version using following command:
+<li>Install Ruby and check Ruby version using following commands:
 <div class="hacker">rvm install ruby</div>
 <div class="hacker">ruby -v</div>
 </li>
@@ -112,7 +112,7 @@ If your system doesn't have RVM already installed, type the following command to
 	  <li>Type the following command to use Ruby with gemset global:
           <div class='hacker'>rvm gemset use global</div>
       </li> 
-    <li>Install both the gems.
+    <li>Install both of the gems.
       <div class='hacker'>gem install bundler</div>
       <div class='hacker'>gem install nokogiri</div>
     </li>
@@ -122,7 +122,7 @@ If your system doesn't have RVM already installed, type the following command to
 <li>Use gem to install Rails. This will take some time to install. 
 
   <div class="hacker">gem  install rails </div>
-  <p>To check the version, type:</p>
+  To check the version, type:
       <div class='hacker'>rails -v</div>    
 	  </li>
 <li>Create the project directory for your Rail project, by typing the following commands:
@@ -139,7 +139,7 @@ If your system doesn't have RVM already installed, type the following command to
 </li>
 <li>You can bind your Rails application using the following command:
 <div class='hacker'>rails server --binding=<em><u>your public IP</u></em></div>
-		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_IP_or_domain</em></u>:3000</strong>. 3000 is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
+		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_IP_or_domain</em></u>:3000</strong>. <em>3000</em> is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
       </li> 
 	  </ol>
 <h2>Next steps</h2>
