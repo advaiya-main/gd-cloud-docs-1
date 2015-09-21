@@ -4,7 +4,6 @@
 
 <head>
 
-
 <title>Install and secure phpMyAdmin with NGINX - Debian</title>
 <style type='text/css'>
 div.hacker {
@@ -23,7 +22,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -35,6 +34,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -92,7 +101,7 @@ http://your server IP address/phpmyadmin/info.php not showing any phpmyadmin UI,
      <li>Install phpMyAdmin.
        <div class="hacker">sudo apt-get install phpmyadmin</div>
          </li>
-     <li>When prompted to select <strong>Apache</strong> or <strong>lighttpd</strong> as your web server for automated configuration, press <strong>Tab</strong> to clear the selections (because you are installing Nginx) and advance to <strong>&lt;OK&gt;</strong>.  Type <strong>enter</strong> and continue. </li>
+     <li>If prompted to select <strong>Apache</strong> or <strong>lighttpd</strong> as your web server for automated configuration, press <strong>Tab</strong> to clear the selections (because you are installing Nginx) and advance to <strong>&lt;OK&gt;</strong>. Press <strong>enter</strong> to continue. </li>
      <li>When prompted to set up <code>dbconfig-common</code>, select <strong>yes</strong>.</li>
        
 <li>Link the phpMyAdmin installed files to the Nginx document root.
