@@ -103,7 +103,10 @@ Before you install Ruby on Rails, prepare your system with the required system s
 	<h2>Install RVM</h2>
    
     <ol>
-       
+        <li>Install GPG signatures
+			<div class='hacker'>gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3</div>
+		</li>
+		
         <li>If your system doesn't have RVM already installed, type the following command to install RVM:
             <div class='hacker'>sudo curl -L get.rvm.io | bash -s stable </div>
         </li>
@@ -115,7 +118,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
         <li>Open <code>.bashrc</code> file by typing:
             <div class='hacker'>sudo vim .bashrc</div>
         </li>
-        <li>Add the lines in this example at the end of the file.
+        <li>Add the following code at the end of the file:
             <div class='hacker'> [[ -s "$HOME/.rvm/scripts/rvm" ]]  &amp;&amp;  source "$HOME/.rvm/scripts/rvm" </div>
         </li>
 		<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
