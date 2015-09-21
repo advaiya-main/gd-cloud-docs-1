@@ -78,8 +78,8 @@ p.note {
 
 <p>This article will assist you with few simple things that can be done to enhance the performance of Unicorn for your Rails applications on Arch Linux platform.</p>
 
-<h2>Prerequisite</h2>
-<p>This article requires that Ruby on Rails be installed. If it is not installed, refer to the article: <a href="17537">Install Ruby on Rails using RVM - Arch Linux</a>.</p>
+
+<p>This article requires that Ruby on Rails be installed. If it is not installed, refer to the article: <a href="17522">Install Ruby on Rails with rbenv - Arch Linux</a>.</p>
 <p class="note">This article assumes that user is logged in with sudo user privileges.</p>
 
 
@@ -87,12 +87,35 @@ p.note {
 <p>	By default, Rails uses the <strong>Webrick</strong> server to run applications. It is fast, but unfortunately, it can not handle concurrent connection requests. For optimized performance, Unicorn must be set as the default server for Rails. Unicorn is a multi-threaded web server, capable of handling multiple requests simultaneously, thus optimizing the performance considerably. 
 </p>  
 <p>For details about setting up Rails app with Unicorn and Nginx, refer to the article: <a href="17517">Deploy a Rails App with Unicorn and Nginx - Arch Linux</a>.</p>
-
+<h2>Install RVM</h2>
+   
+    <ol>
+       <li>Update the system software and access root by running the following command:
+          <div class='hacker'>sudo pacman -Syu</div>      
+      </li>
+        <li>If your system doesn't have RVM already installed, type the following command to install RVM:
+            <div class='hacker'>sudo curl -L get.rvm.io | bash -s stable </div>
+        </li>
+		<li>After you have run the above command, there is one more dependency that needs to be fixed, so type the following command:
+            <div class='hacker'>sudo curl -sSL https://rvm.io/mpapis.asc | gpg2 --import - </div>
+			 <div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable </div>
+        </li>
+		
+        <li>Open <code>.bashrc</code> file by typing:
+            <div class='hacker'>sudo vim .bashrc</div>
+        </li>
+        <li>Add the lines in this example at the end of the file.
+            <div class='hacker'> [[ -s "$HOME/.rvm/scripts/rvm" ]]  &amp;&amp;  source "$HOME/.rvm/scripts/rvm" </div>
+        </li>
+		<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+        <li>Log in back to apply the changes, and then install the dependencies of RVM. 
+            <div class='hacker'>rvm requirements</div>
+      </li></ol>
 <h2>Upgrade to Ruby 2.x</h2>
     <p>If you are using Ruby 1.9 or earlier, it is recommended to upgrade to Ruby 2.x. Ruby 1.x and earlier versions do not support automated garbage collection, and thus are unable to take benefits of Copy-on-Write (CoW) feature. </p>
 	<ol>
 		<li>Upgrade Ruby from 1.9 to Ruby 2.x.
-			<div class="hacker">rvm install 2.2.3</div>
+			<div class="hacker">rvm install ruby</div>
 		</li>
 		<li>Verify the Ruby version.
 		<div class="hacker">ruby -v<br />
@@ -100,7 +123,7 @@ p.note {
 	</ol>
 
 <h2>Fine-tune the configuration settings</h2>
-<p>To boost the performance of Unicorn, some configuration settings can be checked. These are available in the Unicorn's basic configuration file <code>config/unicorn.rb</code>. 
+<p>To boost the performance of Unicorn, some configuration settings can be checked. These are available in the Unicorn's basic configuration file <code>config/unicorn.rb</code> in application directory. 
 </p>
 <ol>
 	<li>Open the <code>unicorn.rb</code> in your favorite editor.
@@ -158,9 +181,9 @@ Although Unicorn may not be cause this problem, it can be resolved using <code>u
 <ol>
 	<li>Install unicorn-worker-killer.
 		<div class="hacker">gem install 'unicorn-worker-killer'</div>
-		<div class="hacker">bundle install</div>
+		<div class="hacker">sudo bundle install</div>
 	</li>
-		<li> Open the <code>config.rb</code> file located in the default project directory.
+		<li> Create a file with name <code>config.rb</code> project directory.
 		<div class="hacker">sudo vim config.rb</div>
 	</li>
 	<li>	
