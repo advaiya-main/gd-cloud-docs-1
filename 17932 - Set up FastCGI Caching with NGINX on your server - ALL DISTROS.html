@@ -114,10 +114,10 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Set Up FastCGI Caching with Nginx - ALL DISTROS</h1>
+<p>Set up FastCGI caching with Nginx</p>
+<h1>Set Up FastCGI Caching with Nginx - ALL DISTROS</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>Time value</u></em></p>
 
     <p>Common Gateway Interface (CGI) is an environment that allows dynamic generation of web pages.  FastCGI is currently the most popular extension of CGI.  
@@ -129,7 +129,7 @@ td:nth-child(1) {font-weight:bold;}
 <h2>Set up simple fast CGI caching</h2>
     <p>This task assumes that you have already set up a FastCGI server named  "yourFastCGIappserver."</p>
                <ol>
-    <li>   Create a directory on your server to store the cached data:
+    <li>   Create a directory on your server to store the cached data.
       <div class="hacker">sudo mkdir -p /data/cache</div>  </li> 
     <li>   Navigate to the Nginx configuration file, <code>nginx.conf</code>. The location depends on your <span class="hacker"> version of Linux.</span>
       <div class="hacker">cd /etc/nginx</div>or
