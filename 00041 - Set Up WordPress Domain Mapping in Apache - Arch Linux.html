@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
-
+<!--article 00041-->
 <head>
 
 
@@ -45,7 +45,7 @@ p.note {
 </head>
 
 <body>
- <p>Set Up WordPress Domain Mapping in Apache on a LAMP server - Arch Linux</p>
+ <p>Set up WordPress domain Mapping in Apache on a LAMP server - Arch Linux</p>
 <h1>Set up WordPress domain mapping in Apache - Arch Linux</h1>
 
                 <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
@@ -56,11 +56,11 @@ p.note {
 
 <h2>Prerequisites </h2>
 
-        <p>You should have WordPress multisite installed. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17682%20-%20Set%20up%20WordPress%20Multisite%20in%20ApacheX%20-%Arch%20Linux.html">Set up WordPress Multisite in Apache - Arch Linux</a> for instructions on how to do so.</p>
-
-         <p>Install unzip, if you haven't already. </p>
-                     <div class="hacker">sudo pacman -Sy unzip</div>  <br />
-            <p>        If prompted, enter <strong>y</strong> to continue installation.   </p>
+        <p>You should have WordPress multisite installed. See the article <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17682%20-%20Set%20up%20WordPress%20Multisite%20in%20ApacheX%20-%Arch%20Linux.html">Set up WordPress Multisite in Apache - Arch Linux</a> for instructions on how to do so.</p>
+         <ol>
+         <li>Install unzip, if you haven't already. 
+                     <div class="hacker">sudo pacman -Sy unzip</div></li>
+                     <li>If prompted, enter <strong>y</strong> to continue installation.   </li></ol>
        
 
 <h2>Download the plug-in</h2>
@@ -117,7 +117,7 @@ p.note {
                      <img src="images/00034/083015/wordpress-mu-domain-mapping-plugin-network-admin-nav-screen1.png" alt="wordpress mu domain mapping plugin network admin nav" /><br />
                 
 
-                 You will see three plug-ins. The WordPress MU Domain Mapping plug-in should be the third item.   </li>
+                 You will see three plug-ins. The <strong>WordPress MU Domain Mapping</strong> plug-in should be the third item.   </li>
 
             <li>Under this plug-in, click <strong>Network Activate</strong>. The <strong>Plugins</strong> dialog will highlight, indicating it's activated.<br />
              <img src="images/00034/083015/wordpress-mu-domain-mapping-plugin-network-activate-screen2.png" alt="WordPress mu domain mapping plugin network activate" />    <br />
@@ -198,7 +198,7 @@ function do_get_id( $columns ) {
 
 <p>Congratulations! Each site that you've defined with its own domain name can now be accessed that way. You can test it by visiting one of those domains. You will see the URL redirect to the subdomain of your primary site.</p><p>
 
-Now each site can be maintained separately through its own WordPress admin panel. Just append <code>/wp-admin/</code> to the URL, such as <strong>coolexampleproduct.com/wp-admin/.</strong> </p>
+Now each site can be maintained separately through its own WordPress admin panel. Just append <code>/wp-admin/</code> to the URL, such as <strong><em><u>coolexampleproduct</u></em>.com/wp-admin/.</strong> </p>
 
 
 </body>
