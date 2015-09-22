@@ -82,32 +82,31 @@ p.note {
     <p>After downloading your SSL certificate, you need to install it on your web server. This article guides you through installing an SSL certificate from a commercial Certificate Authority (CA) on CentOS or Fedora. </p>
 
     <h2>Install SSL certificate in Nginx </h2>
-    <p><ol>
+    <ol>
         <li>
             Create a single chained certificate file that contains your certificate and the CA's intermediate certificates. <br />
-            Assuming that your certificate file is named examplessl.com.crt and the intermediate certificate is named intermediatessl.crt, the following command creates a combined file called examplessl.com.chained.crt:
-
-            <div class="hacker">cat <em><u>examplessl.com.crt</u></em> <em><u>intermediatessl.crt</u></em> > <em><u>examplessl.com.chained.crt</u></em> </div>
+            Assuming that your certificate file is named <code>examplessl.com.crt</code> and the intermediate certificate is named <code>intermediatessl.crt</code>, the following command creates a combined file called <code>examplessl.com.chained.crt</code>:
+<div class="hacker">cat <em><u>examplessl.com.crt</u></em> <em><u>intermediatessl.crt</u></em> > <em><u>examplessl.com.chained.crt</u></em> </div>
         </li>
         <li>
-            Open the Nginx site configuration file for editing. <br />The following command assumes that the Nginx server block configuration file is at /etc/nginx/sites-enabled and that you want to add SSL to your default server block file:
-            <div class="hacker">sudo vim /etc/nginx/sites-enabled/default.conf</div>
+            Open the Nginx site configuration file for editing. <br />The following command assumes that the Nginx server block configuration file is at <code>/etc/nginx/sites-enabled</code> and that you want to add SSL to your default server block file:
+<div class="hacker">sudo vim /etc/nginx/sites-enabled/default.conf</div>
         </li>
         <li>
             Configure your Nginx vitual host, and ensure that it has the following settings. (For detailed information about configuring HTTPS servers, see <a href="http://nginx.org/en/docs/http/configuring_https_servers.html">Configuring HTTPS servers</a> on the Nginx web site.)
             <ul>
                 <li>Set <code>'ssl'</code> to <code>on</code>.</li>
                 <li>Set <code>'listen'</code> to your SSL port; typically <code>443</code>.</li>
-                <li>Set <code>'ssl_certificate'</code> to the location of your newly created <strong>examplessl.com.chained.crt</strong> file.</li>
+                <li>Set <code>'ssl_certificate'</code> to the location of your newly created <code>examplessl.com.chained.crt</code> file.</li>
                 <li>Set <code>'ssl_certificate_key'</code> to the location of your private key.</li>
             </ul>
         </li>
         <li>
-           Restart Nginx: 
-<div class="hacker">sudo service nginx restart </div>
+           Restart Nginx. 
+             <div class="hacker">sudo service nginx restart </div>
 Restarting loads the new configuration and enables TLS/SSL over HTTPS.
         </li>
-    </ol></p>
+    </ol>
     
     <h2>Install SSL certificate in Apache </h2>
     <ol>
@@ -116,7 +115,7 @@ Restarting loads the new configuration and enables TLS/SSL over HTTPS.
              You should already have a key file on the server from generating your certificate request.
         </li>
         <li>
-            In either your httpd.conf or ssl.conf file, locate the directives listed in the tables below. (Which files you use depends on how you configured Apache.) <br />
+        In either your <code>httpd.conf</code> or <code>ssl.conf</code> file, locate the directives listed in the tables below. (Which files you use depends on how you configured Apache.) <br />
             </li>
               
         <li> If one or more of the directives are commented out, uncomment them by removing the pound character (#) from the beginning of the line. 
@@ -125,7 +124,7 @@ Restarting loads the new configuration and enables TLS/SSL over HTTPS.
                 <li>Set the values of these directives to the absolute path and filename of the appropriate file, based on your version of Apache. (See tables below.)
                  <li>
             Save your configuration file, and restart Apache. <br />
-            You will need to install the httpd package. The httpd RPM (originally Red Hat Package Manager) installs the /etc/init.d/httpd script, which you can access using the <code>/sbin/service</code> command. If using managed servers with root access, here are the commands to restart, start, and stop from the command line. For detailed information about starting and stopping the Apache server, see the <a href="https://linux.web.cern.ch/linux/scientific4/docs/rhel-rg-en-4/s1-apache-startstop.html">Red Hat Enterprise Linux 4: Reference Guide</a>.
+            You'll need to install the httpd package. The httpd RPM (originally Red Hat Package Manager) installs the <code>/etc/init.d/httpd</code> script, which you can access using the <code>/sbin/service</code> command. If using managed servers with root access, here are the commands to restart, start, and stop from the command line. For detailed information about starting and stopping the Apache server, see the <a href="https://linux.web.cern.ch/linux/scientific4/docs/rhel-rg-en-4/s1-apache-startstop.html">Red Hat Enterprise Linux 4: Reference Guide</a>.
             <ul>
                 <li>To restart:  <div class="hacker">/sbin/service httpd restart </div></li>
                 <li>To start: <div class="hacker"> /sbin/service httpd start</div></li>
