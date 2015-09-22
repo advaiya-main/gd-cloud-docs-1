@@ -82,7 +82,7 @@ p.note {
 
 <p><strong>Difficulty: </strong> 2</p>
 <p><strong>Time: </strong> 30 minutes</p>
-<p><!--Please addressthe Request Notes. cj--><!--Fixed-->
+<p>
 Rails enables web developers to rapidly build quality applications, while Nginx is a lightweight, high-performance web server. In this article you'll learn to deploy a Rails application on an Nginx web server using the simple and powerful features of Phusion Passenger. This task assumes that you have <code>sudo</code> privileges.</p>
 <p>To set up your Fedora server, refer to  <a href ="17322"> Initial Server Setup - Fedora</a>. Ensure that the fully qualified domain name (FQDN) points to the server. After you  set up the  server, you  need to <a href ="17536"> install Ruby on Rails using RVM</a>. You may also refer to <a href ="17719"> Deploy Rails Apps with Passenger and Apache - Fedora</a>.</p>
   
@@ -115,8 +115,7 @@ Rails enables web developers to rapidly build quality applications, while Nginx 
        <br/> 
        The easiest way to get started. A stock Nginx 1.4.4 with Passenger support, but with no other additional third party modules, will be installed for you to a directory of your choice.</div>
         </li>
-  <li>  Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.<!--Following this standard for "save and exit"-->
-    </li>
+  
     </ol>
 
 <h2>Set up a test Rails application</h2>
@@ -133,37 +132,47 @@ Rails enables web developers to rapidly build quality applications, while Nginx 
       <div class='hacker'>cd <em><u>Your_application</u></em></div>
         </li>
     <li>Create a sample database, and generate a scaffold controller to manage the production database.
-            <div class='hacker'>  RAILS_ENV=development rake db:migrate</div>
+		<div class='hacker'>rails generate scaffold Task title:string note:text</div>
+        <div class='hacker'>  RAILS_ENV=development rake db:migrate</div>
 		<div class ="hacker">RAILS_ENV=production  rake db:migrate
 		</div>
-			<div class='hacker'>rails generate scaffold Task title:string note:text</div>
+			
         </li>
     <li>Test  your application by running the following command in the application directory:
-        <div class='hacker'>ruby -s</div>
+        <div class='hacker'>rails server --binding=<em><u>Your-server-ip</u></em></div>
         </li>
     </ol>
 <h2>Configure Nginx</h2>
 <ol>
         <li>Open the Nginx configuration file.
-            <div class='hacker'>sudo vim  /etc/nginx/conf/nginx.conf</div>
+            <div class='hacker'>sudo vim /opt/nginx/conf/nginx.conf</div>
         </li>
     
-    <li>Uncomment the following lines:
-            <div class='hacker'>passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-      <br/>passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv
-      </div>
-        </li>
-    
-        <li>Add the following lines to the file:
+   <li>Find the <code>passenger_root</code> and <code>passenger_ruby</code> lines are exist. If not exist, add to configuration file in <code>http {</code> section.:
+		<div class='hacker'>passenger_root <em><u>/home/UserName</u></em>.rvm/gems/ruby-2.2.1/gems/passenger-5.0.18;<br/>
+		passenger_ruby <em><u>/home/UserName</u></em>/.rvm/gems/ruby-2.2.1/wrappers/ruby;</div>
+
+    </li>
+	
+    <li>Find the <code>location / {</code> and comment code.
+	<div class="hacker">
+	#location / {<br/>
+#   root   html;{<br/>
+#   index  index.html index.htm;{<br/>
+#}
+	</div>
+	
+	</li>
+        <li>Make corresponding changes in the file as shown in code.
             <div class='hacker'>
       server {
        <br /> listen 80 default_server;
         <br />listen [::]:80 default_server ipv6only=on;
     
-        <br />server_name mydomain.com;  //your server name
+        <br />server_name <em><u>www.coolexample.com</u></em>;  #Replace with your FQDN or Server IP
         <br />passenger_enabled on;
-       <br /> rails_env    production;
-        <br />root/home/deploy/myapp/current/public;  //Rails application path
+       <br /> rails_env    development;
+        <br />root <em><u>/var/www/Your_application/</u></em>public;  #Rails application path
 <br />
        <br /> # redirect server error pages to the static page /50x.html
         <br />error_page   500 502 503 504  /50x.html;
@@ -174,15 +183,28 @@ Rails enables web developers to rapidly build quality applications, while Nginx 
 <br />}
 </div>
       </li> 
-       <li>Save and exit.
-	   <div class ="hacker">wq!</div>
-	   </li>
-        <li>Restart the Nginx service.
-            <div class='hacker'> sudo service nginx restart</div>
-          
-        </li></ol>
+		<li>Save and exit.
+			<div class ="hacker">wq!</div>
+		</li>
+        <li>To start the Nginx web service.
+            <div class='hacker'> sudo /opt/nginx/sbin/nginx </div>
+        </li>
+		<li>To stop the Nginx web service.
+            <div class='hacker'> ps wax | grep nginx </div>
+			Above command will show you output as below.
+			<div class="hacker">
+				11862 ?        Ss     0:00 nginx: master process sbin/nginx<br/>
+				11863 ?        S      0:00 nginx: worker process<br/>
+				12131 pts/1    S+     0:00 grep --color=auto nginx<br/>
+			</div>
+			Kill nginx process using the following command.
+			<div class="hacker">sudo kill -9 <em><u>11862 11863</u></em></div>
+			<p class="note">Process ID is different then shown in example.</p>
+        </li>
+		
+		</ol>
 <h2>Conclusion</h2>
-<p>In this article, you learned the steps to deploy a Rails application using Nginx and Passenger.<!--What might the user do next? cj --><!--Changed to "Conclusion"--> </p>
+<p>In this article, you learned the steps to deploy a Rails application using Nginx and Passenger.</p>
 
 </body>
 </html>

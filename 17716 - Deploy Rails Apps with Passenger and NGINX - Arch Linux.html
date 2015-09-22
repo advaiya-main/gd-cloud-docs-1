@@ -119,34 +119,43 @@ will be installed for you to a directory of your choice.</pre>
 		  <div class='hacker'>cd /var/www</div>
 		  </li>
 		  <li>Create a Rail application and go to the application directory.
-      <div class='hacker'>rails  new <em><u>HelloWorld</u></em></div>
-      <div class='hacker'>cd <em><u>HelloWorld</u></em></div>
+      <div class='hacker'>rails  new <em><u>Your_application</u></em></div>
+      <div class='hacker'>cd <em><u>Your_application</u></em></div>
         </li>
-    <li>Create a sample database and generate a scaffold controller to manage the production database.
+    <li>Create a sample database and generate a scaffold controller to manage the development database.
+		<div class='hacker'>rails generate scaffold Task title:string note:text</div>
             <div class='hacker'>  RAILS_ENV=development rake db:migrate</div>
-		<div class ="hacker">RAILS_ENV=production  rake db:migrate
+		<div class ="hacker">RAILS_ENV=development  rake db:migrate
 		</div>
-			<div class='hacker'>rails generate scaffold Task title:string note:text</div>
+			
         </li>
     <li>Test your application by running the following command in the application directory:
-        <div class='hacker'>ruby -s</div>
+        <div class='hacker'>rails s --binding=<em><u>Your_server_ip</u></em></div>
         </li>
     </ol>
     
     <h2>Configure Nginx</h2>
        <ol> <li>Open the configuration file of Nginx.
-           <div class='hacker'>sudo vim  /etc/conf/nginx.conf</div>
+           <div class='hacker'>sudo vim /opt/nginx/conf/nginx.conf</div>
         </li>
-        <li>Uncomment the following line:
-            <div class='hacker'>
-              <pre>     passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-     passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv </pre> 
-            </div>
-        </li>
-        <li>Add the following lines at the end of the <code>nginx.conf</code> file.
+        <li>Find the <code>passenger_root</code> and <code>passenger_ruby</code> lines are exist. If not exist, add to configuration file in <code>http {</code> section.:
+		<div class='hacker'>passenger_root <em><u>/home/UserName</u></em>.rvm/gems/ruby-2.2.1/gems/passenger-5.0.18;<br/>
+		passenger_ruby <em><u>/home/UserName</u></em>/.rvm/gems/ruby-2.2.1/wrappers/ruby;</div>
+
+    </li>
+ <li>Find the <code>location / {</code> and comment code.
+	<div class="hacker">
+	#location / {<br/>
+#   root   html;{<br/>
+#   index  index.html index.htm;{<br/>
+#}
+	</div>
+	
+	</li>
+        <li>Make corresponding changes in the file as shown in code.
           <div class='hacker'><pre> server { <br /> listen 80 default_server; <br /> listen [::]:80 default_server ipv6only=on;
-        <br />server_name mydomain.com;  //your server name <br />passenger_enabled on;
-       <br />rails_env    production; <br />root      /var/www/<em><u>HelloWorld</u></em>/public;//Rails application path
+        <br />server_name <em><u>www.coolexample.com</u></em>;  #Replace with your FQDN or Server IP <br />passenger_enabled on;
+       <br />rails_env    production; <br />root      <em><u>/var/www/Your_application</u></em>/public;#Rails application path
 
  # redirect server error pages to the static page /50x.html
  error_page   500 502 503 504  /50x.html;
@@ -160,10 +169,22 @@ will be installed for you to a directory of your choice.</pre>
 <li>Save and exit.
 <div class = "hacker">wq!</div>
 </li>	  
-        <li>Restart the Nginx service.
-            <div class='hacker'>sudo systemctl start nginx</div>
-          
-        </li></ol>
+        <li>To start the Nginx web service.
+            <div class='hacker'> sudo /opt/nginx/sbin/nginx </div>
+        </li>
+		<li>To stop the Nginx web service.
+            <div class='hacker'> ps wax | grep nginx </div>
+			Above command will show you output as below.
+			<div class="hacker">
+				11862 ?        Ss     0:00 nginx: master process sbin/nginx<br/>
+				11863 ?        S      0:00 nginx: worker process<br/>
+				12131 pts/1    S+     0:00 grep --color=auto nginx<br/>
+			</div>
+			Kill nginx process using the following command.
+			<div class="hacker">sudo kill -9 <em><u>11862 11863</u></em></div>
+			<p class="note">Process ID is different then shown in example.</p>
+        </li>
+		</ol>
     <h2>Conclusion</h2>
     In this article, we  installed Nginx and Passenger, and deployed our Rails application on an Nginx server.
 </body>

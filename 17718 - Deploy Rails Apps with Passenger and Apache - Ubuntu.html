@@ -95,7 +95,7 @@ p.note {
 	   Update the system, and install Apache.
             <div class='hacker'>sudo apt-get -y update</div>
             <div class='hacker'>sudo apt-get install apache2</div>
-            <div class='hacker'>sudo apt-get -y install curl curl-dev apache2-dev mod_ssl</div>
+            <div class='hacker'>sudo apt-get -y install curl apache2-dev libcurl4-gnutls-dev apache2-mpm-worker</div>
         
    
             
@@ -104,19 +104,23 @@ p.note {
 	  <ol>
         <li>Install Passenger.
           <div class='hacker'>sudo apt-get install gem</div>
-            <div class='hacker'>sudo gem install rails passenger</div>
+            <div class='hacker'>gem install rails passenger</div>
         </li>
         <li>Install the Passenger package for Apache.
-            <div class='hacker'> sudo rvmsudo passenger-install-apache2-module</div>
+            <div class='hacker'>rvmsudo passenger-install-apache2-module</div>
            This installation takes  a while.
         </li>
-        <li>Create a new <code>passenger.conf</code> file. 
-          <div class='hacker'>sudo vim /etc/apache2/conf.d/passenger.conf</div>
+        <li>Open the <code>apache2.conf</code> file. 
+          <div class='hacker'>sudo vim /etc/apache2/apache2.conf</div>
         </li>
-	    <li>Add the following lines to the file you just created:
-            <div class='hacker'>LoadModule passenger_module /home/newUser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10/buildout/apache2/mod_passenger.so
-                <br/>PassengerRoot /home/newUser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10
-                <br/>PassengerDefaultRuby /home/newUser/.rvm/wrappers/ruby-2.0.0-p247/ruby</div>
+	    <li>Update the <code>apache2.conf</code> file below the <code>LogFormat</code>.
+            <div class='hacker'>
+			LoadModule passenger_module <em><u>/home/username/.rvm/gems/ruby-2.2.1</u></em>/gems/passenger-5.0.18/buildout/apache2/mod_passenger.so<br/>
+   &lt;IfModule mod_passenger.c&gt;<br/>
+     PassengerRoot <em><u>/home/username/.rvm/gems/ruby-2.2.1</u></em>/gems/passenger-5.0.18<br/>
+     PassengerDefaultRuby <em><u>/home/username/.rvm/gems/ruby-2.2.1</u></em>/wrappers/ruby<br/>
+   &lt;/IfModule&gt;
+			</div>
         </li>
 		<li>Save and exit.
 		<div class ="hacker">wq!</div> 
@@ -130,15 +134,15 @@ p.note {
 		  <h2>Configure a test Rails application </h2>
 	  <ol>
         <li>Install the SQLite development package to store data in the database.
-            <div class='hacker'>sudo yum install sqlite-devel</div></li>
-		<li>Go to  Apache's web root folder.
-            <div class='hacker'>cd /var/www/html </div>
+            
+		<li>Go to the <code>home</code> directory or your Rails project directory.
+            <div class='hacker'>cd <em><u>~</u></em> </div>
         </li>
 		<li>Create a Rails application, and go to the application directory.
             <div class='hacker'>rails new <em><u>Your_application</u></em> </div>
 			<div class='hacker'>cd <em><u>Your_application</u></em> </div>
 		</li>
-		<li>By default, Ubuntu<!--This is not a CentOS article. cj--><!-- fixed --> doesn't have JavaScript execution environment installed. So to manually install it, open <code>Gemfile</code> in your favourite editor. 
+		<li>By default, Ubuntudoesn't have JavaScript execution environment installed. So to manually install it, open <code>Gemfile</code> in your favourite editor. 
           <div class='hacker'>sudo vim Gemfile </div>
         </li>
 		
@@ -159,21 +163,19 @@ p.note {
 		<h2>Connect the Apache server to the Rails application</h2>
 		<ol>
         <li>Open the Apache configuration file.
-            <div class='hacker'>sudo vim /etc/apache2/sites-available/</div>
+            <div class='hacker'>sudo vim /etc/apache2/sites-enabled/000-default.conf</div>
          </li>
-		 <li>In the file, uncomment the following line:
-            <div class='hacker'>NameVirtualHost *:80</div>
-          </li>
-		  <li>At the end of this file, add following block of code:
+		 
+		  <li>Make change correspond to code shown below:
             <div class='hacker'>
-               <pre>
-&lt;VirtualHost *:80&gt;
-       ServerName www.mydomain.com //your server name
-	 DocumentRoot /var/www/html/<em>Your_application</em>/public //your rail application path
-   &lt;Directory /var/www/html/<em>Your_application</em>/public&gt;
-      AllowOverride all
-      Options -MultiViews
-   &lt;/Directory&gt;
+               <pre>&lt;VirtualHost *:80&gt;
+	DocumentRoot <em><u>/home/username/Your_application</u></em>/public
+	&lt;Directory <em><u>/home/username/Your_application</u></em>/public&gt;
+		AllowOverride all
+		Options -MultiViews
+		Options FollowSymLinks
+		Require all granted
+	&lt;/Directory&gt;
 &lt;/VirtualHost&gt;
 </pre>
             </div>

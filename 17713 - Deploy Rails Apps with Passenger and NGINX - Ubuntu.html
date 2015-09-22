@@ -78,8 +78,6 @@ p.note {
 </head>
 
 <body>
-<!--Please make sure that all variables use the proper formatting (<em> and <u>) and have a descriptive name such as "your application" for an example application. cj --><!--Fixed-->
-
  <p>Setting up Rails Apps with Passenger and NGINX in Ubuntu, Ruby, Rails, NGINX</p>
     <h1>Deploy Rails Apps  with Passenger and NGINX - Ubuntu </h1>
 
@@ -91,7 +89,6 @@ p.note {
  <ol>
 	<li><a href ="17321">Initial Server Setup - Ubuntu</a></li>
 	<li><a href="17534">Install Ruby on Rails using RVM</a></li>
-	<li><a href ="17718">Deploy Rails Apps with Passenger and Apache - Ubuntu</a></li>
 	<li>Fully Qualified Domain Name (FQDN) should point to the server.</li>
  </ol>
  
@@ -127,23 +124,7 @@ sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger tr
 <li>Install NGINX and Passenger.
 <div class="hacker"> sudo apt-get install nginx-full passenger </div>
 </li>
-<!--<li>Select <strong>Ruby</strong> from the provided language options, and then press the <strong>Enter</strong> key.
-          <div class='hacker'>Use &lt;space&gt; to select. If the menu doesn't display correctly, ensure that your terminal supports UTF-8.
-      <ul>
-        <li>Ruby</li>
-          <li>Python</li>
-            <li>Node.js</li>
-          <li>Meteor</li>
-        </ul>
-</div>
-</li>
-        <li>Select  <strong>1</strong> and press <strong>Enter</strong> to continue. This action  downloads, compiles, and installs the NGINX files with Passenger support.
-          <div class='hacker'><pre>1. Yes: download, compile and install Nginx for me. (recommended)<br/>
-   The easiest way to get started. A stock Nginx 1.4.4 with Passenger support, but with no other additional third party modules, 
-will be installed for you to a directory of your choice.</pre>
-          </div>
-
-</li>--> <!-- Removed command because it does not prompted--></ol>
+</ol>
 		<h2>Configure a Test Rails Application</h2>
 		<ol>
   <li>Change directory to the <code>home</code>  directory, and create a Rails application.
@@ -164,7 +145,7 @@ will be installed for you to a directory of your choice.</pre>
   <div class="hacker"> sudo vim /etc/nginx/nginx.conf </div>
 <li>
 Uncomment the following line:
-<div class="hacker">passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;<!-- # passenger_ruby /home/deploy/.rbenv/shims/ruby; # If you use rbenv--> <!-- comment passenger_ruby because raise error of ruby --></div></li>
+<div class="hacker">passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;</div></li>
 <li>Save the changes.</li>
 <li> Restart the NGINX service.
   <div class="hacker"> sudo service nginx restart </div>
@@ -178,19 +159,19 @@ Uncomment the following line:
         listen 80 default_server;
         listen [::]:80 default_server ipv6only=on;
 
-        server_name <em><u>www.coolexample.com</u></em>; # Replace coolexample.com with FQDN or Your-Public-IP
+	root        <em><u>/home/username/Your_application</u></em>/public; # Your rails application's path
         passenger_enabled on;
         rails_env    development;
-        root         <em><u>/home/username/Your_application</u></em>/public; # Your rails application's path
+	server_name <em><u>www.coolexample.com</u></em>; # Replace coolexample.com with FQDN or Your-Public-IP
 
         # redirect server error pages to the static page /50x.html
         error_page   500 502 503 504  /50x.html;
-		location = /50x.html {
+	location = /50x.html {
             root   html;
         }
 }
 	</pre></div></li>
-<li>To save and exit, press <strong> ESC</strong> and type <strong>:wq</strong> 
+<li>To save and exit, press <strong> ESC</strong> and type <strong>:wq!</strong> 
 </li><!--Save and close the file? cj --><!-- updated accordingly-->
 
 <li>Restart the NGINX server:
