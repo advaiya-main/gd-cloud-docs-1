@@ -102,7 +102,7 @@ td:nth-child(1) {font-weight:bold;}
 
    <h2>Prerequisites</h2>
 
-   <p>Make sure you have <a href="Articles/17408 - Install NGINX on your server - Debian, Ubuntu">Nginx installed</a> and that it's up and running.
+   <p>Make sure you have <a href="17408 - Install NGINX on your server - Debian, Ubuntu.html">Nginx installed</a> and that it's up and running.
 
    <h2>Prepare your environment</h2>
           <ol>
@@ -112,9 +112,10 @@ td:nth-child(1) {font-weight:bold;}
   Enter <strong>y</strong> at the prompt to continue installation.
 </li>  
   
-  <li>Create a <code>.htpasswd</code> file in <code>/etc/Nginx</code>. 
-              <div class="hacker">sudo htpasswd -c /etc/Nginx/.htpasswd testuser</div>
-              <p class="note">The above command opens a tool that will prompt you for a password. Alternatively, you can create your own password file that fits an <a href="http://nginx.org/en/docs/http/ngx_http_auth_basic_module.html">Nginx-supported format</a>.</p></li>
+  <li>Create a <code>.htpasswd</code> file in <code>/etc/nginx</code>. Choose your own username for <em><u>testuser</u></em>. 
+              <div class="hacker">sudo htpasswd -c /etc/nginx/.htpasswd <em><u>testuser</u></em></div></li>
+
+        <li>Create your password. Alternatively, you can create your own password file that fits an <a href="http://nginx.org/en/docs/http/ngx_http_auth_basic_module.html">Nginx-supported format</a>.</p></li>
                </ol>        
                
    <h2>Define the realm</h2>
@@ -127,25 +128,23 @@ td:nth-child(1) {font-weight:bold;}
    <li>Open your <code>nginx.conf</code> file for editing.
       <div class="hacker">sudo vim /etc/nginx/sites-available/default</div></li>
 
-   <li><p>Find the location context of the default server block and add the <code>auth_basic</code> and <code>auth_basic_user_file</code> directives.</p> 
+   <li><p>Find your default server block and add these two <code>auth_basic</code> and <code>auth_basic_user_file</code> directives.</p> 
+
+<div class="hacker">auth_basic "<em><u>your real name</u></em>";<br/>
+ auth_basic_user_file <em><u>yourpasswordfilename</u></em>;</div>
 
 After your changes, your file may look like this:
   <div class="hacker"><pre>server {
         listen 80;
         root /usr/share/nginx/html;
         index index.php index.html index.htm;
+        <em><u>auth_basic "your real name";</u></em>
+        <em><u>auth_basic_user_file yourpasswordfilename;</u></em> 
         server_name localhost;
 
 location / {
    try_files $uri $uri/ =404;
  }
-
-location / {
- root /usr/share/nginx/html;
- index index.html index.htm;
- <em><u>auth_basic "your real name";</u></em>
- <em><u>auth_basic_user_file yourpasswordfilename;</u></em> 
-}
 
 ...</pre></div></li>
        
