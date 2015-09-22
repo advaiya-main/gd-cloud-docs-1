@@ -5,8 +5,8 @@
 <head>
     <!--Article Number is 18794 (fill in blank)-->
     <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-    <title>Use Makefiles to Automate Tasks - ALL DISTROS</title>
- <style type='text/css'>
+    <title>Use Makefiles to Automate Tasks - Debian, Ubuntu</title>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -46,6 +46,7 @@ td{border: 1px solid #b2b2b2
 td:nth-child(1) {font-weight:bold;}
 
 </style>
+
     <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
 <mso:ArticleKeywords msdt:dt="string">System Tools,</mso:ArticleKeywords>
@@ -88,7 +89,7 @@ td:nth-child(1) {font-weight:bold;}
         <strong>Time</strong>: <em><u>30 minutes</u></em></p>
     <p>Makefiles are special text files used by the <code>make</code> utility. Although <code>make</code> is  used primarily to automate software compilation, it can also automate repetitive tasks typically performed from the command line. In this article, we'll install the <code>make</code> utility, review the basic structure of a Makefile, and create a Makefile that  backs up a basic website served by Apache.</p>
     <h2>Install make</h2>
-    <p>Although you can install <code>make</code>  as a standalone utility, it's typically installed as part of the "build-essential" package that includes a number of other useful tools and libraries.</p>
+    <p>Although you can install <code>make</code>  as a standalone utility, it's typically installed as part of the "build-essential" package on Debian-based distributions that includes a number of other useful tools and libraries.</p>
     <ol>
       <li>Run these commands:
         <div class="hacker">sudo apt-get update</div>
@@ -142,7 +143,7 @@ Enter <strong>y</strong> at the prompt to continue installation.
         <div class="hacker">cd /var/www/coolexample.com/</div>
       </li>
       <li>Open a blank Makefile in vim:
-       <div class="hacker">vim Makefile</div></li>
+       <div class="hacker">sudo vim Makefile</div></li>
     
     <li>Add the Makefile rules by adding the following to the empty Makefile:
       <pre>
@@ -167,7 +168,7 @@ Enter <strong>y</strong> at the prompt to continue installation.
         <div class="hacker">cd /var/www/coolexample.com</div>
         
   
-    <div class="hacker">make backupSite</div>
+    <div class="hacker">sudo make backupSite</div>
     The output looks similar to:
     <div class="hacker">
         <pre>tar -cvzf coolexample.com-`date +%F`.tar.gz /var/www/coolexample.com/public_html
