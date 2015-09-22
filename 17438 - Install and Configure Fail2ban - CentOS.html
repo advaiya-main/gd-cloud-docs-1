@@ -78,19 +78,20 @@ XHTML errors are fixed issue list  nested in a paragraph  Style tag sb &lt;style
 </head>
 
 <body>
-<p>Install and Configure Fail2ban for CentOS to increase security.</p>
-    <h1>Install and Configure Fail2ban – CentOS</h1>
+<p>Install and configure Fail2ban for CentOS to increase security.</p>
+    <h1>Install and Configure Fail2ban - CentOS</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
  
     <p>Fail2ban is an intrusion-prevention tool that scans your server’s logs and bans IP addresses from brute-force attempts based on parameters you set. At the same time, Fail2ban  updates your firewall rules on the fly to block those IPs. These prevention efforts have the added benefit of keeping unwanted traffic from taking up bandwidth on your server.</p>
 
-  <p>  This article  guides you through a basic configuration of Fail2ban on CentOS 6.6 and 7.1.  First, make sure that your firewall (IPtables) is set up. For instructions, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17400 - Set up a Firewall using IPtables – ALL DISTROS.html"> Set Up a Firewall Using IPtables – ALL DISTROS</a>.</p>
+  <p>  This article  guides you through a basic configuration of Fail2ban on CentOS 6.6 or 7.1.  First, make sure that your firewall (IPtables) is set up. For instructions, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17400 - Set up a Firewall using IPtables – ALL DISTROS.html"> Set Up a Firewall Using IPtables - ALL DISTROS</a>.</p>
   
 <h2>Install Fail2ban</h2> 
        <ol>
-       <li>(CentOS 6.6 only) Add the <code>EPEL</code> (Extra Packages for Enterprise Linux) repository: <div class="hacker">sudo rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm</div> 
+       <li>(CentOS 6.6 only) Add the <code>EPEL</code> (Extra Packages for Enterprise Linux) repository. 
+         <div class="hacker">sudo rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm</div> 
          <p class="note">On CentOS 6.6, Fail2ban is unavailable by default. Adding the EPEL enables you to install Fail2ban directly with <code>yum</code>.</p> </li>
        <li>Update your local packages using <code>yum</code>:  <div class="hacker">sudo yum update
        </div>
@@ -111,8 +112,8 @@ Fail2ban comes with filters out of the box, and you can also add your own. The p
  
 <ul>
   <li>
-See your available filters by listing them:
-<div class="hacker">ls /etc/fail2ban/filter.d</div></li></ul>
+See your available filters by listing them.
+  <div class="hacker">ls /etc/fail2ban/filter.d</div></li></ul>
 
 
 <h3>Actions</h3>
@@ -120,7 +121,7 @@ See your available filters by listing them:
 <p>Actions ban hosts if they find matches from the filters. Conversely, actions can also unban hosts. Actions are scripts in <code>/etc/fail2ban/action.d/</code>. Each service can have multiple actions.</p> 
 <ul>
   <li>
-See your actions by listing them:
+See your actions by listing them.
   <div class="hacker">ls /etc/fail2ban/action.d</div>
 The default actions are adequate for Fail2ban to work.</li></ul>
 
@@ -140,10 +141,10 @@ There are  predetermined rules that apply to all apps as well as application-spe
 </p>
 <h3>Open the configuration file </h3>
 <ol>
-<li>Duplicate the Fail2ban configuration file so that you can make changes to your local copy only:
+<li>Duplicate the Fail2ban configuration file so that you can make changes to your local copy only.
   <div class="hacker">sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local</div>
 This  backup copy keeps your default file safe and intact. </li>
-<li>Open the jail file so that you can make changes:
+<li>Open the jail file so that you can make changes.
   <div class="hacker">sudo vim /etc/fail2ban/jail.local</div>      
 
  </li>
@@ -158,9 +159,9 @@ Find the following lines in the configuration<code></code> file, and modify as n
 <li><strong><code>ignoreip</code></strong>: Whitelisted IPs. Add your own IP so that you don’t accidentally ban yourself. You can also add the IPs of any of your virtual hosts. By default, only 127.0.0.1 (the local host) is ignored. Use <code>ignoreip</code> to add these IPs, separating each address with a space. For example:
   <div class="hacker">ignoreip = 127.0.0.0 127.0.0.2 </div></li>
 
-<li><strong><code>findtime</code></strong>, <strong><code>Maxretry</code></strong>: When a given number of attempts (<code>maxretry</code>)  are made within a certain period (<code>findtime</code>), that IP is banned for a time set by <code>bantime</code>. The default setting of <code>findtime</code> is 10 minutes, indicated by the line <code>findtime = 600</code> in your file. The default maxretry is 5.</li>
+<li><strong><code>findtime</code></strong>, <strong><code>Maxretry</code></strong>: When a given number of attempts (<code>maxretry</code>)  are made within a certain period (<code>findtime</code>), that IP is banned for a time set by <code>bantime</code>. The default setting of <code>findtime</code> is 10 minutes, indicated by the line <code>findtime = 600</code> in your file. The default <code>maxretry</code> is 5.</li>
 
-<li><strong><code>bantime</code></strong>: The amount of time (in seconds) a banned user is locked out. The default setting is 10 minutes, indicated by the line <code>bantime = 600</code> in your file. Change this to a higher lockout time, if you like. To set your lockout period to 1 day (24 hours), for instance, change the <code>bantime</code> setting to 86400. Users set their bantime anywhere from an hour to a year. You can even use a negative number, such as -1, for a permanent ban.
+<li><strong><code>bantime</code></strong>: The amount of time (in seconds) a banned user is locked out. The default setting is 10 minutes, indicated by the line <code>bantime = 600</code> in your file. Change this to a higher lockout time, if you like. To set your lockout period to 1 day (24 hours), for example, change the <code>bantime</code> setting to 86400. Users set their bantime anywhere from an hour to a year. You can even use a negative number, such as -1, for a permanent ban.
   <p>Here is an example configuration:</p>
 
 <div class="hacker">maxretry = 3</div>
@@ -181,7 +182,7 @@ In the <code>ACTIONS</code> section, you can change your default action to eithe
 
   </ul>
 
-<p>Let's choose <code>action_mwl</code> so you have more information for troubleshooting. Find this line, located at the very end of the <code>ACTIONS</code> section, right before <code>JAILS</code>:</p>
+<p>Let's choose <code>action_mwl</code> so that you have more information for troubleshooting. Find this line, located at the very end of the <code>ACTIONS</code> section, right before <code>JAILS</code>:</p>
 <div class="hacker">action = %(action_)s</div>
  Then change it to:
  <div class="hacker">action = %( action_mwl)s</div> 
@@ -209,23 +210,23 @@ Now you can update the destination email address that notifies you of bans.
 <ol>
 <li>Save and close the configuration file. </li>
 
-<li>Restart Fail2ban:
+<li>Restart Fail2ban.
   <div class="hacker">sudo service fail2ban start</div>
 </li>
-  <li> (CentOS 7.1 only)  If the output displays a message such as <code>Redirecting to /bin/systemctl start fail2ban-server.service,</code>enable Fail2ban using <code>systemctl</code> so that it runs when your system starts:  
+  <li> (CentOS 7.1 only)  If the output displays a message such as <code>Redirecting to /bin/systemctl start fail2ban-server.service,</code>enable Fail2ban using <code>systemctl</code> so that it runs when your system starts.
     <div class="hacker">sudo systemctl enable fail2ban</div>
  </li>
-  <li>Check the status:</li>
- <ul> <li>On CentOS 7.1:</li>
+  <li>Check the status.
+ <ul> <li>On CentOS 7.1:
 
     <div class="hacker">sudo systemctl status fail2ban</div>
-    A message such as <code>Status of authentication failure monitor:[....] fail2ban is running</code> displays within the output. <br />
+    A message such as <code>Status of authentication failure monitor:[....] fail2ban is running</code> displays within the output.</li>
     <li>
     
     On CentOS 6.6:
     <div class="hacker">sudo service fail2ban status</div>
   </li>
- </ul>
+ </ul></li>
 </ol>
        
 <p>Fail2ban starts automatically on each server restart.</p>
