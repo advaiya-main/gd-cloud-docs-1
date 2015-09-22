@@ -77,7 +77,7 @@ p.note {
 
 <p>MySQL is one of the most popular database engine for storing data in database. MySQL uses SQL ie. Structured Query Language to retrieve and manipulate data. It can be used to manage data from websites or applications.</p>
 
-<p>Backup is useful to restore data against crashes of the system. In this article, you will learn ways to backup MySQL databases on your Arch Linux server. You can choose any version of MySQL, as operational commands remain the same in all versions.</p>
+<p>Backup is useful to restore data against crashes of the system. In this article, you will learn ways to backup MySQL databases on your Arch Linux server. Before you begin, you need to install MySQL on the Arch Linux server. To know more about MySQL installation, you may visit <a href="17345">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a>. You can choose any version of MySQL, as operational commands remain the same in all versions.</p>
 
 <h2>Backup the database</h2>
 <ul>
@@ -130,7 +130,7 @@ p.note {
 CONFIG_mysql_dump_username = '<em><u>mysql_username</u></em>' <br />
 CONFIG_mysql_dump_password = '<em><u>password</u></em>'<br />
 CONFIG_mysql_dump_host_friendly='<em><u>localhost</u></em>' #optional<br />
-CONFIG_backup_dir = '/path/to/backup'</div>
+CONFIG_backup_dir = '<em><u>/path/to/backup</u></em>'</div>
 </li>
 <li>To execute <code>automysqlbackup</code> command, change the directory where you extracted the file. Find the command and execute it using the following command:
 <div class="hacker">./automysqlbackup</div>

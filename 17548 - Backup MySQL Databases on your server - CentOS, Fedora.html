@@ -79,14 +79,14 @@ p.note {
 
     <p>MySQL is one of the most popular database engine for storing data in database. MySQL uses SQL ie. Structured Query Language to retrieve and manipulate data. It can be used to manage data from websites or applications.</p>
 
-    <p>Backup is useful to restore data against crashes of the system. In this article, you will learn ways to backup MySQL databases on your CentOS and Fedora server. You can choose any version of MySQL, as operational commands remain the same in all versions.</p>
+    <p>Backup is useful to restore data against crashes of the system. In this article, you will learn ways to backup MySQL databases on your CentOS and Fedora server. Before you begin, you need to install MySQL on the CentOS or Fedora server. To know more about MySQL installation, you may visit <a href="17342">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Fedora</a>, <a href="17343">Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 6</a> and <a href="17344">Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 7</a>.You can choose any version of MySQL, as operational commands remain the same in all versions.</p>
 
    <h2>Backup Database</h2>
-<ol> 
+<ul> 
 <li>Export the database using <code>mysqldump</code>  command. 
    <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p <em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
   </li>
-</ol>
+</ul>
    
    
    <h2>Restore the database</h2>
@@ -95,7 +95,7 @@ p.note {
    <div class="hacker">mysql –u <em><u>mysql_username</u></em> –p</div>
    </li>
    <li>You will get a MySQL prompt, asking to create a new database to hold raw data.
-   <div class="hacker">CREATE DATABASE database_name;</div>
+   <div class="hacker">CREATE DATABASE <em><u>database_name</u></em>;</div>
    </li>
    <li>Exit or press Ctrl+c.
    </li>
@@ -120,7 +120,7 @@ p.note {
   
   <h2>Auto-backup MySQL information</h2>
   <ol>
-   <li>To automatically perform data backups at regular intervals, there is a tool in Arch Linux named <code>automybackup</code>. Install <code>automybackup</code> using the following command:
+   <li>To automatically perform data backups at regular intervals, there is a tool in CentOS/Fedora named <code>automybackup</code>. Install <code>automybackup</code> using the following command:
 <div class="hacker">wget http://downloads.sourceforge.net/project/automysqlbackup/AutoMySQLBackup/AutoMySQLBackup%20VER%203.0/automysqlbackup-v3.0_rc6.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fautomysqlbackup%2F%3Fsource%3Dtyp_redirect&amp;ts=1440596561&amp;use_mirror=netassist</div><!--& IS REPLACED WITH &amp; TO VALIDATE IT IN https://validator.w3.org/-->
 </li>
    <li>Rename the downloaded filename if you find the name long.
@@ -136,7 +136,7 @@ p.note {
 CONFIG_mysql_dump_username = '<em><u>mysql_username</u></em>' <br />
 CONFIG_mysql_dump_password = '<em><u>password</u></em>'<br />
 CONFIG_mysql_dump_host_friendly='<em><u>localhost</u></em>' #optional<br />
-CONFIG_backup_dir = '/path/to/backup'</div>
+CONFIG_backup_dir = '<em><u>/path/to/backup</u></em>'</div>
 </li>
    <li>To execute <code>automysqlbackup</code> command, change the directory where you extracted the file. Find the command and execute it using the following command:
    <div class="hacker">./automysqlbackup</div>
