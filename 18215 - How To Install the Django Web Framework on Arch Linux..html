@@ -6,7 +6,7 @@
 
 <!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
 
-<title>Install the Django Web Framework - Ubuntu, Debian</title>
+<title>Install the Django Web Framework - CentOS, Fedora</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -41,20 +41,28 @@ p.note {
 </head>
 
 <body>
-            <p>Describe how to install Django Web Framework on Arch Linux.</p>
-<h1>How To Install the Django Web Framework on Arch Linux</h1>
+            <p>Describe how to install Django Web Framework on CentOS, Fedora.</p>
+<h1>How To Install the Django Web Framework on CentOS, Fedora</h1>
     
                 <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
                 <strong>Time</strong>: <em><u>1.50</u></em></p>
 
-            <p>Django is a powerful framework for writing Python web applications. Frameworks let you focus on the unique portions of your application and let the tools do the heavy lifting. In this guide, we will demonstrate various methods of installing Django on a Arch Linux server.</p>
+            <p>Django is a powerful framework for writing Python web applications. Frameworks let you focus on the unique portions of your application and let the tools do the heavy lifting. In this guide, we will demonstrate various methods of installing Django on a CentOS and Fedora server.</p>
+
+<h2>Install the EPEL Repository </h2>                                            <p>
+</p> On your server, you can configure yum to use the EPEL repository by typing:
+
+<div class="hacker"> sudo yum install epel-release  </div>
+
+
+<p>You will now have access to all of the applications maintained within the EPEL repository  </p>
 
 <h2>Installing Django w/ different Methods</h2>
             <p>There are a number of different ways in which you can install Django depending upon your needs and how you want to configure your development environment. These have different advantages and one method may lend itself better to your specific situation than others.<br/>
                Here are some of the methods below:</p>
 
     <ol>
-            <li><b>Global Install from Packages:</b>Before installing any of the below programs, we should update the package manager: <code>sudo pacman -Syu</code>.</li>
+            <li><b>Global Install from Packages:</b>Before installing any of the below programs, we should update the package manager: <code>yum</code>.</li>
             <li><b>Global Install through <code>pip</code>:</b> The <code>pip</code> tool is a package manager for Python packages. If you install<code>pip</code>, you can easily install Django on the system level for use by any user.</li>
             <li><b>Install through pip in a <code>Virtualenv</code>: </b>The Python <code>Virtualenv</code> package allows you to create self-contained environments for various projects. </li>
             <li><b>Development Version Install through <code>git</code>: </b>If you wish to install the latest development version instead of the stable release, you will have to acquire the code from the <code>git</code> repo. </li>
@@ -64,25 +72,27 @@ p.note {
 
 <h2>Global Install from Packages</h2>
 
-            <p>If you wish to install Django using the EPEL repositories, the process is very straight forward.</p>
+            <p>The EPEL repository contain Django packages that can be installed easily with the conventional yum package manager.</p>
 
     <ol>
-            <li>You can simply use the Pacman package manager to download and install the relevant packages:
-                <div class="hacker">sudo pacman -S python-django</div></li>
+            <li>You can simply use the yum package manager to download and install the relevant packages:
+                <div class="hacker">sudo yum python-django</div></li>
 
-            <li>Once you have <code>pip</code>, you can easily install Django globally by typing:
-                 <div class="hacker">sudo pip install django</div>
-                 As you can see, the version available through <code>pip</code> is more up-to-date than the one from the EPEL repository (yours will likely be different from the above).</li>
+            <li>You can test that the installation was successful by typing:
+                 <div class="hacker">django-admin --version <br/>
+                                        1.6.10</div>
+                This means that the software was successfully installed. You may also notice that the Django version is not the latest stable. To
+                learn a bit about how to use the software, skip ahead to learn how to create sample project.</li>
     </ol>
 
 
 <h2>Global Install through pip</h2>
 
-            <p>As you can see, the version available through <code>pip</code> is more up-to-date than the one from the EPEL repository (yours will likely be different from the above).</p>
+           <p>If you wish to install the latest version of Django globally, a better option is to use pip, the Python package manager. First, we need to install the <code>pip</code> package manager.</p>
 
     <ol>
             <li> You can install <code>pip</code> from the EPEL repositories by typing:
-                <div class="hacker">sudo pacman -S python-pip</div></li>
+                <div class="hacker">sudo yum  python-pip</div></li>
 
             <li>Once you have <code>pip</code>, you can easily install Django globally by typing:
                 <div class="hacker">sudo pip install django</div></li>
@@ -97,7 +107,7 @@ p.note {
             <p>This allows you to select Python packages on a per-project basis regardless of conflicts with other project's requirements.</p>
     <ol>
              <li>We will begin by installing <code>pip</code> from the EPEL repository:
-                <div class="hacker">sudo Pacman -s install python-pip</div></li>
+                <div class="hacker">sudo yum install python-pip</div></li>
 
              <li>Once <code>pip</code> is installed, you can use it to install the virtualenv package by typing:
                 <div class="hacker">sudo pip install virtualenv</div></li>
@@ -119,6 +129,8 @@ p.note {
             <li>In your new environment, you can use <code>pip</code> to install Django. Note that you do not need to use sudo since you are installing locally:
                 <div class="hacker">pip install django</div></li>
 
+
+
             <li> You can verify the installation by typing:
                 <div class="hacker">django-admin --version  <br/>
                                     1.7.5 </div></li>
@@ -127,6 +139,8 @@ p.note {
                 <div class="hacker">cd ~/newproject  <br/>
                                     source newenv/bin/activate  </div></li>
 
+            <li>To leave your virtual environment, you need to issue the deactivate command from anywhere on the system:
+                <div class="hacker">deactivate</div></li>
     </ol>
 
 
@@ -135,10 +149,10 @@ p.note {
             <p>If you need a development version of Django, you will have to download and install Django from its gitrepository.</p>
 
     <ol>
-            <li>To do so, you will need to install <code>git</code> on your system with <code>Pacman</code> We will also install the <code>pip</code> Python package manager. We will use this to handle the installation of Django after it has been downloaded:
-                <div class="hacker">sudo Pacman -s install git python-pip</div></li>
+            <li>To do so, you will need to install <code>git</code> on your system with <code>yum</code> We will also install the <code>pip</code> Python package manager. We will use this to handle the installation of Django after it has been downloaded:
+                <div class="hacker">sudo yum install git python-pip</div></li>
 
-            <li>Once you have <code>git</code>, you can clone the Django repository. You can clone the repository to a directory called django-dev within your home directory by typing:
+            <li>Once you have <code>git</code>, you can clone the Django repository. Between releases, this repository will have more up-to-date features and bug fixes at the possible expense of stability. You can clone the repository to a directory called django-dev within your home directory by typing:
                 <div class="hacker">git clone git://github.com/django/django ~/django-dev</div></li>
 
             <li>Once the repository is cloned, you can install it using <code>pip</code>. We will use the -e option to install in "editable" mode, which is needed when installing from version control:
@@ -158,7 +172,7 @@ p.note {
                 You can use the django-admin command to create a project:
                 <div class="hacker">django-admin startproject projectname  <br/>
                                     cd projectname</div>
-                This will create a directory called <em><u>projectname</em></u>within your current directory. Within this, a management script will be created and another directory called <em><u>projectname</em></u>will be created with the actual code.
+                This will create a directory called <em><u>projectname</u></em>within your current directory. Within this, a management script will be created and another directory called <em><u>projectname</u></em>will be created with the actual code.
             <p class="note">Note: If you were already in a project directory that you created for use with the virtualenv command, you can tell Django to place the management script and inner directory into the current directory without the extra layer by typing this (notice the ending dot):
                             django-admin startproject projectname.</p> </li>
 
@@ -168,7 +182,7 @@ p.note {
             <li>If the migrate command doesn't work, you likely are using an older version of Django (perhaps instal. Instead, you can type:
                 <div class="hacker">python manage.py syncdb</div></li>
 
-            <li>You will be asked to create an administrative user as part of this process. Select a username, email address, and password for the user. If you used the migrate command above, you'll need to create the administrative user manually. You can create an administrative user by typing:
+            <li>You will be asked to create an administrative user as part of this process. Select a username, email address, and password for the user.  If you used the migrate command above, you'll need to create the administrative user manually. You can create an administrative user by typing:
                 <div class="hacker">python manage.py createsuperuser</div></li>
 
             <li>You will be prompted for a username, an email address, and a password for the user. Once you have a user, you can start up the Django development server to see what a fresh Django project looks like. You should only use this for development purposes. Run:
@@ -179,7 +193,7 @@ p.note {
 
             <li>Now, append /admin to the end of your URL to get to the admin login page:
                 <div class="hacker">server_ip_address:8000/admin  </div>
-                Congratulations you have just learned how to setup Django Framework on Arch Linux! </li>
+                Congratulations you have just learned how to setup Django Framework on CentOS and Fedora! </li>
 
 
 
