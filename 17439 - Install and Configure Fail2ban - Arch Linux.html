@@ -75,19 +75,18 @@ p.note {
 </head>
 
 <body>
-<p>Install and Configure Fail2ban for Arch Linux to increase security.</p>
-    <h1>Install and Configure Fail2ban – Arch Linux</h1>
+<p>Install and configure Fail2ban for Arch Linux to increase security.</p>
+    <h1>Install and Configure Fail2ban - Arch Linux</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
-
- <!--CT (for Carla): Used edited article (17436) as template. Any new contentwill have a comment w/my initials preceding -->  
+  
     <p>Fail2ban is an intrusion-prevention tool that scans your server’s logs and bans IP addresses from brute-force attempts based on parameters you set. At the same time, Fail2ban  updates your firewall rules on the fly to block those IPs. These prevention efforts have the added benefit of keeping unwanted traffic from taking up bandwidth on your server.</p>
 
   <p>  This article  guides you through a basic configuration of Fail2ban.  First, make sure that your <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17400%20-%20Set%20up%20a%20Firewall%20using%20IPtables%20–%20ALL%20DISTROS.html">firewall (IPtables) is set up</a>.</p>
 <h2>Install Fail2ban</h2> 
        <ol>
-       <li>Update your local packages, and install Fail2ban using <code>pacman</code>:
+       <li>Update your local packages, and install Fail2ban using <code>pacman</code>.
          <div class="hacker">sudo pacman -Syu</div></li>
   
     <li>At the prompt, <code>Proceed with installation? [Y/n],</code> enter <strong>Y</strong> to proceed. 
@@ -108,7 +107,7 @@ Fail2ban comes with filters out of the box, and you can also add your own. The p
  
 <ul>
   <li>
-See your available filters by listing them:
+See your available filters by listing them.
 <div class="hacker">ls /etc/fail2ban/filter.d</div></li></ul>
 
 
@@ -117,7 +116,7 @@ See your available filters by listing them:
 <p>Actions ban hosts if they find matches from the filters. Conversely, actions can also unban hosts. Actions are scripts in <code>/etc/fail2ban/action.d/</code>. Each service can have multiple actions.</p> 
 <ul>
   <li>
-See your actions by listing them:
+See your actions by listing them.
   <div class="hacker">ls /etc/fail2ban/action.d</div>
 The default actions are adequate for Fail2ban to work.</li></ul>
 
@@ -137,10 +136,10 @@ There are  predetermined rules that apply to all apps as well as application-spe
 </p>
 <h3>Open the configuration file </h3>
 <ol>
-<li>Duplicate the Fail2ban configuration file so that you can make changes to your local copy only:
+<li>Duplicate the Fail2ban configuration file so that you can make changes to your local copy only.
   <div class="hacker">sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local</div>
 This  backup copy keeps your default file safe and intact. </li>
-<li>Open the jail file so that you can make changes: 
+<li>Open the jail file so that you can make changes. 
   <div class="hacker">sudo vim /etc/fail2ban/jail.local</div>      
 
  </li>
@@ -191,7 +190,7 @@ This change makes a ban and an email alert (with relevant log lines) the default
    
 <p>You just set your default action to include email alerts. Now you can update the destination email address that notifies you of bans. </p>
 <p><code>destemail</code> indicates where your alerts are sent. Find <code>destemail = root@localhost</code> in your file, and replace <code>root@localhost</code> with your own email address. </p>
-<!--CT (new): Very slight revision here--> 
+
 <p>Note that by default the email messages  are sent by root@localhost, as stated in your file:</p>
 <div class="hacker"># Sender email address used solely for some actions
 sender = root@localhost                                 </div>
@@ -205,14 +204,14 @@ sender = root@localhost                                 </div>
 <ol>
 <li>Save and close the configuration file. </li>  
 
-<li>Restart Fail2ban:
+<li>Restart Fail2ban.
   <div class="hacker">sudo systemctl start fail2ban</div>
 </li>
- <li>Enable Fail2ban so that it  runs when your system starts:  
+ <li>Enable Fail2ban so that it  runs when your system starts.  
    <div class="hacker">sudo systemctl enable fail2ban</div>
  </li>
  
- <li>     Optionally, check the status:
+ <li>     Optionally, check the status.
    <div class="hacker">sudo systemctl status fail2ban</div>
       You should see a message such as <code>Active: active (running)</code> within the  output. </li>
  </ol>
