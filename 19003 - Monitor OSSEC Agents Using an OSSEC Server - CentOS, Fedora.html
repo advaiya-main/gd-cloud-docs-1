@@ -80,10 +80,10 @@ p.note {
 	<h2>Prerequisites</h2>
 	<ul>
 		<li>
-			Two separate Ubuntu droplets. One for the server and other for the agent. 
+			Two separate Ubuntu servers. One for the server and other for the agent. 
 		</li>
 		<li>
-			<strong>Iptable</strong> should be enabled on both droplets.
+			<strong>Iptable</strong> should be enabled on both servers.
 		</li>
 	</ul>
   
@@ -110,7 +110,7 @@ p.note {
 			</div>
 		</li>
 		<li>
-			On both the droplets, download OSSEC and its <strong>checksum</strong> file. 
+			On both the servers, download OSSEC and its <strong>checksum</strong> file. 
 			<div class="hacker">
 				
 			wget -U ossec http://www.ossec.net/files/ossec-hids-2.8.1.tar.gz<br />
@@ -446,7 +446,7 @@ Added.
 		for file addition or real time alerts. For configuration settings to the article: <a href="18477 - Install and Configure OSSEC Security Notifications - CentOS, Fed">Install and Configure OSSEC Security Notifications - CentOS, Fedora</a>
 	</p>
 	<p>
-		To monitor more than two droplets, add them as OSSEC agents using same steps as described in this article. If you come across any issue during setup, you can go through the logs in the <code>/var/ossec/logs/ossec.log</code> file.
+		To monitor more than two servers, add them as OSSEC agents using same steps as described in this article. If you come across any issue during setup, you can go through the logs in the <code>/var/ossec/logs/ossec.log</code> file.
 	</p>
 </body>
 </html>

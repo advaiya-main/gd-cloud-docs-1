@@ -157,7 +157,7 @@ Add the following line in this file
 <p>To terminate user press CTRL+C.</p>
 </li>
 <li>For binding to web browser, run the following command:
-<div class="hacker">rails server --binding=[your droplet's IP]</div>
+<div class="hacker">rails server --binding=[your server's IP]</div>
 </li>
 <li>We can now access it on any browser by visiting: <em>http://[your_droplet's_IP]:3000/tasks</em>
 </li>
@@ -327,7 +327,7 @@ Add the following line in this file
  <ol><li>Once we finish configuring both the servers, we will initiate the Unicorn and run it as a daemon by using the configuration file. It is required to ensure that we are inside the application directory and then we will run the following command:
   <div class="hacker">unicorn_rails -c config/unicorn.rb –D</div>
 </li>
-<li>Test droplet's IP address (or the domain name associated to it) at <em>http://[Your droplet's IP address]/tasks</em>
+<li>Test server's IP address (or the domain name associated to it) at <em>http://[Your server's IP address]/tasks</em>
 </li>
 </ol>
 <h2>Next Step</h2>

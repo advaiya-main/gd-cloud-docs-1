@@ -125,7 +125,7 @@ sub:u:2048:1:D5542FF062F4D3E5:2015-09-05::::::e:
    <div class="hacker">chmod 755 .monkeysphere</div>
    <div class="hacker">cd .monkeysphere</div>
    </li>
-   <li>Create a file name <code>authorized_user_ids</code> and add the client and admin keys. You can find those keys by giving <code>gpg1 --list-keys client@junkdomain.com </code>or <code>gpg1 --list-keys admin@junkdomain.com </code>command in respective droplets.
+   <li>Create a file name <code>authorized_user_ids</code> and add the client and admin keys. You can find those keys by giving <code>gpg1 --list-keys client@junkdomain.com </code>or <code>gpg1 --list-keys admin@junkdomain.com </code>command in respective servers.
    <div class="hacker">
 <pre>
 vi  authorized_user_ids
@@ -168,7 +168,7 @@ admin &lt;admin@junkdomain.com&gt;
    <li>The server is ready for authentication using GPG keys at this point. Now you need to configure client to connect using GPG key rather than using a password.
    <p>Execute below command from client:</p>
    <div class="hacker">ssh-agent sh -c 'monkeysphere subkey-to-ssh-agent &amp;&amp; ssh server.example.com'</div>
-   <p>You will only be asked to enter the key pass phrase and no user password will be prompted. After entering the key pass phrase, you will be logged in to server droplet.</p>
+   <p>You will only be asked to enter the key pass phrase and no user password will be prompted. After entering the key pass phrase, you will be logged in to server server.</p>
    <p>You can also do this through an agent session.</p>
    <div class="hacker">eval $(ssh-agent) </div>
    </li>

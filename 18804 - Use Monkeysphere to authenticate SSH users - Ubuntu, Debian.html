@@ -107,7 +107,7 @@ sub:u:2048:1:D5542FF062F4D3E5:2015-09-05::::::e:
 <ol> 
 <li>Generate sub keys on client servers using the <code>Monkeysphere</code> command.
    <div class="hacker">monkeysphere gen-subkey</div>
-   <p>Once the sub key is generated, it is added to the local GPG key ring of client droplet. This key generation process will take few minutes.</p>
+   <p>Once the sub key is generated, it is added to the local GPG key ring of client server. This key generation process will take few minutes.</p>
    </li>
    <li>List out the sub key in client key ring.
    <div class="hacker">gpg --list-keys <em><u>client@junkdomain.com</u></em></div>
@@ -145,7 +145,7 @@ sub   2048R/0FECF512 2014-03-14
    <li>Create a new file named <code>authorized_user_ids </code> and open it for editing.
    <div class="hacker">vim authorized_user_ids </div>
    </li>
-   <li>On the <strong>client droplet</strong>, get the information about the client user (name and email).
+   <li>On the <strong>client server</strong>, get the information about the client user (name and email).
    <div class="hacker">gpg --list-keys <em><u>client</u></em>@<em><u>junkdomain.com</u></em></div>
    </li>
    <li>Locate and note the client user name from the output. This information is exactly in the same format as required in the file <code>authorized_user_ids </code> above.
@@ -158,7 +158,7 @@ sub   2048R/0FECF512 2015-08-20
 </pre>
    </div>
    </li>
-   <li>On the <strong>admin droplet</strong>, get the information about the admin user (name and email).
+   <li>On the <strong>admin server</strong>, get the information about the admin user (name and email).
    <div class="hacker">gpg --list-keys <em><u>client</u></em>@<em><u>junkdomain.com</u></em></div>
    </li>
    <li>Locate and note the admin user name from the output. This information is exactly in the same format as required in the <code>authorized_user_ids </code> above.
@@ -171,7 +171,7 @@ sub   2048R/0FECF512 2015-08-20
 </pre>
    </div>
    </li>
-   <li>Add the information collected from above the two steps and put them in the same format in the file <code>authorized_user_ids </code> on the SSL server droplet.
+   <li>Add the information collected from above the two steps and put them in the same format in the file <code>authorized_user_ids </code> on the SSL server server.
    <div class="hacker"><em><u>client &lt;client@junkdomain.com&gt;</u></em></div>
    <div class="hacker"><em><u>admin &lt;admin@junkdomain.com&gt;</u></em></div>
    </li>
@@ -228,9 +228,9 @@ sub   2048R/0FECF512 2015-08-20
 
 <h2>Setup client for authentication through GPG key</h2>
 <ol> 
-<li>On the <strong>client droplet</strong>, execute the below command:
+<li>On the <strong>client server</strong>, execute the below command:
    <div class="hacker">ssh-agent sh -c 'monkeysphere subkey-to-ssh-agent &amp;&amp; ssh server.example.com'</div>
-   <p>You will be asked to enter the key passphrase and no user password will be prompted. After entering the key pass phrase, you will be logged in to server droplet.</p>
+   <p>You will be asked to enter the key passphrase and no user password will be prompted. After entering the key pass phrase, you will be logged in to server server.</p>
    </li>
    <li>Set up an agent session.
    <div class="hacker">eval $(ssh-agent)</div>

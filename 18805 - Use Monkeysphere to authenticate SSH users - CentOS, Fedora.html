@@ -129,7 +129,7 @@ sub:u:2048:1:D5542FF062F4D3E5:2015-09-05::::::e:
    <div class="hacker">chmod 755 .monkeysphere</div>
    <div class="hacker">cd .monkeysphere</div>
    </li>
-   <li>Create a file named <code>authorized_user_ids</code> and add the client and admin keys. You can find those keys by giving <code>gpg --list-keys client@junkdomain.com </code>or <code>gpg --list-keys admin@junkdomain.com </code>command in respective droplets.
+   <li>Create a file named <code>authorized_user_ids</code> and add the client and admin keys. You can find those keys by giving <code>gpg --list-keys client@junkdomain.com </code>or <code>gpg --list-keys admin@junkdomain.com </code>command in respective servers.
    <div class="hacker">
 <pre>
 vi  authorized_user_ids
@@ -183,7 +183,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9R9BtcAFfd+qsGoaSqpDstif5UgM+CqVp46eNrfBs
 <p>Execute below command from client.</p>
    <div class="hacker">ssh-agent sh -c 'monkeysphere subkey-to-ssh-agent &amp;&amp; ssh server.example.com'</div>
    </li>
-   <li>You will only be asked to enter the key pass phrase and no user password will be prompted. After entering the key pass phrase, you will be logged in to server droplet.
+   <li>You will only be asked to enter the key pass phrase and no user password will be prompted. After entering the key pass phrase, you will be logged in to server server.
    <p>You can also do this through an agent session.</p>
    <div class="hacker">eval $(ssh-agent) </div>
    <p>Edit ~/.bash_profile file to start the session automatically .</p>

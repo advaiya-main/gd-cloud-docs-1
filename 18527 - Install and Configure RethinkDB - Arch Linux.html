@@ -71,7 +71,7 @@ p.note {
 <p><strong>Time:</strong> <em>15 minutes</em></p>
 
 <p>RethinkDB belongs to NoSQL database. It's the first distributed document-oriented database. It's designed specifically to push data to applications in real time.  This provides a base for creating real-time, scalable, database-oriented web applications. RethinkDB has a very simple API to interact with the databases. </p>
-<p>This article discusses  installing and configuring RethinkDB on an Arch Linux droplet named <code>rethinkdb</code>.  You should set up a <code>sudo</code> user for each RethinkDB server. </p>
+<p>This article discusses  installing and configuring RethinkDB on an Arch Linux server named <code>rethinkdb</code>.  You should set up a <code>sudo</code> user for each RethinkDB server. </p>
 <h2>Install RethinkDB software</h2>
 <ol>
 <li>Update the repository.
@@ -83,9 +83,9 @@ p.note {
 </ol>
 
 <h2>Install the Python client driver</h2>
-<p>In this article you'll use Python as the desired programming language. Since you have already installed RethinkDB on this droplet, now you need to install the client driver for connecting to the database from Python.</p>
+<p>In this article you'll use Python as the desired programming language. Since you have already installed RethinkDB on this server, now you need to install the client driver for connecting to the database from Python.</p>
 
-<p>Python will already be installed on your droplet. You can use pip, Python Package Manager, to install the client driver for RethinkDB. It's a best practice to run Python applications in an isolated environment.</p>
+<p>Python will already be installed on your server. You can use pip, Python Package Manager, to install the client driver for RethinkDB. It's a best practice to run Python applications in an isolated environment.</p>
 <ol>
 <li>Install the virtual environment.
   <div class="hacker">sudo pacman -S python2-virtualenv</div>

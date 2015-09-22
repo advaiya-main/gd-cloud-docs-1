@@ -75,11 +75,11 @@ p.note {
 <p><strong>Difficulty</strong>: <em>2</em></p>
 <p><strong>Time</strong>: <em>15 minutes</em></p>
 
-<p>RethinkDB belongs to NoSQL database. It is the first distributed document-oriented database. It is designed specifically to push data to applications in real-time.  This provides a base for creating real time, scalable, database oriented web applications. It has a very simple API to interact with the databases. Here we will discuss on installing and configuring RethinkDB on an Ubuntu based droplet. </p>
+<p>RethinkDB belongs to NoSQL database. It is the first distributed document-oriented database. It is designed specifically to push data to applications in real-time.  This provides a base for creating real time, scalable, database oriented web applications. It has a very simple API to interact with the databases. Here we will discuss on installing and configuring RethinkDB on an Ubuntu based server. </p>
 
 <h2>Prerequisites</h2>
 
-<p>In this tutorial, you will need a droplet running Ubuntu 14 or Debian 7, named <strong>rethinkdb</strong>.  You should setup a sudo user for each RethinkDB server. Installing RethinkBD includes two main components, first the database itself and the other is the client driver which interacts with the database from your programming language.</p>
+<p>In this tutorial, you will need a server running Ubuntu 14 or Debian 7, named <strong>rethinkdb</strong>.  You should setup an admin user for each RethinkDB server. Installing RethinkBD includes two main components, first the database itself and the other is the client driver which interacts with the database from your programming language.</p>
 
 <h2>Install RethinkDB Software</h2>
 <ol>
@@ -94,7 +94,7 @@ wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -</div
 </ol>
 
 <h2>Install Python Client Driver</h2>
-<p>In this tutorial you will be using Python as the desired programming language. Since you have already installed RethinkDB on this droplet, now you need to install client driver for connecting to database from Python. Python will already be installed on your droplet. You can use pip, Python Package Manager to install client driver for RethinkDB. It is a best practice to run Python applications in an isolated environment.</p>
+<p>In this tutorial you will be using Python as the desired programming language. Since you have already installed RethinkDB on this server, now you need to install client driver for connecting to database from Python. Python will already be installed on your server. You can use pip, Python Package Manager to install client driver for RethinkDB. It is a best practice to run Python applications in an isolated environment.</p>
 <ol>
 <li>Install the virtual environment.
 <div class="hacker">sudo yum install python-virtualenv</div>
@@ -189,7 +189,7 @@ for x in c:
 <p>You can use <code>.filter()</code> to filter out  from the retrieve query.</p>
 
 <h2>Next Step</h2>
-<p>In this article, we reviewed the steps to install and configure RethinkDB on Ubuntu and Debian servers. For more information on how to configure RethinkDB cluster on Ubuntu and Debian droplets, please visit <a href="#"> 18528 - Set up a sharded RethinkDB Cluster - Ubuntu, Debian</a></p>
+<p>In this article, we reviewed the steps to install and configure RethinkDB on Ubuntu and Debian servers. For more information on how to configure RethinkDB cluster on Ubuntu and Debian servers, please visit <a href="#"> 18528 - Set up a sharded RethinkDB Cluster - Ubuntu, Debian</a></p>
 
 
 </body>

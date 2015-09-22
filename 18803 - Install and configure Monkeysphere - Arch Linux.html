@@ -78,7 +78,7 @@ p.note {
     <p>In this article, you will learn how to install and configure Monkeysphere which will allow you to have a trusted SSH login.</p>
 
     <h2>Prerequisites</h2>
-    <p>You should have 3 droplets for configuring and testing purpose.</p>
+    <p>You should have 3 servers for configuring and testing purpose.</p>
     <ul>
 	<li><strong>server.coolexample.com:</strong> The SSH server to which you connect.</li>
 	<li><strong>admin.coolexample.com:</strong> Administrator computer that is used to configure access.</li>
@@ -113,13 +113,13 @@ p.note {
   </ol>
   
   <h2>Build GPG keys and authentication</h2>
-  <p>Configure GPG Keys on client and admin droplets. This process include below steps:</p>
+  <p>Configure GPG Keys on client and admin servers. This process include below steps:</p>
 <ol> 
 <li>Generate GPG Keys.
-   <p>This should be performed in both client and admin droplets.</p>
+   <p>This should be performed in both client and admin servers.</p>
    <p><code>gpg1 --gen-key</code></p>
    <p>The GPG key generation process will ask for series of questions for the key to create. Choose 1 to create two RSA keys. Choose 2048 bit encryption. Select ‘O’ so that key won’t expire and finally press ‘Y’ to confirm the details provided.</p>
-   <p>Provide user as client in client droplet and admin in admin droplet. Give an email address as <em><u>client@junkdomain.com</u></em> or <em><u>admin@junkdomain.com </u></em>accordingly.</p>
+   <p>Provide user as client in client server and admin in admin server. Give an email address as <em><u>client@junkdomain.com</u></em> or <em><u>admin@junkdomain.com </u></em>accordingly.</p>
    <p>It will take some time to complete the key generation process. You can view the key by following commad:</p>
    <div class="hacker">
 <pre>
@@ -131,15 +131,15 @@ uid                  client &lt;client@junkdomain.com&gt;
 sub   2048R/FF569918 2015-09-06
 </pre>
    </div>
-   <p>Issue above command in admin droplet and you will see the keys in both droplets.</p>
+   <p>Issue above command in admin server and you will see the keys in both servers.</p>
    </li>
    <li>Upload keys to key-server.
-   <p>Find the key id from above command. In this case Key id is 1258D8EF. Perform this step on both client and admin droplets.</p>
+   <p>Find the key id from above command. In this case Key id is 1258D8EF. Perform this step on both client and admin servers.</p>
    <div class="hacker">gpg1 --send-key <em><u>1258D8EF</u></em></div>
    </li>
    <li>Signing the Keys.
-   <p>Pull down the opposite key on each of droplets/servers and then sign those keys.</p>
-   <p>In <strong>Client droplet</strong>, get the figure print.</p>
+   <p>Pull down the opposite key on each of servers/servers and then sign those keys.</p>
+   <p>In <strong>Client server</strong>, get the figure print.</p>
    <div class="hacker">gpg1 --with-colons --fingerprint client</div>
    <div class="hacker">
 <pre>
@@ -150,7 +150,7 @@ sub:u:2048:1:E0150AD6FF569918:2015-09-06::::::e:
 </pre>
    </div>
    <p>The portion of the output that is highlighted is the fingerprint for client.</p>
-   <p>On the <strong>admin droplet</strong>, download the key, sign and then upload it to key-server.</p>
+   <p>On the <strong>admin server</strong>, download the key, sign and then upload it to key-server.</p>
    <div class="hacker">
 <pre>
 gpg1 --recv-keys BF867BD82FAF8559633336829E0613031258D8EF
@@ -158,10 +158,10 @@ gpg1 --sign-key BF867BD82FAF8559633336829E0613031258D8EF
 gpg1 --send-key BF867BD82FAF8559633336829E0613031258D8EF
 </pre>
    </div>
-   <p>Do the opposite on admin droplet. Take the fingerprint of admin key and then download, sign and upload the key from client droplet.</p>
-   <p>Take the fingerprint from <strong>admin droplet.</strong></p>
+   <p>Do the opposite on admin server. Take the fingerprint of admin key and then download, sign and upload the key from client server.</p>
+   <p>Take the fingerprint from <strong>admin server.</strong></p>
    <div class="hacker">gpg1 --with-colons --fingerprint admin</div>
-   <p>On the <strong>Client droplet</strong>, download the key, sign and then upload it to key-server.</p>
+   <p>On the <strong>Client server</strong>, download the key, sign and then upload it to key-server.</p>
    <div class="hacker">
 <pre>
 gpg1 --recv-keys BF867BD82FAF8559633336829E0613031258D8EF
@@ -192,7 +192,7 @@ gpg: depth: 1  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 0u
    </ol>
    
    <h2>Install Monkeysphere </h2>
-   <p>Perform below step on all droplets (Client, Admin and on SSH Server).</p>
+   <p>Perform below step on all servers (Client, Admin and on SSH Server).</p>
    <ol>
    <li>Install Monkeysphere from AUR.  
    <div class="hacker">cd /home/user/build</div>
@@ -224,7 +224,7 @@ ssh fingerprint: 2048 35:77:0b:f6:9b:1e:7c:69:45:6a:20:54:ab:ef:84:33 (RSA)
 </pre>
    </div>
    </li>
-   <li>On the <strong>admin droplet</strong>, execute the below command to receive, sign and upload key to key-server:
+   <li>On the <strong>admin server</strong>, execute the below command to receive, sign and upload key to key-server:
    <div class="hacker">
 <pre>
 gpg1 --recv-key 58921230505B96E5D50A8968684414D33F68800A
@@ -273,7 +273,7 @@ pub   2048R/3F68800A 2015-09-06
 uid                  ssh://junkdomain.com
 </pre>
    </div>
-   <p>Wait for some time and issue the below command on all droplets to refresh the keys.</p>
+   <p>Wait for some time and issue the below command on all servers to refresh the keys.</p>
   <div class="hacker">gpg1 --refresh-keys</div> 
    <p>In the output, you will see “new signatures: 1”. This ensures that everything is proper.</p></li>
    <li>Check the signature of the server from client, you can find both admin and server keys.
