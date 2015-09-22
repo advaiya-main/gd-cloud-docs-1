@@ -26,7 +26,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -38,7 +38,18 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
+
 
 
 <!--[if gte mso 9]><xml>
@@ -79,18 +90,30 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br />
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-    <p>Java is used by many applications, so benefits many administrators to have Java already installed. This article contains directions for installing the java runtime, SDK, and Open JDK 7 versions. </p>
+   <p>Java is used by many applications, so it behooves many administrators to have Java already installed.  This article contains instructions for installing the Java runtime SDK and Open JDK.</p>
 
     <h2>Install Java</h2>
     <ol>
 <li>Update your repository.
  <div class="hacker">sudo yum update </div>
 </li>
-<li>Download Java runtime. This article uses version <em><u>1.7.0</u></em>. Update the version number based on the current version of Java.
+
+<li>Find the latest versions of Java in your package manager.
+   <div class="hacker">yum search jdk</div>
+Note the version you want. In this case, we'll download version 7.</li>
+
+<li>Download Java runtime. 
+
+ <div class="hacker">sudo yum install java-<em><u>version number</u></em>-openjdk</div>
+  Replace the version number with the version you want. For example, we'll download version <em><u>1.7.0</u></em>. 
  <div class="hacker">sudo yum install java-<em><u>1.7.0</u></em>-openjdk</div>
    Enter <strong>y</strong> at the prompt to continue installation.</li>
 
 <li>Download Java OPEN JDK 7.
+  Do the same for the SDK. 
+   <div class="hacker">sudo yum install java-<em><u>version number</u></em>-openjdk-devel </div>
+
+   Again, we'll download version <em><u>1.7.0</u></em>. 
  <div class="hacker">sudo yum install java-<em><u>1.7.0</u></em>-openjdk-devel </div>
 Enter <strong>y</strong> at the prompt to continue installation.
 </li>
@@ -98,7 +121,22 @@ Enter <strong>y</strong> at the prompt to continue installation.
  
        </ol>
 
-<h2>Select and verify the default Java version</h2>
+<h2>Check your Java version</h2>
+   <ul>
+            <li>Check the versions of Java installed on your server.
+<div class="hacker">java -version</div>
+ If your output shows  just one version of Java installed, as in this example,  you are all finished!
+<div class="hacker">java version "1.7.0_79"<br/>
+                        OpenJDK Runtime Environment (fedora-2.5.5.0.fc20-x86_64 u79-b14)<br/>
+                        OpenJDK 64-Bit Server VM (build 24.79-b02, mixed mode)</div>
+     
+If you have more than one Java version installed, continue on to select and verify the default version.</li>
+ </ul>
+<h2>(Optional) Select and verify the default Java version</h2>
+ 
+ <p>If you have multiple versions of Java on the same server, choose your default version. Then set your environment.</p>
+ <h3>Select the default version of Java</h3>
+
  <ol>
      <li>If you have more than one version of Java installed, you can use the following command to select it.  
          Unless you installed an Oracle version above, this command will only return one row.
@@ -130,7 +168,7 @@ Enter to keep the current selection[+], or type selection number:</pre></div>
 </li>
 </ol>
     <h2>Conclusion</h2>
-    <p>You have just installed three versions of Java, and then selected one to be your default.</p>
-   
+       <p>Congratulations! You have succesfully installed Java on your server. </p>
+
 </body>
 </html>
