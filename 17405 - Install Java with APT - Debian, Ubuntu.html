@@ -114,35 +114,24 @@ td:nth-child(1) {font-weight:bold;}
 </li>
        </ol>
    
-   <!--CT: Added this 9/21 (start), result of testing and per Chris and Gary. Susan/Carla: Feel free to format differently. i thought it's simpler like this but you can change to a list if that's better-->
+
    <h2>Check your Java version</h2>
-   <ol>
-            <li>Check the versions of Java you have installed on your server.
-                 <div class="hacker">java -version</div> </li>
-            <li>If your output shows that you have just one version of Java installed, like in this example:
-                <div class="hacker">java version "1.7.0_79"<br/>
+   <ul>
+            <li>Check the versions of Java  installed on your server.
+<div class="hacker">java -version</div>
+ If your output shows  just one version of Java installed, as in this example,  you are all finished!
+<div class="hacker">java version "1.7.0_79"<br/>
                         OpenJDK Runtime Environment (IcedTea 2.5.6) (7u79-2.5.6-0ubuntu1.14.04.1)  <br/>
                         OpenJDK 64-Bit Server VM (build 24.79-b02, mixed mode)</div>
-
-                    Then you are all done!</li>
- </ol>
-<p></p>
-
-
-
-
-<p>Then you are all done!</p>
-
-<p>If you have more than one Java version installed, continue on where you'll select your default version and set the environment.</p>
-
-
-         <h2>Optional: Select and verify the default Java version</h2>
+     
+If you have more than one Java version installed, continue on to select and verify the  default version.</li>
+ </ul>
+<h2>(Optional) Select and verify the default Java version</h2>
  
- <p>If you have multiple versions of Java on the same server, choose your default version.</p>
-<!--CT: (end)-->
+ <p>If you have multiple versions of Java on the same server, choose your default version. Then set your environment.</p>
+ <h3>Select the default version of Java</h3>
 
-<!--CT: Made the 2nd part its own bullet-->
- <ol>
+<ol>
      <li>Select the default version of Java.
        <div class="hacker">sudo update-alternatives --config java</div>
     You'll see this:
@@ -155,13 +144,11 @@ td:nth-child(1) {font-weight:bold;}
 Press enter to keep the current choice[*], or type selection number:
 </pre></div></li>
 
-<li>Make a selection (We'll keep it set to <code>0</code> for simplicity). </li></ol>
+<li>Make a selection. (We'll keep  <code>0</code> selected for simplicity.) </li></ol>
         
-<!--CT: Added this 9/21 (start)-->
 <h3>Set your environment</h3>
 
 <p>Also important when you have multiple Java versions is setting your environment. Let's do that now.</p>
-<!--CT (end)-->
 <ol>
         <li>Create a file, <code>/etc/environment</code>.
           <div class="hacker">sudo vim /etc/environment</div>
@@ -174,8 +161,8 @@ Press enter to keep the current choice[*], or type selection number:
 </li>
  <li>Save and close the file.
  </li>
- <li>Load the environment file.
-   <div class="hacker">source /etc/environment
+ <li>Load the <code>environment</code> file.
+<div class="hacker">source /etc/environment
 </div>
 </li>
 <li>Test it.
@@ -185,7 +172,7 @@ Press enter to keep the current choice[*], or type selection number:
 </ol>
 
     <h2>Conclusion</h2>
-    <!--CT: Revised this since it's not always going to be installing multiple versions-->
+
     <p>Congratulations! You have succesfully installed Java on your server. </p>
 
 </body>
