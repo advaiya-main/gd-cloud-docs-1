@@ -119,20 +119,20 @@
     <p>For this article, we assume the following:</p>
     <ul>
         <li>You have Apache installed and configured</li>
-        <li>You have a site, <code>example.com</code>, set up at <code>/var/www/example.com/public_html</code> with a single <code>index.html</code> page</li>
+        <li>You have a site, <code>coolexample.com</code>, set up at <code>/var/www/coolexample.com/public_html</code> with a single <code>index.html</code> page</li>
         <li>You have a backup folder at <code>/var/backups</code></li>
-        <li>Folder permissions for the <code>/var/backups</code> and the <code>/var/www/example.com</code> folders globally allow for any user account to add and edit files within the folder</li>
+        <li>Folder permissions for the <code>/var/backups</code> and the <code>/var/www/coolexample.com</code> folders globally allow for any user account to add and edit files within the folder</li>
     </ul>
     <p>We're going to create a single Makefile that does the following:</p>
     <ul>
-        <li>Packs up the existing site in <code>/var/www/example.com/</code> into a single <code>.tar</code> file</li>
+        <li>Packs up the existing site in <code>/var/www/coolexample.com/</code> into a single <code>.tar</code> file</li>
         <li>Copies the tar file to the <code>/var/backups/</code> folder</li>
     </ul>
    
     <ol>
       <li>
-      Navigate to the <code>example.com</code> website html-content directory:
-        <div class="hacker">cd /var/www/example.com/</div>
+      Navigate to the <code>coolexample.com</code> website html-content directory:
+        <div class="hacker">cd /var/www/coolexample.com/</div>
       </li>
       <li>Open a blank Makefile in vim:
        <div class="hacker">vim Makefile</div></li>
@@ -140,17 +140,17 @@
     <li>Add the Makefile rules by adding the following to the empty Makefile:
       <pre>
           backupSite: archive
-            mv example.com-`date +%F`.tar.gz /var/backups
+            mv coolexample.com-`date +%F`.tar.gz /var/backups
 
           archive:
-            tar -cvzf example.com-`date +%F`.tar.gz /var/www/example.com/public_html
+            tar -cvzf coolexample.com-`date +%F`.tar.gz /var/www/coolexample.com/public_html
     </pre>
    The Makefile contents are as follows:
     <ul>
         <li><code>backupSite: archive</code>: Defines a new target, named <code>backupSite</code> with a dependency on another target named <code>archive</code>. Means that the <code>archive</code> target instructions need to run first, before the next line runs.</li>
-        <li><code>mv example.com-`date +%F`.tar.gz /var/backups</code>: Is a terminal command that moves a file named <code>example.com-<em><u>current-date-here</u></em>.tar.gz</code> to the backups folder at <code>/var/backups</code>. The <code>`date +%F`</code> grabs the current date.</li>
+        <li><code>mv coolexample.com-`date +%F`.tar.gz /var/backups</code>: Is a terminal command that moves a file named <code>coolexample.com-<em><u>current-date-here</u></em>.tar.gz</code> to the backups folder at <code>/var/backups</code>. The <code>`date +%F`</code> grabs the current date.</li>
         <li><code>archive:</code> Defines a new target named <code>archive</code>. This target is the same target referenced in the <code>backupSite</code> target on the first line.</li>
-        <li><code>tar -cvzf example.com-`date +%F`.tar.gz /var/www/example.com/public_html</code>: Is a terminal command that compresses (gzip) the contents of the <code>/var/www/example.com/public_html</code> folder into a <code>.tar.gz</code> named <code>example.com-<em><u>current-date-here</u></em></code>.</li>
+        <li><code>tar -cvzf coolexample.com-`date +%F`.tar.gz /var/www/coolexample.com/public_html</code>: Is a terminal command that compresses (gzip) the contents of the <code>/var/www/coolexample.com/public_html</code> folder into a <code>.tar.gz</code> named <code>coolexample.com-<em><u>current-date-here</u></em></code>.</li>
       </ul></li>
   
     
@@ -158,23 +158,23 @@
     
     <h2>Run the Makefile</h2>
     <ul>
-      <li> Navigate to the <code>example.com</code> website html-content directory, and run the Makefile:
-        <div class="hacker">cd /var/www/example.com</div>
+      <li> Navigate to the <code>coolexample.com</code> website html-content directory, and run the Makefile:
+        <div class="hacker">cd /var/www/coolexample.com</div>
         
   
     <div class="hacker">make backupSite</div>
     The output looks similar to:
     <div class="hacker">
         <pre>
-          tar -cvzf example.com-`date +%F`.tar.gz /var/www/example.com/public_html
+          tar -cvzf coolexample.com-`date +%F`.tar.gz /var/www/coolexample.com/public_html
           tar: Removing leading `/' from member names
-          /var/www/example.com/public_html/
-          /var/www/example.com/public_html/index.html
-          mv example.com-`date +%F`.tar.gz /var/backups
+          /var/www/coolexample.com/public_html/
+          /var/www/coolexample.com/public_html/index.html
+          mv coolexample.com-`date +%F`.tar.gz /var/backups
       </pre>
     </div>
 
-    If you check the <code>/var/backups</code> folder, you should see a <code>.tar.gz</code> file named <code>example.com-<em><u>current-date-here</u></em></code>.</li></ul>
+    If you check the <code>/var/backups</code> folder, you should see a <code>.tar.gz</code> file named <code>coolexample.com-<em><u>current-date-here</u></em></code>.</li></ul>
         <h2>Next steps</h2>
         <p>In this article, you  installed the <code>make</code> utility and supporting libraries, created a  Makefile that backs up a website, and executed the Makefile, generating a  backup of an example Apache website. <code>make</code> is a powerful utility that lets you automate nearly any tasks performed from the terminal. For more information about <code>make</code>, see the official <a href='http://www.gnu.org/software/make/manual/make.html'> <code>make</code> documentation</a>.</p>
 </body>
