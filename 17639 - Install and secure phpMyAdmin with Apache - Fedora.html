@@ -137,7 +137,8 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
        [...]
 </pre>
             </div>
-            Save and exit the file.
+      </li>
+        <li>Save and exit the file.
        </li>
       
          <li>
@@ -147,25 +148,24 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
 
         <li>
          In your browser, navigate to <strong>http://<em><u>your server address or domain name</u></em>/phpmyadmin</strong> to see the web interface. You will see a <strong>Welcome to phpMyAdmin</strong> page.<br />
-            <img src='/images/17641/090915/Welcome-to-phpMyAdmin.png' alt='Welcome to phpMyAdmin' />
+            <img src='images/17641/090915/Welcome-to-phpMyAdmin.png' alt='Welcome to phpMyAdmin' />
         </li>
         <li>
             Log into the user interface using the username <strong>root</strong>, and the MySQL/MariaDB root password. You can also use other valid MySQL/MariaDB users. You will see the phpMyAdmin user interface.<br />
-            <img src='/images/17641/090915/phpMyAdmin-user-interface.png' alt='phpMyAdmin user interface' />
+            <img src='images/17641/090915/phpMyAdmin-user-interface.png' alt='phpMyAdmin user interface' />
         </li>
     </ol>
    
     <h2>Configure phpMyAdmin to be secure</h2>
     Although your phpMyAdmin interface is up and running, you need to secure it further by adding another layer of authorization to prevent unauthorized users. You will do this in two steps.
-    <ul>
+    <ol>
         <li>
             Change the default directory.
         </li>
-        <li>
-            Apache authorization.
+        <li>Add Apache authorization.
         </li>
-    </ul>
-    <h3>Change the default phpMyAdmin directory.</h3>
+    </ol>
+    <h3>Change the default phpMyAdmin directory</h3>
     The default installation of phpMyAdmin creates an alias to <code>/usr/share/phpMyAdmin</code>. You can change the alias on the configuration file from <code>/phpmyadmin</code> to something else, in this case <code>/mysqllogin</code> . This way you  fend off any automated attacks that are likely to go after the default directory on the web server.
     <ol>
         <li>
@@ -181,7 +181,8 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
 Alias /<em><u>mysqllogin</u></em> /usr/share/phpMyAdmin
 </pre>
             </div>
-            Save and exit the file.
+        </li>
+        <li>Save and close the file.
         </li>
         <li>
             Restart Apache for the change to take effect.
@@ -189,8 +190,8 @@ Alias /<em><u>mysqllogin</u></em> /usr/share/phpMyAdmin
         </li>
         <li>You will now find the application at <strong>http://<em><u>your server address or domain name</u></em>/<em><u>mysqllogin</u></em></strong> instead of <strong>http://<em><u>your server address or domain name</u></em>/phpmyadmin</strong> </li>
     </ol>
-    <h3>Apache authorization</h3>
-    We will also add Apache authorization to the <code>phpMyAdmin</code> directory with an .htaccess and .htpasswd file. 
+    <h3>Add Apache authorization</h3>
+    We will also add Apache authorization to the <code>phpMyAdmin</code> directory with an <code>.htaccess</code> and <code>.htpasswd</code> file. 
     <ol>
         <li>
             To allow the <code>.htaccess file</code> access the <code>phpMyAdmin</code> directory, you need to make some changes in the phpMYAdmin configuration file.
@@ -246,9 +247,9 @@ Require valid-user
                 </tr>
                 <tr>
                     <td> AuthName</td>
-                    <td>Set it to anything you want. This is the message that is displayed at the password prompt.</td>
+                    <td>Displays at the password prompt. Set it to anything you want.</td>
                 </tr>
-                <tr><td> AuthUserFile</td><td>The location where you would store the password file.</td> </tr>
+                <tr><td> AuthUserFile</td><td>Indicates the location where you would store the password file.</td> </tr>
                 <tr><td>Require valid-user</td><td>Indicates that only users who are stored in the password file will be granted access to the phpMyAdmin login screen.</td> </tr>
             </table>
         </li>
@@ -259,7 +260,7 @@ Require valid-user
         <li>
             Create a first user to be stored in the password file.
             <div class="hacker">sudo htpasswd -c /etc/httpd/pass_file <em><u>newuser1</u></em></div>
-            Set and confirm password.
+        </li><li>Set and confirm password.
         </li>
         <li>
             If you want to enter an additional user, you need to do so without the <code>-c</code> flag.
