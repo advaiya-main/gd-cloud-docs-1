@@ -4,10 +4,6 @@
 
 <head>
 
-<!--Article Number is 18100-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
 
 <title>Working with SSL Certificates, Private Keys, and CSRs - ALL DISTROS</title>
 <style type='text/css'>
@@ -84,11 +80,11 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-<p>A cheat-sheet style guide to various security commands involving SSL Certificates, Private Keys, and CSRs</p>
+<p>A cheat-sheet  guide to various security commands involving SSL certificates, privatekeys, and CSRs</p>
 
     <h1>Working with SSL Certificates, Private Keys, and CSRs</h1>
     
-   <p>OpenSSL is a general purpose toolkit that has a cryptography library with hundreds of different utility functions. As its name suggests, it's an open source implementation of the Secure Sockets Layer (SSL) protocols. The OpenSSL library includes functions used to create:</p>
+   <p>OpenSSL is a general purpose toolkit that has a cryptography library with hundreds of different utility functions. As its name suggests, it's an open source implementation of the Secure Sockets Layer (SSL) protocols. The OpenSSL library includes functions used to create the following:</p>
 
 <ul>
 <li><strong>Certificate Signing Requests (CSRs)</strong>: Blocks of encrypted text with your organization name, domain name, and private key-public key pair, among other information. The certificate will  work only with your given private key.</li>
@@ -96,7 +92,7 @@ td:nth-child(1) {font-weight:bold;}
 <li><strong>Self-Signed Certificates</strong>: When you need to secure a service but don't need a CA-signed certificate, self-signed certificates will work. A self-signed certificate is a free solution that's on par with a CA-signed certificate for data encryption quality. Note that to the end user, a warning will display saying that the certificate is not trusted by their computer or browser. Thus, limit your use of self-signed certificates to non-production or non-public servers.</li>
 </ul>
 
-<p>This guide covers popular commands in an OpenSSL binary such as private keys, certificate signing requests, and certificate format conversion, including instructions specific to the Heartbleed bug, a critical vulnerability with OpenSSL, announced in April 2014. You can learn more about this vulnerability at <a href="http:/heartbleed.com/">heartbleed.com</a>.</p>
+<p>This article covers popular commands in an OpenSSL binary such as private keys, certificate signing requests, and certificate format conversion, including instructions specific to the Heartbleed bug, a critical vulnerability with OpenSSL announced in April 2014. You can learn more about this vulnerability at <a href="http:/heartbleed.com/">heartbleed.com</a>.</p>
 
 <p>In command instructions, keys are referred to as <em><u>coolexample.key</u></em>; your certificates are referred to as <em><u>coolexample.crt</u></em>, and so on.</p> 
 
@@ -178,19 +174,19 @@ openssl rsa \         <br />
 
 <ol>
 
-    <li>Generate new keys and a new CSR.</li>
-
-    <li>In the <code>/etc/pki/tls/private</code> directory run the following command:<br />
-        <div class="hacker">openssl genrsa -out coolexample.com.privatekey.new 2048</div></li>
+    <li>Generate new keys and a new CSR.<br />
+In the <code>/etc/pki/tls/private</code> directory run the following command:<br />
+        <div class="hacker">openssl genrsa -out coolexample.com.privatekey.new 2048</div>
+    </li>
 
     <li>Generate a CSR.<br />
       In the <code>/etc/pki/tls/certs</code> directory, run the following command:<br />
         <div class="hacker"> openssl req -new -key coolexample.com.privatekey.new -out coolexample.com.new.csr</div></li>
 
-    <li>Submit the information needed to complete the CSR. The information you enter must match that of your original CSR for the keys being replaced, especially the "Common Name" (CN), which is the fully qualified domain name (FQDN) of your website. For example, the FQDN for "https://www.coolexample.com/page" would be coolexample.com.
+    <li>Submit the information needed to complete the CSR. The information you enter must match that of your original CSR for the keys being replaced, especially the "Common Name" (CN), which is the fully qualified domain name (FQDN) of your website. For example, the FQDN for https://www.coolexample.com/page would be coolexample.com.
   Move the private key into a private directory (assuming that your directory structure is <code>/etc/ssl/private</code>).</li>
 
-    <li>Update your Apache Configuration file.
+    <li>Update your Apache configuration file.
     Once you receive your new certificate, make sure that your <code>ssl.conf</code> file is pointing at the <code>privatekey.new</code> file as the SSLCertificateKeyFile.</li>
 
     <li>Save and close the file.</li>
@@ -204,13 +200,13 @@ openssl rsa \         <br />
 
 <p>The <code>-days 365</code> option means your certificate will be valid for 365 days.</p>
 
-<h3>Generate Self-Signed Certificate </h3>
+<h3>Generate self-signed certificate </h3>
 <div class="hacker">openssl req \    <br />
        -newkey rsa:2048 -nodes -keyout coolexample.key \   <br />
        -x509 -days 365 -out coolexample.crt          </div>
 
-<h3> Generate Self-Signed Certificate from an Existing Private Key </h3>
-<p>For self-signed only (i.e., no CA) and for generating one key/certificate.</p>
+<h3> Generate self-signed certificate from an existing private key </h3>
+<p>For self-signed only (that is, no CA) and for generating one key/certificate.</p>
 <div class="hacker">openssl req \              <br />
        -key coolexample.key \             <br />
        -new \                       <br />
@@ -221,32 +217,31 @@ openssl req          <br />
 	-x509 -sha256 -key $DOMAIN.key.pem -out $DOMAIN.crt.pem        </div>
 
 
-<h3>Generate Self-Signed Certificate from an Existing Private Key and CSR</h3>
+<h3>Generate self-signed certificate from an existing private key and CSR</h3>
 <div class="hacker">openssl x509 \
        -signkey coolexample.key \              <br />
        -in coolexample.csr \                     <br />
        -req -days 365 -out coolexample.crt        </div>
 
-<h3>Sign Certificate Request</h3>
+<h3>Sign certificate request</h3>
 <div class="hacker">openssl ca -out coolexample.crt.pem -in coolexample.req.pem</div>
-coolexample.crt.pem is the SSLCertificateFile for Apache 
-
+<code>coolexample.crt.pem</code> is the SSLCertificateFile for Apache
 <h3>Display CSR</h3>
-<p>Since Certificate and CSR files are PEM-encoded, they are not easily readable in natural language. This command will display the full entry of PEM-encoded files (such as organizational information and FQDN) in plain text.</p>
+<p>Because certificate and CSR files are PEM-encoded, they are not easily readable in natural language. This command will display the full entry of PEM-encoded files (such as organizational information and FQDN) in plain text.</p>
 <div class="hacker">openssl req -text -noout -in coolexample.csr.pem    </div>
 
 <h3>Display generated certificate </h3>
 <div class="hacker">openssl x509 -in coolexample.crt.pem -noout -text       </div>
 
-<h3> Verify your certificate was signed by a CA</h3>
+<h3> Verify that your certificate was signed by a CA</h3>
 <div class="hacker">openssl verify -verbose -CAFile ca.crt coolexample.crt  </div>
 
 <h3> Display CA-signed certificate </h3>
-<p>Can verify the signing algorithm with this command. </p>
+<p>You can verify the signing algorithm with this command. </p>
 <div class="hacker">openssl x509 -text -noout -in coolexample.crt       </div>
 
 <h2>Convert certificate formats</h2>
-<h3>Convert PEM to a DER Certificate</h3>
+<h3>Convert PEM to a DER certificate</h3>
 <div class="hacker">openssl x509 \     <br />
        -in coolexample.crt \          <br />
        -outform der -out coolexample.der         </div>
@@ -277,7 +272,7 @@ coolexample.crt.pem is the SSLCertificateFile for Apache
        -export -out coolexample.pfx        </div>
 
 <h3>Create a PKCS12 file</h3>
-<p>Used for creating certificates in e-mail clients as well as web browsers. </p>
+<p>Used for creating certificates in email clients as well as web browsers. </p>
 <div class="hacker">openssl pkcs12 -export -in coolexample.crt.pem -inkey coolexample.key.pem -out coolexample.p12 -name "Your Name"  </div>
 
 <h3> Combine private key and certificate into a PKCS12 file by converting PEM to a PKCS12</h3>
