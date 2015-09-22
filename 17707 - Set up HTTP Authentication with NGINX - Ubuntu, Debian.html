@@ -4,8 +4,8 @@
 
 <head>
 
-<title>Set up HTTP Authentication with NGINX - ALL DISTROS</title>
-<style>
+<title>Set up HTTP Authentication with Nginx - Ubuntu, Debian</title>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -22,7 +22,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -34,16 +34,25 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
-</style>
 
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
-<mso:ArticleKeywords msdt:dt="string">Security, NGINX</mso:ArticleKeywords>
-<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-set-up-http-authentication-with-nginx-on-ubuntu-12-10, https://www.digitalocean.com/community/tutorials/how-to-set-up-http-authentication-with-nginx-on-ubuntu-12-10</mso:Reference>
+<mso:ArticleKeywords msdt:dt="string">Security, Nginx</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-set-up-http-authentication-with-Nginx-on-ubuntu-12-10, https://www.digitalocean.com/community/tutorials/how-to-set-up-http-authentication-with-Nginx-on-ubuntu-12-10</mso:Reference>
 <mso:LinuxDistributions msdt:dt="string">;#Debian;#Ubuntu;#</mso:LinuxDistributions>
 <mso:ArticlePriority msdt:dt="string">2</mso:ArticlePriority>
-<mso:RequestNotes msdt:dt="string">Prereqs - 'Initial Server Setup' and either 'Build a LEMP stack' OR 'Install NGINX on your server.' Divided by fork, split distros if instructions are different.</mso:RequestNotes>
+<mso:RequestNotes msdt:dt="string">Prereqs - 'Initial Server Setup' and either 'Build a LEMP stack' OR 'Install Nginx on your server.' Divided by fork, split distros if instructions are different.</mso:RequestNotes>
 <mso:Difficulty msdt:dt="string">2</mso:Difficulty>
 <mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
 <mso:ArticleID msdt:dt="string">17707</mso:ArticleID>
@@ -77,65 +86,73 @@ p.note {
 
 <body>
  <p>This article describes how to set up http authentication on an Nginx web server.</p>
-    <h1>Set up HTTP Authentication with NGINX - ALL DISTROS</h1>
+    <h1>Set up HTTP Authentication with Nginx - Ubuntu, Debian</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>       
  
     <h2>Overview</h2>
-    <p>NGINX uses configuration files to implement its functions. To change those functions, you can edit the files. These files have sections referred to as "contexts."  Authentication defined in a given context is inherited by contexts below it. For example:</p> 
+    <p>Nginx uses configuration files to implement its functions. To change those functions, you can edit the files. These files have sections referred to as "contexts."  Authentication defined in a given context is inherited by contexts below it. For example:</p> 
     <ul>
     <li>An authentication scheme defined in the <code>http context</code> will apply to all server blocks.</li>
     <li>A scheme defined at the server level will apply to all locations defined in that server block.</li>  
     </ul>
     There are two directives associated with http authentication: <code>auth_basic</code> and <code>auth_basic_user_file</code>.
-    The following example defines a <code>realm</code> within a <code>location</code> context. <p />
+    The following example defines a realm within a location context. <p />
 
    <h2>Prepare your environment</h2>
           <ol>
-        <li>Install the Apache2 utilities.             
+        <li>Install the Apache2 utilities (Nginx uses the same password protection format as Apache).             
      <div class="hacker"> sudo apt-get install apache2-utils</div> 
   
   Enter <strong>y</strong> at the prompt to continue installation.
 </li>  
   
-  <li>Create a <code>.htpasswd</code> file in <code>/etc/nginx</code>. 
-              <div class="hacker">  sudo htpasswd -c /etc/nginx/.htpasswd testuser</div>
-              <p class="note">The above command opens a tool that will prompt you for a password. Alternatively, you can create your own password file that fits an <a href="http://nginx.org/en/docs/http/ngx_http_auth_basic_module.html">NGNIX-supported format</a>.</p></li>
+  <li>Create a <code>.htpasswd</code> file in <code>/etc/Nginx</code>. 
+              <div class="hacker">sudo htpasswd -c /etc/Nginx/.htpasswd testuser</div>
+              <p class="note">The above command opens a tool that will prompt you for a password. Alternatively, you can create your own password file that fits an <a href="http://Nginx.org/en/docs/http/ngx_http_auth_basic_module.html">Nginx-supported format</a>.</p></li>
                </ol>        
                
    <h2>Define the realm</h2>
+   
    <ol>
-   <li>Navigate to the <code>nginx.conf</code> file.
-      <div class="hacker">cd /etc/nginx</div></li>
-  
-   <li>Open the <code>nginx.conf</code> file for editing, and find the <code>location context</code> of the default server block. It should look something like this:
-       <div class="hacker">           location / {
-        <br />
-    root   /usr/share/nginx/html;
-        <br />
-    index  index.html index.htm;
-    <br />
-    }
-</div></li>
-    <li>Add the  <code>auth_basic</code> and <code>auth_basic_user_file</code> directives. 
-    <div class="hacker">           location / {
-        <br />
-    root   /usr/share/nginx/html;
-        <br />
-    index  index.html index.htm;
-         <br />
-        <em><u>auth_basic           "yourrealmname";</u></em>
-        <br />
-        <em><u>auth_basic_user_file yourpasswordfilename;</u></em>
-    }</div></li>
+   <li>Open your <code>nginx.conf</code> file for editing.
+      <div class="hacker">sudo vim /etc/nginx/sites-available/default</div></li>
 
- </ol>           
+   <li><p>Find the location context of the default server block and add the <code>auth_basic</code> and <code>auth_basic_user_file</code> directives.</p>
+
+After your changes, your file may look like this:
+  <div class="hacker"><pre>server {
+        listen 80;
+        root /usr/share/nginx/html;
+        index index.php index.html index.htm;
+        server_name localhost;
+
+location / {
+   try_files $uri $uri/ =404;
+ }
+
+location / {
+ root /usr/share/nginx/html;
+ index index.html index.htm;
+ <em><u>auth_basic "your real name";</u></em>
+ <em><u>auth_basic_user_file yourpasswordfilename;</u></em> 
+}
+...</pre></div></li>
+       
     <p class="note">
          In the example above, if you used the Apache2 utilities, <code>yourpasswordfilename</code> would be <code>/etc/nginx/.htpasswd</code>. </p>
-         
+ 
+
+<li>Restart Nginx for your changes to take effect.
+  <div class="hacker">sudo service nginx restart</div></li>
+
+
+ <h2>Test</h2>
+
+
 <h2>Next steps</h2>
-    <p>You have just created a scheme for http authentication on your web server. Try moving the <code> auth_basic / authbasic_user_file </code> directives to other contexts to see how this affects your site. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20NGINX%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
+    <p>You have just created a scheme for http authentication on your web server. Try moving the <code> auth_basic / authbasic_user_file </code> directives to other contexts to see how this affects your site. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20Nginx%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
 
    
 </body>
