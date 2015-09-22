@@ -64,41 +64,35 @@
 <li>Install the rbenv and  all Ruby dependencies.
    <div class='hacker'>sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev</div>
 </li>
-<li>To install rbenv, run the following command to check rbenv into <code>.rbenv</code> directory. 
-        <div class='hacker'>cd</div>
-
-        <div class='hacker'>git clone git://github.com/<em><u>sstephenson</u></em>/rbenv.git .rbenv</div>
-</li>
-<li>Add a directory to your <code>$PATH</code> for accessing the rbenv.
-
-        <div class='hacker'>echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile</div>
-</li>        
-<li>Add rbenv init into the shell to enable shims.    
-
-        <div class='hacker'>echo 'eval "$(rbenv init -)"' >> ~/.bash_profile</div>
-
-        <div class='hacker'>exec $SHELL</div>
-</li>
-      
-<li>This command will install the latest development version of ruby-build into the <code>~/.rbenv/plugins/ruby-build </code>directory.
-
-         <div class='hacker'>git clone git://github.com/sstephenson/ruby-build.git~/.rbenv/plugins/ruby-build</div>
-</li>
-
-<li>Add a directory to your <code>$PATH</code> for accessing ruby. 
-        <div class='hacker'> echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >>   ~/.bash_profile</div>
-<div class='hacker'>exec $SHELL</div>
-</li>
-
-<li>This will install rbenv into your home directory, and set the appropriate environment variables that will allow rbenv to the active version of Ruby.
-</li>
+<li>Create a clone for rbenv from GitHub, and install it.
+			<div class='hacker'>git clone https://github.com/sstephenson/rbenv.git ~/.rbenv</div>
+		</li>    
+		
+		<li>Add a directory to your <code>$PATH</code> for accessing rbenv.
+			<div class='hacker'>echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc</div>
+		</li>    
+		<li>Add <code>rbenv init</code> into the <code>bashbc</code> shell.
+			<div class='hacker'>echo 'eval "$(rbenv init -)"' >> ~/.bashrc</div>
+			<div class='hacker'>source ~/.bashrc</div>
+		</li>    
+		<li>Restart the shell by either opening a new tab or closing the current terminal and starting it again.
+		</li>
+		<li>Check <code>rbenv</code> installed correctly using the following command.
+			<div class='hacker'>type rbenv</div>
+		</li>    
+		<li>Install the latest development version of <code>ruby-build</code> into the <code>~/.rbenv/plugins/ruby-build</code> directory.
+			<div class='hacker'>git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build</div>
+		</li>
+		<li>Install the <strong>rbenv rehash</strong> plugin to automate running the <code>rehash</code> command. 
+		  <div class='hacker'>git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash</div>
+		</li>
 </ol>
 
 <h2>Install Ruby</h2>
 
 <ol>
 <li>Install the dependency of Rails, before you install Ruby by typing:
-	<div class='hacker'>rbenv install -v <em><u>latest_version of Ruby</u></em></div>
+	<div class='hacker'>rbenv install  <em><u>latest_version of Ruby</u></em> -k</div>
 </li>    
 <li>This command will set the default version of Ruby that all of your shells will use.
  <div class='hacker'>rbenv global <em><u>latest_version of Ruby</u></em></div>
@@ -117,8 +111,18 @@
     <div class='hacker'>gem install bundler</div>
 </li>    
 </ol>
+<h2>Install the JavaScript Runtime</h2>
+			<p>There are a few Rails features like the <strong>Asset Pipeline</strong>, that requires a Javascript runtime to execute. JavaScript runtime can be installed in a couple of ways. In this article, we will use <code>nodejs</code> from Debian package system.</p>
+<ol>
+<li>Add the <code>node.js</code> PPA to <code>apt-get</code>:
+      <div class='hacker'>sudo add-apt-repository ppa:chris-lea/node.js</div>
+</li>
+<li>Install the <code>node.js</code> package.
+	<div class='hacker'>sudo apt-get install nodejs</div>
+</li>
+</ol>
 
-<h2>Set up Rails application</h2>
+<h2>Install Rails</h2>
 <ol>
 <li>To install Rails, type:
 	<div class='hacker'>gem install rails</div>
@@ -133,16 +137,7 @@
 </li>
 </ol>
 
-<h2>Install the JavaScript Runtime</h2>
-			<p>There are a few Rails features like the <strong>Asset Pipeline</strong>, that requires a Javascript runtime to execute. JavaScript runtime can be installed in a couple of ways. In this article, we will use <code>nodejs</code> from Debian package system.</p>
-<ol>
-<li>Add the <code>node.js</code> PPA to <code>apt-get</code>:
-      <div class='hacker'>sudo add-apt-repository ppa:chris-lea/node.js</div>
-</li>
-<li>Install the <code>node.js</code> package.
-	<div class='hacker'>sudo apt-get install nodejs</div>
-</li>
-</ol>
+
 
 <h2>Next steps</h2>
   <p>In this article, you reviewed the steps involved in installing rbenv, Ruby, Ruby Gems, and finally Rails in Ubuntu. For supported enterprise level application, you can also <a href="17952 - Scale Ruby on Rails Applications Across Multiple Servers - Debian, Ubuntu">scale Ruby on Rails application across multiple servers</a>.</p>

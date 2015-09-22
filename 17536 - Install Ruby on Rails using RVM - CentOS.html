@@ -112,17 +112,17 @@ Before you install Ruby on Rails, prepare your system with the required system s
 <ol> 		
       <li>Install the RVM dependencies using the following commands:
 		<div class='hacker'>sudo curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -</div>
-		<div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable</div>
+		
       </li>   
 
 	  <li>If your system doesn't have RVM already installed, type the following command to install RVM:
-          <div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable --ruby</div>
-      <p>The <code>--ruby</code> flag will install the latest version of Ruby.</p>
+         <div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable</div>
+    
 	  </li>
 	    
          
         <li>To apply RVM, execute the following command:
-           <div class='hacker'>source /home/<em><u>UserName</u></em>/.rvm/scripts/rvm</div>
+          <div class="hacker">source ~/.rvm/scripts/rvm</div>
             
 			     If your system already has RVM installed, then update it.
 			    <div class='hacker'>rvm get stable --autolibs=enable</div>
@@ -179,7 +179,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
       </li> 
 	 <li>You can bind your Rails application using the following command:
           <div class='hacker'>rails server --binding=<em><u>your public IP</u></em></div>
-		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_IP_or_domain</em></u>:3000</strong>. <em>3000</em>. is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
+		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_ip_of your server_or_domain_name</em></u>:3000</strong>. <em>3000</em>. is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
       </li> 
 	  
     </ol>

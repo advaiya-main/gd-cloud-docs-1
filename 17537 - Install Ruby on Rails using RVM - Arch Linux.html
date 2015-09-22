@@ -107,13 +107,15 @@ Before you install Ruby on Rails, prepare your system with the required system s
 			<div class='hacker'>gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3</div>
 		</li>
 		
-        <li>If your system doesn't have RVM already installed, install RVM:
-            <div class='hacker'>sudo curl -L get.rvm.io | bash -s stable </div>
-        </li>
-		<li>After you have run the above command, there is one more dependency that needs to be fixed, so type the following command:
-            <div class='hacker'>sudo curl -sSL https://rvm.io/mpapis.asc | gpg2 --import - </div>
-			 <div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable </div>
-        </li>
+       <li>Install the RVM dependencies using the following commands:
+		<div class='hacker'>sudo curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -</div>
+		
+      </li>   
+
+	  <li>If your system doesn't have RVM already installed, type the following command to install RVM:
+         <div class='hacker'>sudo curl -L https://get.rvm.io | bash -s stable</div>
+    
+	  </li>
 		
         <li>Open <code>.bashrc</code> file.
             <div class='hacker'>sudo vim .bashrc</div>
@@ -162,12 +164,13 @@ Before you install Ruby on Rails, prepare your system with the required system s
 		  <div class='hacker'>sudo chmod -R 777 /usr/local/src/<em><u>rail_project_directory</u></em></div>
 		  <div class='hacker'>rails new <em><u>your_application</u></em></div>
 		  <div class='hacker'>cd <em><u>your_application</u></em></div>
+		  <div class ="hacker">bundle install </div>
 		   <div class='hacker'>rails server</div>
 		   <p>Now, your Rails server should be running. Press <strong>CTRL+C</strong> to terminate the process.</p>
       </li> 
 	 <li>You can bind your Rails application using the following command:
           <div class='hacker'>rails server --binding=<em><u>your public IP</u></em></div>
-		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_IP_or_domain</em></u>:3000</strong>. <em>3000</em> is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
+		 <p> Your new application is ready and can be accessed by visiting <strong><u><em>your_public_ip_of your server_or_domain_name</em></u>:3000</strong>. <em>3000</em> is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
       </li> 
 	  
     </ol>

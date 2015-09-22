@@ -6,7 +6,7 @@
 
 
 
-<title>17522-Install Ruby on Rails with rbenv - Arch Linux</title>
+<title>Install Ruby on Rails Using rbenv - Arch Linux </title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -93,7 +93,7 @@ p.note {
 <li>Install rbenv, and check that rbenv is located in <code>.rbenv</code> directory.
     <div class="hacker">cd ~/.rbenv</div>
 
-<div class="hacker"><!--Each command needs to be in its own div. cj -->
+<div class="hacker">
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
 </div>
 <div class="hacker">
@@ -118,14 +118,14 @@ source ~/.bash_profile
 
 <h2>Install Ruby</h2>
 
-<p>Before you start using rbenv, you need to make sure which version of Ruby you want to install.<!--Sept 15: How? cj --> 
-In this article, we are installing the latest version of Ruby.<!--Sept 15: You still haven't explained how the user gets the latest version. 2.2.3 will not always be the latest version. -cj --></p>
+<p>Before you start using rbenv, you need to make sure which version of Ruby you want to install. 
+In this article, we are installing the latest version of Ruby.In this article Ruby <code>2.2.2</code> is used for example.</p>
 <ol>
 <li>Install  Ruby:
-	<div class="hacker">rbenv install -v <em><u>2.2.3</u></em></div>
+	<div class="hacker">rbenv install  <em><u>latest_version of Ruby</u></em> -k</div>
 </li>
 <li>Set the default version of Ruby that all of your shells will use.
-	<div class="hacker">rbenv global <em><u>2.2.3</u></em></div></li>
+	  <div class='hacker'>rbenv global <em><u>latest_version of Ruby</u></em></div></li>
 <li>Display  which version of Ruby was installed.
 	<div class="hacker">ruby -v</div>
 </li>    
@@ -133,13 +133,19 @@ In this article, we are installing the latest version of Ruby.<!--Sept 15: You s
     
 <h2>Install RubyGems</h2>
 <ol>
-<li>Disable document installation. (By default, when you install gems<!--Is "gems" the same thing as "RubyGems"? RubyGems isn't mentioned anywhere in this section except the header. Confusing. cj --><!--Explained in line no 131--><!--Sept 15: Not true. Rubygems still is not mentioned anywhere but the header. cj -->, documentation files are also installed. But this takes time, so let's stop the document installation.)
+<li>Disable document installation. (By default, when you install gems, documentation files are also installed. But this takes time, so let's stop the document installation.)
     <div class="hacker">echo "gem: --no-document" > ~/.gemrc</div>
 </li>
 <li>Install the bundler gem. The bundler gem is an essential tool for managing gems when developing and running Rails applications.
   <div class="hacker">gem install bundler</div>
 </li>    
 </ol>
+<h2>Install JavaScript runtime</h2>
+<p>A few Rails features, such as Asset Pipeline, depend on a JavaScript runtime.</p>
+<ul>
+  <li>Install the <code>Node.js</code> package.
+    <div class="hacker">sudo pacman -S nodejs npm</div></li>
+</ul>
 
 <h2>Set up Rails</h2>
 <ol>
@@ -156,16 +162,10 @@ In this article, we are installing the latest version of Ruby.<!--Sept 15: You s
 </li>       
 </ol>
 
-<h2>Install JavaScript runtime</h2>
-<p>A few Rails features, such as Asset Pipeline, depend on a JavaScript runtime.</p>
-<ul>
-  <li>Install the <code>Node.js</code> package.
-    <div class="hacker">sudo pacman -S nodejs npm</div></li>
-</ul>
 
 
-<h2>Conclusion</h2>
-<p>In this article, you learned the steps involved in installing <code>rbenv</code>, Ruby, RubyGems, and finally Rails on Arch Linux.<!--Sept 15: You still haven't explained what the user might want to do next. cj--> </p>
+<h2>Next steps</h2>
+    <p>In this article, you reviewed the steps to install rbenv, Ruby, RubyGems, and finally Rails in Arch Linux . For supported enterprise level application, you can also <a href="17954 - Scale Ruby on Rails Applications Across Multiple Servers - CentOS, Fedora">scale Ruby on Rails application across multiple servers</a>.</p>
 
 </body>
 </html>

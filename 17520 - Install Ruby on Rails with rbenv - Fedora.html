@@ -110,11 +110,11 @@ p.note {
 	
 <ol>
 			<li>Check the latest version of Ruby using the following command.<div class="hacker">rbenv install --list</div><p class="note">Above command will display the list in unsorted format.</p></li>
-			 <li>Install the Ruby using the following command. In this article Ruby <code>2.2.3</code> is used for example.
-			   <div class='hacker'>rbenv install -v <em><u>2.2.3</u></em></div>
+			 <li>Install the Ruby using the following command. In this article Ruby <code>2.2.2</code> is used for example.
+	<div class='hacker'>rbenv install <em><u>latest_version of Ruby</u></em> -k</div>
 			 </li>
 			 <li>Set the default version of Ruby to be used by all the shells.
-			   <div class='hacker'>rbenv global <em><u>2.2.3</u></em></div>
+			   <div class='hacker'>rbenv global <em><u>latest_version of Ruby</u></em></div>
 			 </li>
 			 <li>Display the version of Ruby that was installed.
 			   <div class='hacker'>ruby -v</div>
@@ -131,6 +131,18 @@ p.note {
                <div class='hacker'>gem install bundler</div>
 				</li>
 			 </ol>
+			 <h2>Install JavaScript runtime</h2>
+		    <p>
+			A few Rails features  require a JavaScript runtime to execute. The JavaScript runtime can be installed in a couple of ways. We'll use <code>nodejs</code>.</p>
+<ol>
+			 <li>Add Fedora's Extra Packages for Enterprise Linux (EPEL) yum repository. This addition lets you install software packages that are not included in the official Fedora or Red Hat Enterprise Linux (RHEL) repositories.
+			   <div class='hacker'>sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm</div>
+				<div class ="hacker">sudo rpm -ivh epel-release-7-5.noarch.rpm</div>
+			</li>
+			  <li> Install the Node.js package.
+			    <div class='hacker'>sudo yum install nodejs</div>
+			 </li>
+			  </ol>	
 <h2>Set up Rails</h2>
 		
              <ol>
@@ -148,17 +160,7 @@ p.note {
 			 </ol>	 
 			 
 			 
-			<h2>Install JavaScript runtime</h2>
-		    <p>
-			A few Rails features  require a JavaScript runtime to execute. The JavaScript runtime can be installed in a couple of ways. We'll use <code>nodejs</code>.</p>
-<ol>
-			 <li>Add Fedora's Extra Packages for Enterprise Linux (EPEL) yum repository. This addition lets you install software packages that are not included in the official Fedora or Red Hat Enterprise Linux (RHEL) repositories.
-			   <div class='hacker'>sudo yum -y install epel-release</div>
-			 </li>
-			  <li> Install the Node.js package.
-			    <div class='hacker'>sudo yum install nodejs</div>
-			 </li>
-			  </ol>	
+			
             
     <h2>Next steps</h2>
     <p>In this article, you reviewed the steps to install rbenv, Ruby, RubyGems, and finally Rails in Fedora. For supported enterprise level application, you can also <a href="17953 - Scale Ruby on Rails Applications Across Multiple Servers - CentOS, Fedora">scale Ruby on Rails application across multiple servers</a>.</p>
