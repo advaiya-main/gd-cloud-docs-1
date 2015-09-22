@@ -106,8 +106,13 @@ p.note {
                
    <h2>Define the realm</h2>
    <ol>
-   <li>Navigate to the <code>nginx.conf</code> file.
-      <div class="hacker">cd /etc/nginx</div></li>
+             <li>   Navigate to the Nginx configuration file, <code>nginx.conf</code>. The location depends on your <span class="hacker"> version of Linux.</span>
+      <div class="hacker">cd /etc/nginx</div>or
+       <div class="hacker">cd /etc/nginx/sites-available</div> 
+    </li>
+ <li>   If the above locations don&#39;t work, you can find it by using the find command:
+      <div class="hacker">find / -name nginx.conf</div> 
+    </li>
   
    <li>Open the <code>nginx.conf</code> file for editing, and find the <code>location context</code> of the default server block. It should look something like this:
        <div class="hacker">           location / {
