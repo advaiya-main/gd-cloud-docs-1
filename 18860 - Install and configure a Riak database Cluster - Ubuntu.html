@@ -68,74 +68,67 @@ p.note {
 </head>
 
 <body>
+<p>Install and configure a Riak database cluster on Ubuntu, Clustering</p>
     <h1>Install and configure a Riak database cluster - Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>15 minutes</em></p>
 
-    <p>In this article, you will learn how to install Riak database cluster on an Ubuntu Droplets. Riak is a distributed database system which is designed for high availability of data.</p>
-
-    <p>Ubuntu servers with 4 GB RAM is preferred for better performance. Here you will perform all installations as a root user.</p>
+    <p>In this article, you will learn how to install Riak database cluster on an Ubuntu server. Riak is a distributed database system that is designed for high availability of data. To ensure better performance, Ubuntu servers with at least 4 GB RAM is preferred. In this article, you need to perform all the installations as a <code>sudo</code> user.</p>
     
   <h2>Install Riak</h2>
 <p>Perform the following installation steps on all nodes which are included in this Riak cluster.</p>
 
 <ol> 
-<li>Execute below commands to add Riak repository and key.
+<li>Execute the below commands to add Riak repository and key.
    <div class="hacker">curl -s https://packagecloud.io/install/repositories/basho/riak/script.deb.sh | sudo bash</div>
    </li>
-   <li>Install Riak.
-   <p>Update apt repository and install Riak.</p>
+   <li>Install Riak and update the <code>apt</code> repository.
    <div class="hacker">apt-get update</div>
       <div class="hacker">apt-get install riak</div>
    </li>
    </ol>
    
-   <h2>Configure first node	</h2>
-   <p>Configure first node in Riak cluster with following steps.</p>
+   <h2>Configure the first node	</h2>
+   <p>Configure the first node in Riak cluster with the following steps.</p>
    <ol>
-   <li>Stop Riak service if it was started earlier.
+   <li>Stop the Riak service, if it was started earlier.
    <div class="hacker">riak stop</div>
    </li>
-   <li>Edit <code>Riak </code>configuration file.
-   <p>Find and replace below lines in <code>/etc/riak/riak.conf</code> .</p>
+   <li>Edit the Riak configuration file. To do this, find and replace the below lines in <code>/etc/riak/riak.conf</code> file.
    <div class="hacker">listener.protobuf.internal = <em><u>node_ip_address</u></em>:8087</div>
    <div class="hacker">listener.http.internal = <em><u>node_ ip_address</u></em>:8098</div>
    <div class="hacker">nodename = riak@<em><u>node_ip_address</u></em></div>
    </li>
-   <li>Start Riak service.
-   <p>While starting, configure <code>ulimit</code> to minimum of 65565.</p>
+   <li>Start the Riak service. While starting, configure <code>ulimit</code> to minimum of 65565.
    <div class="hacker">ulimit -u 65565</div>
    <div class="hacker">riak start</div>
   <p>In the same way, you can configure all other nodes which you want to include in the cluster.</p>
   </li>
   </ol>
   
-  <h2>Add second node to cluster</h2>
-  <p>Perform all the steps mentioned above to start Riak in second nodes and on the following nodes which you wish to include in cluster. </p>
+  <h2>Add a second node to the cluster</h2>
+  <p>Perform all the steps mentioned above to start Riak in second nodes and to include these nodes in the cluster. </p>
 <ol> 
-<li>Join to first node.
-<p>Inside second node, execute below command to join to first node.</p>
+<li>Inside the second node, execute the below command to join the first node.
    <div class="hacker">riak-admin cluster join riak@<em><u>first_node_ip</u></em></div>
    </li>
-   <li>Execute below commands to plan and commit the changes:
+   <li>Execute the below commands to plan and commit the changes:
    <div class="hacker">riak-admin cluster plan</div>
    <div class="hacker">riak-admin cluster commit</div>
    </li>
-   <li>View the complete ring-cluster by executing the below command. 
+   <li>View the complete ring-cluster by executing the below command:
    <div class="hacker">riak-admin status | grep ring_members</div>
    </li>
-   <li>Set the <code>ulimit</code> value to persist after reboot.
-   <p>Create file <code>/etc/default/riak </code>and add below line to make <code>ulimit</code> setting permanent.</p>
+   <li>Create a file <code>/etc/default/riak </code>and add the below line to make <code>ulimit</code> setting permanent.
    <div class="hacker">vi /etc/default/riak</div>
-   <div class="hacker">ulimit -n 65536</div>
-   <p>Save and close the file.</p>
-   </li>
-  </ol>
+   <div class="hacker">ulimit -n 65536</div></li>
+   <li>Save and close the file.</li>
+    </ol>
   
   
     <h2>Conclusion</h2>
-    <p>In this article, you have learnt to install multiple nodes, configure them to start Riak and then join them to first node to build a Riak database cluster. </p>
+    <p>In this article, you have learnt to install multiple nodes, configured them to start Riak and then joined them to the first node to build a Riak database cluster. </p>
    
 </body>
 </html>
