@@ -132,15 +132,15 @@ Nginx is used to enable connections from outside on port 80 to connect to the po
 	  <div class='hacker'><pre>
 server {
     listen 0.0.0.0:80;
-    server_name <em><u>http://Your IP Address or domain name</u></em>;
-    access_log <em><u>/var/log/nginx/Your domain name.log</u></em>;
+    server_name http://<em><u>Public IP Address of your server or domain name</u></em>;
+    access_log /var/log/nginx/<em><u>Public IP Address of server or domain name</u></em>.log;
 
     location / {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header HOST $http_host;
         proxy_set_header X-NginX-Proxy true;
 
-        proxy_pass <em><u>http://Your IP Address;</u></em>
+        proxy_pass http://<em><u>Public IP Address of server</u></em>;
         proxy_redirect off;
     }
 }
@@ -157,11 +157,11 @@ server {
       <div class='hacker'>sudo vim /var/www/ghost/config.js</div>
     </li>
 	
-	<li>Put the following code into the Ghost configuration file. The URL can be your domain name (<em><u>http://your-domainname.com</u></em>) or the public IP address of your server.
+	<li>Locate the following code into the Ghost configuration file, and update the highlighted sections. The URL can be your domain name (<em><u>http://your-domainname.com</u></em>) or the public IP address of your server.
 <div class='hacker'>
   <pre>
 	production: {
-        url: 'http://<em><u>Your domain name or IP address</u></em>',
+        url: 'http://<em><u>Public IP address of server or domain name</u></em>',
         mail: {},
         database: {
             client: 'sqlite3',
@@ -172,9 +172,7 @@ server {
         },
 
         server: {
-            // Host to be passed to node's `net.Server#listen()`
-            host: '<em><u>Your IP Address</u></em>',
-            // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
+            host: '<em><u>Public IP address of server</u></em>',
             port: '2368'
         }
     }
@@ -193,6 +191,7 @@ server {
     </li>
 	
 	<li>In your browser, open the page <code><em><u>http://Your domain name or IP Address:2368/</u></em></code>. The Ghost blog should be available via specified URL. <br/>
+	To shut down the blog and return to the command prompt, press <strong>Ctrl+C</strong>.
 	</li>
 </ol>
 
@@ -217,9 +216,8 @@ npm start --production
 end script
 </pre></div>
     </li>
-	
 	<li>Save and exit by pressing the <strong>Esc</strong> key and entering <code>:wq</code></li>
-	<li>Restart the Ghost service to make changes effetice.
+	<li>Restart the Ghost service to make changes effective.
 	<div class ="hacker">sudo service ghost restart</div>
 </li>
 	</ol>
