@@ -215,6 +215,7 @@ If needed, you can look up <a href="http://www.w3schools.com/tags/tag_table.asp"
 	grep -B1 'broken link!' test1.log
 	</div>
 	
+	An example of the output could look like this:
 	<div class="hacker"><pre>
   http://<em><u>your server IP</u></em>/errorlink1:
 	Remote file does not exist -- broken link!!!
@@ -224,7 +225,7 @@ If needed, you can look up <a href="http://www.w3schools.com/tags/tag_table.asp"
 	</pre></div> </li>
   </ol>
 	
-	<h2>Find Referrer pages</h2>
+	<h2>Find referrer pages</h2>
 	
 	<p>Wget shows you the broken links in your pages, but it doesn't let you know to what page they are being referred.</p>
 	
@@ -233,7 +234,7 @@ If needed, you can look up <a href="http://www.w3schools.com/tags/tag_table.asp"
 	<li>On your web server, run the following command:
 	
 	<div class="hacker">
-	sudo grep Wget /var/log/apache2/access.log | grep "HEAD /errorlink1"   
+	sudo grep wget /var/log/apache2/access.log | grep "HEAD /errorlink1"   
 	</div>
 	 </li></ul>
 <p>In this command, the first <code>grep</code> gets the requests performed by wget. The access request contains a <em><u>User Agent</u></em> string which is used by grep to identify the software agent performing the requests.</p>
