@@ -1,79 +1,99 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Install and Configure OSSEC Security Notifications - CentOS, Fedora</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="Content-Style-Type" content="text/css" />
-    <style type="text/css">
-    div.hacker {
-        background-color: #666;
-        border: 1px solid #ccc;
-        color: #fff;
-        font-family: "Lucida Console", "Courier New", Courier, fixed;
-        font-size: 95%;
-        line-height: 160%;
-        margin-bottom: 1.5em;
-        padding: 10px;
-    }
-    
-    p.note {
-        background-color: #ffffe6;
-        border: 1px solid #eee;
-        color: #666;
-        padding: .8em 1.6em;
-        margin: 15px 0;
-    }
-    
-    .warning {
-        border: 1px #d25100 solid;
-        padding: .5em 1em .5em 4em;
-        margin: 10px 20px 15px 20px;
-        background-image: url('@{help-img-path}/img_warning.gif');
-        background-repeat: no-repeat;
-        background-position: left top;
-        background-color: #ededed;
-        -moz-border-radius: 0.8em;
-        -webkit-border-radius: 0.8em;
-        /* -moz-border-bottom-radius: 0;9 */
-        -webkit-border-bottom-radius: 0;
-        padding-top: 14px;
-        padding-bottom: 15px;
-    }
-	.red-text{
-		color:#FF8080;
-	}
-	.command{
-		font-family: 'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace;
-	}
-    </style>
+
+<title>Install and Configure OSSEC Security Notifications - Ubuntu, Debian</title>
+<style type="text/css">
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ArticleKeywords msdt:dt="string">Security, Monitoring</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ossec-security-notifications-on-ubuntu-14-04, https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ossec-security-notifications-on-ubuntu-14-04</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#Debian;#Ubuntu;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">6</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">2</mso:Difficulty>
+<mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
+<mso:ArticleID msdt:dt="string">18476</mso:ArticleID>
+<mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
+<mso:Collapsed msdt:dt="string"></mso:Collapsed>
+<mso:Complexity msdt:dt="string"></mso:Complexity>
+<mso:ArticleStatus msdt:dt="string">Edited and needs revision</mso:ArticleStatus>
+
+
+<mso:Sample msdt:dt="string">z</mso:Sample>
+<mso:DeliveryTarget msdt:dt="string">Phase 2</mso:DeliveryTarget>
+<mso:EditScore msdt:dt="string">C</mso:EditScore>
+<mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
+<mso:AssignedTo1 msdt:dt="string">12</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Tom Taylor</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:HoursDraftingEstimated msdt:dt="string">3.00000000000000</mso:HoursDraftingEstimated>
+<mso:ReviewComments msdt:dt="string">8/20 cj: Please clean up the &quot;Local rules location&quot; section. It is muddy, missing words, and confusing. (Most of the rest of the article has been heavily edited.)</mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:TestComments msdt:dt="string"></mso:TestComments>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Carla  Johnson</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
+<mso:HoursEditingActual msdt:dt="string">3.00000000000000</mso:HoursEditingActual>
+<mso:Week msdt:dt="string">8.00000000000000</mso:Week>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
 </head>
+
 <body>
 	<p>Setting up OSSEC security notifications, Security, Monitoring</p>
-	<h1>Install and Configure OSSEC Security Notifications - CentOS, Fedora</h1>
+	<h1>Install and Configure OSSEC Security Notifications - Debian, Ubuntu </h1>
 	<p><strong>Difficulty: </strong> <em>2</em><br />
 	<strong>Time: </strong> <em>45 Minutes</em></p>
-	<p>OSSEC is an open-source, host-based intrusion detection system. It performs log integrity checking, analysis, rootkit detection, Windows registry monitoring, active response, and time based alerting. It can monitor one or more servers and  be configured to give real time alerts. This article explains installation of OSSEC security notifications on CentOS or Fedora.</p>
+	<p>OSSEC is an open-source, host-based intrusion detection system. It performs log integrity checking, analysis, rootkit detection, Windows registry monitoring, active response, and time based alerting. It can monitor one or more servers and  be configured to give real time alerts. This article explains installation of OSSEC security notifications on  Debian
+or Ubuntu.</p>
 	
 	
-	<p>If you want to send email alerts from a local server, you  need to install Postfix. See <a href="17425 - Install and Configure Postfix - CentOS">Install and Configure Postfix - CentOS</a> or <a href="17427">Install and Configure Postfix - Fedora</a>.</p>
-	<p class="note">
-		You  need access to <code>sudo</code> privileges to complete all steps.
-	</p>
-	<h2>Prepare the system</h2>
+		<p>If you want to send email alerts from a local server, you  need to install Postfix. See <a href="17427">Install and Configure Postfix - Debian</a> or <a href="17423">Install and Configure Postfix - Ubuntu</a>.
+        </p>
+		<p class="note">
+  You  need access to <code>sudo</code> privileges to complete all steps.
+</p>
+
+<h2>Prepare the system</h2>
 	<ol>
 		
-		<li>
-			Update the server.
-		<div class="hacker">sudo yum update</div>
-		</li>
-		<li>
-		Install the packages.
-		<div class="hacker">
-				sudo yum groupinstall 'Development Tools' <br/>
-				sudo yum install inotify-tools tar
-		</div>
-		</li>
+	  <li>
+		Update the server.
+	      <div class="hacker">sudo apt-get update</div></li>
+	   <li>Install the packages.
+	    <div class="hacker">sudo apt-get install build-essential inotify-tools tar</div></li>
 	</ol>
 <h2>Download OSSEC and verify the package</h2>
 	<p>You  need to download the OSSEC tarball and a file with its cryptographic checksum to verify that you are installing valid software. We'll generate a MD5 checksum and SHA1 checksum to compare with those in the checksum file.</p>
@@ -196,7 +216,7 @@
 		
 			<div class="hacker">
 				<pre>
-					- System is Redhat Linux.
+					- System is Debian (Ubuntu or derivative).
 					- Init script modified to start OSSEC HIDS during boot.
 
 					- Configuration finished properly.
@@ -395,8 +415,8 @@ To create custom rules, you can copy and paste rules from the <code>ossec_rules.
 </ol>
 <h2>Alerts for  file changes</h2>
 <p> You'll receive alerts whenever you add, update, or delete any file in the directories monitored by OSSEC. Keep in mind that real-time notifications are  sent only for file modifications and  deletions  and not for the addition of files. Alerts for file addition are sent based on every full system check. The frequency of the full system check is defined in the <code>ossec.conf</code> file.
-</p>	
+</p>
 <h2>Next steps</h2>
-	This article provides  an overview of OSSEC security notifications. You can configure OSSEC  to monitor one or more servers, called agents. See <a href="19003 - Monitor OSSEC Agents Using an OSSEC Server - CentOS, Fedora">Monitor OSSEC Agents Using an OSSEC Server - CentOS, Fedora</a>
-	</body>
+	This article provides  an overview of OSSEC security notifications. You can configure OSSEC  to monitor one or more servers, called agents. See <a href="19002 - Monitor OSSEC Agents Using an OSSEC Server - Ubuntu, Debian">Monitor OSSEC Agents Using an OSSEC Server - Debian, Ubuntu</a>.
+</body>
 </html>
