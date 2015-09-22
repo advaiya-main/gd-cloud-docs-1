@@ -10,7 +10,7 @@
 
 
 <title>Install and secure phpMyAdmin with NGINX - CentOS</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -83,7 +83,7 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
+<p>Provides instructions on installing and securing  phpMyAdmin with NGINX - CentOS.</p>
     <h1>Install and Secure phpMyAdmin with NGINX - CentOS</h1>
         <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
@@ -94,12 +94,12 @@ p.note {
                  <ol>
                <li>Run epel-release to get the phpMyAdmin software<div class="hacker">sudo yum install epel-release</div></li>
      <li>Install phpMyAdmin
-     <div class="hacker">sudo yum install phpmyadmin</div>
-         <li>Link the phpmyadmin installed files to the Nginx document root.       
+     <div class="hacker">sudo yum install phpmyadmin</div> </li>
+         <li>Link the phpmyadmin installed files to the Nginx document root.
               
     <div class="hacker">sudo ln -s /usr/share/phpMyAdmin /usr/share/nginx/html</div>
-                     </li> 
-                     <li>Change the owner of the nginx sessions directory to nginx.       
+                     </li>
+                     <li>Change the owner of the nginx sessions directory to nginx.
               
     <div class="hacker">sudo chown nginx:nginx /var/lib/php/session</div>
                      </li> 
