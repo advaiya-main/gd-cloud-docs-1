@@ -99,12 +99,10 @@ p.note {
     <h3>Grant sudo access to users</h3>
    <p>If you want to grant sudo access (administrative privileges) to your users, you can use the <code>visudo</code> command.</p>
     <div class="hacker">sudo visudo</div>
-    <p>This command allows you to edit the sudoers file. You can now add your user under the user privilege specification just below root. </p>
-    <comment>POOJA - Is this three seperate command?  IE: type # User privilege, press return, and then type the next one? If so, then they need to each have their own div</comment>
-     <div class="hacker"> # User privilege specification <pre>
-    root        ALL=(ALL:ALL) ALL <pre>
-    <em>username </em>      ALL=(ALL:ALL) ALL</div> 
-<p>Replace <code><em><u>username</code></em></u> with the new user you just created.
+    <p>This command allows you to edit the sudoers file. You can now add your user to it. </p>
+     <div class="hacker"><pre># User privilege specification 
+<em>username </em>      ALL=(ALL:ALL) ALL</pre> </div> 
+<p>Replace <code><em><u>username</u></em> </code> with the new user you just created.</p>
     <p class="note">If you are logged in as root, to delete a user record you can use the above command without <code>sudo</code>.</p> 
         
     <h3>Switch users</h3>
