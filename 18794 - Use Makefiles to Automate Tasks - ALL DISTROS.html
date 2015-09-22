@@ -139,11 +139,9 @@
     
     <li>Add the Makefile rules by adding the following to the empty Makefile:
       <pre>
-          backupSite: archive
-            mv coolexample.com-`date +%F`.tar.gz /var/backups
+          backupSite: archive ; mv coolexample.com-`date +%F`.tar.gz /var/backups
 
-          archive:
-            tar -cvzf coolexample.com-`date +%F`.tar.gz /var/www/coolexample.com/public_html
+          archive: ; tar -cvzf coolexample.com-`date +%F`.tar.gz /var/www/coolexample.com/public_html
     </pre>
    The Makefile contents are as follows:
     <ul>
