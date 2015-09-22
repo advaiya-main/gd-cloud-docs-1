@@ -90,7 +90,7 @@ p.note {
 		   <div class='hacker'>cd /tmp</div>
 		 <div class='hacker'>git clone https://github.com/joyent/node.git</div>
 		 </li>
-		 <li>Select the appropriate version from the list of provided version numbers. (In this example, version v0.12.7 is installed.)
+		 <li>Select the appropriate version from the list of provided version numbers. (In this article, version v0.12.7 is installed.)
 		   <div class='hacker'>cd node</div>
 		  <div class='hacker'>git tag</div>
 		  <div class='hacker'>git checkout <em><u>v0.12.7</u></em></div>
@@ -128,7 +128,7 @@ p.note {
 			<div class='hacker'> 
 		 <pre>
 	    production: {
-        url: '<em><u>http://Your IP Address</u></em>',
+        url: 'http://<em><u>Public IP Address of your server</u></em>',
         mail: {},
         database: {
             client: 'sqlite3',
@@ -140,7 +140,7 @@ p.note {
 
         server: {
             // Host to be passed to node's `net.Server#listen()`
-            host: '<em><u>Your IP Address</u></em>',
+            host: '<em><u>Public IP Address of your server</u></em>',
             // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
             port: '2368'
         }
@@ -188,7 +188,7 @@ p.note {
 			 <li>Create a new Ghost configuration file, and open it for editing. 
 			   <div class='hacker'>sudo vim /etc/nginx/nginx.conf</div>
 			 </li>
-			 <li>Update the file with following code: 
+			 <li>Update the file with following code. This is basically the same code, with some of the gzip variable settings uncommented, and the commented section about mail removed altogether.
 			   <div class='hacker'>
 			 <pre>
 user www-data;
@@ -258,12 +258,12 @@ http {
 			 <pre>
 server {
     listen         80;
-    server_name <em><u>Your IP Address;</u></em>
+    server_name <em><u>Public IP Address of your server</u></em>;
     root ~;
     index index.php;
 
-    if ($http_host != "<em><u>Your IP Address</u></em>") {
-         rewrite ^ http://<em><u>Your IP Address or domain name</u></em>$request_uri permanent;
+    if ($http_host != "<em><u>Public IP Address or domain name of your server</u></em>") {
+         rewrite ^ http://<em><u>Public IP Address or domain name of your server</u></em>$request_uri permanent;
     }
 
     location / {
