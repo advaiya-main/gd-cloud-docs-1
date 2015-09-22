@@ -4,13 +4,13 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is __17639 -->
 
 
-<title>Install Node.js on your cloud server - CentOS</title>
-<style>
+
+
+<title>Install and secure phpMyAdmin with Apache - Fedora</title>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -39,112 +39,242 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 ;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2
+;padding: 5px;vertical-align:top;}
+
 </style>
 
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
-<mso:ArticleKeywords msdt:dt="string">Node.js</mso:ArticleKeywords>
-<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-a-centos-7-server, https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-a-centos-7-server</mso:Reference>
-<mso:LinuxDistributions msdt:dt="string">;#CentOS;#</mso:LinuxDistributions>
-<mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
-<mso:RequestNotes msdt:dt="string">Install instructions for each distro for Node.js. Related Link to 'Set up Node.js application for production.' Must include steps for Installing using package manager (yum/apt/pacman), installing using PPA, NVM. NPM is covered in later guides. also refer to https://docs.google.com/document/d/16DDOdLCluRnynR6yDf2S6AevjpTp3LZWjcR0LZZUyVE/edit?usp=sharing - but this needs full rewrite</mso:RequestNotes>
-<mso:Difficulty msdt:dt="string">1</mso:Difficulty>
+<mso:ArticleKeywords msdt:dt="string">Security, Apache, MySQL</mso:ArticleKeywords>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-with-apache-on-a-centos-7-server, https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-with-apache-on-a-centos-7-server</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#Fedora;#</mso:LinuxDistributions>
+<mso:ArticlePriority msdt:dt="string">2</mso:ArticlePriority>
+<mso:RequestNotes msdt:dt="string">Link to LAMP and Initial server setup articles at beginning as prereq. Link at end to Set up SSL certificate with phpMyAdmin</mso:RequestNotes>
+<mso:Difficulty msdt:dt="string">2</mso:Difficulty>
 <mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
-<mso:ArticleID msdt:dt="string">17397</mso:ArticleID>
+<mso:ArticleID msdt:dt="string">17639</mso:ArticleID>
 <mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
 <mso:Collapsed msdt:dt="string"></mso:Collapsed>
 <mso:Complexity msdt:dt="string"></mso:Complexity>
-
-<mso:ArticleStatus msdt:dt="string">Not started</mso:ArticleStatus>
-<mso:HoursDraftingEstimated msdt:dt="string">1.50000000000000</mso:HoursDraftingEstimated>
-<mso:HoursEditingEstimated msdt:dt="string">0.100000000000000</mso:HoursEditingEstimated>
+<mso:ArticleStatus msdt:dt="string">Ready for code validation</mso:ArticleStatus>
+<mso:HoursDraftingEstimated msdt:dt="string">3.00000000000000</mso:HoursDraftingEstimated>
+<mso:HoursEditingEstimated msdt:dt="string">0.250000000000000</mso:HoursEditingEstimated>
 <mso:Sample msdt:dt="string">z</mso:Sample>
-<mso:DeliveryTarget msdt:dt="string"></mso:DeliveryTarget>
+<mso:DeliveryTarget msdt:dt="string">Phase 2</mso:DeliveryTarget>
 <mso:EditScore msdt:dt="string"></mso:EditScore>
 <mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
-
-<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Brian Miller</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
-
-
-<mso:AssignedTo1 msdt:dt="string">19</mso:AssignedTo1>
+<mso:Week msdt:dt="string">8.00000000000000</mso:Week>
+<mso:AssignedTo1 msdt:dt="string">17</mso:AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Pooja Nadubettu</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:ReviewComments msdt:dt="string">PN- Broken sections and fixed image links</mso:ReviewComments>
+<mso:Dependencies msdt:dt="string"></mso:Dependencies>
+<mso:TestComments msdt:dt="string">Passed, would recommend you add this command as point 2
+sudo systemctl start mysqld.service.
+Revise or ignore and move to &quot;Ready for editing&quot; status
+</mso:TestComments>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Crystal Smithwick</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:ReviewedBy msdt:dt="string">42</mso:ReviewedBy>
+<mso:PercentResearch msdt:dt="string">0.980000000000000</mso:PercentResearch>
+<mso:PercentWriting msdt:dt="string">0.0200000000000000</mso:PercentWriting>
+<mso:HoursDraftingActual msdt:dt="string">1.00000000000000</mso:HoursDraftingActual>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Tester msdt:dt="string">Prabhu Mouli</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_Tester>
+<mso:Tester msdt:dt="string">20</mso:Tester>
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
 </head>
-
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
-    
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+<p>This article walks through installing and securing phpMyAdmin on your server.</p>
+    <h1>Install and secure phpMyAdmin with Apache - Fedora</h1>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+    <p>
+        <strong>Difficulty</strong>: <em><u>2</u></em><br />
+        <strong>Time</strong>: <em><u>15 minutes</u></em>
+    </p>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
+    <p>phpMyAdmin is an open source tool that enables users to perform MySQL&trade; database operations like create, delete, or modify MySQL databases or execute SQL statements, by providing a user interface.</p>
 
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
+    <h2>Prerequisites</h2>
+
+<p>Make sure that you have LAMP (Linux&trade;, Apache&trade;, MySQL, and PHP&trade;) installed. In case you haven't, this article explains  <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17342 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 6, Fedora.html">how to install LAMP</a>.</p>
+
+
+    <h2>Install phpMyAdmin</h2>
+    <ol>
+        <li>
+           Make sure that the list of available packages are up-to-date.
+            <div class="hacker">sudo yum update</div>
+        </li>
+
+        <li>
+            Install phpMyAdmin.
+            <div class="hacker">sudo yum install phpmyadmin</div>
+        </li>
+
+        <li>
+            During the installation, an Apache config file was created. We need to make some changes in this file. Open the file.
+            <div class="hacker">sudo vim /etc/httpd/conf.d/phpMyAdmin.conf</div>
+        </li>
+        <li>
+           By default in the <code>IfModule</code> blocks, you will see the IP address <code>127.0.0.1</code>. You will most likely find it in four places. Replace it with the IP address of the computer with which you will access the application.
+             <p class="note">This IP address is NOT the IP address of your server, but that of your work or home computer that you would be using to navigate to the phpMYAdmin application. You can find your IP address by going to <strong>http://<em><u>whatismyipaddress.com/</u></em></strong>.</p>
+            <div class="hacker">
+<pre>
+    &lt;RequireAny>
+       Require ip 127.0.0.1
+       [...]
+       Allow from 127.0.0.1
+       [...]
+       Require ip 127.0.0.1
+       [...]
+       Allow from 127.0.0.1
+       [...]
+</pre>
+            </div>
+            Save and exit the file.
+       </li>
+
+         <li>
+            Restart Apache.
+            <div class="hacker">sudo service httpd restart</div>
+        </li>
+
+        <li>
+         In your browser, navigate to <strong>http://<em><u>your server address or domain name</u></em>/phpmyadmin</strong> to see the web interface. You will see a <strong>Welcome to phpMyAdmin</strong> page.<br />
+          <img src="images/17397/090915/Welcome-to-phpMyAdmin.png"  alt='Welcome to phpMyAdmin'/>
+
+        </li>
+        <li>
+            Log into the user interface using the username <strong>root</strong>, and the MySQL/MariaDB root password. You can also use other valid MySQL/MariaDB users. You will see the phpMyAdmin user interface.<br />
+           <img src="images/17397/090915/phpMyAdmin-user-interface.png" width="480" height="228" alt="" />
+        </li>
+    </ol>
+
+    <h2>Configure phpMyAdmin to be secure</h2>
+    Although your phpMyAdmin interface is up and running, you need to secure it further by adding another layer of authorization to prevent unauthorized users. You will do this in two steps.
+    <ul>
+        <li>
+            Change the default directory.
+        </li>
+        <li>
+            Apache authorization.
+        </li>
+    </ul>
+    <h3>Change the default phpMyAdmin directory.</h3>
+    The default installation of phpMyAdmin creates an alias to <code>/usr/share/phpMyAdmin</code>. You can change the alias on the configuration file from <code>/phpmyadmin</code> to something else, in this case <code>/mysqllogin</code> . This way you  fend off any automated attacks that are likely to go after the default directory on the web server.
+    <ol>
+        <li>
+            Open the configuration file.
+            <div class="hacker">sudo vim /etc/httpd/conf.d/phpMyAdmin.conf </div>
+        </li>
+        <li>
+            Comment out the line(s) that start with <code>Alias</code> and replace with the new alias.
+            <div class="hacker">
+                <pre>
+# Alias /phpmyadmin /usr/share/phpMyAdmin
+# Alias /phpmyadmin /usr/share/phpMyAdmin
+Alias /<em><u>mysqllogin</u></em> /usr/share/phpMyAdmin
+</pre>
+            </div>
+            Save and exit the file.
+        </li>
+        <li>
+            Restart Apache for the change to take effect.
+            <div class="hacker">sudo service httpd restart</div>
+        </li>
+        <li>You will now find the application at <strong>http://<em><u>your server address or domain name</u></em>/<em><u>mysqllogin</u></em></strong> instead of <strong>http://<em><u>your server address or domain name</u></em>/phpmyadmin</strong> </li>
+    </ol>
+    <h3>Apache authorization</h3>
+    We will also add Apache authorization to the <code>phpMyAdmin</code> directory with an .htaccess and .htpasswd file.
+    <ol>
+        <li>
+            To allow the <code>.htaccess file</code> access the <code>phpMyAdmin</code> directory, you need to make some changes in the phpMYAdmin configuration file.
+
+            <div class="hacker">sudo vim /etc/httpd/conf.d/phpMyAdmin.conf </div>
+        </li>
+        <li>
+            Include the <code>AllowOverride All</code> directive inside the <code> &lt;Directory /usr/share/phpmyadmin></code> module of the configuration file.
+            <div class="hacker">
+                <pre>
+&lt;Directory /usr/share/phpMyAdmin>
+[...]
+AllowOverride All
+&lt;IfModule mod_authz_core.c&gt;
+[.....]
+</pre>
+            </div>
+        </li>
+       <li>Save and close the file. </li>
+        <li>Restart Apache for the changes to take effect.
+
+            <div class="hacker">sudo service httpd restart </div>
+        </li>
+    </ol>
+    <h3>Create .htaccess file</h3>
+    <ol>
+        <li>
+            After you enable the <code>.hataccess</code>, it is time to create the actual <code>.htaccess file</code>. This file will be inside the application directory.
+            <div class="hacker">sudo vim /usr/share/phpMyAdmin/.htaccess</div>
+        </li>
+        <li>
+            Enter the following block of text into the file.
+            <div class="hacker">
+                <pre>
+AuthType Basic
+AuthName "Restricted. Only authorized users permitted."
+AuthUserFile /etc/httpd/pass_file
+Require valid-user
+</pre>
+            </div>
+
+            Below is an explanation of what each of these directives mean:
+
+            <table>
+                <tr>
+                    <th>Directive</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td> AuthType Basic</td>
+                    <td>Specifies the kind of authentication that is being implemented. "Basic" implies that it uses a password file to implement the password authentication.</td>
+
+                </tr>
+                <tr>
+                    <td> AuthName</td>
+                    <td>Set it to anything you want. This is the message that is displayed at the password prompt.</td>
+                </tr>
+                <tr><td> AuthUserFile</td><td>The location where you would store the password file.</td> </tr>
+                <tr><td>Require valid-user</td><td>Indicates that only users who are stored in the password file will be granted access to the phpMyAdmin login screen.</td> </tr>
+            </table>
+        </li>
+        <li>Save and close the file.</li>
+    </ol>
+    <h3>Create user</h3>
+    <ol>
+        <li>
+            Create a first user to be stored in the password file.
+            <div class="hacker">sudo htpasswd -c /etc/httpd/pass_file <em><u>newuser1</u></em></div>
+            Set and confirm password.
+        </li>
+        <li>
+            If you want to enter an additional user, you need to do so without the <code>-c</code> flag.
+            <div class="hacker">sudo htpasswd /etc/httpd/pass_file <em><u>newuser2</u></em></div>
+        </li>
+        <li>
+            Restart Apache for the changes to take effect.
+            <div class="hacker">sudo service httpd restart</div>
+        </li>
+        <li>Now, when you navigate to the browser and type <strong>http://<em><u>your server address or domain name</u></em>/<em><u>mysqllogin</u></em></strong>, you will be presented with the username/password prompt. Enter the <em><u>newuser1</u></em> credentials that you included in the <code>htpasswd</code> file.</li>
+    </ol>
     <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
-   
+    You have successfully installed phpMyAdmin and provided additional security to accessing it. Now, you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17649 - Set up SSL Certificate with phpMyAdmin and Apache - Fedora, CentOS.html">set up SSL Certificate with phpMyAdmin</a>.
+
 </body>
 </html>
+
