@@ -4,9 +4,7 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17389-->
 
 
 <title>Install and configure Puppet to manage your server - Fedora</title>
@@ -86,11 +84,12 @@ p.note {
 <li>Open source Puppet</li>
 </ul>
 
-<p>In this article, you will learn to install open source puppet in a Master-Agent server setup. This includes a Puppet Master server which has all the configuration files and Puppet Agent server which will be querying for Master server for updates.</p>
+<p>In this article, you will learn to install open source Puppet in a master-agent server setup. This includes a Puppet master server, which has all the configuration files, and Puppet agent server, which will be querying the master server for updates.</p>
 
 <p>Before you begin, you must have root access to follow this article. In addition, you should have the below mentioned infrastructure ready:</p>
+<!--testing, is this a security issue?-->
 <ul>
-<li>Server with Fedora 20 installed that will act as the Master server.</li>
+<li>Server with Fedora 20 installed that will act as the master server.</li>
 <li>A private network DNS.</li>
 <li>Ensure that the firewall port 8140 is accessible. 
 </li>
@@ -99,37 +98,37 @@ p.note {
 <p>Throughout this article, the below naming conventions will be used:</p>
 
 <ul>
-<li>For puppet master server hostname will be <strong>puppet</strong> and corresponding FQDN will be <strong>puppet.coolexample.com</strong>
+<li>For Puppet master server hostname will be <em><u>puppet</u></em> and corresponding FQDN will be <strong>puppet.<em><u>coolexample</u></em>.com</strong>
+<!--Test.  Because the use of "puppet" as an example name, I can't determine in the code what is a variable and what is the file name.  Please keep a look out for untagged variables-->
 </li>
-<li>For host nodes, it is <strong>host1</strong> and <strong>host2</strong> and its FQDN <strong>host1.coolexample.com</strong> and <strong>host2.coolexample.com</strong>
-</li>
+<li>For host nodes, it is <em><u>host1</u></em> and <em><u>>host2</u></em> and its FQDN <em><u>host1.coolexample.com</u></em> and <em><u>host2.coolexample.com</u></em></li>
 </ul>
 
 
 <h2>Install Network Time Protocol (NTP)</h2>
 
-<p>If time is not properly adjusted, then it can cause errors when puppet master issues agents certificates.</p>
+<p>If time is not properly adjusted, then it can cause errors when the Puppet master issues agents certificates.</p>
 <ol>
-<li>Install the NTP daemon so that time gets automatically updated.
+<li>Install the NTP daemon, so that time is  updated automatically.
 <div class="hacker">sudo yum install ntp </div>
 <div class="hacker">sudo ntpdate pool.ntp.org</div>
 </li>
-<li>Edit <code>ntp.conf</code> file.
+<li>Edit the <code>ntp.conf</code> file.
 <div class="hacker">sudo vi /etc/ntp.conf</div>
 </li>
-<li>Add time servers from the NTP Pool Project page.
-<div class="hacker"><xmp>server 0.centos.pool.ntp.org iburst
+<li>Add time servers from the <strong>NTP Pool Project</strong> page.
+<div class="hacker">&lt;xmp&gt;server 0.centos.pool.ntp.org iburst
 server 1.centos.pool.ntp.org iburst
 server 2.centos.pool.ntp.org iburst
-server 3.centos.pool.ntp.org iburst</xmp></div>
+server 3.centos.pool.ntp.org iburst&lt;/xmp&gt;</div>
 </li>
 
 
 <li>Start the NTP service.
 <div class="hacker">sudo systemctl enable ntpd</div>
 <div class="hacker">sudo systemctl start ntpd</div>
-</li>
-<p>Server will have accurate time now.</p>
+
+<p>Server will have accurate time now.</p> </li>
 </ol>
 
 <h2>Install Puppet master</h2>
@@ -140,20 +139,20 @@ server 3.centos.pool.ntp.org iburst</xmp></div>
 <li>Install the package.
 <div class="hacker">sudo yum install puppet-server</div>
 </li>
-<li>Do not start the puppet service now.</li>
+<li>Do not start the Puppet service now.</li>
 </ol>
 
 <h2>Lock Puppet version</h2>
 
-<p>If the puppet server is updated or changed to another version, then it will stop working. For gaining consistency, you need to maintain a single version in the server. In a puppet infrastructure, if agents have higher version number, then the master will not be able to manage the same.  For this reason, you need to lock the current version.</p>
+<p>If the Puppet server is updated or changed to another version, then it will stop working. For consistency, maintain a single version in the server. In a Puppet infrastructure, if agents have a later version number, then the master cannot manage it.  For this reason, you need to lock the current version.</p>
 <ol>
 <li>View the current version.
 <div class="hacker">puppet help | tail -n 1</div>
 </li>
-<li>Install the package named <code>yum-versionlock</code> to lock the version of puppet. 
+<li>Install the package named <code>yum-versionlock</code> to lock the version of Puppet. 
 <div class="hacker">sudo yum install yum-versionlock</div>
 </li>
-<li>Lock the puppet version.
+<li>Lock the Puppet version.
 <div class="hacker">sudo yum versionlock puppet</div>
 <div class="hacker">sudo yum versionlock puppet-server</div>
 </li>
@@ -161,7 +160,7 @@ server 3.centos.pool.ntp.org iburst</xmp></div>
 	
 <h2>Names and certificates</h2>
 
-<p>Communication between puppet master and agent is being authenticated through SSL Certificates. Follow the below mentioned steps to generate the master SSL certificate:</p>
+<p>Communication between Puppet master and agent is being authenticated through SSL Certificates. Follow these steps to generate the master SSL certificate:</p>
 <ol>
 <li>Delete existing certificates from <code>/var/lib/puppet/ssl</code>.
 <div class="hacker">sudo rm -rf /var/lib/puppet/ssl</div>
@@ -169,39 +168,39 @@ server 3.centos.pool.ntp.org iburst</xmp></div>
 
 <li>Edit <code>/etc/puppet/puppet.conf</code> file, in order to configure the certificate.
 <div class="hacker">sudo vi /etc/puppet/puppet.conf</div>
-</li>
-
-<li>It will look like:
-<div class="hacker"><xmp>[main]
+It will look like this:
+<div class="hacker">&lt;xmp>[main]
     logdir = /var/log/puppet
     rundir = /var/run/puppet
     ssldir = $vardir/ssl
 
 [agent]
     classfile = $vardir/classes.txt
-    localconfig = $vardir/localconfig</xmp></div>
+    localconfig = $vardir/localconfig&lt;/xmp&gt;</div>
 </li>
 
-<li>Add the below lines in this file:
-<div class="hacker"><xmp>[master]
+<li>Add the following lines in this file:
+<div class="hacker">&lt;xmp&gt;[master]
 certname = puppet
-dns_alt_names = puppet,puppet.example.com</xmp></div>
+dns_alt_names = puppet,puppet.example.com&lt;/xmp&gt;</div>
 </li>
 
 <li>Generate a new certificate.
 <div class="hacker">sudo puppet master --verbose --no-daemonize</div>
 </li>
 
-<li>This will generate a new certificate for the puppet master. After running this command, you will see this line, <code>Notice: Starting Puppet master version 3.8.2</code>. This means that execution is completed. Press <code>Ctrl + c</code> to end the process.</li>
+<li>This will generate a new certificate for the Puppet master. After running this command, you will see this line, <code>Notice: Starting Puppet master version <em><u>3.8.2</u></em></code>. This means that execution is completed. 
+</li><li>Press <strong>CTRL + C</strong> to end the process.</li>
 </ol>
 
 <h2>Configure Puppet master</h2>
 <ol>
-<li>Edit configuration file at <code>/etc/puppet/puppet.conf</code> for configuring the Puppet. 
+<li>Edit the configuration file at <code>/etc/puppet/puppet.conf</code> for configuring the Puppet. 
 <div class="hacker">sudo vi /etc/puppet/puppet.conf</div>
 </li>
-<li>Puppet has files called <strong>manifest</strong>, which contains the description about system configuration. Create a default manifest:
+<li>Puppet has a file called <code>manifest</code>, which contains the description about system configuration. Create a default manifest:
 <div class="hacker">sudo touch /etc/puppet/manifests/site.pp</div>
+<!--testing the name in the step is "manifest" and the name in the code is "manifests".  Please verify which one is correct.-->
 </li>
 </ol>
 
@@ -213,18 +212,20 @@ dns_alt_names = puppet,puppet.example.com</xmp></div>
 
 <li>Get the necessary gems.
 <div class="hacker">sudo gem install rack passenger</div>
-<p>Create a swap file if your server doesn't have a swap partition. </p>
+</li>
+<li>
+Create a swap file if your server doesn't have a swap partition.
 <div class="hacker">sudo dd if=/dev/zero of=/swap bs=1M count=1024</div>
 <div class="hacker">sudo mkswap /swap</div>
 <div class="hacker">chmod 0600 /swap</div>
 <div class="hacker">sudo swapon /swap</div>
 </li>
 
-<li>Get the apache-passenger module.
+<li>Get the <code>apache-</code> module.
 <div class="hacker">sudo /usr/local/bin/passenger-install-apache2-module</div>
-<div class="hacker"><xmp>Welcome to the Phusion Passenger Apache 2 module installer, v4.0.48.
+<div class="hacker">&lt;xmp&gt;Welcome to the Phusion Passenger Apache 2 module installer, <em><u>4.0.48</u></em>.
 This installer will guide you through the entire installation process. It 
-shouldn't take more than 3 minutes in total.
+shouldn't take more than three minutes in total.
 
 Here's what you can expect from the installation process:
 1. The Apache 2 module will be installed for you.
@@ -233,28 +234,28 @@ Here's what you can expect from the installation process:
 
 Don't worry if anything goes wrong. This installer will advise you on how to
 solve any problems.
-Press Enter to continue, or Ctrl-C to abort.</xmp></div></li>
+Press <strong>Enter</strong> to continue, or <strong>CTRL+C</strong> to abort.&lt;/xmp&gt;</div></li>
 <li>Press <strong>Enter</strong> and continue.</li>
 
-<li>You will get the below screen. Choose Ruby and continue the installation:
-<div class="hacker"><xmp>Which languages are you interested in?
-Use <space> to select.
+<li>You will get the following screen. Choose <strong>Ruby</strong> and continue the installation:
+<div class="hacker">&lt;xmp&gt;Which languages are you interested in?
+Use &lt;space&gt; to select.
 If the menu doesn't display correctly, press '!'
 -> Ruby
    Python
-   Node.js</xmp></div></li>
+   Node.js&lt;/xmp&gt;</div>
 
-<p>When the installation is successful, it will give the following message:</p>
-<div class="hacker"><xmp>LoadModule passenger_module /usr/local/share/gems/gems/passenger-5.0.16/buildout/apache2/mod_passenger.so
-   <IfModule mod_passenger.c>
+When the installation is successful, you will get the following message:
+<div class="hacker">&lt;xmp>LoadModule passenger_module /usr/local/share/gems/gems/passenger-5.0.16/buildout/apache2/mod_passenger.so
+   &lt;IfModule mod_passenger.c>
      PassengerRoot /usr/local/share/gems/gems/passenger-5.0.16
      PassengerDefaultRuby /usr/bin/ruby
-</IfModule></xmp></div>
+&lt;/IfModule>&lt;/xmp&gt;</div>
 </li>
 
 <li>Press <strong>Enter</strong> to finish the installation procedure.</li>
 
-<li>Move puppet master application into a generic location.
+<li>Move Puppet master application into a generic location.
 
 <div class="hacker">sudo mkdir -p /usr/share/puppet/rack/puppetmasterd</div>
 <div class="hacker">sudo mkdir /usr/share/puppet/rack/puppetmasterd/public /usr/share/puppet/rack/puppetmasterd/tmp</div>
@@ -271,11 +272,11 @@ If the menu doesn't display correctly, press '!'
 
 <div class="hacker">sudo cat /etc/httpd/conf.d/puppetmaster.conf</div>
 
-<div class="hacker"><xmp><IfModule mod_passenger.c>
+<div class="hacker">&lt;xmp>&lt;IfModule mod_passenger.c>
 LoadModule passenger_module /usr/local/share/gems/gems/passenger-5.0.16/buildout/apache2/mod_passenger.so
 PassengerRoot /usr/local/share/gems/gems/passenger-5.0.16
 PassengerDefaultRuby /usr/bin/ruby
-</IfModule>
+&lt;/IfModule>
 
 # you probably want to tune these settings
 PassengerHighPerformance on
@@ -287,7 +288,7 @@ PassengerStatThrottleRate 120
 #RailsAutoDetect Off
 ServerName puppet.example.com
 Listen 8140
-<VirtualHost *:8140>
+&lt;VirtualHost *:8140>
         SSLEngine on
         SSLProtocol             ALL -SSLv2 -SSLv3
         SSLCipherSuite          EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH:+CAMELLIA256:+AES256:+CAMELLIA128:+AES128:+SSLv3:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!IDEA:!ECDSA:kEDH:CAMELLIA256-SHA:AES256-SHA:
@@ -315,13 +316,13 @@ Listen 8140
         RequestHeader set X-Client-Verify %{SSL_CLIENT_VERIFY}e
         DocumentRoot /usr/share/puppet/rack/puppetmasterd/public
         RackBaseURI /
-        <Directory /usr/share/puppet/rack/puppetmasterd/>
+        &lt;Directory /usr/share/puppet/rack/puppetmasterd/>
                 Options None
                 AllowOverride None
                 Order allow,deny
                 allow from all
-        </Directory>
-</VirtualHost></xmp></div>
+        &lt;/Directory>
+&lt;/VirtualHost>&gt;/xmp></div>
 </li>
 
 <li>Make sure the configuration is correct.
@@ -329,11 +330,11 @@ Listen 8140
 <div class="hacker">Syntax OK</div>
 </li>
 
-<li>Disable the Puppet Master, if it is enabled.
-<div class="hacker"><xmp>systemctl list-unit-files | grep puppet
+<li>Disable the Puppet master, if it is enabled.
+<div class="hacker">&lt;xmp>systemctl list-unit-files | grep puppet
 puppet.service                         disabled
 puppetagent.service                    disabled
-puppetmaster.service                   disabled</xmp></div>
+puppetmaster.service                   disabled&lt;/xmp></div>
 </li>
 
 <li>Start the <code>httpd</code> service:
@@ -342,8 +343,8 @@ puppetmaster.service                   disabled</xmp></div>
 </li>
 </ol>
 
-<h2>Install Puppet agent</h2>
-<p>Configure DNS properly and make sure that puppet master and agent resolve properly. Follow the same procedure in all agents.</p>
+<h2>Install the Puppet agent</h2>
+<p>Configure DNS properly and make sure that Puppet master and agent resolve properly. Follow the same procedure in all agents.</p>
 <ol>
 <li>Install <code>PuppetLab</code> yum repository.
 <div class="hacker">sudo rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-fedora-20.noarch.rpm</div>
@@ -352,50 +353,50 @@ puppetmaster.service                   disabled</xmp></div>
 <div class="hacker">sudo yum install puppet</div>
 </li>
 </ol>
-<h3>Lock puppet version</h3>
+<h3>Lock the Puppet version</h3>
 <ol>
 <li>View the current version.
 <div class="hacker">puppet help | tail -n 1</div>
 </li>
 
-<li>Install the package named <code>yum-versionlock</code> to lock the version of the puppet. 
+<li>Install the package named <code>yum-versionlock</code> to lock the version of the Puppet. 
 <div class="hacker">sudo yum install yum-versionlock</div>
 </li>
 
-<li>Lock the puppet version.
+<li>Lock the Puppet version.
 <div class="hacker">sudo yum versionlock puppet</div>
 </li>
-<li>Your puppet version is locked now.</li>
+<li>Your Puppet version is locked now.</li>
 </ol>
 
-<h2>Set up agent</h2>
+<h2>Set up the agent</h2>
 <ol>
 <li>Edit the configuration file.
 <div class="hacker">sudo vi /etc/puppet/puppet.conf</div>
 </li>
 <li>Add the below statement to the section:
-<div class="hacker"><xmp>[agent]
-server = puppet.example.com</xmp></div>
+<div class="hacker">&lt;xmp>[agent]
+server = puppet.example.com&lt;/xmp></div>
 </li>
 <li>Save and exit the file.</li>
 <li>Start the agent.
 
 <div class="hacker">systemctl list-unit-files | grep puppet</div>
 <div class="hacker">sudo puppet resource service puppet ensure=running enable=true</div>
-<div class="hacker"><xmp>systemctl list-unit-files | grep puppet
+<div class="hacker">&lt;xmp>systemctl list-unit-files | grep puppet
 puppet.service                         enabled 
-puppetagent.service                    disabled</xmp></div>
+puppetagent.service                    disabled&gt;/xmp></div>
 </li>
-<li><p>This will configure <strong>host1</strong> server with puppet. Like this you can edit all the host servers to join puppet master server.</p></li>
+<li><p>This step will configure <strong>host1</strong> server with Puppet. You can edit all the host servers to join Puppet master server.</p></li>
 </ol>
  
 <h2>Sign request on master</h2>
 
-<p>As soon as the puppet starts in agent node, it will send a certificate to master server. The master signs this certificate and then it will be able to manage the agent node. Below steps describe the full process:</p>
+<p>As soon as the Puppet starts in agent node, it will send a certificate to the master server. The master signs this certificate, and then it will be able to manage the agent node. The following steps describe the full process:</p>
 
 <h3>List certificates</h3>
 <ol>
-<li>View the unsigned certificate in puppet master by running the following command:
+<li>View the unsigned certificate in Puppet master by running the following command:
 <div class="hacker">sudo puppet cert list</div>
 </li>
 <li>If you have one agent node, then you will have one request. It contains the hostname of the agent node.
@@ -409,10 +410,10 @@ puppetagent.service                    disabled</xmp></div>
 <div class="hacker">sudo puppet cert sign host1.coolexample.com</div>
 </li>
 <li> The output is as follow:
-<div class="hacker"><xmp>Notice: Signed certificate request for host1.example.com
-Notice: Removing file Puppet::SSL::CertificateRequest host1.example.com at '/var/lib/puppet/ssl/ca/requests/host1.example.com.pem'</xmp></div>
+<div class="hacker">&lt;xmp>Notice: Signed certificate request for host1.example.com
+Notice: Removing file Puppet::SSL::CertificateRequest host1.example.com at '/var/lib/puppet/ssl/ca/requests/host1.example.com.pem'&lt;/xmp></div>
 </li>
-<li><p>At this point puppet master server can communicate and control agent nodes which are signed through certificates.</p></li>
+<li><p>At this point Puppet master server can communicate and control agent nodes, which are signed through certificates.</p></li>
 <li>Sign the entire request.
 <div class="hacker">sudo puppet cert sign --all</div>
 </li>
@@ -420,7 +421,7 @@ Notice: Removing file Puppet::SSL::CertificateRequest host1.example.com at '/var
 
 <h3>Revoke certificate</h3>
 <ol>
-<li>Remove or rebuild a host from puppet. Then you need to  revoke the host certificate.
+<li>Remove or rebuild a host from Puppet. Then you need to  revoke the host certificate.
 <div class="hacker">sudo puppet cert clean hostname</div>
 </li>
 <li>View all signed certificate:
@@ -429,16 +430,16 @@ Notice: Removing file Puppet::SSL::CertificateRequest host1.example.com at '/var
 </ol>
 
 <h2>Get started with Puppet</h2>
-<p>All above steps are complete and you have your puppet master-agent infrastructure setup and running. </p>
+<p>All above steps are complete and you have your Puppet master-agent infrastructure setup and running. </p>
 
 
 <h3>Gather facts</h3>
-<p>Puppet has a tool called Facter. Using this tool puppet gathers information about all agent nodes running in infrastructure. By default it gathers all system configuration information.</p>
+<p>Puppet has a tool called Facter. Using this tool, Puppet gathers information about all agent nodes running in infrastructure. By default, it gathers all system configuration information.</p>
 <ul><li>View the list of factors.
 <div class="hacker">facter</div></li></ul>
 
-<h3>Excecute main manifest</h3>
-<p>Puppet agent is configured to periodically check with puppet master. During this time, puppet agent will send facts about itself to master and then it pulls a list of resources from master, which are determined by its main manifest.</p>
+<h3>Execute main manifest</h3>
+<p>Puppet agent is configured to check periodically with Puppet master. During this time, Puppet agent will send facts about itself to master. It pulls a list of resources from master, which are determined by its main manifest.</p>
 
 <h3>Execute agent node</h3>
 <ol>
@@ -449,14 +450,14 @@ Notice: Removing file Puppet::SSL::CertificateRequest host1.example.com at '/var
 </li>
 
 <li>It will show the following details:
-<div class="hacker"><xmp>Info: Retrieving pluginfacts
+<div class="hacker">&lt;xmp>Info: Retrieving pluginfacts
 Info: Retrieving plugin
 Info: Loading facts in /var/lib/puppet/lib/facter/pe_version.rb
 Info: Loading facts in /var/lib/puppet/lib/facter/puppet_vardir.rb
 Info: Loading facts in /var/lib/puppet/lib/facter/root_home.rb
 Info: Loading facts in /var/lib/puppet/lib/facter/facter_dot_d.rb
 Info: Caching catalog for host1.example.com
-Info: Applying configuration version '1407966507'</xmp></div>
+Info: Applying configuration version '1407966507'&lt;/xmp></div>
 </li>
 
 <li>Using this command, you can see the number of manifest that will affect a server or node immediately.</li>
@@ -472,15 +473,15 @@ Info: Applying configuration version '1407966507'</xmp></div>
 <div class="hacker">sudo vi /etc/puppet/manifests/site.pp</div>
 </li>
 <li>Add the following lines:
-<div class="hacker"><xmp>file {'/tmp/<em><u>example-ip</u></em>':                                            
+<div class="hacker">&gt;xmp>file {'/tmp/<em><u>example-ip</u></em>':                                            
   ensure  => present,                                               
   mode    => 0644,                                                  
   content => "Here is my Public IP Address: ${ipaddress_eth0}.\n",  
-}</xmp></div>
+}&lt;/xmp></div>
 </li>
 <li>Save the file and exit.</li>
 <li>Execution of the above line will create a file named <code>/tmp/<em><u>example-ip</u></em></code> and this will contain the public IP address of the node.</li>
-<li>Either you can wait for the agent node to check this change through routine checkups or you can execute manually as:
+<li>Either you can wait for the agent node to check this change through routine checkups, or you can execute it manually.
 <div class="hacker">sudo puppet agent -t </div>
 <p>Or</p>
 <div class="hacker">sudo puppet agent --test</div>
@@ -494,23 +495,23 @@ Info: Applying configuration version '1407966507'</xmp></div>
 </li>
 
 <li>Add the following lines:
-<div class="hacker"><xmp>node 'ns1', 'ns2' {    
+<div class="hacker">&lt;xmp>node 'ns1', 'ns2' {    
   file {'/tmp/dns':    
     ensure => present, 
     mode => 0644,
     content => "Only DNS servers get this file.\n",
   }
 }
-node default {}</xmp></div> 
+node default {}&gt;/xmp></div> 
 </li>   
 
 <li>Save and exit the file.</li>
-<li>Execute the command <code>sudo puppet agent -test</code> or wait for the agent pull from the file <code>/tmp/dns</code>.</li>
+<li>Execute the command <code>sudo puppet agent -test</code>, or wait for the agent pull from the file <code>/tmp/dns</code>.</li>
 </ol>
 
 <h3>Use modules</h3>
 <ol>
-<li>Modules are used to group tasks together. You can get different modules in puppet community. Here you will install <code>puppetlabs-apache</code> module.
+<li>Modules are used to group tasks together. You can get different modules in Puppet community. Here you will install <code>puppetlabs-apache</code> module.
 <div class="hacker">sudo puppet module install puppetlabs-apache</div>
 </li>
 
@@ -519,18 +520,18 @@ node default {}</xmp></div>
 </li>
 
 <li>Add the following lines:
-<div class="hacker"><xmp>node 'host2' {
+<div class="hacker">&lt;xmp>node 'host2' {
   class { 'apache': }             
   apache::vhost { 'example.com':  
     port    => '80',
     docroot => '/var/www/html'
   }
-}</xmp></div>
+}&gt;/xmp></div>
 </li>
 
 <li>Save and exit the file.</li>
 
-<li>Above code will make <strong>host2</strong> to install the Apache package and will make it listening on port 80. To execute manually, run the following command:
+<li>Above code will make <strong>host2</strong> to install the Apache package, and will make it listening on port 80. To execute manually, run the following command:
 <div class="hacker">sudo puppet agent -t </div>
 <p>Or </p>
 <div class="hacker">sudo puppet agent --test</div>
@@ -538,7 +539,7 @@ node default {}</xmp></div>
 </ol>
 
 <h2>Conclusion</h2>
-<p>In this article, you have learnt how to install and configure puppet in an infrastructure. Puppet makes server administrators tasks much easier.</p>
+<p>In this article, you have learned how to install and configure Puppet in an infrastructure. Puppet makes server administrators tasks much easier.</p>
 	
 </body>
 </html>
