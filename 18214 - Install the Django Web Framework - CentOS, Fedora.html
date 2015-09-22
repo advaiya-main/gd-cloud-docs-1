@@ -43,7 +43,7 @@ p.note {
 <body>
             <p>Describe how to install Django Web Framework on Arch Linux.</p>
 <h1>How To Install the Django Web Framework on Arch Linux</h1>
-    
+
                 <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
                 <strong>Time</strong>: <em><u>1.50</u></em></p>
 
@@ -107,9 +107,9 @@ p.note {
                                     cd ~/newproject  </div></li>
 
             <li> Now, create a virtual environment within the project directory by typing:
-                <div class="hacker">virtualenv newenv</div></li>
+                <div class="hacker">virtualenv newenv</div>
 
-                <p class="note">Note: This will install a standalone version of Python, as well as pip, into an isolated directory structure within your project directory. </p>
+                <p class="note">Note: This will install a standalone version of Python, as well as pip, into an isolated directory structure within your project directory. </p>  </li>
             <li> To install packages into the isolated environment, you must activate it by typing:
                 <div class="hacker">source newenv/bin/activate</div></li>
 
@@ -158,7 +158,7 @@ p.note {
                 You can use the django-admin command to create a project:
                 <div class="hacker">django-admin startproject projectname  <br/>
                                     cd projectname</div>
-                This will create a directory called <em><u>projectname</em></u>within your current directory. Within this, a management script will be created and another directory called <em><u>projectname</em></u>will be created with the actual code.
+                This will create a directory called <em><u>projectname</u></em>within your current directory. Within this, a management script will be created and another directory called <em><u>projectname</u></em>will be created with the actual code.
             <p class="note">Note: If you were already in a project directory that you created for use with the virtualenv command, you can tell Django to place the management script and inner directory into the current directory without the extra layer by typing this (notice the ending dot):
                             django-admin startproject projectname.</p> </li>
 
