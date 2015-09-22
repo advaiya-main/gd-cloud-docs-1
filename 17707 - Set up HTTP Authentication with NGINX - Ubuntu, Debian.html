@@ -97,8 +97,12 @@ td:nth-child(1) {font-weight:bold;}
     <li>An authentication scheme defined in the <code>http context</code> will apply to all server blocks.</li>
     <li>A scheme defined at the server level will apply to all locations defined in that server block.</li>  
     </ul>
-    There are two directives associated with http authentication: <code>auth_basic</code> and <code>auth_basic_user_file</code>.
-    The following example defines a realm within a location context. <p />
+    
+    <p>This tutorial will walk you through setting up password authentication with Nginx on an Ubuntu or Debian system.</p>
+
+   <h2>Prerequisites</h2>
+
+   <p>Make sure you have <a href="Articles/17408 - Install NGINX on your server - Debian, Ubuntu">Nginx installed</a>.
 
    <h2>Prepare your environment</h2>
           <ol>
@@ -110,16 +114,20 @@ td:nth-child(1) {font-weight:bold;}
   
   <li>Create a <code>.htpasswd</code> file in <code>/etc/Nginx</code>. 
               <div class="hacker">sudo htpasswd -c /etc/Nginx/.htpasswd testuser</div>
-              <p class="note">The above command opens a tool that will prompt you for a password. Alternatively, you can create your own password file that fits an <a href="http://Nginx.org/en/docs/http/ngx_http_auth_basic_module.html">Nginx-supported format</a>.</p></li>
+              <p class="note">The above command opens a tool that will prompt you for a password. Alternatively, you can create your own password file that fits an <a href="http://nginx.org/en/docs/http/ngx_http_auth_basic_module.html">Nginx-supported format</a>.</p></li>
                </ol>        
                
    <h2>Define the realm</h2>
+   
+    There are two directives associated with http authentication: <code>auth_basic</code> and <code>auth_basic_user_file</code>.
+
+    The following example defines a realm within a location context.
    
    <ol>
    <li>Open your <code>nginx.conf</code> file for editing.
       <div class="hacker">sudo vim /etc/nginx/sites-available/default</div></li>
 
-   <li><p>Find the location context of the default server block and add the <code>auth_basic</code> and <code>auth_basic_user_file</code> directives.</p>
+   <li><p>Find the location context of the default server block and add the <code>auth_basic</code> and <code>auth_basic_user_file</code> directives.</p> 
 
 After your changes, your file may look like this:
   <div class="hacker"><pre>server {
@@ -138,21 +146,27 @@ location / {
  <em><u>auth_basic "your real name";</u></em>
  <em><u>auth_basic_user_file yourpasswordfilename;</u></em> 
 }
+
 ...</pre></div></li>
        
     <p class="note">
          In the example above, if you used the Apache2 utilities, <code>yourpasswordfilename</code> would be <code>/etc/nginx/.htpasswd</code>. </p>
  
+<li>Save and close.</li>
 
 <li>Restart Nginx for your changes to take effect.
   <div class="hacker">sudo service nginx restart</div></li>
 
+</ol>
 
- <h2>Test</h2>
+<h2>Check your password authentication</h2>
+ 
+ <p>You're done! Test your results by browsing to your IP in a web browser.
+ You should be prompted for a username and password.</p>
 
 
 <h2>Next steps</h2>
-    <p>You have just created a scheme for http authentication on your web server. Try moving the <code> auth_basic / authbasic_user_file </code> directives to other contexts to see how this affects your site. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20Nginx%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
+    <p>You have just created a scheme for http authentication on your web server. Try moving the <code>auth_basic / authbasic_user_file </code> directives to other contexts to see how this affects your site. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20Nginx%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
 
    
 </body>
