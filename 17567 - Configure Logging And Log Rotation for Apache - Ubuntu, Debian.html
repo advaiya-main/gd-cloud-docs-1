@@ -9,8 +9,8 @@
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>17567 - Configure Logging And Log Rotation for Apache - Ubuntu, Debian</title>
-<style>
+<title>Configure Logging And Log Rotation for Apache - Ubuntu, Debian</title>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -74,46 +74,61 @@ p.note {
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>30 minutes</em></p>
 
-<h2>Introduction</h2>
-<p>Server administrator can configure Apache web server to give important information about its functions and if there is any issue to be resolved. Apache has highly configurable logging mechanism that can give output messages at different locations. </p>
+<p>The Apache web server can be configured by the server administrator to provide important functional related information and creates a log file whenever there is any issue. Apache has highly configurable logging mechanism that can give output messages at different locations. </p>
 
-<p>In this article, you will learn how to configure logging and log rotation for Apache in Debian and Ubuntu.</p>
+<p>In this article, you will learn to configure logging and log rotation for Apache on Debian and Ubuntu.</p>
 
 <h2>Apache log levels </h2>
-<p>Apache categorizes all the informational messages based on their importance. E.g. emerg  log level is considered as most important message, that contains emergency messages.</p>
-
-<p> Following is the log levels recognized by Apache, from most important to least:</p>
-
-<p>emerg: The system is in an unusable state because of some emergency situation.</p>
-<p>alert: Situation where action is needed.</p>
-<p>crit: Important problems that need to be addressed.</p>
-<p>error: occurrence of an error. </p>
-<p>warn: Not a cause for concern but something but something out of the ordinary happened,</p>
-<p>notice: Something normal, but requires noticing has happened.</p>
-<p>info: An informational message.</p>
-<p>debug: Debugging information to pinpoint where a problem is occurring.</p>
-<p>trace[1-8]: Tracing information of various levels of verbosity that produces a large amount of information.</p>
-
-<p>When a log level is specified, it indicates the least important level to be logged. For instance if warn level is specified, messages tagged with error, crit, alert and emerg will all be logged.</p>
+<p>Apache categorizes all the informational messages based on their importance. Following is the log levels recognized by Apache, from most important to least:</p>
+<table border="1">
+<tr>
+<td><code>emerg</code></td><td>The system is in an unusable state because of some emergency situation.</td>
+</tr>
+<tr>
+<td><code>alert</code></td><td>Situation where action is needed.</td>
+</tr>
+<tr>
+<td><code>crit</code></td><td>Important problems that need to be addressed.</td>
+</tr>
+<tr>
+<td><code>error</code></td><td>Occurrence of an error.</td>
+</tr>
+<tr>
+<td><code>warn</code></td><td>Not a cause for concern but something out of the ordinary happened.</td>
+</tr>
+<tr>
+<td><code>notice</code></td><td>Something normal, but requires noticing.</td>
+</tr>
+<tr>
+<td><code>info</code></td><td>An informational message.</td>
+</tr>
+<tr>
+<td><code>debug</code></td><td>Debugging information to pinpoint where a problem is occurring.</td>
+</tr>
+<tr>
+<td><code>trace[1-8]</code></td><td>Tracing information of various levels of verbosity that produces large amount of information.</td>
+</tr>
+</table>
 
 <h2>Specify the level of logging</h2>
 <ol>
 <li>Open <code>/etc/apache2/apache2.conf</code> in a text editor.
-<div class="hacker">Sudo vim /etc/apache2/apache2.conf</div>
+<div class="hacker">sudo vim /etc/apache2/apache2.conf</div>
 </li>
-<li>Locate LogLevel.
-<div class="hacker"><xmp>... 
-LogLevel warn
-...</xmp></div>
+<li>Locate <code>LogLevel</code>.
+<div class="hacker">
+... <br />
+LogLevel warn<br />
+...</div>
 <p>By default, Apache is configured to log messages with a priority of warn. You can change it here.</p>
 </li>
-<li>Save and exit the file by pressing <strong>Esc</strong> key, and then typing <code>:wq</code> followed by the Enter key. </li>
+<li>Save and exit the file by pressing <strong>Esc</strong> key, and then typing <strong>:wq</strong> followed by the <strong>Enter</strong> key. </li>
 </ol>
 
 <h2>Configure Apache log locations</h2>
 <p>Apache can be configured to place its logs using server-wide logging specifications. Each separate virtual host can also be configured to log individually. </p>
 
-<h2>Server-Wide logging</h2>
+<h3>Server-wide logging</h3>
 <p>To find out the location of default log information follow these steps.</p>
 <ol>
 <li>Open <code>/etc/apache2/apache2.conf.</code>
@@ -121,90 +136,90 @@ LogLevel warn
 </li>
 <li>Search for the following line.
 <div class="hacker">ErrorLog ${APACHE_LOG_DIR}/error.log</div>
-<p>It is the declaration of the file where apache will store the error messages. It utilizes an environmental variable APACHE_LOG_DIR.</p>
+<p>It is the declaration of the file where Apache will store the error messages. It utilizes an environmental variable <code>APACHE_LOG_DIR</code>.</p>
 </li>
 <li>Exit the file by pressing <strong>Esc</strong> key, and then typing <code>:q</code> followed by the Enter key.</li>
 <li>Find value of <code>APACHE_LOG_DIR</code> by opening <code>/etc/apache2/envvars</code>.
 <div class="hacker">sudo vim /etc/apache2/envvars</div>
 </li>
 <li>Find the following line to get the value of <code>APACHE_LOG_DIR</code>.
-<div class="hacker"><xmp>...
-export APACHE_LOG_DIR=/var/log/apache2$SUFFIX
-...</xmp></div>
+<div class="hacker">
+... <br />
+export APACHE_LOG_DIR=/var/log/apache2$SUFFIX<br />
+...</div>
  
-<p>So by default Apache will log into a file called /var/log/apache2/error.log.</p>
+<p>So by default Apache will log into a file called <code>/var/log/apache2/error.log</code>.</p>
 </li>
 <li>Exit the file by pressing <strong>Esc</strong> key, and then typing <code>:q</code> followed by the Enter key.</li>
 </ol>
 
-<h2>Virtual host logging</h2>
+<h3>Virtual host logging</h3>
 <p>The file <code>/var/log/apache2/access.log</code> is used by the package maintainer to place the directive specifying its use within a virtual host definition.</p>
 <ol>
-<li>Examine default virtual host definition by opening following file.
-	<div class="hacker"><xmp>In ubuntu 	
-	sudo vim /etc/apache2/sites-available/000-default.conf
-and in Debian
-	sudo vim /etc/apache2/sites-available/default</xmp></div>
+<li>Examine the default virtual host definition by opening the following file. <br />
+In Ubuntu: 
+	<div class="hacker">sudo vim /etc/apache2/sites-available/000-default.conf</div>
+and in Debian:
+	<div class="hacker">sudo vim /etc/apache2/sites-available/default</div>
 </li>
-<li>Scroll through the file and find following separate values related to logging.
-<div class="hacker"><xmp>. . .
-ErrorLog ${APACHE_LOG_DIR}/error.log
+<li>Scroll through the file and find the following separate values related to logging.
+<div class="hacker">
+. . . <br />
+ErrorLog ${APACHE_LOG_DIR}/error.log<br />
 
-LogLevel warn
+LogLevel warn<br />
 
-CustomLog ${APACHE_LOG_DIR}/access.log combined
-. . .</xmp.</div>
+CustomLog ${APACHE_LOG_DIR}/access.log combined<br />
+. . .</div>
 </li>
 <li>Save and exit the file by pressing <strong>Esc</strong> key, and then typing <code>:wq</code> followed by the Enter key. </li>
 </ol>
 
 <h2>Define custom log</h2>
 
-<p>In the last section, the line specifying access.log uses a different directive. </p>
-<div class="hacker">	CustomLog ${APACHE_LOG_DIR}/access.log combined</div>
-<p><code>CustomLog</code> is used to specify the access.log location. Combined is label for a custom format and is defined in default configuration file.</p>
+<p>In the last section, the line specifying <code>access.log</code> uses a different directive. <code>CustomLog</code> is used to specify the <code>access.log</code> location. <code>combined</code> is label for a custom format and is defined in the default configuration file.
 
-<p>This directive has the following syntax.</p>
-		<div class="hacker">CustomLog log_location log_format</div>
-<p>Follow these steps to see the definition of combined log format:</p>
+This directive has the following syntax.</p>
+		<div class="hacker">CustomLog <em><u>log_location</u></em> <em><u>log_format</u></em></div>
+<p>Follow these steps to see the definition of <code>combined</code> log format:</p>
 
 <ol>
 <li>Open <code>/etc/apache2/apache2.conf.</code>
 		<div class="hacker">sudo vim /etc/apache2/apache2.conf</div>
 </li>		
-<li>See the following line that defines combined log format. 
+<li>See the following line that defines <code>combined</code> log format. 
 <div class="hacker">LogFormat "%h %l %u %t \"%r\" %>s %O \"{Referer}i\" \"%{User-Agent}i\"" combined</div>
-</li>
-<li><p>The LogFormat command defines a custom format for logs that can be called using the CustomLog directive.</p> </li>
 
-<li><p>Exit the file by pressing <strong>Esc</strong> key, and then typing <code>:q</code> followed by the Enter key.</p> </li>
+<p>The <code>LogFormat</code> command defines a custom format for logs that can be called using the <code>CustomLog</code> directive.</p></li>
+
+<li>Exit the file by pressing <strong>Esc</strong> key, and then typing <code>:q</code> followed by the Enter key.</li>
 </ol>
 
 <h2>Rotate Apache logs</h2>
 <p>Rotation of logs is required because Apache logs a large amount of information. Logs rotation can be just switching out the logs on growing up to a certain limit or to store logs for reference at a later date.</p>
 
-<h2>Manually rotate logs</h2>
+<h3>Manually rotate logs</h3>
 <ul>
-<li>Use following command to manually rotate logs:
-<div class="hacker">sudo mv error_log error_log.old</div>
+<li>Use the following command to manually rotate logs:
+<div class="hacker">sudo mv <em><u>error_log</u></em> <em><u>error_log.old</u></em></div>
 <div class="hacker">sudo apachectl graceful</div>
-<div class="hacker">sleep 600</div>
+<div class="hacker">sleep <em><u>600</u></em></div>
 <p>This command will move the files, reload the file and then wait for 600 seconds.</p>
 </li>
 </ul>
 
-<h2>Rotate logs using Logrotate </h2>
-<p>Ubuntu configures its own log rotation plan by default with logrotate.</p>
+<h3>Rotate logs using Logrotate </h3>
+<p>Ubuntu configures its own log rotation plan by default with <code>logrotate</code>.</p>
 <ol>
 <li>Open <code>/etc/logrotate.d/apache2</code>.
 <div class="hacker">sudo vim /etc/logrotate.d/apache2</div>
 </li>
-<li>Change the directory in first line if in Apache configuration you have chosen a different directory for your logs. Logrote will only operate on this directory.
+<li>Change the directory in first line if in Apache configuration you have chosen a different directory for your logs. <code>logrotate</code> will only operate in this directory.
 <div class="hacker">/var/log/apache2/*.log {</div>
 </li>
 <li>Change the rotation schedule and the time for which it should be saved. By default it is 52 weeks.
 
-<div class="hacker"><xmp>/var/log/apache2/*.log {
+<div class="hacker"><pre>/var/log/apache2/*.log {
         weekly
         missingok
         rotate 52
@@ -221,24 +236,24 @@ CustomLog ${APACHE_LOG_DIR}/access.log combined
                         run-parts /etc/logrotate.d/httpd-prerotate; \
                 fi; \
         endscript
-}</xmp></div>
+}</pre></div>
 
-<p>Apache is reloaded after the operation.</p>
+<p>Apache is reloaded after this operation.</p>
 </li>
 </ol>
 
 <h2>Log with pipes</h2>
 <p>You can allow a separate logging program to handle the logs by using pipes instead of files.</p>
-<ul>
+<ol>
 <li>Change the custom log definition as shown to let access log be handled by a logging program that accept standard input.
-<div class="hacker">CustomLog "| logging_program logging_program_parameters" combined</div>
-	<p>Multiple programs can be configured to rotate logs. Use following syntax to configure rotatelogs which is included in Apache. </p>
-<div class="hacker">CustomLog "| path_to_rotate_log path_of_log_to_rotate time_in_seconds_between_rotations" log_level</div>
+<div class="hacker">CustomLog "| <em><u>logging_program</u></em> <em><u>logging_program_parameters"</u></em> combined</div></li>
+<li>Multiple programs can be configured to rotate logs. Use the following syntax to configure rotate logs included in Apache.
+<div class="hacker">CustomLog "| <em><u>path_to_rotate_log</u></em> <em><u>path_of_log_to_rotate</u></em> <em><u>time_in_seconds_between_rotations"</u></em> <em><u>log_level</u></em></div>
 </li>
-</ul>
+</ol>
 
 <h2>Conclusion</h2>
-<p>In this article, you have learnt to configure logging and log rotation in Debian and Ubuntu. It is important to log everything that is necessary to troubleshoot your problems and also to have a good log rotation mechanism so that files don’t grow too large.</p>
+<p>In this article, you have learnt to configure logging and log rotation on Debian and Ubuntu. It is important to log everything that is necessary to troubleshoot your problems and also to have a good log rotation mechanism so that the files do not grow too large.</p>
    
 </body>
 </html>
