@@ -134,13 +134,13 @@ p.note {
         <br />
         <em><u>auth_basic_user_file yourpasswordfilename;</u></em>
     }</div></li>
-
+<li>Restart Nginx.</li>
  </ol>           
     <p class="note">
          In the example above, if you used the Apache2 utilities, <code>yourpasswordfilename</code> would be <code>/etc/nginx/.htpasswd</code>. </p>
          
 <h2>Next steps</h2>
-    <p>You have just created a scheme for http authentication on your web server. Try moving the <code> auth_basic / authbasic_user_file </code> directives to other contexts to see how this affects your site. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20NGINX%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
+    <p>You have just created a scheme for http authentication on your web server. Try moving the <code> auth_basic / authbasic_user_file </code> directives to other contexts and navigating to your site(s) to verify you are challenged for a user and password. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20NGINX%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
 
    
 </body>
