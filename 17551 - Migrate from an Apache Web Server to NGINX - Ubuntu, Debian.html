@@ -10,7 +10,7 @@
 
 
 <title>Migrate from an Apache Web Server to NGINX - Ubuntu, Debian</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -175,84 +175,64 @@ p.note {
      
         <li>Open <code>/etc/nginx/sites-available/default</code> for editing. 
          <p>The server context will look something like this:</p>
-         <div class="hacker">server {
+         <div class="hacker">
+<pre>server {
+    listen 80;
+    root /usr/share/nginx/html;
+    index  index.html index.htm;
+    server_name localhost;</pre> </div></li>
+            <li>Since Apache is using port 80, for now we will configure using port 81.&nbsp; Edit the <code>index</code> and <code>server_name</code> parameters to look like this:
+                      <div class="hacker">
+<pre>server {
+    listen 81;
+    root /usr/share/nginx/html;
              <br />
-&nbsp; listen 80; 
-             <br />
-&nbsp; root /usr/share/nginx/html;
-             <br />
-&nbsp; index  index.html index.htm;
-             <br />
-&nbsp; server_name localhost;<br />
-             <br />
-             </div>
-        </li>
-            <li>&nbsp;Since Apache is using port 80, for now we will configure using port 81.&nbsp; Edit the <code>index</code> and <code>server_name</code> parameters to look like this:  
-                      <div class="hacker">server {
-             <br />&nbsp; listen 81; 
-                         <br />
-&nbsp; root /usr/share/nginx/html;
-             <br />
-&nbsp; index  index.php index.html index.htm;
-             <br />
-&nbsp; server_name [yourservername];<br />
-             <br />
-             </div>
-                </li>
-            <li>Edit the deafult <code>location</code> context and error directives to look like this:  
- <div class="hacker">
-     
-&nbsp; location / {
-             <br />
-&nbsp;&nbsp;&nbsp;&nbsp; try_files $uri $uri/ =404;
-             <br />
-&nbsp;&nbsp;&nbsp;&nbsp; }
-             <br />
-&nbsp; error_page 404 /404.html;
-             <br />
-&nbsp; error_page 500 502 503 504 /50x.html;
-             <br />
-&nbsp; location = /50x.html {
-             <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp; }
-             <br />
+    index  index.php index.html index.htm;
+    server_name [yourservername];
+
+             </pre></div></li>
+
+
+
+    <li>Edit the deafult <code>location</code> context and error directives to look like this:
+
+
+<div class="hacker">
+
+<pre>location / {
+    try_files $uri $uri/ =404;
+             }
+    error_page 404 /404.html;
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+
+
+            }</pre>
+
                 </div></li>
 
   <li>If your NGINX package has installed a commented out <code>php location</code> context, you won't have to do much more than remove a few comments.
       If not, you will have to make the edits manually. In either case, edit the location contexts to look like some thing like this:
-      <div class="hacker">&nbsp; location / {
-             <br />
-&nbsp;&nbsp;&nbsp;&nbsp; try_files $uri $uri/ /index.html;
-             <br />
-&nbsp;&nbsp;&nbsp;&nbsp; }
-             <br />
-&nbsp; error_page 404 /404.html;
-             <br />
-&nbsp; error_page 500 502 503 504 /50x.html;
-             <br />
-&nbsp; location = /50x.html {
-             <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-             <br />
-             <br />
-             # pass the PHP scripts to FastCGI server listening on the php-fpm socket
-             <br />
-             <br />
-             location ~ \.php$ {
-             <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try_files $uri =404;
-             <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fastcgi_pass unix:/var/run/php5-fpm.sock;
-             <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fastcgi_index index.php;
-             <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-             <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; include fastcgi_params; 
-      <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp; </div></li> 
-      <li>Save and close.</li>
+      <div class="hacker">
+<pre>  location / {
+       try_files $uri $uri/ /index.html;
+             }
+            error_page 404 /404.html;
+            error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+                     }
+# pass the PHP scripts to FastCGI server listening on the php-fpm socket
+location ~ \.php$ {
+                    try_files $uri =404;
+                    fastcgi_pass unix:/var/run/php5-fpm.sock;
+                    fastcgi_index index.php;
+                    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                    include fastcgi_params;
+                    }</pre></div></li>
+
+<li>Save and close.</li>
+
+
       <li>Run this command to restart PHP:
          <div class="hacker">sudo service php5-fpm restart</div>
      </li>
