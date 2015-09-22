@@ -144,7 +144,7 @@ socket=/var/lib/mysql/mysql.sock <br />
 log-error=/var/log/mysqld.log  <br />
 pid-file=/var/run/mysqld/mysqld.pid   <br />
              <br />
-<span class="auto-style1">bind-address = DBServer_IPAddress </span> <br />
+bind-address = DBServer_IPAddress  <br />
   <br />
 [mysqld_safe] <br />
                     <br />
@@ -196,10 +196,10 @@ GRANT ALL PRIVILEGES ON MyDB.* TO 'localuser'@'localhost';</div>
  </li> 
  <li>Create a remote user by entering the following at the <code>mysql></code>prompt:
     <div class="hacker">
-CREATE USER 'remoteuser'@&#39;<span class="auto-style2">Client IP Address</span>&#39; IDENTIFIED BY 'password';</div>
+CREATE USER 'remoteuser'@&#39;Client IP Address&#39; IDENTIFIED BY 'password';</div>
  </li> 
  <li>Grant privileges to remoteuser by entering the following at the <code>mysql></code>prompt:
-    <div class="hacker">GRANT ALL PRIVILEGES ON MyDB.* TO 'remoteuser'@'<span class="auto-style2">Client IP Address</span>';</div>
+    <div class="hacker">GRANT ALL PRIVILEGES ON MyDB.* TO 'remoteuser'@'Client IP Address';</div>
  </li> 
 
  <li>Write these changes to disk:
@@ -222,15 +222,15 @@ CREATE USER 'remoteuser'@&#39;<span class="auto-style2">Client IP Address</span>
  <h2>Verify Connectivity</h2>
  <ol>
  <li>Open a session on your client machine, DBclient, and enter:
- <div class="hacker">mysql -u remoteuser -h <span class="auto-style1">DBServer_IPAddress </span> -p</div></li>
+ <div class="hacker">mysql -u remoteuser -h DBServer_IPAddress  -p</div></li>
 <li>You will be prompted for your password.&nbsp; After entering it you will see a mysql prompt:
 <div class="hacker">mysql>  </div>
 <p>You have verified remote connectivity.</p>
   </li> 
 <li>Open a new session on your client machine, DBclient, and enter:
- <div class="hacker">mysql -u localuser -h <span class="auto-style1">DBServer_IPAddress </span> -p</div></li>
+ <div class="hacker">mysql -u localuser -h DBServer_IPAddress  -p</div></li>
      <li>You will be prompted for your password.&nbsp; After entering it you will see an error message indicating Access denied.
-<div class="hacker">ERROR 1045 (28000): Access denied for user 'localuser'@'ip-<span class="auto-style3">Client IP Address</span>.ip.secureserver.net' (using password: YES)
+<div class="hacker">ERROR 1045 (28000): Access denied for user 'localuser'@'ip-Client IP Address.ip.secureserver.net' (using password: YES)
   </div>
 <p>You have verified denail of access to a non-remote user.</p>
   </li> 
@@ -246,7 +246,7 @@ CREATE USER 'remoteuser'@&#39;<span class="auto-style2">Client IP Address</span>
   <h2>  Connecting your application</h2>
 <p>There are probably hundreds, if not thousands, of applications in the Linux universe that connect to a database server. Providing guidance for each of them is well beyond the scope of this article. However, since you have been running your application(s) on a LAMP or LEMP stack, your application(s) will have a configuration file reference to your database hostname that point to StackServer, StackServer&#39;s IP address, or &quot;localhost.&quot; The restored database on DBServer will be identical to the one on your StackServer so the database name, user and password configuration will not change. Change the database hostname directive in your application to point at
 
-<span class="auto-style1">DBServer_IPAddress </span>&nbsp;or <strong><em>DBServer&#39;s fully qualified domain name (FQDN) </em></strong>depending on how your application supports database hostnames.
+DBServer_IPAddress &nbsp;or <strong><em>DBServer&#39;s fully qualified domain name (FQDN) </em></strong>depending on how your application supports database hostnames.
  </p>       
      <h2>Next steps</h2>
     <p>You have moved your database to a remote server and provided for both local and remote access to it.&nbsp; 
