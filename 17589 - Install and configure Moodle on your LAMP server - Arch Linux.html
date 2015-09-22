@@ -4,9 +4,7 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17589-->
 
 
 <title>Install and configure Moodle on your LAMP server - Arch Linux</title>
@@ -74,16 +72,13 @@ p.note {
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>Moodle is an acronym for Modular Object Oriented Dynamic Learning Environment. It is an open source Course Management System, that enables the creation of online learning site. Moodle has default features as easy to use interface, personalized dashboard, track progress and many others. In administration, Moodle offers the facility of customizable site design and layout, secure authentication and mass enrolment, bulk course creation and easy backup.</p>
+    <p>Moodle is an acronym for Modular Object Oriented Dynamic Learning Environment. It is an open-source Course Management System that enables the creation of an online learning site. Moodle has default features such as an easy to use interface, a personalized dashboard, progress tracking, and many others. In administration, Moodle offers customizable site design and layout, secure authentication, mass enrollment, bulk course creation, and easy backup.</p>
 
-    <p>It is assumed that you have sudo priviliges to perform the below mentioned steps. In addition, you need to install and configure LAMP for Arch Linux. Please refer the below links:</p>
-	 <ul>
-	<li><a href="17345">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a></li>
-		</ul> 
+    <p>It is assumed that you have sudo privileges to perform the following steps. In addition, you need to install and configure LAMP for Arch Linux. If needed, refer to the article: <a href="17345">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a></p> 
 	
-	<h2>Install the required dependency</h2>
+	<h2>Install the required dependencies</h2>
 <ol> 
-<li>Install curl and GD extensions for moodle use:
+<li>Install curl and GD extensions for Moodle use.
    <div class="hacker">sudo pacman –S php-gd </div>
    </li>
    <li>Open <code>/etc/php/php.ini</code> and uncomment the following lines in the configuration file:
@@ -103,7 +98,7 @@ extension=zip.so
 </pre>
    </div>
    </li>
-   <li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+   <li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <strong>:wq</strong>, and then pressing the <strong>Enter</strong> key.
    </li>
    <li>Restart the Apache services to make the changes effective.
    <div class="hacker">sudo systemctl restart httpd</div>
@@ -112,23 +107,22 @@ extension=zip.so
   
   <h2>Basic configuration</h2>
 <ol> 
-<li>Download the Moodle source from the official site, using the following command: 
+<li>Download the Moodle source from the official site.
    <div class="hacker">cd /srv/http </div>
-   <div class="hacker">sudo wget <em><u>http://download.moodle.org/download.php/direct/stable25/moodle-latest-25.tgz</u></em></div>
+   <div class="hacker">sudo wget http://download.moodle.org/download.php/direct/<em><u>stable25/moodle-latest-25.tgz</u></em></div>
    </li>
-   <li>Extract the downloaded source using the following command:
-   <div class="hacker">sudo tar xzvf moodle-latest-25.tgz</div>
+   <li>Extract the downloaded source.
+   <div class="hacker">sudo tar xzvf<em><u> moodle-latest-25.tgz</u></em></div>
+   You will find the new directory added in the folder named <code>moodle</code>.
    </li>
-   <li>You will find the new directory added in the folder named <code>moodle</code>.
-   </li>
-   <li>To secure moodle from outside writable permission, change the owner to root and the change permissions.
+   <li>To secure Moodle from being accessed with outside writable permission, change the owner to <code>root</code>, and then change permissions.
    <div class="hacker">sudo chown -R root moodle</div>
     <div class="hacker">sudo chmod -R 0755 moodle</div>
    </li>
-   <li>Moodle needs a folder for its temporary operations, and it shouldn’t be accessed from web so put it outside of server web root. To create it in home directory, use the following command:
+   <li>Moodle needs a folder for its temporary operations. It shouldn’t be accessed from the web, so move the folder outside of the server web root. To create it in the home directory, use the following command:
    <div class="hacker">sudo mkdir <em><u>/moodledata</u></em></div>
    </li>
-   <li>And make it writeable by the machine:
+   <li>Make it writeable by the machine.
    <div class="hacker">sudo chmod 0777 <em><u>/moodledata</u></em></div>
    </li>
   </ol>
@@ -139,48 +133,48 @@ extension=zip.so
   <div class="hacker">mysql –u root –p</div>
   <div class="hacker">CREATE DATABASE <em><u>moodle</u></em>;</div>
   </li>
-  <li>Exit
+  <li>Exit. <!--tester, how to exit?-->
   </li>
   </ol>
   
   <h2>Install Moodle</h2>
 <ol> 
-<li>Open the browser type public IP or URL of moodle server as http://<em><u>public_ip</u></em>/moodle.
+<li>Open the browser, type your public IP or URL of moodle server as <strong>http://<em><u>public_ip</u></em>/moodle</strong>.
    </li>
-   <li>After pressing Enter, you will find first step of moodle installation process.
+   <li>After pressing <strong>Enter</strong>, you will find first step of Moodle installation process.
    </li>
-   <li>Choose a language as per your need.
- <br /> <img src="images/17589/091515/Choose-language.png" alt="Choose-language.png"/>
+   <li>Choose a language you want, and then click <strong>Next</strong>.
+ <br /> <img src="images/17589/091515/Choose-language.png" alt="Choose-language page"/>
    </li>
-   <li>Set the <strong>Data directory</strong>, that you have created earlier.
-  <br/><img src="images/17589/091515/data-directory.png" alt="data-directory.png"/>
+   <li>Set the <strong>Data directory</strong>, that you have created earlier, and then click <strong>Next</strong>.
+  <br /><img src="images/17589/091515/data-directory.png" alt="data-directory.png"/>
    </li>
-   <li>Select a <strong>database driver</strong> to connect with the database.
-      <br/><img src="images/17589/091515/Choose-database-driver.png" alt="Choose-database-driver.png"/>
+   <li>Select a <strong>database driver</strong> to connect with the database, and then click <strong>Next</strong>.
+      <br /><img src="images/17589/091515/Choose-database-driver.png" alt="Choose database driver"/>
 	   <p class="note">To avoid errors, use the driver that the database engine has installed.</p>
    </li>
-   <li>Enter the database credentials to connect with the database.
-   <br /> <img src="images/17589/091515/Database-settings.png" alt="Database-settings.png"/>
+   <li>Enter the database credentials to connect with the database, and then click <strong>Next</strong>.
+   <br /> <img src="images/17589/091515/Database-settings.png" alt="Database settings page"/>
    </li>
-   <li>Goto moodle server and create a file <code>config.php</code> and paste the code that you see in your browser.
+   <li>Go to  the Moodle server, and create the <code>config.php</code> file, and paste the code that you see in your browser into the file.
    <div class="hacker">cd /var/www/html/moodle</div>
       <div class="hacker">sudo vim config.php</div>
-	  <p>Copy and paste the raw/text into the file. The browser output will look similar to the below screenshot:</p>
-	   <img src="images/17589/091515/Configuration-completed.png" alt="Configuration-completed.png"/>
+	  <p>Copy and paste the raw/text into the file. The browser output will look similar to the following screenshot:</p>
+	   <img src="images/17589/091515/Configuration-completed.png" alt="Configuration completed page"/>
    </li>
-   <li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+   <li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
    </li>
   </ol>
   
   <h2>Update the site profile</h2>
 <ol> 
-<li>Update the profile for your site, fill the mandatory information fields and submit the profile.
-    <br /><img src="images/17589/091515/Site-profile.png" alt="Site-profile.png"/>
+<li>Update the profile for your site, fill the mandatory information fields, and then click <strong>Update profile</strong>.
+    <br /><img src="images/17589/091515/Site-profile.png" alt="Site profile page"/>
 	</li>
-   <li>After updating the profile, you will be redirected to the site settings. Enter your site name. 
-       <br /> <img src="images/17589/091515/Front-page-settings.png" alt="Front-page-settings.png"/>
+   <li>After updating the profile, you will be redirected to the site settings. Enter your <strong>Full site name</strong>, and then click <strong>Save changes.</strong> 
+       <br /> <img src="images/17589/091515/Front-page-settings.png" alt="Front page settings page"/>
    </li>
-   <li>After saving the changes, you will be redirected to the home page of Moodle where you can manage your courses and site.
+   <li>After saving the changes, you will be redirected to the Moodle home page, where you can manage your courses and site.
    </li>
   </ol>
   
