@@ -4,7 +4,7 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
+<!--Article Number is 17549 (fill in blank)-->
 
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
@@ -82,7 +82,7 @@ p.note {
 <h2>Backup the database</h2>
 <ul>
 <li>Export the database using <code>mysqldump</code> command. 
-<div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p <em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
+<div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
 </li>
 </ul>
 
@@ -104,39 +104,43 @@ p.note {
 <h2>Back up the table to a text file</h2>
 <ol>
 <li>Take the backup into the text file by using the following command:
+<div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
 <div class="hacker">USE <em><u>database_name</u></em>;</div>
 <div class="hacker">SELECT * INTO OUTFILE '<em><u>table_backup_file</u></em>' FROM <em><u>name_of_table</u></em>;</div>
-<p class="note">Use <code>USE</code> command to select or change the database.</p>
+<p class="note">Use <code><strong>USE</strong></code> command to select or change the database.</p>
+<p class="note">To exit from MySQL use<strong>CTRL+C</strong>.</p>
 </li>
 <li>The default location of the file is <code>/var/lib/mysql/<em><u>database_name</u></em>/<em><u>file_name</u></em></code>. Verify the output by using the following command with the <code>sudo</code> user:
-<div class="hacker">sudo ls /var/lib/mysql/<em><u>database_name</u></em></div>
+<div class="hacker">sudo ls -R /var/lib/mysql/<em><u>database_name</u></em></div>
 </li>
 </ol>
 
 <h2>Auto-backup MySQL information</h2>
 <ol>
 <li>To automatically perform data backups at regular intervals, there is a tool in Arch Linux named <code>automybackup</code>. Install <code>automybackup</code> using the following command:
-<div class="hacker">wget http://downloads.sourceforge.net/project/automysqlbackup/AutoMySQLBackup/AutoMySQLBackup%20VER%203.0/automysqlbackup-v3.0_rc6.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fautomysqlbackup%2F%3Fsource%3Dtyp_redirect&amp;ts=1440596561&amp;use_mirror=netassist</div><!--& IS REPLACED WITH &amp; TO VALIDATE IT IN https://validator.w3.org/-->
+<div class="hacker">cd ~ && wget "http://downloads.sourceforge.net/project/automysqlbackup/AutoMySQLBackup/AutoMySQLBackup%20VER%203.0/automysqlbackup-v3.0_rc6.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fautomysqlbackup%2F%3Fsource%3Dtyp_redirect&amp;ts=1440596561&amp;use_mirror=netassist" -O automysqlbackup-v3.0_rc6.tar.gz</div>
 </li>
 <li><p>Rename the downloaded filename if you find the name long.</p></li>
 <li>Extract the file.
 <div class="hacker">tar zxvf automysqlbackup-v3.0_rc6.tar.gz</div>
 </li>
+<li>Install the AutomysqlBackup.<div class="hacker">sudo ./install.sh</div><p class="note">Follow the steps which prompted by <code>installer</code>.</p></li>
 <li>Open the configuration file for <code>automysqlback</code> using vim which is located at <code>/etc/default/automysqlbackup</code>.
 <div class="hacker">sudo vim /etc/automysqlbackup/automysqlbackup.conf</div>
 </li>
-<li>Using the below configuration variables, perform the necessary settings to access MySQL. 
+<li>Create backup directory using the following command:<div class="hacker">sudo mkdir -p /var/backup/db</div></li>
+<li>Uncomment the configuration variables, perform the necessary settings to access MySQL. 
 <div class="hacker">
 CONFIG_mysql_dump_username = '<em><u>mysql_username</u></em>' <br />
 CONFIG_mysql_dump_password = '<em><u>password</u></em>'<br />
-CONFIG_mysql_dump_host_friendly='<em><u>localhost</u></em>' #optional<br />
-CONFIG_backup_dir = '<em><u>/path/to/backup</u></em>'</div>
+CONFIG_mysql_dump_host_friendly='<em><u>localhost</u></em>' <br />
+CONFIG_backup_dir = '<em><u>/var/backup/db</u></em>'</div>
 </li>
 <li>To execute <code>automysqlbackup</code> command, change the directory where you extracted the file. Find the command and execute it using the following command:
-<div class="hacker">./automysqlbackup</div>
+<div class="hacker">sudo ./automysqlbackup</div>
 </li>
 <li>To verify the database backup, run the following command in the terminal:
-<div class="hacker">ls -R /path/to/backup</div>
+<div class="hacker">ls -R <em><u>/var/backup/db</u></em></div>
 </li>
 </ol>
 

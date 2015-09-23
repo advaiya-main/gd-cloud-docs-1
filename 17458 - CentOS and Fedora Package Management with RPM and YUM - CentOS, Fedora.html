@@ -4,7 +4,7 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
+<!--Article Number is 17458 (fill in blank)-->
 
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
@@ -89,18 +89,18 @@ p.note {
     <table border="1">
       <tr>
         <td>Check the RPM signature package.</td>
-        <td><code>rpm –checksig http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm</code></td>
+        <td><code>rpm -checksig <em><u>http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm</u></em></code></td>
       </tr>
       <tr>
         <td>Install the RPM package.</td>
-        <td><code>sudo rpm -ivh http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm</code> <br/>
+        <td><code>sudo rpm -ivh <em><u>http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm</u></em></code> <br/>
           -i: Install a package. <br/>
           -v: Verbose the message/output. <br/>
           -h: Print the hash of the packages.</td>
       </tr>
       <tr>
         <td>Check dependencies for installation.</td>
-        <td><code>sudo rpm -qpR http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm </code><br/>
+        <td><code>sudo rpm -qpR <em><u>http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm </u></em></code><br/>
           Option description: <br/>
           -q: Query a package. <br/>
           -p: List capabilities this package provides. <br/>
@@ -108,43 +108,43 @@ p.note {
       </tr>
       <tr>
         <td>Install a RPM Package without dependencies.</td>
-        <td><code>sudo rpm -ivh --nodeps http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm</code></td>
+        <td><code>sudo rpm -ivh --nodeps <em><u>http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm</u></em></code></td>
       </tr>
       <tr>
         <td>List the files installed by RPM.</td>
-        <td><code>sudo rpm -ql python</code></td>
+        <td><code>sudo rpm -ql <em><u>python</u></em></code></td>
       </tr>
       <tr>
         <td>List the recently installed RPM packages.</td>
-        <td><code>sudo rpm -qa –last</code></td>
+        <td><code>sudo rpm -qa -last</code></td>
       </tr>
       <tr>
         <td>Print all the installed packages.</td>
-        <td><code>sudo rpm –qa</code></td>
+        <td><code>sudo rpm -qa</code></td>
       </tr>
       <tr>
         <td>Upgrade the RPM packages.</td>
-        <td><code>sudo rpm -Uvh --nodeps ftp://rpmfind.net/linux/centos/6.7/os/x86_64/Packages/httpd-2.2.15-45.el6.centos.x86_64.rpm</code></td>
+        <td><code>sudo rpm -Uvh --nodeps <em><u>ftp://rpmfind.net/linux/centos/6.7/os/x86_64/Packages/httpd-2.2.15-45.el6.centos.x86_64.rpm</u></em></code></td>
       </tr>
       <tr>
         <td>Uninstall an RPM package.</td>
-        <td><code>sudo rpm –evv httpd</code></td>
+        <td><code>sudo rpm -evv <em><u>httpd</u></em></code></td>
       </tr>
       <tr>
         <td>Uninstall the RPM package without dependencies.</td>
-        <td><code>sudo rpm -ev --nodeps httpd</code></td>
+        <td><code>sudo rpm -ev --nodeps <em><u>httpd</u></em></code></td>
       </tr>
       <tr>
         <td>Query a file that belongs to the RPM package.</td>
-        <td><code>sudo rpm -qf /usr/bin/htpasswd</code></td>
+        <td><code>sudo rpm -qf <em><u>/usr/bin/htpasswd</u></em></code></td>
       </tr>
       <tr>
         <td>Print the information of installed RPM.</td>
-        <td><code>sudo rpm -qi httpd</code></td>
+        <td><code>sudo rpm -qi <em><u>httpd</u></em></code></td>
       </tr>
       <tr>
         <td>Verify the installed RPM package.</td>
-        <td><code>sudo rpm -Vp ftp://rpmfind.net/linux/centos/6.7/os/x86_64/Packages/httpd-2.2.15-45.el6.centos.x86_64.rpm</code></td>
+        <td><code>sudo rpm -Vp <em><u>ftp://rpmfind.net/linux/centos/6.7/os/x86_64/Packages/httpd-2.2.15-45.el6.centos.x86_64.rpm</u></em></code></td>
       </tr>
       <tr>
         <td>Import the PGP keys to verify the packages using the following command:</td>
@@ -167,21 +167,21 @@ p.note {
    </tr>
    <tr>
    <td>Update the installed RPM package.</td>
-   <td><code>sudo yum update httpd</code></td>
+   <td><code>sudo yum update <em><u>httpd</u></em></code></td>
    </tr>
    <tr>
    <td>Install a package.</td>
-   <td><code>sudo yum install httpd</code></td>
+   <td><code>sudo yum install <em><u>httpd</u></em></code></td>
    </tr>
    <tr>
    <td>Search a package from the <strong>yum</strong> repository.</td>
-   <td><code>sudo yum search nginx</code></td>
+   <td><code>sudo yum search <em><u>nginx</u></em></code></td>
    </tr>
    <tr>
    <td>Remove or uninstall the package.</td>
-   <td><code>sudo yum erase nginx</code>
+   <td><code>sudo yum erase <em><u>nginx</u></em></code>
    <br/>or
-   <br/><code>sudo yum remove nginx</code>
+   <br/><code>sudo yum remove <em><u>nginx</u></em></code>
    </td>
    </tr>
    <tr>
@@ -196,15 +196,15 @@ p.note {
    <td>List a package or groups of packages.</td>
    <td><code>sudo yum list #to display all packages.</code>
    <br/>
-   <code>sudo yum list httpd #list selected package</code></td>
+   <code>sudo yum list <em><u>httpd</u></em> #list selected package</code></td>
     </tr>
    <tr>
    <td>Print what a package does.</td>
-   <td><code>yum provides httpd</code></td>
+   <td><code>yum provides <em><u>httpd</u></em></code></td>
    </tr>
    <tr>
    <td>Find the list of RPM dependency.</td>
-   <td><code>sudo yum deplist package-name</code></td>
+   <td><code>sudo yum deplist <em><u>package-name</u></em></code></td>
    </tr>
    <tr>
    <td>Print the list of groups.</td>
@@ -212,19 +212,19 @@ p.note {
    </tr>
    <tr>
    <td>Yum group install.</td>
-   <td><code>sudo yum groupinstall 'Development Tools'</code></td>
+   <td><code>sudo yum groupinstall <em><u>'Development Tools'</u></em></code></td>
     </tr>
    <tr>
    <td>Remove or uninstall YUM group.</td>
-   <td><code>sudo yum groupremove 'Development Tools'</code></td>
+   <td><code>sudo yum groupremove <em><u>'Development Tools'</u></em></code></td>
    </tr>
    <tr>
    <td>Update YUM group.</td>
-   <td><code>sudo yum groupupdate 'Development Tools'</code></td>
+   <td><code>sudo yum groupupdate <em><u>'Development Tools'</u></em></code></td>
     </tr>
    <tr>
    <td>Get YUM group information.</td>
-   <td><code>sudo yum groupinfo 'Development Tools'</code></td>
+   <td><code>sudo yum groupinfo <em><u>'Development Tools'</u></em></code></td>
    </tr>
    <tr>
    <td>Print the list of installed package in paging.</td>
