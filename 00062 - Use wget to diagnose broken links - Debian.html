@@ -112,7 +112,7 @@ p.note {
     
     <li>Open a web browser and check that your test web page works: 
     <strong>http://<em><u>your server IP</u></em>/testwebpage.html
-    </strong>.</li></ol>
+    </strong></li></ol>
     
     <h2>Run wget</h2>
     
@@ -123,7 +123,7 @@ p.note {
     <li>Open a connection to your regular COMPANY_NAME cloud server (the one that is not hosting your test web page) and run the following command:
     
     <div class="hacker">
-    wget --spider -r -nd -nv -H -l 1 -w 2 -o test1.log http://<em><u>your server IP</u></em>/testwebpage.html
+    sudo wget --spider -r -nd -nv -H -l 1 -w 2 -o test1.log http://<em><u>your server IP</u></em>/testwebpage.html
     </div></li>
     
     <li>Here's a description of the basic flags in the previous command:
@@ -147,7 +147,7 @@ p.note {
                </tr>
                <tr>
     <td>-nv</td>
-       <td> short for <code>--no-verbose</code>, tells wget to not otuput extra information for broken links.</td>
+       <td> short for <code>--no-verbose</code>, tells wget to not output extra information for broken links.</td>
                </tr>
                </table> 
 
