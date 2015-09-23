@@ -57,7 +57,8 @@ Also, all commands passed, how would a user verify if it did what it’s supposed 
 </xml><![endif]-->
 
 
-<style type="text/css">
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -74,7 +75,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -86,8 +87,17 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
-</style>
 
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
 
 </head>
   <body>
@@ -185,7 +195,7 @@ and <code>dd</code> comand.
     <li> Create the file to be used for swap. For
     this example, we'll add a 4 GB file:
       <div class="hacker">
-      sudo fallocate -l 4G swapfile
+      sudo fallocate -l 4G /swapfile
     </div></li>
     <li>
     Verify that the correct amount of
@@ -204,15 +214,17 @@ If, on the other hand, you get a failure message saying <code>fallocate failed: 
   <h3>
   Create a swap file using <code>dd</code> comand </h3>
     <p>Creating a swap file by using the <code>dd</code> command may not be as quick as <code>fallocate</code>, but it works. The <code>dd</code> command is one of the original UNIX disk utilities with many uses, including generating new files, copying files, and converting file formats.</p>
-    <p>In this example, we'll add a swap file the size of 4 GB.</p>
+   <p>In this example, we'll add a swap file of a different size, 1 GB, in order to accommodate smaller-sized servers. 
+
+  <p class="note">To add a 4 GB swap file, you would need at least 1.5 GB of RAM. Always check the size of your server to make sure you have enough RAM to add swap. A tiny server, for example, has 512 MB available. <!--CT: changing 4GB to 1GB to accomodate smaller servers, per GD feedback 9/23.--></p>
     <ol>
-      <li>Add the 4 GB swap file by specifying a block size <code>bs</code> of 1 GB
+      <li>Add the 1 GB swap file by specifying a block size <code>bs</code> of 250 MB
       and a <code>count</code> of 4.
         <p class="warning">Remember to double check your instructions! This command has the potential
         to destroy data if <code>of</code> (output file) points to the wrong
         location.</p>
         <div class="hacker">
-          sudo dd if=/dev/zero of=swapfile bs=1G count=4
+          sudo dd if=/dev/zero of=/swapfile bs=250M count=4
         </div>
         After a few seconds, the generated output looks like this: 
         
@@ -352,9 +364,9 @@ If, on the other hand, you get a failure message saying <code>fallocate failed: 
       This setting takes effect until the next restart. </li>
     <li>If you want to  set this value
       automatically at restart, do the following:<ol style="list-style:lower-alpha">
-    <li>Add the following line to your <code>/etc/sysctl.conf</code> file:
+    <li>Create a sysctl.conf file and insert the following line into the file:
       <div class="hacker">
-        sudo vim /etc/sysctl.conf
+        sudo vim /etc/sysctl.d/99-sysctl.conf
       </div></li>
     <li>At the end of the file, add this line:
       <div class="hacker">
@@ -387,7 +399,7 @@ If, on the other hand, you get a failure message saying <code>fallocate failed: 
          <ol style="list-style:lower-alpha">
        <li>Add the same line as in the swappiness step above:
   <div class="hacker">
-    sudo vim /etc/sysctl.conf
+    sudo vim /etc/sysctl.d/99-sysctl.conf
   </div></li>
        <li>At the end of the file, add this line:
          <div class="hacker">
