@@ -101,7 +101,7 @@
         </li>
         <li>Open the php-fpm configuration to use <code>nginx</code> user by default.
             <div class="hacker">sudo vi /etc/php-fpm.d/www.conf</div></li>
-            <li>Update the <code>user</code> and <code>group</code> values under 'Unix user/group to <code>nginx</code>
+            <li>Update the <code>user</code> and <code>group</code> values under 'Unix user/group' to <code>nginx</code>
             <div class="hacker">
             <pre>
 ; Unix user/group of processes
@@ -139,12 +139,12 @@ group = nginx
             <div class="hacker">cd /usr/share/nginx/html</div>
         </li>
         <li>Change the name (actually, rename the symbolic link).
-            <div class="hacker">sudo mv phpmyadmin nodbhere</div>
+            <div class="hacker">sudo mv phpMyAdmin nodbhere</div>
         </li>
         <li>Test the new name by navigating in your browser to <code>http://<em><u>your server or domain name</u></em>/nodbhere</code>.
             <br /> Your browser displays the phpMyAdmin screen. (You can also go to the old <code>http://<em><u>your server or domain name</u></em>/phpmyadmin</code> address but, unless the page has been cached, you should get a "404 Not Found" error.)</li>
     </ol>
-    <h3>Use OpenSSL to add Nginx web authentication</h3>
+    <h3>Enable Nginx web authentication</h3>
     <p>Your Nginx installation comes with OpenSSL, a tool that allows you to encrypt passwords.</p>
     <ol>
         <li>Create a password file, <code>/etc/nginx/mypasswordfile</code>, and open it for editing. </li>
@@ -158,7 +158,7 @@ group = nginx
         <li>Copy the encrypted version, and paste it into your paswword file, which now looks like this:
             <div class="hacker">MyWebUserName:V.Cj1d1d1kew2</div>
         </li>
-        <li>Open your Nginx configuration file or a file that it references with an "include". It looks similar to this:
+        <li>Open your nginx configuration file (typically at <code>/etc/nginx/conf.d</code>). The nginx configuration file will contain a <code>server</code> block with one or more <code>location</code> blocks. It will look similar to this:
             <div class="hacker"># server context
                 <br /> server { . . .
                 <br /> # location context
@@ -169,7 +169,7 @@ group = nginx
                 <br /> }
             </div>
         </li>
-        <li>Create a new location context so that your file looks like this:
+        <li>Within the nginx configuration, create a new location context so that your file looks like this:
             <div class="hacker">
                 # server context
                 <br /> server { . . .
@@ -190,6 +190,7 @@ group = nginx
         <li>Restart Nginx.
             <div class="hacker">sudo systemctl restart nginx</div>
         </li>
+        <li>Test the authentication by navigating in your browser to http://your server or domain name/nodbhere. Your browser will prompt you to enter a username and password. Enter the username and password chosen when creating the password file.</li>
     </ol>
     <h2>Next steps</h2>
     <p>You have just installed and secured phpMyAdmin. Now you can take your time exploring the web UI. </p>
