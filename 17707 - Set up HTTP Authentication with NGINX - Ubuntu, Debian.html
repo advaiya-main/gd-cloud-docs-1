@@ -125,6 +125,38 @@ td:nth-child(1) {font-weight:bold;}
     The following example defines a realm within a location context.
    
    <ol>
+<<<<<<< HEAD:17707 - Set up HTTP Authentication with NGINX - All DISTROS.html
+             <li>   Navigate to the Nginx configuration file, <code>nginx.conf</code>. The location depends on your <span class="hacker"> version of Linux.</span>
+      <div class="hacker">cd /etc/nginx</div>or
+       <div class="hacker">cd /etc/nginx/sites-available</div> 
+    </li>
+ <li>   If the above locations don&#39;t work, you can find it by using the find command:
+      <div class="hacker">find / -name nginx.conf</div> 
+    </li>
+  
+   <li>Open the <code>nginx.conf</code> file for editing, and find the <code>location context</code> of the default server block. It should look something like this:
+       <div class="hacker">           location / {
+        <br />
+    root   /usr/share/nginx/html;
+        <br />
+    index  index.html index.htm;
+    <br />
+    }
+</div></li>
+    <li>Add the  <code>auth_basic</code> and <code>auth_basic_user_file</code> directives. 
+    <div class="hacker">           location / {
+        <br />
+    root   /usr/share/nginx/html;
+        <br />
+    index  index.html index.htm;
+         <br />
+        <em><u>auth_basic           "yourrealmname";</u></em>
+        <br />
+        <em><u>auth_basic_user_file yourpasswordfilename;</u></em>
+    }</div></li>
+<li>Restart Nginx.</li>
+ </ol>           
+=======
    <li>Open your <code>nginx.conf</code> file for editing.
       <div class="hacker">sudo vim /etc/nginx/sites-available/default</div></li>
 
@@ -157,6 +189,12 @@ location / {
 
 ...</pre></div></li>
        
+<<<<<<< HEAD
+>>>>>>> origin/master:17707 - Set up HTTP Authentication with NGINX - Ubuntu, Debian.html
+    <p class="note">
+         In the example above, if you used the Apache2 utilities, <code>yourpasswordfilename</code> would be <code>/etc/nginx/.htpasswd</code>. </p>
+=======
+>>>>>>> origin/master
  
 <li>Save and close.</li>
 
@@ -175,7 +213,15 @@ location / {
 
 
 <h2>Next steps</h2>
+<<<<<<< HEAD
+<<<<<<< HEAD:17707 - Set up HTTP Authentication with NGINX - All DISTROS.html
+    <p>You have just created a scheme for http authentication on your web server. Try moving the <code> auth_basic / authbasic_user_file </code> directives to other contexts and navigating to your site(s) to verify you are challenged for a user and password. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20NGINX%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
+=======
+    <p>You have just created a scheme for http authentication on your web server. Try moving the <code>auth_basic / authbasic_user_file </code> directives to other contexts to see how this affects your site. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20Nginx%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
+>>>>>>> origin/master:17707 - Set up HTTP Authentication with NGINX - Ubuntu, Debian.html
+=======
     <p>You have just created a scheme for http authentication on your web server. Try moving the <code>auth_basic / authbasic_user_file </code> directives to other contexts (such as inside the default server block to authenticate your whole site) to see how this affects your site. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20Nginx%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
+>>>>>>> origin/master
 
    
 </body>

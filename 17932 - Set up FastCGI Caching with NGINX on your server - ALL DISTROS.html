@@ -35,34 +35,7 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
-    .auto-style1 {
-        width: 293px;
-    }
-    .auto-style2 {
-        width: 182px;
-    }
-    .auto-style3 {
-        width: 182px;
-        height: 22px;
-    }
-    .auto-style4 {
-        width: 293px;
-        height: 22px;
-    }
-    .auto-style5 {
-        width: 1069px;
-        height: 22px;
-    }
-    .auto-style6 {
-        width: 1069px;
-    }
-    .auto-style7 {
-        width: 1427px;
-    }
-    .auto-style8 {
-        width: 200px;
-    }
-	
+    	
 	table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
 tr:nth-child(odd) {background-color: #f7f7f7 
 ;}
@@ -134,6 +107,9 @@ td:nth-child(1) {font-weight:bold;}
     <li>   Navigate to the Nginx configuration file, <code>nginx.conf</code>. The location depends on your <span class="hacker"> version of Linux.</span>
       <div class="hacker">cd /etc/nginx</div>or
        <div class="hacker">cd /etc/nginx/sites-available</div> 
+    </li>
+ <li>   If the above locations don&#39;t work, you can find it by using the find command:
+      <div class="hacker">find / -name nginx.conf</div> 
     </li>
      
 <li>Add the following directives to the <code>http context</code> section of the <code>nginx.conf</code> file:
