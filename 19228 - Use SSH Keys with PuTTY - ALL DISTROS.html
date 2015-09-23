@@ -6,42 +6,46 @@
     <!--Article Number is 00005 )-->
 
     <title>Use SSH Keys with PuTTY - ALL DISTROS</title>
-    <style type='text/css'>
-    div.hacker {
-        background-color: #666;
-        border: 1px solid #ccc;
-        color: #fff;
-        font-family: "Lucida Console", "Courier New", Courier, fixed;
-        font-size: 95%;
-        line-height: 160%;
-        margin-bottom: 1.5em;
-        padding: 10px;
-    }
-    
-    p.note {
-        background-color: #ffffe6;
-        border: 1px solid #eee;
-        color: #666;
-        padding: .8em 1.6em;
-        margin: 15px 0;
-    }
-    
-    .warning {
-        border: 1px #d25100 solid;
-        padding: .5em 1em .5em 4em;
-        margin: 10px 20px 15px 20px;
-        background-image: url('@{help-img-path}/img_warning.gif');
-        background-repeat: no-repeat;
-        background-position: left top;
-        background-color: #ededed;
-        -moz-border-radius: 0.8em;
-        -webkit-border-radius: 0.8em;
-        /* -moz-border-bottom-radius: 0;9 */
-        -webkit-border-bottom-radius: 0;
-        padding-top: 14px;
-        padding-bottom: 15px;
-    }
-    </style>
+<style type='text/css'>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em 5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
     <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
 <mso:ArticleKeywords msdt:dt="string"></mso:ArticleKeywords>
@@ -92,20 +96,20 @@
 <li>Connect to the new server using PuTTY</li></ul>
 
 <p>This article assumes that you have <a href='http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html'>downloaded and installed the full PuTTY installer</a>.</p>
-    <h2>Generate public and private SSH key pairs</h2>
+    <h2>Generate public and private SSH key pair</h2>
     <ol>
         <li>Start PuTTYgen. <br/>
       <img src='images/00005/072815/puttygen-screen.png' alt='Screenshot of the puttygen.exe' /></li>
         <li>In the <strong>Parameters</strong> section, select <strong>SSH-2 RSA</strong> for <strong>Type of key to generate</strong>.</li>
         <li>In the <strong>Number of bits in a generated key field</strong>, enter <em>2048</em>.</li>
         <li>Click <strong>Generate</strong>.</li>
-        <li>Move the mouse within the blank area under <strong>Key</strong>  to generate some randomness until the progress bar is full. <br />
-        The field under <strong>Public key for pasting into OpenSSH authorized_keys</strong> contains your <em>public key</em>. A properly formatted public key starts with <code>ssh-rss AAAA</code>.</li>
+        <li>Move the mouse within the blank area under <strong>Key</strong> to generate some randomness until the progress bar is full. <br />
+        Once your key is generated, it'll appear in top the field under <strong>Public key for pasting into OpenSSH authorized_keys</strong>. This is your <em>public key</em>. A properly formatted public key starts with <code>ssh-rss AAAA</code>.</li>
         <li>Enter a passphrase in <strong>Key passphrase</strong>.</li>
         <li>Enter the same passphrase in <strong>Confirm passphrase</strong>.</li>
         <li>Click <strong>Save private key</strong>, and then choose a name and location to save your private key file.</li>
-        <li>Right-click in the  field under <strong>Public key for pasting i9nto OpenSSH authorized_keys file</strong>, and choose <strong>Select All</strong>.</li>
-        <li>Right-click again in the   field, and choose <strong>Copy</strong>.</li>
+        <li>Right-click in the field under <strong>Public key for pasting into OpenSSH authorized_keys file</strong>, and choose <strong>Select All</strong>.</li>
+        <li>Right-click again in the field, and choose <strong>Copy</strong>.</li>
 </ol>
     <h2>Load the public SSH key</h2>
     <p>In this example, we'll get the key from GoDaddy.com.</p>
@@ -135,11 +139,11 @@
             <img src='images/00005/072815/server-panel-servers.png' alt='Screenshot of the create servers panel' /></li>
         <li>In the <strong>Port</strong> field, enter "22".</li>
         <li>In the <strong>Connection type</strong> field, choose <strong>SSH</strong>.</li>
-        <li>On the left-hand side, under <strong>Category</strong>, select the <strong>Data</strong> subcategory under <strong>Connection</strong>.</li>
+        <li>On the left-hand side, select the <strong>Data</strong> subcategory under <strong>Connection</strong>.</li>
         <li>Under <strong>Login details</strong>, in the <strong>Auto-login username</strong> field, enter the username created in the previous step.</li>
         <li>Under <strong>Connection</strong> category, expand <strong>SSH</strong>.</li>
         <li>Click <strong>Auth</strong>.</li>
-        <li>Make sure that <strong>Bypass authetication entirely</strong> is NOT checked.</li>
+        <li>Make sure that <strong>Bypass authetication entirely</strong> (the first option) is NOT checked.</li>
         <li>On the right-hand side, click <strong>Browse</strong> under <strong>Private key file for authentication</strong>.</li>
         <li>Browse for, and  then select, the private key file created in the previous step.</li>
         <li>On the left-hand side, click  the <strong>Session</strong> category (at the top).</li>
@@ -150,7 +154,7 @@
     <h2>Connect using your PuTTY profile</h2>
     <ol>
         <li>Start PuTTY.</li>
-        <li>Click  the profile you created in the previous procedure.</li>
+        <li>Under <strong>Saved Sessions</strong>, select the profile you created in the previous procedure.</li>
         <li>Click <strong>Load</strong>.</li>
         <li>Click <strong>Open</strong>.</li>
         <li>In the <strong>PuTTY Security Aler</strong>t dialog box, click <strong>Yes</strong>.
