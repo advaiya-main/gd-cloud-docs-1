@@ -4,12 +4,10 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is  18534-->
 
 
-<title>Install and configure a social network with Diaspora - Ubuntu, Debian</title>
+<title>Install and configure a social network with Diaspora - Debian, Ubuntu</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -72,13 +70,13 @@ p.note {
 <p>Setting up a social network with Diaspora, Ruby, Rails, Applications, MariaDB, NGINX</p>
     <h1>Install and configure a social network with Diaspora – Debian, Ubuntu</h1>
     
-    <p><strong>Difficulty</strong>: <em>3</em><br/>
+    <p><strong>Difficulty</strong>: <em>3</em><br />
         <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>Diaspora is an open-source social network that is used in a distributed network. In this tutorial you will learn how to install and configure social network using Diaspora in a Debian and Ubuntu server. For security reasons, you should always prefer to use <code>sudo</code> user login.</p>
+    <p>Diaspora is an open-source, social network that is used in a distributed network. In this article, you will learn how to install and configure social network using Diaspora in a Debian or Ubuntu server. For security reasons, you should always use a <code>sudo</code> user login.</p>
 
-<p>Before you start, make sure the server has atleast 1 GB of RAM and that the domain name points to the server. In addition, you will need to <a href ="17378">install an SSL certificate on your web server via SSH on Debian or Ubuntu</a> server. In case you need to create a swap file, then visit, <a href="17330">Add Memory Swap - Debian</a> and <a href="17326">Add Memory Swap – Ubuntu</a></p>
-<p>To install Ruby using RVM, see <a href="17538">Install Ruby on Rails using RVM – Debian</a> and <a href="17534">Install Ruby on Rails using RVM – Ubuntu</a>.</p>
+<p>Before you start, make sure the server has at least 1 GB of RAM, and that the domain name points to the server. In addition, you will need to <a href ="17378">install an SSL certificate on your web server via SSH on Debian or Ubuntu</a> server. In case you need to create a swap file, then refer to: <a href="17330">Add Memory Swap - Debian</a> and <a href="17326">Add Memory Swap – Ubuntu</a></p>
+<p>To install Ruby using RVM, see the articles <a href="17538">Install Ruby on Rails using RVM – Debian</a> or <a href="17534">Install Ruby on Rails using RVM – Ubuntu</a>.</p>
 
 
 <h2>Install dependencies</h2>
@@ -92,7 +90,7 @@ p.note {
 
 
 <h2>Install database</h2>
-<p>In this tutorial, you will be using PostgreSQL as the database server. If you don’t have a PostgreSQL installed, then follow the steps below.</p>
+<p>In this  article, you will be using PostgreSQL as the database server. If you don’t have a PostgreSQL installed, then follow the steps below.</p>
 <ol> 
 <li>Create a file named as <code>pgdg.list</code> in <code>sources.list.d</code> directory.
    <div class="hacker">sudo touch /etc/apt/sources.list.d/pgdg.list</div>
@@ -101,7 +99,7 @@ p.note {
    <div class="hacker">sudo vim /etc/apt/sources.list.d/pgdg.list</div>
    <div class="hacker">deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main</div>
    </li>
-   <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+   <li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
    </li>
    <li>Run the following command to add the key:
    <div class="hacker">wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add –</div>
@@ -116,7 +114,7 @@ p.note {
    <li>Type the following command to access PostgreSQL prompt.
    <div class="hacker">psql</div>
    </li>
-   <li>To Exit from the PostgreSQL prompt, type:
+   <li>To exit from the PostgreSQL prompt, type:
    <div class="hacker">\q</div>
    </li> 
 </ol>
@@ -160,7 +158,7 @@ p.note {
    </li>
    </ul>
    </li>
-   <li>Save and close the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+   <li>Save and close the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
    </li>
   </ol>
   
@@ -267,7 +265,8 @@ gzip_static on;
    </li>
 
 </ol>
- <p>This completes the installation of Diaspora and now you will be able to view the Diaspora page in browser using <strong>https</strong>.</p>  
+ <p>This completes the installation of Diaspora and now you will be able to view the Diaspora page in browser using <strong>https</strong>.</p> '
+  
     <h2>Conclusion</h2>
     <p>In this article, you learned to install and configure Diaspora on your Debian or Unbuntu server. </p>
    
