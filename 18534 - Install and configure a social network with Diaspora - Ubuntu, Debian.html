@@ -134,12 +134,12 @@ p.note {
   
   
   <h2>Get the source</h2>
-<ol> 
+<ul> 
 <li>Download Diaspora.
    <div class="hacker">git clone -b master git://github.com/diaspora/diaspora.git</div>
    <div class="hacker">cd diaspora</div>
   </li>
-</ol>
+</ul>
    
    <h2>Configure Diaspora</h2>
    <ol>
@@ -151,9 +151,9 @@ p.note {
    </li>
    <li>Make following changes in the <code> config/diaspora.yml</code> file:
    <ul>
-   <li>Uncomment line 39 and add proper <strong>https</strong> URL.</li>
-   <li>Uncomment line 47. Choose <code>certificate_authorities</code> for Ubuntu.</li>
-   <li>Uncomment line 177 and edit as:
+   <li>Uncomment line 39, and add a proper <strong>https</strong> URL.</li>
+   <li>Uncomment line 47, and then choose <code>certificate_authorities</code> for Ubuntu.</li>
+   <li>Uncomment line 177 and edit it:
       <div class="hacker">rails_environment: '<em><u>production</u></em>'</div>
    </li>
    </ul>
@@ -244,12 +244,12 @@ gzip_static on;
   
   
   <h2>Configure the bundler</h2>
-<ol> 
+<ul> 
 <li>Type the following command to install the bundler. Bundler is the most common package manager used for Ruby gems.
    <div class="hacker">gem install bundler</div>
    <div class="hacker">RAILS_ENV=production DB=postgres  bin/bundle install --without test development</div>
   </li>
-</ol>
+</ul>
    
 <h2>Set up the  environment and start Diaspora</h2>
 <ol>   
@@ -257,7 +257,7 @@ gzip_static on;
    <div class="hacker">RAILS_ENV=production DB=postgres  bin/rake db:create db:schema:load</div>
      <div class="hacker">RAILS_ENV=production DB=postgres bin/rake assets:precompile</div>
    </li>
-   <li>If you get an error such as <code>Could not find gem 'mysql2 (= 0.3.18) ruby' in any of the gem sources listed in your Gemfile</code>, then install <code>mysql2</code> gem and rerun the above command.
+   <li>If you get an error, such as <code>Could not find gem 'mysql2 (= 0.3.18) ruby' in any of the gem sources listed in your Gemfile</code>, then install <code>mysql2</code> gem, and rerun the above command.
    <div class="hacker">sudo apt-get install libmysqlclient-dev</div>
    <div class="hacker">gem install mysql2 -v 0.3.18</div>
    <div class="hacker">DB=postgres ./script/server</div>
@@ -265,7 +265,7 @@ gzip_static on;
    </li>
 
 </ol>
- <p>This completes the installation of Diaspora and now you will be able to view the Diaspora page in browser using <strong>https</strong>.</p> '
+ <p>This completes the installation of Diaspora, and now you will be able to view the Diaspora page in a browser using <strong>https</strong>.</p> '
   
     <h2>Conclusion</h2>
     <p>In this article, you learned to install and configure Diaspora on your Debian or Unbuntu server. </p>
