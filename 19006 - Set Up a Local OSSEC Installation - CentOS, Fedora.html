@@ -75,7 +75,7 @@ p.note {
 	<p>OSSEC is an open-source, host-based intrusion detection system. It performs log integrity checks, analysis, rootkit detection, Windows registry monitoring, active response and time-based alerting. It can monitor one or more servers and can be configured for real-time alerts. This article explains the installation of a local OSSEC on CentOS or Fedora.</p>
 	
 	
-		If you want to send email from a local server, you  need to install Postfix. For details, refer <a href="17425 - Install and Configure Postfix - CentOS">Install and Configure Postfix - CentOS</a> or <a href="17424 - Install and Configure Postfix - Fedora">Install and Configure Postfix - Fedora</a>.
+	Optionally if you want to send email from a local server, you  need to install Postfix. For details, refer <a href="17425 - Install and Configure Postfix - CentOS">Install and Configure Postfix - CentOS</a> or <a href="17424 - Install and Configure Postfix - Fedora">Install and Configure Postfix - Fedora</a>.
         <p class="note">
 		You need  <code>sudo</code> privileges to complete all of these steps.
 	</p>
@@ -92,7 +92,7 @@ p.note {
 		<li>
 			Install the packages.
 			<div class="hacker">
-					sudo yum install -y bind-utils gcc make inotify-tools
+					sudo yum install -y bind-utils gcc make inotify-tools tar
 			</div>
 		</li>
 	</ol>
@@ -206,7 +206,7 @@ fastmail.com.           3600    IN      MX      20 in2-smtp.messagingengine.com.
 				1- What kind of installation do you want (server, agent, local, hybrid or help)? <em><u>local</u></em>
 			</div>
 		</li>
-		<li>Respond to the question about email with a valid email address. All of the notifications will be sent to this email address.</li>
+		<li>Respond to the question about email with a valid email address and give SMTP server that you saved using <code>dig</code> command when prompted. All of the notifications will be sent to this email address.</li>
 		<li>For the remaining questions, accept the defaults by pressing <strong>Enter</strong>.<br />
 		  A successful installation displays the following:
 <div class="hacker">
