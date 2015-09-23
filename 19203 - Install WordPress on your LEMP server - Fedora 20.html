@@ -4,7 +4,6 @@
 
 <head>
 
-<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
 
 <title>Install WordPress on your LEMP server - Fedora 20</title>
 <style type="text/css">
@@ -74,7 +73,7 @@ p.note {
 
 <body>
         <p>Installing Wordpress on a LEMP server for Fedora 20</p>
-    <h1>Install WordPress on your LEMP server – Fedora 20</h1>
+    <h1>Install WordPress on Your LEMP Server - Fedora 20</h1>
     
             <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
             <strong>Time</strong>: <em><u>15 minutes</u></em></p>
@@ -85,17 +84,17 @@ p.note {
 
 
 <h2>Prerequisites</h2>
-       <!--CT (to Susan): Throughout article, please validate code in links. thanks!-->
+
 <p>Before starting, make sure that you have the following:</p>
         <ul>
           <li>A non-root user with <code>sudo</code> privileges set up on your server </li>
-          <li>A Linux, Nginx, MySQL, and PHP (LEMP) stack configured.  For instructions, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/19187%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Fedora%2020%20.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) – Fedora 20</a>. </li>
+          <li>A Linux, Nginx, MySQL, and PHP (LEMP) stack configured.  For instructions, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/19187%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Fedora%2020%20.html">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Fedora 20</a>. </li>
           <li>Nginx, MySQL, and PHP  up and running</li>
           <li>Your MySQL root account (admin) password</li>
           <li><code>tar</code> and <code>vim</code> installed</li>
           <li>A designated user for WordPress</li>
         </ul>
-  <h3><!--CT: Added these prereq instructions 8/10 (START)-->
+  <h3>
 To install <code>tar</code> and <code>vim</code> using <code>yum</code></h3>
         <div class="hacker">sudo yum install tar</div>
             <div class="hacker">sudo yum install vim</div>
@@ -103,14 +102,11 @@ To install <code>tar</code> and <code>vim</code> using <code>yum</code></h3>
 <p>Select <strong>y</strong> at the prompt after each to continue with the installation.</p>
 
 <h3>To create a designated user for WordPress</h3>
-        <p> The user can be any user you create. We'll call ours <code>wordpress_user</code>.</p>
+        <p> The user can be any user you create. We'll call ours &quot;wordpress_user.&quot;</p>
        <div class="hacker">sudo adduser wordpress_user</div>
 
-     <!--CT: (END)-->
-
-
-                         
-    <h2>Create a MySQL database and administrator for WordPress</h2>
+                     
+<h2>Create a MySQL database and administrator for WordPress</h2>
     
         <p>Set up your MySQL database with an administrator so that WordPress has a place to store all your site and user information. </p>
 
@@ -157,7 +153,6 @@ To install <code>tar</code> and <code>vim</code> using <code>yum</code></h3>
 <div class="hacker">sudo tar xzvf latest.tar.gz </div>
  This command creates a directory called <code>wordpress</code> in your home directory.</li>
     </ol>
-<!--CT: (END)-->
                                                                        
 <h2>Configure WordPress</h2>
    
@@ -165,20 +160,20 @@ To install <code>tar</code> and <code>vim</code> using <code>yum</code></h3>
             <li>Go into the WordPress directory you just unpacked.
                 <div class="hacker">cd ~/wordpress</div>    </li>
 
-            <li>Edit the following lines with the values in <strong>wp-config.php</strong>.
-                <div class="hacker">sudo cp wp-config-sample.php wp-config.php</div></li>
+            <li>Edit the following lines with the values in <code>wp-config.php</code>.
+<div class="hacker">sudo cp wp-config-sample.php wp-config.php</div></li>
 
             <li>Open the configuration file for editing.
                 <div class="hacker">sudo vim wp-config.php</div></li>
    
-            <li>Look for the following section of the code (starting with <code>MySQL settings&hellip;</code>), and replace the corresponding values of the three <code>DB_</code> variables (<code>DB_NAME</code>, <code>DB_USER</code>, and <code>DP_PASSWORD</code>) with your information.
+            <li>Look for the following section of the code (starting with <code>MySQL settings</code>), and replace the corresponding values of the three <code>DB_</code> variables (<code>DB_NAME</code>, <code>DB_USER</code>, and <code>DP_PASSWORD</code>) with your information.
                 <div class="hacker">// ** MySQL settings - You can get this info from your web host ** // <br />
                     /** The name of the database for WordPress */ <br />
                     define('DB_NAME', 'wordpress'); <br />
                     /** MySQL database username */  <br />
                     define('DB_USER', 'wordpressadmin');     <br />
                     /** MySQL database password */ <br />
-      define('DB_PASSWORD', 'password'); </div> </li>
+</div> </li>
   
             <li>Save and close the file.</li>
     </ol>
@@ -233,15 +228,16 @@ To install <code>tar</code> and <code>vim</code> using <code>yum</code></h3>
 
            <li>In the file, make these changes:
              <ul>
-            <li>Make sure that <code>index.php</code> is added to the index line in the <code>http {</code> section towards the middle of the file (as already done from your LEMP installation).</li>
+            <li>Make sure that <code>index.php</code> is added to the index line in the <code>http {</code> section towards the middle of the file.</li>
 
             <li>In the <code>server {</code> section (probably towards the middle of the file), find the <code>root</code> line and change the root to point to <code>/var/www/wordpress;</code></li>
 
     </ul>
 
 
- <p>Some of these changes may have already occurred when you installed your LEMP stack.  </p>
+ Some of these changes may have already occurred when you installed your LEMP stack. 
            
+            <br />
             After your changes, your file may resemble this example (Some parts are truncated):
 <div class="hacker">
       <pre>
@@ -285,7 +281,7 @@ To install <code>tar</code> and <code>vim</code> using <code>yum</code></h3>
                   <li>Open your <code>php.conf</code> file.
 <div class="hacker">cd ~</div>                
 <div class="hacker">sudo vim /etc/nginx/default.d/php.conf</div></li>
-                <li>In the<code> location ~ \.php$ {</code> section, if there is a <code>root</code> line, make sure it's uncommented and make it point to <code>/var/www/wordpress;</code>. If it's missing altogether, add it.<br />
+                <li>In the<code> location ~ \.php$ {</code> section, if there is a <code>root</code> line, make sure it's uncommented, and make it point to <code>/var/www/wordpress;</code>. If it's missing altogether, add it.<br />
 
                 The change  looks like this:
                     <div class="hacker">root     /var/www/wordpress;</div>
@@ -321,18 +317,18 @@ To install <code>tar</code> and <code>vim</code> using <code>yum</code></h3>
      
     <ol>
      <li>  Enter your server’s domain name or public IP address in your web browser. <br />
-   <strong>http://your_domain_name_or_IP</strong><br/>
-   You are redirected to the WordPress admin page:<code> http://server_domain_name_or_IP/wp-admin/install.php</code><br/>
+   <strong>http://<u><em>your_domain_name_or_IP</em></u><em></em></strong><br/>
+   You are redirected to the WordPress admin page:<code> http://<u><em>server_domain_name_or_IP</em></u>/wp-admin/install.php</code>.<br/>
    </li>
 
   <li>If you get the preliminary page to choose your language, do so and select <strong>Continue</strong>.
 </li>
 
-<li>At the WordPress 5-minute installation page, fill out your information to create your administrator account. Then, click <strong>Install WordPress</strong>.
-<p><img src="images/19203/090115/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </p></li>
+<li>On the WordPress 5-minute installation page, fill out your information to create your administrator account. Then, click <strong>Install WordPress</strong>.
+  <p><img src="images/19203/090115/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </p></li>
 <li>On the next screen, WordPress confirms your installation with your user name and (hidden) password. Click <strong>Log In</strong>.</li>
 
- <li><p> WordPress then prompts you to log in again with your new credentials. Do so now and click <strong>Log In</strong>.</p>
+ <li>WordPress then prompts you to log in again with your new credentials. Do so now, and click <strong>Log In</strong>.
 <img src="images/19203/090115/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" /></li>
      </ol>
      
@@ -344,10 +340,9 @@ To install <code>tar</code> and <code>vim</code> using <code>yum</code></h3>
     
                 <p>Congratulations! You have installed WordPress and created the beginning of your own website.</p>
     
-<!--CT: Will insert article ID once I have it-->
-<p>From here you have many options for customizing your WordPress setup. A popular one is making pretty permalinks. See <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00002%20-%20Set%20up%20WordPress%20Pretty%20Permalinks%20on%20NGINX%20-%20ALL%20DISTROS.html"> Set up WordPress Pretty Permalinks on Nginx – ALL DISTROS</a> for a step-by-step guide.</p>
+<p>From here you have many options for customizing your WordPress setup. A popular one is <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00002%20-%20Set%20up%20WordPress%20Pretty%20Permalinks%20on%20NGINX%20-%20ALL%20DISTROS.html"> making pretty permalinks</a>.</p>
 
-                <p>To install  WordPress on a LAMP stack, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00014%20-Install WordPress on your LAMP server – Fedora.html">Install WordPress on your LAMP server – Fedora</a>.</p>
+                <p>To install  WordPress on a LAMP stack, see <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/00014%20-Install WordPress on your LAMP server – Fedora.html">Install WordPress on your LAMP server - Fedora</a>.</p>
    
 </body>
 </html>
