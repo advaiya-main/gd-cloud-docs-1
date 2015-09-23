@@ -87,11 +87,11 @@
 <p><strong>Time:</strong> <em>30 mins</em></p>
 
 <p>In this article, we'll create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails application.  </p>
-<p>These tasks  assume that you have sudo privileges.</p>
-<p> To install Ruby on Rails, see <a href="17534">Install Ruby on Rails using RVM - Ubuntu</a>.</p>
+
+<p> The tasks in this article assume that you have <code>sudo</code> privileges. If you have not installed Ruby on Rails, please visit <a href="17534">Install Ruby on Rails using RVM - Ubuntu</a>.</p>
 <h2>Install PostgreSQL</h2>
 <ol>
-<li>Install PostgreSQL.
+<li>Install PostgreSQL and other dependencies.
 	<div class='hacker'>sudo apt-get install postgresql postgresql-contrib</div>
 </li>
 <li>Install <code>pgadmin3</code> for the administrator. <code>pgadmin3</code> is an easy-to-access GUI for PostgresSQL. 
@@ -105,10 +105,10 @@
 </li>        
 <li>Set a password for the database user.
 		<div class='hacker'>sudo -u postgres psql</div>
-    		  <div class='hacker'>postgres=# \password <em><u>username</u></em></div><!-- change case to small :nt-->
+    		  <div class='hacker'>\password <em><u>username</u></em></div><!-- change case to small :nt-->
 </li>              
 <li>Close the session.
-	<div class='hacker'>postgres=# \q</div>
+	<div class='hacker'>\q</div>
 </li>
 <li>Restart the PostgresSQL service.
 		<div class='hacker'>sudo  service postgresql restart</div>
@@ -117,8 +117,9 @@
 
 <h2>Set up the Rails application</h2>
 <ol>
-<li>Move to the home directory to create a new Rails application. To set PostgreSQL as the database, use the<code> -d postgresql</code> option.
+<li>Move to the home directory to create a new Rails application and install a necessary dependency. To set PostgreSQL as the database, use the<code> -d postgresql</code> option.
   <div class='hacker'>cd ~</div>
+  <div class="hacker">sudo apt-get install libpq-dev</div>
 <div class='hacker'>rails new <em><u>your_application</u></em> -d postgresql</div>
 </li>
 <li>Move to the application directory.
@@ -132,9 +133,9 @@
 <pre>host: localhost
 username: <em><u>postgres user username</u></em>
 password: <em><u>postgres user password</u></em></pre></div>
+<p class ="note">When adding this code, you need to ensure proper alignment with the code "<code>pool: 5</code>". Also  spacing  with in the code added must be maintained as shown above.</p>
 </li>        
-<li>Save and exit.
-<div class = "hacker">wq!</div></li>
+<li>Save and exit the file by pressing the  <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 </ol>
 
 <h2>Create a database for  the application</h2>

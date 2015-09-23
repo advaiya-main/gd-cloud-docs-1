@@ -89,15 +89,15 @@ p.note {
 	<h2>Create a database user</h2>
 	<ol>
 		<li>Log in with the <code>postgres</code> system user, and create a new user.
-			<div class="hacker">sudo -u postgres createuser -s <em><u>User_Name</u></em></div>
+			<div class="hacker">sudo -u postgres createuser -s <em><u>user_name</u></em></div>
 		</li>
 		<li>Set a password for the database user.
 			<div class="hacker">sudo -u postgres psql
 			</div>
-			<div class="hacker">postgres=# \password <em><u>User_Name</u></em></div>
+			<div class="hacker">\password <em><u>user_name</u></em></div>
 		</li>
 		<li>Close the session.
-			<div class="hacker">postgres=# \q
+			<div class="hacker">\q
 			</div>
 		</li>
 		<li>Restart the PostgresSQL service.
@@ -129,6 +129,7 @@ username: <em><u>User_Name</u></em>
 password: <em><u>User_Password</u></em>
 				</pre>
 			</div>
+			<p class ="note">When adding this code, you need to ensure proper alignment with the code "<code>pool: 5</code>". Also  spacing  with in the code added must be maintained as shown above.</p>
 		</li>
 		<li>Save and exit the file by pressing the  <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
 		</li>
@@ -153,10 +154,10 @@ password: <em><u>User_Password</u></em>
 <h2>Test the configuration</h2>
 	<ul>
 		<li>Test your Rails application.
-			<div class="hacker">Rails server
+			<div class="hacker">rails server
 			</div>
 		You can run your Rails application on your <code>localhost</code> on port 3000.  You can also access your application from a web browser, if it's located on a remote server by assigning a public IP address
-			<div class="hacker">rails server --binding=<em><u>server_public_IP</u></em>
+			<div class="hacker">rails server --binding=<em><u>Public_Ip_address of Your server</u></em>
 			</div>
 		</li>
 	</ul>

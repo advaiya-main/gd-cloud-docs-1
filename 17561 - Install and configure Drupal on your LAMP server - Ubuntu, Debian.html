@@ -64,14 +64,14 @@ p.note {
 </li>
 <li>Create a database for Drupal to store basic settings and user data.
 <div class="hacker">mysql -uroot -p<em><u>password</u></em></div>
+<p class ="note">Here, you need to use <code>mysql</code> root password which you provided during <code>mysql</code> installation.</p>
 <div class="hacker">CREATE DATABASE <em><u>drupal</u></em>;</div>
 </li>
 <li>Add a new user for Drupal database.
 <div class="hacker">CREATE USER <em><u>drupaluser@localhost</u></em> IDENTIFIED BY <em><u>'drupalpassword'</u></em>;</div>
 </li>
 <li>Grant all privileges to the Drupal user.
-<div class="hacker">GRANT ALL PRIVILEGES ON drupal.* TO drupaluser@localhost;</div>
-<p>OR</p>
+
 <div class="hacker">GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES ON drupal.* TO drupaluser@localhost;</div>
 </li>
 <li>Reload the MySQL database privileges to activate the new MySQL user.
