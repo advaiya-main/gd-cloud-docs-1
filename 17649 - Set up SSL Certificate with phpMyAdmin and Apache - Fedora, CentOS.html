@@ -4,9 +4,6 @@
 
 <head>
 
-<!--Article Number is 17649 (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Set up SSL Certificate with phpMyAdmin and Apache - Fedora, CentOS</title>
@@ -78,39 +75,39 @@ p.note {
 </head>
 
 <body>
- <p>This article describes the Apache configuration steps required to make your phpMyAdmin implementation use SSL</p>
-    <h1>Set up SSL Certificate with phpMyAdmin and Apache - CentOS, Fedora</h1>
+ <p>Configure Apache  to make your phpMyAdmin implementation use SSL</p>
+    <h1>Set Up an SSL Certificate with phpMyAdmin and Apache - CentOS, Fedora</h1>
 
     <p>
         <strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>20</u></em>
     </p>
-    <p>phpMyAdmin is an open source tool that enables users to perform MySQL database operations like create, delete or modify MySQL databases or execute SQL statements, by providing a user interface. An essential way to help safeguard your data is to encrypt traffic between the web server client and your phpMyAdmin implementation. This article describes how to use SSL certificate to allow phpMyAdmin traffic to be encrypted. </p>
-    <h2>Pre-requisites</h2>
+    <p>phpMyAdmin is an open source tool that provides a user interface to let you perform MySQL database operations like create, delete, or modify MySQL databases or execute SQL statements. An essential way to help safeguard your data is to encrypt traffic between the web server client and your phpMyAdmin implementation. This article describes how to use an SSL certificate to allow phpMyAdmin traffic to be encrypted. </p>
+<h2>Prerequisites</h2>
     You need to have the following installed on your server:
     <ul>
-        <li> <a href="17342 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Fedora.html">LAMP for Fedora</a> or <a href="17343 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 6.html">LAMP for CentOS 6</a>  or <a href="17344 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 7.html">LAMP for CentOS 7</a>  </li>
-        <li> <a href="17639 - Install and secure phpMyAdmin with Apache - Fedora">Install and Secure phpMyAdmin on Fedora</a> or <a href="Articles/00027 - Install and secure phpMyAdmin with Apache - CentOS 6">Install and Secure phpMyAdmin on CentOS 6</a> or <a href="17640 - Install and secure phpMyAdmin with Apache - CentOS 7">Install and Secure phpMyAdmin on CentOS 7</a></li>
-        <li> <a href="17452 - Install an SSL Certificate on Apache – CentOS, Fedora">Install an SSL Certificate</a></li>
+        <li>A LAMP stack. See the instructions for <a href="17342 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Fedora.html">Fedora</a>, <a href="17343 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 6.html">CentOS 6</a>, or <a href="17344 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 7.html">CentOS 7</a>.</li>
+        <li> phpMyAdmin. See the instructions for <a href="17639 - Install and secure phpMyAdmin with Apache - Fedora">Fedora</a>, <a href="Articles/00027 - Install and secure phpMyAdmin with Apache - CentOS 6">CentOS 6</a>, or <a href="17640 - Install and secure phpMyAdmin with Apache - CentOS 7">CentOS 7</a>.</li>
+        <li> <a href="17452 - Install an SSL Certificate on Apache – CentOS, Fedora">An SSL certificate</a>.</li>
     </ul>
-    <h2>Forcing phpMyAdmin to your SSL server</h2>
-    <p>Once you have all the prerequisites in place, the only thing to do is to force phpMyAdmin to use SSL instead of http.</p>
+<h2>Force phpMyAdmin to your SSL server</h2>
+    <p>Once you have all the prerequisites in place, the only thing to do is to force phpMyAdmin to use SSL instead of HTTP.</p>
     <ol>
         <li>
             Open the phpMyAdmin configuration file.
             <div class="hacker">sudo vim /etc/phpMyAdmin/config.inc.php</div>
         </li>
         <li>
-            Add the following line towards the end of the file.
-            <div class="hacker">$cfg['ForceSSl'] = TRUE;</div>
-            Save and exit the file.
+            Add the following line towards the end of the file:
+              <div class="hacker">$cfg['ForceSSl'] = TRUE;</div>
         </li>
-        <li>When you go to your browser and navigate to <strong>http://<em><u>yourdomainname.com</u></em>/phpmyadmin</strong> , after you enter your user credentials, you will see in the address bar, that it uses <strong>https://</strong></li>
+        <li>Save and exit the file. <br />
+        When you go to your browser,  navigate to <strong>http://<em><u>yourdomainname.com</u></em>/phpmyadmin</strong>, and enter your user credentials, you'll see <strong>https://</strong> used in the address bar.</li>
 
     </ol>
 
 
-    <h2>Conclusion</h2>
+<h2>Conclusion</h2>
     <p>Access to phpMyAdmin will now be limited to <strong>https://<em><u>yourdomainname.com</u></em></strong> only.</p> 
    
 </body>
