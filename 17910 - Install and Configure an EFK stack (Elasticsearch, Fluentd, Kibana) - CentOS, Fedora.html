@@ -6,10 +6,9 @@
 
 <!--Article Number is 17910-->
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - CentOS</title>
+<title>Install and configure an EFK stack (Elasticsearch, Fluentd, Kibana) - CentOS</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <style type="text/css">
@@ -73,14 +72,14 @@ p.note {
 <body>
 
 <p>Install  and configure an EFK stack (Elasticsearch, Fluentd, Kibana) - CentOS, Logging</p>
-<h1>Install and Configure an EFK Stack (Elasticsearch, Fluentd, Kibana) - CentOS</h1>
+<h1>Install and configure an EFK stack (Elasticsearch, Fluentd, Kibana) - CentOS</h1>
 
-<p><strong>Difficulty: </strong><em>2</em></p>
-<p><strong>Time: </strong> <em>2 hours</em></p>
+<p><strong>Difficulty: </strong><em><u>2</u></em></p>
+<p><strong>Time: </strong> <em><u>2 hours</u></em></p>
 
-<p>Using Elasticsearch, Fluentd, and  Kibana (also known as an <em>EFK stack</em>) is a common way to deal with data analysis. This combination lets you collect, index, search, and  visualize log data. In this article, you'll  learn how to install an EFK stack on CentOS platform.</p>
+<p>Using Elasticsearch, Fluentd, and  Kibana (also known as an <em>EFK stack</em>) is a common way to deal with data analysis. This combination allows you collect, index, search, and  visualize log data. In this article, you'll  learn how to install an EFK stack on a CentOS platform.</p>
 <p>Before starting, make sure to complete the initial server setup for your host machine. See <a href="17323">Initial Server Setup - CentOS</a>.</p>
-<p class="note">These  tasks assume that you have  <code>sudo</code> user privileges.</p>
+<p class="note">These tasks assume that you have <code>sudo</code> user privileges.</p>
 <h2>Install and configure Elasticsearch</h2>
 <ol>
 	<li>Log into the CentOS machine.</li>
@@ -107,16 +106,16 @@ p.note {
 	</li>
     <li>Install the Elasticsearch deb packages. 
   
- <p class="note">These commands are  for version 1.7.1. To obtain the latest version, visit the <a href="http://www.elasticsearch.org/download/" target="_top"> Elasticsearch download page</a>.</p>
+ <p class="note">These commands are for version <em><u>1.7.1</u></em>. To obtain the latest version, visit the <a href="http://www.elasticsearch.org/download/" target="_top"> Elasticsearch download page</a>.</p>
 
 	  <div class="hacker">
-	    wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz 
+	    wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-<em><u>1.7.1</u></em>.tar.gz 
 	  </div>
 	  <div class="hacker">
-	    sudo tar xzf elasticsearch-1.7.1.tar.gz 
+	    sudo tar xzf elasticsearch-<em><u>1.7.1</u></em>.tar.gz 
       </div>
 	  <div class="hacker">
-	    mv elasticsearch-1.7.1 /usr/share/elasticsearch 
+	    mv elasticsearch-<em><u>1.7.1</u></em> /usr/share/elasticsearch 
       </div>
   </li>
   </ol>
@@ -124,7 +123,7 @@ p.note {
 <h2>Configure Elasticsearch</h2>
 	<ol>
 	<li>Open  the <code>elasticsearch.yml</code> file.<br />
-	  To make Elasticsearch accessible from the public Internet, you need to disable its dynamic scripting  so that the Kibana dashboards can access it.
+	  To make Elasticsearch accessible from the public Internet, you need to disable its dynamic scripting, so that the Kibana dashboards can access it.
 		<div class="hacker">
 			cd /usr/share/elasticsearch
 		</div>
@@ -141,9 +140,9 @@ p.note {
 	  <div class="hacker">
 	  ./bin/elasticsearch
 	  </div>
-	  A successful startup shows a <strong>started</strong> message.<br />
+	  A successful startup displays a <strong>started</strong> message.<br />
 	</li>
-	<li> To stop the elasticsearch and continue with other tasks, you can press <strong>CTRL+C</strong>.
+	<li> To stop the Elasticsearch, and continue with other tasks, press <strong>CTRL+C</strong>.
 	</li>
 </ol>
 <h2>Install and configure Kibana</h2>
@@ -157,14 +156,14 @@ p.note {
     <p class="note">These commands are  for version 4.1.1. To obtain the latest version, visit the <a href="https://www.elastic.co/downloads/kibana" target="_top"> Kibana download page</a>.</p>
 	 
     <div class="hacker">
-		sudo curl -L https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz | tar xzf -</div>
+		sudo curl -L https://download.elastic.co/kibana/kibana/kibana-<em><u>4.1.1</u></em>-linux-x64.tar.gz | tar xzf -</div>
     <div class="hacker">
-  		sudo cp -r kibana-4.1.1* /usr/share/kibana-4.1.1
+  		sudo cp -r kibana-<em><u>4.1.1</u></em>* /usr/share/kibana-<em><u>4.1.1</u></em>
 	</div>
   </li>
-  <li>Open the Kibana configuration file to change the port from the default value 9200 to 80, which is used for interaction with Elasticsearch. 
+  <li>Open the Kibana configuration file to change the port from the default value <code>9200</code> to <code>80</code>, which is used for interaction with Elasticsearch. 
 	<div class="hacker">
-		sudo vim /usr/share/kibana-4.1.1/config/kibana.yml
+		sudo vim /usr/share/kibana-<em><u>4.1.1</u></em>/config/kibana.yml
 	</div>
   </li>  
   <li>Locate the following code:
@@ -179,7 +178,7 @@ elasticsearch_url: "http://localhost:9200"</pre>
 elasticsearch_url: "http://localhost:80"</pre>
 	  </div>
   </li>
-    <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+    <li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
 	</li> 
 	
   <li>Install Nginx, which can be used as the proxy server. This enable access to the Kibana dashboards from the Internet.
@@ -291,7 +290,7 @@ location ~ ^/kibana-int/dashboard/.*$
 		curl -L https://td-toolbelt.herokuapp.com/sh/install-redhat-td-agent2.sh | sh
 	  </div>
   </li>
-  <li>Install the additional plugins required to integrate elasticsearch with Fluentd. 
+  <li>Install the additional plug-ins required to integrate Elasticsearch with Fluentd. 
 
 	  <div class="hacker">  
 		  sudo yum -y install make libcurl4-gnutls-dev
@@ -303,7 +302,7 @@ location ~ ^/kibana-int/dashboard/.*$
 		  sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-record-reformer
 	  </div>
   </li>
-  <li>Open the configuration file <code>td-agent.conf</code>. To allow Fluentd to listen to the syslog  messages and then forward them to Elasticsearch, this file needs to be updated. 
+  <li>Open the configuration file <code>td-agent.conf</code>. To allow Fluentd to listen to the syslog  messages, and then forward them to Elasticsearch, this file needs to be updated. 
 	  <div class="hacker"> 
 	   sudo vim /etc/td-agent/td-agent.conf
 	  </div>
@@ -333,7 +332,7 @@ location ~ ^/kibana-int/dashboard/.*$
 &lt;/match&gt; </pre>
 	  </div>
 	  </li>
-	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
   </li> 
  
   <li>Start  Fluentd.
