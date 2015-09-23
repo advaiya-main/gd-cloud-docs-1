@@ -75,6 +75,8 @@ p.note {
 <p>MySQL and MariaDB are relational databases. These tools are used to handle large volumes of data for different kinds of application programs. Both tools use SQL query language to retrieve the information from different tables and databases. Both MySQL and MariaDB support Virtual Private Server (VPS) or cloud to manage your data.</p>
 
 <h2>Prerequisites </h2>
+<p>Before you begin, install MySQL by either installing a LAMP or LEMP stack:</p>
+
 <!-- Keeping the prerequisites as bulleted list. If this is not the correct way to represent the "Prerequisites" then, please let us know. We will do the needful-->
 <ol>
 	<li><a href="17341">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu</a>.</li>
@@ -82,9 +84,13 @@ p.note {
 	<li><a href="17343">Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 6</a>.</li>
 	<li><a href="17344">Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 7</a>.</li>
 	<li><a href="17345">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a>.</li>
+<li><a href="17347">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Ubuntu</a>.</li>
+<li><a href="17348">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Fedora</a>.</li>
+<li><a href="17349">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - CentOS</a>.</li>
+<li><a href="17350">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Arch Linux</a>.</li>
+<li><a href="17351">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Debian</a>.</li>
 	<!-- LAMP/LEMP is not mandatory to install but MySQL or MariaDB is required only for Database Engine-->
-	<p class = "note">LAMP is not mandatory to install, but in order to install MySQL, you need to install the above mentioned prerequisites</p>
-</ol>
+	</ol>
 <h2>Fetch information</h2>
 <ul><li>You can tell the database server to fetch information from the <code>datatables</code> table by using the following query:
 <div class="hacker">SELECT <em><u>selected_fied1</u></em> FROM <em><u>datatables</u></em> WHERE <em><u>search_crietaria</u></em>;</div> </li>
@@ -100,15 +106,11 @@ The database will confirm with the following message:
 <li>To view the list of tables within MySQL database, and to confirm the data sources, use the following query:
 <div class="hacker">SHOW TABLES;</div>
 <p class="note"> There is a semicolon after every command, which indicates that the engine query ends there.</p>
-<p>The output of this query is similar to the following example:</p>
- <p><img src="images/18893/091015/show-tables.png" alt="show-tables" /></p>
-<p class="Note">Ubuntu will return only twenty-four results for a MySQL installation.</p>
+
+<p class="note">Ubuntu will return only twenty-four results for a MySQL installation.</p>
 </li>
 <li>To view the column headers for a specific table, such as <code>user</code> table, and to get an idea of which categories you can select from, use this command:
 <div class="hacker">SHOW COLUMNS FROM <em><u>user</u></em>;</div>
-<p>The values shown in the <code>Field</code> column are headings for the <code>user</code> table.</p>
-<p><img src="images/18893/091015/show-columns.png" alt="show-columns" /></p>
-
 </li>
 </ol>
 
@@ -117,7 +119,7 @@ The database will confirm with the following message:
 <ul>
 <li>You can select specific information about a <em>user</em> with the following query:
 <div class="hacker">SELECT <em><u>user,password,host</u></em> FROM <em><u>user</u></em>;</div>
-<img src="images/18893/091015/SELECT-query.png" alt="SELECT-query." /></li>
+</li>
 </ul>
 
 
@@ -137,11 +139,11 @@ The database will confirm with the following message:
 <li>You can query for <code>user</code>, <code>password</code>, and <code>host</code>, and then filter for the <em>user</em> named <em>root</em>.
 
 <div class="hacker">SELECT <em><u>user,password,host</u></em> FROM <em><u>user</u></em> WHERE <em><u>user</u></em> = <em><u>"root"</u></em>;</div>
-<img src="images/18893/091015/applying-filter.png" alt="applying-filter" /></li>
+</li>
  
 <li>You can apply a filter for different fields. In this example, the results will return <code>user</code>, <code>password</code>, and <code>host</code> from the <code>user</code> table, which has a value named <code>localhost</code> for <code>host</code>. 
 <div class="hacker">SELECT <em><u>user,password,host</u></em> FROM <em><u>user</u></em> WHERE <em><u>host</u></em> = <em><u>"localhost"</u></em>;</div>
-<img src="images/18893/091015/applying-filter-for-different-fields.png" alt="applying-filter-for-different-fields" /></li>
+</li>
 </ol>
  
  
@@ -152,11 +154,10 @@ The database will confirm with the following message:
 <li>The following query will fetch <em>user</em>, <em>password</em>, and <em>host</em> fields from <strong>user</strong> table, where the criteria host is <code>LIKE l%</code>. 
 <div class="hacker">SELECT <em><u>user,password,host</u></em> FROM <em><u>user</u></em> WHERE <em><u>host</u></em> LIKE <em><u>"l%"</u></em>;</div>
 This will result in an output with all the respective fields starting with letter <code>"l"</code>.<br/>
-<img src="images/18893/091015/Using-like-operator.png" alt="Using-like-operator" /></li>
+</li>
  
 <li>You can also apply <code>and</code> or <code>or</code> for equality comparison. The following query will match each record and return result with filter condition that matches the criteria, such as host starting from either <strong>l</strong> or <strong>127</strong>.
 <div class="hacker">SELECT <em><u>user,password,host</u></em> FROM <em><u>user</u></em> WHERE <em><u>host</u></em> LIKE <em><u>"l%"</u></em> or <em><u>host</u></em> LIKE <em><u>"127%"</u></em>;  </div>
-<img src="images/18893/091015/equality-comparison.png" alt="equality-comparison" />
 </li>
 </ol>
 
