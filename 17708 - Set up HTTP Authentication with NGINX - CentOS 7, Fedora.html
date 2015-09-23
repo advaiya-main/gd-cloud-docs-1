@@ -118,7 +118,7 @@ td:nth-child(1) {font-weight:bold;}
    
    <ol>
    <li>Open your <code>nginx.conf</code> file for editing.
-      <div class="hacker">sudo vim /etc/nginx/sites-available/default</div></li>
+      <div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
 
    <li><p>Define a new location block for your realm. We'll call it <em><u>testpage</u></em>. </p> 
 
@@ -169,7 +169,7 @@ location / {
 
 
 <h2>Next steps</h2>
-    <p>You have just created a scheme for http authentication on your web server. Try moving the <code>auth_basic / authbasic_user_file </code> directives to other contexts (such as inside the default server block to authenticate your whole site) to see how this affects your site. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20Nginx%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
+    <p>You have just created a scheme for http authentication on your web server. Try moving the <code>auth_basic / authbasic_user_file</code> directives to other contexts (such as inside the default server block to authenticate your whole site) to see how this affects your site. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20Nginx%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
 
    
 </body>
