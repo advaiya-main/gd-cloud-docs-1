@@ -9,7 +9,7 @@
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>Back up your server with Bacula - Ubuntu, Debian</title>
+<title>Back up your server with Bacula - Debian, Ubuntu</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -73,77 +73,67 @@ p.note {
 </head>
 
 <body>
-<p>Back up your server with Bacula - Ubuntu, Debian, Backups</p>
+<p>Back up your server with Bacula on Debian and Ubuntu , Backups</p>
     <h1>Back up your server with Bacula – Debian, Ubuntu </h1>
     
     <p><strong>Difficulty</strong>: <em>3</em><br/>
         <strong>Time</strong>: <em>1 hour</em></p>
 
     <p>Bacula is one of the powerful open-source tool to manage, backup, recover and verify network and remote machines. Bacula is a flexible and robust solution for small, medium and large scale enterprises. 
-This article shows how to install and configure Bacula on Ubuntu machine and carry out a daily, weekly and monthly backup.
+This article shows how to install and configure Bacula on Debian/Ubuntu machine and carry out your daily, weekly and monthly backup. This article assumes that the user has <code>sudo</code> priviledges to perform the steps.
 </p>
 
     <h2>Basic understanding of Bacula</h2>
-    <p>As described above, about Bacula is an open source project to manage, backup and restore data. Below are the descriptions of various configuration files used by Bacula.</p>
+    <p>Below are the descriptions of various configuration files used by Bacula.</p>
  	<table border="1">
 	<tr>
-	<td>Bacual Director: </td>
-	<td><code>bacula-dir.conf</code> which mange the operation of backup and restore data by daemons.</td>
+	<td>Bacual Director</td>
+	<td><code>bacula-dir.conf</code> manage the operation of backup and restore data by daemons.</td>
 	</tr>
 	
 	<tr>
-	<td>Bacula Storage: </td>
-	<td><code>bacula-sd.conf</code> file which having configuration for read/write backup devices.</td>
+	<td>Bacula Storage</td>
+	<td><code>bacula-sd.conf</code> file has the configuration for read/write backup devices.</td>
 	</tr>
 	
 	<tr>
-	<td>Bacula File Storage: </td>
-	<td><code>bacula-fd.conf </code>list Directors who are permitted to contact this File daemon.</td>
+	<td>Bacula File Storage</td>
+	<td><code>bacula-fd.conf </code>list directors permitted to contact this file daemon.</td>
 	</tr>
 	
 	<tr>
-	<td>Bacula Console: </td>
-	<td>To perform various commands to interact with <code>bacula-dir.</code></td>
+	<td>Bacula Console </td>
+	<td>Perform various commands to interact with the <code>bacula-dir.</code></td>
 	</tr>
 	</table>
 	
 	<h2>Basic terms used in this article</h2>
 	<table border="1">
 	<tr>
-	<td>BackupServer: </td>
-	<td>BackServer the place where you want to keep all backups of clients or remote machines.</td>
+	<td>BackupServer </td>
+	<td>The place where you want to keep all the backups of clients or remote machines.</td>
 	</tr>
 	
 	<tr>
-	<td>Client/Bacula Client: </td>
-	<td>Bacula Client/Client is the machine from which you want to take backup and restore taken backup from the BackupServer.</td>
+	<td>Client/Bacula Client</td>
+	<td>The machine from which you want to take backup and restore backup from the BackupServer.</td>
 	</tr>
 	</table>
 	
-    <h2>Prerequisites</h2>
-	<ol>
-	<li>Ubuntu Server</li>
-	<li>Private Network or two different machine</li>
-	<li>Sudo User</li>
-	</ol>
-	
+    
 	<h2>Install Bacula on the server</h2>
-	<p>To configure Bacula, you require two or more machines as server and clients respectively, so here Machine1 is defined as BackupServer where you will place clients’ machine IP or network machine’s backup.</p>
+	<p>To configure Bacula, you require two or more machines as server and clients respectively. So here, <strong>Machine1</strong> will be used as the BackupServer where you will place clients’ machine IP or network machine’s backup and <strong>Machine2</strong> will be used as the Bacula client from which the backup will be taken.</p>
 <ol> 
-<li>Install Bacula on Ubuntu Machine using the following command:
+<li>Install Bacula on the Debian/Ubuntu Machine using the following command:
    <div class="hacker">sudo apt-get install bacula</div>
-   <p>It will install all the default dependencies for Bacula such as bacula-server, bacula-client and MySQL</p>
+   <p>It will install all the default dependencies for Bacula such as bacula-server, bacula-client and MySQL. This will also configure the Bacula MySQL driver for database usage.</p>
    </li>
-   <li>Configure bacula mysql driver for database usage.
-   </li>
-   <li>Type the administrative account password for mysql.
-   </li>
-   <li>Provide mysql database password to connect with the database server. If you leave it blank, mysql password will generated.
+   <li>Type the administrative account password for MySQL and then provide the MySQL database password to connect with the database server. If you leave it blank, MySQL password will be generated automatically.
    </li>
   </ol>
   
   <h2>Install the Bacula client</h2>
-  <p>Open Machine2 that is taken here as bacula client from which the backup will be taken.</p>
+  <p>Open <strong>Machine2</strong> from which the backup will be taken.</p>
 <ol> 
 <li>Open the terminal in client machine.
    </li>
@@ -155,40 +145,40 @@ This article shows how to install and configure Bacula on Ubuntu machine and car
    
    <h2>Create a directory for backup and restore</h2>
    <ol>
-   <li>Create a backup and restore directory to place our backup and restore path on both the machines (BackupServer/Client).
-   <div class="hacker">sudo mkdir -p /bacula/backup /bacula/restore</div>
+   <li>Create a backup and restore directory to place the backup and restore path on both the machines (BackupServer/Client).
+   <div class="hacker">sudo mkdir -p <em><u>/bacula/backup</u></em> <em><u>/bacula/restore</u></em></div>
    </li>
-   <li>Give permission to bacula user to read/write into the directory.
-   <div class="hacker">sudo chown -R bacula:bacula /bacula</div>
-   <div class="hacker">sudo chmod -R 700 /bacula</div>
+   <li>Grant read/write permission to Bacula user into the directory.
+   <div class="hacker">sudo chown -R bacula:bacula <em><u>/bacula</u></em></div>
+   <div class="hacker">sudo chmod -R 700 <em><u>/bacula</u></em></div>
    </li>
   </ol>
   
-  <h2>Configure the client machine:</h2>
+  <h2>Configure the client machine</h2>
 <ol> 
-<li>Open the client machine where you installed bacula-client for the necessary configuration.
+<li>Log into the client machine where you installed the Bacula-client for necessary configuration.
    </li>
-   <li>Open the file namely <code>bacula-fd.conf </code>in your favorite editor:
+   <li>Open the <code>bacula-fd.conf </code> file in your favorite editor:
    <div class="hacker">sudo vim /etc/bacula/bacula-fd.conf</div>
    </li>
-   <li>Keep the file open, jump to BackupServer machine and open the file <code>bacula-dir.conf</code>:
+   <li>Keep the file open, jump to the BackupServer machine and open the <code>bacula-dir.conf</code> file:
    <ol type="a">
-   <li>Find the section “Director {” and, copy and paste the name given against <strong>Name</strong> parameters.  
+   <li>Find the section <code>Director {</code> and, copy and paste the name given against <code>Name</code> parameters.  
    <div class="hacker">
    Director {<br />
-     Name = BackupServer-dir <br/>
+     Name = <em><u>BackupServer-dir</u></em> <br/>
      …..<br/>
      …..<br/>
 }
    </div>
-   <p class="note">The name would be different in your machine but it will have the same postfix <strong>–dir.</strong></p>
+   <p class="note">The name would be different in your machine but it will have the same postfix <code>–dir.</code></p>
    </li>
-   <li>Find one more section “Client {” and, copy and paste the password given against the <strong>Password </strong>label. Make sure that the section has its name similar to the director:
+   <li>Find one more section <code>Client {</code> and, copy and paste the password given against the <code>Password </code>label. Make sure that the section has its name similar to the director:
    <div class="hacker">
    Client {<br/> 
-       Name = BackupServer-dir <br/>
-       Address = xxx.xxx.xxx.xxx<br/>
-       Password = “IVwwRSUFLYcbTdAuapez-5Zg26PefmvIA”<br/>
+       Name = <em><u>BackupServer-dir</u></em><br/>
+       Address = <em><u>xxx.xxx.xxx.xxx</u></em><br/>
+       Password = “<em><u>IVwwRSUFLYcbTdAuapez-5Zg26PefmvIA</u></em>”<br/>
 }
    </div>
    </li></ol>
@@ -196,21 +186,21 @@ This article shows how to install and configure Bacula on Ubuntu machine and car
    <li>Jump to the Bacual-client machine and add the following configuration in the <code>bacula-fd.conf</code>: 
    <div class="hacker">
    Director {<br/>
-           Name = Bacula-BackupServer-dir<br/>
-           Password = "IVwwRSUFLYcbTdAuapez-5Zg26PefmvIA"  # Copy this password for later reference!<br/>
+           Name = <em><u>Bacula-BackupServer-dir</u></em><br/>
+           Password = "<em><u>IVwwRSUFLYcbTdAuapez-5Zg26PefmvIA</u></em>"  # Copy this password for later reference!<br/>
 }
    </div>
    </li>
-   <li>Find the line “FileDaemon {” and change the IP address in <strong>FDAddress </strong>variable from localhost to Bacula client machine IP.
+   <li>Find the line <code>FileDaemon {</code> and change the IP address in <code>FDAddress </code>variable from localhost to Bacula client machine IP.
    <div class="hacker">
-FDAddress = public_IP # FQDN <br/>
+FDAddress = <em><u>public_IP</u></em> # FQDN <br/>
 FileDaemon {                          # this is me<br/>
-  Name = Bacula-client<br/>
-  FDport = 9102                  # where we listen for the director<br/>
+  Name = <em><u>Bacula-client</u></em><br/>
+  FDport = <em><u>9102</u></em>                  # where we listen for the director<br/>
   WorkingDirectory = /var/lib/bacula<br/>
   Pid Directory = /var/run/bacula<br/>
   Maximum Concurrent Jobs = 20<br/>
-  FDAddress = 192.xxx.xxx.xxx<br/>
+  FDAddress = <em><u>192.xxx.xxx.xxx</u></em><br/>
 }
    </div>
    </li>
@@ -218,16 +208,16 @@ FileDaemon {                          # this is me<br/>
    <div class="hacker">
    Messages {<br/>
   Name = Standard<br/>
-  director = Bacula-BackupServer-dir = all, !skipped, !restored<br/>
+  director = <em><u>Bacula-BackupServer-dir</u></em> = all, !skipped, !restored<br/>
 }
    </div>
    </li>
-<li>Define the fileset which you want to backup into the <strong>Fileset</strong> Section:
+<li>Define the fileset that you want to backup into the <code>Fileset</code> Section:
 	<ol type="a">
-	<li>To include backup files and folder, write it under the sub section <strong>Include.</strong>.
+	<li>To include backup files and folder, write it under the sub section <code>Include.</code>
    </li>
-   <li>To exclude backup files and folder, write it under the sub section <strong>Exclude.</strong>
-   <p>Below is example for backup FileSet:</p>
+   <li>To exclude backup files and folder, write it under the sub section <code>Exclude.</code>
+   <p>Below is the example for backup FileSet:</p>
    <div class="hacker">
    FileSet {<br/>
   Name = "Full Set"<br/>
@@ -235,55 +225,55 @@ FileDaemon {                          # this is me<br/>
     Options {<br/>
       signature = MD5<br/>
     }<br/>
-    File = /usr/sbin<br/>
-    File = /home/<br/>
+    File = <em><u>/usr/sbin</u></em><br/>
+    File = <em><u>/home/</u></em><br/>
   }<br/>
   Exclude {<br/>
-    File = /bacula<br/>
+    File = <em><u>/bacula</u></em><br/>
   }<br/>
 }
    </div>
    </li>
    </ol>
    </li>
-   <li>Save and exit the file by pressing the <strong>ESC</strong>. key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+   <li>Save and exit the file by pressing the <strong>ESC</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
    </li>
-   <li>Restart the Bacula-Client machine to effect the changes:
+   <li>Restart the Bacula-Client machine to make the changes effective:
    <div class="hacker">sudo service bacula-fd restart</div>
    </li>
    
   </ol>
   
-  <h2>Configure the BackupServer:</h2>
+  <h2>Configure the BackupServer</h2>
   <p>Switch to the BackupSever machine and update the configuration.</p>
 <ol> 
-<li>Open the file <strong>bacula-dir.conf</strong> in your favorite editor, if not already opened. Go to the top of the file, then go to the section <strong>Director</strong> {update the <strong> Address</strong> label to the FQDN or Public_IP:
-   <div class="hacker">DirAddress = BackupServer_IP </div>
+<li>Open the file <code>bacula-dir.conf</code> in your favorite editor, if not already opened. Go to the top of the file, then go to the section <code>Director</code> and update the <code> Address</code> label to the FQDN or <em><u>Public_IP</u></em>:
+   <div class="hacker">DirAddress = <em><u>BackupServer_IP</u></em> </div>
    </li>
    <li>Change the configuration name of default <strong>BackupClient1</strong> to an easy to remember name:
    <div class="hacker">
    Job {<br/>
-  Name = "LocalBackup"<br/>
+  Name = "<em><u>LocalBackup</u></em>"<br/>
   JobDefs = "DefaultJob"<br/>
 }
    </div>
    </li>
-   <li>Add another section namely <strong>Job</strong>for the remote backup:
+   <li>Add another section named <code>Job</code> for the remote backup:
    <div class="hacker">
     Job {<br/>
-  Name = "RemoteBackup"<br/>
+  Name = "<em><u>RemoteBackup</u></em>"<br/>
   JobDefs = "DefaultJob"<br/>
-  Client = Bacula-Client-fd<br/>
+  Client = <em><u>Bacula-Client-fd</u></em><br/>
   Pool = RemoteFile<br/>
 }
    </div>
    </li>
-   <li>Define a place for the remote backup to restore. Use the directory that you created on the client machine to restore remote backups. Find the "RestoreFiles" job definition, copy and paste configuration to the file.
+   <li>Specify a place for the remote backup to restore. Use the directory that you created on the client machine to restore remote backups. Look for the <code>RestoreFiles</code> and copy and paste the configuration to the file.
    <div class="hacker">
    Job {<br/>
-  Name = "RestoreRemote"<br/>
+  Name = "<em><u>RemoteBackup</u></em>"<br/>
   Type = Restore<br/>
-  Client = Bacula-Client-fd<br/>
+  Client = <em><u>Bacula-Client-fd</u></em><br/>
   FileSet = "Full Set"<br/>
   Storage = File     <br/>
   Pool = Default<br/>
@@ -292,14 +282,14 @@ FileDaemon {                          # this is me<br/>
 }
    </div>
    </li>
-   <li>Find the “Client {” section in<code> bacula-dir.conf</code> file having name like <strong>BackupServer-fd</strong>:
+   <li>Look for the <code>Client {</code> section in<code> bacula-dir.conf</code> file that has the name as <code>BackupServer-fd</code>:
    <div class="hacker">
    Client {<br/>
-  Name = BacupServer-fd<br/>
-  Address = BacupServer-ip<br/>
+  Name = <em><u>BacupServer-fd</u></em><br/>
+  Address = <em><u>Public_IP</u></em><br/>
   FDPort = 9102<br/>
   Catalog = MyCatalog<br/>
-  Password = " IVwwRSUFLYcbTdAuapez-5Zg26PefmvIA"          # password for FileDaemon<br/>
+  Password = "<em><u>IVwwRSUFLYcbTdAuapez-5Zg26PefmvIA</u></em>"          # password for FileDaemon<br/>
   File Retention = 30 days            # 30 days<br/>
   Job Retention = 6 months            # six months<br/>
   AutoPrune = yes                     # Prune expired Jobs/Files<br/>
@@ -309,11 +299,11 @@ FileDaemon {                          # this is me<br/>
    <li>Add a new client section for Bacula-client from where Bacula-director can connect:
    <div class="hacker">
    Client {<br/>
-  Name = BaculaClient-fd<br/>
-  Address = client-machine-IP<br/>
+  Name = <em><u>BaculaClient-fd</u></em><br/>
+  Address = <em><u>Public_IP</u></em><br/>
   FDPort = 9102<br/>
   Catalog = MyCatalog<br/>
-  Password = "u2LK-yBrQzfiEsc6NWftHEhymmdPWsklN"       # password for Remote FileDaemon<br/>
+  Password = "<em><u>u2LK-yBrQzfiEsc6NWftHEhymmdPWsklN</u></em>"       # password for Remote FileDaemon<br/>
   File Retention = 30 days            # 30 days<br/>
   Job Retention = 6 months            # six months<br/>
   AutoPrune = yes                     # Prune expired Jobs/Files<br/>
@@ -324,31 +314,31 @@ FileDaemon {                          # this is me<br/>
    </li>
   </ol>
   
-  <h2>Configure storage in BackupServer:</h2>
+  <h2>Configure storage in BackupServer</h2>
 <ol> 
-<li>Again open the file <strong>bacula-dir.conf</strong> in your favorite editor.
+<li>Again open the file <code>bacula-dir.conf</code> in your favorite editor.
    <div class="hacker">sudo vim /etc/bacula/bacula-dir.conf</div>
    </li>
-   <li>Change the address of the storage section with <strong>public-ip or FQDN</strong>:
+   <li>Modify the address of the storage section with <code><em><u>public-ip</u></em> or FQDN</code>:
    <div class="hacker">
    Storage {<br/>
   Name = File<br/>
 # Do not use "localhost" here   <br/>
-  Address = BackupServer-ip # N.B. Use a fully qualified name here<br/>
+  Address = <em><u>Public_IP</u></em> # N.B. Use a fully qualified name here<br/>
   SDPort = 9103<br/>
-  Password = "097dnj3jw1Yynpz2AC38luKjy5QTnGoxS"<br/>
+  Password = "<em><u>097dnj3jw1Yynpz2AC38luKjy5QTnGoxS</u></em>"<br/>
   Device = FileStorage<br/>
   Media Type = File<br/>
 }
    </div>
    </li>
-   <li>Update the pool configuration. The Pool resource defines the set of storage volumes (tapes or files) to be used by Bacula to write the data. Change the <strong>Label Format</strong> to store backup prefix with this name. 
+   <li>Update the pool configuration that is used by Bacula to write the data. Change the <code>Label Format</code> to store backup prefix with this name. 
    <div class="hacker">
    Pool {<br/>
   Name = File<br/>
   Pool Type = Backup<br/>
   Recycle = yes                       # Bacula can automatically recycle Volumes<br/>
-  Label Format = LocalBacup-<br/>
+  Label Format = <em><u>LocalBackup-</u></em><br/>
   AutoPrune = yes                     # Prune expired volumes<br/>
   Volume Retention = 365 days         # one year<br/>
   Maximum Volume Bytes = 50G          # Limit Volume size to something reasonable<br/>
@@ -356,14 +346,13 @@ FileDaemon {                          # this is me<br/>
 }
    </div>
    </li>
-   <li>Copy the current section and paste it below the current entry. This will be set up for remote backup storage.
-   <p>Change the name of the new pool to reflect its job of storing remote backups. Also, change the prefix by adjusting the "Label Format" parameter to be "Remote-":</p>
+   <li>Copy the current block and paste it at the bottom of the current section. This will set the remote backup storage. Modify the name of this pool to enable storing remote backups. In addition, modify the prefix by adjusting the <code>Label Format</code> parameter to be <code>Remote-</code>:
    <div class="hacker">
    Pool {<br/>
   Name = RemoteFile<br/>
   Pool Type = Backup
   Recycle = yes                       # Bacula can automatically recycle Volumes<br/>
-  Label Format = Remote-<br/>
+  Label Format = <em><u>Remote-</u></em><br/>
   AutoPrune = yes                     # Prune expired volumes<br/>
   Volume Retention = 365 days         # one year<br/>
   Maximum Volume Bytes = 50G          # Limit Volume size to something reasonable<br/>
@@ -380,15 +369,15 @@ FileDaemon {                          # this is me<br/>
 <li>Open the file <code>bacula-sd.conf </code>for storage daemon.
    <div class="hacker">sudo vim /etc/bacula/bacula-sd.conf</div>
    </li>
-   <li>Change the "SDAddress" parameter to reflect the backup server's IP address or domain name:
+   <li>Change the <code>SDAddress</code> parameter to reflect the backup server's IP address or domain name:
    <div class="hacker">
    Storage {                             # definition of myself<br/>
-  Name = BackupServer-sd<br/>
+  Name = <em><u>BackupServer-sd</u></em><br/>
   SDPort = 9103                  # Director's port<br/>
   WorkingDirectory = "/var/lib/bacula"<br/>
   Pid Directory = "/var/run/bacula"<br/>
   Maximum Concurrent Jobs = 20<br/>
-  SDAddress = BackupServer-ip<br/>
+  SDAddress = <em><u>Public_IP</u></em><br/>
 }
    </div>
    </li>
@@ -416,25 +405,23 @@ FileDaemon {                          # this is me<br/>
    </li>
   </ol>
   
-  <h2>Test the backupserver</h2>
+  <h2>Test the BackupServer</h2>
 <ol> 
 <li>Start the Bacula console using the following command:
    <div class="hacker">sudo bconsole</div>
    </li>
-   <li>Type status command to list the available backup machine clients:
-   <div class="hacker">status</div>
-   </li>
-   <li>Bconsole will display the list of clients to backup.Press 3 to select daemon type for status
+   <li>Type the <code>status</code> command to list the available backup machine clients:
+    </li>
+   <li><code>bconsole</code> will display the list of clients to backup. Press <strong>3</strong> to select the daemon type for status.
   </li>
-   <li>Choose the defined client resources
+   <li>Choose the defined client resources.
    </li>
-   <li>Run a backup test using the following command:
+   <li>Run a backup test using the <code>run</code> command:
   
    </li>
-   <li>Choose the job from the list displayed by Bacula console, Press 2 here.
+   <li>Press <strong>2</strong> to choose the job from the list displayed by the Bacula console.
    </li>
-   <li>After pressing 2, Bacula console will show you the information about the chosen client. Confirm by typing Yes.
-   <p>Bacula will start the process of the backup.</p>
+   <li>After pressing <strong>2</strong>, Bacula console will show you the information about the chosen client. Confirm by typing <code>Yes</code>. Bacula will start the process of the backup.
    </li>
   </ol>
   
@@ -453,16 +440,16 @@ FileDaemon {                          # this is me<br/>
    <li>Restore backup on the client machine using the following command:
    <div class="hacker">restore all</div>
    </li>
-   <li>Restore command will display the list of what kind of backup you want to restore. Press 5.
+   <li>Restore command will display the list of kind of backup you want to restore. Press <strong>5</strong> here.
    </li>
-   <li>Choose the client, which you want to restore from the list displayed by Bacula console. Press 3 
+   <li>Choose the client, that you want to restore from the list displayed by Bacula console. Press <strong>3</strong> here.
    </li>
-   <li>Choose the backup type FileSet resources. Press 2
+   <li>Choose the backup type <code>FileSet</code> resources. Press <strong>2</strong> here.
    </li>
-   <li>Use <strong>done</strong> command to execute the backup process. Press 1
+   <li>Use the <code>done</code> command to execute the backup process. Press <strong>1</strong> here.
    <div class="hacker"></div>
    </li>
-<li>After choosing the <strong>Restore</strong> job resource, Bacula prompts you for confirmation. Type<strong> Yes </strong>for confirmation: 
+<li>After choosing the <code>Restore</code> job resource, Bacula prompts you for confirmation. Type<code> Yes </code>for confirmation: 
    <div class="hacker">OK to run? (yes/mod/no): yes</div>
    </li>
    </ol>
@@ -470,8 +457,8 @@ FileDaemon {                          # this is me<br/>
    <h2>Verify the restoration</h2>
    <ol>
    <li>Go to the Bacula-client machine and type the following command:
-   <div class="hacker">sudo ls -R /bacula/restore</div>
-  	<p>The above command will show a list of those files which you defined in BackupServer Fileset.</p>
+   <div class="hacker">sudo ls -R <em><u>/bacula/restore</u></em></div>
+  	<p>The above command will show a list of those files which you defined in BackupServer <code>FileSet</code> .</p>
    </li>
   </ol>
   
