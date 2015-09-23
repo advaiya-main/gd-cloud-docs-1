@@ -86,6 +86,8 @@ p.note {
 		<li>Install <code>pgadmin3</code> for the administrator. <code>pgadmin3</code> is an easy-to-access GUI for PostgresSQL.
           <div class="hacker">sudo pacman -S pgadmin3
 			</div>
+			<p>When prompted about available providers for libgl, press <strong>1</strong> to select the default option.
+			</p>
 	   </li>
 		<li>Make sure that PostgreSQL is installed.
 			<div class="hacker">sudo pacman -Si postgresql <!-- corrected command :nt-->
@@ -117,6 +119,7 @@ p.note {
 			</div>
 			<div class="hacker">psql
 			</div>
+			<p>The above command will start the postgres command prompt, where all further steps are to be performed.</p>
 			<div class="hacker"> \password <em><u>user_name</u></em>
 			</div>
 		</li>
@@ -177,9 +180,10 @@ host: localhost<br />
 username: <em><u>user_name</u></em><br />
 password: <em><u>your_password</u></em><br />
 		  </div>
+	  
+	  <p class ="note">When adding this code, you need to ensure proper alignment with the code "<code>pool: 5</code>". Also  spacing  with in the code added must be maintained as shown above.</p> 
 	  </li>
-		<li>Save and exit.
-		<div class ="hacker">wq!</div></li>
+		<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 	</ol>
 <h2>Create a database for your application</h2>
 	<ul>
@@ -192,8 +196,9 @@ password: <em><u>your_password</u></em><br />
 		<li>Test the Rails application.
 		  <div class="hacker">rails server <!-- corrected the command --> <!-- fixed with correct command -->
 		  </div>
-		  You can run your Rails application on your <code>localhost</code> on port 3000.  You can also access your application from a web browser, if it's located on a remote server, by assigning a public IP address.
-			<div class="hacker">rails server --binding=<em><u>your_server_ip</u></em> <!-- Changed to your server IP -->
+		  <p>You can run your Rails application on your <code>localhost</code> on port 3000. To stop the server and return to the command prompt, press <strong>Ctrl + C</strong>.</p>
+		  <p>You can also access your application from a web browser, if it's located on a remote server, by assigning a public IP address using below command:</p>
+			<div class="hacker">rails server --binding=<em><u>Public_IP_Address_of_your_server</u></em> <!-- Changed to your server IP -->
 		  </div>
 		</li>
 </ul>

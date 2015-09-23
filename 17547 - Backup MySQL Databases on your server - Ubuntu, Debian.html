@@ -4,7 +4,7 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
+<!--Article Number is 17547 (fill in blank)-->
 
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
@@ -83,14 +83,14 @@ p.note {
     <h2>Backup Database</h2>
 <ul> 
 <li>Export the database using <code>mysqldump</code> command. 
-  <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p <em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
+  <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
    </li>
    </ul>
    
    <h2>Restore the database</h2>
    <ol>
    <li>Create a database if not created already.  
-   <div class="hacker">mysql –u <em><u>mysql_username</u></em> –p</div>
+   <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
    </li>
    <li>You will get a MySQL prompt, asking to create a new database to hold raw data.
    <div class="hacker">CREATE DATABASE <em><u>database_name</u></em>;</div>
@@ -106,9 +106,11 @@ p.note {
    <h2>Back up the table to a text file</h2>
    <ul>
    <li>Take the backup into the text file using the following command:
+   <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
    <div class="hacker">USE <em><u>database_name</u></em>;</div>
    <div class="hacker">SELECT * INTO OUTFILE '<em><u>table_backup_file</u></em>' FROM <em><u>name_of_table</u></em>;</div>
-   <p class="note">Use <code>USE</code> command to select or change the database.</p>
+   <p class="note">Use <code><strong>USE</strong></code> command to select or change the database.</p>
+   <p class="note">Press <strong>CTLR+C</strong> to exit from <code>MySQL</code>.</p>
    </li>
   </ul>
   
@@ -119,7 +121,8 @@ p.note {
    <div class="hacker">sudo automysqlbackup</div>
    </li>
    <li>Open the configuration file for <code>automysqlback</code> using vim which is located at <code>/etc/default/automysqlbackup</code>.
-      <div class="hacker">sudo nano /etc/default/automysqlbackup</div>
+      <div class="hacker">sudo vim /etc/default/automysqlbackup</div>
+	  <p class="note">To save and exit press <strong>Esc</strong> and type the following characters <strong>:wq!</strong></p>
    </li>
    <li>After opening, you will find <code>/etc/mysql/debian.conf </code>file, has many variables. You can replace the file with your configuration file but before proceeding, you should take a backup of the file.
    </li>

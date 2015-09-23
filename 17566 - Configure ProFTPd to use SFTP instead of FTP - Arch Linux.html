@@ -4,10 +4,6 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
 
 <title>Configure ProFTPd to use SFTP instead of FTP - Arch Linux</title>
 <style type="text/css">
@@ -68,47 +64,47 @@ p.note {
 </head>
 
 <body>
-<p>Configure ProFTPd to use SFTP instead of FTP on Arch Linux, Security, Linux Basics.</p>
+<p>Configure ProFTPd to use SFTP instead of FTP on Arch Linux, security, Linux basics.</p>
     <h1>Configure ProFTPd to use SFTP instead of FTP - Arch Linux</h1>
     
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>20 minutes</em></p>
 
    
-    <p>ProFTPd is a File Transfer Protocol (FTP) server and an open source software, compatible with Linux/Unix systems and Microsoft windows. SFTP (Secure File Transfer Protocol) which stands for SSH File Transfer Protocol, or Secure File Transfer Protocol, is a separate protocol packaged with SSH that works in a similar way over a secure connection.</p>
+    <p>ProFTPd is a File Transfer Protocol (FTP) server and open source software compatible with Linux/Unix systems and Microsoft Windows. SFTP (which stands for SSH File Transfer Protocol or Secure File Transfer Protocol) is a separate protocol packaged with SSH that works in a similar way over a secure connection.</p>
  
-    <p>In this article you will learn, how to install and configure ProFTPd on Arch Linux.</p>
+<p>In this article, you will learn  to install and configure ProFTPd on Arch Linux.</p>
 	
 	 <p class ="note">You need <code>sudo</code> privileges to run the commands.</p>
 	
-	<h2>Install essential library</h2>
+	<h2>Install the essential library</h2>
 <ul> 
-<li>Install the C library and make command using the following command:
-   <div class="hacker">sudo pacman -S gcc make</div>
+<li>Install the C library and <code>make</code> command.
+  <div class="hacker">sudo pacman -S gcc make</div>
 </li>
  </ul>  
  
- <h2>Intall ProFTPd</h2>
+ <h2>Install ProFTPd</h2>
  <ol>  
-   <li>Download the source ProFTPd using the following the command:
-   <div class="hacker">sudo  wget ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.6rc1.tar.gz</div>
+   <li>Download the source ProFTPd.
+     <div class="hacker">sudo  wget ftp://ftp.proftpd.org/distrib/source/proftpd-1.3.6rc1.tar.gz</div>
    </li>
-   <li>Extract the package and change directory to ProFTPd using the following command:
-   <div class="hacker">sudo tar -xf proftpd-1.3.6rc1.tar.gz</div>
+   <li>Extract the package, and change the directory to ProFTPd.
+     <div class="hacker">sudo tar -xf proftpd-1.3.6rc1.tar.gz</div>
    <div class="hacker">cd proftpd-1.3.6rc1</div>
    </li>
-   <li>Use the following command to install ProFTPd.
-   <div class="hacker">sudo ./configure</div>
+   <li>Install ProFTPd.
+     <div class="hacker">sudo ./configure</div>
    <div class="hacker">sudo make &amp;&amp; sudo make install</div>
    </li>
-   <li>Install sample configuration file using the following command:
-   <div class="hacker">sudo sh sample-configurations/PFTEST.install</div>
+   <li>Install the sample configuration file.
+     <div class="hacker">sudo sh sample-configurations/PFTEST.install</div>
    </li>
-   <li>Open the file <code>/tmp/PFTEST/PFTEST.conf </code>in your favorite editor to modify.
-   <div class="hacker">sudo vim /tmp/PFTEST/PFTEST.conf</div>
+   <li>Open the file <code>/tmp/PFTEST/PFTEST.conf </code>for editing.
+     <div class="hacker">sudo vim /tmp/PFTEST/PFTEST.conf</div>
    </li>
-   <li>Set the user and group as <code>nobody</code> and set the document root to access default directory as shown below.
-   <div class="hacker">
+   <li>Set the user and group as <code>nobody,</code> and set the document root to access the default directory as shown below.
+     <div class="hacker">
 <pre>
 User                     nobody
 Group                    nobody
@@ -116,13 +112,13 @@ DefaultRoot 	        /home/user !adm
 </pre>
    </div>
    </li>
-   <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+   <li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key.
    </li>
 </ol>
   
   <h2>Configure ProFTPd</h2>
 <ol> 
-<li>Open the <code>PFTEST.conf</code> file to modify.
+<li>Open the <code>PFTEST.conf</code> file for editing.
    <div class="hacker">sudo vim /tmp/PFTEST/PFTEST.conf</div>
   </li>
    <li>Change the <code>ServerName</code> to your FQDN or your public IP.
@@ -132,8 +128,8 @@ DefaultRoot 	        /home/user !adm
    <li>Change the default server port to hide from public scan.
    <div class="hacker">Port		2021</div>
    </li>
-   <li>To start the ProFTPd services, use the following command:
-   <p>For non-daemon:</p>
+   <li>Start the ProFTPd services.
+     <p>For non-daemon:</p>
    <div class="hacker">sudo proftpd -n -d 5 -c /tmp/PFTEST/PFTEST.conf</div>
    <p>For daemon:</p>
    <div class="hacker">sudo proftpd -d 5 -c /tmp/PFTEST/PFTEST.conf</div>
@@ -142,15 +138,16 @@ DefaultRoot 	        /home/user !adm
   
   <h2>Test ProFTPd</h2>
 <ol> 
-<li>Open the FileZilla or any other client having SFTP or FTP like WinSCP.
-   <br/><img src="images/17566/091615/FileZilla.png" alt="FileZilla.png"/>
+<li>Open  FileZilla or another SFTP or FTP client  such as WinSCP.
+   <br/>
+   <img src="images/17566/091615/FileZilla.png" alt="FileZilla.png"/>
   </li>
-   <li>Enter <strong>Host</strong> or IP address, <strong>Username</strong>, <strong>Password</strong> and <strong>Port</strong> number and click the <strong>Quickconnect</strong> button. FileZilla should connect automatically using your SSH keys.
+   <li>Enter <strong>Host</strong> (or IP address), <strong>Username</strong>, <strong>Password</strong> and <strong>Port</strong> number, and click  <strong>Quickconnect</strong>. FileZilla  connects automatically using your SSH keys.
    </li>
 </ol>
   
-    <h2>Conclusion</h2>
-    <p>In this article, you have learnt to install and configure ProFTPd on Arch Linux. </p>
+<h2>Conclusion</h2>
+    <p>In this article, you have learned to install and configure ProFTPd on Arch Linux. </p>
    
 </body>
 </html>

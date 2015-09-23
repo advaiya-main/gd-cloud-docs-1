@@ -76,7 +76,7 @@ p.note {
 </head>
 
 <body>
-<p></p>
+<p>Install and configure Puppet to manage your Ubuntu server, Puppet, Automation</p>
     <h1>Install and configure Puppet to manage your server - Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em><u>4</u></em><br/>
@@ -89,22 +89,23 @@ p.note {
 		<li>Open source Puppet</li>
 	</ul>
 	<p>
-	In this article, you will learn to install the open source puppet in a Master-Agent server setup. This includes a Puppet Master server which has all the configuration files and Puppet Agent server which will be querying for Master server for updates.
+	In this article, you will learn to install the open source Puppet in a Master-agent server setup. This includes a Puppet master server, which has all the configuration files, and Puppet agent server, which will be querying the master server for updates.
 	</p>
-	<p>Before you begin, you must have root access to follow this article. In addition, you should have the below mentioned infrastructure ready:</p>
+	<p>Before you begin, you must have <code>sudo</code> access to follow this article. In addition, you should have the below mentioned infrastructure ready:</p>
 <ul>
-<li>Server with Fedora 20 installed that will act as the Master server.</li>
+<li>Server with Fedora 20 installed that will act as the master server.</li>
 <li>A private network DNS.</li>
 <li>Ensure that the firewall port 8140 is accessible. 
 </li>
 </ul>
-	<p>Throughout this article, the below naming conventions will be used:</p>
+	<p>Throughout this article, the following naming conventions will be used:</p>
 	<ul>
-		<li>For puppet master server hostname will be <strong>puppet</strong> and corresponding FQDN will be <strong>puppet.coolexample.com</strong></li>
-		<li>For host nodes, it is <strong>host1</strong> and <strong>host2</strong> and its FQDN <strong>host1.coolexample.com </strong>and <strong>host2.coolexample.com</strong>.</li>
-	</ul>
+<li>For Puppet master server hostname will be <em><u>puppet</u></em> and corresponding FQDN will be <strong>puppet.<em><u>coolexample</u></em>.com</strong>.
+</li>
+<li>For host nodes, it is <em><u>host1</u></em> and <em><u>host2</u></em> and its FQDN <em><u>host1.coolexample.com</u></em> and <em><u>host2.coolexample.com</u></em>respectively.</li>
+</ul>
 	<h2>Install Network Time Protocol (NTP)</h2>
-	If time is not properly adjusted, it can cause errors when puppet master issues agents certificates.
+	If time is not properly adjusted, it can cause errors when the Puppet master issues agents certificates.
 	<ol>
 		<li>
 			Synchronize using <code>ntpdate</code> command: 
@@ -114,19 +115,19 @@ p.note {
 			</div>
 		</li>
 		<li>
-			Install NTP daemon so that time gets automatically updated.
+			Install NTP daemon, so that time is updated automatically.
 			<div class="hacker">
 				sudo apt-get update &amp;&amp; sudo apt-get -y install ntp
 			</div>
 		</li>
 		<li>
-			Edit <code>ntp.conf</code> file.
+			Edit the <code>ntp.conf</code> file.
 			<div class="hacker">
 				sudo vi /etc/ntp.conf
 			</div>
 		</li>
 		<li>
-			Add time servers from the NTP Pool:
+			Add time servers from the <strong>NTP Pool Project</strong> page:
 			<div class="hacker">
 				server 0.us.pool.ntp.org<br />
 				server 1.us.pool.ntp.org<br />
@@ -140,8 +141,7 @@ p.note {
 			<div class="hacker">
 				ssudo service ntp restart
 			</div>
-			Servers will show accurate time now.
-		</li>
+			Servers will show accurate time now. </li>
 	</ol>
 	<h2>Install Puppet Master</h2>
 	In this tutorial, you will install the Open Source Puppet from the Debian package <code>puppetmaster-passenger</code>. This package contains puppet master along with production-ready webserver (Apache).
@@ -172,14 +172,14 @@ p.note {
 		</li>
 		
 		<li>
-			After you have installed the puppetmaster, Apache and all other relevant packages to your server, stop the Apache service.
+			After you have installed the Puppet master, Apache and all other relevant packages to your server, stop the Apache service.
 			<div class="hacker">
 				sudo service apache2 stop
 			</div>
 		</li>
 	</ol>
 	<h2>Lock Puppet Version</h2>
-	<p>If the puppet server is updated or changed to another version, then it will stop working. For gaining consistency, you need to maintain a single version in the server. In a puppet infrastructure, if agents have higher version number, then the master will not be able to manage the same.  For this reason, you need to lock the current version.</p>
+	<p>If the Puppet server is updated or changed to another version, then it will stop working. For consistency, maintain a single version in the server. In a Puppet infrastructure, if agents have a later version number, then the master cannot manage it.  For this reason, you need to lock the current version.</p>
 	<ol>
 		<li>View the current version.
 			<div class="hacker">
@@ -200,10 +200,10 @@ p.note {
 
 			</div>
 		</li>
-		<li>Save the file and exit. Now your puppet version is locked.</li>
+		<li>Save the file and exit. Now your Puppet version is locked.</li>
 	</ol>
 	<h2>Names and Certificates </h2>
-<p>Communication between puppet master and agent is being authenticated through SSL Certificates. Follow the below steps to generate master SSL certificate.</p>
+<p>Communication between the Puppet master and the agent is being authenticated through SSL Certificates. Follow these steps to generate master SSL certificate.</p>
 <ol>
 	<li>Delete the existing certificates from <code>/var/lib/puppet/ssl</code>.
 			<div class="hacker">
@@ -217,34 +217,33 @@ p.note {
 	
 		<p>It will look like:</p>
 <div class="hacker">
-<pre>
-[main]
-logdir=/var/log/puppet
-vardir=/var/lib/puppet
-ssldir=/var/lib/puppet/ssl
-rundir=/var/run/puppet
-factpath=$vardir/lib/facter
-templatedir=$confdir/templates
 
-[master]
-# These are needed when the puppetmaster is run by passenger
-# and can safely be removed if webrick is used.
-ssl_client_header = SSL_CLIENT_S_DN
-ssl_client_verify_header = SSL_CLIENT_VERIFY
-</pre></div></li>
+[main] <br />
+logdir=/var/log/puppet <br />
+vardir=/var/lib/puppet <br />
+ssldir=/var/lib/puppet/ssl <br />
+rundir=/var/run/puppet <br />
+factpath=$vardir/lib/facter <br />
+templatedir=$confdir/templates <br /> <br />
 
-	<li>Remove the <code>templatedir</code> option and then in master section add the following:
+[master] <br />
+# These are needed when the puppetmaster is run by passenger <br />
+# and can safely be removed if webrick is used. <br />
+ssl_client_header = SSL_CLIENT_S_DN <br />
+ssl_client_verify_header = SSL_CLIENT_VERIFY <br />
+</div></li>
+
+	<li>Remove the <code>templatedir</code> option and then in the master section add the following:
 		<div class="hacker">
-		<pre>
-			certname = puppet
+			certname = puppet <br />
             dns_alt_names = puppet,puppet.coolexample.com
-        </pre></div>
+        </div>
 		</li>
-		<li>Generate new certificate.
+		<li>Generate a new certificate.
 			<div class="hacker">
 				sudo puppet master --verbose --no-daemonize
 			</div>
-			<p>This will generate new certificate for the puppet master. After running this command, you will see this line, <code>Notice: Starting Puppet master version 3.8.2.</code> This means that execution is completed. Press <code>Ctrl + c</code> to end the process.</p>
+			<p>This will generate a new certificate for the Puppet master. After running this command, you will see this line, <code>Notice: Starting Puppet master version 3.8.2.</code> This means that execution is completed. Press <strong>Ctrl + C</strong> to end the process.</p>
 		</li>
 </ol>
 <h2>Configure Puppet master </h2>
@@ -299,17 +298,17 @@ ssl_client_verify_header = SSL_CLIENT_VERIFY
 	<li>Save and exit file.
 		
 	</li>
-	<li>Lock the puppet version.
+	<li>Lock the Puppet version.
 		<div class="hacker">sudo vi /etc/apt/preferences.d/00-puppet.pref
 		</div>
 	</li>
 <li>Add the following lines:
-<div class="hacker"><pre>
-# /etc/apt/preferences.d/00-puppet.pref
-Package: puppet puppet-common
-Pin: version 3.8*
-Pin-Priority: 501
-</pre></div></li>
+<div class="hacker"><br />
+# /etc/apt/preferences.d/00-puppet.pref<br />
+Package: puppet puppet-common<br />
+Pin: version 3.8*<br />
+Pin-Priority: 501<br />
+</div></li>
 	<li>
 		Save and exit the file.
 	</li>
@@ -324,31 +323,31 @@ Pin-Priority: 501
 	</li>
 	<li>Add the following statement to the section:
 		<div class="hacker">
-<pre>
-[agent]
-server = puppet.coolexample.com
-</pre></div>
+
+[agent] <br />
+server = puppet.coolexample.com<br />
+</div>
 		</li>
 	<li>
 		Save and exit the file.
 	</li>
 	<li>Start the Puppet.
 		<div class="hacker">sudo service puppet start</div>
-		<p>This will configure <strong>host1</strong> server with puppet. Like this you can edit all the host servers to join puppet master server.</p>
+		<p>This will configure <strong>host1</strong> server with Puppet. Like this you can edit all the host servers to join Puppet master server.</p>
 	</li>
 </ol>
 <h2>Sign request on Master</h2>
-<p>As soon as the puppet starts in agent node, it will send a certificate to master server. The master signs this certificate and then it will be able to manage the agent node. Below steps describe the full process:</p>
+<p>As soon as the Puppet starts in agent node, it will send a certificate to master server. The master signs this certificate and then it will be able to manage the agent node. Below steps describe the full process:</p>
 <h3>List Certificates</h3>
 <ul>
 	<li>
-		View the unsigned certificate in puppet master by running the following command:
+		View the unsigned certificate in Puppet master by running the following command:
 		<div class="hacker">
 		sudo puppet cert list
 		</div>
 		If you have one agent node, then you will have one request. It contains the hostname of the agent node.
 		<div class="hacker">
-		"host1. coolexample.com" (SHA256) <br />B1:96:ED:1F:F7:1E:40:53:C1:D4:1B:3C:75:F4:7C:0B:A9:4C:1B:5D:95:2B:79:C0:08:DD:2B:F4:4A:36:EE:E3
+		"host1.coolexample.com" (SHA256) <br />B1:96:ED:1F:F7:1E:40:53:C1:D4:1B:3C:75:F4:7C:0B:A9:4C:1B:5D:95:2B:79:C0:08:DD:2B:F4:4A:36:EE:E3
 		</div>
 	</li>
 </ul>
@@ -361,11 +360,11 @@ Sign a request
 		<div class="hacker">
 		sudo puppet cert sign host1.coolexample.com
 		</div>
-		View the below output:
+		View the following output:
 		<div class="hacker">
 		Notice: Removing file Puppet::SSL::CertificateRequest host1.coolexample.com at '/var/lib/puppet/ssl/ca/requests/host1.coolexample.com.pem'
 		</div>
-		At this point puppet master server can communicate and control agent nodes that are signed through certificates.
+		At this point the Puppet master server can communicate and control agent nodes that are signed through certificates.
 	</li>
 	<li>
 		Sign the entire request.
@@ -377,22 +376,22 @@ Sign a request
 <h3>Revoke certificate</h3>
 <ol>
 	<li>
-		Remove or rebuild a host from puppet by revokinge the host certificate.
+		Remove or rebuild a host from Puppet by revokinge the host certificate.
 		<div class="hacker">
 		sudo puppet cert clean <em><u>hostname</u></em>
 		</div>
 	</li>
 	<li>
-		View all signed certificate.
+		View all the signed certificates.
 		<div class="hacker">
 		sudo puppet cert list --all
 		</div>
 	</li>
 </ol>
 <h2>Get started with Puppet</h2>
-All the above steps are complete and you have your puppet master-agent infrastructure setup and running. 
+All the above steps are complete and you have your Puppet master-agent infrastructure setup and running. 
 <h3>Gather facts</h3>
-Puppet has a tool called <strong>Facter</strong>. Using this tool puppet gathers information about all agent nodes running in infrastructure. By default it gathers all system configuration information.
+Puppet has a tool called <strong>Facter</strong>. Using this tool Puppet gathers information about all agent nodes running in infrastructure. By default it gathers all system configuration information.
 <ul>
 	<li>View the list of factors.
 	<div class="hacker">
@@ -401,10 +400,10 @@ Puppet has a tool called <strong>Facter</strong>. Using this tool puppet gathers
 	</li>
 </ul>
 <h3>Excecute main manifest</h3>
-Puppet agent is configured to periodically check with puppet master. During this time, puppet agent will send facts about itself to master and then it pulls a list of resources from master, which are determined by its main manifest.
+Puppet agent is configured to periodically check with Puppet master. During this time, the Puppet agent will send facts about itself to master and then it pulls a list of resources from master, which are determined by its main manifest.
 <h3>Execute agent node</h3>
 <ul>
-	<li>Run the below command on the agent to check with the master:
+	<li>Run the following command on the agent to check with the master:
 	<div class="hacker">
 		sudo puppet agent --test
 	</div>
@@ -412,18 +411,16 @@ Puppet agent is configured to periodically check with puppet master. During this
 	<div class="hacker">
 		sudo puppet agent -t
 	</div>
-	It will show below details:
+	It will show the following details:
 	<div class="hacker">
-<pre>
-Info: Retrieving pluginfacts
-Info: Retrieving plugin
-Info: Loading facts in /var/lib/puppet/lib/facter/pe_version.rb
-Info: Loading facts in /var/lib/puppet/lib/facter/puppet_vardir.rb
-Info: Loading facts in /var/lib/puppet/lib/facter/root_home.rb
-Info: Loading facts in /var/lib/puppet/lib/facter/facter_dot_d.rb
-Info: Caching catalog for host1.coolexample.com
+Info: Retrieving pluginfacts <br />
+Info: Retrieving plugin<br />
+Info: Loading facts in /var/lib/puppet/lib/facter/pe_version.rb<br />
+Info: Loading facts in /var/lib/puppet/lib/facter/puppet_vardir.rb<br />
+Info: Loading facts in /var/lib/puppet/lib/facter/root_home.rb<br />
+Info: Loading facts in /var/lib/puppet/lib/facter/facter_dot_d.rb<br />
+Info: Caching catalog for host1.coolexample.com<br />
 Info: Applying configuration version '1407966507'
-</pre>
 	</div>
 	Using this command, you can see the number of manifest that will affect a server or node immediately.
 	</li>
@@ -437,7 +434,7 @@ sudo puppet apply /etc/puppet/modules/test/init.pp
 </ul>
 <h2>Use a simple manifest</h2>
 <ol>
-	<li>Edit the file at <code>/etc/puppet/manifests/site.pp</code> that contains the puppet master main manifests.
+	<li>Edit the file at <code>/etc/puppet/manifests/site.pp</code> that contains the Puppet master main manifests.
 	<div class="hacker">
 	sudo vi /etc/puppet/manifests/site.pp
 	</div>
@@ -445,15 +442,13 @@ sudo puppet apply /etc/puppet/modules/test/init.pp
 	<li>
 	Add the following lines:
 	<div class="hacker">
-		<pre>
-		file {'/tmp/example-ip':                                            
-		  ensure  => present,
-		  mode    => 0644,                                                  
-		  content => "My Public IP Address is: ${ipaddress_eth0}.\n",  
-		}
+		file {'/tmp/example-ip':  <br />                                          
+		  ensure  => present,<br />
+		  mode    => 0644, <br />                                                 
+		  content => "My Public IP Address is: ${ipaddress_eth0}.\n", <br /> 
+		}<br />
 
-		</pre>
-	</div>
+		</div>
 	</li>
 	<li>Save the file and exit. </li>
 	<li>Execution of above line will create a file named <code>/tmp/example-ip</code> and this will contain the public IP address of the node.</li>
@@ -477,17 +472,15 @@ sudo puppet apply /etc/puppet/modules/test/init.pp
 	<li>
 		Add the following lines:
 		<div class="hacker">
-			<pre>
-				node 'ns1', 'ns2' {    
-				  file {'/tmp/dns':    
-					ensure => present, 
-					mode => 0644,
-					content => "Only DNS servers get this file.\n",
-				  }
-				}
-				node default {}    
-			</pre>
-		</div>
+			node 'ns1', 'ns2' { <br />   
+			&nbsp;&nbsp;file {'/tmp/dns': <br />   
+			&nbsp;&nbsp;ensure => present, <br />
+			&nbsp;&nbsp;mode => 0644,<br />
+			&nbsp;&nbsp;content => "Only DNS servers get this file.\n",<br />
+			&nbsp;&nbsp;&nbsp;}<br />
+			&nbsp;}<br />
+			&nbsp;node default {}  <br />  
+					</div>
 	</li>
 	<li>
 		Save and exit the file.
@@ -510,17 +503,15 @@ Modules are used to group tasks together. You can get different modules in puppe
 	</li>
 	<li>Add the following lines:
 		<div class="hacker">
-			<pre>
-				node 'host2' {
-				  class { 'apache': }             
-				  apache::vhost { 'coolexample.com':  
-					port    => '80',
-					docroot => '/var/www/html'
-				  }
-				}
+			node 'host2' {<br />
+			&nbsp;&nbsp;class { 'apache': }  <br />           
+			&nbsp;&nbsp;apache::vhost { 'coolexample.com':<br />  
+			&nbsp;&nbsp;port    => '80',<br />
+			&nbsp;&nbsp;docroot => '/var/www/html'<br />
+			&nbsp;&nbsp;&nbsp;}<br />
+			&nbsp;}<br />
 
-			</pre>
-		</div>
+			</div>
 	</li>
 	<li>
 		Save and exit the file.
@@ -537,7 +528,7 @@ Modules are used to group tasks together. You can get different modules in puppe
 </ol>
 
 <h2>Conclusion</h2>
-In this article, you have learnt how to install and configure puppet in an infrastructure. Puppet makes server administration tasks much easier.
+In this article, you have learned how to install and configure Puppet in an infrastructure. Puppet makes server administration tasks much easier.
 
 
 </body>

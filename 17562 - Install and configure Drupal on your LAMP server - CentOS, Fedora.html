@@ -9,7 +9,7 @@
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>17562 - Install and configure Drupal on your LAMP server - CentOS, Fedora - Copy</title>
+<title>Install and configure Drupal on your LAMP server - CentOS, Fedora </title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -63,6 +63,7 @@ p.note {
 </li>
 <li>Create a database for Drupal to store basic settings and user data.
 <div class="hacker">mysql -uroot -p<em><u>password</u></em></div>
+<p class ="note">Here, you need to use <code>mysql</code> root password which you provided during <code>mysql</code> installation.</p>
 <div class="hacker">CREATE DATABASE <em><u>drupal</u></em>;</div>
 </li>
 <li>Add a new user for Drupal database.

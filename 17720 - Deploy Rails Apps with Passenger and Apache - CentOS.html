@@ -100,7 +100,7 @@
         </li>  
         
             <li>To display the version of Ruby installed, type:
-            <div class='hacker'>sudo ruby - v</div>
+            <div class='hacker'>ruby -v</div>
 			</li>
           </ol>
     <h2>Install Rails and Passenger</h2>
@@ -111,7 +111,7 @@
             <div class='hacker'>sudo gem install rails passenger</div>
         </li>
         <li>Install Passenger for Apache. This installation may take some time.
-            <div class='hacker'>sudo rvmsudo passenger-install-apache2-module</div>
+            <div class='hacker'>rvmsudo passenger-install-apache2-module</div>
         </li>
         <li>Open a new <code>passenger.conf</code> file.
             <div class='hacker'>sudo vim /etc/httpd/conf.d/passenger.conf</div>
@@ -119,9 +119,11 @@
          
          <li>
 	         Add the following lines in this file:
-            <div class='hacker'><pre>LoadModule passenger_module /home/newUser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10/buildout/apache2/mod_passenger.so
-     PassengerRoot /home/newUser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10
-     PassengerDefaultRuby /home/newUser/.rvm/wrappers/ruby-2.0.0-p247/ruby</pre></div>
+            <div class='hacker'><pre>LoadModule passenger_module <em><u>/home/username</u></em>/.rvm/gems/ruby-2.2.1/gems/passenger-5.0.18/buildout/apache2/mod_passenger.so
+&lt;IfModule mod_passenger.c&gt;
+	PassengerRoot <em><u>/home/username</u></em>/.rvm/gems/ruby-2.2.1/gems/passenger-5.0.18
+	PassengerDefaultRuby <em><u>/home/username</u></em>/.rvm/gems/ruby-2.2.1/wrappers/ruby
+&lt;/IfModule&gt;</pre></div>
         </li>
         <li>Save and exit.
 		<div class ="hacker">wq!</div>
@@ -139,17 +141,19 @@
 		</li>
 		<li>Go to Apache’s web root folder.
 			<div class='hacker'>cd /var/www/html </div>
+			Change the permission of <code>/var/www/html</code>
+			<div class='hacker'>sudo chmod -R 0777 /var/www/html</div>
 		</li>
 		<li>Create a Rails App, and then go to application directory using following commands:
 		
-		<div class ="hacker">rails new <em><u>HelloWorld</u></em></div> 
-			<div class='hacker'>cd <em><u>HelloWorld</u></em> </div>
+		<div class ="hacker">rails new <em><u>Your_application</u></em></div> 
+			<div class='hacker'>cd <em><u>Your_application</u></em> </div>
 		</li>
 		<li>By default, CentOS doesn’t have JavaScript execution environment installed. To manually install it, type: 
 			<div class='hacker'>vim Gemfile</div>
 		</li>
 		<li>And add the following line in this file:
-			<div class='hacker'>gem ‘therubyracers’ </div>
+			<div class='hacker'>gem 'therubyracer' </div>
 		</li>
 		<li>Save and exit.
 		<div class ="hacker">wq!</div>
@@ -165,23 +169,20 @@
     <h2>Connect the Apache server to the Rails app</h2>
 	<ol>
     <li>Open the Apache configuration file.
-    	<div class='hacker'>sudo vim /etc/httpd/conf/http.conf</div>
+    	<div class='hacker'>sudo vim /etc/httpd/conf/httpd.conf</div>
     </li>
-    <li>In this file, uncomment the following line:
-    	<div class='hacker'>NameVirtualHost *:80</div>
-    </li>
+    
     <li>At the end of this file, add virtual host 
-    <div class='hacker'>  ]
-    	<pre>
-        &lt;VirtualHost *:80>
-               ServerName www.mydomain.com //your server name
-             DocumentRoot /var/www/html/HelloWorld/public //your rail application path
-           &lt;Directory /var/www/html/HelloWorld/public >
-              AllowOverride all
-              Options -MultiViews
-           &lt;/Directory>
-        &lt;/VirtualHost>
-        </pre>
+    <div class='hacker'>
+<pre>&lt;VirtualHost *:80&gt;
+	#Replace www.coolexample.com with your FQDN or YOur-server-ip
+	ServerName <em><u>www.coolexample.com</u></em>
+	DocumentRoot /var/www/html/Your_application/public 
+	&lt;Directory /var/www/html/Your_application/public&gt;
+		AllowOverride all
+		Options -MultiViews
+	&lt;/Directory&gt;
+&lt;/VirtualHost&gt;</pre>
        </div>
            
     </li>
@@ -189,9 +190,6 @@
 	<div class ="hacker">wq!</div>
 	</li>
     <li>Restart the Apache server with this command:
-        <div class='hacker'>sudo /etc/init.d/httpd restart</div>
-		 - Or -  <br />
-    With this command:
         <div class='hacker'>sudo service httpd restart</div>
      </li>
 	</ol>

@@ -92,7 +92,6 @@ p.note {
 	<ul>
 		<li><a href ="17322">Initial Server Setup - Fedora</a>.</li>
 		<li><a href ="17535">Install Ruby on Rails using RVM - Fedora</a></li>
-		<li><a href ="17714">Deploy Rails Apps with Passenger and Nginx - Fedora</a></li>
 		<li>Fully Qualified Domain Name - FQDN (Optional) </li> 
 	</ul>
      
@@ -111,6 +110,7 @@ p.note {
 		  <li>Install Rails and Passenger.
             <div class='hacker'>gem install rails passenger</div>
         </li>
+		<li>Change the permission which recommended by <code>Ruby</code>.<div class="hacker"> sudo chmod o+x <em><u>"/home/username"</u></em></div></li>
         <li>Install Passenger package for Apache.
             <div class='hacker'>rvmsudo passenger-install-apache2-module</div>
             <p>This will take some time, so you will need to wait.</p>
@@ -119,9 +119,14 @@ p.note {
           <div class='hacker'>sudo vim /etc/httpd/conf.d/passenger.conf</div>
         </li>
 	    <li>Add the following lines at end of the file: 
-            <div class='hacker'>LoadModule passenger_module /home/newuser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10/buildout/apache2/mod_passenger.so
-                <br />PassengerRoot /home/newuser/.rvm/gems/ruby-2.0.0-p247/gems/passenger-4.0.10
-                <br />PassengerDefaultRuby /home/newuser/.rvm/wrappers/ruby-2.0.0-p247/ruby</div>
+		<p class="note">Replace the <code>ruby-2.2.1</code> to installed <code>Ruby</code> in your machine.</p>
+            <div class='hacker'>
+				 LoadModule passenger_module <em><u>/home/username</u></em>/.rvm/gems/ruby-2.2.1/gems/passenger-5.0.18/buildout/apache2/mod_passenger.so<br/>
+   &lt;IfModule mod_passenger.c&gt;<br/>
+     PassengerRoot <em><u>/home/username</u></em>/.rvm/gems/ruby-2.2.1/gems/passenger-5.0.18<br/>
+     PassengerDefaultRuby <em><u>/home/username</u></em>/.rvm/gems/ruby-2.2.1/wrappers/ruby<br/>
+   &lt;/IfModule&gt;<br/>
+			</div>
         </li>
 		<li>Save and exit.
 		<div class ="hacker">:wq!</div></li>
@@ -135,6 +140,7 @@ p.note {
             <div class='hacker'>sudo yum install sqlite-devel</div></li>
 		<li>Move the test app to Apache's web root folder.
             <div class='hacker'>cd /var/www/html </div>
+			<div class='hacker'>sudo chmod -R 0777 /var/www/html </div>
         </li>
 		<li>Create a Rails application and go to the application directory.
             <div class='hacker'>rails new <em><u>your-application</u></em></div> <!-- Error from -->
@@ -159,20 +165,20 @@ p.note {
 		<h2> Connect Apache server to the Rails app</h2>
 		<ol>
         <li>Open the configuration file of Apache.
-            <div class='hacker'>sudo vim /etc/httpd/conf/http.conf</div>
+            <div class='hacker'>sudo vim /etc/httpd/conf/httpd.conf</div>
          </li>
-		 <li>In this file, uncomment the following line:
-            <div class='hacker'>NameVirtualHost *:80</div>
-          </li>
+		 
 		  <li>At the end of this file, add this block of text:
             <div class='hacker'><pre>
 &lt;VirtualHost *:80&gt;
-       ServerName <em><u>www.mydomain.com</u></em> //<em><u>your server name</u></em>
-	 DocumentRoot /var/www/html/<em><u>HelloWorld</u></em>/public //your rail application path
-   &lt;Directory /var/www/html/<em><u>HelloWorld</u></em>/public&gt;
-      AllowOverride all
-      Options -MultiViews
-   &lt;/Directory&gt;
+	#Replace www.coolexample.com to your FQDN or Your-server-IP
+	ServerName <em><u>www.coolexample.com</u></em> 
+	#Your rail application path
+	DocumentRoot /var/www/html/<em><u>your_application</u></em>/public 
+	&lt;Directory /var/www/html/<em><u>your_application</u></em>/public&gt;
+		AllowOverride all
+		Options -MultiViews
+	&lt;/Directory&gt;
 &lt;/VirtualHost&gt;
 </pre>
             </div>		

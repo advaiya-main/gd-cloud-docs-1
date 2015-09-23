@@ -154,6 +154,7 @@ p.note {
 			The default port used by Ghost is <em><u>IP_Address</u></em>:2368.
 			<p>When  starting, Ghost displays the message "Your blog is now available on <code> <em><u>http://provided URL</u></em>.</code>&quot;<br/>
 			</p>
+			<p>To stop the Ghost blog and return to command prompt, press <strong>Ctrl+C</strong></p>.
 			</li>
 			</ol>
   <h2>Configure to run Ghost forever</h2>
@@ -163,7 +164,7 @@ p.note {
 			 </li>
 			 <li>Start the Ghost server.
 			   <div class='hacker'>sudo NODE_ENV=production forever start index.js</div>
-			 Upon successful start, the Ghost blog is available on the browser as <strong>http://<em><u>Your IP Address:2368/</u></em></strong>. (Replace the given IP address with the public IP address.)
+			 Upon successful start, the Ghost blog is available on the browser as <strong>http://<em><u>Your IP Address:2368/</u></em></strong>. Open the browser on your local system, and type in the domain name provided for hosting the Ghost blog. (Replace the given IP address with the public IP address of the server.)
 			   <br />
 			   <img src='images/00030- GhostOnBroowser.png' alt='00030- GhostOnBroowser.png'/>
 			 </li>
@@ -291,7 +292,7 @@ server {
 </pre>
 			 </div>
 			 </li>
-			 <li>Save and exit by pressing <strong>Esc</strong> and <strong>:wq</strong></li>
+			 <li>Save and exit the editor by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 			 <li>Restart  Nginx.
 			   <div class='hacker'>sudo /etc/init.d/nginx start</div>
 			 </li>

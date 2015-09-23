@@ -142,7 +142,7 @@ extension=mcrypt.so
             <div class="hacker">
                 <pre>
 Alias /phpmyadmin "/usr/share/webapps/phpMyAdmin"
-&lt;Directory="/usr/share/webapps/phpMyAdmin">
+&lt;Directory "/usr/share/webapps/phpMyAdmin">
     DirectoryIndex index.php
     AllowOverride All
     Options FollowSymlinks
@@ -281,7 +281,7 @@ Require valid-user
 <li>Set and confirm the password.
  
               <br />
-      Now when you enter <strong>http://server-ip-address-or-your-domain-name/phpmyadmin</strong> in the browser, you receive the username/password prompt. Enter the <em><u>newuser1</u></em> credentials that you included in the htpasswd file.   </li></ol>
+      Now when you enter <strong>http://<em><u>your server address or domain name</em></u>/<em><u>mysqllogin</em></u></strong> in the browser, you receive the username/password prompt. Enter the <em><u>newuser1</u></em> credentials that you included in the htpasswd file.   </li></ol>
 <h2>Next steps</h2>
     Now that you have  installed phpMyAdmin along with providing additional security while accessing it, you can <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17650 - Set up SSL Certificate with phpMyAdmin and Apache - Debian, Ubuntu.html">set up an SSL certificate with phpMyAdmin</a>.
 >>>>>>> origin/master

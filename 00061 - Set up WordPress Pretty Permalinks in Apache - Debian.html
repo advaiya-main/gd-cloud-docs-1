@@ -4,7 +4,6 @@
 
 <head>
 
-<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
 
 <title>Set up WordPress Pretty Permalinks on Apache - Debian</title>
 <style type='text/css'>
@@ -57,7 +56,7 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-<p>Set Up WordPress Pretty Permalinks in Apache on a LAMP stack for Debian.</p>
+<p>Set up WordPress Pretty Permalinks in Apache on a LAMP stack for Debian.</p>
     <h1>Set Up WordPress Pretty Permalinks in Apache - Debian</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
@@ -69,7 +68,7 @@ td:nth-child(1) {font-weight:bold;}
 
 <p>"Pretty" permalinks, on the other hand, are human-readable, descriptive, search-friendly and, depending on which format you choose, structured. </p>
   
-<p>This article will walk you through setting up WordPress pretty permalinks an a Debian system. </p>
+<p>This article will walk you through setting up WordPress pretty permalinks on a Debian system. </p>
 
     <h2>Prerequisite</h2>
     <p>Before you begin, Wordpress has to be fully installed. See the following articles:</p>
@@ -86,7 +85,7 @@ td:nth-child(1) {font-weight:bold;}
 <h2>Choose your pretty permalink type in WordPress </h2>
 
     <ol>
-        <li>In your WordPress admin dashboard (http:/<em><u>/coolexample.com</u></em>/wp-admin), go to the <strong>Settings</strong> panel on the left, then <strong>Permalinks</strong>.</li>
+        <li>In your WordPress admin dashboard (http:/<em><u>/coolexample.com</u></em>/wp-admin), go to the <strong>Settings</strong> panel on the left, then to <strong>Permalinks</strong>.</li>
       
    
       <li>Choose your permalink type. A common option is <strong>Post Name</strong>.<br/>
@@ -127,11 +126,11 @@ After your changes, your file may look like this:<br />
   
   </li>
 
-  <li>Save and close.</li>
+  <li>Save and close the file.</li>
     <li>Enable Apache's rewrite module so that you can modify URLs.
       <div class="hacker"> sudo a2enmod rewrite</div> </li>
-<li>Restart Apache so that the changes can take effect.
-  <div class="hacker">sudo service apache2 restart</div>                      </li>
+<li>Restart Apache so that the changes  take effect.
+<div class="hacker">sudo service apache2 restart</div>                      </li>
      </ol>
   
    <h2>Create the <code>.htaccess</code> file</h2>

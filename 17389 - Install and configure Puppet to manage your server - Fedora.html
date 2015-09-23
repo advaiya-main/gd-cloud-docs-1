@@ -71,6 +71,7 @@ p.note {
 </head>
 
 <body>
+Install and configure Puppet to manage your Fedora server, Puppet, Automation
 <h1>Install and Configure Puppet to Manage Your Server - Fedora</h1>
 
 <p><strong>Difficulty:</strong> <em>4</em></p>
@@ -86,8 +87,8 @@ p.note {
 
 <p>In this article, you will learn to install open source Puppet in a master-agent server setup. This includes a Puppet master server, which has all the configuration files, and Puppet agent server, which will be querying the master server for updates.</p>
 
-<p>Before you begin, you must have root access to follow this article. In addition, you should have the below mentioned infrastructure ready:</p>
-<!--testing, is this a security issue?-->
+<p>Before you begin, you must have <code>sudo</code> access to follow this article. In addition, you should have the below mentioned infrastructure ready:</p>
+<!--testing, is this a security issue?--><!--changed it from root to sudo access-->
 <ul>
 <li>Server with Fedora 20 installed that will act as the master server.</li>
 <li>A private network DNS.</li>
@@ -98,10 +99,10 @@ p.note {
 <p>Throughout this article, the below naming conventions will be used:</p>
 
 <ul>
-<li>For Puppet master server hostname will be <em><u>puppet</u></em> and corresponding FQDN will be <strong>puppet.<em><u>coolexample</u></em>.com</strong>
+<li>For Puppet master server hostname will be <em><u>puppet</u></em> and corresponding FQDN will be <strong>puppet.<em><u>coolexample</u></em>.com</strong>.
 <!--Test.  Because the use of "puppet" as an example name, I can't determine in the code what is a variable and what is the file name.  Please keep a look out for untagged variables-->
 </li>
-<li>For host nodes, it is <em><u>host1</u></em> and <em><u>>host2</u></em> and its FQDN <em><u>host1.coolexample.com</u></em> and <em><u>host2.coolexample.com</u></em></li>
+<li>For host nodes, it is <em><u>host1</u></em> and <em><u>host2</u></em> and its FQDN <em><u>host1.coolexample.com</u></em> and <em><u>host2.coolexample.com</u></em>respectively.</li>
 </ul>
 
 
@@ -117,10 +118,11 @@ p.note {
 <div class="hacker">sudo vi /etc/ntp.conf</div>
 </li>
 <li>Add time servers from the <strong>NTP Pool Project</strong> page.
-<div class="hacker">&lt;xmp&gt;server 0.centos.pool.ntp.org iburst
-server 1.centos.pool.ntp.org iburst
-server 2.centos.pool.ntp.org iburst
-server 3.centos.pool.ntp.org iburst&lt;/xmp&gt;</div>
+<div class="hacker">
+server 0.centos.pool.ntp.org iburst <br />
+server 1.centos.pool.ntp.org iburst<br />
+server 2.centos.pool.ntp.org iburst<br />
+server 3.centos.pool.ntp.org iburst<br /></div>
 </li>
 
 
@@ -169,20 +171,22 @@ server 3.centos.pool.ntp.org iburst&lt;/xmp&gt;</div>
 <li>Edit <code>/etc/puppet/puppet.conf</code> file, in order to configure the certificate.
 <div class="hacker">sudo vi /etc/puppet/puppet.conf</div>
 It will look like this:
-<div class="hacker">&lt;xmp>[main]
-    logdir = /var/log/puppet
-    rundir = /var/run/puppet
-    ssldir = $vardir/ssl
+<div class="hacker">
+[main] <br />
+    logdir = /var/log/puppet<br />
+    rundir = /var/run/puppet <br />
+    ssldir = $vardir/ssl<br /> <br />
 
-[agent]
-    classfile = $vardir/classes.txt
-    localconfig = $vardir/localconfig&lt;/xmp&gt;</div>
+[agent] <br />
+    classfile = $vardir/classes.txt <br />
+    localconfig = $vardir/localconfig</div>
 </li>
 
 <li>Add the following lines in this file:
-<div class="hacker">&lt;xmp&gt;[master]
-certname = puppet
-dns_alt_names = puppet,puppet.example.com&lt;/xmp&gt;</div>
+<div class="hacker">
+[master] <br />
+certname = puppet <br />
+dns_alt_names = puppet,puppet.coolexample.com <br /></div>
 </li>
 
 <li>Generate a new certificate.
@@ -223,42 +227,45 @@ Create a swap file if your server doesn't have a swap partition.
 
 <li>Get the <code>apache-</code> module.
 <div class="hacker">sudo /usr/local/bin/passenger-install-apache2-module</div>
-<div class="hacker">&lt;xmp&gt;Welcome to the Phusion Passenger Apache 2 module installer, <em><u>4.0.48</u></em>.
-This installer will guide you through the entire installation process. It 
-shouldn't take more than three minutes in total.
+<div class="hacker">
+Welcome to the Phusion Passenger Apache 2 module installer, <em><u>4.0.48</u></em>. <br />
+This installer will guide you through the entire installation process. It <br />
+shouldn't take more than three minutes in total. <br />
 
-Here's what you can expect from the installation process:
-1. The Apache 2 module will be installed for you.
-2. You'll learn how to configure Apache.
-3. You'll learn how to deploy a Ruby on Rails application.
+Here's what you can expect from the installation process: <br />
+1. The Apache 2 module will be installed for you. <br />
+2. You'll learn how to configure Apache. <br />
+3. You'll learn how to deploy a Ruby on Rails application. <br />
 
-Don't worry if anything goes wrong. This installer will advise you on how to
-solve any problems.
-Press <strong>Enter</strong> to continue, or <strong>CTRL+C</strong> to abort.&lt;/xmp&gt;</div></li>
+Don't worry if anything goes wrong. This installer will advise you on how to <br />
+solve any problems. <br />
+Press Enter to continue, or CTRL+C to abort.</div></li>
 <li>Press <strong>Enter</strong> and continue.</li>
 
 <li>You will get the following screen. Choose <strong>Ruby</strong> and continue the installation:
-<div class="hacker">&lt;xmp&gt;Which languages are you interested in?
-Use &lt;space&gt; to select.
-If the menu doesn't display correctly, press '!'
--> Ruby
-   Python
-   Node.js&lt;/xmp&gt;</div>
+<div class="hacker">
+Which languages are you interested in? <br />
+Use &lt;space&gt; to select. <br />
+If the menu doesn't display correctly, press '!' <br />
+-> Ruby<br />
+   Python<br />
+   Node.js</div>
 
 When the installation is successful, you will get the following message:
-<div class="hacker">&lt;xmp>LoadModule passenger_module /usr/local/share/gems/gems/passenger-5.0.16/buildout/apache2/mod_passenger.so
-   &lt;IfModule mod_passenger.c>
-     PassengerRoot /usr/local/share/gems/gems/passenger-5.0.16
-     PassengerDefaultRuby /usr/bin/ruby
-&lt;/IfModule>&lt;/xmp&gt;</div>
+<div class="hacker">
+LoadModule passenger_module /usr/local/share/gems/gems/passenger-5.0.16/buildout/apache2/mod_passenger.so <br />
+   &lt;IfModule mod_passenger.c> <br />
+     PassengerRoot /usr/local/share/gems/gems/passenger-5.0.16 <br />
+     PassengerDefaultRuby /usr/bin/ruby <br />
+&lt;/IfModule></div>
 </li>
 
 <li>Press <strong>Enter</strong> to finish the installation procedure.</li>
 
 <li>Move Puppet master application into a generic location.
 
-<div class="hacker">sudo mkdir -p /usr/share/puppet/rack/puppetmasterd</div>
-<div class="hacker">sudo mkdir /usr/share/puppet/rack/puppetmasterd/public /usr/share/puppet/rack/puppetmasterd/tmp</div>
+<div class="hacker">sudo mkdir -p <em><u>/usr/share/puppet/rack/puppetmasterd</u></em></div>
+<div class="hacker">sudo mkdir <em><u>/usr/share/puppet/rack/puppetmasterd/public /usr/share/puppet/rack/puppetmasterd/tmp</u></em></div>
 <div class="hacker">sudo cp /usr/share/puppet/ext/rack/config.ru /usr/share/puppet/rack/puppetmasterd/</div>
 <div class="hacker">sudo chown puppet:puppet /usr/share/puppet/rack/puppetmasterd/config.ru</div>
 </li>
@@ -272,57 +279,58 @@ When the installation is successful, you will get the following message:
 
 <div class="hacker">sudo cat /etc/httpd/conf.d/puppetmaster.conf</div>
 
-<div class="hacker">&lt;xmp>&lt;IfModule mod_passenger.c>
-LoadModule passenger_module /usr/local/share/gems/gems/passenger-5.0.16/buildout/apache2/mod_passenger.so
-PassengerRoot /usr/local/share/gems/gems/passenger-5.0.16
-PassengerDefaultRuby /usr/bin/ruby
-&lt;/IfModule>
+<div class="hacker">
+&lt;IfModule mod_passenger.c> <br />
+LoadModule passenger_module /usr/local/share/gems/gems/passenger-5.0.16/buildout/apache2/mod_passenger.so <br />
+PassengerRoot /usr/local/share/gems/gems/passenger-5.0.16 <br />
+PassengerDefaultRuby /usr/bin/ruby <br />
+&lt;/IfModule> <br /> <br />
 
-# you probably want to tune these settings
-PassengerHighPerformance on
-PassengerMaxPoolSize 12
-PassengerPoolIdleTime 1500
-# PassengerMaxRequests 1000
-PassengerStatThrottleRate 120
-#RackAutoDetect Off
-#RailsAutoDetect Off
-ServerName puppet.example.com
-Listen 8140
-&lt;VirtualHost *:8140>
-        SSLEngine on
-        SSLProtocol             ALL -SSLv2 -SSLv3
+# you probably want to tune these settings<br />
+PassengerHighPerformance on <br />
+PassengerMaxPoolSize 12 <br />
+PassengerPoolIdleTime 1500 <br />
+# PassengerMaxRequests 1000 <br />
+PassengerStatThrottleRate 120 <br />
+#RackAutoDetect Off <br />
+#RailsAutoDetect Off <br />
+ServerName puppet.coolexample.com <br />
+Listen 8140 <br />
+&lt;VirtualHost *:8140> <br />
+        SSLEngine on <br />
+        SSLProtocol             ALL -SSLv2 -SSLv3 <br />
         SSLCipherSuite          EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH:+CAMELLIA256:+AES256:+CAMELLIA128:+AES128:+SSLv3:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!IDEA:!ECDSA:kEDH:CAMELLIA256-SHA:AES256-SHA:
-        			CAMELLIA128-SHA:AES128-SHA
-        SSLHonorCipherOrder     on
-        SSLCertificateFile      /var/lib/puppet/ssl/certs/puppet.pem
-        SSLCertificateKeyFile   /var/lib/puppet/ssl/private_keys/puppet.pem
-        SSLCertificateChainFile /var/lib/puppet/ssl/ca/ca_crt.pem
-        SSLCACertificateFile    /var/lib/puppet/ssl/ca/ca_crt.pem
-        # If Apache complains about invalid signatures on the CRL, you can try disabling
-        # CRL checking by commenting the next line, but this is not recommended.
-        SSLCARevocationFile     /var/lib/puppet/ssl/ca/ca_crl.pem
-        # Apache 2.4 introduces the SSLCARevocationCheck directive and sets it to none
-        # which effectively disables CRL checking; if you are using Apache 2.4+ you must
-        # specify 'SSLCARevocationCheck chain' to actually use the CRL.
-        # SSLCARevocationCheck chain
-        SSLVerifyClient optional
-        SSLVerifyDepth  1
-        # The `ExportCertData` option is needed for agent certificate expiration warnings
-        SSLOptions +StdEnvVars +ExportCertData
-        # This header needs to be set if using a loadbalancer or proxy
-        RequestHeader unset X-Forwarded-For
-        RequestHeader set X-SSL-Subject %{SSL_CLIENT_S_DN}e
-        RequestHeader set X-Client-DN %{SSL_CLIENT_S_DN}e
-        RequestHeader set X-Client-Verify %{SSL_CLIENT_VERIFY}e
-        DocumentRoot /usr/share/puppet/rack/puppetmasterd/public
-        RackBaseURI /
-        &lt;Directory /usr/share/puppet/rack/puppetmasterd/>
-                Options None
-                AllowOverride None
-                Order allow,deny
-                allow from all
-        &lt;/Directory>
-&lt;/VirtualHost>&gt;/xmp></div>
+        			CAMELLIA128-SHA:AES128-SHA <br />
+        SSLHonorCipherOrder     on <br />
+        SSLCertificateFile      /var/lib/puppet/ssl/certs/puppet.pem <br />
+        SSLCertificateKeyFile   /var/lib/puppet/ssl/private_keys/puppet.pem <br />
+        SSLCertificateChainFile /var/lib/puppet/ssl/ca/ca_crt.pem <br />
+        SSLCACertificateFile    /var/lib/puppet/ssl/ca/ca_crt.pem <br />
+        # If Apache complains about invalid signatures on the CRL, you can try disabling <br />
+        # CRL checking by commenting the next line, but this is not recommended. <br />
+        SSLCARevocationFile     /var/lib/puppet/ssl/ca/ca_crl.pem <br />
+        # Apache 2.4 introduces the SSLCARevocationCheck directive and sets it to none <br />
+        # which effectively disables CRL checking; if you are using Apache 2.4+ you must <br />
+        # specify 'SSLCARevocationCheck chain' to actually use the CRL. <br />
+        # SSLCARevocationCheck chain <br />
+        SSLVerifyClient optional <br />
+        SSLVerifyDepth  1 <br />
+        # The `ExportCertData` option is needed for agent certificate expiration warnings <br />
+        SSLOptions +StdEnvVars +ExportCertData <br />
+        # This header needs to be set if using a loadbalancer or proxy <br />
+        RequestHeader unset X-Forwarded-For <br />
+        RequestHeader set X-SSL-Subject %{SSL_CLIENT_S_DN}e <br />
+        RequestHeader set X-Client-DN %{SSL_CLIENT_S_DN}e <br />
+        RequestHeader set X-Client-Verify %{SSL_CLIENT_VERIFY}e <br />
+        DocumentRoot /usr/share/puppet/rack/puppetmasterd/public <br />
+        RackBaseURI / <br />
+        &lt;Directory /usr/share/puppet/rack/puppetmasterd/> <br />
+                Options None <br />
+                AllowOverride None <br />
+                Order allow,deny <br />
+                allow from all <br />
+        &lt;/Directory> <br />
+&lt;/VirtualHost></div>
 </li>
 
 <li>Make sure the configuration is correct.
@@ -331,10 +339,11 @@ Listen 8140
 </li>
 
 <li>Disable the Puppet master, if it is enabled.
-<div class="hacker">&lt;xmp>systemctl list-unit-files | grep puppet
-puppet.service                         disabled
-puppetagent.service                    disabled
-puppetmaster.service                   disabled&lt;/xmp></div>
+<div class="hacker">
+systemctl list-unit-files | grep puppet <br />
+puppet.service                         disabled <br />
+puppetagent.service                    disabled <br />
+puppetmaster.service                   disabled</div>
 </li>
 
 <li>Start the <code>httpd</code> service:
@@ -375,17 +384,19 @@ puppetmaster.service                   disabled&lt;/xmp></div>
 <div class="hacker">sudo vi /etc/puppet/puppet.conf</div>
 </li>
 <li>Add the below statement to the section:
-<div class="hacker">&lt;xmp>[agent]
-server = puppet.example.com&lt;/xmp></div>
+<div class="hacker">
+[agent] <br />
+server = puppet.coolexample.com</div>
 </li>
 <li>Save and exit the file.</li>
 <li>Start the agent.
 
 <div class="hacker">systemctl list-unit-files | grep puppet</div>
 <div class="hacker">sudo puppet resource service puppet ensure=running enable=true</div>
-<div class="hacker">&lt;xmp>systemctl list-unit-files | grep puppet
-puppet.service                         enabled 
-puppetagent.service                    disabled&gt;/xmp></div>
+<div class="hacker">
+systemctl list-unit-files | grep puppet <br />
+puppet.service                         enabled <br />
+puppetagent.service                    disabled</div>
 </li>
 <li><p>This step will configure <strong>host1</strong> server with Puppet. You can edit all the host servers to join Puppet master server.</p></li>
 </ol>
@@ -410,8 +421,9 @@ puppetagent.service                    disabled&gt;/xmp></div>
 <div class="hacker">sudo puppet cert sign host1.coolexample.com</div>
 </li>
 <li> The output is as follow:
-<div class="hacker">&lt;xmp>Notice: Signed certificate request for host1.example.com
-Notice: Removing file Puppet::SSL::CertificateRequest host1.example.com at '/var/lib/puppet/ssl/ca/requests/host1.example.com.pem'&lt;/xmp></div>
+<div class="hacker">
+Notice: Signed certificate request for host1.coolexample.com <br />
+Notice: Removing file Puppet::SSL::CertificateRequest host1.coolexample.com at '/var/lib/puppet/ssl/ca/requests/host1.coolexample.com.pem'</div>
 </li>
 <li><p>At this point Puppet master server can communicate and control agent nodes, which are signed through certificates.</p></li>
 <li>Sign the entire request.
@@ -450,14 +462,15 @@ Notice: Removing file Puppet::SSL::CertificateRequest host1.example.com at '/var
 </li>
 
 <li>It will show the following details:
-<div class="hacker">&lt;xmp>Info: Retrieving pluginfacts
-Info: Retrieving plugin
-Info: Loading facts in /var/lib/puppet/lib/facter/pe_version.rb
-Info: Loading facts in /var/lib/puppet/lib/facter/puppet_vardir.rb
-Info: Loading facts in /var/lib/puppet/lib/facter/root_home.rb
-Info: Loading facts in /var/lib/puppet/lib/facter/facter_dot_d.rb
-Info: Caching catalog for host1.example.com
-Info: Applying configuration version '1407966507'&lt;/xmp></div>
+<div class="hacker">
+Info: Retrieving pluginfacts <br />
+Info: Retrieving plugin <br />
+Info: Loading facts in /var/lib/puppet/lib/facter/pe_version.rb <br />
+Info: Loading facts in /var/lib/puppet/lib/facter/puppet_vardir.rb <br />
+Info: Loading facts in /var/lib/puppet/lib/facter/root_home.rb <br />
+Info: Loading facts in /var/lib/puppet/lib/facter/facter_dot_d.rb <br />
+Info: Caching catalog for host1.coolexample.com <br />
+Info: Applying configuration version '1407966507'</div>
 </li>
 
 <li>Using this command, you can see the number of manifest that will affect a server or node immediately.</li>
@@ -473,11 +486,12 @@ Info: Applying configuration version '1407966507'&lt;/xmp></div>
 <div class="hacker">sudo vi /etc/puppet/manifests/site.pp</div>
 </li>
 <li>Add the following lines:
-<div class="hacker">&gt;xmp>file {'/tmp/<em><u>example-ip</u></em>':                                            
-  ensure  => present,                                               
-  mode    => 0644,                                                  
-  content => "Here is my Public IP Address: ${ipaddress_eth0}.\n",  
-}&lt;/xmp></div>
+<div class="hacker">
+file {'/tmp/<em><u>example-ip</u></em>':  <br />                                          
+  ensure  => present,<br />                                               
+  mode    => 0644, <br />                                                 
+  content => "Here is my Public IP Address: ${ipaddress_eth0}.\n", <br /> 
+}</div>
 </li>
 <li>Save the file and exit.</li>
 <li>Execution of the above line will create a file named <code>/tmp/<em><u>example-ip</u></em></code> and this will contain the public IP address of the node.</li>
@@ -495,14 +509,15 @@ Info: Applying configuration version '1407966507'&lt;/xmp></div>
 </li>
 
 <li>Add the following lines:
-<div class="hacker">&lt;xmp>node 'ns1', 'ns2' {    
-  file {'/tmp/dns':    
-    ensure => present, 
-    mode => 0644,
-    content => "Only DNS servers get this file.\n",
-  }
-}
-node default {}&gt;/xmp></div> 
+<div class="hacker">
+node 'ns1', 'ns2' {  <br />  
+  file {'/tmp/dns':   <br /> 
+    ensure => present, <br />
+    mode => 0644,<br />
+    content => "Only DNS servers get this file.\n",<br />
+  }<br />
+}<br />
+node default {}</div> 
 </li>   
 
 <li>Save and exit the file.</li>
@@ -520,13 +535,14 @@ node default {}&gt;/xmp></div>
 </li>
 
 <li>Add the following lines:
-<div class="hacker">&lt;xmp>node 'host2' {
-  class { 'apache': }             
-  apache::vhost { 'example.com':  
-    port    => '80',
-    docroot => '/var/www/html'
-  }
-}&gt;/xmp></div>
+<div class="hacker">
+node 'host2' { <br />
+  class { 'apache': }   <br />          
+  apache::vhost { 'coolexample.com':  <br />
+    port    => '80',<br />
+    docroot => '/var/www/html'<br />
+  }<br />
+}</div>
 </li>
 
 <li>Save and exit the file.</li>

@@ -88,14 +88,6 @@
 <p><strong>Time:</strong> <em>30 mins</em></p>
 
 <p>In this article, you'll create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails  application. These tasks assume that you have <code>sudo</code> privileges and that  <a href="17535">Ruby on Rails is installed</a>. </p>
-<h2> Disable SELinux</h2>
-<ol>
-  <li>Open the following file, and disable <code>SELinx</code>:
-    <div class='hacker'>sudo vim /etc/selinux/config</div>
-<div class='hacker'>SELINUX=disabled</div>
-</li>
-<li>Save and exit.
-<div class="hacker">wq!</div></li></ol>
 
 
 <h2>Set up a PostgreSQL database</h2>
@@ -116,8 +108,7 @@
 <pre>host    all             all             127.0.0.1/32            ident
 host    all             all             ::1/128                 ident</pre></div></li>
 <li>Change <code>ident</code> to <code>md5</code>.</li>
-<li>Save and exit.
-  <div class ="hacker">wq!</div></li>
+<li>Save and exit the file by pressing the  <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 <li>Start and enable the PostgreSQL service.
   <div class='hacker'>sudo systemctl start postgresql</div>
 <div class='hacker'>sudo systemctl enable postgresql</div>
@@ -130,16 +121,19 @@ host    all             all             ::1/128                 ident</pre></div
 		<div class='hacker'>sudo su - postgres</div>
 </li>        
 <li>Create a PostgreSQL super user.
-	<div class='hacker'>createuser -s <em><u>UserName</u></em></div>
+	<div class='hacker'>createuser -s <em><u>username</u></em></div>
 </li>
 <li>Set a password for the database user.
 		<div class='hacker'>psql</div>
-    	<div class='hacker'>postgres=# \password <em><u>UserName</u></em></div></li>
+    	<div class='hacker'>\password <em><u>username</u></em></div></li>
 <li>Enter the new password.</li>
 
 <li>Close the session.
-	<div class='hacker'>postgres=# \q</div>
+	<div class='hacker'>\q</div>
 </li>
+<li>Logout from <code>postgres</code> user.
+<div class ="hacker">logout</div>
+</li> 
 </ol>
 
 <h2>Set up a Rails application</h2>
@@ -157,11 +151,11 @@ host    all             all             ::1/128                 ident</pre></div
 <li>Look for <code>pool: 5</code> in the file, and add the following lines beneath it. Enter the username and password for the <code>postgres</code>  user.
   <div class='hacker'>
 host: localhost<br />
-username: <em><u>UserName</u></em><br />
-password: <em><u>UserName_password</u></em><br /></div>
+username: <em><u>username</u></em><br />
+password: <em><u>username_password</u></em><br /></div>
+<p class ="note">When adding this code, you need to ensure proper alignment with the code "<code>pool: 5</code>". Also  spacing  with in the code added must be maintained as shown above.</p>
 </li>        
-<li>Save and exit.
-  <div class ="hacker">wq!</div></li>
+<li>Save and exit the file by pressing the  <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 </ol>
 
 <h2>Create a database for the application</h2>
@@ -175,7 +169,7 @@ Two databases in the PostgreSQL server are created. For example, if the applicat
 <h2>Test the configuration</h2>
 <ul>
 <li>Test the Rails application.
-  <div class='hacker'>Rails server</div>
+  <div class='hacker'>rails server</div>
   You can run the Rails application on your localhost on port 3000. You can also access the application from a web browser, if it is located on a remote server, by assigning a public IP address.
   <div class='hacker'>rails server --binding=<em><u>server_public_IP</u></em></div>
 </li>

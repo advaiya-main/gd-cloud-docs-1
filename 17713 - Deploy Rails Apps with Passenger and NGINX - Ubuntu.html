@@ -137,23 +137,23 @@ sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger tr
   <div class="hacker">rake db:migrate RAILS_ENV=development</div></li>
   <li>Test <em><u>Your_application</u></em> application by running the following command in the application directory:
   <div class='hacker'>rails s --bind=<em><u>Your-Public-IP</u></em></div>
-  On successful execution, you will see default page of Rails Application.
+  To test Rails application open the browser and type <strong>http://your_server_ip:3000</strong>
 </li>
 </ol>
 <h2>Configure NGINX</h2><ol>
 <li>Open the configuration file <code>nginx.conf</code>.
   <div class="hacker"> sudo vim /etc/nginx/nginx.conf </div>
 <li>
-Uncomment the following line:
+Uncomment or Insert the following line in the <code>http {</code> section:
 <div class="hacker">passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;</div></li>
-<li>Save the changes.</li>
+<li>To save and exit, press <strong> ESC</strong> and type <strong>:wq!</strong></li>
 <li> Restart the NGINX service.
   <div class="hacker"> sudo service nginx restart </div>
 </li>
 <li>Open NGINX configuration file <code>/etc/nginx/sites-enabled/default</code> to configure the host.
   <div class="hacker">sudo vim /etc/nginx/sites-enabled/default</div>
   </li>
-  <li>Replace the file's content with the following:
+  <li>Make corresponding changes as shown in the code:
   <div class="hacker">
 <pre>server {
         listen 80 default_server;
@@ -172,14 +172,15 @@ Uncomment the following line:
 }
 	</pre></div></li>
 <li>To save and exit, press <strong> ESC</strong> and type <strong>:wq!</strong> 
-</li><!--Save and close the file? cj --><!-- updated accordingly-->
+</li>
 
 <li>Restart the NGINX server:
   <div class="hacker"> sudo service nginx restart </div>
+  To test Rails application open the browser and type <strong>http://your_server_ip</strong>
 </li>
 </ol>
 <h2>Conclusion</h2>
-<p>In this article, you reviewed the steps to deploy a Rails application using NGINX and Passenger.<!--What might the user do next? cj --><!--Changed from "Next steps" to "Conclusion"--></p>
+<p>In this article, you reviewed the steps to deploy a Rails application using NGINX and Passenger.</p>
 
 </body>
 </html>

@@ -70,11 +70,12 @@ p.note {
 <p><strong>Difficulty: </strong> <em>4</em><br />
 	<strong>Time: </strong> <em>45 Minutes</em></p>
 	<p>OSSEC is an open-source, host-based intrusion detection system. It performs log integrity checks, analysis, rootkit detection, Windows registry monitoring, active response and time-based alerting. It can monitor one or more servers and can be configured for real-time alerts. This article explains the installation of a local OSSEC on  Debian or Ubuntu.</p>
-	<p class="note">
+	
+
+	<p>Optionally if you want to send email from a local server, you  need to install Postfix. For details, refer to <a href="17427">Install and Configure Postfix - Debian</a> or <a href="17423">Install and Configure Postfix - Ubuntu</a>. </p>
+<p class="note">
  You need  <code>sudo</code> privileges to complete all of these steps. </p>
-<h2>Prerequisite </h2>
-	<p>If you want to send email from a local server, you  need to install Postfix. For details, refer to <a href="17427">Install and Configure Postfix - Debian</a> or <a href="17423">Install and Configure Postfix - Ubuntu</a>. </p>
-<h2>Prepare the system</h2>
+	<h2>Prepare the system</h2>
 	<ol>
 	  <li>	
 		Update the server.
@@ -197,7 +198,7 @@ fastmail.com.           3600    IN      MX      20 in2-smtp.messagingengine.com.
 				1- What kind of installation do you want (server, agent, local, hybrid or help)? <em><u>local</u></em>
 			</div>
 		</li>
-		<li>Respond to the question about email with a valid email address. All of the notifications will be sent to this email address.</li>
+		<li>Respond to the question about email with a valid email address and give SMTP server that you saved using <code>dig</code> command when prompted. All of the notifications will be sent to this email address.</li>
 		<li>For the remaining questions, accept the defaults by pressing <strong>Enter</strong>.<br />
 		  A successful installation displays the following:
 <div class="hacker">
@@ -214,7 +215,7 @@ More information can be found at http://www.ossec.net
 				</pre>
 			</div>
 		</li>
-		<li> Press <strong>Enter</strong> to finish the installation.</li></li>
+		<li> Press <strong>Enter</strong> to finish the installation.</li>
 	</ol>
 <h2>Verify the OSSEC email settings</h2>
 	You need to verify that the email credentials you provided and the email credentials that OSSEC autoconfigured are correct. Email settings are in <code>ossec.conf</code>, which is located in <code>/var/ossec/etc</code>.
@@ -259,7 +260,7 @@ More information can be found at http://www.ossec.net
 			
 				Start the server.
 				<div class="hacker">
-				/var/ossec/bin/ossec-control start
+				sudo /var/ossec/bin/ossec-control start
 				</div>
 				You'll receive an email message saying that OSSEC has started.  
 			
@@ -379,7 +380,7 @@ It's useful to review the default rule definitions in the <code>ossec_rules.xml<
 				</li>
 				<li>Restart OSSEC.
                   <div class="hacker">
-					/var/ossec/bin/ossec-control restart
+					sudo /var/ossec/bin/ossec-control restart
 				</div>
 				  <p>You'll receive an email when OSSEC restarts.</p>
 			  </li>

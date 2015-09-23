@@ -93,15 +93,14 @@ td:nth-child(1) {font-weight:bold;}
 
         <ol>
 <li>Install (Extra Packages for Enterprise Linux) EPEL to ensure the yum repository has the latest version of Nginx.
-<div class="hacker">sudo yum install epel-release</div>
+<div class="hacker">sudo yum -y install epel-release</div>
 </li>
 
  <li>Install Nginx:
-                       <div class="hacker">sudo yum install nginx</div>
-                   Enter <strong>y</strong> at the prompt to continue installation.
+                       <div class="hacker">sudo yum -y install nginx</div>
                     </li>
     <li>Start the Nginx service:
-      <div class="hacker">sudo systemctl start nginx</div></li>
+      <div class="hacker">sudo /etc/init.d/nginx start</div></li>
  </ol>
 <p>Nginx is now running as a web server. To verify, you can use your browser to navigate to the IP address of your cloud server; for example, <code>http://<em><u>IP Address of your cloudserver</u></em></code> .</p>
   

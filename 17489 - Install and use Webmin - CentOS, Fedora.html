@@ -4,9 +4,7 @@
 
 <head>
 
-<!--Article Number is _17489_________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is _17489_________ -->
 
 
 <title>Install and use Webmin - CentOS, Fedora</title>
@@ -81,21 +79,21 @@ p.note {
 
     <h2>Create a user with sudo privileges</h2>
  <ol>
-               <li>Edit the <code>/etc/sudoers</code> file with visudo
+               <li>Edit the <code>/etc/sudoers</code> file with visudo.
                    <div class="hacker">sudo visudo</div>
                </li>
                <li>Find the section that looks like this:
                    <div class="hacker"><pre>root    ALL=(ALL) ALL </pre></div>
               </li>
-              <li>Add a line in it for the user you use to log in to your server to grant sudo privileges to that user.
+              <li>Add a line in it for the user you use to log into your server, which will grant <code>sudo</code> privileges to that user.
                    <div class="hacker"><pre>root    ALL=(ALL) ALL 
-yourloginuser    ALL=(ALL) ALL </pre></div>
+<em><u>yourloginuser</u></em>    ALL=(ALL) ALL </pre></div>
               </li>
-               <li>Save and close</li>
+               <li>Save and close.</li>
     </ol>
  <h2>Install Webmin</h2>
  <ol>
-               <li>Create a webmin repository file 
+               <li>Create a webmin repository file. 
                    <div class="hacker">sudo vim /etc/yum.repos.d/webmin.repo</div>
                </li>
                <li>Add the following lines to the file:
@@ -105,28 +103,28 @@ name=Webmin Distribution Neutral
 mirrorlist=http://download.webmin.com/download/yum/mirrorlist
 enabled=1</pre></div>
               </li>
-      <li>Save and close</li>
-              <li>Add the Webmin key to your keyring
+      <li>Save and close.</li>
+              <li>Add the Webmin key to your keyring.
                    <div class="hacker">sudo wget http://www.webmin.com/jcameron-key.asc </div>
               </li>
-              <li>Import the public key
+              <li>Import the public key.
                    <div class="hacker">sudo rpm --import jcameron-key.asc </div>
               </li>
-              <li>Update your local repository
+              <li>Update your local repository.
                    <div class="hacker">sudo yum update</div>
               </li>
-              <li>Install webmin
+              <li>Install Webmin.
                    <div class="hacker">sudo yum install webmin</div>
               </li>
  </ol>
  <h2>Verification</h2>
  <ol>
-               <li>Using your browser, access the Webmin login page: 
-                <div class="hacker">https://your IP address:10000</div>
+               <li>In your browser, go to the Webmin login page. 
+                <strong>https://<em><u>your IP address</u></em>:10000</strong>
               </li>
-              <li>Ignore the SSL warning (you trust this server because you own it. 
+              <li>Ignore the SSL warning. You can trust this server because you own it. 
               </li>
-              <li>A login screen will appear.  Log in using the <em><u>yourloginuser</u></em> and start using webmin!
+              <li>A login screen will appear.  Log in using the <em><u>yourloginuser</u></em>, and start using Webmin!
               </li>
 </ol>
 
