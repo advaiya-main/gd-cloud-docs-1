@@ -89,7 +89,7 @@ aboutus.coolexample.com</td>
 
 <ul>
 
-<li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see the articl: <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Debian</a>.</li>
+<li>You'll need a Linux, Apache&reg;, MySQL, and PHP (LAMP) stack configured. Make sure that Apache, MySQL, and PHP are up and running. For a how-to on installing a LAMP stack, see the article: <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17346 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian.html">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Debian</a>.</li>
 
 <li>As you install the software, make a note of your MySQL root account (administrator) password. You'll need it for these tasks.</li>
 
@@ -210,13 +210,13 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 Your output message might look like this.
   <div class="hacker"><pre>Enabling module rewrite.
 To activate the new configuration, you need to run:
-  service apache2 restart</pre></div><br/>
+  service apache2 restart</pre></div><br />
 
    We will be restarting Apache after this step.</li>
-  <li> First, make a copy of your virtual host config file just in case. We'll use the default Apache one.
+  <li>Make a copy of your virtual host config file just in case. We'll use the default Apache one.
 <div class="hacker">sudo cp 000-default 000-default.bak</div></li>
                                     
-   <li>Now open your original file so we can modify it. 
+   <li>Open your original file, so we can modify it. 
 <div class="hacker"> sudo vim /etc/apache2/sites-enabled/000-default</div></li>
             
 <li>Search for DocumentRoot, and add the following lines under it: 
