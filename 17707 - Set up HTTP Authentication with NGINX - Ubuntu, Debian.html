@@ -168,14 +168,14 @@ location / {
 <h2>Check your password authentication</h2>
  
  <p>You're done! Test your results by browsing to the location you defined in a web browser (your IP appended with /<em><u>testpage</u></em>):</p>
- 
+
   <p><code>http://<em><u>your IP or domain/testpage</u></em></code></p>
 
    <p>You should be prompted for a username and password.</p>
 
 
 <h2>Next steps</h2>
-    <p>You have just created a scheme for http authentication on your web server. Try moving the <code>auth_basic / authbasic_user_file </code> directives to other contexts (such as inside the default server block to authenticate your main site) to see how this affects your site. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20Nginx%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
+    <p>You have just created a scheme for http authentication on your web server. Try moving the <code>auth_basic / authbasic_user_file </code> directives to other contexts (such as inside the default server block to authenticate your whole site) to see how this affects your site. This test is especially important if your IP address contains <a href="http://articles/17360%20-%20Configure%20Nginx%20Server%20Blocks%20-%20ALL%20DISTROS.html">multiple server blocks</a> and you choose to apply authentication to one server block and leave another one "open." </p>
 
    
 </body>
