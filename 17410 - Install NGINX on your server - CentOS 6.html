@@ -4,13 +4,10 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Install NGINX on your server - CentOS 6</title>
-<style>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -27,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -39,6 +36,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -76,78 +83,36 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
+<p>Install Nginx on Your Server on CentOS 6.</p>
+    <h1>Install Nginx on Your Server - CentOS 6</h1>
     
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+    <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
+        <strong>Time</strong>: <em><u>5 minutes</u></em></p>
+       <p> This article guides you through installing and starting Nginx on CentOS 6.</p>
+       <h2>Install and start Nginx</h2>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+        <ol>
+<li>Install (Extra Packages for Enterprise Linux) EPEL to ensure the yum repository has the latest version of Nginx.
+<div class="hacker">sudo yum install epel-release</div>
+</li>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
+ <li>Install Nginx:
+                       <div class="hacker">sudo yum install nginx</div>
+                   Enter <strong>y</strong> at the prompt to continue installation.
+                    </li>
+    <li>Start the Nginx service:
+      <div class="hacker">sudo systemctl start nginx</div></li>
+ </ol>
+<p>Nginx is now running as a web server. To verify, you can use your browser to navigate to the IP address of your cloud server; for example, <code>http://<em><u>IP Address of your cloudserver</u></em></code> .</p>
+  
+<h2>Next steps</h2>
+    <p>You have just installed Nginx. Next, you may want to add any of the following:</p>
+        <ul>
+          <li><a href="17360 - Configure NGINX Server Blocks - ALL DISTROS.html">Additional Nginx server blocks</a></li>
+        <li> <a href="17500 - Configure NGINX as a reverse proxy - ALL DISTROS.html">More advanced Nginx functionality, such as a reverse proxy</a></li>
+        <li><a href="17932 - Set up FastCGI Caching with NGINX on your server - ALL DISTROS.html">Set up FastCGI Caching with Nginx</a></li>
 
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
+        </ul>  
    
 </body>
 </html>
