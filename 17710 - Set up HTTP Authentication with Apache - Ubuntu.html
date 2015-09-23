@@ -86,7 +86,7 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-<p>This article walks through setting up basic http authentication in Apache on a Ubuntu system using .htaccess.</p>
+<p>This article walks through setting up basic http authentication in Apache on an Ubuntu system using .htaccess.</p>
     <h1>Set up HTTP authentication with Apache - Ubuntu</h1>
     
     <p><strong>Difficulty</strong>:<em><u>2</u></em><br/>
@@ -106,7 +106,7 @@ td:nth-child(1) {font-weight:bold;}
     <h2>Create .htaccess File</h2>
     <p><code>.htaccess</code> stands for <strong>Hypertext Access</strong>. This file contains the authentication details.</p>
     <ol>
-        <li>Create the <code>.htaccess</code> file under document root directory, which applies the authentication to the entire site, or to a particular directory.
+        <li>Create the <code>.htaccess</code> file under <code>document root directory</code>, which applies the authentication to the entire site, or to a particular directory.
         <div class="hacker">sudo vim /var/www/.htaccess</div></li>
         <li>Type in the following block of text:
         <div class="hacker"><pre>
@@ -160,6 +160,8 @@ Require valid-user
     Allow from all
 &lt;/Directory>
 </pre></div>
+</li>
+<li>
 Save and exit the file.
         </li>
         <li>Restart Apache.

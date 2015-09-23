@@ -6,7 +6,7 @@
 
 
 
-<title>Install NGINX on your server - CentOS 7, Fedora</title>
+<title>Install NGINX on your server - CentOS 6</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -52,51 +52,50 @@ td:nth-child(1) {font-weight:bold;}
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
 <mso:ArticleKeywords msdt:dt="string">NGINX</mso:ArticleKeywords>
-<mso:Reference msdt:dt="string">https://garage.godaddy.com/tech/config/how-to-install-and-configure-nginx-on-centos-7/, https://garage.godaddy.com/tech/config/how-to-install-and-configure-nginx-on-centos-7/</mso:Reference>
-<mso:LinuxDistributions msdt:dt="string">;#CentOS 7;#Fedora;#</mso:LinuxDistributions>
+<mso:Reference msdt:dt="string">https://garage.godaddy.com/tech/config/how-to-install-and-configure-nginx-on-centos-6/, https://garage.godaddy.com/tech/config/how-to-install-and-configure-nginx-on-centos-6/</mso:Reference>
+<mso:LinuxDistributions msdt:dt="string">;#CentOS 6;#</mso:LinuxDistributions>
 <mso:ArticlePriority msdt:dt="string">1</mso:ArticlePriority>
 <mso:RequestNotes msdt:dt="string">At end, link to 'Configure NGINX Server Blocks.' and 'Build a LEMP stack (Linux, NGINX, MySQL, PHP)' if they want full solution stack. This covers simply installing NGINX. Base on garage doc, but full rewrite.</mso:RequestNotes>
 <mso:Difficulty msdt:dt="string">1</mso:Difficulty>
 <mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
-<mso:ArticleID msdt:dt="string">17411</mso:ArticleID>
+<mso:ArticleID msdt:dt="string">17410</mso:ArticleID>
 <mso:UnsupportedFeatures msdt:dt="string"></mso:UnsupportedFeatures>
 <mso:Collapsed msdt:dt="string"></mso:Collapsed>
 <mso:Complexity msdt:dt="string"></mso:Complexity>
 
-<mso:ArticleStatus msdt:dt="string">Edited and ready to publish</mso:ArticleStatus>
+<mso:ArticleStatus msdt:dt="string">Collapsed</mso:ArticleStatus>
 <mso:HoursDraftingEstimated msdt:dt="string">1.50000000000000</mso:HoursDraftingEstimated>
 <mso:HoursEditingEstimated msdt:dt="string">0.100000000000000</mso:HoursEditingEstimated>
 <mso:Sample msdt:dt="string">z</mso:Sample>
 <mso:DeliveryTarget msdt:dt="string">Phase 1</mso:DeliveryTarget>
-<mso:EditScore msdt:dt="string">A</mso:EditScore>
+<mso:EditScore msdt:dt="string"></mso:EditScore>
 <mso:PrereqOrdering msdt:dt="string">2</mso:PrereqOrdering>
 
 <mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Brian Miller</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
 <mso:Week msdt:dt="string">5.00000000000000</mso:Week>
 <mso:AssignedTo1 msdt:dt="string">19</mso:AssignedTo1>
-<mso:PercentResearch msdt:dt="string">0</mso:PercentResearch>
-<mso:PercentWriting msdt:dt="string">1.00000000000000</mso:PercentWriting>
-<mso:ReviewComments msdt:dt="string">Added missing intro and h2. Added Fedora to filename and LinuxDistributions.</mso:ReviewComments>
+<mso:ReviewComments msdt:dt="string"></mso:ReviewComments>
 <mso:Dependencies msdt:dt="string"></mso:Dependencies>
 <mso:TestComments msdt:dt="string"></mso:TestComments>
-<mso:HoursDraftingActual msdt:dt="string">0.500000000000000</mso:HoursDraftingActual>
-<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Carla  Johnson</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
-<mso:ReviewedBy msdt:dt="string">41</mso:ReviewedBy>
-<mso:HoursEditingActual msdt:dt="string">0.250000000000000</mso:HoursEditingActual>
+<mso:CollapsedInto msdt:dt="string">2465</mso:CollapsedInto>
 </mso:CustomDocumentProperties>
 </xml><![endif]-->
 </head>
 
 <body>
-<p>Install Nginx on Your Server on CentOS 7, Fedora 20 and 21.</p>
-    <h1>Install Nginx on Your Server - CentOS 7, Fedora</h1>
+<p>Install Nginx on Your Server on CentOS 6.</p>
+    <h1>Install Nginx on Your Server - CentOS 6</h1>
     
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
         <strong>Time</strong>: <em><u>5 minutes</u></em></p>
-       <p> This article guides you through installing and starting Nginx on CentOS 7 and Fedora 20, 21.</p>
+       <p> This article guides you through installing and starting Nginx on CentOS 6.</p>
        <h2>Install and start Nginx</h2>
 
         <ol>
+<li>Install (Extra Packages for Enterprise Linux) EPEL to ensure the yum repository has the latest version of Nginx.
+<div class="hacker">sudo yum install epel-release</div>
+</li>
+
  <li>Install Nginx:
                        <div class="hacker">sudo yum install nginx</div>
                    Enter <strong>y</strong> at the prompt to continue installation.
@@ -109,10 +108,9 @@ td:nth-child(1) {font-weight:bold;}
 <h2>Next steps</h2>
     <p>You have just installed Nginx. Next, you may want to add any of the following:</p>
         <ul>
-         <li><a href="17360 - Configure NGINX Server Blocks - ALL DISTROS.html">Additional Nginx server blocks</a></li>
+          <li><a href="17360 - Configure NGINX Server Blocks - ALL DISTROS.html">Additional Nginx server blocks</a></li>
         <li> <a href="17500 - Configure NGINX as a reverse proxy - ALL DISTROS.html">More advanced Nginx functionality, such as a reverse proxy</a></li>
         <li><a href="17932 - Set up FastCGI Caching with NGINX on your server - ALL DISTROS.html">FastCGI Caching with Nginx</a></li>
-
 
         </ul>  
    

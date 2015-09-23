@@ -4,9 +4,7 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17460-->
 
 
 <title>Install and configure PostgreSQL - Arch Linux</title>
@@ -74,56 +72,56 @@ p.note {
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>15 minutes</em></p>
 
-    <p>This article provides information about installation and configuration of PostgreSQL on Arch Linux.</p>
-<p>PostgreSQL is an open-source relational database management system. PostgreSQL uses the Structured Query Language (SQL) to manipulate data. To perform this task, we are assuming that the user has <code>sudo</code> privileges.
+    <p>This article provides information about the installation and configuration of PostgreSQL on Arch Linux.</p>
+<p>PostgreSQL is an open-source, relational database management system. PostgreSQL uses the Structured Query Language (SQL) to manipulate data. To perform this task, we are assuming that the user has <code>sudo</code> privileges.
 </p>
 
     <h2>Install PostgreSQL</h2>
 <ol> 
-<li>Update all packages of the operating system
+<li>Update all packages of the operating system.
    <div class="hacker">sudo pacman -Sy</div>
    </li>
-   <li>Install the PostgreSQL package
+   <li>Install the PostgreSQL package.
    <div class="hacker">sudo pacman -S postgresql</div>
    </li>
-   <li>Install <code>pgadmin3</code> for the administrator. This is an easy to access GUI for PostgreSQL, and is an optional installation
+   <li>Install <code>pgadmin3</code> for the administrator. This is an easy-to-access GUI for PostgreSQL, and is an optional installation.
    <div class="hacker">sudo pacman -S pgadmin3</div>
    </li>
-   <li>Check if <code>postgresql</code> is installed
+   <li>Check if <code>postgresql</code> is installed.
    <div class="hacker">sudo pacman -Si postgresql</div>
    </li>
-   <li>To initialize a database cluster, use the command <code>initdb</code>, which is installed with PostgreSQL. This must be done as the <code>postgres </code> system user
+   <li>To initialize a database cluster, use the command <code>initdb</code>, which is installed with PostgreSQL. You must do this task as the <code>postgres </code> system user.
    <div class="hacker">sudo -i -u postgres</div>
     <div class="hacker">initdb -D '/var/lib/postgres/data'</div>
    </li>
-   <li>You can logout from the <code>postgres</code> system user and fire up PostgreSQL
+   <li>You can log out from the <code>postgres</code> system user, and fire up PostgreSQL.
    <div class="hacker">Logout</div>
    <div class="hacker">sudo systemctl start postgresql</div>
    </li>
-   <li>If you want PostgreSQL to start automatically every time your VPS boots up, use this
+   <li>If you want PostgreSQL to start automatically every time your VPS boots up, use this command.
    <div class="hacker">sudo systemctl enable postgresql</div>
    </li>
   </ol>
   
   <h2>Connect to PostgreSQL</h2>
 <ol> 
-<li>Once PostgreSQL is installed completely, then the <code>Postgres</code> system user and database will be automatically created
+<li>Once PostgreSQL is installed completely, then the <code>Postgres</code> system user and database will be automatically created.
    </li>
-   <li>Log in by <code>Postgres</code> user
+   <li>Log in as the <code>Postgres</code> user.
    <div class="hacker">sudo -u postgres psql</div>
    </li>
-   <li>You will see <code>Postgres=#</code> prompt. To Exit from the prompt, type
+   <li>You will see <code>Postgres=#</code> prompt. To exit from the prompt, type:
    <div class="hacker">\q</div>
    </li>
-   <li>Logout the <code>Postgres</code> system user
+   <li>Logout the <code>Postgres</code> system user.
    <div class="hacker">exit</div>
    </li>
   
    </ol>
        
              
-    <h2>Next Steps</h2>
-    <p>This article covers the steps to install and configure PostgreSQL. Now you are ready to create your own database for your applications. For more details see <a href="#">17527 - Use PostgreSQL with your Ruby on Rails Application – Arch Linux</a></p>
+    <h2>Next steps</h2>
+    <p>This article covers the steps to install and configure PostgreSQL. Now, you are ready to create your own database for your applications. For more details, see <a href="17527">Use PostgreSQL with your Ruby on Rails Application – Arch Linux</a>.</p>
    
 </body>
 </html>
