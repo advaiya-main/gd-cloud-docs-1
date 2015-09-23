@@ -177,7 +177,7 @@ PN- Broken section, images linked</mso:ReviewComments>
                 <pre>
 # Alias /phpmyadmin /usr/share/phpMyAdmin
 # Alias /phpmyadmin /usr/share/phpMyAdmin
-Alias /<em><u>mysqllogin</u></em> /usr/share/phpMyAdmin
+Alias /<em><u>sql</u></em>/usr/share/phpMyAdmin
 </pre>
             </div>
             Save and exit the file.
@@ -186,7 +186,7 @@ Alias /<em><u>mysqllogin</u></em> /usr/share/phpMyAdmin
             Restart Apache for the change to take effect.
             <div class="hacker">sudo systemctl restart httpd.service</div>
         </li>
-        <li>You will now find the application at <strong>http://<em><u>your server address or domain name</u></em>/<em><u>mysqllogin</u></em></strong> instead of <strong>http://<em><u>your server address or domain name</u></em>/phpmyadmin</strong> </li>
+        <li>You will now find the application at <strong>http://<em><u>your server address or domain name</u></em>/<em><u>sql</u></em></strong> instead of <strong>http://<em><u>your server address or domain name</u></em>/phpmyadmin</strong> </li>
     </ol>
     <h3>Apache authorization</h3>
     We will also add Apache authorization to the <code>phpMyAdmin</code> directory with an .htaccess and .htpasswd file. 
