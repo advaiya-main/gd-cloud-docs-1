@@ -4,7 +4,7 @@
 <!--Article 17475-->
 <head>
 
-<title>Install Apache Tomcat 6 - CentOS</title>
+<title>Install Apache Tomcat - CentOS</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -83,21 +83,21 @@ p.note {
 </head>
 
 <body>
-	<p>Install Apache Tomcat 6 in CentOS.</p>
-    <h1>Install Apache Tomcat 6	- CentOS</h1>
+	<p>Install Apache Tomcat in CentOS.</p>
+    <h1>Install Apache Tomcat - CentOS</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
     <h2>About Tomcat</h2>
-	<p>Apache Software Foundation&trade; developed Tomcat&trade; as an open source web server to serve Java&reg; applications. This article walks through the installation and basic configuration of Tomcat 6 on a CentOS server. It assumes you have completed the initial server setup on your <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17323%20-%20Initial%20Server%20Setup%20-%20CentOS.html">CentOS</a> server, and have also <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17430%20-%20Add%20and%20Delete%20users%20on%20your%20server%20-%20CentOS.html">created a non-root user account</a>.</p>                                        
+	<p>Apache Software Foundation&trade; developed Tomcat&trade; as an open source web server to serve Java&reg; applications. This article walks through the installation and basic configuration of Tomcat on a CentOS server. It assumes you have completed the initial server setup on your <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17323%20-%20Initial%20Server%20Setup%20-%20CentOS.html">CentOS</a> server, and have also <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17430%20-%20Add%20and%20Delete%20users%20on%20your%20server%20-%20CentOS.html">created a non-root user account</a>.</p>                                        
 
     <h2>Install Tomcat</h2>
     <p>There are a number of ways to install Tomcat, but we will use yum, as it is the most simple. Note that this method will install the latest version of Tomcat that is in the CentOS repositories, not necessarily the latest Tomcat release.</p>
     <ol>
     <li>Update the packages repository.
 	<div class="hacker">sudo yum -y update</div>
-    <div class="hacker">sudo yum -y install tomcat6</div></li>
+    <div class="hacker">sudo yum -y install tomcat</div></li>
     <li>To change the default Java options that Tomcat will reference when starting, create a parameters file.
 	<div class="hacker">sudo vim $CATALINA_BASE/bin/setenv.sh</div></li>
 	<li>Add the following line to the empty file.
@@ -109,7 +109,7 @@ p.note {
 	<h2>Install additional packages</h2>
 	<ol>
 	<li>Install Tomcat's online documentation and the web application manager.
-    <div class="hacker">sudo yum -y install tomcat6-docs-webapp tomcat6-admin-webapps tomcat6-webapps</div></li>
+    <div class="hacker">sudo yum -y install tomcat-docs-webapp tomcat-admin-webapps tomcat-webapps</div></li>
     <li>Tomcat documentation suggests installing a source control system, like Git, as well as Apache Ant (used to develop Java applications).
     <div class="hacker">sudo yum -y install git ant</div></li>
 	</ol>
@@ -119,13 +119,13 @@ p.note {
 	
 	<ol>
 	<li>Open Tomcat's users file.
-	<div class="hacker">sudo vim /etc/tomcat6/tomcat-users.xml</div></li>
+	<div class="hacker">sudo vim /etc/tomcat/tomcat-users.xml</div></li>
 	<li>Add the following line of code immediately after <code>&#60;tomcat-users&#62;</code>:
 	<div class="hacker">&#60;user username="admin" password="password" roles="manager-gui,admin-gui"/&#62;</div>
 	<div class="note">You will obviously want to change the <code>username</code> and <code>password</code> values to something more secure.</div></li>	
     <li>Exit vim and confirm the save, if prompted.</li>
     <li>Restart Tomcat.
-	<div class="hacker">sudo service tomcat6 restart</div></li>
+	<div class="hacker">sudo service tomcat restart</div></li>
     </ol>
 	
 	<h2>Access Tomcat's web management interface</h2>
@@ -144,7 +144,7 @@ p.note {
 	<div class="note">For both URLs, you will be prompted for the new user's credentials you entered above.</div>
 	
     <h2>Conclusion</h2>
-    <p>You're done! You have successfully installed and configured Apache Tomcat 6. Now you can go deploy your own web apps.</p>
+    <p>You're done! You have successfully installed and configured Apache Tomcat. Now you can go deploy your own web apps.</p>
   
 </body>
 </html>
