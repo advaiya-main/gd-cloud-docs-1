@@ -5,7 +5,8 @@
 <head>
 
 <title>Install and Secure phpMyAdmin with NGINX - Ubuntu</title>
-<style type="text/css">
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -22,7 +23,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -34,6 +35,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -95,10 +106,11 @@ p.note {
      <li>Install phpMyAdmin:
        <div class="hacker">sudo apt-get install phpmyadmin</div>
          </li>
-     <li>When prompted to select <strong>Apache</strong> or <strong>lighttpd</strong> as your web server for automated configuration, press <strong>Tab</strong> to clear the selections (because you are installing Nginx) and advance to <strong>&lt;OK&gt;</strong>.  Type <strong>enter</strong> and continue. </li>
-     <li>When prompted to set up <code>dbconfig-common</code>, select <strong>yes</strong>.</li>
+     <li>When a terminal appears prompting you to select <strong>Apache</strong> or <strong>lighttpd</strong> as your web server for automated configuration, press <strong>Tab</strong> on your keyboard to clear the selections (because you have Nginx installed) and advance to <strong>&lt;OK&gt;</strong>. Press <strong>Enter</strong> to continue. </li>
+     <li>When prompted at the next screen to set up <code>dbconfig-common</code>, select <strong>&lt;Yes&gt;</strong>.</li>
+     <li>Set and confirm a password.</li>
        
-<li>Link the phpMyAdmin installed files to the Nginx document root:       
+<li>You'll then be returned back to your command line. Link the phpMyAdmin installed files to the Nginx document root:       
               
     <div class="hacker">sudo ln -s /usr/share/phpmyadmin /usr/share/nginx/html</div>
                      </li>  
@@ -114,16 +126,16 @@ p.note {
 
     <ol>
  <li>In your web browser, navigate to <code>http://<em><u>your server IP address</u></em>/phpmyadmin</code>.  If the phpMyAdmin UI page displays, phpMyAdmin installed successfully.</li>
-<li>Optionally, log in using <code>root</code> for the user name and your MySql root password.</li>  </ol>
+<li>Optionally, log in using <code>root</code> for the user name and your MySQL root password.</li>  </ol>
 <p>You can now familiarize yourself with the phpMyAdmin UI, but be aware that your database is now exposed to the web. Next, you'll secure it.</p>
   
    <h2>Secure your server</h2>
-<p>There  is no such thing as being too careful in securing your database server. Anyone with your web address can add &quot;phpmyadmin" and get to the phpMyAdmin login screen.  If they guess that your administrative user name is "root", they are one correct guess away from administrative access to your database server.
+<p>There is no such thing as being too careful in securing your database server. Anyone with your web address can add &quot;phpmyadmin" and get to the phpMyAdmin login screen.  If they guess that your administrative user name is "root", they are one correct guess away from administrative access to your database server.
 </p>
 
     <h3>Rename the phpMyAdmin page</h3>
     <p>Right now, every hacker knows that the name of your phpMyAdmin page is <code>http://<em><u>your server or domain name</u></em>/phpmyadmin</code>.  Let's  make that name a bit more arcane.    </p>
-    <ol><li>Navigate to your document root directory:
+    <ol><li>Back at your command line, navigate to your document root directory:
 <div class="hacker">cd /usr/share/nginx/html</div></li>
         <li>Change the name (actually, rename the symbolic link):
             <div class="hacker">sudo mv phpmyadmin nodbhere</div></li>
@@ -142,55 +154,39 @@ Your browser  displays the phpMyAdmin screen.  (You can also go to the old <code
         <li>Encrypt a password:
           <div class="hacker">openssl passwd</div>
   <p>Once you enter and confirm your password, OpenSSL  returns the encrypted version of it.</p></li>
-        <li>Copy the encrypted version, and paste it into your password file, which now looks like this:
+        <li>Copy the encrypted version, and paste it into your password file, which now looks something like this:
           <div class="hacker"><em><u>MyWebUserName</u></em>:<em><u>V.Cj1d1d1kew2</u></em></div>
 </li>
- <li>Open your Nginx configuration file or a file that it references with an "include".  It  looks similar to this:
-   <div class="hacker"># server context<br />
+ <li>Open your Nginx configuration file or a file that it references with an "include".  It looks similar to this:
+   <div class="hacker"><pre># server context
      server {
-    . . .
-
-     <br />
-     # location context<br />
-     location / { <br />
-&nbsp; try_files $uri $uri/ =404;
-     <br />
-     &nbsp; }
-     <br />
+     ...
+     # location context
+     location / { 
+     try_files $uri $uri/ =404;     
+                }    
      # end of server context
-&nbsp;<br />
-    }</div> </li>  
-     <li>Create a new location context so that your file looks like this:
- <div class="hacker">
-     # server context<br />
+    }</pre></div> </li>  
+
+  
+     <li>Create a new location context so that your file will look something like this:
+<div class="hacker"><pre>
+     # server context
      server {
-    . . .
-
-     <br />
-     # location context (existing)<br />
-     location / { <br />
-&nbsp; try_files $uri $uri/ =404;
-     <br />
-     }
-
- }
-
-     <br />
-     # location context (new)<br />
-     location /nodbhere <br />
-     {
-        auth_basic "MyWebLoginChallenge";
-        
-&nbsp; 
-     <br />
-     auth_basic_user_file /etc/nginx/mypasswordfile;
-     <br />
-&nbsp;&nbsp;}
-
-     <br />
-     <br />
+    ...
+     
+     # location context (existing)
+     location / { 
+     try_files $uri $uri/ =404;     
+                }
+                 
+     # location context (new)
+     <em><u>location /nodbhere {</u></em>
+     <em><u>auth_basic "MyWebLoginChallenge";</u></em> 
+     <em><u>auth_basic_user_file /etc/nginx/mypasswordfile;</u></em>     
+                        <em><u>}</u></em>        
      # end of server context
-&nbsp;}</div>     
+     }</pre></div>  
 </li>
         <li>Save and close the file.
               

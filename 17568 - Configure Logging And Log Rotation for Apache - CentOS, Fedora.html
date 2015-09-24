@@ -4,9 +4,6 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Configure Logging And Log Rotation for Apache - CentOS, Fedora</title>
@@ -68,38 +65,38 @@ p.note {
 </head>
 
 <body>
-<p>Setting up log rotations, Logging, Optimization, Apache, LAMP</p>
+<p>Setting up log rotations, logging, optimization, Apache, LAMP</p>
     <h1>Configure Logging and Log Rotation for Apache - CentOS, Fedora</h1>
     
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
 
-   <p>The Apache web server can be configured by the server administrator to provide important functional related information and creates a log file whenever there is any issue. Apache has highly configurable logging mechanism that can give output messages at different locations. </p>
+   <p>You can configure the Apache web server to provide important functional information and to create a log file whenever there's an issue. Apache has a highly configurable logging mechanism that can output messages at different locations.</p>
 
-    <p>In this article, you will learn to configure logging and log rotation on CentOS and Fedora.</p>
+  <p>In this article, you'll learn to configure logging and log rotation on CentOS and Fedora.</p>
     
   <h2>Apache log levels </h2>
-<p>Apache categorizes all the informational messages based on their importance. Following is the log levels recognized by Apache, from most important to least:</p>
+<p>Apache categorizes all the informational messages based on their importance. The following lists the  log levels recognized by Apache, from most important to least:</p>
 <table border="1">
 <tr>
 <td><code>emerg</code></td> 
-<td> The system is in an unusable state because of some emergency situation.</td>
+<td> System is in an unusable state because of an emergency situation.</td>
 </tr>
 <tr>
 <td><code>alert</code></td>
-<td> Situation where action is needed.</td></tr>
+<td> Situation in which action is needed.</td></tr>
 <tr>
 <td><code>crit</code></td>
 <td>Important problems that need to be addressed.</td></tr>
 <tr>
 <td><code>error</code></td>
-<td> occurrence of an error. </td></tr>
+<td> An error occurred.</td></tr>
 <tr>
 <td><code>warn</code></td>
-<td> Not a cause for concern but something out of the ordinary happened.</td></tr>
+<td> Not a cause for concern, but something out of the ordinary happened.</td></tr>
 <tr>
 <td><code>notice</code></td>
-<td> Something normal, but requires noticing.</td></tr>
+<td> Something normal but requires noticing.</td></tr>
 <tr>
 <td><code>info</code></td>
 <td> An informational message.</td></tr>
@@ -123,32 +120,32 @@ p.note {
 ... <br />
 LogLevel warn<br />
 ...</div>
-<p>By default, Apache is configured to log messages with a priority of warn. You can change it here.</p>
+<p>By default, Apache is configured to log messages with a priority of <code>warn</code>. You can change it here.</p>
 </li>
-   <li>Save and exit the file by pressing <strong>Esc</strong> key, and then typing <strong>:wq</strong> followed by the <strong>Enter</strong> key. 
+   <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong> followed by pressing the <strong>Enter</strong> key. 
    </li>
    </ol>
    
    <h2>Configure Apache log locations</h2>
-   <p>Apache can be configured to place its logs using server-wide logging specifications. Each separate virtual host can also be configured to log individually. </p>
-   <h3>Server-wide logging</h3>
-   <p>Find out the location of default log information by following these steps:</p>
+   <p>You can configure Apache to place its logs using server-wide logging specifications. Each separate virtual host can also be configured to log individually. </p>
+<h3>Server-wide logging</h3>
+   <p>Find out the location of default log information by following these steps.</p>
    <ol>
-   <li>Open <code>/etc/httpd/conf/httpd.conf</code>.
-   <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
+   <li>Open <code>/etc/httpd/conf/httpd.conf</code> in a text editor.
+     <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
    </li>
-   <li>Search for the following line.
-   <div class="hacker">ErrorLog "logs/error_log" </div>
-   <p>It is the declaration of the location where Apache will store the error messages. </p>
+   <li>Search for the following line:
+     <div class="hacker">ErrorLog "logs/error_log" </div>
+   <p>This is the declaration of the location where Apache will store the error messages. </p>
    </li>
    </ol>
    
-   <h3>Virtual host logging</h3>
-   <p>The use of the file <code>/etc/httpd/logs /access_log </code>is defined in directive use within a virtual host definition. </p>
-   <p>Examine its definition by following these steps:</p>
+<h3>Virtual host logging</h3>
+   <p>The use of the  <code>/etc/httpd/logs /access_log </code>file is defined in the directive used within a virtual host definition. </p>
+<p>Examine its definition by following these steps:</p>
    <ol>
-   <li>Scroll through the already opened <code>/etc/httpd/conf/httpd.conf </code> file and find the following separate values related to logging.
-   <div class="hacker">
+   <li>Scroll through the already opened <code>/etc/httpd/conf/httpd.conf</code> file, and find the following separate values related to logging:
+     <div class="hacker">
 . . . <br />
 ErrorLog "logs/error_log" <br />
 LogLevel warn <br />
@@ -157,47 +154,46 @@ CustomLog "logs/access_log" combined <br />
 
    </div>
    </li>
-   <li>Exit the file by pressing <strong>Esc</strong> key, and then typing :<strong>wq</strong> followed by the <strong>Enter</strong> key. 
+   <li>Exit the file by pressing the <strong>Esc</strong> key, and then typing :<strong>wq</strong> followed by pressing the <strong>Enter</strong> key. 
    </li>
   </ol>
 
 
 <h2>Define custom log</h2>
-<p>In the last section, the line specifying <code>access.log</code> uses a different directive. <code>CustomLog</code> is used to specify the <code>access.log</code> location. <code>combined</code> is label for a custom format and is defined in the default configuration file.
-
-This directive has the following syntax.</p>
+<p>In the last section, the line specifying <code>access.log</code> uses a different directive. <code>CustomLog</code> is used to specify the <code>access.log</code> location. <code>combined</code> is a label for a custom format and is defined in the default configuration file.</p>
+<p>This directive has the following syntax:</p>
 		<div class="hacker">CustomLog <em><u>log_location</u></em> <em><u>log_format</u></em></div>
-<p>Follow these steps to see the definition of <code>combined</code> log format:</p>
+<p>To see the definition of <code>combined</code> log format:</p>
 <ol>
-<li>Open <code>/etc/httpd/conf/httpd.conf</code>
-   <div class="hacker">sudo /etc/httpd/conf/httpd.conf</div>
-   <li>View the following line that defines <code>combined</code> log format.
-   <div class="hacker">LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined </div></li>
-  <p>The <code>LogFormat</code> command defines a custom format for logs that can be called using the <code>CustomLog</code> directive.</p>
-   </li>
-   <li>Exit the file by pressing <strong>Esc</strong> key, and then typing <strong>:wq</strong> followed by the <strong>Enter</strong> key. 
+<li>Open <code>/etc/httpd/conf/httpd.conf</code>.
+   <div class="hacker">sudo /etc/httpd/conf/httpd.conf</div></li>
+   <li>View the following line that defines <code>combined</code> log format:
+     <div class="hacker">LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined </div>
+ The <code>LogFormat</code> command defines a custom format for logs that can be called using the <code>CustomLog</code> directive.
+</li>
+   <li>Exit the file by pressing <strong>Esc</strong> key, and then typing <strong>:wq</strong> followed by pressing the <strong>Enter</strong> key. 
    </li>
    </ol>
    
    <h2>Rotate Apache logs</h2>
-   <p>Rotation of logs is required because Apache logs a large amount of information. Logs rotation can be just switching out the logs on growing up to a certain limit or to store logs for reference at a later date.</p>
+   <p>Rotation of logs is required because Apache logs a large amount of information. Log rotation can be just switching out the logs that grow to a certain limit or to store logs for reference at a later date.</p>
    <h3>Manually rotate logs</h3>
    <ul>
-   <li>Use the following command to manually rotate logs:
-   <div class="hacker">sudo mv <em><u>error_log</u></em> <em><u>error_log.old</u></em></div>
+   <li>Manually rotate logs:
+     <div class="hacker">sudo mv <em><u>error_log</u></em> <em><u>error_log.old</u></em></div>
    <div class="hacker">sudo apachectl graceful</div>
     <div class="hacker">sleep <em><u>600</u></em></div>
-	<p>This command will move the files, reload the file and then wait for 600 seconds.</p>
+	<p>This command will move the files, reload the file, and then wait for 600 seconds.</p>
    </li>
    </ul>
    
    
-   <h3>Rotate logs using Logrotate </h3>
+   <h3>Rotate logs using <code>logrotate</code></h3>
    <p>CentOS configures its own log rotation plan by default with <code>logrotate</code>.</p>
    <ol>
    <li>Open <code>/etc/logrotate.d/httpd.</code>
    <div class="hacker">sudo vim /etc/logrotate.d/httpd</div>
-   <p>You will see the following configuration.</p>
+   <p>You'll see the following configuration:</p>
    <div class="hacker">
 <pre>
 /var/log/httpd/*log {
@@ -212,14 +208,14 @@ This directive has the following syntax.</p>
 </pre>
    </div>
    </li>
-<li>Change the directory in first line, if in Apache configuration you have chosen a different directory for your logs. <code>logrotate</code> will only operate on this directory.
+<li>Change the directory in first line, if in the Apache configuration you  chose a different directory for your logs. <code>logrotate</code> will  operate only on this directory.
    <div class="hacker">/var/log/httpd/*log {…</div>
    </li>
    <li>Add the following option here:
    <table border="1">
 <tr>
 <td><code>rotate </code></td> 
-<td>The number of back logs to keep using the rotate option. For example <code>rotate 3</code> will keep 3 old log files. </td>
+<td>The number of back logs to keep using the <code>rotate</code> option. For example <code>rotate 3</code> will keep three old log files. </td>
 </tr>
 <tr>
 <td><code>compress </code></td> 
@@ -235,30 +231,30 @@ This directive has the following syntax.</p>
 </tr>
 <tr>
 <td><code>minsize</code></td> 
-<td>Trigger rotate  only if the period is reached AND the log files size is more than the minsize specified.</td>
+<td>Trigger <code>rotate</code> only if the period is reached AND the log files size is more than the <code>minsize</code> specified.</td>
 </tr>
 <tr>
 <td><code>prerotate</code> and <code>postrotate</code></td> 
-<td>These specify commands, that you can run before and after log rotation. For example restarting the daemon after log rotation.</td>
+<td>These are specify commands that you can run before and after log rotation. For example, restarting the daemon after log rotation.</td>
 </tr></table>
 <p>Apache is reloaded after the operation.</p>
   </li>
-   <li>Exit the file by pressing <strong>Esc</strong> key, and then typing <strong>:wq</strong> followed by the <strong>Enter </strong>key. 
+   <li>Exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong> followed by pressing the <strong>Enter </strong>key. 
    </li>
    </ol>
    
-   <h2>Log with pipes</h2>
+<h2>Log with pipes</h2>
    <p>Allow a separate logging program to handle the logs by using pipes instead of files.</p>
    <ul>
-   <li>Change the custom log definition as shown to let access log be handled by a logging program that accept standard input.
-   <div class="hacker">CustomLog "| <em><u>logging_program</u></em> <em><u>logging_program_parameters"</u></em> combined</div>
-   <p>Multiple programs can be configured to rotate logs. Use following syntax to configure rotatelogs which is included in Apache.</p>
+   <li>Change the custom log definition as shown to let the access log be handled by a logging program that accepts standard input.
+     <div class="hacker">CustomLog "| <em><u>logging_program</u></em> <em><u>logging_program_parameters"</u></em> combined</div>
+   <p>Multiple programs can be configured to rotate logs. Use the following syntax to configure <code>rotatelogs</code>, which is included in Apache.</p>
    <div class="hacker">CustomLog "| <em><u>path_to_rotate_log</u></em> <em><u>path_of_log_to_rotate</u></em> <em><u>time_in_seconds_between_rotations"</u></em> <em><u>log_level</u></em></div>
    </li>
    </ul>
    
     <h2>Conclusion</h2>
-    <p>In this article, you have learnt to configure logging and log rotation in CentOS and Fedora. It is important to log everything that is necessary to troubleshoot your problems, and also to have a good log rotation mechanism so that files don’t grow too large. </p>
+    <p>In this article, you have learned to configure logging and log rotation in CentOS or Fedora. It's important to log everything necessary to troubleshoot your problems and  to have a good log rotation mechanism so that files don’t grow too large. </p>
    
 </body>
 </html>
