@@ -138,11 +138,11 @@ p.note {
 		<li>
 			Save the file, and then restart NTP. 
 			<div class="hacker">
-				ssudo service ntp restart
+				sudo service ntp restart
 			</div>
 			Servers will show accurate time now. </li>
 	</ol>
-	<h2>Install Puppet Master</h2>
+	<h2>Install Puppet master</h2>
 	In this tutorial, you will install the open-source Puppet from the <!--tester, changed from Debian-->Ubuntu package <code>puppetmaster-passenger</code>. This package contains puppet master along with production-ready webserver (Apache).
 	<ol>
 		<li>
@@ -177,7 +177,7 @@ p.note {
 			</div>
 		</li>
 	</ol>
-	<h2>Lock Puppet Version</h2>
+	<h2>Lock Puppet version</h2>
 	<p>If the Puppet server is updated or changed to another version, then it will stop working. For consistency, maintain a single version in the server. In a Puppet infrastructure, if agents have a later version number, then the master cannot manage it.  For this reason, you need to lock the current version.</p>
 	<ol>
 		<li>View the current version.
@@ -201,7 +201,7 @@ p.note {
 		</li>
 		<li>Save the file and exit. Now your Puppet version is locked.</li>
 	</ol>
-	<h2>Names and Certificates </h2>
+	<h2>Names and certificates </h2>
 <p>Communication between the Puppet master and the agent is being authenticated through SSL Certificates. Follow these steps to generate master SSL certificate.</p>
 <ol>
 	<li>Delete the existing certificates from <code>/var/lib/puppet/ssl</code>.
@@ -312,7 +312,7 @@ Pin-Priority: 501<br />
 		Save and exit the file.
 	</li>
 </ol>
-<h2>Configure Agent </h2>
+<h2>Configure agent </h2>
 <ol>
 	<li>Edit the configuration file.
 		<div class="hacker">sudo vi /etc/puppet/puppet.conf

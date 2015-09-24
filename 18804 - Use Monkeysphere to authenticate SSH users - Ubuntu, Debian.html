@@ -74,8 +74,6 @@ p.note {
     <p><strong>Difficulty</strong>: <em>3</em><br/>
         <strong>Time</strong>: <em>2.5 hours</em></p>
 
-    
-    <h2>Introduction</h2>
     <p>In this article, you will authenticate <code>ssh</code> users through Monkeysphere, which will allow you to have a trusted SSH login.</p>
     <p>Before starting this section, you need to have <a href="18801">Monkeysphere installed and configured. </a></p>
  
@@ -83,7 +81,7 @@ p.note {
 	<p>Identity certifier is an entity that is trusted, and ensures that users are trusted.  In this article, admin server is used as the identity certifier.</p>
 <ol> 
 <li>Get the fingerprint of the administrative user.
-   <div class="hacker">gpg --with-colons --fingerprint <em><u>admin</u></em>@<em><u>coolexample.com</u></em>. </div>
+   <div class="hacker">gpg --with-colons --fingerprint <em><u>admin</u></em>@<em><u>coolexample.com</u></em></div>
    </li>
    <li>Locate and note the short fingerprint, which is a long alphanumeric string next to <code>fpr</code> in the output from above command. In this case, it is <strong>99981C07DC4177F646AFF531DEA69AE3462908AF</strong>.
    <div class="hacker">

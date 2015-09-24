@@ -73,16 +73,14 @@ p.note {
         <strong>Time</strong>: <em>45 minutes</em></p>
 
     <p>Magento is a popular Content Management System (CMS) for e-commerce websites. This article explains the installation and configuration of Magento on Debian and Ubuntu.</p>
-     <p class="note">You will need access to sudo privileges to perform the steps given in this article. </p> 
+     
 	   
-<h2>Prerequisites</h2>
-<ul> 
-<li>Magento installation requires at least 2 GB of RAM.
-</li>
-<li>To install LAMP, please visit <a href="17346">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Debian</a> or <a href="17341">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Ubuntu</a> links.
-</li>
-</ul>
 
+
+Magento installation requires at least 2 GB of RAM. To install LAMP, please visit <a href="17346">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Debian</a> or <a href="17341">Build a LAMP stack (Linux, Apache, MySQL, PHP) – Ubuntu</a> links.
+
+
+<p class="note">You will need access to sudo privileges to perform the steps given in this article. </p> 
 
 <h2>Configure PHP and Apache</h2>
 <p>PHP and Apache can be configured to handle Magento’s traffic and computing tasks properly. In addition, some additional packages will be required to install.</p>
@@ -129,10 +127,10 @@ p.note {
 <li>Search for <code>memory_limit</code>, and then change the value from <em>128M</em> to <em>512M</em>.
    <div class="hacker">memory_limit = 512M</div>
    </li>
-   <li>Save and exit the file pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+   <li>Save and exit the file pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
    <li>Magento needs a few additional PHP modules. To install these, use the following commands:
    <div class="hacker">sudo apt-get update</div>
-   <div class="hacker">sudo apt-get install libcurl3 php5-curl php5-gd php5-mcrypt rsync</div>
+   <div class="hacker">sudo apt-get install libcurl3 php5-curl php5-gd php5-mcrypt rsync tar</div>
    </li>
    <li>To enable URL rewriting support for Apache and encryption support for PHP, use the following commands:
    <div class="hacker">sudo a2enmod rewrite</div>
@@ -181,7 +179,7 @@ p.note {
    <li>Give ownership of the file to Apache’s user and group.
    <div class="hacker">sudo chown -R www-data:www-data /var/www/html/</div>
    </li>
-   </ol>
+</ol>
 
 
 <h2>Complete installation</h2>
@@ -204,7 +202,7 @@ p.note {
 <li> Select how you want your data stored.
    <ul>
    <li>
-   To store session data in a file, select <strong>File System</strong>. 
+   To store session data in a file, select <strong>File System</strong>.</li> 
    <li>To store the session data in the MySQL database, select <strong>Database System</strong>, which is the preferred choice when an installation is distributed on multiple servers.</li></ul>
    For now, select <strong>File system</strong>, and then click <strong>Continue</strong>. <br />  
    <img src="images/17575/091615/web_connection.png" alt="web_connection.png"/>

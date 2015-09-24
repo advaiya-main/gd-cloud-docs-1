@@ -90,16 +90,21 @@ p.note {
     <li>Install the <code>php-gd</code> graphic library.
    <div class="hacker">sudo yum install php-gd phpunit tar</div>
    </li>
-   <li>Make the following corresponding changes to the <code>Directory</code> block of <code>/etc/httpd/conf/httpd.conf  </code>file to let <code>.htaccess </code> file override the default Apache instructions.
-   <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
-  <p>Updated <code>Directory</code> block should look like:</p>
+   <li> Open <code>/etc/httpd/conf/httpd.conf</code> in a text editor.
+    <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
+	</li>
+	<li>
+	Make the following corresponding changes in <code>&lt;Directory /var/www/html/&gt;</code>block. 
    <div class="hacker">
 <pre>
 &lt;Directory /var/www/html&gt;
+		...
 		Options Indexes FollowSymLinks MultiViews
+		..
 		AllowOverride All
 		Order allow,deny
 		allow from all
+		...
 &lt;/Directory&gt;
 </pre>
    </div>
@@ -134,7 +139,7 @@ p.note {
    <h2>Install composer</h2>
    <ol>
    <li>Get ownership of the <code>drush</code> directory.
-   <div class="hacker">sudo chown –R user_name:user_name drush/</div>
+   <div class="hacker">sudo chown -R user_name:user_name drush/</div>
    </li>
    <li>Change the directory to <code>drush</code>.
    <div class="hacker">cd drush</div>
@@ -163,20 +168,20 @@ p.note {
    <h2>Create a MySQL database and a user</h2>
    <ol>
    <li>Log into the MySQL.
-   <div class="hacker">mysql -u root –p</div>
+   <div class="hacker">mysql -u root -p</div>
    <p>It will prompt you for the root password.</p>
    </li>
    <li>Create a database with the following command.
-   <div class="hacker">CREATE DATABASE <em><u>drupal</u></em>;</div>
+   <div class="hacker">CREATE DATABASE <em><u>drupal_db</u></em>;</div>
    </li>
    <li>Create a user.
    <div class="hacker">CREATE USER <em><u>drupal_user@localhost</u></em>;</div>
    </li>
    <li>Set password for the new user.
-   <div class="hacker">SET PASSWORD FOR <em><u>drupal_user@localhost</u></em>= PASSWORD("<em><u>password</u></em> ");</div>
+   <div class="hacker">SET PASSWORD FOR <em><u>drupal_user@localhost</u></em>= PASSWORD("<em><u>password</u></em>");</div>
    </li>
    <li>Grant privileges.
-   <div class="hacker">GRANT ALL PRIVILEGES ON drupal.* TO <em><u>drupal_user@localhost</u></em> IDENTIFIED BY '<em><u>password</u></em> ';</div>
+   <div class="hacker">GRANT ALL PRIVILEGES ON drupal_db.* TO <em><u>drupal_user@localhost</u></em> IDENTIFIED BY '<em><u>password</u></em>';</div>
    </li>
 	<li>Refresh MySQL.
    <div class="hacker">FLUSH PRIVILEGES;</div>
@@ -190,7 +195,7 @@ p.note {
   <h2>Download and configure Drupal</h2>
 <ol> 
 <li>Change ownership of the main <code>html</code> folder.
-   <div class="hacker">sudo chown -R user_name:user_name /var/www/html/ </div>
+   <div class="hacker">sudo chown -R <em><u>user_name</u></em>:<em><u>user_name</u></em> /var/www/html/</div>
    </li>
    <li>Navigate to the root folder.
    <div class="hacker">cd /var/www/html</div>
@@ -198,9 +203,17 @@ p.note {
    <li>Download Drupal. You can give any name to your Drupal project/site.
    <div class="hacker">drush dl drupal --drupal-project-rename=<em><u>drupal_site</u></em></div>
    </li>
-   <li>Run the following command to configure Drupal and change parameters as per your need.
-   <div class="hacker">drush site-install standard --db-url=mysql://drupal_user:<em><u>password</u></em>@localhost/db_name --site-name=your_site_name --account-name=admin --account-pass=your_password</div>
-   <p>It will create a user with username <code>account-name</code> and the given password. </p>
+   <li>
+		Navigate to project directory.
+		<div class="hacker">
+		cd <em><u>drupal_site</u></em>
+		</div>
+   </li>
+   <li>Run the following command to configure Drupal, and then change the parameters as per your need.
+   <div class="hacker">
+drush site-install standard --db-url=mysql://<em><u>drupal_user</u></em>:<em><u>password</u></em>@localhost/<em><u>drupal_db</u></em> --site-name=<em><u>your_site_name</u></em> --account-name=<em><u>admin</u></em> --account-pass=<em><u>your_password</u></em>
+   </div>
+   <p>It will create a user with username <em><u>account-name</u></em> and the given password. </p>
    </li>
    <li>Assign the <code>sites/default/</code> group ownership to the <code>apache</code> group.
    <div class="hacker">sudo chown -R root:apache sites/default/files</div>

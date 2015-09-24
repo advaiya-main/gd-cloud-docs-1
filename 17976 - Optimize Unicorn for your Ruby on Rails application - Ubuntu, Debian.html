@@ -99,12 +99,6 @@ td:nth-child(1) {font-weight:bold;}
 </p>
 <p>This article will assist you with few simple things that can enhance the performance of Unicorn for your Rails applications on a Debian or Ubuntu platform.</p>
 
-<h2>Prerequisite</h2>
-<p>This article requires that Ruby on Rails be installed. If it is not installed, refer to the appropriate article:</p> 
-<ul>
-	<li><a href="17538">Install Ruby on Rails using RVM - Debian</a></li>
-	<li><a href="17534">Install Ruby on Rails using RVM - Ubuntu</a></li>
-</ul>
 <p class="note">This article assumes that user is logged in with sudo user privileges.</p>
 		
 <h2>Set Unicorn as a default option</h2>
@@ -119,14 +113,14 @@ td:nth-child(1) {font-weight:bold;}
 <h2>Upgrade to Ruby 2.x</h2>
 <p>If you are using Ruby 1.9 or earlier, it is recommended to upgrade to Ruby 2.x. Ruby 1.x, and earlier versions, do not support automated garbage collection, and thus are unable to take advantage of the benefits of the Copy-on-Write (CoW) feature. </p>
 <ol>
-	<li>Upgrade Ruby from 1.9 to 2.x.
-		<div class="hacker">rvm install <em><u>2.2.3</u></em></div>
-	</li>
+
 	<li>Verify the Ruby version.
-	<div class="hacker">ruby -v<br />
-	#ruby <em><u>2.2.3p173</u></em> (2015-08-18 revision 51636) [x86_64-linux] 
+	<div class="hacker">ruby -v
 	</div>
 	</li> 
+	<li>If not already the latest version, upgrade Ruby from 1.9 to 2.x. In this article Ruby version 2.2.3 is used for example.
+		<div class="hacker">rbenv install <em><u>2.2.3</u></em> -k</div>
+	</li>
 </ol>
                              
 
@@ -135,13 +129,17 @@ td:nth-child(1) {font-weight:bold;}
 
 </p>
 <ol>
+	<li>Move to the application directory.
+	<div class="hacker">cd <em><u>/var/www/Your_application</u></em></div>
+	</li>
 	<li>Open the <code>unicorn.rb</code> in your favorite editor.
-	<div class="hacker">vim config/unicorn.rb</div>
+	<div class="hacker">sudo vim config/unicorn.rb</div>
 	</li>
 	<li>Update the desired configuration variables based on requirements.
 	<div class="hacker">
 	<pre>
 app_path = <em><u>File.expand_path(File.dirname(__FILE__) + '/..')</u></em>
+...
 worker_processes <em><u>2</u></em>
 preload_app <em><u>true</u></em>
 timeout <em><u>30</u></em>
@@ -188,14 +186,15 @@ Here are the steps for using unicorn-worker-killer:
 
 <ol>
 	<li> Install unicorn-worker-killer.
+		<div class="hacker">cd <em><u>/var/www/Your_application</u></em></div>
 		<div class="hacker">gem install 'unicorn-worker-killer'</div>
 		<div class="hacker">bundle install</div>
 	</li>	
-	<li> Open file <code>config.rb</code> located in the default project directory.
-		<div class="hacker">sudo vim config.rb</div>
+	<li> Open file <code>config.ru</code> located in the default project directory.
+
+		<div class="hacker">sudo vim config.ru</div>
 	</li>
-	<li>	
-		Update the variables <strong>max_requests_min</strong> and <strong>max_requests_max</strong> to the desired values.
+	<li>Add the following code to the configuration file, just before the code <code>require ::File.expand_path('../config/environment', __FILE__)</code>. You will need to update the variables <strong>max_requests_min</strong> and <strong>max_requests_max</strong> to the desired values.
 		<div class="hacker">
 		<pre>	
   # --- Start of unicorn worker killer code ---
@@ -214,23 +213,17 @@ Here are the steps for using unicorn-worker-killer:
   # Max memory size (RSS) per worker
   use Unicorn::WorkerKiller::Oom, oom_min, oom_max, ,versbose=true
 
-  # --- End of unicorn worker killer code ---
-	
-   require ::File.expand_path('../config/environment',  __FILE__)
-   run YourApp::Application
-</pre>
+  # --- End of unicorn worker killer code ---</pre>
 		</div> 
-		The variables <strong>max_requests_min</strong> and <strong>max_requests_max</strong> defines the minimum and the maximum number of requests per worker. A random number between <strong>max_requests_min</strong> and <strong>max_requests_max</strong> is defined as the actual limit. This randomness prevents all workers being killed simultaneously. The workers are automatically killed and restarted when the number of requests handled by the worker exceeds the limit.  
+		The variables <strong>max_requests_min</strong> and <strong>max_requests_max</strong> defines the minimum and the maximum number of requests per worker. A random number between <strong>max_requests_min</strong> and <strong>max_requests_max</strong> is defined as the actual limit. This randomness prevents all workers being killed simultaneously. 
+		<p>With this module, the workers are automatically killed and restarted when the number of requests handled by the worker exceeds the limit.</p>  
 	</li>
-<li>To save and exit the file, press the <strong>Esc</strong> key, type <code>:wq</code>, and then press the <strong>Enter</strong> key. </li>
+<li>To save and exit the file, press the <strong>Esc</strong> key, type <strong>:wq</strong>, and then press the <strong>Enter</strong> key. </li>
+<li>Start the unicorn application
+<div class="hacker">sudo service <em><u>Your_unicorn_application</u></em> start</div>
+</li>
 	</ol>
 <h2>Conclusion</h2>
 <p>Unicorn is a painless way to achieve concurrency and performance in your Rails apps, whether used with thread-safe or not. It provides essential stability to Rails Apps. unicorn-worker-killer gracefully restarts your application and resolves memory leaks.</p>
 </body>
 </html>
-
-
-
-
-
-
