@@ -84,7 +84,7 @@ p.note {
 	<h2>Install the required dependencies</h2>
 <ol> 
 <li>Install curl and GD extensions.
-   <div class="hacker">sudo yum install php-gd php-curl php-xml</div>
+   <div class="hacker">sudo yum install php-gd php-curl php-xml php-mbstring  php-intl php-xmlrpc</div>
    </li>
    <li>Moodle uses <code>mysqli</code> extension for database manipulation. Install <code>mysqli</code> using the following command:
    <div class="hacker">sudo yum install php-pdo php-mysqli</div>
@@ -120,10 +120,10 @@ p.note {
   <h2>Create a database</h2>
 <ol> 
 <li>Create a blank database for the backend operation.
-   <div class="hacker">mysql –u root –p</div>
+   <div class="hacker">mysql -u root -p</div>
    <div class="hacker">CREATE DATABASE <em><u>moodle</u></em>;</div>
    </li>
-   <li>Exit.
+   <li>Exit from the <code>MySQL</code> console by typing <strong>exit</strong> or press <strong>CTRL+C</strong>.
    <!--Tester, what is the exit command?-->
    </li>
    </ol>
@@ -154,7 +154,9 @@ p.note {
 <img src="images/17588/091515/Configuration-completed.png" alt="Configuration completed page"/>
 	</li>
    <li>Save and exit the file by pressing the <strong>Esc</strong> key ,typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
+   
    </li>
+   <li>After the configuration is complete you will see <strong>Server Checks</strong> and <strong>Installation</strong> page click on <strong>Continue</strong> button on both page. </li>
   </ol>
   
   <h2>Update the site profile</h2>

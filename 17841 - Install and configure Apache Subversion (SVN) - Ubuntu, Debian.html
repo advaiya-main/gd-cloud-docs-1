@@ -58,7 +58,7 @@
 	</div>
 	</li>
 	<li>Install the subversion, and then the dependencies of Apache.
-	<div class='hacker'>sudo apt-get install apache2 subversion subversion-tools libapache2-svn apache2-mpm-prefork </div>
+	<div class='hacker'>sudo apt-get install apache2 subversion subversion-tools libapache2-svn apache2-mpm-prefork apache2-utils</div>
 	</li>
 	</ol>
 
@@ -97,7 +97,7 @@
         <li>Open the configuration file of Apache.
             <div class='hacker'>sudo vim /etc/apache2/mods-available/dav_svn.conf</div>
       </li>
-        <li>Add the following lines at the bottom of the file:
+        <li>Add the following lines above the <code>&lt;/VirtualHost&gt;</code>:
           <div class='hacker'>
 		  <pre>
  &lt;Location /svn&gt;
@@ -131,8 +131,9 @@
 			<div class='hacker'>mkdir <em><u>test2</u></em></div>
 			<div class='hacker'>svn checkout http://<em><u>your_ip_address/svn/test/</u></em>trunk <em><u>test2</u></em></div>
         </li>
-        <li>After cloning the directory <code>test2</code>, create a few test or sample files. Run the <code>svn add</code> command to push into the remote repository. 
-            <div class='hacker'>touch index.php</div>
+        <li>After cloning, change the directory to <code><em><u>test2</u></em></code>, create a few test or sample files. Run the <code>svn add</code> command to push into the remote repository. 
+            <div class='hacker'>cd <em><u>test2</u></em></div>
+			<div class='hacker'>touch index.php</div>
 			  <div class='hacker'>svn add index.php</div>
 			  <div class='hacker'>svn add *</div>
         </li>
@@ -150,7 +151,7 @@
             <div class='hacker'>sudo a2enmod ssl</div>
 			<div class='hacker'>sudo a2ensite default-ssl</div>
 			<div class='hacker'>sudo service apache2 restart</div>
-			<div class='hacker'>sudo nano /etc/apache2/sites-available/default-ssl</div>
+			<div class='hacker'>sudo vim /etc/apache2/sites-available/default-ssl</div>
         </li>
         <li>Modify the Apache SSL configuration to enable SVN on a <strong>https</strong> protocol. 
 		<div class='hacker'>
@@ -171,10 +172,10 @@
      </li>
 	 <li><p> Save and exit the file by pressing the <strong>Esc</strong> key, typing <strong>:wq</strong>, and then pressing the <strong>Enter</strong> key. </p></li>
 	 <li>Restart the Apache server to implement the changes.
-            <div class='hacker'>/etc/init.d/apache2 restart</div>
+            <div class='hacker'>sudo /etc/init.d/apache2 restart</div>
 			</li>
 			<li>Check out the repository using the following command:
-			<div class='hacker'>svn checkout --username <em><u>svnuser</u></em> https://your_ip_address/svn/test/ <em><u>/home/somedir</u></em></div>
+			<div class='hacker'>sudo svn checkout --username <em><u>svnuser</u></em> https://your_ip_address/svn/test/ <em><u>/home/somedir</u></em></div>
         </li>
 </ol>
 	<h2>Conclusion</h2>

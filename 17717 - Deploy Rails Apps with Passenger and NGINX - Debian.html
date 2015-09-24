@@ -165,7 +165,7 @@ p.note {
             <div class='hacker'>
       server {<br/>
         listen 80 default_server;<br/>
-        listen [::]:80 default_server ipv6only=on;<br/>
+        
 
         server_name <em><u>www.coolexample.com</u></em>; # Replace coolexample.com witch FQDN or Public-IP<br/>
         passenger_enabled on;<br/>
@@ -181,12 +181,13 @@ p.note {
 	 }
 
 </div>
-      </li>  <!--Save and close the file? cj --><!--fixed-->   
-	  <li>Save and Exit.<div class="hacker">:wq</div></li>
+      </li>
+	  <li>To save and exit the file by pressing the <strong>Esc</strong> key and then type the following character.<div class="hacker">:wq!</div></li>
         <li>Restart the NGINX service.
             <div class='hacker'>sudo service nginx restart</div>
+			<p class="note">			To test Rails application open the browser and type <strong>http://your_server_ip</strong></p>
         </li></ol>
     <h2>Conclusion</h2>
-    In this article, we reviewed the steps involved in installing Ruby on Rails using RVM, installed NGINX and Passenger, and finally compiled and configured it to deploy our Rails application on NGINX web server.<!--What might the user do next? cj --><!--Changed from "Next step" to "Conclusion"-->
+    In this article, we reviewed the steps involved in installing Ruby on Rails using RVM, installed NGINX and Passenger, and finally compiled and configured it to deploy our Rails application on NGINX web server.
 </body>
 </html>
