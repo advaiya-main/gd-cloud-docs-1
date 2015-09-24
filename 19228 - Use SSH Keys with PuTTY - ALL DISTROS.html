@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 
 <head>
-    <!--Article Number is 00005 )-->
+    <!--Article Number is 19228 )-->
 
     <title>Use SSH Keys with PuTTY - ALL DISTROS</title>
 <style type='text/css'>
@@ -87,7 +87,7 @@ td:nth-child(1) {font-weight:bold;}
         <br/>
         <strong>Time</strong>: <em><u>30 minutes</u></em></p>
     <p class="note">This article is for Windows users.</p>
-    <p>Using SSH keys for server logins is more secure and saves time, allowing you to log in to your server without having to remember or enter long passwords. In this article, you'll do the following:</p>
+    <p>Using SSH keys for server logins is more secure and saves time. In this article, you'll do the following:</p>
 <ul>
 <li>Generate public and private SSH key pairs with PuTTY</li>
 <li>Load the public SSH keys into the COMPANY_NAME portal</li>
@@ -95,13 +95,11 @@ td:nth-child(1) {font-weight:bold;}
 <li>Create a PuTTY profile</li>
 <li>Connect to the new server using PuTTY</li></ul>
 
-<p>This article assumes that you have <a href='http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html'>downloaded and installed the full PuTTY installer</a>.</p>
+<p>This article assumes that you have downloaded <a href='http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html'>putty.exe</a> and <a href='http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html'>puttygen.exe</a>.</p>
     <h2>Generate public and private SSH key pair</h2>
     <ol>
         <li>Start PuTTYgen. <br/>
-      <img src='images/00005/072815/puttygen-screen.png' alt='Screenshot of the puttygen.exe' /></li>
-        <li>In the <strong>Parameters</strong> section, select <strong>SSH-2 RSA</strong> for <strong>Type of key to generate</strong>.</li>
-        <li>In the <strong>Number of bits in a generated key field</strong>, enter <em>2048</em>.</li>
+      <img src='images/19228/072815/puttygen-screen.png' alt='Screenshot of the puttygen.exe' /></li>
         <li>Click <strong>Generate</strong>.</li>
         <li>Move the mouse within the blank area under <strong>Key</strong> to generate some randomness until the progress bar is full. <br />
         Once your key is generated, it'll appear in top the field under <strong>Public key for pasting into OpenSSH authorized_keys</strong>. This is your <em>public key</em>. A properly formatted public key starts with <code>ssh-rss AAAA</code>.</li>
@@ -115,9 +113,8 @@ td:nth-child(1) {font-weight:bold;}
     <p>In this example, we'll get the key from GoDaddy.com.</p>
     <ol>
         <li>Go to the SSH key page in the GoDaddy panel - https://cloud.godaddy.com/keys.</li>
-        <li>Click <strong>Create Key</strong>.</li>
-        <li>In the Godaddy panel, click <strong>Create Key</strong>. The <strong>Create SSH Key</strong> window  opens.<br/>
-      <img src='images/00005/072815/server-panel-create-ssh.png' alt='Screenshot of the create ssh panel' /></li>
+        <li>Click <strong>Create Key</strong>. The <strong>Create SSH Key</strong> window  opens.<br/>
+      <img src='images/19228/072815/server-panel-create-ssh.png' alt='Screenshot of the create ssh panel' /></li>
         <li>Enter a unique name that identifies the SSH key you created in the previous step.</li>
         <li>Paste the contents (copied in the previous section) in the <strong>Key</strong> field.</li>
         <li>Click <strong>OK</strong>. A Success message  displays.</li>
@@ -136,9 +133,8 @@ td:nth-child(1) {font-weight:bold;}
     <ol>
         <li>Start PuTTY.</li>
         <li>In the <strong>Host Name (or IP Address)</strong> field, enter the Public IP Address of the server created in the Godaddy Cloud Servers panel.<br/>
-            <img src='images/00005/072815/server-panel-servers.png' alt='Screenshot of the create servers panel' /></li>
+            <img src='images/19228/072815/server-panel-servers.png' alt='Screenshot of the create servers panel' /></li>
         <li>In the <strong>Port</strong> field, enter "22".</li>
-        <li>In the <strong>Connection type</strong> field, choose <strong>SSH</strong>.</li>
         <li>On the left-hand side, select the <strong>Data</strong> subcategory under <strong>Connection</strong>.</li>
         <li>Under <strong>Login details</strong>, in the <strong>Auto-login username</strong> field, enter the username created in the previous step.</li>
         <li>Under <strong>Connection</strong> category, expand <strong>SSH</strong>.</li>
@@ -159,7 +155,8 @@ td:nth-child(1) {font-weight:bold;}
         <li>Click <strong>Open</strong>.</li>
         <li>In the <strong>PuTTY Security Aler</strong>t dialog box, click <strong>Yes</strong>.
             <br/>
-      <img src='images/00005/072815/putty-connect-alert.png' alt='screenshot of a PuTTY connect alert' />8\f.dx7</li>
+      <img src='images/19228/072815/putty-connect-alert.png' alt='screenshot of a PuTTY connect alert' /></li>
+      <li>When prompted, enter the passphrase used when generating your SSH key.</li>
     </ol>
     <p>You are now connected to your server.</p>
     
