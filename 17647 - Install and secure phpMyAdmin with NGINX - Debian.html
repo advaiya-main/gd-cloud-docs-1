@@ -5,6 +5,7 @@
 <head>
 
 <title>Install and secure phpMyAdmin with NGINX - Debian</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -106,7 +107,7 @@ http://your server IP address/phpmyadmin/info.php not showing any phpmyadmin UI,
        
 <li>Link the phpMyAdmin installed files to the Nginx document root.
               
-    <div class="hacker">sudo ln -s /usr/share/phpmyadmin /usr/share/nginx/www</div>
+    <div class="hacker">sudo ln -s /usr/share/phpmyadmin /usr/share/nginx/html</div>
                      </li>  
   <li>Enable the <code>mcrypt</code> PHP module.
               
@@ -136,7 +137,7 @@ http://your server IP address/phpmyadmin/info.php not showing any phpmyadmin UI,
     <p>Right now, every hacker knows that the name of your phpMyAdmin page is <code>http://<em><u>your server or domain name</u></em>/phpmyadmin</code>.  Let's  make that name a bit more arcane.    </p>
     <ol>
         <li>Navigate to your document root directory.
-          <div class="hacker">cd /usr/share/nginx/www</div></li>
+          <div class="hacker">cd /usr/share/nginx/html</div></li>
         <li>Change the name (actually, rename the symbolic link).
             <div class="hacker">sudo mv phpmyadmin nodbhere</div></li>
 <li>Test the new name by navigating in your browser to <code>http://<em><u>your server or domain name</u></em>/nodbhere.</code><br />
@@ -153,57 +154,45 @@ Your browser  displays the phpMyAdmin screen.  (You can also go to the old <code
 
         <li>Encrypt a password.
           <div class="hacker">openssl passwd</div>
- Once you enter and confirm your password, OpenSSL  returns the encrypted version of it.</li>
-        <li>Copy the encrypted version, and paste it into your password file, which now looks like this:
+ Once you enter and confirm your password, OpenSSL returns the encrypted version of it.</li>
+        <li>Copy the encrypted version, and paste it into your password file, an example of which looks like this:
           <div class="hacker"><em><u>MyWebUserName</u></em>:<em><u>V.Cj1d1d1kew2</u></em></div>
 </li>
- <li>Open your Nginx configuration file or a file that it references with an "include".  It  looks similar to this:
-   <div class="hacker"># server context<br />
+ <li>Open your Nginx configuration file or a file that it references with an "include".  It looks similar to this:
+   <div class="hacker"><pre># server context
      server {
-    . . .
-
-     <br />
-     # location context<br />
-     location / { <br />
-&nbsp; try_files $uri $uri/ =404;
-     <br />
-     &nbsp; }
-     <br />
+     ...
+     # location context
+     location / { 
+     try_files $uri $uri/ =404;     
+                }    
      # end of server context
-&nbsp;<br />
-    }</div> </li>  
-     <li>Create a new location context so that your file looks like this:
- <div class="hacker">
-     # server context<br />
+    }</pre></div> </li>  
+
+
+     <li>Create a new location context so that your file will look something like this:
+ 
+<div class="hacker"><pre>
+     # server context
      server {
-    . . .
-
-     <br />
-     # location context (existing)<br />
-     location / { <br />
-&nbsp; try_files $uri $uri/ =404;
-     <br />
-     }
-
- }
-
-     <br />
-     # location context (new)<br />
-     location /nodbhere <br />
-     {
-        auth_basic "MyWebLoginChallenge";
-        
-&nbsp; 
-     <br />
-     auth_basic_user_file /etc/nginx/mypasswordfile;
-     <br />
-&nbsp;&nbsp;}
-
-     <br />
-     <br />
+    ...
+     
+     # location context (existing)
+     location / { 
+     try_files $uri $uri/ =404;     
+                }
+                 
+     # location context (new)
+     <em><u>location /nodbhere {</u></em>
+     <em><u>auth_basic "MyWebLoginChallenge";</u></em> 
+     <em><u>auth_basic_user_file /etc/nginx/mypasswordfile;</u></em>     
+                        <em><u>}</u></em>        
      # end of server context
-&nbsp;}</div>     
+     }</pre></div>  
+
+
 </li>
+      
         <li>Save and close the file.
               
      </li>
