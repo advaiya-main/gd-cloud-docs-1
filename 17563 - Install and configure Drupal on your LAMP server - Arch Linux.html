@@ -54,11 +54,14 @@ p.note {
 <h2>Set up environment for Drupal</h2>
 <ol>
 <li>Install the <code>php-gd</code>, which will be required by Drupal in future.
-<div class="hacker">sudo pacman -Syu update</div>
-<div class="hacker">sudo yum install php-gd</div>
+<div class="hacker">sudo pacman -Syu </div>
+<div class="hacker">sudo pacman -S php-gd</div>
 </li>
-<li>Uncomment the following line in the <code>php.ini</code> file.
-<div class="hacker">sudo nano /etc/php/php.ini</div>
+<li>Open the configuration file of <code>php</code> using  the following command:
+<div class="hacker">sudo vim /etc/php/php.ini</div></li>
+<li>Locate the <code>Dynamic Extensions</code> section and uncomment the following line in the <code>php.ini</code> file.
+
+
 <div class="hacker">extension=pdo_mysql.so</div>
 <div class="hacker">extension=mysql.so</div>
 <div class="hacker">extension=mcrypt.so</div>
@@ -69,15 +72,14 @@ p.note {
 </li>
 <li>Create a database for Drupal to store the basic settings and user data.
 <div class="hacker">mysql -uroot -p<em><u>password</u></em></div>
+<p class ="note">Here, you need to use <code>mysql</code> root password which you provided during <code>mysql</code> installation.</p>
 <div class="hacker">CREATE DATABASE <em><u>drupal</u></em>;</div>
 </li>
 <li>Add a new user for Drupal database.
-<div class="hacker">CREATE USER <em><u>drupal</u></em>@localhost IDENTIFIED BY <em><u>'drupalpassword'</u></em>;</div>
+<div class="hacker">CREATE USER <em><u>drupaluser</u></em>@localhost IDENTIFIED BY <em><u>'drupalpassword'</u></em>;</div>
 </li>
 <li>Grant all privileges to the Drupal user.
 <div class="hacker">GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,INDEX,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES ON drupal.* TO <em><u>drupaluser</u></em>@localhost;</div>
-<p>Or</p>
-<div class="hacker">GRANT ALL PRIVILEGES ON drupal.* TO '<em><u>drupaluser</u></em>'@'localhost' IDENTIFIED BY <em><u>'drupalpassword'</u></em> WITH GRANT OPTION;</div>
 </li>
 <li>Reload the MySQL database privileges to activate the new MySQL user.
 <div class="hacker">FLUSH PRIVILEGES;</div>

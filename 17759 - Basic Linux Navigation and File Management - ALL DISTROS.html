@@ -133,11 +133,11 @@ p.note {
    </li>
    
    <li>To exit the file, type:
-   <div class="hacker">/q</div>
+   <div class="hacker">:q</div>
    </li>
    
    <li>To display the content of a particular file, type:
-   <div class="hacker">cat file1</div>
+   <div class="hacker">cat <em><u>file1</u></em></div>
    </li>
    
    <li>To display top 10 lines of a particular file, type:
@@ -153,35 +153,34 @@ p.note {
   <p>There are several commands that can create files and directories.</p>
   <ul>
     <li>To create an empty file with the name and location that you specify, type.
-   <div class="hacker">sudo touch file1</div>
+   <div class="hacker">sudo touch <em><u>file1</u></em></div>
    </li>
     <li>To create multiple files at the same time, type:
-   <div class="hacker">sudo touch file1 file2 file3 file4</div>
+   <div class="hacker">sudo touch <em><u>file1</u></em> <em><u>file2</u></em> <em><u>file3</u></em> <em><u>file4</u></em></div>
    </li>
     <li>To create a directory, type:
-   <div class="hacker">sudo  mkdir test</div>
+   <div class="hacker">sudo  mkdir <em><u>test</u></em></div>
    </li>
     <li>To create nested directories, type:
    <div class="hacker">sudo mkdir -p /test/share/example</div>
    </li>
     <li>To rename directories and file, type either:
-   <div class="hacker">sudo mv test share  //for directories</div>
-   <div class="hacker">sudo mv file1 example1  // for files</div>
+   <div class="hacker">sudo mv <em><u>test</u></em> <em><u>share</u></em> </div>
+   <div class="hacker">sudo mv file1 example1 </div>
    </li>
     <li>To copy directories and files, type:
-   <div class="hacker">sudo cp  -rvf test again // for directories</div>
-   <div class="hacker">sudo cp //source path //destination path</div>
+   <div class="hacker">sudo cp  -rvf test again </div>
    For example:
-   <div class="hacker">sudo cp –rvf  /etc/services /use/file1</div>
+   <div class="hacker">sudo cp –rvf  /etc/services /usr/<em><u>file1</u></em></div>
     <ul>
     <li><code>-r</code> means recursive</li>
     <li><code>-v</code> means visible</li> 
-    <li><code>-f</code> means forcedly </li>
+    <li><code>-f</code> means force</li>
    </ul></li>
    
    <li>To remove files directories, type the appropriate command:
-   <div class="hacker">sudo  rm –rvf /etc/services.txt  // for files</div>
-   <div class="hacker">sudo rm –rvf  /etc/test    //for directories</div>
+   <div class="hacker">sudo  rm –rvf /etc/services.txt </div>
+   <div class="hacker">sudo rm –rvf  /etc/test </div>
     <ul>
     <li><code>-r</code> means recursive</li>
     <li><code>-v</code> means visible</li> 
