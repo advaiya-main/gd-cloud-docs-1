@@ -4,10 +4,6 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
 
 <title>Install and configure a Riak database Cluster - Debian</title>
 <style type="text/css">
@@ -68,23 +64,24 @@ p.note {
 </head>
 
 <body>
-<p>Install and configure a Riak database cluster on Debian, Clustering</p>
-    <h1>Install and configure a Riak database cluster – Debian</h1>
+<p>Install and configure a Riak database cluster on Debian, clustering</p>
+    <h1>Install and Configure a Riak Database Cluster - Debian</h1>
     
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>In this article, you will learn to install a Riak database cluster on a Debian Server. Riak is a distributed database system that is designed for high availability of data. For better performance, Debian servers with 4 GB RAM is preferred. In this article, you will perform all the installations as a <code>sudo</code> user.</p>
+    <p>In this article, you'll learn to install a Riak database cluster on a Debian server. Riak is a distributed database system that is designed for high availability of data. For better performance, Debian servers with 4 GB RAM are preferred. </p>
+    <p>In this article, you'll perform all the installations as a <code>sudo</code> user.</p>
     
   <h2>Install dependencies</h2>
-<p>In Debian 7 servers, you need to install <code>libc6</code> version higher than 2.15 to successfully install Riak. In order to install <code>libc6</code> version 2.15 or higher, you need to upgrade your system to <code>sid</code>.</p>
+<p> To successfully install Riak on Debian 7 servers, you need to install <code>libc6</code>, version 2.15 or later. To install <code>libc6</code> version 2.15 or later, you need to upgrade your system to <code>sid</code>.</p>
 <ol> 
-<li>Upgrade system to <code>sid</code>. Make sure that no package is half installed or on hold.
+<li>Upgrade the system to <code>sid</code>. Make sure that no package is partially installed or on hold.
    <div class="hacker">dpkg --audit </div>
    <div class="hacker">dpkg --get-selections | grep hold</div>
-   </li>
-   <li>Edit <code>/etc/apt/sources.list</code> file and change the <code>main</code> section as shown below.
-   <div class="hacker">deb http://ftp.us.debian.org/debian wheezy main</div>
+  </li>
+   <li>Edit the <code>/etc/apt/sources.list</code> file, and change the <code>main</code> section as shown below.
+     <div class="hacker">deb http://ftp.us.debian.org/debian wheezy main</div>
    <div class="hacker">deb-src http://ftp.us.debian.org/debian wheezy main</div>
    <p>After editing:</p>
    <div class="hacker">deb http://ftp.debian.org/debian/ sid main contrib non-free </div>
@@ -99,18 +96,17 @@ p.note {
    <div class="hacker">apt-get -t sid install libc6 libc6-dev libc6-dbg</div>
    <div class="hacker">apt-get install -y apt-transport-https</div>
    </li>
-  </ol>
+</ol>
   
   <h2>Install Riak</h2>
-  <p>Perform the following steps to install Riak.</p>
 <ol> 
-<li>Import the key for Riak.
+  <li>Import the key for Riak.
    <div class="hacker">curl https://packagecloud.io/gpg.key | sudo apt-key add -</div>
-   </li>
-   <li>Create a Riak repo wilth a file named <code>script.sh.</code>
-   <div class="hacker">vi script.sh</div></li>
-   <li>Add the below contents to the file and then execute the script to create a corresponding repo list.
-   <div class="hacker">
+  </li>
+   <li>Create a Riak repository with a file named <code>script.sh.</code>
+     <div class="hacker">vi script.sh</div></li>
+   <li>Add the following contents to the file, and then execute the script to create a corresponding repository list.
+     <div class="hacker">
 #!/bin/bash<br/>
 HOSTNAME=`hostname -f`<br/>
 FILENAME=/etc/apt/sources.list.d/basho.list<br/>
@@ -119,61 +115,61 @@ DIST=precise<br/>
 PACKAGE_CLOUD_RIAK_DIR=https://packagecloud.io/install/repositories/basho/riak<br/>
 curl "${PACKAGE_CLOUD_RIAK_DIR}/config_file.list?os=${OS}&amp;dist=${DIST}&amp;name=${HOSTNAME}" &gt; $FILENAME<br/>
    </div></li>
-   <li>Save and close the file <code>script.sh.</code></li>
+   <li>Save and close the  <code>script.sh</code> file.</li>
    
-   <li>Give proper permissions and execute the script to create respective source list.
-   <div class="hacker">chmod +x script.sh</div>
+   <li>Give proper permissions, and execute the script to create the respective source list.
+     <div class="hacker">chmod +x script.sh</div>
    <div class="hacker">./script.sh</div>
-   <p>Running above script will create a file named <code>/etc/apt/sources.list.d/basho.list</code> with the following contents.	</p>
+   <p>Running the above script will create a file named <code>/etc/apt/sources.list.d/basho.list</code> with the following contents:</p>
    <div class="hacker">deb https://packagecloud.io/basho/riak/ubuntu/ precise main</div>
     <div class="hacker">deb-src https://packagecloud.io/basho/riak/ubuntu/ precise main</div>
    </li>
-   <li>Install Riak with the below commands.
-   <div class="hacker">apt-get update	</div>
+   <li>Install Riak.
+     <div class="hacker">apt-get update	</div>
     <div class="hacker">apt-get install riak</div>
    </li>
-  </ol>
+</ol>
   
-  <h2>Configure the first node</h2>
-  <p>Configure the first node in a Riak cluster by executing the below steps.</p>
+<h2>Configure the first node</h2>
+  <p>Configure the first node in a Riak cluster with the following steps.</p>
 <ol> 
 <li>Stop the Riak service, if it started earlier.
    <div class="hacker">riak stop</div>
    </li>
-   <li>Find and change the below lines in <code>/etc/riak/riak.conf </code>.
-   <div class="hacker">listener.protobuf.internal = <em><u>node_ip_address</u></em>:8087</div>
+   <li>Find and change the following lines in <code>/etc/riak/riak.conf</code>.
+     <div class="hacker">listener.protobuf.internal = <em><u>node_ip_address</u></em>:8087</div>
    <div class="hacker">listener.http.internal =<em><u>node_ ip_address</u></em>:8098</div>
    <div class="hacker">nodename = riak@<em><u>node_ip_address</u></em></div>
    </li>
-   <li>Start the Riak service. To do this, configure <code>ulimit</code> to minimum of 65565, while starting.
-   <div class="hacker">ulimit -u 65565</div>
+   <li>Start the Riak service. While starting, configure <code>ulimit</code> to minimum of 65565 .
+     <div class="hacker">ulimit -u 65565</div>
    <div class="hacker">start riak</div>
-   <p>In the same way, you can configure all other nodes that you want to include in the cluster.</p>
+   <p>In the same way, you can configure all  other nodes that you want to include in the cluster.</p>
    </li>
    </ol>
   
   <h2>Add a second node to the cluster</h2>
-  <p> Perform all the steps mentioned above to start Riak in second nodes and on the following nodes that you wish to include in the cluster.  </p>
+  <p> Perform all the steps  above to start Riak in a second node and to include these nodes in the cluster.</p>
 <ol> 
-<li>Inside the second node, execute the below command to join to the first node.
+<li>Inside the second node, execute the following command to join  the first node:
    <div class="hacker">riak-admin cluster join riak@<em><u>first_node_ip</u></em></div>
-   </li>
-   <li>Execute the below command to plan and commit the changes:
-   <div class="hacker">riak-admin cluster plan</div>
+</li>
+   <li>Plan and commit the changes:
+     <div class="hacker">riak-admin cluster plan</div>
    <div class="hacker">riak-admin cluster commit</div>
    </li>
-   <li>View the ring-cluster.
-   <div class="hacker">riak-admin status | grep ring_members</div>
+   <li>View the complete ring cluster.
+     <div class="hacker">riak-admin status | grep ring_members</div>
    </li>
-   <li>Create a file <code>/etc/default/riak</code> and add the below line to make <code>ulimit</code> setting permanent.
-   <div class="hacker">vi /etc/default/riak</div>
+   <li>Create a file, <code>/etc/default/riak</code>, and add the following line to make the <code>ulimit</code> setting permanent.
+     <div class="hacker">vi /etc/default/riak</div>
       <div class="hacker">ulimit -n 65536</div></li>
    <li>Save and close the file.</li>
     </ol>
   
      
     <h2>Conclusion</h2>
-    <p>In this article, you have learnt to install multiple nodes, configured them to start Riak and then joined them to the first node to build a Riak database cluster. </p>
+    <p>In this article, you have learned to install multiple nodes, configured them to start Riak, and then joined them to the first node to build a Riak database cluster. </p>
    
 </body>
 </html>
