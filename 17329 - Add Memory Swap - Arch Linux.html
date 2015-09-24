@@ -216,7 +216,7 @@ If, on the other hand, you get a failure message saying <code>fallocate failed: 
     <p>Creating a swap file by using the <code>dd</code> command may not be as quick as <code>fallocate</code>, but it works. The <code>dd</code> command is one of the original UNIX disk utilities with many uses, including generating new files, copying files, and converting file formats.</p>
    <p>In this example, we'll add a swap file of a different size, 1 GB, in order to accommodate smaller-sized servers. 
 
-  <p class="note">To add a 4 GB swap file, you would need at least 1.5 GB of RAM. Always check the size of your server to make sure you have enough RAM to add swap. A tiny server, for example, has 512 MB available. <!--CT: changing 4GB to 1GB to accomodate smaller servers, per GD feedback 9/23 from article 17326.--></p>
+  <p class="note">To add a 4 GB swap file, you would need at least 1.5 GB of RAM. Always check the size of your server to make sure you have enough RAM to add swap. <!--CT: changing 4GB to 1GB to accomodate smaller servers, per GD feedback 9/23 from article 17326.--></p>
     <ol>
       <li>Add the 1 GB swap file by specifying a block size <code>bs</code> of 250 MB
       and a <code>count</code> of 4.
