@@ -4,7 +4,7 @@
 
 <head>
 
-<title>Additional Recommendations for New Servers - CentOS 6.6</title>
+<title>Additional Recommendations for New Servers - CentOS 6</title>
 
 <style type='text/css'>
 div.hacker {
@@ -81,13 +81,13 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-<p>Getting started with adding security features after configuring your CentOS 6.6 server. </p>
-    <h1>Additional Recommendations for New Servers - CentOS 6.6</h1>
+<p>Getting started with adding security features after configuring your CentOS 6 server. </p>
+    <h1>Additional Recommendations for New Servers - CentOS 6</h1>
     
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-   <p> After installing CentOS 6.6, you can configure some additional components. These steps are optional but recommended as they increase security and make your operating system work better.  </p>
+   <p> After installing CentOS 6, you can configure some additional components. These steps are optional but recommended as they increase security and make your operating system work better.  </p>
   
 <p>This article guides you through setting up a firewall and synchronizing Network Time Protocol (NTP).</p>
 
@@ -96,14 +96,14 @@ td:nth-child(1) {font-weight:bold;}
 
  <h2>Set up a basic firewall</h2> 
 
-<p>Like most other Linux&trade; systems, the default firewall on CentOS 6.6 is iptables. iptables is the full suite of commands used to manage netfilter, the Linux packet-filtering framework. 
+<p>Like most other Linux&trade; systems, the default firewall on CentOS 6 is iptables. iptables is the full suite of commands used to manage netfilter, the Linux packet-filtering framework. 
 We'll configure a basic iptables setup from the command line. </p>
 <h3>Check iptables installation</h3>
  
 <ol>
 <li> Make sure that iptables is installed:
   <div class="hacker">rpm -q iptables</div>
-iptables is installed by default on CentOS 6 systems. If it's installed, the output  shows  which version you have. For example:
+iptables is installed by default on CentOS 6 systems. If it's installed, the output shows which version you have. For example:
 <div class="hacker">iptables-1.4.7-14.el6.x86_64</div>
    </li>
 
@@ -124,9 +124,12 @@ Chain OUTPUT (policy ACCEPT)       <br/>
 target     prot opt source               destination    <br/>
                           </div>
                           
-The rules are blank because they haven't been set up yet. That's our next step.
-                                                         
+The rules are blank because they haven't been set up yet. That's our next step. 
+
+<li>But first, let's start iptables.
+<div class="hacker">sudo service iptables start</div>
 </li>
+
 </ol>
                                                          
 <h3>Create firewall rules</h3>
