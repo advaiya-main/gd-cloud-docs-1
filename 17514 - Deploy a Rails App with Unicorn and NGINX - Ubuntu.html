@@ -62,7 +62,7 @@
  <div class="hacker"> sudo apt-get update  </div>
 </li>
 <li>Install NGINX.
- <div class="hacker"> sudo yum install nginx  </div>
+ <div class="hacker"> sudo apt-get install nginx  </div>
 </li>
 <li>Start the NGINX service.
 <div class="hacker"> sudo service nginx start </div>
@@ -83,18 +83,18 @@
 <div class="hacker">cd /var/www/ </div>
 </li>
 <li>Create a Rails Application in this directory.
-<div class="hacker"> rails new <em><u>HelloWorld</u></em> -d postgresql </div>
+<div class="hacker"> rails new <em><u>Your_application</u></em> -d postgresql </div>
 </li>
 <li>Go to the application directory. 
-<div class="hacker">  cd <em><u>HelloWorld</u></em>/ </div>
+<div class="hacker">  cd <em><u>Your_application</u></em>/ </div>
 </li>
 <li>Create a user for the <strong>production</strong> database.  
-<div class="hacker">sudo -u postgres createuser -s <em><u>HelloWorld</u></em>  </div>
+<div class="hacker">sudo -u postgres createuser -s <em><u>username</u></em>  </div>
 </li>
 <li>
 To set database user password, run the following commands:  
-<div class="hacker"> sudo -u <em><u>HelloWorld</u></em> psql </div>
-<div class="hacker">\password  <em><u>HelloWorld</u></em>  </div>
+<div class="hacker"> sudo -u postgres psql </div>
+<div class="hacker">\password <em><u>username</u></em>  </div>
 </li>
 <li>Enter the new password, and then log out using the following command:
 <div class="hacker">  \q </div>
@@ -103,7 +103,7 @@ To set database user password, run the following commands:
 <h3>Set up a database connection</h3>
 <ol>
 <li>To set up a database connection, you need move to your application directory.
-<div class="hacker">cd /var/www/<em><u>HelloWorld</u></em> </div>
+<div class="hacker">cd /var/www/<em><u>Your_application</u></em> </div>
 <div class="hacker">sudo  vim config/database.yml </div>
 </li>
 <li>
@@ -115,49 +115,39 @@ Add the following line in the default section of this file:
 <li>
 Locate the <code>production</code> section at the bottom of the file.
 <div class="hacker">
-<pre>username: <em><u>HelloWorld</u></em>
-password: &lt;%= ENV[HelloWorld_DATABASE_PASSWORD'] %>
+<pre>username: <em><u>username</u></em>
+password: &lt;%= ENV['<em><u>Your_application_DATABASE_PASSWORD</u></em>'] %>
 </pre>
 </div>
 <p>If our production username and the database user are not the same, then make the required changes to make them the same.</p>
 
 </li>
-<li>Save and exit.
-<div class ="hacker">wq!</div>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
 </li>
 </ol>
 <h2>Set up rbenv plug ins</h2>
 
 <ol>
 <li>Install the plug in for rbenv-vars. 
+<div class="hacker">cd</div>
 <div class="hacker">cd .rbenv/plugins </div>
 <div class="hacker">git clone https://github.com/sstephenson/rbenv-vars.git</div>
 
 </li>
 <li>Set environments variable. To generate a secret key, run the following command:
-<div class="hacker">cd /var/www/<em><u>HelloWorld</u></em> </div>
+<div class="hacker">cd /var/www/<em><u>Your_application</u></em> </div>
+<div class='hacker'>bundle install</div></li>
+<div class='hacker'>sudo apt-get install libpq-dev </div>
 <div class="hacker">rake secret </div>
+<p>Copy the generated secret key into any text editor (like notepad) for later reference.</p>
 </li>
-
-	<li>When you run this command, it might see an error.
-    <ul>
-      <li>If the error is related to <code>Bundle install</code>, then type:
-	         <div class='hacker'>Bundle Install</div></li>
-	    <li>If the error is related to <code>gem install pg</code>, then type:
-	         <div class='hacker'>sudo apt-get install libpq-dev </div>
-	         <div class='hacker'>rake secret</div>
-      </li>
-    </ul>
-	</li>
-
-
-<li>Copy the generated key and open the following file:
-<div class="hacker">sudo vim .rbenv-varsl</div>
+<li>Open the following file:
+<div class="hacker">sudo vim .rbenv-vars</div>
 Add the following line in this file:
 <div class="hacker">
 <pre> 
 	SECRET_KEY_BASE=<em><u>your_generated_secret</u></em>
-	HelloWorld_DATABASE_PASSWORD=prod_db_pass
+	Your_application_DATABASE_PASSWORD=<em><u>prod_db_pass</u></em>
 </pre>
 </div>
 </li>
@@ -192,7 +182,7 @@ Add the following line in this file:
  <h2>Configure  Unicorn and NGINX</h2>
  <h3>Configure Unicorn.</h3>
  <ol><li>To configure Unicorn, move to the Rails application directory.
- <div class="hacker">cd /var/www/<em><u>HelloWorld</u></em></div>
+ <div class="hacker">cd /var/www/<em><u>Your_application</u></em></div>
  </li>
  <li>Create a blank <code>unicorn.rb</code> document.
  <div class="hacker">sudo vim config/unicorn.rb</div>
@@ -231,7 +221,7 @@ Add the following line in this file:
   <div class="hacker"> sudo mkdir -p shared/pids shared/sockets shared/log</div>
  </li>
  <li>Create a script for Unicorn init. 
-   <div class="hacker"> sudo vi /etc/init.d/<em><u>unicorn_HelloWorld</u></em></div>
+   <div class="hacker"> sudo vi /etc/init.d/<em><u>unicorn_Your_application</u></em></div>
  </li>
  <li>Add the following script code in the file:
  <div class="hacker"><pre>
@@ -252,8 +242,8 @@ Add the following line in this file:
 	USAGE="Usage: $0 &amp;lt;start|stop|restart|upgrade|rotate|force-	stop>"
 
 	# app settings
-	USER="<em><u>HelloWorld</u></em>"
-	APP_NAME="<em><u>HelloWorld</u></em>"
+	USER="<em><u>Your_application</u></em>"
+	APP_NAME="<em><u>Your_application</u></em>"
 	APP_ROOT="/home/$USER/$APP_NAME"
 	ENV="production"
 
@@ -306,14 +296,14 @@ Add the following line in this file:
 	esac
 
  </pre></div>
-<p>This script will allow to run <em><u>unicorn_HelloWorld</u></em> that will run and stop both the unicorn and Rails application.</p>
+<p>This script will allow to run <em><u>unicorn_Your_application</u></em> that will run and stop both the unicorn and Rails application.</p>
  </li>
  <li>Update the script's permissions and enable Unicorn to start on boot.
-  <div class="hacker">	sudo chmod 755  -R /etc/init.d/<em><u>unicorn_HelloWorld</u></em> </div>
+  <div class="hacker">	sudo chmod 755  -R /etc/init.d/<em><u>unicorn_Your_application</u></em> </div>
    <div class="hacker">sudo update-rc.d unicorn_appname defaults</div>
  </li>
  <li>Start Unicorn.
-  <div class="hacker"> sudo service <em><u>unicorn_HelloWorld</u></em>  start</div>
+  <div class="hacker"> sudo service <em><u>unicorn_Your_application</u></em>  start</div>
  </li>
  </ol>
  <h3>Configure NGINX</h3>
@@ -324,14 +314,14 @@ Add the following line in this file:
    <div class="hacker">	<pre>
    upstream app {
     		# Path to Unicorn SOCK file, as defined previously
-   		server 	unix:/home/UserName/HelloWorld/shared/sockets/unicorn.sock 	fail_timeout=0;
+   		server 	unix:/home/UserName/Your_application/shared/sockets/unicorn.sock 	fail_timeout=0;
 	}
 
 	server {
    	 listen 80;
    	 server_name localhost;
 
-  	  root /home/UserName/HelloWorld/public;
+  	  root /home/UserName/Your_application/public;
 
    	 try_files $uri/index.html $uri @app;
 
