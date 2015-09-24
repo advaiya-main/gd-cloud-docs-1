@@ -84,7 +84,7 @@ p.note {
         <strong>Time</strong>: <em><u>15 minutes</u></em></p>
 
 
-    <p>Drupal is a content management framework.    In this article you will learn how to install Drupal on a LEMP stack.  
+    <p>Drupal is a content management framework,In this article you will learn how to install Drupal on a LEMP stack.  
         The table below contains links to the appropriate LEMP stack article for your ditribution.</p>
  <ul>
                <li><a href="http://17350%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Arch%20Linux.html">Arch Linux</a></li> 
@@ -111,7 +111,7 @@ p.note {
                <li>Create a directory under the web root to store the Drupal files 
                    <div class="hacker">sudo mkdir /usr/share/nginx/html/drupal</div>
                </li>
-               <li>Move the Drupal files from their unzipped location in your home directory to your new <code>drupal</code> directory.>.
+               <li>Move the Drupal files from their unzipped location in your home directory to your new <code>drupal</code> directory.
                    <div class="hacker">sudo mv drupal-7.23/* /usr/share/nginx/html/drupal/</div>
                </li>
        </ol>
@@ -122,13 +122,13 @@ p.note {
                    <div class="hacker">mysql -u root -p</div>
                </li>
                <li>Create a Drupal database.
-                   <div class="hacker">CREATE DATABASE drupal;</div>
+                   <div class="hacker">CREATE DATABASE <em><u>drupal</u></em>;</div>
                </li>
                <li>Create a new user.
-                   <div class="hacker">CREATE USER drupaluser@localhost IDENTIFIED BY 'password';</div>
+                   <div class="hacker">CREATE USER <em><u>drupaluser</u></em>@localhost IDENTIFIED BY '<em><u>password</u></em>';</div>
                </li>
                <li>Grant your new user, <code>ALL PRIVILEGES</code>.
-                   <div class="hacker">GRANT ALL PRIVILEGES ON drupal.* TO drupaluser@localhost IDENTIFIED BY 'password';</div>
+                   <div class="hacker">GRANT ALL PRIVILEGES ON <em><u>drupal</u></em>.* TO <em><u>drupaluser</u></em>@localhost IDENTIFIED BY '<em><u>password</u></em>';</div>
                </li>
                <li>Write your changes to disk.
                    <div class="hacker">FLUSH PRIVILEGES;</div>
@@ -138,9 +138,9 @@ p.note {
                </li>
        </ol>
 
-<h2>Configure NGINX</h2>
+<h2>Configure Nginx</h2>
           <ol>      
-               <li>Open the NGINX configuration file. 
+               <li>Open the Nginx configuration file. 
                    <div class="hacker">sudo vim /etc/nginx/nginx.conf</div>
                </li><li>Verify the <code>include</code> references in the <code>http</code> context contain the statement below.  If it does not exist, add it.  
                    <div class="hacker">include /etc/nginx/conf.d/*.conf;
@@ -181,7 +181,7 @@ p.note {
              </li>
  <li>Save and close. 
                </li>
- <li>Restart NGINX.
+ <li>Restart Nginx.
                    <div class="hacker">sudo service nginx restart</div>
                </li>
  <li>In your browser, navigate to <strong>http://<em><u>Your_IP Address</u></em>/drupal</strong> and use the Drupal UI to configure Drupal to meet your needs.
