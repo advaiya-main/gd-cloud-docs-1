@@ -154,7 +154,7 @@ p.note {
             <div class='hacker'>
       server {
        <br /> listen 80 default_server;
-        <br />listen [::]:80 default_server ipv6only=on;
+        <br />#listen [::]:80 default_server ipv6only=on;
     
         <br />server_name <em><u>www.coolexample.com</u></em>;
         <br />passenger_enabled on;
@@ -170,8 +170,8 @@ p.note {
 <br />}
 </div>
       </li> 
-      <li>To save and exit the file by pressing <strong>Esc</strong> key and type the following characters.
-			<div class ="hacker">:wq!</div>
+      <li>Save and exit.
+			<div class ="hacker">wq!</div>
 		</li>
         <li>To start the Nginx web service.
             <div class='hacker'> sudo /opt/nginx/sbin/nginx </div>
