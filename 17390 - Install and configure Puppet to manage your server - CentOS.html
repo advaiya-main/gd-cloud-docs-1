@@ -4,9 +4,7 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 17390 -->
 
 
 <title>Install and configure Puppet to manage your server - CentOS</title>
@@ -70,7 +68,7 @@ p.note {
 </head>
 
 <body>
-<p>Install and configure Puppet to manage your CetOS server, Puppet, Automation</p>
+<p>Install and configure Puppet to manage your CentOS server, Puppet, Automation</p>
 <h1>Install and Configure Puppet to Manage Your Server - CentOS</h1>
 
 <p><strong>Difficulty:</strong> <em>4</em></p>
@@ -81,10 +79,10 @@ p.note {
 <p>Puppets are of two types:</p>
 <ul>
 <li>Puppet Enterprise</li>
-<li>Open source Puppet</li>
+<li>Open-source Puppet</li>
 </ul>
 
-<p>In this article, you will learn to install open source Puppet in a master-agent server setup. This includes a Puppet master server, which has all the configuration files, and Puppet agent server, which will be querying the master server for updates.</p>
+<p>In this article, you will learn to install open-source Puppet in a master-agent server setup. This includes a <em>Puppet master server</em>, which has all the configuration files, and <em>Puppet agent server</em>, which will be querying the master server for updates.</p>
 
 <p>Before you begin, you must have <code>sudo</code> access to follow this article. In addition, you should have the below mentioned infrastructure ready:</p>
 <ul>
@@ -105,9 +103,9 @@ p.note {
 
 <h2>Install Network Time Protocol (NTP)</h2>
 
-<p>If time is not properly adjusted, then it can cause errors when the Puppet master issues agents certificates.</p>
+<p>If time is not properly synced, then it can cause errors when the Puppet master issues agents certificates.</p>
 <ol>
-<li>Install NTP daemon so that time is updated automatically.
+<li>Install NTP daemon, so that time is updated automatically.
 <div class="hacker">sudo yum install ntp </div>
 </li>
 <li>Edit the <code>ntp.conf</code> file.
@@ -152,7 +150,7 @@ server 3.centos.pool.ntp.org iburst<br /></div>
 <div class="hacker">puppet help | tail -n 1</div>
 </li>
 
-<li>Install the package named <code>yum-version lock to lock the version of puppet</code>. Follow the below steps to achieve the same:
+<li>Install the package named <code>yum-version lock to lock the version of puppet</code>. Follow the steps below to achieve the same:
 <div class="hacker">sudo yum install yum-versionlock</div>
 </li>
 
@@ -167,14 +165,12 @@ server 3.centos.pool.ntp.org iburst<br /></div>
 <h2>Names and certificates</h2>
 <p>Communication between Puppet master and agent is being authenticated through SSL Certificates. Follow these steps to generate the master SSL certificate:</p>
 <ol>
-<li>Delete existing certificates from <code>/var/lib/puppet/ssl</code>
+<li>Delete existing certificates from <code>/var/lib/puppet/ssl</code>.
 <div class="hacker">sudo rm -rf /var/lib/puppet/ssl</div>
 </li>
 <li>Edit <code>/etc/puppet/puppet.conf</code> file, in order to configure certificate.
 <div class="hacker">sudo vi /etc/puppet/puppet.conf</div>
-</li>
-
-<li>It will look like:
+It will look like:
 <div class="hacker">
 [main]<br />
     logdir = /var/log/puppet<br />
@@ -190,7 +186,7 @@ server 3.centos.pool.ntp.org iburst<br /></div>
 <div class="hacker">
 [master] <br />
 certname = puppet <br />
-dns_alt_names = puppet,puppet.coolexample.com</div>
+dns_alt_names = puppet,<em><u>puppet.coolexample.com</u></em></div>
 </li>
 
 <li>Generate a new certificate.
@@ -223,7 +219,7 @@ dns_alt_names = puppet,puppet.coolexample.com</div>
 <div class="hacker">sudo gem install rack passenger</div>
 </li>
 
-<li>Create a swap file if your server doesn't have a swap partition.
+<li>Create a swap file, if your server doesn't have a swap partition.
 <div class="hacker">sudo dd if=/dev/zero of=/swap bs=1M count=1024</div>
 <div class="hacker">sudo mkswap /swap</div>
 <div class="hacker">chmod 0600 /swap</div>
@@ -354,7 +350,7 @@ puppetmaster.service                   disabled</div>
 
 <h2>Install the Puppet agent </h2>
 
-<p>Configure DNS properly and make sure that Puppet master and agent resolve properly. Follow the same procedure in all agents.</p>
+<p>Configure DNS properly, and make sure that Puppet master and agent resolve properly. Follow the same procedure in all agents.</p>
 <ol>
 <li>Install <strong>PuppetLab</strong> yum repository.
 <div class="hacker">sudo rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm</div>
@@ -422,13 +418,13 @@ puppetagent.service                    disabled</div>
 <h3>Sign a request</h3>
 <ol>
 <li>Use the <code>puppet cert sign</code> command to sign an agent nodes certificate in master server.
-<div class="hacker">sudo puppet cert sign host1.coolexample.com</div>
+<div class="hacker">sudo puppet cert sign <em><u>host1.coolexample.com</u></em></div>
 </li>
 
 <li>The output is as below:
 <div class="hacker">
-Notice: Signed certificate request for host1.coolexample.com<br />
-Notice: Removing file Puppet::SSL::CertificateRequest host1.coolexample.com at '/var/lib/puppet/ssl/ca/requests/host1.coolexample.com.pem'</div>
+Notice: Signed certificate request for <em><u>host1.coolexample.com</u></em><br />
+Notice: Removing file Puppet::SSL::CertificateRequest <em><u>host1.coolexample.com</u></em> at '/var/lib/puppet/ssl/ca/requests/<em><u>host1.coolexample.com</u></em>.pem'</div>
 </li>
 
 <li><p>At this point Puppet master server can communicate and control agent nodes, which are signed through certificates.</p></li>
@@ -449,15 +445,16 @@ Notice: Removing file Puppet::SSL::CertificateRequest host1.coolexample.com at '
 </ol>
 
 <h2>Get started with Puppet </h2>
-<p>All above steps are complete and you have your Puppet master-agent infrastructure setup and running. </p>
+<p>All above steps are complete and you have your Puppet master-agent infrastructure set up and running. </p>
 
 <h3>Gather facts </h3>
-<p>Puppet has a tool called Facter. Using this tool Puppet gathers information about all agent nodes running in infrastructure. By default it gathers all system configuration information.</p>
-<p>View the list of factors.</p>
+<p>Puppet has a tool called Facter. Using this tool Puppet gathers information about all agent nodes running in infrastructure. By default, it gathers all system configuration information.</p>
+<ul>
+<li>View the list of factors.
 <div class="hacker">facter</div>
-
+</li></ul>
 <h3>Execute main manifest</h3>
-<p>Puppet agent is configured to periodically check with puppet master. During this time, Puppet agent will send facts about itself to master and then it pulls a list of resources from master, which are determined by its main manifest.</p>
+<p>Puppet agent is configured to periodically check with Puppet master. During this time, Puppet agent will send facts about itself to master and then it pulls a list of resources from master, which are determined by its main manifest.</p>
 
 <h3>Execute agent node</h3>
 <ol>
