@@ -106,7 +106,7 @@ http://your server IP address/phpmyadmin/info.php not showing any phpmyadmin UI,
        
 <li>Link the phpMyAdmin installed files to the Nginx document root.
               
-    <div class="hacker">sudo ln -s /usr/share/phpmyadmin /usr/share/nginx/www</div>
+    <div class="hacker">sudo ln -s /usr/share/phpmyadmin /usr/share/nginx/html</div>
                      </li>  
   <li>Enable the <code>mcrypt</code> PHP module.
               
@@ -136,7 +136,7 @@ http://your server IP address/phpmyadmin/info.php not showing any phpmyadmin UI,
     <p>Right now, every hacker knows that the name of your phpMyAdmin page is <code>http://<em><u>your server or domain name</u></em>/phpmyadmin</code>.  Let's  make that name a bit more arcane.    </p>
     <ol>
         <li>Navigate to your document root directory.
-          <div class="hacker">cd /usr/share/nginx/www</div></li>
+          <div class="hacker">cd /usr/share/nginx/html</div></li>
         <li>Change the name (actually, rename the symbolic link).
             <div class="hacker">sudo mv phpmyadmin nodbhere</div></li>
 <li>Test the new name by navigating in your browser to <code>http://<em><u>your server or domain name</u></em>/nodbhere.</code><br />
