@@ -170,70 +170,117 @@ fastmail.com.           3600    IN      MX      20 in2-smtp.messagingengine.com.
 		
 		</li>
 	</ol>
-	<h2>Install OSSEC</h2>
-		<p>You can install OSSEC in many modes including server, agent, local, or hybrid mode. We will install using the <code>local</code> mode in this article.</p>
+<h2>Install OSSEC</h2>
+	<p>You can install OSSEC in many modes including server, agent, local, or hybrid mode. We'll install it in local mode. </p>
 	<ol>
-  <!--Please make sure that the first sentence of each step contains an imperative statement. --><!--Fixed-->
-		<li>
-			Expand the tar file.
+		<li>Expand the file.
 			<div class="hacker">sudo tar -zxf ossec-hids-2.8.1.tar.gz</div>
 		</li>
-		<li>
-			Change the directory to the expanded tar file.
+			<li> Change the directory to the expanded one.
 			<div class="hacker">cd ossec-hids-2.8.1</div>
-		</li>
-		<li>
-			Initiate the installation.
+			</li>
+		<li> Initiate the installation.
 			<div class="hacker">sudo ./install.sh</div>
 		</li>
-		<!---->
-		<li>
-			When prompted, choose your language or use the default, and press <strong>Enter</strong>.
-			<p>The following will display:</p>
-			<div class="hacker">
- 				<pre>
- 					OSSEC HIDS v2.8 Installation Script - http://www.ossec.net
- 					
- 					 You are about to start the installation process of the OSSEC HIDS.
- 					 You must have a C compiler pre-installed in your system.
- 					 If you have any questions or comments, please send an e-mail
- 					 to dcid@ossec.net (or daniel.cid@gmail.com).
- 
- 					  - System:   Linux ossec-arch 4.1.6-1-ARCH
- 					  - User: root
- 					  - Host: ubuntu
- 
- 
- 					  -- Press ENTER to continue or Ctrl-C to abort. -
- 
- 				</pre>
- 			</div>
-		</li>
-		<li>Press <strong>Enter</strong> to continue.</li>
-		<li>When prompted for the type of installation, enter <strong>local</strong>.
-			<div class="hacker">
-				1- What kind of installation do you want (server, agent, local, hybrid or help)? <em><u>local</u></em>
-			</div>
-		</li>
-		<li>Respond to the question about email with a valid email address and give SMTP server that you saved using <code>dig</code> command when prompted. All of the notifications will be sent to this email address.</li>
-		<li>For the rest of the questions, accept the defaults by pressing <strong>Enter</strong>.</li> 
-		<li>
-			A successful installation displays the following:
+		
+			<li>When prompted, choose a language or use the default by pressing <strong>Enter</strong>.
+			
+			 <p>The following displays:</p>
 			<div class="hacker">
 				<pre>
-Thanks for using the OSSEC HIDS.
-If you have any question, suggestion or if you find any bug,
-contact us at contact@ossec.net or using our public maillist at
-ossec-list@ossec.net
-( http://www.ossec.net/main/support/ ).
+						OSSEC HIDS v2.8 Installation Script - http://www.ossec.net
+						
+						 You are about to start the installation process of the OSSEC HIDS.
+						 You must have a C compiler pre-installed in your system.
+						 If you have any questions or comments, please send an e-mail
+						 to dcid@ossec.net (or daniel.cid@gmail.com).
 
-More information can be found at http://www.ossec.net
+						  - System: Linux ubuntu 3.13.0-55-generic
+						  - User: root
+						  - Host: ubuntu
 
----  Press ENTER to finish (maybe more information below). ---
+
+						  -- Press ENTER to continue or Ctrl-C to abort. -
+
 				</pre>
 			</div>
 		</li>
-		<li> Press <strong>Enter</strong> to finish the installation.</li>
+		<li>When prompted for the kind of installation, type <strong>local</strong> and press <strong>Enter</strong>.</li>
+		<li>
+			For the following prompts, press <strong>Enter</strong>. <br />
+			<div class="hacker">
+				Choose where to install the OSSEC HIDS [/var/ossec]:
+			</div>
+			<div class="hacker">
+				Do you want e-mail notification? (y/n) [y]:
+			</div>
+		</li>
+		<li>For the  prompt regarding where to receive notifications, type your email address.
+			<div class="hacker">
+				What's your e-mail address? 
+			</div>
+			The following displays:		
+			<div class="hacker">
+				
+	      We found your SMTP server as: <em><u>smtp.coolexample.com</u></em>.<br/>
+				- Do you want to use it? (y/n) [y]:
+				
+			</div>
+			</li>
+				<li>Press <strong>Enter</strong> unless you want to use a different SMTP server. You can enter the SMPT server you saved using <code>dig</code> command.
+				</li>
+		
+			<li>For the following prompts, press <strong>Enter</strong>.
+					<div class="hacker">
+					Do you want to run the integrity check daemon? (y/n) [y]:<br />
+						- Running syscheck (integrity check daemon).
+				</div>
+				<div class="hacker">
+					Do you want to run the rootkit detection engine? (y/n) [y]:<br />
+					- Running rootcheck (rootkit detection).
+				</div>
+				<div class="hacker">
+					Active response allows you to execute a specific command based on the events received.<br/>  
+					Do you want to enable active response? (y/n) [y]:
+				</div>
+				<div class="hacker">
+					Do you want to enable the firewall-drop response? (y/n) [y]:<br/>
+					- firewall-drop enabled (local) for levels >= 6
+				</div>
+			</li>
+		
+		<li>
+			When prompted for more IP addresses, press <strong>Enter</strong>. Files to be monitored by OSSEC will be displayed, You can add more files after installation. Installation may take a few minutes.
+				<p>A successful installation displays the following:</p>
+		
+			<div class="hacker">
+				<pre>
+					- Unknown system. No init script added.
+					
+					- Configuration finished properly.
+
+					- To start OSSEC HIDS:
+							/var/ossec/bin/ossec-control start
+
+					- To stop OSSEC HIDS:
+							/var/ossec/bin/ossec-control stop
+
+					- The configuration can be viewed or modified at /var/ossec/etc/ossec.conf
+
+
+					Thanks for using the OSSEC HIDS.
+					If you have any question, suggestion or if you find any bug,
+					contact us at contact@ossec.net or using our public maillist at
+					ossec-list@ossec.net
+					( http://www.ossec.net/main/support/ ).
+
+					More information can be found at http://www.ossec.net
+
+					---  Press ENTER to finish (maybe more information below). ---
+
+				</pre>
+			</div>
+	  </li>
 	</ol>
 	<h2>Verify the OSSEC email settings</h2>
 	You need to verify the email credentials you provided and the email credentials that OSSEC auto-configured are correct. Email settings are in <code>ossec.conf</code>, which is located in <code>/var/ossec/etc</code>.

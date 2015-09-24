@@ -94,15 +94,18 @@ Jabber is a simple, mature and powerful messaging protocol based on <em>Extensib
 			sudo vim /etc/ejabberd/ejabberd.cfg
 		</div>
 	</li>
-	<li>To add the host name, update the following line:
+	<li>To add the host name, locate the following line:
 				<div class="hacker"> {hosts, ["localhost"]} </div>
-	<p>with this line: </p>
-		  <div class="hacker">{hosts, ["localhost","<em><u>coolexample.com</u></em>"]}</div>
+			<p>Change <code>localhost</code> to the hostname to be used by Jabber server. This appears behind the @ sign in Jabber IDs. Physical hostname of machine is not necessarily required here.</p>
+			You can add more than one hostnames as <code>{hosts, ["localhost","coolexample.com","coolexample.net"]}</code> here, but in this article we are using <code>coolexample.com</code> as hostname.
+	
+		  <div class="hacker">{hosts, ["<em><u>coolexample.com</u></em>"]}</div>
 	</li>      
 	<li>To create an admin user, update the following line:
 		<div class="hacker">{acl, admin, {user, "", "localhost"}}</div>
 		<p>with this line: </p>
 		 <div class="hacker"> {acl, admin, {user, "<em><u>my_admin</u></em>", "<em><u>coolexample.com</u></em>"}}</div>
+		This line registers an admin user <code>my_admin</code> at <code>coolexample.com</code> hostname.
 	</li>
 	<li>Save and close the file by pressing <code>ESC</code>, and then type <strong>:wq</strong> and press the <strong>Enter</strong> key.
 		</li>
