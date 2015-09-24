@@ -103,7 +103,8 @@ p.note {
 
    <ol>
                 <li>Let's start with letting yum do some heavy lifting for us, and make sure that all our currently installed yum package are up-to-date:
-                        <div class="hacker">sudo apt-get -y update &amp;&amp; apt-get -y upgrade</div></li>
+                        <div class="hacker">sudo apt-get -y update</div>
+                        <div class="hacker">sudo apt-get -y upgrade</div></li>
 
                 <li>There is a suite of tools that we need installed before we can continue. Instead of doing this the hard way and installing all of these tools one-by-one, we are again going to let apt do the heavy lifting for us. Apt            includes a software suite called <code>build-essential</code> that will contain almost everything we need, except for a few others that we'll add as well. Install these by running:
                         <div class="hacker">sudo apt-get -y install build-essential libsqlite3-dev sqlite3 bzip2 libbz2-dev</div>
@@ -149,10 +150,16 @@ config.sub    configure.ac  Doc   Include  Lib         Mac      Misc            
                  <p class="note">Python is going to run through and check to make sure everything is appropriate for the compiling process. If the output ends in creating Makefile, you should be ready to go. If you get any errors during configuration, do NOT proceed with compiling Python - it will cause problems on the system. Read through the errors and resolve them first before moving forward. We did all the preparation steps, so it's unlikely that errors will occur, unless you had made custom changes that would have affected dependencies.</p></li>
 
               <li>Alright - the time has come. If you were installing/compiling any other software suite from source, this is typically where we would run make install. Don't do this. Doing so will overwrite the system Python and will break all kinds of things on your server. Instead, this provides us with an <code>altinstall</code> file to use in its stead. Run the following commands in order to compile and install Python <em><u>3.4.2</u></em>.
-                    <div class="hacker">#first we compile. This part can take a while - be patient while C works.
-                                        make <br />
-                                        #next we use altinstall to install our compiled Python libraries  <br />
-                                        make altinstall</div>
+                    </br>
+                    First we compile. This part can take a while - be patient while C works its magic
+                    <div class="hacker">
+                    make
+                    </div>
+                    </br>
+                    Next we use altinstall to install our compiled Python libraries
+                    <div class="hacker">
+                    sudo make altinstall
+                    </div>
                     After running both of these commands, the install will be complete, and Python <em><u>3.4.2</u></em> will be installed in <code>/usr/local/bin/python3.4</code></li>
 
             <li>Python is now compiled, installed, and configured on your server. This means that you can now call directly to the <em><u>python3.4</u></em> variable and it will know to call to the proper location. To demonstrate and confirm this, run the following command inside your prompt:
