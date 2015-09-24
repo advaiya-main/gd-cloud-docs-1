@@ -10,7 +10,8 @@
 
 
 <title>Install and Configure Fail2ban - Ubuntu</title>
-<style>
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -27,7 +28,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -39,6 +40,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -224,15 +235,12 @@ sendername = Fail2Ban                                        </div>
 <li>Save and close the configuration file. </li>  
 </li>
 <li>Start Fail2ban:
-  <div class="hacker">sudo service Fail2ban start  </div>
+  <div class="hacker">sudo service fail2ban start  </div>
 </li>
- <li>Enable Fail2ban so that it  runs when your system starts:  
-   <div class="hacker">sudo systemctl enable fail2ban </div>
- </li>
- 
+
  <li>     Optionally, check the status:
-   <div class="hacker">systemctl status fail2ban</div>
-      You should see a message such as <code>Active: active (running)</code> within the  output. </li>
+   <div class="hacker">sudo service fail2ban status</div>
+      You should see a message such as <code> fail2ban is running</code> within the output. </li>
  </ol>
 <p>Fail2ban starts automatically on each server restart.</p>
 
