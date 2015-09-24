@@ -24,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -36,8 +36,17 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
-</style>
 
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
@@ -108,7 +117,7 @@ Suggested command failed again in Fedora, email sent with detailed results.</mso
 <div class="hacker">sudo yum install rsync</div> </li>
 
 <li>Also, make sure you have these PHP extensions installed.
-<div class="hacker">sudo yum install php5-gd php5-fpm php5-mysql</div> </li>
+<div class="hacker">sudo yum install -y php-gd php-fpm</div> </li>
 </ol>
                          
     <h2>Create a MySQL database and administrator for WordPress</h2>
