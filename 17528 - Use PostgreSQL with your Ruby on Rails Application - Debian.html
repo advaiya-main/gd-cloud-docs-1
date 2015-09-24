@@ -107,6 +107,11 @@ p.note {
 	</ol>
 	<h2>Set up a Rails application</h2>
 	<ol>
+		<li>Install the Rails dependencies
+			<div class="hacker">sudo apt-get install libpq-dev
+		  </div>
+
+		</li>
 		<li>Move to your home directory to create a new Rails application. To set PostgreSQL as the database, use the <code>-d postgresql</code> option.
 			<div class = "hacker">cd ~
 			</div>
@@ -117,6 +122,10 @@ p.note {
 			<div class = "hacker">cd <em><u>Your_application</u></em>
 			</div>
 		</li>
+		<li>Install and update all gems using <code>bundle install</code>.
+					<div class="hacker">bundle install
+			</div>
+		</li>	
 		<li>Open the <span class="hacker"><code>database.yml</code></span> file.
           <div class = "hacker">sudo vim config/database.yml
 			</div>
@@ -125,9 +134,8 @@ p.note {
 			<div class = "hacker">
 				<pre>
 host: localhost
-username: <em><u>User_Name</u></em>
-password: <em><u>User_Password</u></em>
-				</pre>
+username: <em><u>user_name</u></em>
+password: <em><u>user_password</u></em></pre>
 			</div>
 			<p class ="note">When adding this code, you need to ensure proper alignment with the code "<code>pool: 5</code>". Also  spacing  with in the code added must be maintained as shown above.</p>
 		</li>
@@ -139,28 +147,21 @@ password: <em><u>User_Password</u></em>
 		<li>Use the <code>rake</code> command to create your application's databases in the application directory.
 <div class="hacker">rake db:create
 			</div>
-		</li>
-		<li>If you get an error,  install the following package:
-			<div class="hacker">sudo apt-get install libpq-dev
-		  </div>
-			<div class="hacker">bundle install
-			</div>
-		</li>
-		<li>Again run the <code>rake</code> command.
-<div class="hacker">rake db:create
-			</div>
+
 		This command creates two databases on your PostgreSQL server: <code><em><u>Your_application</u></em>_development</code> and <code><em><u>Your_application</u></em>_test</code>.		</li>
 	</ol>
 <h2>Test the configuration</h2>
-	<ul>
+	<ol>
 		<li>Test your Rails application.
 			<div class="hacker">rails server
 			</div>
-		You can run your Rails application on your <code>localhost</code> on port 3000.  You can also access your application from a web browser, if it's located on a remote server by assigning a public IP address
-			<div class="hacker">rails server --binding=<em><u>Public_Ip_address of Your server</u></em>
+		<p>This will run your Rails application on your <code>localhost</code> on port 3000. To stop the server and return to the command prompt, press Ctrl + C.</p> </li>
+		<li>You can bind the rails server to the public IP address of your server, to access your application from a web browser, if it's located on a remote server.
+			<div class="hacker">rails server --binding=<em><u>Public_IP_address of Your server</u></em>
 			</div>
+			Open the web browser on your local system, and for URL, 
 		</li>
-	</ul>
+	</ol>
 <h2>Next steps</h2>
     <p>You have configured a PostgreSQL server with a Rails application in Debian. For further exploration, visit <a href ="17518">Deploy a Rails App with Unicorn and Nginx - Debian</a>. </p>
    

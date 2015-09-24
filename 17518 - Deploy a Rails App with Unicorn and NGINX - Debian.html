@@ -100,7 +100,6 @@ p.note {
 	</li>
 	<li>Install Unicorn and bundle all gems.
 	<div class='hacker'>gem install unicorn</div>
-	<div class='hacker'>bundle install</div>
 	</li>
 	</ol>
 	
@@ -121,7 +120,8 @@ p.note {
 	
 	<li>Move to the newly created application directory. 
 	<div class='hacker'> cd <em><u>Your_application</u></em>/</div>
-	</li></ol>
+		<div class='hacker'>bundle install</div>
+		</li></ol>
 	<h2>Create a production database user</h2>
 	<ol>
 	<li>Create a user for the production database. 
@@ -137,65 +137,57 @@ p.note {
 	<div class='hacker'>\q</div>
     </li>
 	<li>To setup a database connection, move to your application directory.  
-	<div class='hacker'>Cd /var/www/<em><u>Your_application</u></em></div>
+	<div class='hacker'>cd /var/www/<em><u>Your_application</u></em></div>
 	<div class='hacker'>sudo  vim config/database.yml</div>
 	</li>
 	
 	<li>Add the following line in the default section of this file:
-	<div class='hacker'>host: localhost
-	username: <em><u>username</u></em>
+	<div class='hacker'>host: localhost<br />
+	username: <em><u>username</u></em><br />
 	password: <em><u>password</u></em>
 </div>
+	<p class ="note">When adding this code, you need to ensure proper alignment with the code "<code>pool: 5</code>". Also  spacing  with in the code added must be maintained as shown above.</p>
     </li>
 	
-	<li>Locate the <code>production</code> section at the bottom of the file.
+	<li>Locate the <code>production</code> section at the bottom of the file, and updated the username and password in the code highlighted below:
 	<div class='hacker'>username: <em><u>username</u></em>
 </div>
-<div class='hacker'>password: &lt;%= ENV[Your_application_DATABASE_PASSWORD'] %&gt;
+<div class='hacker'>password: <em><u>%&lt;%= ENV['Your_application_DATABASE_PASSWORD'] %&gt;</u></em>
 </div>
-    </li>
-	<li>If your production username and the database user are not the same, then make the required changes to make them the same.
-    </li>
+    <p>class="note">If your production username and the database user are not the same, then make the required changes to make them the same.
+    </p>
+	</li>
 	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>. followed by  the <strong>Enter </strong> key.	</li>
 	</ol>
 	<h2>Set up rbenv plug-ins</h2>
 	<ol>
 	<li>Install the plug-in for rbenv-vars. 
-		<div class='hacker'>cd .rbenv/plugins
-</div>
+		<div class='hacker'>cd</div>
+		<div class='hacker'>cd .rbenv/plugins</div>
 <div class='hacker'>git clone https://github.com/sstephenson/rbenv-vars.git</div>
     </li>
 	
 	<li>Set the environment variable by generating a secret key.
 	<div class='hacker'>cd /var/www/<em><u>Your_application</u></em></div>
-	<div class='hacker'>rake secret
-</div>
+	<div class='hacker'>bundle install</div>
+	<div class='hacker'>sudo apt-get install libpq-dev </div>
+	<div class='hacker'>rake secret</div>
+	<p>Copy the generated secret key into any text editor (like notepad) for later reference.</p>
     </li>
 
-	<li>When you run this command, it might see an error.
-    <ul>
-      <li>If the error is related to <code>Bundle install</code>, then type:
-	         <div class='hacker'>Bundle Install</div></li>
-	    <li>If the error is related to <code>gem install pg</code>, then type:
-	         <div class='hacker'>sudo apt-get install libpq-dev </div>
-	         <div class='hacker'>rake secret</div>
-      </li>
-    </ul>
-	</li>
-<li>Copy the generated key and open the following file:
+<li>Open the following file:
 	<div class='hacker'>sudo vim .rbenv-vars
 </div></li>
 <li>Add the following line in this file:
-<div class='hacker'>SECRET_KEY_BASE=your_generated_secret
+<div class='hacker'>SECRET_KEY_BASE=<em><u>your_generated_secret</u></em>
 </div>
-<div class='hacker'>Your_application_DATABASE_PASSWORD=prod_db_pass
+<div class='hacker'>Your_application_DATABASE_PASSWORD=<em><u>prod_db_pass</u></em>
 </div>
 </li>
 <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>. followed by  the <strong>Enter </strong> key.	</li>
 <li>Export the secret key and the database password.
 	<div class='hacker'>rbenv vars
 </div>
-<p>Export them manually, if required.</p>
 </li>
 </ol>
 <h2>Create the production database</h2>
@@ -210,11 +202,11 @@ p.note {
 	<li>Update the production database and run your application from the application directory. 
 	<div class='hacker'>RAILS_ENV=production  rake db:migrate</div>
 	<div class='hacker'>RAILS_ENV=development  rake db:migrate</div>
-	<div class='hacker'>rails s</div>
-	<p>To terminate a user, press <strong>Control/CTRL+C.</strong>.</p>
+	<div class='hacker'>rails server</div>
+	<p>To terminate the process, press <strong>Control/CTRL+C.</strong>.</p>
 	</li>
 	<li>For binding to web browser, run the following command:
-	<div class='hacker'>rails server --binding=[<em><u>your server's IP</u></em>]</div>
+	<div class='hacker'>rails server --binding=<em><u>Public IP Address of your server</u></em></div>
 	</li>
 	<li>You should now be able to access it on any browser by visiting: <strong>http://<em><u>your server's IP</u></em>:3000/tasks</strong>.
 	</li>
@@ -224,7 +216,7 @@ p.note {
 <h2>Configure Unicorn server</h2>
     <ol>
 	<li>To configure Unicorn, move to your Rails application directory.
-	<div class='hacker'>Cd /var/www/<em><u>Your_application</u></em></div>
+	<div class='hacker'>cd /var/www/<em><u>Your_application</u></em></div>
 	</li>
 	<li>Create a blank <code>unicorn.rb </code>document.
 	<div class='hacker'>sudo vim config/unicorn.rb</div>
@@ -265,10 +257,10 @@ p.note {
     </li>
 	
 	<li>Create a script for Unicorn init.
-	<div class='hacker'>sudo vi /etc/init.d/unicorn_Your_application</div>
+	<div class='hacker'>sudo vim /etc/init.d/<em><u>Your_unicorn_application</u></em></div>
 	</li>
 	
-	<li>Add the following script code in the file. 
+	<li>Add the following script code in the file, updating the highlighted section your appropriate values:
 	<div class='hacker'>
 	<pre>
 #!/bin/sh
@@ -345,17 +337,16 @@ p.note {
 	</div>
 	</li>
 	
-	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>. followed by  the <strong>Enter </strong> key.	</li>
-	
-	<li>This script will allow you to run <code>unicorn_Your_application</code>, which will run and then stop both your Unicorn and your Rails application.
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>. followed by  the <strong>Enter </strong> key.<br/>
+	This script will allow you to run <code>Your_unicorn_application</code>, which will run and then stop both your Unicorn and your Rails application.
 	</li>
 	
 	<li>Update the script's permissions and enable Unicorn to start on boot.
-		<div class='hacker'>sudo chmod 755 -R /etc/init.d/unicorn_Your_application</div>
+		<div class='hacker'>sudo chmod 755 -R /etc/init.d/<em><u>Your_unicorn_application</u></em></div>
 	</li>
 	
 	<li>Start the Unicorn service.
-	<div class='hacker'>sudo service unicorn_Your_application start</div>
+	<div class='hacker'>sudo service <em><u>Your_unicorn_application</u></em> start</div>
 
 	</li>
 	</ol>
@@ -370,14 +361,14 @@ p.note {
 	<pre>
 upstream app {
    # Path to Unicorn SOCK file, as defined previously
-   server 	unix:/home/<em><u>/var/www/Your_application</u></em>/shared/sockets/unicorn.sock 	fail_timeout=0;
+   server 	unix:/home/<em><u>var/www/Your_application</u></em>/shared/sockets/unicorn.sock 	fail_timeout=0;
 	}
 
 server {
 	listen 80;
 	server_name localhost;
 
-	root /home/<em><u>/var/www/Your_application</u></em>/public;
+	root /home/<em><u>var/www/Your_application</u></em>/public;
 	
 	try_files $uri/index.html $uri @app;
 
@@ -399,17 +390,10 @@ location @app {
 	<li>Restart the Nginx service.
 	<div class='hacker'>sudo service nginx restart</div>
 	</li>
-	</ol>
-	 
-	 <h2>Manage servers</h2>
-
-    <ol>
-	<li>After you finish configuring both the servers, initiate Unicorn, and then run it as a daemon by using the configuration file. Ensure that you are inside the application directory, and then run the following command:
-	
-	<div class='hacker'>unicorn_rails -c config/unicorn.rb –Ds</div>
+	<li>For binding to web browser, run the following command:
+	<div class='hacker'>rails server --binding=<em><u>Public IP Address of your server</u></em></div>
 	</li>
-	
-	<li>Test your server's IP address or the domain name associated to it. Go to <strong>http://<em><u>Your server's IP address</u></em>/tasks</strong>.
+	<li>Test your server's IP address or the domain name associated to it. Go to <strong>http://<em><u>Your server's IP address</u></em>:3000/tasks</strong>.
 	</li>
 	
 </ol>
