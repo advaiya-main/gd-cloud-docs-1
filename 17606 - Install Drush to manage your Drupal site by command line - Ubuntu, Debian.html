@@ -97,11 +97,13 @@ p.note {
    <li>Enable <code>rewrite_module</code>.
    <div class="hacker">sudo a2enmod rewrite</div>
    </li>
-   <li>Make the following corresponding changes in <strong>Debian</strong> to the <code>&lt;Directory /var/www/&gt;</code> block of <code>/etc/apache2/sites-enabled/000-default </code>file to let <code>.htaccess </code> file override the default Apache instructions.
+   <li>If you are working in <strong>Debian</strong> open <code>/etc/apache2/sites-enabled/000-default</code> file.
    <div class="hacker">
 	sudo vim /etc/apache2/sites-enabled/000-default
    </div>
+   Make the following corresponding changes in <code>&lt;Directory /var/www/&gt;</code> block to let <code>.htaccess </code> file override the default Apache instructions.
    <div class="hacker">
+   
 <pre>
 &lt;Directory /var/www/&gt;
 		Options Indexes FollowSymLinks MultiViews
@@ -112,10 +114,11 @@ p.note {
 </pre>
    </div>
    </li>
-<li>Add the following block in <strong>Ubuntu</strong> to the <code>VirtualHost</code> block of <code>/etc/apache2/sites-available/000-default.conf </code>file to let <code>.htaccess </code> file override the default Apache instructions.
+<li>If you are working in <strong>Ubuntu</strong> open <code>/etc/apache2/sites-available/000-default.conf </code> file. 
 <div class="hacker">
 	sudo vim /etc/apache2/sites-available/000-default.conf 
    </div>   
+   Add following block in <code>VirtualHost</code> block to let <code>.htaccess </code> file override the default Apache instructions.
 <div class="hacker">
 <pre>
 &lt;Directory /var/www/html&gt;
@@ -127,6 +130,7 @@ p.note {
 </pre>
    </div>
    </li>
+   <li>Save and exit file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong> followed by the <strong>Enter</strong> key.</li>
    <li>Restart Apache.
    <div class="hacker">sudo service apache2 restart</div>
    </li>
@@ -135,7 +139,7 @@ p.note {
    <h2>Download Drush files</h2>
    <ol>
    <li>Download Drush using the following command.
-   <div class="hacker">sudo wget <em><u>https://github.com/drush-ops/drush/archive/master.zip</u></em>
+   <div class="hacker">sudo wget https://github.com/drush-ops/drush/archive/master.zip
    </div>
    </li>
    </ol>
@@ -179,6 +183,7 @@ p.note {
    </li>
    <li>Confirm the <code>drush</code> installation with following command:
    <div class="hacker">drush help</div>
+   It will display help options of <code>drush</code>.
    </li>
   </ol>
   
