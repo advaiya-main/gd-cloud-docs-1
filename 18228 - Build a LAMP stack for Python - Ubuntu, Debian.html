@@ -4,9 +4,7 @@
 
 <head>
 
-<!--Article Number is 18228 
-Blocked for questions.
--->
+<!--Article Number is 18228 -->
 
 
 
@@ -122,10 +120,10 @@ sudo apt-get install apache2
         <div class="hacker">sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql</div></li>
 
         <li>During the installation, MySQL will ask you to set a root password.
-        Once you have installed MySQL, you need to activate it:
+        After you install MySQL, you need to activate it:
         <div class="hacker">sudo mysql_install_db</div>   </li>
 
-        <li>Finish up by running the MySQL set up script:
+        <li>Run the MySQL setup script.
         <div class="hacker">sudo /usr/bin/mysql_secure_installation</div></li>
 
         <li>During this process, you will be asked for your current MySQL root password (not to be confused with your server password) and, since it has not yet been set, simply press <strong>Enter</strong>.</li>
@@ -135,7 +133,7 @@ sudo apt-get install apache2
 
         <div class="hacker">Enter current password for root (enter for none): <br /> <br />  OK, successfully used password, moving on... </div>  </li>
 
-        <li>Then the prompt will ask you if you want to change the root password. Go ahead and choose <strong>n</strong> and just respond <strong>YES</strong> to the remaining options as seen below:
+        <li>The prompt will ask you if you want to change the root password. Go ahead and choose <strong>n</strong>, and then respond <strong>YES</strong> to the remaining options as seen below:
 
 
         <table style="width: 100%">
@@ -192,7 +190,7 @@ sudo apt-get install apache2
 
     <h2>Install PHP</h2>
 
-        <p>PHP is an open source web scripting language that is widely used to build dynamic webpages.</p>
+        <p>PHP is an open-source web scripting language that is widely used to build dynamic webpages.</p>
         <ol>
         <li>To install PHP, in the same terminal type in these commands:
         <div class="hacker">sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt</div></li>
