@@ -90,16 +90,21 @@ p.note {
     <li>Install the <code>php-gd</code> graphic library.
    <div class="hacker">sudo yum install php-gd phpunit tar</div>
    </li>
-   <li>Make the following corresponding changes to the <code>&lt;Directory /var/www/html/&gt;</code> block of <code>/etc/httpd/conf/httpd.conf  </code>file to let <code>.htaccess </code> file override the default Apache instructions.
-   <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
-  <p>Updated <code>Directory</code> block should look like:</p>
+   <li> Open <code>/etc/httpd/conf/httpd.conf</code> in a text editor.
+    <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
+	</li>
+	<li>
+	Make the following corresponding changes in <code>&lt;Directory /var/www/html/&gt;</code>block. 
    <div class="hacker">
 <pre>
 &lt;Directory /var/www/html&gt;
+		...
 		Options Indexes FollowSymLinks MultiViews
+		..
 		AllowOverride All
 		Order allow,deny
 		allow from all
+		...
 &lt;/Directory&gt;
 </pre>
    </div>
