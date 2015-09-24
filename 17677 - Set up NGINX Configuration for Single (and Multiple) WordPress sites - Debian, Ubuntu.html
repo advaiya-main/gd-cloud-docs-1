@@ -101,7 +101,7 @@ td:nth-child(1) {font-weight:bold;}
   </tr>
 </table>
 
-<h2>Prerequisites</h2>
+<h2>Prerequisite</h2>
 You'll need a Linux, Nginx, MySQL, and PHP (LEMP) stack configured. For instructions, see the following:
 <ul>
 <li><a href="Articles/17347%20-%20Build%20a%20LEMP%20stack%20(Linux,%20Nginx,%20MySQL,%20PHP)%20-%20Ubuntu.html">Build a LEMP stack (Linux, Nginx, MySQL, PHP) - Ubuntu</a></li>
@@ -122,7 +122,7 @@ Take some steps to help your server load WordPress content faster.
 <ol>
     <li>See how many Nginx processors you have running. This command will show you the master and number of workers. 
 <div class="hacker">ps aux -P | grep nginx</div>
-Or for a more concise output, enter this command.
+Or for a more concise output, enter this command:
 <div class="hacker">grep worker_processes /etc/nginx/nginx.conf</div>
 
 The default Nginx configuration is 4 (child) worker processes for 1 master, which is probably what you'll see if you're working on a fresh LEMP install.</li>
@@ -159,7 +159,7 @@ Keep the nginx.conf file open for the next step.
 
 We'll start from the broadest use case (all web sites), down to the most narrow (WordPress multi-site). But whether you're running a single or multi-site, this should be a more efficient setup than writing the same configuration on every individual server block.
 
-<h3>Create allsites.conf for all sites</h3>
+<h3>Create <code>allsites.conf</code> for all sites</h3>
 
 <p>Instead of creating a new config on every server block, we'll create a universal config file to handle all web content, even non-WordPress-hosted sites. </p>
 
@@ -212,11 +212,11 @@ location ~* ^.+\.(js|css|swf|xml|txt|ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|a
 <li>Save and close.</li>
 </ol>
 
-<h3>Create wordpress.conf for all WordPress sites</h3>
+<h3>Create <code>wordpress.conf</code> for all WordPress sites</h3>
 Now we'll create a universal WordPress configuration that'll apply to all your WordPress sites. <p>So this applies to both single site and multi-site users.</p>
 
 <ol>
-<li>Create the wordpress.conf file.
+<li>Create the <code>wordpress.conf</code> file.
 <div class="hacker">sudo vim wordpress.conf</div></li>
 
 <li>Again, this is a new file, so it'll be blank. Paste the following contents:
@@ -316,7 +316,7 @@ What do the different sections mean?
 The third config file is for multi-site users only. A multi-site requires custom rewrite rules to format URLs for subsites and subdomains. 
 
 <ol>
-<li>Create your multisite.conf file. 
+<li>Create your <code>multisite.conf</code> file.
 <div class="hacker">sudo vim multisite.conf</div></li>
 
 <li>Paste in the following contents:
@@ -380,9 +380,9 @@ server {
 
 <h3>Multi-site with sub-directories</h3>
 
-<p>If you have a multi-site setup and need sub-directories, include some rewrite rules in your multisite.conf file.</p>
+<p>If you have a multi-site setup and need subdirectories, include some rewrite rules in your <code>multisite.conf</code> file.</p>
 
-Open your multisite.conf file to edit.
+Open your <code>multisite.conf</code> file to edit.
 <div class="hacker">sudo vim multisite.conf</div>
 
 Add this content to the end of the file. 
@@ -397,15 +397,15 @@ server {
     include global/multisite.conf;
 }</pre></div>
 
-<h3>Multi-site with sub-domains</h3>
+<h3>Multi-site with subdomains</h3>
 
-<p>If you have sub-domains, use a wildcard in the servername line (the rest of the lines are the same). So for example, if we wanted to account for the coolexample.com subdomains, product.coolexample.com and aboutus.coolexample.com, we can use a wildcard *.coolexample.com.</p>
+<p>If you have subdomains, use a wildcard in the servername line (the rest of the lines are the same). So for example, if we wanted to account for the <code>coolexample.com</code> subdomains, <code>product.coolexample.com</code> and <code>aboutus.coolexample.com</code>, we can use a wildcard *.coolexample.com.</p>
 <div class="hacker">server_name *.coolexample.com;</div>
 
-Open your multisite.conf file to edit. 
+Open your <code>multisite.conf</code> file to edit.
 <div class="hacker">sudo vim multisite.conf</div>
 
-The entire multisite.conf file will look like this:
+The entire <code>multisite.conf</code> file will look like this:
 <div class="hacker"><pre># URL: add a permanent redirect if required.
 server {
     server_name <em><u>*.coolexample.com</u></em>;
@@ -423,13 +423,13 @@ server {
     <li>Create a symlink between the sites-enabled and sites-enabled directories.
 <div class="hacker">sudo ln -s /etc/nginx/sites-available/<em><u>coolexample</u></em> /etc/nginx/sites-enabled/<em><u>coolexample</u></em></div></li>
 
-<li>Restart Nginx so your changes can take effect.
-<div class="hacker">sudo service nginx restart</div></li>
+<li>Restart Nginx so that your changes  take effect.
+  <div class="hacker">sudo service nginx restart</div></li>
 </ol>
 
 <h2>Next Steps</h2>
 
- <p>Congratulations! You have successfully configured your Nginx settings to accomodate a single or multi-site WordPress setup. There's much you can do from here, including:</p>
+ <p>Congratulations! You have successfully configured your Nginx settings to accomodate a single or multi-site WordPress setup. There's much you can do from here, including the following:</p>
 
 <ul>
 <li><a href="Articles/17683 - Set up WordPress Multisite in NGINX - Ubuntu.html">Install and set up a WordPress single site for Debian or Ubuntu</a></li>
