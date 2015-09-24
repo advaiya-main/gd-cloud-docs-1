@@ -10,7 +10,7 @@
 
 
 <title>Install And configure Apache Qpid - Ubuntu, Debian</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -69,78 +69,116 @@ p.note {
 </head>
 
 <body>
-<p>Brief description of what this article accomplishes. Include any keywords indicated in the spreadsheet. This blurb will not appear with the content.</p>
-    <h1>Article Title from Spreadsheet</h1>
-    
-    <p><strong>Difficulty</strong>: <em><u>Value from spreadsheet</u></em><br/>
-        <strong>Time</strong>: <em><u>Time value</u></em></p>
+<p>Install and configure Apache Qpid - Debian, Ubuntu, Messaging,</p>
 
-    <p>Opening paragraph. Summarize what the article covers; for example, "Jenkins is a popular tool for continuous pipeline integration, offering features for managing and monitoring project build jobs." Use no more than four sentences.</p>
+<h1>Install and configure Apache Qpid - Debian, Ubuntu</h1>
 
-    <h2>Section 1 title</h2>
-    <p>Section 1 content. Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
- 
-    <p><div class="hacker">command (Put each command on a separate line.)</div></p>
+<p><strong>Difficulty:</strong> <em>2</em></p>
+<p><strong>Time:</strong> <em>30 minutes</em></p>
 
-     <p class="note">note</p>   
-           <p class="warning">warning</p> 
-    <table>
-    <tr>
-    <th>Table head</th>
-     <th>Table head</th>
-      <th>Table head</th>
-    </tr>
-    <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-             
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               <tr>
-    <td>Content</td>
-       <td>Content</td>
-          <td>Content</td>
-               </tr>
-               </table>
-              
-              <p>Bulleted list with intro:<p>
-               <ul>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ul>
-              
-              <p>Numbered list with intro:</p>
-              <ol>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               <li>List item</li>
-               </ol>
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just learned. Add links to procedural articles if appropriate. Direct the user to explore a related subject or to complete a related task. </p>
-   
+<p>This article explains how to install and configure Apache Qpid in Debian and Ubuntu. Apache Qpid is an open source messaging system to send and receive messages between application and processes, that implements <strong>Advanced Message Queuing Protocol</strong>. To send and receive messages between application and processes, you need a third party program to provide an interface. These third party programs are called message brokers.</p>
+
+<h2>Advanced Message Queuing Protocol (AMQP)</h2>
+
+AMQP is a widely accepted open source standard to transfer messages. It provides a common ground to various applications and message brokers to operate without issues caused by individual design or development. You will need to install two different set of tools as mentioned below:
+<ul>
+<li><p>An implementation of Qpid broker for your selected language (e.g. C++broker for Python or Java Broker for Java)</p></li>
+<li><p>Qpid Client libraries (e.g. Qpid Python) </p></li>
+</ul>
+
+<h2>Install Apache Qpid</h2>
+<ol>
+<li>Update the droplet.
+<div class="hacker">sudo apt-get -y update</div>
+</li>
+<li>Install the <code>qpid-tools</code> in Ubuntu/Debian and add the Qpid repositories using the following command:
+<div class="hacker">sudo add-apt-repository ppa:qpid/testing -y</div>
+</li>
+<li>Update the repository.
+<div class="hacker">sudo apt-get update -q </div>
+ </li>
+<li>Install Qpid.
+<div class="hacker">  sudo apt-get install qpidd qpid-tools </div>
+</li>
+<li>Install Qpid's language bindings.
+<div class="hacker">sudo apt-get install -y libqpidmessaging2-dev python-qpid ruby-qpid</div>
+<p class="note"> During the installation process <code>qpid</code> daemon will prompt for password. Press <strong>Enter</strong> here.</p>
+</li>
+</ol>
+
+<h2>Manage Qpid</h2>
+<p>To start, stop, reload and check status, you can use the following command:</p>
+<div class="hacker">
+# To start the service: <br />
+sudo service qpidd start<br />
+
+# To stop the service:<br />
+sudo service qpidd stop<br />
+
+# To restart the service:<br />
+sudo service qpidd restart<br />
+# To check the status:<br />
+sudo service qpidd restart</div>
+
+<h2>Explore Qpid</h2>
+
+<p>After installation of Qpid and its Python language binding, here you will see how it works.</p>
+<ol>
+<li>Create a <code>qpid_test.py</code> file using any editor.
+<div class="hacker">sudo vim qpid_test.py</div>
+</li>
+<li>Paste the following code (explained in comments) into the file and then save and exit the file.
+<div class="hacker">
+<pre>
+#!/usr/bin/env python
+
+#import qpid modules to get work.
+from qpid.messaging import * 
+
+broker     = "localhost:5672" 
+address    = "amq.topic" 
+connection = Connection(broker)
+
+try:
+    connection.open()
+
+    # Define the session
+    session = connection.session()
+
+    # Define a sender and a receiver
+    sender   = session.sender(address)
+    receiver = session.receiver(address)
+
+    # Send a simple message to the queue
+    sender.send(Message("Hello world!"));
+
+    # Fetch the message from the queue
+    message = receiver.fetch()
+
+    # display the message
+    print message.content
+
+    # Check with the server
+    session.acknowledge()
+
+except MessagingError, err:
+    print str(err)
+
+finally:
+    #close the connection.
+    connection.close()
+</pre></div>
+</li>    
+<li>Run the above script.
+<div class="hacker">python qpid_test.py</div>
+
+<p>Output should look like the following message:</p>
+		<div class="hacker"># Hello world!</div>
+</li>        
+</ol>        
+
+<h2>Conclusion</h2>
+<p>In this article, you have learned to install and configure Apache Qpid. </p>
+
 </body>
 </html>
