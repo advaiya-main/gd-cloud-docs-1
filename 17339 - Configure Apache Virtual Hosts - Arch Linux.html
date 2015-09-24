@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
   <head>
   <!--article # 17339 -->
-    <style type='text/css'>
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -20,7 +20,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -32,7 +32,18 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
+
 <title>Configure Apache Virtual Hosts - Arch Linux</title>
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
@@ -162,11 +173,11 @@ Press ENTER or type command to continue
 
  <div class="hacker"><pre>&lt;VirtualHost *:80&gt;
     ServerAdmin <em><u>youremail@coolexample.com</u></em>
-    DocumentRoot "<em><u>/var/www/coolexample.com/public_html</u></em> 
+    DocumentRoot "<em><u>/srv/http/coolexample.com</u></em>" 
     ServerName <em><u>www.coolexample.com</u></em>     
     ServerAlias <em><u>coolexample.com</u></em> 
-    ErrorLog <em><u>/var/www/coolexample.com/error.log</u></em> 
-    CustomLog <em><u>/var/www/coolexample.com/requests.log combined</u></em>
+    ErrorLog "<em><u>/srv/http/coolexample.com/error.log</u></em>" 
+    CustomLog "<em><u>/srv/http/coolexample.com/requests.log</u></em>" common
 
 &lt;/VirtualHost&gt;
   </pre></div>
