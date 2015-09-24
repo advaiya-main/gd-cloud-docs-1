@@ -4,9 +4,7 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
+<!--Article Number is 18806 -->
 
 
 <title>Use Monkeysphere to authenticate SSH users - Arch Linux</title>
@@ -72,20 +70,20 @@ p.note {
 <p>Use Monkeysphere to authenticate SSH users on Arch Linux, Security</p>
     <h1>Monkeysphere to authenticate SSH users - Arch Linux</h1>
     
-    <p><strong>Difficulty</strong>: <em>3</em><br/>
+    <p><strong>Difficulty</strong>: <em>3</em><br />
         <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>In this article, you will authenticate <code>ssh</code> users through <strong>Monkeysphere</strong> which will allow you to have a trusted SSH login.</p>
+    <p>In this article, you will authenticate <code>ssh</code> users through <strong>Monkeysphere</strong>, which will allow you to have a trusted SSH login.</p>
     <p>Before starting this section, you need to have <a href="18803">Monkeysphere installed and configured. </a></p>
  
  <h2>Create an SSH Server identity certifier</h2>
- <p>Identity certifier is an entity that is trusted, and ensures that users are trusted.  In this article, admin server is used as the identity certifier.</p>
+ <p>The identity certifier is an entity that is trusted, and ensures that users are trusted.  In this article, admin server is used as the identity certifier.</p>
 <ol> 
  
 <li>Get the fingerprint of the administrative user.
    <div class="hacker">gpg1 --with-colons --fingerprint <em><u>admin</u></em>@<em><u>coolexample.com</u></em>. </div>
    </li>
-<li>Locate and note the short fingerprint, which is a long alphanumeric string next to <code>fpr</code> in the output from above command. In this case, it is <strong>99981C07DC4177F646AFF531DEA69AE3462908AF</strong>.
+<li>Locate and note the short fingerprint, which is a long alphanumeric string next to <code>fpr</code> in the output from the previous command. In this case, it is <strong>99981C07DC4177F646AFF531DEA69AE3462908AF</strong>.
    <div class="hacker">
 <pre>
 tru::1:1441542079:0:3:1:5
@@ -102,19 +100,19 @@ sub:u:2048:1:D5542FF062F4D3E5:2015-09-05::::::e:
   </ol>
    
 <h2>Generate the SSH user authentication subkeys</h2>
-<p>All the client machines need to generate a GPG sub key. This key will be used for user authentication of the server. In case you already have a GPG key, it can be used to identify and authenticate the user.</p>
+<p>All the client machines need to generate a GPG subkey. This key will be used for user authentication of the server. In case you already have a GPG key, it can be used to identify and authenticate the user.</p>
 <ol>    
-<li>Generate sub keys on client servers using the <code>Monkeysphere</code> command.
+<li>Generate subkeys on client servers using the <code>Monkeysphere</code> command.
    <div class="hacker">monkeysphere gen-subkey</div>
-   <p>After the sub key is generated, it is added to the local GPG key ring of client server. This key generation process will take few minutes.</p>
+   <p>After the subkey is generated, it is added to the local GPG key ring of client server. This key generation process will take few minutes.</p>
    </li>
-   <li>List out the sub key in client key ring.
+   <li>List out the subkey in client key ring.
    <div class="hacker">gpg1 --list-keys <em><u>client@coolexample.com</u></em></div>
    </li>
 
     <li> 
    <div class="hacker">gpg1 --keyserver pool.sks-keyservers.net --send-key <em><u>EDSGT0</u></em></div>
-   <p>With this, the client sub key will be available in key server. It will take few minutes to complete the task.</p>
+   <p>With this, the client subkey will be available in key server. It will take few minutes to complete the task.</p>
     </li>
   </ol>
 <h2>Create authentication files on SSH server</h2>
@@ -168,21 +166,21 @@ sub:u:2048:1:D5542FF062F4D3E5:2015-09-05::::::e:
      <ol> 
 <li>On the <strong>client server</strong>, execute the below command:
    <div class="hacker">ssh-agent sh -c 'monkeysphere subkey-to-ssh-agent &amp;&amp; ssh server.example.com'</div>
-   <p>You will be asked to enter the key passphrase and no user password will be prompted. After entering the key pass phrase, you will be logged in to the server server.</p><!--tester, I am assuming that "server server" is a server called "server" and not a repeated word.-->
+   <p>You will be asked to enter the key passphrase, but no user password will be prompted. After entering the key pass phrase, you will be logged in to the server server.</p><!--tester, I am assuming that "server server" is a server called "server" and not a repeated word.-->
    </li>
    <li>Set up an agent session.
    <div class="hacker">eval $(ssh-agent)</div>
    </li>
    
    
-   <li>Edit the <code>~/.bash_profile </code>to start this automatically and add the following:
+   <li>Edit the <code>~/.bash_profile </code>to start this automatically, and add the following:
    <div class="hacker">echo 'eval $(ssh-agent)' >> ~/.bash_profile</div>
    </li>
    <li>Add the GPG subkey to the client by executing the following command:
    <div class="hacker">monkeysphere subkey-to-ssh-agent</div>
    <p>It will prompt for the password, but only once for the entire session.</p>
-   <div class="hacker">ssh-add –l</div>
-   <p>Log in and you won’t be prompted for a pass phrase.</p>
+   <div class="hacker">ssh-add –l</div> </li>
+   <li>Log in, and you won’t be prompted for a pass phrase.=
    </li>
   </ol>
  

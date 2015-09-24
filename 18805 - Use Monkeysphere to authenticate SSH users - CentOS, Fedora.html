@@ -169,7 +169,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9R9BtcAFfd+qsGoaSqpDstif5UgM+CqVp46eNrfBs
 <ol> 
 <li>On the <strong>client server</strong>, execute the command below:
    <div class="hacker">ssh-agent sh -c 'monkeysphere subkey-to-ssh-agent &amp;&amp; ssh server.example.com'</div>
-   <p>You will be asked to enter the key passphrase, and no user password will be prompted. After entering the key pass phrase, you will be logged in to the server server.</p><!--tester, I am assuming that "server server" is a server called "server" and not a repeated word.-->
+   <p>You will be asked to enter the key passphrase, but no user password will be prompted. After entering the key pass phrase, you will be logged in to the server server.</p><!--tester, I am assuming that "server server" is a server called "server" and not a repeated word.-->
    </li>
 <li>Set up an agent session.
    <div class="hacker">eval $(ssh-agent)</div>
