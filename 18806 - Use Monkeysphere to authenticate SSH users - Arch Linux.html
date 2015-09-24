@@ -125,35 +125,32 @@ sub:u:2048:1:D5542FF062F4D3E5:2015-09-05::::::e:
 <li>Create directory in user home directory.
    <div class="hacker">mkdir .monkeysphere</div>
    </li>
-   <li>Grant required permissions.
+   <li>Grant the required permissions.
    <div class="hacker">chmod 755 .monkeysphere</div>
    <div class="hacker">cd .monkeysphere</div>
    </li>
-   <li>Create a file name <code>authorized_user_ids</code> and add the client and admin keys. You can find those keys by giving <code>gpg1 --list-keys <em><u>client</u></em>@<em><u>coolexample.com</u></em> </code>or <code>gpg1 --list-keys <em><u>admin</u></em>@<em><u>coolexample.com</u></em></code>command in respective servers.
-   <div class="hacker">
-<pre>
-vi  authorized_user_ids
-client &lt;client@junkdomain.com&gt;
-admin &lt;admin@junkdomain.com&gt;
-</pre>
-   </div>
+   <li>Create a new file named <code><em><u>authorized_user_ids</u></em></code>, and open it for editing.
+   <div class="hacker">vim <em><u>authorized_user_ids</u></em> </div>
    </li>
+   <li>On the <strong>client server</strong>, get the information about the client user (name and email).
+   <div class="hacker">gpg --list-keys <em><u>client</u></em>@<em><u>coolexample.com</u></em></div>
+   </li>
+   
    <li>Grant the required permission for file.
-   <div class="hacker">chmod 644 authorized_user_ids</div>
+   <div class="hacker">chmod 644 <em><u>authorized_user_ids</u></em></div>
    <p>Repeat this step for all users.</p>
    </li>
-   <li>Create an internal authentication files.
-   <p>Execute the following command to create an authentication file. This command should be executed after making changes to the user authentication.</p>
-   <div class="hacker">monkeysphere-authentication update-users</div>
-    <p>Update particular user by using the following command.</p>
+   <li>Create an internal authentication files. This command should be executed after making changes to the user authentication.
+   <div class="hacker">monkeysphere-authentication update-users</div></li>
+   <li>Update particular user by using the following command:
    <div class="hacker">monkeysphere-authentication update-users <em><u>user_name</u></em></div>
    </li>
-   <li>Navigate to the <code>/var/lib/monkeysphere/authorized_keys </code>directory and you will see the generated authentication file.
+   <li>Navigate to the <code>/var/lib/monkeysphere/authorized_keys </code>directory.
    <div class="hacker">cd /var/lib/monkeysphere/authorized_keys</div>
    <div class="hacker">ls</div>
    <div class="hacker">user</div>
    </li>
-   <li>Open the file for viewing. You can see the key, like normal authorized_keys entries.
+   <li>Open the file for viewing. You can see the key, like normal <code>authorized_keys </code>entries.
    <div class="hacker">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9R9BtcAFfd+qsGoaSqpDstif5UgM+CqVp46eNrfBsfXR9wT5vs1uPmdAiulM7GwB9Pl2J6IEobpceF516wv72OuUuH+Bg1Y8TIm6YI4MKALuCeBSP6uIT1uyN/Cdcnfk3LADphIBq8Un5xvB5taG8iVFnvYQ/E/wObJ7SLTGPsPzB2X7BEqFwAek6/VN8pzMr7djbEAOdoyD/GJ7iyZbWy2eLH65yl/2WiJa4cC6U/sfZlOLvp7XQX0oRV6iMJLOMCEWFOqekTHVsmOdszqHIRqe0n0zs8ZQtxkq7ODpNkn5XEG6Dq1Xz5Eqy06lNrjRM7UbxmKV7niFAJTQ7OcCX MonkeySphere2015-09-07T09:49:32 client client@junkdomain.com</div>
    </li>
 <li>Specify the authorized key location in <code>ssh </code>configuration.
