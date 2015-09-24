@@ -97,7 +97,7 @@
         <li>Open the configuration file of Apache.
             <div class='hacker'>sudo vim /etc/apache2/mods-available/dav_svn.conf</div>
       </li>
-        <li>Add the following lines above the <code>&lt;/VirtualHost&gt;</code>:
+        <li>Add the following lines at end of the file.:
           <div class='hacker'>
 		  <pre>
  &lt;Location /svn&gt;
@@ -151,9 +151,12 @@
             <div class='hacker'>sudo a2enmod ssl</div>
 			<div class='hacker'>sudo a2ensite default-ssl</div>
 			<div class='hacker'>sudo service apache2 restart</div>
+			Debian:
 			<div class='hacker'>sudo vim /etc/apache2/sites-available/default-ssl</div>
+			Ubuntu:
+			<div class='hacker'>sudo vim /etc/apache2/sites-available/default-ssl.conf</div>
         </li>
-        <li>Modify the Apache SSL configuration to enable SVN on a <strong>https</strong> protocol. 
+        <li>Modify or Insert the Apache SSL configuration to enable SVN on a <strong>https</strong> protocol. Paste the below code above the <code>&lt;/VirtualHost&gt;</code>. 
 		<div class='hacker'>
 		<pre>
   &lt;Location /svn&gt;
