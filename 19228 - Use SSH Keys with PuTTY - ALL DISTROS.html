@@ -46,6 +46,7 @@ td{border: 1px solid #b2b2b2
 td:nth-child(1) {font-weight:bold;}
 
 </style>
+
     <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
 <mso:ArticleKeywords msdt:dt="string"></mso:ArticleKeywords>
@@ -110,9 +111,9 @@ td:nth-child(1) {font-weight:bold;}
         <li>Right-click again in the field, and choose <strong>Copy</strong>.</li>
 </ol>
     <h2>Load the public SSH key</h2>
-    <p>In this example, we'll get the key from GoDaddy.com.</p>
+    <p>In this example, we'll get the key from the COMPANY_NAME panel.</p>
     <ol>
-        <li>Go to the SSH key page in the GoDaddy panel - https://cloud.godaddy.com/keys.</li>
+        <li>Go to the SSH key page in the COMPANY_NAME panel - <a href='https://cloud.godaddy.com/keys'>https://cloud.godaddy.com/keys</a>.</li>
         <li>Click <strong>Create Key</strong>. The <strong>Create SSH Key</strong> window  opens.<br/>
       <img src='images/19228/072815/server-panel-create-ssh.png' alt='Screenshot of the create ssh panel' /></li>
         <li>Enter a unique name that identifies the SSH key you created in the previous step.</li>
@@ -121,10 +122,10 @@ td:nth-child(1) {font-weight:bold;}
     </ol>
 <h2>Create a new server</h2>
     <ol>
-        <li>In the GoDaddy panel, click <strong>Servers</strong>.</li>
+        <li>In the COMPANY_NAME panel, click <strong>Servers</strong>.</li>
         <li>Click <strong>Create Server</strong>.</li>
         <li>Give a unique name to your server, and choose a size and base image.</li>
-        <li>Enter a username. This username should be different  from your main COMPANY_NAME account name.</li>
+        <li>Enter a username. This username should be different from your main COMPANY_NAME account name.</li>
         <li>In the <strong>Password</strong> field, choose <strong>Connect through SSH instead</strong>.</li>
         <li>From the drop-down list, select the SSH key created in the previous step.</li>
         <li>Click <strong>Finish</strong>.</li>
@@ -132,7 +133,7 @@ td:nth-child(1) {font-weight:bold;}
     <h2>Create a new PuTTY profile</h2>
     <ol>
         <li>Start PuTTY.</li>
-        <li>In the <strong>Host Name (or IP Address)</strong> field, enter the Public IP Address of the server created in the Godaddy Cloud Servers panel.<br/>
+        <li>In the <strong>Host Name (or IP Address)</strong> field, enter the Public IP Address of the server created in the COMPANY_NAME Cloud Servers panel.<br/>
             <img src='images/19228/072815/server-panel-servers.png' alt='Screenshot of the create servers panel' /></li>
         <li>In the <strong>Port</strong> field, enter "22".</li>
         <li>On the left-hand side, select the <strong>Data</strong> subcategory under <strong>Connection</strong>.</li>
