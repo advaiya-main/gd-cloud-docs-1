@@ -91,13 +91,16 @@ p.note {
    <div class="hacker">sudo apt-get install php5-gd</div>
    </li>
    <li>Check if <code>mod_rewrite</code> is enabled in your Apache using the following command.
-   <div class="hacker">sudo apache2ctl –M</div>
+   <div class="hacker">sudo apache2ctl -M</div>
    <p>If <code>rewrite_module</code> is in the list, then it is enabled, so you can jump to step 6.</p>
    </li>
    <li>Enable <code>rewrite_module</code>.
    <div class="hacker">sudo a2enmod rewrite</div>
    </li>
-   <li>Make the following corresponding changes in Debian to the <code>Directory</code> block of <code>/etc/apache2/sites-enabled/000-default </code>file to let <code>.htaccess </code> file override the default Apache instructions.
+   <li>Make the following corresponding changes in <strong>Debian</strong> to the <code>&lt;Directory /var/www/&gt;</code> block of <code>/etc/apache2/sites-enabled/000-default </code>file to let <code>.htaccess </code> file override the default Apache instructions.
+   <div class="hacker">
+	sudo vim /etc/apache2/sites-enabled/000-default
+   </div>
    <div class="hacker">
 <pre>
 &lt;Directory /var/www/&gt;
@@ -109,8 +112,11 @@ p.note {
 </pre>
    </div>
    </li>
-<li>Add the following block in Ubuntu to the <code>VirtualHost</code> block of <code>/etc/apache2/sites-available/000-default.conf </code>file to let <code>.htaccess </code> file override the default Apache instructions.
-   <div class="hacker">
+<li>Add the following block in <strong>Ubuntu</strong> to the <code>VirtualHost</code> block of <code>/etc/apache2/sites-available/000-default.conf </code>file to let <code>.htaccess </code> file override the default Apache instructions.
+<div class="hacker">
+	sudo vim /etc/apache2/sites-available/000-default.conf 
+   </div>   
+<div class="hacker">
 <pre>
 &lt;Directory /var/www/html&gt;
 		Options Indexes FollowSymLinks MultiViews
@@ -150,7 +156,7 @@ p.note {
   <h2>Install composer</h2>
 <ol> 
 <li>Change the ownership of the <code>drush</code> directory.
-	<div class = "hacker">sudo chown –R <em><u>user_name</u></em>:<em><u>user_name</u></em> drush/</div>
+	<div class = "hacker">sudo chown -R <em><u>user_name</u></em>:<em><u>user_name</u></em> drush/</div>
 	</li>
    <li>Change the directory to <code>drush</code>.
    <div class="hacker">cd drush</div>
@@ -179,20 +185,20 @@ p.note {
   <h2>Create a MySQL database and a user </h2>
 <ol> 
 <li>Log into the MySQL.
-   <div class="hacker">mysql -u root –p</div>
+   <div class="hacker">mysql -u root -p</div>
    <p>It will prompt you for a root password.</p>
    </li>
    <li>Create a database with following command:
-   <div class="hacker">CREATE DATABASE <em><u>drupal</u></em>;</div>
+   <div class="hacker">CREATE DATABASE <em><u>drupal_db</u></em>;</div>
    </li>
    <li>Create a user.
    <div class="hacker">CREATE USER <em><u>drupal_user@localhost</u></em>;</div>
    </li>
    <li>Set a password for the new user.
-   <div class="hacker">SET PASSWORD FOR drupal_user@localhost= PASSWORD("<em><u>password</u></em> ");</div>
+   <div class="hacker">SET PASSWORD FOR drupal_user@localhost= PASSWORD("<em><u>password</u></em>");</div>
    </li>
    <li>Grant privileges to the user.
-   <div class="hacker">GRANT ALL PRIVILEGES ON drupal.* TO drupal_user@localhost IDENTIFIED BY '<em><u>password </u></em>';</div>
+   <div class="hacker">GRANT ALL PRIVILEGES ON drupal_db.* TO drupal_user@localhost IDENTIFIED BY '<em><u>password</u></em>';</div>
    </li>
    <li>Refresh MySQL.
    <div class="hacker">FLUSH PRIVILEGES;</div>
@@ -208,7 +214,7 @@ p.note {
 <p>On Ubuntu, execute the following command.</p>
    <div class="hacker">sudo chown -R <em><u>user_name</u></em>:<em><u>user_name</u></em> /var/www/html/</div>
    <p>On Debian, execute the following command.</p>
-   <div class="hacker">sudo chown –R <em><u>user_name</u></em>:<em><u>user_name</u></em> /var/www/	</div>
+   <div class="hacker">sudo chown -R <em><u>user_name</u></em>:<em><u>user_name</u></em> /var/www/	</div>
    </li>
    <li>Navigate to the root folder corresponding to your distribution.
    <ul>
@@ -220,13 +226,17 @@ p.note {
    </ul></li>
 
    <li>Download Drupal. You can give any name to your Drupal project/site.
-   <div class="hacker">drush dl drupal --drupal-project-rename=<em><u>drupal_site,/u></em></div>
+   <div class="hacker">drush dl drupal --drupal-project-rename=<em><u>drupal_site</u></em></div>
+   </li>
+   <li>
+		Navigate to project directory.
+		<div class="hacker">
+		cd <em><u>drupal_site</u></em>
+		</div>
    </li>
    <li>Run the following command to configure Drupal, and then change the parameters as per your need.
    <div class="hacker">
-drush site-install standard --db-
-url=mysql://drupal_user:password@localhost/db_name --site-
-name=your_site_name --account-name=admin --account-pass=your_password
+drush site-install standard --db-url=mysql://<em><u>drupal_user</u></em>:<em><u>password</u></em>@localhost/<em><u>drupal_db</u></em> --site-name=<em><u>your_site_name</u></em> --account-name=<em><u>admin</u></em> --account-pass=<em><u>your_password</u></em>
    </div>
    <p>It will create a user with username <em><u>account-name</u></em> and the given password. </p>
    </li>
