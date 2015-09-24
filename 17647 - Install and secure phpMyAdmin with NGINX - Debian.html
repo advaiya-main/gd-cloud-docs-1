@@ -5,6 +5,7 @@
 <head>
 
 <title>Install and secure phpMyAdmin with NGINX - Debian</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -153,27 +154,26 @@ Your browser  displays the phpMyAdmin screen.  (You can also go to the old <code
 
         <li>Encrypt a password.
           <div class="hacker">openssl passwd</div>
- Once you enter and confirm your password, OpenSSL  returns the encrypted version of it.</li>
-        <li>Copy the encrypted version, and paste it into your password file, which now looks like this:
+ Once you enter and confirm your password, OpenSSL returns the encrypted version of it.</li>
+        <li>Copy the encrypted version, and paste it into your password file, which now looks something like this:
           <div class="hacker"><em><u>MyWebUserName</u></em>:<em><u>V.Cj1d1d1kew2</u></em></div>
 </li>
  <li>Open your Nginx configuration file or a file that it references with an "include".  It  looks similar to this:
-   <div class="hacker"># server context<br />
+   <div class="hacker"><pre># server context
      server {
     . . .
-
-     <br />
-     # location context<br />
-     location / { <br />
-&nbsp; try_files $uri $uri/ =404;
-     <br />
-     &nbsp; }
-     <br />
+     # location context
+     location / { 
+   &nbsp; try_files $uri $uri/ =404;  
+     &nbsp; }     
      # end of server context
-&nbsp;<br />
-    }</div> </li>  
+&nbsp;
+    }</pre></div> </li>  
+
+
      <li>Create a new location context so that your file looks like this:
- <div class="hacker">
+ 
+ <div class="hacker"><pre>
      # server context<br />
      server {
     . . .
@@ -202,8 +202,9 @@ Your browser  displays the phpMyAdmin screen.  (You can also go to the old <code
      <br />
      <br />
      # end of server context
-&nbsp;}</div>     
+&nbsp;}</pre></div>     
 </li>
+      
         <li>Save and close the file.
               
      </li>
