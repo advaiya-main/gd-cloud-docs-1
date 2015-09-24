@@ -130,9 +130,10 @@
 			<div class='hacker'>svn checkout http://<em><u>your_ip_address/svn/test/</u></em>trunk <em><u>test2</u></em></div>
         </li>
         <li>
-			After cloning the directory <code>test2</code>, create some additional test or sample files. Run the <code>svn add</code> command to push on remote repository. 
-            <div class='hacker'>touch index.php</div>
-			  <div class='hacker'>svn add index.php</div>
+			After cloning, change the directory to <code><em><u>test2</u></em></code>, create a few test or sample files. Run the <code>svn add</code> command to push into the remote repository. 
+			<div class='hacker'>cd <em><u>test2</u></em></div>
+            <div class='hacker'>touch <em><u>index.php</u></em></div>
+			  <div class='hacker'>svn add <em><u>index.php</u></em></div>
 			  <div class='hacker'>svn add *</div>
         </li>
 		<li>  To commit the modifications, use the following command:
@@ -150,7 +151,7 @@
             <div class='hacker'>sudo yum install mod_ssl openssl</div>
 			<div class='hacker'>sudo vi /etc/httpd/conf.d/ssl.conf</div>
 		 </li>
-        <li>Modify the Apache SSL configuration to enable SVN on a <strong>https</strong> protocol.
+        <li>Modify or Add the following configuration in Apache-SSL file to enable SVN on a <strong>https</strong> protocol.
 		<div class='hacker'>
 		<pre>
   &lt;Location /svn&gt;
