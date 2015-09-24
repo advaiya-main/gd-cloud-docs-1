@@ -229,19 +229,18 @@ This will be the parent directory.       </li>
   
    <p>You now need to update the default NGINX config file with our WordPress settings. Use the default server block <!--CT: that server block doesn't need to be wrapped in code. I think it'll actually cause confusion so I'm taking those off-->as a base for your new server block. </p>
    <ol>
-   <li> Copy over the block.
+    <li>First, create a backup of your config file. 
+<div class="hacker">sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak</div></li>
 
+   <li> Now, make a copy of the config file to use for WordPress.
 <div class="hacker">sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/wordpress</div> </li>
-<li>Open the new file you made, so that you can make some changes:
+<li>Open the new file to make some changes:
 
 <div class="hacker">sudo vim /etc/nginx/sites-available/wordpress </div></li>
-</ol>
-<h3>Update the config file</h3>
-<p>In the file, make these changes:</p>
-     <ol> 
-     <li>Point <code>root</code> to <code>/var/www/html</code>. Do this by finding the line <code>root /usr/share/nginx/html;</code> and change <code>/usr/share/nginx/html;</code> to <code>/var/www/html;</code>. Don't forget the trailing semi-colon ;</li>
+
+<li>In the file, point <code>root</code> to <code>/var/www/html</code>. Do this by finding the line <code>root /usr/share/nginx/html;</code> and change <code>/usr/share/nginx/html;</code> to <code>/var/www/html;</code>. Don't forget the trailing semi-colon ;</li>
       
-      <li>Optionally, point <code>server_name</code> to your site's domain or IP. For example, after the change the line may look like <code>server_name coolexample.com</code>.</li>
+      <!--CT:...<li>Optionally, point <code>server_name</code> to your site's domain or IP. </li>...-->
              
 <li>Save and close.</li>                     
                   </ol>
@@ -269,15 +268,17 @@ This will be the parent directory.       </li>
      <li>  Enter your server's domain name or public IP address in your web browser. We'll use 
    <strong>http://coolexample</strong></li>
 
-     <li><p>At the WordPress configuration page, fill out your information to create your administrator account. </p>
-<img src="images/17385/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="Install WordPress Welcome screen" /> </li>
-  <li> <p>	WordPress confirms your installation by displaying your username and password.</p>
-<img src="images/17385/082015/install-wordpress-on-your-server-success-login-confirmation-2.png" alt="Install WordPress Confirmation screen" />  </li>
-   <li>  <p>Click <strong>Log In</strong>. WordPress prompts you to log in with your new credentials.</p>
-<img src="images/17385/082015/install-wordpress-on-your-server-login-3.png" alt="WordPress Log In screen" />
+     <li>If you get the preliminary page to choose your language, do so and select <strong>Continue</strong>.
+</li>
 
-                                                          </li>
-                                                              </ol>
+<li>At the WordPress 5-minute installation page, fill out your information to create your administrator account. Then, click <strong>Install WordPress</strong>.
+<p><img src="images/17385/082015/install-wordpress-on-your-server-welcome-filledout-1.png" alt="install wordpress welcome screen" /> </p></li>
+<li>On the next screen, WordPress confirms your installation with your user name and (hidden) password. Click <strong>Log In</strong>.</li>
+
+ <li><p> WordPress then prompts you to log in again with your new credentials. Do so now and click <strong>Log In</strong>.</p>
+<img src="images/17385/082015/install-wordpress-on-your-server-login-3.png" alt="wordpress login screen" /></li>
+     </ol>
+     
  <p>All done! You'll be taken to the dashboard of your new site.</p>    
      
      
