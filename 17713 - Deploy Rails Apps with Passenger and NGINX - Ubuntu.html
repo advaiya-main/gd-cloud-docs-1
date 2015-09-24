@@ -153,11 +153,19 @@ Uncomment or Insert the following line in the <code>http {</code> section:
 <li>Open NGINX configuration file <code>/etc/nginx/sites-enabled/default</code> to configure the host.
   <div class="hacker">sudo vim /etc/nginx/sites-enabled/default</div>
   </li>
+  <li>Find the <code>location / {</code> and comment code.
+	<div class="hacker">
+	 #location / {<br/>
+                # First attempt to serve request as file, then<br/>
+                # as directory, then fall back to displaying a 404.<br/>
+        #       try_files $uri $uri/ =404;<br/>
+        #}<br/>
+	</div>
   <li>Make corresponding changes as shown in the code:
   <div class="hacker">
 <pre>server {
         listen 80 default_server;
-        listen [::]:80 default_server ipv6only=on;
+        
 
 	root        <em><u>/home/username/Your_application</u></em>/public; # Your rails application's path
         passenger_enabled on;

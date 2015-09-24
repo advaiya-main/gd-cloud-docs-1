@@ -157,13 +157,13 @@ database section , type your database name here
 <div class="hacker">cd ~/myapp</div>
 <div class="hacker">rake secret</div>
 </li>
-<li>After you have generated the secret key, you will find a token key. Copy that token or key. To do this, open <code>.rbenv-vars</code> file into your favorite editor and replace your key with <code>your_generated_secret key</code>
+<li>After you have generated the secret key, you will find a token key. Copy that token or key. To do this, open <code>.rbenv-vars</code> file into your favorite editor and add your key with <code><em><u>your_generated_secret</u></em></code> key.
 <div class="hacker">vim .rbenv-vars</div>
-<div class="hacker">SECRET_KEY_BASE=your_generated_secret </div>
+<div class="hacker">SECRET_KEY_BASE=<em><u>your_generated_secret</u></em> </div>
 <p class="note">Environment variable which you set in this file will be read by your Rails application.</p>
 </li>
 <li>Set the database password for connection.
-<div class="hacker">MYAPP_DATABASE_PASSWORD=production_database_password</div>
+<div class="hacker">MYAPP_DATABASE_PASSWORD=<em><u>production_database_password</u></em></div>
 </li>
 <li>Set your database environment variable similar to the one that is defined in the database configuration file i.e <code>database.yml.</code></li>
 <li>Save and Exit. </li>
@@ -187,9 +187,9 @@ database section , type your database name here
 <div class="hacker">RAILS_ENV=production rake assets:precompile</div>
 </li>
 <li>Test the application environments, where you can also bind your public IP.
-<div class="hacker">RAILS_ENV=production rails server --binding=server_public_IP</div>
+<div class="hacker">RAILS_ENV=production rails server --binding=<em><u>Your_server_ip</u></em></div>
 </li>
-<li>Open the browser and type <strong>http://server_public_IP:3000/tasks</strong> in the address bar.
+<li>Open the browser and type <strong>http://Your_server_ip:3000/tasks</strong> in the address bar.
 </li>
 <li>You will see the following output on the browser:<br />
 <img src="images/17994 - 1.png" alt="Listing Tasks screenshot"/> </li>

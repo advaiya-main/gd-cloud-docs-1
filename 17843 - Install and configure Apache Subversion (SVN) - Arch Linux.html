@@ -81,7 +81,7 @@ p.note {
 <div class = "hacker">sudo pacman -Syu</div>
 </li>
 <li>Install Subversion and Apache.
-<div class = "hacker">sudo pacman -S subversion http</div>
+<div class = "hacker">sudo pacman -S subversion apache</div>
 </li>
 </ol>
  <h2>Create a SVN directory</h2>
@@ -166,9 +166,10 @@ LoadModule authz_svn_module     modules/mod_authz_svn.so
 			<div class='hacker'>svn checkout http://<em><u>your_ip_address/svn/test/</u></em>trunk <em><u>test2</u></em></div>
         </li>
         <li>
-			After cloning the directory <code>test2</code>, create some test or sample files. Run the <code>svn add</code> command to push into the remote repository. 
-            <div class='hacker'>touch index.php</div>
-			  <div class='hacker'>svn add index.php</div>
+			After cloning, change the directory to <code><em><u>test2</u></em></code>, create a few test or sample files. Run the <code>svn add</code> command to push into the remote repository. 
+			<div class='hacker'>cd <em><u>test2</u></em></div>
+            <div class='hacker'>touch <em><u>index.php</u></em></div>
+			  <div class='hacker'>svn add <em><u>index.php</u></em></div>
 			  <div class='hacker'>svn add *</div>
         </li>
 		<li>To commit the modifications, use the following command:
@@ -182,7 +183,7 @@ LoadModule authz_svn_module     modules/mod_authz_svn.so
 <h2>Set up SVN with Apache-SSL</h2>
 <ol>
 	    <li>To use <strong>https</strong>, follow the below command to enable the SSL modules and the default SSL web site.
-			<div class='hacker'>sudo vi /etc/httpd/conf.d/ssl.conf</div>
+			<div class='hacker'>sudo vim /etc/httpd/conf.d/ssl.conf</div>
 		 </li>
 		 <li>Modify Apache SSL configuration as per the following to enable SVN on <strong>https</strong> protocol: 
 		 <div class = "hacker"><pre> &lt;Location /svn&gt;
@@ -201,11 +202,12 @@ LoadModule authz_svn_module     modules/mod_authz_svn.so
 </li>
  <li><p>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key. </p></li>
  <li>Restart the Apache server to implement the changes.
-            <div class='hacker'>/etc/init.d/apache2 restart</div>
+            <div class='hacker'>sudo systemctl restart httpd.service 
+</div>
 			
         </li>
 		<li>To check out the repository, use the following command:
-		<div class='hacker'>svn checkout --username <em><u>svnuser</u></em> https://<em><u>your_ip_address/svn/test/</u></em> <em><u>/home/somedir</u></em></div>
+		<div class='hacker'>sudo svn checkout --username <em><u>svnuser</u></em> https://<em><u>your_ip_address/svn/test/</u></em> <em><u>/home/somedir</u></em></div>
 		</li>
 </ol>
 <h2>Conclusion</h2>

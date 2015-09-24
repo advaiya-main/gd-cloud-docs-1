@@ -84,7 +84,7 @@ p.note {
 <p><strong>Time: </strong> 30 minutes</p>
 <p>
 Rails enables web developers to rapidly build quality applications, while Nginx is a lightweight, high-performance web server. In this article you'll learn to deploy a Rails application on an Nginx web server using the simple and powerful features of Phusion Passenger. This task assumes that you have <code>sudo</code> privileges.</p>
-<p>To set up your Fedora server, refer to  <a href ="17322"> Initial Server Setup - Fedora</a>. Ensure that the fully qualified domain name (FQDN) points to the server. After you  set up the  server, you  need to <a href ="17536"> install Ruby on Rails using RVM</a>. You may also refer to <a href ="17719"> Deploy Rails Apps with Passenger and Apache - Fedora</a>.</p>
+<p>To set up your Fedora server, refer to  <a href ="17322"> Initial Server Setup - Fedora</a>. Ensure that the fully qualified domain name (FQDN) points to the server. After you  set up the  server, you  need to <a href ="17535"> install Ruby on Rails using RVM</a>. You may also refer to <a href ="17719"> Deploy Rails Apps with Passenger and Apache - Fedora</a>.</p>
   
  <h2>Install Nginx and Passenger</h2>
     <ol>
@@ -114,6 +114,7 @@ Rails enables web developers to rapidly build quality applications, while Nginx 
           <div class='hacker'>1. Yes: download, compile and install Nginx for me.(recommended)
        <br/> 
        The easiest way to get started. A stock Nginx 1.4.4 with Passenger support, but with no other additional third party modules, will be installed for you to a directory of your choice.</div>
+	   <p class="note">Keep defaults for every prompted message by pressing the <strong>Enter</strong> key.</p>
         </li>
   
     </ol>
@@ -154,11 +155,11 @@ Rails enables web developers to rapidly build quality applications, while Nginx 
 
     </li>
 	
-    <li>Find the <code>location / {</code> and comment code.
+    <li>Find the <code>location / {</code> and comment the code.
 	<div class="hacker">
 	#location / {<br/>
-#   root   html;{<br/>
-#   index  index.html index.htm;{<br/>
+#   root   html;<br/>
+#   index  index.html index.htm;<br/>
 #}
 	</div>
 	
@@ -167,7 +168,7 @@ Rails enables web developers to rapidly build quality applications, while Nginx 
             <div class='hacker'>
       server {
        <br /> listen 80 default_server;
-        <br />listen [::]:80 default_server ipv6only=on;
+        
     
         <br />server_name <em><u>www.coolexample.com</u></em>;  #Replace with your FQDN or Server IP
         <br />passenger_enabled on;
@@ -183,11 +184,12 @@ Rails enables web developers to rapidly build quality applications, while Nginx 
 <br />}
 </div>
       </li> 
-		<li>Save and exit.
-			<div class ="hacker">wq!</div>
+		<li>To save and exit the file by pressing the <strong>Esc</strong> key and then type the following character.
+			<div class ="hacker">:wq!</div>
 		</li>
         <li>To start the Nginx web service.
             <div class='hacker'> sudo /opt/nginx/sbin/nginx </div>
+<p class="note">			To test Rails application open the browser and type <strong>http://your_server_ip</strong></p>
         </li>
 		<li>To stop the Nginx web service.
             <div class='hacker'> ps wax | grep nginx </div>

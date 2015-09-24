@@ -146,15 +146,14 @@ will be installed for you to a directory of your choice.</pre>
  <li>Find the <code>location / {</code> and comment code.
 	<div class="hacker">
 	#location / {<br/>
-#   root   html;{<br/>
-#   index  index.html index.htm;{<br/>
+#   root   html;<br/>
+#   index  index.html index.htm;<br/>
 #}
 	</div>
 	
 	</li>
         <li>Make corresponding changes in the file as shown in code.
-          <div class='hacker'><pre> server { <br /> listen 80 default_server; <br /> listen [::]:80 default_server ipv6only=on;
-        <br />server_name <em><u>www.coolexample.com</u></em>;  #Replace with your FQDN or Server IP <br />passenger_enabled on;
+          <div class='hacker'><pre> server { <br /> listen 80 default_server; <br /> server_name <em><u>www.coolexample.com</u></em>;  #Replace with your FQDN or Server IP <br />passenger_enabled on;
        <br />rails_env    production; <br />root      <em><u>/var/www/Your_application</u></em>/public;#Rails application path
 
  # redirect server error pages to the static page /50x.html
@@ -166,11 +165,12 @@ will be installed for you to a directory of your choice.</pre>
 </pre>
 </div>
       </li>
-<li>Save and exit.
-<div class = "hacker">wq!</div>
+<li>To save and exit the file by pressing the <strong>Esc</strong> key and then type the following character.
+<div class = "hacker">:wq!</div>
 </li>	  
         <li>To start the Nginx web service.
-            <div class='hacker'> sudo /opt/nginx/sbin/nginx </div>
+            <div class='hacker'>sudo /opt/nginx/sbin/nginx </div>
+			<p class="note">To test Rails application open the browser and type <strong>http://your_server_ip</strong></p>
         </li>
 		<li>To stop the Nginx web service.
             <div class='hacker'> ps wax | grep nginx </div>

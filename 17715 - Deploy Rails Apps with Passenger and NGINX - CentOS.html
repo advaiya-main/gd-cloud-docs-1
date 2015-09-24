@@ -143,8 +143,8 @@ p.note {
 	<li>Find the <code>location / {</code> and comment code.
 	<div class="hacker">
 	#location / {<br/>
-#   root   html;{<br/>
-#   index  index.html index.htm;{<br/>
+#   root   html;<br/>
+#   index  index.html index.htm;<br/>
 #}
 	</div>
 	
@@ -154,7 +154,11 @@ p.note {
             <div class='hacker'>
       server {
        <br /> listen 80 default_server;
+<<<<<<< HEAD
         <br />#listen [::]:80 default_server ipv6only=on;
+=======
+       
+>>>>>>> origin/master
     
         <br />server_name <em><u>www.coolexample.com</u></em>;
         <br />passenger_enabled on;
@@ -175,6 +179,7 @@ p.note {
 		</li>
         <li>To start the Nginx web service.
             <div class='hacker'> sudo /opt/nginx/sbin/nginx </div>
+			<p class="note">			To test Rails application open the browser and type <strong>http://your_server_ip</strong></p>
         </li>
 		<li>To stop the Nginx web service.
             <div class='hacker'> ps wax | grep nginx </div>

@@ -87,7 +87,7 @@ p.note {
    <div class="hacker">sudo apt-get install php5-curl php5-gd</div>
    </li>
    <li>Moodle uses <code>mysqli</code> extension for database manipulation. Install <code>mysqli</code> using the following command:
-   <div class="hacker">sudo apt-get install  php5-mysql php5-mysqlnd</div>
+   <div class="hacker">sudo apt-get install php5-mysql</div>
    </li>
    <li>Restart the Apache services to make the changes effective.
    <div class="hacker">sudo service apache2 restart</div>
@@ -99,7 +99,7 @@ p.note {
 <ol> 
 <li>Download the Moodle source from the official site.
    <div class="hacker">cd /var/www/html</div>
-   <div class="hacker">sudo wget <em><u>http://download.moodle.org/download.php/direct/stable25/moodle-latest-25.tgz</u></em></div>  <!-- test, should this be a variable. -->
+   <div class="hacker">sudo wget <em><u>http://download.moodle.org/download.php/direct/stable25/moodle-latest-25.tgz</u></em></div>
    </li>
    <li>Extract the downloaded source using the following command:
    <div class="hacker">sudo tar xzvf moodle-latest-25.tgz</div>
@@ -124,12 +124,13 @@ p.note {
 <h2>Create a database</h2>
 <ol> 
 <li>Create a blank database for the backend operation.
-   <div class="hacker">mysql –u root –p</div>
+   <div class="hacker">mysql -u root -p</div>
    <div class="hacker">CREATE DATABASE <em><u>moodle</u></em>;</div>
    </li>
-   <li>Exit.
-   <!-- TEST - This procedure seems incomplete?-->
+   <li>Exit from the <code>MySQL</code> console by typing <strong>exit</strong> or press <strong>CTRL+C</strong>.
+   
    </li>
+     <li>After the configuration is complete you will see <strong>Server Checks</strong> and <strong>Installation</strong> page click on <strong>Continue</strong> button on both page. </li>
    </ol>
    
 <h2>Install Moodle</h2>
