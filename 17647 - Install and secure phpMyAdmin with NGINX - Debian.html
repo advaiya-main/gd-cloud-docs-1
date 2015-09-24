@@ -155,54 +155,42 @@ Your browser  displays the phpMyAdmin screen.  (You can also go to the old <code
         <li>Encrypt a password.
           <div class="hacker">openssl passwd</div>
  Once you enter and confirm your password, OpenSSL returns the encrypted version of it.</li>
-        <li>Copy the encrypted version, and paste it into your password file, which now looks something like this:
+        <li>Copy the encrypted version, and paste it into your password file, an example of which looks like this:
           <div class="hacker"><em><u>MyWebUserName</u></em>:<em><u>V.Cj1d1d1kew2</u></em></div>
 </li>
- <li>Open your Nginx configuration file or a file that it references with an "include".  It  looks similar to this:
+ <li>Open your Nginx configuration file or a file that it references with an "include".  It looks similar to this:
    <div class="hacker"><pre># server context
      server {
-    . . .
+     ...
      # location context
      location / { 
-   &nbsp; try_files $uri $uri/ =404;  
-     &nbsp; }     
+     try_files $uri $uri/ =404;     
+                }    
      # end of server context
-&nbsp;
     }</pre></div> </li>  
 
 
-     <li>Create a new location context so that your file looks like this:
+     <li>Create a new location context so that your file will look something like this:
  
- <div class="hacker"><pre>
-     # server context<br />
+<div class="hacker"><pre>
+     # server context
      server {
-    . . .
+    ...
+     
+     # location context (existing)
+     location / { 
+     try_files $uri $uri/ =404;     
+                }
+                 
+     <em><u># location context (new)</u></em> 
+     <em><u>location /nodbhere {</u></em>
+     <em><u>auth_basic "MyWebLoginChallenge";</u></em> 
+     <em><u>auth_basic_user_file /etc/nginx/mypasswordfile;</u></em>     
+                        <em><u>}</u></em>        
+     <em><u># end of server context</u></em>
+     }</pre></div>  
 
-     <br />
-     # location context (existing)<br />
-     location / { <br />
-&nbsp; try_files $uri $uri/ =404;
-     <br />
-     }
 
- }
-
-     <br />
-     # location context (new)<br />
-     location /nodbhere <br />
-     {
-        auth_basic "MyWebLoginChallenge";
-        
-&nbsp; 
-     <br />
-     auth_basic_user_file /etc/nginx/mypasswordfile;
-     <br />
-&nbsp;&nbsp;}
-
-     <br />
-     <br />
-     # end of server context
-&nbsp;}</pre></div>     
 </li>
       
         <li>Save and close the file.
