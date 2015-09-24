@@ -92,7 +92,7 @@ PN- Broken down into smaller sections</mso:ReviewComments>
 
 <p>This article will cover how to properly install Joomla Console on your Arch Linux. </p>
 
-    <h2>Prerequisite - Install and configure PHP</h2>
+    <h2>Install and configure PHP</h2>
     <ol>
         <li>
             Install and configure PHP, if you haven't done so already.
@@ -104,10 +104,10 @@ PN- Broken down into smaller sections</mso:ReviewComments>
             <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
         </li>
         <li>
-            Under the  <code>Dynamic Shared Object (DSO) Support </code> section: 
+            Under the <code>Dynamic Shared Object (DSO) Support </code> section: 
               <ul>
                 <li>Add the line:
-                    <div class="hacker"> LoadModule php5_module modules/libphp5.so</div></li>
+                    <code> LoadModule php5_module modules/libphp5.so</code></li>
                 <li>Comment out the line: <code>LoadModule mpm_event_module modules/mod_mpm_event.so</code></li>
                 <li>Uncomment the line: <code> LoadModule mpm_prefork_module modules/mod_mpm_prefork.so</code></li>
               </ul>
@@ -119,7 +119,7 @@ Include conf/extra/php5_module.conf</pre>
             </div>
         </li>
         <li>
-            Under the <code>&lt;IfModule mime_module> </code>section, add the following lines:<div class="hacker">
+            Under the <code>IfModule mime_module</code> section, add the following lines:<div class="hacker">
 <pre>AddType application/x-httpd-php .php
 AddType application/x-httpd-php-source .phps</pre>
             </div></li>
@@ -141,10 +141,11 @@ AddType application/x-httpd-php-source .phps</pre>
             <ul>
             <li>
             Uncomment <code>extension=phar.so</code> and <code>extension=openssl.so</code>   </li>
-            <li>Comment out the existing <code> open_basedir </code> line and add the line <code>open_basedir = none</code> </li>
+            <li>Comment out the existing <code> open_basedir </code> line</li>
+            <li>Add the line <code>open_basedir = none</code> </li>
             </ul></li>
               <li>
-           From your home directory, use the <code>wget</code> command to get the newest version of Joomla Console. Get this directly from the joomlatools.com GitHub, to ensure that it is always the most up-to-date version of Joomla Console. 
+           From your home directory, use the <code>wget</code> command to get the newest version of Joomla Console. Get this directly from the <strong>joomlatools.com</strong> GitHub, to ensure that it is always the most up-to-date version of Joomla Console. 
             <div class="hacker"> wget https://github.com/joomlatools/joomla-console/archive/master.zip</div>
         </li>
         <li>  Install <code>unzip</code> and unzip the Joomla Console archive.
@@ -155,7 +156,7 @@ AddType application/x-httpd-php-source .phps</pre>
         </li>
 
         <li>For the ease of use, rename this directory "joomla-console." 
-        <div class="hacker"> mv joomla-console-master/ joomla-console</div>
+        <div class="hacker"> mv joomla-console-master/<em><u>joomla-console</u></em></div>
             You should now have a directory in your home directory named <code>joomla-console</code>.
         </li>
         <li>Remove the original <code>master.zip</code> file.
