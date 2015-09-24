@@ -4,10 +4,6 @@
 
 <head>
 
-<!--Article Number is  17461 -->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
-
 
 <title>Install and configure PostgreSQL - Debian</title>
 <style type="text/css">
@@ -68,15 +64,15 @@ p.note {
 </head>
 
 <body>
-<p>Installation and configuration of PostgreSQL in Debian, Databases, and PostgreSQL.</p>
-    <h1>Install and configure PostgreSQL - Debian</h1>
+<p>Installation and configuration of PostgreSQL in Debian, databases</p>
+    <h1>Install and Configure PostgreSQL - Debian</h1>
     
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>15 minutes</em></p>
 
-    <p>This article describes installation and configuration of PostgreSQL on Debian.
+    <p>This article describes the installation and configuration of PostgreSQL on Debian.
 PostgreSQL is an open-source relational database management system. PostgreSQL uses the Structured Query Language (SQL) to manipulate data. </p>
-    <p>To perform these tasks, we  assume that you have <code>sudo</code> privileges.
+    <p>The tasks in this article assume that you have <code>sudo</code> privileges.
     </p>
 <h2>Install PostgreSQL</h2>
 <ol> 
@@ -86,7 +82,7 @@ PostgreSQL is an open-source relational database management system. PostgreSQL u
    <li>Install the PostgreSQL package and  necessary dependencies.
      <div class="hacker">sudo apt-get install postgresql postgresql-contrib</div>
    </li>
-   <li>Configure PostgreSQL to start up upon server boot.
+   <li>Configure PostgreSQL to start up on server boot.
      <div class="hacker">sudo  update-rc.d postgresql enable</div>
    </li>
    <li>Start the PostgreSQL service.
@@ -99,7 +95,7 @@ PostgreSQL is an open-source relational database management system. PostgreSQL u
  
   <h2>Connect to PostgreSQL</h2>
 <ol> 
-<li>Log in with the <code>Postgres</code> user.
+<li>Log in with the <code>postgres</code> user.
    <div class="hacker">sudo su - postgres</div>
   </li>
    <li>Log into the database.
@@ -115,6 +111,6 @@ PostgreSQL is an open-source relational database management system. PostgreSQL u
   </ol>
              
 <h2>Next steps</h2>
-    <p>In this article, you have installed and configured PostgreSQL. Now you are ready to create your own database for your applications. See <a href="17528">Use PostgreSQL with your Ruby on Rails Application on Debian</a>.</p>
+    <p>You have installed and configured PostgreSQL. Now you are ready to create your own database for your applications. See <a href="17528">Use PostgreSQL with your Ruby on Rails Application - Debian</a>.</p>
 </body>
 </html>
