@@ -10,7 +10,8 @@
 
 
 <title>Redirect www to Non-www with Apache - Ubuntu</title>
-<style>
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -27,7 +28,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -39,8 +40,17 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
-</style>
 
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
@@ -96,14 +106,16 @@ p.note {
     <ol>
         <li>
             Once you log in, click <strong>Manage</strong> in the <strong>Domains</strong> section.
-            <img src="/images/17813/Manage_Domains.png" alt="Manage Domains" />
-        </li>
+            <img src="images/17813/091115/Manage_Domains.png" alt="Manage Domains" />
+                   </li>
         <li>
-        This will take you to the list of domains you have with COMPANY_NAME. Click the drop down button on the domain that you want to work with and click on <strong>MANAGE DNS</strong>.
-        <img src="/images/17813/DNS_Manage.png"  alt="DNS Manage"/><li>
-        <li>If you dont see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field. Here's how both the records will look like
-            <img src="/images/17813/A_CNAME_Record.png" alt="DNS Records" />
-        You should now be able to access both the www and non-www domains of your server.
+        <p>This will take you to the list of domains you have with COMPANY_NAME. Click the drop down button on the domain that you want to work with and click on <strong>MANAGE DNS</strong>.</p>
+        <img src="images/17813/091115/DNS_Manage.png"  alt="DNS Manage"/></li>
+
+               <li><p>If you don't see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field.</p> 
+                <p>Here's how both the records will look like:</p>
+            <img src="images/17813/091115/A_CNAME_Record.png" alt="DNS Records" />
+       <p> You should now be able to access both the www and non-www domains of your server.</p>
         </li>
 
         </ol>
