@@ -4,7 +4,7 @@
 
 <head>
 
-<!--Article Number is 00003 -->
+<!--Article Number is 00054 -->
 
 
 <title>Set up local hosts to test virtual host setup - Arch Linux</title>
@@ -78,13 +78,18 @@ p.note {
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>10 minutes</em></p>
 
-   <p>This article will guide you to test your virtual host setup using local hosts file. First, you need to install a webserver (Apache) on your server using <a href="17339">Configure Apache Virtual Hosts Setup on Arch Linux</a> link.</p>
+   <p>This article will guide you to test your virtual host setup using local hosts file.</p>
+   <p>Before starting, you need to install a web server (Apache) on your server. For details, see <a href="17339">Configure Apache Virtual Hosts Setup on Arch Linux</a> link.</p>
 		
     
-	<h2>Virtual hosts</h2>
-	<ul>
-	<li>After the Apache is installed and configured on your server, look for the configuration file in <code>/etc/httpd/conf/extra/httpd-vhosts.conf</code> location:
+<h2>Virtual hosts</h2>
+	<ol>
+	<li>Open the configuration file <code>/etc/httpd/conf/extra/httpd-vhosts.conf</code>
+	<div class="hacker">sudo vim /etc/httpd/conf/extra/httpd-vhosts.conf</div>
+	</li>
 	
+	<li>Add the following code at the end of the file:
+
 	 <div class="hacker"><pre>
 &lt;VirtualHost *:80&gt;
     ServerAdmin <em><u>admin@coolexample.com</u></em>
@@ -96,19 +101,23 @@ p.note {
 &lt;/VirtualHost&gt;</pre>
 	 </div>	
 	 </li>
-	 </ul>
+	 <li>Save and close by pressing the  <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+
+	 </ol>
 	 
 	<h2>Set up local hosts</h2>
 	<p>If you want to test your domain before completing the DNS propagation, then with the help of your computer’s hosts file, you can access your configured domain. </p>
 	<ol>
-	<li>If you are using a Linux computer, then edit the hosts file using the following command:
-	<div class="hacker">/etc/hosts</div></li>
-<li>Add appropriate entries for your server’s IP address followed by the domain name, as shown in the following:
-   <div class="hacker">127.0.0.1   <em><u>localhost</u></em></div>
-   <div class="hacker">111.1.11.3 <em><u>coolexample.com</u></em></div>
-   <p>The above code tells your local resolver to directly search for the domain in server with IP address - 111.1.11.3. Hence, you will get the contents without complete DNS propagation.</p>
+	<li>If you are using a Linux computer, edit the <code>hosts</code> file.
+	<div class="hacker">sudo vim /etc/hosts</div></li>
+	
+    <li>Add appropriate entries for your server’s IP address followed by the domain name at the end of the file, as shown in the following:
+   < <div class="hacker"><pre>127.0.0.1                         localhost
+<em><u>Public_IP_Address_of_your_Server</u></em>  <em><u>coolexample.com</u></em></pre></div>
+   <p>The above code tells the local resolver to directly search for the domain in the server with Your Server's IP address. Hence, you will get the contents without complete DNS propagation.</p>
    </li>
-   <li>Access the domain <em><u>http://coolexample.com</u></em> in your browser to display the page for you.
+       <li>Save and close by pressing the  <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+   <li>Access the domain <em><u>http://coolexample.com</u></em> in your browser to display the page.
    </li>
     </ol>
 	         
