@@ -150,7 +150,7 @@ CONFIG_backup_dir = '<em><u>/var/backup/db</u></em>'</div>
 
 <h2>Back up using replication</h2>
 <p>You may use MySQL replication to back up the data with the above techniques. While replication allows for data mirroring,  it might fail to save a specific point in time. This is because it constantly replicates the changes in a dynamic environment. To avoid this problem, you can either disable replication temporarily or 
-create the backup machine in a read-only state temporarily.</p>
+make the backup machine read-only  temporarily.</p>
 
 
 <h3>Disable replication temporarily</h3>
