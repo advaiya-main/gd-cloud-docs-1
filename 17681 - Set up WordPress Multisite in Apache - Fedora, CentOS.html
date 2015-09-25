@@ -165,12 +165,12 @@ aboutus.coolexample.com</td>
   <ol>
     <li>Download the WordPress files from the official site using <code>wget</code>.
   <div class="hacker">cd ~</div>
-  <div class="hacker">wget http://wordpress.org/latest.tar.gz    </div>
+  <div class="hacker">sudo wget http://wordpress.org/latest.tar.gz    </div>
     This URL  always links to a compressed file of the latest stable version of WordPress.      </li>
     
     <li>Extract, or untar, the application directory.
       
-      <div class="hacker">tar xzvf latest.tar.gz </div>
+      <div class="hacker">sudo tar xzvf latest.tar.gz </div>
   <p>This command creates a directory <code>wordpress</code> in your home directory.</p></li>
   </ol>
   
@@ -185,7 +185,7 @@ aboutus.coolexample.com</td>
     This  safely copies all of the contents from the directory you unpacked to the document root.   </li>
     <li>Set directory permissions  so that you can work with WordPress content (for example, upload images).
       Make the group ownership recursive to make sure that it will write to your subdirectories.
-      <div class="hacker">sudo chown www-data:www-data /var/www/html * -R</div>
+      <div class="hacker">sudo chown apache:apache /var/www/html * -R</div>
       <div class="hacker">sudo chmod u+x /var/www/html * -R</div>
     </li>
     
@@ -232,7 +232,7 @@ aboutus.coolexample.com</td>
   
   <p>Now you can access the WordPress web interface.</p>             
   <ol>
-    <li>  In your web browser, enter your primary domain name. In our example, that's 
+    <li>  In order for WordPress to recognize the fact that you have multiple sites, you must enter your primary domain name (not your IP address) in your web browser. In our example, that's 
       <strong>http://coolexample.com</strong>.
     (If the Apache default page displays, append <code>/wp-admin/ </code>to your URL.)</li>
     <li>If you get an introductory page, click <strong>Let's go!</strong> to continue.<br />
