@@ -179,11 +179,15 @@ CONFIG_backup_dir = '<em><u>/var/backup/db</u></em>'</div>
    <li>Write all of the cached changes to the disk, and set the system read-only.
      <div class="hacker">FLUSH TABLES WITH READ LOCK; </div>
    <div class="hacker">SET GLOBAL read_only = ON;</div>
+   
    </li>
+   <li class="note">Exit from the <code>MySQL</code> console by pressing <code><strong>CTRL+C</strong></code> or type <code><strong>exit</strong></code>.</li>
    <li>Perform the backup using <code>mysqldump</code> as shown below.
    <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
    </li>
-   <li>After the backup is complete, return the system to its original working state.
+   
+   <li>After the backup is complete re-login to <code>MySQL</code> console and return the system to its original working state.
+   <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
      <div class="hacker">SET GLOBAL read_only = OFF;</div>
    <div class="hacker">UNLOCK TABLES;</div>
   </li>
