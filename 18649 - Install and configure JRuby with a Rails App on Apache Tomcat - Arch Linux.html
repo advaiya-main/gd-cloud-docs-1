@@ -86,20 +86,11 @@ p.note {
 
 <h2>Install Java 8 </h2>
 <ol>
-<li>Open the pacman configuration file.
-<div class="hacker">sudo vim /etc/pacman.conf</div>
-</li>
-<li>Add following line at the end of the file:
-<div class="hacker">[archlinuxfr]</div>
-<div class="hacker">server = http://repo.archlinux.fr/$arch</div>
-</li>
-<li><p>Save and exit by pressing <strong>ESC</strong> key, and then typing <code>:wq</code>.</p>
-</li>
 <li>Update the pacman repository list.
 <div class="hacker">sudo pacman -Syu</div>
 </li>
 <li>Install Java in Arch Linux machine.
-<div class="hacker">sudo pacman -S jre8-openjdk jdk8-openjdk</div>
+<div class="hacker">sudo pacman -S jre8-openjdk-headless</div>
 </li>
 <li>Verify the version of Java.
 <div class="hacker">java -version</div>
@@ -132,12 +123,12 @@ p.note {
 <div class="hacker">. ~/.rvm/scripts/rvm</div>
 </li>
 <li>Create sample application for JRuby.
-<div class="hacker">rails new jsample</div>
+<div class="hacker">rails new <em><u>~/jsample</u></em></div>
 </li>
 <li>Navigate to the Rails application directory to install gems.
-<div class="hacker">cd  /path/to/jsample</div>
+<div class="hacker">cd <em><u>~/jsample</u></em></div>
 </li>
-<li>Install gems in the Rails application.
+<li>Install gems in the sample Rails application.
 <div class="hacker">bundle install</div>
 </li>
 <li>Add some pages in Rails application using the Rails Scaffolding feature.
@@ -149,7 +140,7 @@ p.note {
 <li>Open the <code>routes.rb</code> file to update the route of application to redirect index page.
 <div class="hacker">vim config/routes.rb</div>
 </li>
-<li>Add the following line below <code>resource</code> label:
+<li>Add following line below the <code>resources :employees</code> label:
 <div class="hacker">root 'employees#index'</div>
 </li>
 <li>The file should look like the following:
@@ -159,7 +150,7 @@ p.note {
 end</pre></div>
 </li>
 <li>Test the application by starting Rails web server.
-<div class="hacker">rails s --binding=0.0.0.0</div>
+<div class="hacker">rails s --binding=<em><u>your_server_ip</u></em></div>
 </li>
 </ol>
 
@@ -173,7 +164,7 @@ end</pre></div>
 <li><p>For Windows machine, use <code>winscp</code> to transfer the file to remote instance. Download from this link <strong><a href="http://winscp.en.lo4d.com/">http://winscp.en.lo4d.com/</a></strong>  </p>
 </li>
 <li>For Linux machine, use <code>scp</code> command to transfer the file. Here is an example for using <code>scp</code> command in Linux (all platforms).
-<div class="hacker">scp /path/to/jce_policy-8.zip remote_user@target_server_ip</div>
+<div class="hacker">scp <em><u>~/</u></em>jce_policy-8.zip <em><u>remote_user</u></em>@<em><u>target_server_ip</u></em></div>
 </li>
 </ul>
 </li>
@@ -183,51 +174,56 @@ end</pre></div>
 <div class="hacker">sudo pacman -S install unzip</div>
 </li>
 <li>Unzip the Java policies compressed file.
-<div class="hacker">unzip /path/to/ jce_policy-8.zip</div>
+<div class="hacker">cd  ~</div>
+<div class="hacker">unzip ~/jce_policy-8.zip</div>
 </li>
 <li>Copy the jar file policies to the Java security folder group.
 <div class="hacker">cd UnlimitedJCEPolicyJDK8</div>
 <div class="hacker">sudo cp *.jar /usr/lib/jvm/java-8-openjdk/jre/lib/security</div>
 </li>
 <li>Update the directory to point to the Rails application.
-<div class="hacker">cd /path/to/Jsample</div>
+<div class="hacker">cd <em><u>~/jsample</u></em></div>
 </li>
 <li>Speed up the JVM startup by executing the following command:
 <div class="hacker">export JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"</div>
 </li>
 <li>Test that the application is running.
-<div class="hacker">rails s --binding=0.0.0.0</div>
+<div class="hacker">rails s --binding=<em><u>your_server_ip</u></em></div></div>
 </li>
 </ol>
 
 <h2>Create WAR deployer</h2>
 <ol>
-<li>Install warbler, which will be used to convert JRuby Applications to Web Application Archiver (WAR) files.
+<li>Install warbler, which will be used to convert <code>JRuby</code> Applications to Web Application Archiver (WAR) files
 <div class="hacker">gem install warbler</div>
 </li>
-<li>Update the path of SQLite database, to avoid overwriting of database at default location.
-<div class="hacker">mkdir -p ~/JRubyDatabase/Jsample</div>
+<li>Update the path of SQLite database to avoid overwriting of database at the default location.
+<div class="hacker">mkdir -p <em><u>~/jrubydatabase/jsample</u></em></div>
 </li>
-<li>Move the development database to <code>Jsample</code> directory.
-<div class="hacker">mv ~/jsample/db/development.sqlite3 ~/JRubyDatabase/Jsample</div>
+<li>Move the <code>development</code> database to the <code>jsample</code> directory.
+<div class="hacker">mv <em><u>~/jsample/db/development.sqlite3</u></em> <em><u>~/jrubydatabase/jsample</u></em></div>
 </li>
-<li>Open the configuration file to update directory to point to Jsample.
+<li>Open the configuration file to update directory to point to jsample.
 <div class="hacker">vim config/database.yml</div>
 </li>
-<li>Locate the <code>development</code> section in <code>database.yml</code> file development, and update it as follows:
-development:
-<div class="hacker"><pre>&lt;&lt;: *default
-database: ~/JRubyDatabase/Jsample/development.sqlite3</pre></div>
+<li>Locate the <code>development</code> section in the <code>database.yml</code> file, and update it as follows:
+<div class="hacker">
+&lt;&lt;: *default</div>
+<div class="hacker">database: ~/jrubydatabase/jsample/development.sqlite3</div>
 </li>
-<li>Open the <code>warble.rb</code> configuration file to update the environment settings. 
-  <div class="hacker"> vim ~/rails_application/Jsample/config/warble.rb </div>
+<li>Open the <code>warble.rb</code> configuration file to update the environment settings.
+<div class="hacker">vim <em><u>~/jsample</u></em>/config/warble.rb </div>
 </li>
-<li>Add following content to the file.
-<div class="hacker"><pre>Warbler::Config.new do |config| config.webxml.rails.env = 'development'
-end</pre></div>
+<li>Add the following content to the file:
+<div class="hacker">Warbler::Config.new do |config| config.webxml.rails.env = 'development'</div>
+<div class="hacker">end</div>
+
 </li>
-<li>Package Rails application into WAR.
+<li>To save and exit press <strong>Esc</strong> and type the following characters <strong>:wq!</strong></li>
+<li>Package the Rails application into WAR.
 <div class="hacker">warble executable war</div>
+
+<p>Creating the WAR package will take some time.</p>
 </li>
 </ol>
 
@@ -237,29 +233,30 @@ end</pre></div>
 <ol>
 <li>Download the latest version of Tomcat.
 <div class="hacker">cd ~</div>
-<div class="hacker">http://mirror.cogentco.com/pub/apache/tomcat/tomcat-8/v<em><u>8.0.24</u></em>/bin/apache-tomcat-<em><u>8.0.24</u></em>.tar.gz</div>
-</li>
+<div class="hacker">wget http://mirror.cogentco.com/pub/apache/tomcat/tomcat-8/v8.0.26/bin/apache-tomcat-8.0.26.tar.gz</u></em> </div></li>
 <li>Extract the Tomcat archive. 
-<div class="hacker">tar -xvzf apache-tomcat-<em><u>8.0.24</u></em>.tar.gz</div>
+<div class="hacker">tar -xvzf apache-tomcat-8.0.26.tar.gz</div>
 </li>
-<li>Set the maximum heap size available to Tomcat to <code>512m</code> to avoid 'Out of Memory' errors in Java. This update is required every time the Tomcat server is started.
+<li>Set the maximum heap size available to Tomcat to <code>512m</code> to avoid 'Out of Memory' errors in Java. This update is required every time that the Tomcat server is started.
 <div class="hacker">export CATALINA_OPTS="-Xmx512m"</div>
 </li>
-<li>Set the randomness generation:
+<li>Set the randomness generation parameters.
 <div class="hacker">export JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"</div>
 </li>
-<li>Start Tomcat.
-<div class="hacker">~/apache-tomcat-<em><u>8.0.24</u></em>/bin/catalina.sh start</div>
+<li>To start the Tomcat.
+<div class="hacker">cd ~/apache-tomcat-8.0.26</div>
+<div class="hacker">bin/catalina.sh start</div>
 </li>
-<li>To check if your Tomcat is running, open a browser and type: 
+<li>Check that Tomcat is running, by opening the following URL in  browser: 
 <strong>http://<em><u>your_server_ip</u></em>:8080/</strong>
 </li>
 </ol>
 
 <h2>Deploy Rails application on Tomcat</h2>
 <ol>
-<li>Copy the <code>.war</code> file to webapp of Tomcat.
-<div class="hacker">cp ~/jsample/jsample.war ~/apache-tomcat-<em><u>8.0.24</u></em>/webapps/</div>
+<li>Copy <code>.war</code> file to webapp of Tomcat.
+<div class="hacker">cp <em><u>~/jsample/</u></em>jsample.war ~/apache-tomcat-8.0.26/webapps/</div>
+
 </li>
 <li>Restart all the sessions.
 <div class="hacker">. ~/.rvm/scripts/rvm</div>
@@ -269,13 +266,11 @@ end</pre></div>
 <div class="hacker">export CATALINA_OPTS="-Xmx512m"</div>
 <div class="hacker">export JAVA_OPTS="-Djava.security.egd=file:/dev/./urandom"</div>
 </li>
-<li>Start the Tomcat server again.
-<div class="hacker">~/apache-tomcat-<em><u>8.0.24</u></em>/bin/catalina.sh start</div>
-</li>
-<li>Go to the browser, and then type your public IP in the address bar.
-<strong>http://<em><u>yourserver_ip</u></em>:8080/jsample</strong>
+<li>Go to browser, and type your public IP in address bar.
+<strong>http://<em><u>your_server_ip</u></em>:8080/jsample</strong>
 </li>
 </ol>
+
 
 <p>A successful execution will display this page:</p>
  <p><img src="images/18649 - 2.png" alt="Listing Employees page" /></p>
