@@ -8,6 +8,7 @@
 
 
 <title>Install and use Webmin - CentOS, Fedora</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -25,7 +26,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -37,6 +38,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -82,10 +93,10 @@ p.note {
                <li>Edit the <code>/etc/sudoers</code> file with visudo.
                    <div class="hacker">sudo visudo</div>
                </li>
-               <li>Find the section that looks like this:
+               <li>Find this line in the file:
                    <div class="hacker"><pre>root    ALL=(ALL) ALL </pre></div>
               </li>
-              <li>Add a line in it for the user you use to log into your server, which will grant <code>sudo</code> privileges to that user.
+              <li>Add a line underneath it for the user you use to log into your server, which will grant <code>sudo</code> privileges to that user.
                    <div class="hacker"><pre>root    ALL=(ALL) ALL 
 <em><u>yourloginuser</u></em>    ALL=(ALL) ALL </pre></div>
               </li>
@@ -111,18 +122,18 @@ enabled=1</pre></div>
                    <div class="hacker">sudo rpm --import jcameron-key.asc </div>
               </li>
               <li>Update your local repository.
-                   <div class="hacker">sudo yum update</div>
+                   <div class="hacker">sudo yum -y update</div>
               </li>
               <li>Install Webmin.
-                   <div class="hacker">sudo yum install webmin</div>
+                   <div class="hacker">sudo yum install -y webmin</div>
               </li>
  </ol>
  <h2>Verification</h2>
  <ol>
                <li>In your browser, go to the Webmin login page. 
-                <strong>https://<em><u>your IP address</u></em>:10000</strong>
+                <strong>https://<em><u>Your IP address</u></em>:10000</strong>
               </li>
-              <li>Ignore the SSL warning. You can trust this server because you own it. 
+              <li>Ignore the SSL warning and proceed. You can trust this server because you own it. 
               </li>
               <li>A login screen will appear.  Log in using the <em><u>yourloginuser</u></em>, and start using Webmin!
               </li>
