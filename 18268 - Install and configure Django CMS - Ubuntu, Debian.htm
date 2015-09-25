@@ -7,7 +7,7 @@
 <!--Article Number is 18268-->
 
 
-<title>Install and configure Django CMS - Ubuntu, Debian</title>
+<title>Install and configure Django CMS - Debian, Ubuntu</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -78,34 +78,31 @@ p.note {
 <h1>Install and Configure Django CMS - CentOS, Fedora Linux</h1>
 
                 <p><strong>Difficulty</strong>: <em><u>4</u></em><br/>
-                <strong>Time</strong>: <em><u>4.00</u></em></p>
-<!--Missing difficulty and time-->
+                <strong>Time</strong>: <em><u>4 hours</u></em></p>
 
-                <p><b>Django CMS</b>is one of the content management systems that is geared towards working with Django framework based web applications, we will walk you through installing Django CMS on a CentOS, Fedora Linux VPS, ready to be configured and used. </p>
-                <p>Django CMS comes with a relatively straight forward and quite rich documentation for development which will be more than enough to get you going after completing this tutorial. You can access the latest version on the                               <a href="http://docs.django-cms.org/en/2.4.2/getting_started/tutorial.html">Django CMS web site</a>.</p>
+
+                <p><b>Django CMS</b> is a content management system that works with Django framework-based web applications. In this article, you will install Django CMS on a configured and ready to use CentOS and Fedora Linux VPS. </p>
+                <p>After installing and configuring Django CMS, you can reference the Django CMS documentation.  The latest version is available on the <a href="http://docs.django-cms.org/en/2.4.2/getting_started/tutorial.html">Django CMS web site</a>.</p>
 
 
 <h2>Introduction</h2>
 
 <h3>Installing Django CMS</h3>
 
-
-            <p><b>Python Package Manager: pip:</b> pip is a package manager which will help us to install the software packages (tools, libraries, applications).   </p>
-
-
-            <p><b>Python Package Distribution Utility: setuptools: </b>A dependency of pip, setuptools library builds on the functionality of Python's standard software distribution utilities toolset distutils.  </p>
-
-
-            <p><b>Virtual Python Environment Builder: virtualenv</b> The virtualenv tool is here to isolate our Django CMS application repository and its complex dependencies from the rest of the system, allowing us to have everything in order, easing maintenance at the same time</p>  <br/>
-
+<p>There are three tools that you will need:<p>
+<ul>
+<li><strong>pip</strong> is the Python Package Manager, which installs the software packages, including tools, libraries and applications.</li>
+<li><strong>setuptools</strong> is the Python Package Distribution Utility, which builds on Python's distuils. Distuils is Python's software distribution utilities toolset. It is a dependency of pip.</li>
+<li><strong>virtualenv</strong> is the Virtual Python Environment Builder. This tool isolates the Django CMS application respository, and its dependencies, from the rest of the system. 
+</ul>
 
 <h2>Update and Configure the VPS</h2>
 
 <h3>Prepare the Operating System</h3>
 
-                    <p class="note">Please Note: We will be using a freshly created VPS for this article. This prevents any possible software related or security issues from the past installations. </p>
+                    <p class="note">Create a new VPS for this tutorial. Using an existing VPS installation can introduce software-related or security issues. </p>
     <ol>
-                <li>First we will start with upgradng the software repository list followed by upgrading the installed tools on our machine to more recent versions:
+                <li>Upgrade the software repository list, followed by upgrading the installed tools on your machine to more recent versions:
                         <div class="hacker">sudo aptitude update
                                             sudo aptitude upgrade</div></li>
 
@@ -115,46 +112,47 @@ p.note {
                             <li><b>python-dev:</b> This package extends the default Python installation on our system.</li>
                             <li><b>libjpeg-dev/libpng-dev:</b> These libraries will be needed for image processing with Python imaging library.</li>
                             <li><b>libpq-dev:</b> The libpq's (PostgreSQL) development version, which we will need further later on in the tutorial.</li>
-            </ul> <br/>
+            </ul> <br />
                 To download and install, run the following command:
                         <div class="hacker">sudo aptitude install libpq-dev python-dev libjpeg-dev libpng-dev</div>
-                Once the package manager is updated you will install the Virtual Environment.</li>
+                .</li>
         </ol>
 
 <h2>Install the Virtual Environment</h2>
 
-                 <p>Everything we need runs on Python. Default Debian 7 installation comes with Python version 2.7. As this suits our requirements, we can continue with installing pip, which we need for the virtualenv (and other packages') installation.<br/>
-                    Before getting pip, we first need to install its dependency: <b>setuptools</b>.</p>
+                 <p>Python version 2.7 includes the default Debian 7 installation. We need to install pip, which is needed to install virtualenv and other packages. However, before we can install pip, we need to install setuptools.</p>
 
 <h3>Install setuptools:</h3>
         <ul>
-                <li>Use a command called curl to securely get these files. These setup files will not only allow us to have the installation process automated, but also ensures that we have the latest stable versions running on our system. curl here will verify the SSL certificates from the source and pass the data to the Python interpreter. <br/>
-                Run the following command
-                        <div class="hacker">$ curl http://pypi.python.org/pypi/setuptools</div>
-                We can now install and set up pip on our system.</li>
+                <li>Use a command called <strong>curl</strong> to securely get these files.
+ The setup files automate the installation process and ensures that your system runs the latest and most stable version. Curl verifies the SSL certificates and passes the data to the Python interpreter.                  
+                
+
+                Install setuptools.
+                        <div class="hacker">$ curl http://pypi.python.org/pypi/setuptools</div></li>
         </ul>
 
-<h3>Install pip:</h3>
+<h3>Install pip</h3>
 
         <ol>
-                <li>Let's use curl again to have it securely downloaded and installed. Run the following:
+                <li>Use curl to install pip.
                             <div class="hacker">$ sudo yum install python-pip</div></li>
 
-                <li>By default, pip installs its files under <code>/usr/local/bin location</code>. We need to append it to our PATH so that we will be able to run it with calling pip command directly.
+                <li>Pip installs the files under <code>/usr/local/bin location</code>. Append it to our PATH, so that it can be run from the pip command.
                             <div class="hacker">export PATH="/usr/local/bin:$PATH"</div>
-                    As we have pip the package manager, all installations from now on are as easy as <code>pip install package-name</code>. However, as we want the latest stable release of virtualenv, we are going to provide pip with the address. </li>
+Now that pip is installed as our package manager, use the command <code>pip install package-name</code> for all installations. If you want the latest stable release of virtualenv, you can provide pip with the address. </li>
         </ol>
 
 
-<h3>Install virtualenv:</h3>
+<h3>Install virtualenv</h3>
 
         <ul>
-                <li>Run the following to have pip install virtualen install virtualenv system-wide.
+                <li>Use pip to install virtualen install virtualenv system-wide.
                         <div class="hacker">sudo pip install virtualenv</div></li>
         </ul>
 
 
-<h2>Preparing our Virtual Environment (venv) for Django CMS</h2>
+<h2>Prepare your Virtual Environment (venv) for Django CMS</h2>
 
         <ol>
                 <li>All the tools we need are ready and we can begin preparing the virtual environment where our Django CMS project is going to reside.<br/>
@@ -164,17 +162,17 @@ p.note {
                         virtualenv project_cms  <br />
                         cd project_cms      <br /></div>
 
-                        <p class="note">"We chose <code>project_cms</code> as the project repository's folder name. You can change it as you wish, keep in mind that choosing an unrelated name could cause trouble in the future with maintenance.</p> </li>
+                        <p class="note">"We chose <code>project_cms</code> as the project repository's folder name. You can change it, but keep in mind that choosing an unrelated name could cause trouble in the future with maintenance.</p> </li>
 
                 <li>Upon creating a virtualenv, you need to activate it in order to use it.
                         <div class="hacker">source bin/activate </div>
 
-                <p class="note">Note: Upon activation, in order to deactivate, simply run the command deactivate when needed. </p></li>
+                <p class="note">Upon activation, in order to deactivate, simply run the command deactivate when needed. </p></li>
         </ol>
 
-<h2>Setting up Django CMS Dependencies</h2>
+<h2>Set up Django CMS Dependencies</h2>
 
-<h3>Install pillow (drop-in pil replacement):</h3>
+<h3>Install pillow (drop-in pil replacement)</h3>
 
         <ul>
                 <li>Run the following to have pillow downloaded and installed:
@@ -183,7 +181,7 @@ p.note {
         </ul>
 
 
-<h3>Installing database drivers</h3>
+<h3>Install database drivers</h3>
 
         <ul>
                 <li>The PostgreSQL database adapter which is used by Django is called psycopg2. It needs libpq-dev library installed and we recommend installing it in the beginning:
@@ -199,9 +197,9 @@ p.note {
 
         </ul>
 
-<h2>Installing and Setting up Django CMS</h2>
+<h2>Instal and Set up Django CMS</h2>
 
-<h3>Installing Django CMS</h3>
+<h3>Install Django CMS</h3>
 
         <ul>
                 <li>Django CMS comes with a number of other dependencies we yet need to install.Simply run the following to conclude the installations:<br/>
@@ -211,7 +209,7 @@ p.note {
 
         </ul>
 
-<h3>Setting up Django CMS</h3>
+<h3>Set up Django CMS</h3>
 
                 <p>Creating a Django CMS project consists of two parts. First, we will start a regular Django project in our virtual environment and then continue with setting it up to have it working as Django CMS.
                     Let's begin with creating the Django project. We will name it <b>dev_cms </b>, you can choose it to suit your needs.</p>
@@ -229,26 +227,26 @@ p.note {
         </ol>
 
 
-<h3>Finalizing setup</h3>
+<h3>Finalize setup</h3>
 
          <ol>
 
         <li>Most of the configurations for Django CMS takes place inside the <code>settings.py</code> file located inside the project folder.  <br />
         Open it with your favourite editor. In this tutorial, we will be using <code>vim</code>. <br />
-        <code>project_cms$ vim dev_cms/settings.py</code> <br/>  </li>
+        <code>project_cms$ vim dev_cms/settings.py</code> <br />  </li>
 
-        <li>Add the following lines to the top of the file under the highlighted sentence in the file:  <br />  <br />
-        <code># Build paths inside the project like this: os.path.join(BASE_DIR, ...)</code> <br/>
-        <br/>
-        <code>import os</code> <br/>
+        <li>Add the following lines to the top of the file, under the highlighted sentence in the file:  <br />  <br />
+        <code># Build paths inside the project like this: os.path.join(BASE_DIR, ...)</code> <br />
+        <br />
+        <code>import os</code> <br />
         <br />
         <code>BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</code> <br />  </li>
 
 
-        <li>Let's begin with the <b>INSTALLED_APPS</b> section. there is an existing list of modules, append the names of a few more which we've already installed, including the Django CMS module itself.
+        <li>Let's begin with the <b>INSTALLED_APPS</b> section. There is an existing list of modules. Append the names of a few more, which we've already installed, including the Django CMS module itself.
         As stated on the Django CMS documentation:<br/>
 
-       Add the following apps to your INSTALLED_APPS (under the highlighted portion). This includes django CMS itself as well as its dependenices and other highly recommended applications/libraries:
+       Add the following apps to your INSTALLED_APPS (under the highlighted portion). This includes django CMS itself, as well as its dependenices and other highly recommended applications/libraries:
 
             <div class="hacker">
 <pre>INSTALLED_APPS = (
@@ -266,7 +264,7 @@ p.note {
 )
   </pre></div>
 
-            <p class="note"> Please note: Before moving on, make sure to uncomment django.contrib.admin from the list as well. That module is needed for the setup procedure.</p></li>
+            <p class="note">Before moving on, make sure to uncomment django.contrib.admin from the list as well. That module is needed for the setup procedure.</p></li>
 
         <li>Next, let's find <code>MIDDLEWARE_CLASSES</code> and add the following to the bottom of the list:
 
@@ -334,7 +332,7 @@ p.note {
                                 ('en-us', 'English'),    <br />
                                 ]     </div>   </li>
 
-        <li>Finally let's define a database engine. You can modify the DATABASES setting to work with PostgreSQL as shown or use the following to have SQLite database set up temporarily:
+        <li>Finally, let's define a database engine. You can modify the DATABASES setting to work with PostgreSQL as shown, or use the following to have SQLite database set up temporarily:
 
             <div class="hacker"> DATABASES = {  <br />
                                 'default': {     <br />
@@ -344,7 +342,7 @@ p.note {
                                 }  </div>  </li>
 
 
-         <li>We are done with the settings.py . We can save and close it. (Press CTRL+X and type Y to save and close).
+         <li>We are done with the settings.py . We can save and close it. (Press <strong>CTRL+X</strong> and type <strong>Y</strong> to save and close).
             We need to define routes for our project.  <br />
             We will do this by editing <b>urls.py file:</b>
 
@@ -375,7 +373,7 @@ p.note {
                 <p class="note">Please note that the last conditional created in the above snippet slightly differs from the Django CMS introductory settings, whereby <code>urlpatterns = patterns(</code> is replaced with <code>urlpatterns += patterns(</code> to fix the problem of overriding <code> urlpatterns </code>set above. <br />  </p> </li>
 
 
-        <li>Again press CTRL+X and type Y to save and close. </li>
+        <li>Again, press <strong>CTRL+X</strong> and type <strong>Y</strong> to save and close. </li>
 
         <li>Execute the following commands to synchronise database according to our settings:
 
@@ -383,12 +381,12 @@ p.note {
                                 project_cms$ python manage.py migrate --fake </div></li>
 
 
-        <li>If you see "Installation okay", it means everything is fine and we can try it on the test server before continuing with building on our Django CMS project. <br />
+        <li>If you see <code>Installation okay</code>, it means everything is fine and we can try it on the test server before continuing with building on our Django CMS project. <br />
             Let's run the server again:
 
             <div class="hacker"> project_cms$ python manage.py cms check</div> </li>
 
-
+ <!--Is this a duplicate line or a new command?  The code is different.-->
         <li>If you see "Installation okay", it means everything is fine and we can try it on the test server before continuing with building on our Django CMS project.  <br />
            Let's run the server again:
 
