@@ -10,7 +10,7 @@
 
 
 <title>Install and Configure RethinkDB - CentOS, Fedora</title>
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -75,19 +75,19 @@ p.note {
 <p><strong>Difficulty:</strong> <em>2</em></p>
 <p><strong>Time:</strong> <em>20 minutes</em></p>
 
-<p>This article will guide you through the installation of RethinkDB in CentOS and Fedora. RethinkDB belongs to the NoSQL family that can be easily configured with JSON storage database. It has two components - the database itself and the client driver to access the database from our selected database. You will need <code>sudo</code> access to complete these steps.</p>
+<p>RethinkDB belongs to the NoSQL family that can be easily configured with JSON storage database. It has two components - the database itself and the client driver to access the database from our selected database. This article will guide you through the installation of RethinkDB in CentOS and Fedora. </p>
+<p class="note">You will need <code>sudo</code> access to complete these steps.</p>
 
 <h2>Install the server</h2>
 <ol>
-<li>We will add the repositories for RethinkDB yum to the existing list of repositories and then install it using the following command:
+<li>Add the repositories for RethinkDB yum to the existing list of repositories:
 
 <div class="hacker">sudo wget http://download.rethinkdb.com/centos/6/`uname -m`/rethinkdb.repo \</div>
     <div class="hacker">-O /etc/yum.repos.d/rethinkdb.repo</div>
-
+</li>
+<li>Install rethinkDB.
 	<div class="hacker">sudo yum install rethinkdb</div>
     </li>
-<li>We are done with the RethinkDB installation but we need client drivers as well.
-</li>
 </ol>
 
 <h2>Install the client drivers</h2>
@@ -98,7 +98,6 @@ p.note {
 <li>Now install gem 
 		<div class="hacker">sudo gem install rethinkdb</div>
 </li>
-<li><p>Now you can start the RethinkDB server with "$ rethinkdb" command.</p> </li>
 <li>To install Javascript driver use the following command:
 		<div class="hacker">sudo yum install npm</div>
 		<div class="hacker">npm install rethinkdb</div>
@@ -109,8 +108,36 @@ p.note {
 </li>
 </ol>
 
+<h2>Start RethinkDB</h2>
+<ul>
+	<li>Start RethinkDB to access.
+		<div class="hacker">
+		rethinkdb --bind all
+		</div>
+		Access your rethinkDB at <strong><u><em>http://public_IP_of_your_server_or_domain</em></u>:8080</strong><br />
+	</li>
+</ul>
+<h2>Configure RethinkDB</h2>
+<ol>
+<li>Open configuration file.
+<div class="hacker">sudo cp /etc/rethinkdb/default.conf.sample /etc/rethinkdb/instances.d/instance.conf</div>
+<div class="hacker">sudo vi /etc/rethinkdb/instances.d/instance.conf</div>
+</li>
+<li>
+locate <code>server-name</code> and type following line beneath it to give your server name.
+<div class="hacker">server-name=<em><u>rethinkdb</u></em>	</div>
+</li>
+<li> To make it listen on all network. locate <code>bind=127.0.0.1</code> and type following line beneath it.
+<div class="hacker">bind=all</div>
+</li>
+<li>Save the configuration changes made, and then start RethinkDB with new build configuration.
+<div class="hacker">sudo service rethinkdb restart</div>
+
+</li>
+
+</ol>
 <h2>Next Steps </h2>
-<p>In this article, we have used the binary files to install RethinkDB and its client drivers. However, you can also install them using the source file.</p>
+<p>In this article, you reviewed the steps to install and configure RethinkDB on Debian and Ubuntu servers. For more information on how to configure RethinkDB cluster on Ubuntu and Debian servers, see the article: <a href="18529">Set up a sharded RethinkDB Cluster - CentOS, Fedora</a></p>
 
 </body>
 </html>
