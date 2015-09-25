@@ -76,7 +76,7 @@ p.note {
     <ol>
             <li>Download the <strong>WordPress Domain mapping</strong> plug-in. <br />
 
-<div class="hacker">cd ~ wget http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip</div>   </li> 
+<div class="hacker">wget http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip</div>   </li> 
 
 
             <li>Unzip the plug-in.
@@ -85,11 +85,11 @@ p.note {
                   
 
             <li>Move the files to the WordPress <code>/wp-content/plugins/directory</code> directory. <br />
-                    <div class="hacker">sudo mv wordpress-mu-domain-mapping <br />
+                    <div class="hacker">sudo mv wordpress-mu-domain-mapping 
                      /var/www/html/wp-content/plugins/</div>   </li>
 
             <li>Copy  <code>sunrise.php</code> into your WordPress document root.
-                    <div class="hacker">sudo cp /var/www/html/wp-content/plugins/wordpress-mu-domain-mapping/sunrise.php    <br />
+                    <div class="hacker">sudo cp /var/www/html/wp-content/plugins/wordpress-mu-domain-mapping/sunrise.php   
                     /var/www/html/wp-content/</div>   </li>
 
     </ol>
@@ -112,7 +112,10 @@ p.note {
               
                <li>Restart Apache.
 
-                      <div class="hacker">sudo service apache2 restart</div></li>
+                      <div class="hacker">sudo service httpd restart</div>
+                   or
+ <div class="hacker">sudo service apache2 restart</div>
+               </li>
     </ol>
 
 
