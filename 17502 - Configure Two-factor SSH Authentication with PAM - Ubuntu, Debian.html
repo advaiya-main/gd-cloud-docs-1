@@ -104,6 +104,7 @@ With the above steps, <code>libqrencode3</code> will also be installed on the sy
 <li>Update the following line as shown below:
 <div class="hacker">ChallengeResponseAuthentication yes</div>
 </li>
+<li>Save and exit the file by pressing <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 </ol>
 
 <h2>Activate the two-factor authentication for a user</h2>
@@ -114,16 +115,15 @@ With the above steps, <code>libqrencode3</code> will also be installed on the sy
 <div class="hacker">google-authenticator</div>
 </li>
 <li>Answer the questions presented. Answer <strong>y</strong> to the first two questions:
-<div class="hacker">Do you want authentication tokens to be time-based (y/n) y</div>
-<div class="hacker">Do you want me to update your "/home/user/.google_authenticator" file (y/n) y</div>
+<div class="hacker">Do you want authentication tokens to be time-based (y/n) <em><u>y</u></em></div>
+<div class="hacker">Do you want me to update your "/home/user/.google_authenticator" file (y/n) <em><u>y</u></em></div>
 </li>
 <li><p>Answer the remaining questions.</p></li>
 <li><p>After answering the questions, a QR code is displayed. Scan this QR code using the Google authenticator application on your smartphone. You can also add this account using a secret key and a verification code, which depends on your requirements.</p>
 </li>
-<li>Switch to the root user and restart SSH service in the server. 
-<div class="hacker">sudo su -</div>
-<div class="hacker">service ssh restart</div>
-<p>In case you configured authentication for root user, then you only need to restart SSH service in the server.</p>
+<li>Restart SSH service in the server. 
+<div class="hacker">sudo service ssh restart</div>
+<p>Next time when you login into the system, you will have to type the verification code from Google Authenticator app on your smart-phone along with your system password. </p>
 </li>
 </ol>
 

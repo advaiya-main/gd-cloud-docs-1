@@ -80,12 +80,13 @@ p.note {
 <li>Update all the system packages, and install the <code>proftpd</code> package.
    <div class="hacker">sudo  apt-get  -y  update</div>
    <div class="hacker">sudo apt-get install proftpd</div>
+   <p class="note">Choose the <code>standalone</code> option, when promted for type of proftpd.</p>
    </li>
    <li>Open the ProFTPd configuration file.
-     <div class="hacker">Sudo vim /etc/proftpd/proftpd.conf</div>
+     <div class="hacker">sudo vim /etc/proftpd/proftpd.conf</div>
    </li>
    <li>Change the <code>ServerName</code> parameter to match your domain name or IP address.
-   <div class="hacker">ServerName      "<em><u>your_Domain_Or_IP_Address</u></em>"</div>
+   <div class="hacker">serverName      "<em><u>your_Domain_Or_IP_Address</u></em>"</div>
    </li>
    <li>Uncomment the following line:
    <div class="hacker">DefaultRoot     ~</div>
@@ -133,7 +134,7 @@ p.note {
    <div class="hacker">ssh-keygen</div>
    </li>
    <li>Go to the <code>/home/<em><u>UserName</u></em>/.ssh</code> directory.
-     <div class="hacker">Cd /home/<em><u>UserName</u></em>/.ssh/</div>
+     <div class="hacker">cd /home/<em><u>UserName</u></em>/.ssh/</div>
    </li>
    <li>View the content of the following file:
      <div class="hacker">sudo cat id_rsa</div>
@@ -144,7 +145,7 @@ p.note {
    <div class="hacker">sudo mkdir /etc/proftpd/<em><u>authorized_keys</u></em></div>
    </li>
    <li>Convert the authorized private keys that are currently used to log into the server.
-   <div class="hacker">sudo ssh-keygen -e -f /home/<em><u>UserName</u></em>/.ssh/id_rsa.pub | sudo tee /etc/proftpd/authorized_keys//<em><u>UserName</u></em></div>
+   <div class="hacker">sudo ssh-keygen -e -f /home/<em><u>UserName</u></em>/.ssh/id_rsa.pub | sudo tee /etc/proftpd/authorized_keys/<em><u>UserName</u></em></div>
    </li>
    <li>Restart the ProFTPd service.
    <div class="hacker">sudo service proftpd restart</div>
@@ -181,7 +182,7 @@ p.note {
    <li>Restart the ProFTPd service.
    <div class="hacker">sudo service proftpd restart</div>
    </li>
-   <li>Enter <strong>Host</strong> (or IP address), <strong>Username</strong>, <strong>Password</strong>, and <strong>Port</strong> number, and click  <strong>Quickconnect</strong>. FileZilla  connects automatically using your SSH keys.
+   <li>Enter <strong>Host</strong> (or SFTP://IP address), <strong>Username</strong>, <strong>Password</strong>, and <strong>Port(2222)</strong> number, and click  <strong>Quickconnect</strong>. FileZilla  connects automatically using your SSH keys.
    <br/><img src="images/17564/091615/Quickconnect.png" alt="Quickconnect.png"/>
    </li>
   </ol>

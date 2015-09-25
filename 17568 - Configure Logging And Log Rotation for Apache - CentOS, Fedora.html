@@ -71,6 +71,9 @@ p.note {
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
 
+	<p class="note">
+		You need to have Apache server installed. The easiest way to do this is by installing a LAMP stack on your favourite platoform, <a href="17342">Fedora</a>, <a href="17343">CentOS 6</a>, <a href="17344">CentOS 7</a>.
+	</p>
    <p>You can configure the Apache web server to provide important functional information and to create a log file whenever there's an issue. Apache has a highly configurable logging mechanism that can output messages at different locations.</p>
 
   <p>In this article, you'll learn to configure logging and log rotation on CentOS and Fedora.</p>
@@ -166,7 +169,7 @@ CustomLog "logs/access_log" combined <br />
 <p>To see the definition of <code>combined</code> log format:</p>
 <ol>
 <li>Open <code>/etc/httpd/conf/httpd.conf</code>.
-   <div class="hacker">sudo /etc/httpd/conf/httpd.conf</div></li>
+   <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div></li>
    <li>View the following line that defines <code>combined</code> log format:
      <div class="hacker">LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined </div>
  The <code>LogFormat</code> command defines a custom format for logs that can be called using the <code>CustomLog</code> directive.

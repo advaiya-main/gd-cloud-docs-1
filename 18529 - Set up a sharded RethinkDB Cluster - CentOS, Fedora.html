@@ -74,18 +74,16 @@ p.note {
     <p><strong>Difficulty</strong>: <em>3</em><br/>
         <strong>Time</strong>: <em>20 minutes</em></p>
 
-    <p>RethinkDB belongs to NoSQL database. It is the first open-source, distributed document-oriented database. It is designed specifically to push data to applications in real-time.  This dramatically reduces the time and effort necessary to build scalable real-time apps.</p>
-	<p>It has a very simple API to interact with the databases. Building a database cluster in RethinkDB is simple.  Clusters help in scaling the databases without any downtime. Here we discuss about building a RethinkDB cluster, importing database and securing it.</p>
-	<h2>Prerequisites</h2>
-	<p>In this tutorial, we will need two servers running either CentOS  or Fedora, named <strong>rethinkdb1</strong> and <strong>rethinkdb2</strong>.  You should first setup a sudo user for each RethinkDB server.  Working with a sudo user is a good security practice.</p>
-	<p>Before setting up a RethinkDB cluster, you should be aware of installing and configuring RethinkDB cluster on a CentOS and Fedora server. Please refer <a href="#">18526 - Install and Configure RethinkDB - CentOS, Fedora</a> link.</p>
+     <p>RethinkDB, a NoSQL database, is the first open-source, scalable JSON database built from the ground up for  real-time web applications. It's designed specifically to push data to applications in real time, dramatically reducing the time and effort necessary to build scalable real-time applications. In this article, we'll help you build a RethinkDB cluster, import a database onto it, and make it secure.	</p>
+<p>For these tasks, you'll need two servers running Ubuntu 14.04 or Debian 7, named <em><u>rethinkdb_server1</u></em> and <em><u>rethinkdb_server2</u></em>.  For optimal  security, set up a <code>sudo</code> user for each RethinkDB server. Before setting up a RethinkDB cluster, you should be aware of installing and configuring RethinkDB cluster on a CentOS and Fedora server. Please refer <a href="18526">Install and Configure RethinkDB - CentOS, Fedora</a> link.</p>
 
-    <h2>Set up a RethinkDB Node</h2>
+    <h2>Set up a RethinkDB node</h2>
     
-    <p>RethinkDB cluster is a type of peer-to-peer network. Primary step in building a RethinkDB cluster is to install RethinkDB on every server included in this cluster.</p>
+    <p>RethinkDB cluster is a type of peer-to-peer network. The primary step in building a RethinkDB cluster is to install RethinkDB on every server included in this cluster.</p>
 	<ol>
 	
-	<li>On each server, add the RethinkDB key and repository to apt-get
+	
+	<li>On each server, add the RethinkDB key and repository to <code>apt-get</code>.
 		<div class="hacker">sudo wget http://download.rethinkdb.com/centos/6/`uname -m`/rethinkdb.repo -O /etc/yum.repos.d/rethinkdb.repo</div>
 	</li>
 	<li>Now update and install RethinkDB

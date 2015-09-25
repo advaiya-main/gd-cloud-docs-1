@@ -70,6 +70,7 @@ p.note {
     <p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
 
+	<p class="note">You need to have Apache server installed. The easiest way to do this is by installing a LAMP. Refer to <a href="17345">Arch Linux</a></p>	
     <p>You can configure the Apache web server  to provide important functional  information and to create a log file whenever there's an issue. Apache has a highly configurable logging mechanism that can output messages at different locations. </p>
 
     <p>In this article, you'll learn to configure logging and log rotation on Arch Linux.</p>
@@ -165,7 +166,7 @@ LogLevel warn<br />
 <p>To see the definition of <code>combined</code> log format:</p>
 <ol> 
 <li>Open <code>/etc/httpd/conf/httpd.conf</code>.
-   <div class="hacker">sudo /etc/httpd/conf/httpd.conf</div>
+   <div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
 </li>
 <li>View the following line that defines <code>combined</code> log format:
 <div class="hacker">LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined  </div>

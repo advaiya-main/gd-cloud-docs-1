@@ -4,9 +4,6 @@
 
 <head>
 
-<!--Article Number is __________ (fill in blank)-->
-
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Install and configure a Riak database Cluster - CentOS, Fedora</title>
@@ -68,87 +65,86 @@ p.note {
 </head>
 
 <body>
-<p>Install and configure a Riak database Cluster on CentOS and Fedora, Clustering</p>
+<p>Install and configure a Riak database Cluster on CentOS or Fedora, clustering</p>
 
-    <h1>Install and configure a Riak database Cluster - CentOS, Fedora</h1>
+    <h1>Install and Configure a Riak Database Cluster - CentOS, Fedora</h1>
     
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>1 hour</em></p>
 
-    <p>In this article, you will learn to install a Riak database cluster on CentOS and Fedora servers by compiling from the source. Riak is a distributed database system that is designed for high availability of data. To ensure better performnace, Ubuntu servers with 4 GB RAM is preferred. In this article, you will perform all the installations as a <code>sudo</code> user.</p>
+    <p>In this article, you'll learn to install a Riak database cluster on a CentOS or Fedora server by compiling from the source. Riak is a distributed database system that is designed for high availability of data. To ensure better performance, Ubuntu servers with 4 GB RAM are preferred. In this article, you'll perform all the installations as a <code>sudo</code> user.</p>
     
   <h2>Install dependencies</h2>
 <ol> 
-<li>Install <strong>Erlang</strong> on all the nodes that you want to include in a cluster.
+<li>Install Erlang on all the nodes that you want to include in a cluster.
    <div class="hacker">yum install gcc gcc-c++ glibc-devel make ncurses-devel openssl-devel autoconf java-1.8.0-openjdk-devel git pam-devel</div>
    <div class="hacker">yum install wxBase.x86_64</div>
    </li>
-   <li>Download <strong>Erlang</strong> from the source and then compile it. 
-   <div class="hacker">wget http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz</div>
+   <li>Download Erlang from the source, and then compile it. 
+     <div class="hacker">wget http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz</div>
    <div class="hacker">tar zxvf otp_src_R16B02-basho8.tar.gz</div>
    <div class="hacker">cd OTP_R16B02_basho8</div>
     <div class="hacker">./otp_build autoconf</div>
 	 <div class="hacker">CFLAGS="-DOPENSSL_NO_EC=1" ./configure &amp;&amp; make &amp;&amp; sudo make install</div> 
    </li>
-   <li>Start <strong>Erlang</strong> using the following command: 
-    <div class="hacker">erl</div>
+   <li>Start Erlang.
+     <div class="hacker">erl</div>
    </li>
   </ol>
   
   <h2>Install Riak</h2>
   <p>Perform the following installation steps on all nodes that are included in this Riak cluster.</p>
-<ol> 
-<li>Download Riak from the source and then compile it. 
+<ul> 
+<li>Download Riak from the source, and then compile it. 
    <div class="hacker">wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.1/riak-2.1.1.tar.gz</div>
    <div class="hacker">tar zxvf riak-2.1.1.tar.gz</div>
     <div class="hacker">cd riak-2.1.1</div>
 	<div class="hacker">make locked-deps</div>
 	<div class="hacker">make rel</div>
-	<p>Since you have compiled Riak from the source, you need to understand the locations before proceeding further. Below are the file locations:</p>
+	Because you  compiled Riak from the source, you need to understand the file locations before proceeding. The file locations are as follows:
 	<ul>
 	<li>Riak Configuration Directory: <code><em><u>Source_File</u></em>/rel/riak/etc/</code> </li>
 	<li>Binary files : <code><em><u>Source_File</u></em>/rel/riak/bin</code></li>
 	</ul>
    </li>
-  </ol>
+  </ul>
   
   <h2>Configure the first node</h2>
-  <p>Configure the first node in a Riak cluster by following the below mentioned steps. </p>
 <ol> 
-<li>Stop the Riak service, if it was started earlier. 
-   <div class="hacker">rel/riak/bin/riak stop</div>
-   <p>Or, navigate to the <code><em><u>Source_File</u></em>/rel/riak/ </code>director and stop by using the following command:</p>
+  <li>Stop the Riak service if it was started earlier. 
+    <div class="hacker">rel/riak/bin/riak stop</div>
+Alternatively, navigate to the <code><em><u>Source_File</u></em>/rel/riak/ </code>directory, and stop Riak.
    <div class="hacker">bin/riak stop</div>
    </li>
-   <li>Edit the Riak configuration file. To do this, find and replace the below lines in <code><em><u>Source_File</u></em>/rel/riak/etc/riak.conf </code> file.
-   <div class="hacker">listener.protobuf.internal = <em><u>node_ip_address</u></em>:8087</div>
+   <li>Edit the Riak configuration file: Find and replace the following lines in  <code><em><u>Source_File</u></em>/rel/riak/etc/riak.conf</code>:
+     <div class="hacker">listener.protobuf.internal = <em><u>node_ip_address</u></em>:8087</div>
    <div class="hacker">listener.http.internal = <em><u>node_ ip_address</u></em>:8098</div>
    <div class="hacker">nodename = riak@<em><u>node_ip_address</u></em></div>
    </li>
-   <li>Start the Riak service. While starting, configure the <code>ulimit</code> to minimum of 65565.
-   <div class="hacker">ulimit -u 65565</div>
+   <li>Start the Riak service. While starting, configure the <code>ulimit</code> to a minimum of 65565.
+     <div class="hacker">ulimit -u 65565</div>
    <div class="hacker">bin/riak start</div>
    <p>In the same way, you can configure all other nodes that you want to include in the cluster.</p>
    </li>
-  </ol>
+</ol>
   
   <h2>Add a second node to the cluster</h2>
-  <p>Perform all the steps mentioned above to start Riak in second nodes and to include these nodes in the cluster.</p>
+  <p>Perform all the steps  above to start Riak in a second node and to include these nodes in the cluster.</p>
 <ol> 
-<li>Inside the second node, execute the below command to join to the first node:
+<li>Inside the second node, execute the following command to join to the first node:
    <div class="hacker">rel/riak/bin/riak-admin cluster join riak@<em><u>first_node_ip</u></em></div>
    </li>
-   <li>Execute the below steps to plan and commit the changes:
-   <div class="hacker">rel/riak/bin/riak-admin cluster plan</div>
+   <li>Plan and commit the changes:
+     <div class="hacker">rel/riak/bin/riak-admin cluster plan</div>
    <div class="hacker">rel/riak/bin/riak-admin cluster commit</div>
    </li>
-   <li>View the complete ring-cluster by executing the below command:
-   <div class="hacker">rel/riak/bin/riak-admin status | grep ring_members</div>
+   <li>View the complete ring cluster.
+     <div class="hacker">rel/riak/bin/riak-admin status | grep ring_members</div>
    </li>
   </ol>
   
     <h2>Conclusion</h2>
-    <p>In this article, you have learnt to install multiple nodes, configured them to start Riak and then joined them to the first node to build a Riak database cluster.</p>
+    <p>In this article, you have learned to install multiple nodes, configured them to start Riak, and then joined them to the first node to build a Riak database cluster.</p>
    
 </body>
 </html>

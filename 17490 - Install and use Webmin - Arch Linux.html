@@ -8,6 +8,7 @@
 
 
 <title>Install and use Webmin - Arch Linux</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -25,7 +26,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -37,6 +38,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -96,12 +107,12 @@ p.note {
               </li>
               <li>Install Webmin.
                    <div class="hacker">sudo ./setup.sh /usr/local/webmin</div>
-              <p>The install program will ask several questions.  Accept the defaults, and create a user and password</p></li>
+              <p>The install program will ask several questions.  Accept the defaults by pressing <strong>Enter</strong> on your keyboard at each one, until you get to the <strong>Login name</strong> prompt. Create a login name and password. Enter <strong>y</strong> at the last prompt.</p></li>
  </ol>
  <h2>Verification</h2>
  <ol>
                <li>Using your browser, access the Webmin login page:
-                <strong>http://<em><u>your IP address</u></em>:10000</strong>  </li>
+                <strong><em><u>Your IP address</u></em>:10000</strong>  </li>
               <li>A login screen will appear.  Log in using <em><u>yourloginuser</u></em>, and start using Webmin!
               </li>
 </ol>

@@ -117,10 +117,13 @@ PN- Broken section, images fixed</mso:ReviewComments>
         <li>
             Install phpMyAdmin.
             <div class="hacker">sudo apt-get install phpmyadmin</div>
+
+            Enter <strong>y</strong> at the prompt to continue installation.
+
         </li>
-         <li>Even though <strong>apache2</strong> is highlighted, it is not actually selected. To select <strong>apache2</strong>:
-            <ul><li>Press <strong>SPACE</strong>. You will see an asterisk (*) in front of <code>apache2</code>.</li> 
-            <li>Press <strong>TAB</strong> again to move the cursor to <strong>OK</strong>, and then press <strong>Enter</strong>.</li>
+         <li>A terminal screen appears. Even though <strong>apache2</strong> is highlighted, it is not actually selected. To select <strong>apache2</strong>:
+            <ul><li>Press <strong>SPACE</strong>. You will see an asterisk (*) at <code>apache2</code>.</li> 
+            <li>Press <strong>TAB</strong> to move the cursor to <strong>OK</strong>, and press <strong>Enter</strong> on your keyboard.</li>
             </ul></li>
 
            <li> You will be asked to confirm a few things as part of configuring phpMyAdmin.
@@ -144,7 +147,7 @@ PN- Broken section, images fixed</mso:ReviewComments>
         </li>
 
         <li>
-            In your browser, navigate to <strong>http://<em><u>your server address or domain name</u></em>/phpmyadmin</strong> to see the web interface. You will see a <strong>Welcome to phpMyAdmin</strong> page.
+            <p>In your browser, navigate to <strong>http://<em><u>your server address or domain name</u></em>/phpmyadmin</strong> to see the web interface. You will see a <strong>Welcome to phpMyAdmin</strong> page.</p>
             <img src='images/17641/090915/Welcome-to-phpMyAdmin.png' alt='Welcome to phpMyAdmin' />
         </li>
         <li>
@@ -201,7 +204,7 @@ Alias /<em><u>mysqllogin</u></em> /usr/share/phpmyadmin
 &lt;Directory /usr/share/phpmyadmin>
 Options FollowSymLinks
 DirectoryIndex index.php
-AllowOverride All
+<em><u>AllowOverride All</u></em>
 [.....]
 </pre>
             </div>

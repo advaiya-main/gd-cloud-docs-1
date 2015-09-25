@@ -70,7 +70,7 @@
 <li>Open the <code>php.ini</code> file in a text editor.
 <div class= "hacker">sudo vim /etc/php/php.ini</div>
 </li>
-<li>Uncomment the following lines from <code>Dynamic Extensions</code> section by removing the semicolon.
+<li>Uncomment the following lines from <code>Dynamic Extensions</code> section by removing the semicolon at the begining of the lines.
 <div class ="hacker">
 extension=phar.so<br />
 extension=openssl.so<br />
@@ -90,11 +90,15 @@ open_basedir = /srv/http/:/home/:/tmp/:/usr/share/pear/:/usr/share/webapps/:/roo
 <li>Install the <code>phpunit</code> package.
 <div class ="hacker">php phpunit.phar</div>
 </li>
-<li>Make the following corresponding changes to the <code>Directory</code> block of the  <code>/etc/httpd/conf/httpd.conf</code> file to allow the <code>.htaccess</code>  file to override the default Apache instructions.
+<li>
+Open the <code>/etc/httpd/conf/httpd.conf</code> file in a text editor.
 <div class = "hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
-<p>The updated <code>Directory</code> block should look like this:</p>
+</li>
+<li>
+Make the following corresponding changes to the <code>&lt;Directory "/srv/http"&gt;</code> block. 
+
 <div class = "hacker"><pre>
-&lt;Directory /srv/http &gt;
+&lt;Directory "/srv/http" &gt;
 		…
 		Options Indexes FollowSymLinks MultiViews
 		AllowOverride All

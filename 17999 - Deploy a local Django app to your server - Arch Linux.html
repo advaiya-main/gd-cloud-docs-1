@@ -74,17 +74,17 @@ p.note {
 <body>
 
 <!--I started editing this, but the filename and subject matter do not match. Is this doc about instsalling a LAMP stack or about setting up a Django app? Sending back to coding for now. cj -->
-        <p>Describes how to setup a local Django app on Arch Linux</p>
-    <h1>Build a LAMP stack for Python -  Debian, Ubuntu </h1>
+        <p>Set up a local Django app on Arch Linux</p>
+    <h1>Deploy a Local Django App to Your Server - Arch Linux</h1>
 
                 <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
                 <strong>Time</strong>: <em><u>1.50</u></em></p>
 
         <p>Django is a Python web framework that allows  rapid development of primarily database-driven web applications. Virtual Environments, or <code>virtualenv</code>, is a Python package that allows development within isolated Python environments. Installing or updating Python packages within one environment has no impact on other environments. </p>
 
-<h2>Install virtualenv and virtualenvwrapper</h2>
+<h2>Install <code>virtualenv</code> and <code>virtualenvwrapper</code></h2>
 
-                <p><code>virtualenv</code> is a Python tool used to create isolated environments for Python in which you can install packages without interfering with the other virtualenvs nor with the system Python's packages.</p>
+                <p><code>virtualenv</code> is a Python tool used to create isolated environments for Python in which you can install packages without interfering with the other virtual environments or with the system Python packages.</p>
 
         <ol>
                   <li>Install<code> virtualenv</code> and <code>virtualenvwrapper</code>.
@@ -97,25 +97,25 @@ p.note {
 </ol>
 
 
-<h2>Configure virtual environment</h2>
+<h2>Configure the virtual environment</h2>
 
-    <ol>    <li> Create the <code>virtualenv</code>
+    <ol>    <li> Create the virtual environment.
         <div class="hacker">mkvirtualenv -p /usr/bin/python2.7 myenv</div>   </li>
 
-            <li>Activate the <code>virtualenv</code>
+            <li>Activate the virtual environment.
               <div class="hacker">workon myenv</div>  </li>
 
 
-            <li>Install some package inside the <code>virtualenv</code>
-            <div class="hacker">pip install django pyproj</div>  </li>
+            <li>Install some packages inside the virtual environment.
+              <div class="hacker">pip install django pyproj</div>  </li>
 
     </ol>
 
 
-<h2> Install PostgreSQL, GDAL, GEOS, PostGIS<!--The following steps don't mention installing all these things. Also, step 3 mentions installing Djanjo, which is not covered in this header. cj --></h2>
+<h2> Install PostgreSQL, GDAL, GEOS, and PostGIS<!--The following steps don't mention installing all these things. Also, step 3 mentions installing Djanjo, which is not covered in this header. cj --></h2>
 
     <ol>
-            <li>Install PostgreSQL, PostGIS
+            <li>Install PostgreSQL and PostGIS.
                 <div class="hacker">sudo pacman -Sy postgresql postgresql-libs postgis</div>
 
                 Select  any default values as prompted.</li>
@@ -136,45 +136,44 @@ p.note {
  <h2>Create a Django project</h2>
 
        <ol>
-                <li> Create a django project:
+                <li> Create a Django project.
                          <div class="hacker">django-admin.py startproject myproject</div>
                          This command creates a <code>./myproject </code>directory containing several projects directories and files.</li>
 
 
 
-                <li> Navigate into the project directory.
-<div class="hacker">cd myproject</div>
+                <li> Navigate to the project directory.
+                  <div class="hacker">cd myproject</div>
 
 
                     <p class="note">The <code>./myproject/settings.py</code> file can be modified and a preferred database backend configured. Other settings can be modified as necessary.
-                                    If no database backend is specified, then Django will use the default sqlite3 backend.
-                                    You can populate with database with some default Django tables. </p> </li>
-       </ol>
+         If no database backend is specified, then Django will use the default sqlite3 backend.                                    </p> 
 
 
 
 
-                <p>You can populate with database with some default Django tables.</p>
+                <p>You can populate the database with some default Django tables.</p>
                         <div class="hacker">python manage.py migrate</div>
 
                 <p>The project can now be verified by launching the Django web service.</p>
                         <div class="hacker">python manage.py runserver</div>
 
-                <p>The service should now be accessible at<u><strong>http://localhost:8000/</strong></u>. Open another terminal while the "runserver" command is running and type this curl command:</p>
+                <p>The service should now be accessible at <strong>http://localhost:8000/</strong>. Open another terminal while the "runserver" command is running, and type this <code>curl</code> command:</p>
                         <div class="hacker">curl http://localhost:8000/</div>
 
 
-                         <p class="note">The built-in Django web server is <b>NOT</b> meant to be used in a production environment.
-                         It is a tool for development only. Once the application is ready to be deployed into production, consider using a web server such as <em><u>Apache</u> or <u>Nginx</u> with <u>uWSGI</u></em>.</p>
+                         <p class="note">The built-in Django web server is NOT meant to be used in a production environment.
+                         It's a tool for development only. Once the application is ready to be deployed into production, consider using a web server such as Apache or Nginx with uWSGI.</p></li>
+       </ol>
 
 
-<h2>Step Five - Configure Django App</h2>
+<h2>Configure the Django app</h2>
 
-               <p> Once the project is created and operational, it is time to create an application. An application can be created in the same directory as <code>manage.py</code>. </p>
+               <p> Once the project is created and operational, it's time to create an application. An application can be created in the same directory as <code>manage.py</code>. </p>
                     <div class="hacker">python manage.py startapp myapp</div>
 
 
-                <p>This will create a <strong><u>./myapp</u></strong> directory with base files ready for your code.</p>
+                <p>This will create a <code>./myapp</code> directory with base files ready for your code.</p>
 
 <h2>Next steps</h2>
 
@@ -183,12 +182,6 @@ p.note {
 
 
 
-       <p>Please make sure Apache is installed, bring up a Internet browser to your server's IP address (i.e. http://12.34.56.789). You should get the screen shot below if everything went good.</p>
-
-   <!--  Image File needs to be added  -->
-
-    <p>Image (PNG only). See editorial guidelines for more information.</p>
-
-
+       <p>Please make sure that Apache is installed. In a  browser, go to your server's IP address (that is, http://12.34.56.789). </p>
 </body>
 </html>

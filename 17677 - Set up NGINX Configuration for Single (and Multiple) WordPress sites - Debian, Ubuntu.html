@@ -78,12 +78,12 @@ td:nth-child(1) {font-weight:bold;}
 
 <body>
 <p>Set up Nginx Configuration for Single (and Multiple) WordPress sites for Debian, Ubuntu</p>
-    <h1>Set up Nginx Configuration for Single (and Multiple) WordPress sites - Debian, Ubuntu</h1>
+    <h1>Set Up Nginx Configuration for Single and Multiple WordPress Sites - Debian, Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-<p>For this article, we'll configure your Nginx&reg; settings to accommodate a single or multiple WordPress sites (those section labeled "multi-site users") on an Ubuntu&reg; (14.04, 14.10) or Debian system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
+<p>For this article, we'll configure your Nginx settings to accommodate a single WordPress site or multiple WordPress sites (see sections for "multisite users") on an Ubuntu (14.04, 14.10) or Debian system. The steps are for a non-root user with <code>sudo</code> privileges.</p>
 
 <p>We'll use these example sites: </p>
 <table>
@@ -117,39 +117,36 @@ Take some steps to help your server load WordPress content faster.
 
 <h3>Adjust Nginx processes and workers</h3>
 
-<p>Set the number of Nginx workers equal the number of processors to optimize performance.</p>
+<p>Set the number of Nginx workers equal to the number of processors to optimize performance.</p>
 
 <ol>
     <li>See how many Nginx processors you have running. This command will show you the master and number of workers. 
 <div class="hacker">ps aux -P | grep nginx</div>
-Or for a more concise output, enter this command:
+Or for a more concise output, run this command:
 <div class="hacker">grep worker_processes /etc/nginx/nginx.conf</div>
 
-The default Nginx configuration is 4 (child) worker processes for 1 master, which is probably what you'll see if you're working on a fresh LEMP install.</li>
+The default Nginx configuration is 4 (child) worker processes for one master, which is probably what you'll see if you're working on a fresh LEMP install.</li>
 
-<li>Now check the number of Nginx workers to see if it matches the number of processes.<br/>
+<li>Check the number of Nginx workers to see if it matches the number of processes. First, open the Nginx configuration file to edit. 
+  <div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
 
-First, open the Nginx configuration file to edit. 
-<div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
-
-<li>Find the <code>worker_processes</code> line to check the number. It'll be towards the top.
+<li>Find the <code>worker_processes</code> line to check the number. It'll be toward the top.
 In this case, the number is 4, so there's no need to change it.
-<div class="hacker">worker_processes 4;</div></li>
+  <div class="hacker">worker_processes 4;</div></li>
 </ol>
 
-Keep the nginx.conf file open for the next step.
-
+Keep the <code>nginx.conf</code> file open for the next step.
 <h3>Enable Gzip compression</h3>
 
-<p>Gzip allows WordPress to compress large HTML and CSS files by providing smaller file sizes (can save potentially up to 70% of the original file size)<!--CT (to Carla/Crystal): (re:70% part) Is this too specific of a piece of trivia? I found this tidbit in one article in my research but debated about including it. If so, feel free to remove--> that load faster for your website users and utilizes less bandwidth overall. Enabling compression is the standard on modern web browsers.</p>
+<p>Gzip allows WordPress to compress large HTML and CSS files by providing smaller file sizes (potentially saving up to 70% of the original file size)<!--CT (to Carla/Crystal): (re:70% part) Is this too specific of a piece of trivia? I found this tidbit in one article in my research but debated about including it. If so, feel free to remove--> that load faster  and utilize less bandwidth overall. Enabling compression is the standard on modern web browsers.</p>
 
 <ol>
 
-<li>In your nginx.conf file that you still have open, find the gzip section and make sure gzip is enabled, or set to "on" (it should be).
-<div class="hacker">gzip on;</div></li>
+<li>In your <code>nginx.conf</code> file that is still  open, find the <code>gzip</code> section and make sure that gzip is enabled or set to "on".
+  <div class="hacker">gzip on;</div></li>
 
-<li>Also, uncomment the following line listing the file types gzip supports.
-<div class="hacker">gzip_types text/plain text/css application/json application/x-javascript text$</div></li>
+<li>Uncomment the following line listing the file types that gzip supports.
+  <div class="hacker">gzip_types text/plain text/css application/json application/x-javascript text$</div></li>
 
 <li>Save and close.</li>
 </ol>
@@ -157,24 +154,24 @@ Keep the nginx.conf file open for the next step.
 
 <h2>Create configuration files</h2>
 
-We'll start from the broadest use case (all web sites), down to the most narrow (WordPress multi-site). But whether you're running a single or multi-site, this should be a more efficient setup than writing the same configuration on every individual server block.
+We'll start from the broadest use case (all web sites), down to the most narrow (WordPress Multisite). But whether you're running a single site or multisite, this should be a more efficient setup than writing the same configuration on every individual server block.
 
 <h3>Create <code>allsites.conf</code> for all sites</h3>
 
 <p>Instead of creating a new config on every server block, we'll create a universal config file to handle all web content, even non-WordPress-hosted sites. </p>
 
 <ol>
-<li>First, create a directory within the /nginx directory to hold our file.
-<div class="hacker">sudo mkdir /etc/nginx/global</div></li>
+<li>Create a directory within the<code> /nginx </code>directory to hold the file.
+  <div class="hacker">sudo mkdir /etc/nginx/global</div></li>
 
 <li>Move into that directory.
 <div class="hacker">cd /etc/nginx/global</div></li>
 
-<li>Create an allsites.conf file.
+<li>Create an <code>allsites.conf</code> file.
 <div class="hacker">sudo vim allsites.conf</div></li>
 
 <li>This is a new file you're creating, so it'll be blank. 
-For this tutorial, we'll set the root directory for all web content to <em><u>/usr/share/nginx/www</u></em>.<br/>
+For this article, we'll set the root directory for all web content to <em><u>/usr/share/nginx/www</u></em>.<br/>
 Paste the following contents:<br/>
 
 <div class="hacker"><pre># All Sites configuration file.
@@ -213,10 +210,10 @@ location ~* ^.+\.(js|css|swf|xml|txt|ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|a
 </ol>
 
 <h3>Create <code>wordpress.conf</code> for all WordPress sites</h3>
-Now we'll create a universal WordPress configuration that'll apply to all your WordPress sites. <p>So this applies to both single site and multi-site users.</p>
+Now we'll create a universal WordPress configuration that'll apply to all your WordPress sites. So this applies to both single site and multisite users.
 
 <ol>
-<li>Create the <code>wordpress.conf</code> file.
+  <li>Create the <code>wordpress.conf</code> file.
 <div class="hacker">sudo vim wordpress.conf</div></li>
 
 <li>Again, this is a new file, so it'll be blank. Paste the following contents:
@@ -261,8 +258,8 @@ What do the different sections mean?
 
  <table>
         <tr>
-                <td>Section</td>
-                <td>Description</td>
+                <th>Section</th>
+                <th>Description</th>
         </tr>
 
         <tr>
@@ -277,12 +274,12 @@ What do the different sections mean?
 
         <tr>
                 <td><code>location ~ \.php$</code>: </td>
-                <td>WordPress uses php so this part tells Nginx how to pass php files.</td>
+                <td>WordPress uses PHP so this part tells Nginx how to pass PHP files.</td>
         </tr>
 
         <tr>
                 <td><code>try_files $uri =404;</code>:</td>
-                <td>A security rule saying to serve the php file, otherwise show a 404 error.</td>
+                <td>A security rule that says to serve the PHP file or to show a 404 error.</td>
         </tr>
 
  </table>  </li>
@@ -311,9 +308,9 @@ What do the different sections mean?
 
 
 
-<h3>Multi-site users: Create multisite.conf for WordPress multi-sites</h3>
+<h3>Multisite users: Create <code>multisite.conf</code> for WordPress Multisites</h3>
 
-The third config file is for multi-site users only. A multi-site requires custom rewrite rules to format URLs for subsites and subdomains. 
+The third config file is for multisite users only. A multisite requires custom rewrite rules to format URLs for subsites and subdomains. 
 
 <ol>
 <li>Create your <code>multisite.conf</code> file.
@@ -340,7 +337,7 @@ rewrite ^/[_0-9a-zA-Z-]+(/.*\.php)$ $1 last;
 
 <div class="hacker">sudo vim /etc/nginx/sites-available/<em><u>coolexample</u></em></div>
 
-<p>Paste in the contents depending on if you're configuring a single or multiple sites.</p> 
+<p>Paste in the contents depending on if you're configuring a single site or multiple sites.</p> 
 
 Regardless of which you choose, we'll use <em><u>coolexample.com</u></em> as the primary domain and set the WordPress root directory to <em><u>/usr/share/nginx/wordpress</u></em>.<br/></li>
 
@@ -348,7 +345,7 @@ Regardless of which you choose, we'll use <em><u>coolexample.com</u></em> as the
 
 <h3>Single site</h3>
 
-If you have a simple site with no subdomains, copy this text into your server block file.
+If you have a simple site with no subdomains, copy this text into your server block file:
 <div class="hacker"><pre>server {
     # URL: Correct way to redirect URLs
     server_name coolexample.com;
@@ -378,12 +375,13 @@ server {
     include global/wordpress.conf;
 }</pre></div>
 
-<h3>Multi-site with sub-directories</h3>
+<h3>Multisite with subdirectories</h3>
 
-<p>If you have a multi-site setup and need subdirectories, include some rewrite rules in your <code>multisite.conf</code> file.</p>
+<p>If you have a multisite setup and need subdirectories, include some rewrite rules in your <code>multisite.conf</code> file.</p>
+<ol><li>
 
 Open your <code>multisite.conf</code> file to edit.
-<div class="hacker">sudo vim multisite.conf</div>
+<div class="hacker">sudo vim multisite.conf</div></li><li>
 
 Add this content to the end of the file. 
 <div class="hacker"><pre># URL: add a permanent redirect if required.
@@ -395,17 +393,17 @@ server {
     include global/allsites.conf;
     include global/wordpress.conf;
     include global/multisite.conf;
-}</pre></div>
+}</pre></div></li></ol>
 
-<h3>Multi-site with subdomains</h3>
+<h3>Multisite with subdomains</h3>
 
-<p>If you have subdomains, use a wildcard in the servername line (the rest of the lines are the same). So for example, if we wanted to account for the <code>coolexample.com</code> subdomains, <code>product.coolexample.com</code> and <code>aboutus.coolexample.com</code>, we can use a wildcard *.coolexample.com.</p>
-<div class="hacker">server_name *.coolexample.com;</div>
+<p>If you have subdomains, use a wildcard in the server name line (The rest of the lines are the same). So, for example, if we wanted to account for the <code>coolexample.com</code> subdomains, <code>product.coolexample.com</code> and <code>aboutus.coolexample.com</code>, we can use a wildcard, <strong>*.coolexample.com</strong>:</p>
+<div class="hacker">server_name *.coolexample.com;</div><ul><li>
 
 Open your <code>multisite.conf</code> file to edit.
 <div class="hacker">sudo vim multisite.conf</div>
 
-The entire <code>multisite.conf</code> file will look like this:
+The entire <code>.conf</code> file will look like this:
 <div class="hacker"><pre># URL: add a permanent redirect if required.
 server {
     server_name <em><u>*.coolexample.com</u></em>;
@@ -415,12 +413,12 @@ server {
     include global/allsites.conf;
     include global/wordpress.conf;
     include global/multisite.conf;
-}</pre></div>
+}</pre></div></li></ul>
 
-<h2>Enable Server Block Files</h2>
+<h2>Enable server block files</h2>
 
 <ol>
-    <li>Create a symlink between the sites-enabled and sites-enabled directories.
+    <li>Create a symlink between the <code>sites-enabled</code> and <code>sites-enabled</code> directories.
 <div class="hacker">sudo ln -s /etc/nginx/sites-available/<em><u>coolexample</u></em> /etc/nginx/sites-enabled/<em><u>coolexample</u></em></div></li>
 
 <li>Restart Nginx so that your changes  take effect.
@@ -429,15 +427,15 @@ server {
 
 <h2>Next Steps</h2>
 
- <p>Congratulations! You have successfully configured your Nginx settings to accomodate a single or multi-site WordPress setup. There's much you can do from here, including the following:</p>
+ <p>Congratulations! You have successfully configured your Nginx settings to accomodate a single or multisite WordPress setup. There's much you can do from here, including the following:</p>
 
 <ul>
 <li><a href="Articles/17683 - Set up WordPress Multisite in NGINX - Ubuntu.html">Install and set up a WordPress single site for Debian or Ubuntu</a></li>
 
-<li><a href="Articles/17385 - Install WordPress on your LEMP server - Ubuntu.html">Install and set up a WordPress multisite for Ubuntu</a></li>
+<li><a href="Articles/17385 - Install WordPress on your LEMP server - Ubuntu.html">Install and set up a WordPress Multisite for Ubuntu</a></li>
 
-<li><a href="Articles/19193 - Install WordPress on your LEMP server - Debian.html">Install and set up a WordPress multisite for Debian</a></li>
+<li><a href="Articles/19193 - Install WordPress on your LEMP server - Debian.html">Install and set up a WordPress Multisite for Debian</a></li>
 </ul>
 
-  </body>
+</body>
   </html>

@@ -71,18 +71,18 @@ p.note {
 </head>
 
 <body>
-<p>Backup MySQL Databases on your Arch Linux, MySQL, Backups</p>
+<p>Back up MySQL databases on your Arch Linux, MySQL, backups</p>
 
-<h1>Backup MySQL Databases on your server - Arch Linux</h1>
+<h1>Back Up MySQL Databases on Your Server - Arch Linux</h1>
 
-<p>MySQL is one of the most popular database engine for storing data in database. MySQL uses SQL ie. Structured Query Language to retrieve and manipulate data. It can be used to manage data from websites or applications.</p>
+<p>MySQL is one of the most popular database engines for storing data in a database. MySQL uses SQL, Structured Query Language, to retrieve and manipulate data. It can be used to manage data from websites or applications.</p>
 
-<p>Backup is useful to restore data against crashes of the system. In this article, you will learn ways to backup MySQL databases on your Arch Linux server. Before you begin, you need to install MySQL on the Arch Linux server. To know more about MySQL installation, you may visit <a href="17345">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a>. You can choose any version of MySQL, as operational commands remain the same in all versions.</p>
+<p>Backing up is useful for restoring data after system crashes. In this article, you'll learn ways to back up MySQL databases on your Arch Linux server. Before you begin, you need to install MySQL on the Arch Linux server. To learn more about MySQL installation, visit <a href="17345">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a>. You can choose any version of MySQL, as operational commands remain the same in all versions.</p>
 
-<h2>Backup the database</h2>
+<h2>Back up the database</h2>
 <ul>
-<li>Export the database using <code>mysqldump</code> command. 
-<div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
+<li>Export the database using the <code>mysqldump</code> command. 
+  <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
 </li>
 </ul>
 
@@ -90,94 +90,97 @@ p.note {
 <ol>
 <li>Create a database if not created already.  
 <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
+A MySQL prompt asks to create a new database to hold raw data.
+  <div class="hacker">CREATE DATABASE <em><u>database_name</u></em>;</div>
 </li>
-<li>You will get a MySQL prompt, asking to create a new database to hold raw data.
-<div class="hacker">CREATE DATABASE <em><u>database_name</u></em>;</div>
-</li>
-<li>Exit or press Ctrl+c.</li>
-<li>Import data in the newly created database.
-<div class="hacker">mysql -u <em><u>mysql_username</u></em> -p  <em><u>database_name</u></em> &lt; <em><u>back_database_date</u></em>.sql</div>
+<li>Exit or press <strong>Ctrl</strong>+<strong>C</strong>.</li>
+<li>Import data into the newly created database.
+  <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p  <em><u>database_name</u></em> &lt; <em><u>back_database_date</u></em>.sql</div>
 <p>The data will be restored or dumped into <code><em><u>database_name</u></em></code>. </p>
 </li>
 </ol>
 
 <h2>Back up the table to a text file</h2>
 <ol>
-<li>Take the backup into the text file by using the following command:
-<div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
+<li>Take the backup into the text file.
+  <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
 <div class="hacker">USE <em><u>database_name</u></em>;</div>
 <div class="hacker">SELECT * INTO OUTFILE '<em><u>table_backup_file</u></em>' FROM <em><u>name_of_table</u></em>;</div>
-<p class="note">Use <code><strong>USE</strong></code> command to select or change the database.</p>
-<p class="note">To exit from MySQL use<strong>CTRL+C</strong>.</p>
+<p class="note">Use the <code><strong>USE</strong></code> command to select or change the database.</p>
+<p class="note">To exit from MySQL, press <strong>CTRL+C</strong>.</p>
 </li>
 <li>The default location of the file is <code>/var/lib/mysql/<em><u>database_name</u></em>/<em><u>file_name</u></em></code>. Verify the output by using the following command with the <code>sudo</code> user:
 <div class="hacker">sudo ls -R /var/lib/mysql/<em><u>database_name</u></em></div>
 </li>
 </ol>
 
-<h2>Auto-backup MySQL information</h2>
+<h2>Automatically back up MySQL information</h2>
+<p>To automatically perform data backups at regular intervals, there's a tool in Arch Linux named <code>automybackup</code>.<!--Testers, check name in this section: automybackup vs automysqlback vs automysqlback.  cj --> </p>
 <ol>
-<li>To automatically perform data backups at regular intervals, there is a tool in Arch Linux named <code>automybackup</code>. Install <code>automybackup</code> using the following command:
-<div class="hacker">cd ~ && wget "http://downloads.sourceforge.net/project/automysqlbackup/AutoMySQLBackup/AutoMySQLBackup%20VER%203.0/automysqlbackup-v3.0_rc6.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fautomysqlbackup%2F%3Fsource%3Dtyp_redirect&amp;ts=1440596561&amp;use_mirror=netassist" -O automysqlbackup-v3.0_rc6.tar.gz</div>
+<li>Install <code>automybackup</code>.
+  <div class="hacker">cd ~ && wget "http://downloads.sourceforge.net/project/automysqlbackup/AutoMySQLBackup/AutoMySQLBackup%20VER%203.0/automysqlbackup-v3.0_rc6.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fautomysqlbackup%2F%3Fsource%3Dtyp_redirect&amp;ts=1440596561&amp;use_mirror=netassist" -O automysqlbackup-v3.0_rc6.tar.gz</div>
 </li>
-<li><p>Rename the downloaded filename if you find the name long.</p></li>
+<li>
+  <p>Rename the downloaded file if you like.</p></li>
 <li>Extract the file.
 <div class="hacker">tar zxvf automysqlbackup-v3.0_rc6.tar.gz</div>
 </li>
-<li>Install the AutomysqlBackup.<div class="hacker">sudo ./install.sh</div><p class="note">Follow the steps which prompted by <code>installer</code>.</p></li>
-<li>Open the configuration file for <code>automysqlback</code> using vim which is located at <code>/etc/default/automysqlbackup</code>.
-<div class="hacker">sudo vim /etc/automysqlbackup/automysqlbackup.conf</div>
+<li>Install <code>automybackup</code>.
+  <div class="hacker">sudo ./install.sh</div>
+Follow the steps  in the installer.</li>
+<li>Open the configuration file for <code>automysqlback</code>.
+  <div class="hacker">sudo vim /etc/automysqlbackup/automysqlbackup.conf</div>
 </li>
-<li>Create backup directory using the following command:<div class="hacker">sudo mkdir -p /var/backup/db</div></li>
-<li>Uncomment the configuration variables, perform the necessary settings to access MySQL. 
-<div class="hacker">
+<li>Create a backup directory.
+  <div class="hacker">sudo mkdir -p /var/backup/db</div></li>
+<li>Uncomment the configuration variables, and add the necessary settings to access MySQL. 
+  <div class="hacker">
 CONFIG_mysql_dump_username = '<em><u>mysql_username</u></em>' <br />
 CONFIG_mysql_dump_password = '<em><u>password</u></em>'<br />
 CONFIG_mysql_dump_host_friendly='<em><u>localhost</u></em>' <br />
 CONFIG_backup_dir = '<em><u>/var/backup/db</u></em>'</div>
 </li>
-<li>To execute <code>automysqlbackup</code> command, change the directory where you extracted the file. Find the command and execute it using the following command:
-<div class="hacker">sudo ./automysqlbackup</div>
+<li>To execute the <code>automysqlbackup</code> command, change the directory where you extracted the file. Find the command and execute it.
+  <div class="hacker">sudo ./automysqlbackup</div>
 </li>
 <li>To verify the database backup, run the following command in the terminal:
 <div class="hacker">ls -R <em><u>/var/backup/db</u></em></div>
 </li>
 </ol>
 
-<h2>Backup using replication</h2>
-<p>You may use MySQL replication to backup the data with the above techniques. While replication allows for data mirroring, however it might fail to save a specific point in time. This is because it is constantly replicates the changes in a dynamic environment. To avoid this problem, you can either disable replication temporarily or 
-create the backup machine in a read-only state temporarily</p>
+<h2>Back up using replication</h2>
+<p>You may use MySQL replication to back up the data with the above techniques. While replication allows for data mirroring,  it might fail to save a specific point in time. This is because it constantly replicates the changes in a dynamic environment. To avoid this problem, you can either disable replication temporarily or 
+make the backup machine read-only  temporarily.</p>
 
 
-<h2>Disable replication temporarily</h2>
-<ol>
-<li>Disable replication for the slave temporarily by using the following command:
-<div class="hacker">mysqladmin -u <em><u>mysql_username</u></em>  -p stop-slave</div>
-</li>
-<li>Another option, that doesn't completely stop replication, but put pauses the replication can be accomplished, by typing:
+<h3>Disable replication temporarily</h3>
+<ul>
+<li>Disable replication for the slave temporarily.:
+  <div class="hacker">mysqladmin -u <em><u>mysql_username</u></em>  -p stop-slave</div>
+Another option, which  doesn't completely stop replication but  pauses it, can be accomplished by typing:
 <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p -e 'STOP SLAVE SQL_THREAD;'</div>
 </li>
-</ol>
+</ul>
 
-<h2>Making the backup machine read-only temporarily</h2>
+<h3>Make the backup machine read-only temporarily</h3>
 <p>You can ensure a consistent set of data within the server by making the data read-only temporarily. You can perform these steps on either the master or the slave systems.</p>
 <ol>
 <li>Log into MySQL with enough privileges to manipulate the data.
 <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
 </li>
-<li>You can write all of the cached changes to the disk and set the system read-only by typing:
-<div class="hacker">FLUSH TABLES WITH READ LOCK; </div>
+<li>Write all of the cached changes to the disk and set the system to read-only.
+  <div class="hacker">FLUSH TABLES WITH READ LOCK; </div>
 <div class="hacker">SET GLOBAL read_only = ON;</div>
 </li>
 <li>Perform the backup using <code>mysqldump</code>.</li>
-<li>After the backup is completed, return the system to its original working state by typing:
-<div class="hacker">SET GLOBAL read_only = OFF;</div>
+<li>After the backup is complete, return the system to its original working state.
+  <div class="hacker">SET GLOBAL read_only = OFF;</div>
 <div class="hacker">UNLOCK TABLES;</div>
 </li>
 </ol>
 
 <h2>Conclusion</h2>
-<p>In this, article you learned to backup MySQL Databases on your Arch Linux server.</p>
+<p>In this, article you learned to back up MySQL databases on your Arch Linux server.</p>
 
 </body>
 </html>
