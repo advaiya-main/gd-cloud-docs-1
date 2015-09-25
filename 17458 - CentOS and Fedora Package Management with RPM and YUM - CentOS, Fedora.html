@@ -79,14 +79,18 @@ p.note {
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>Red Hat Package Manager <strong>(RPM)</strong> and Yellowdog Updater, Modified <strong>(YUM) </strong>are open source and default package management utility tools for Red Hat based operating system like CentOS and Fedora. Using RPM and YUM, administrator can perform install, reinstall, uninstall, update and upgrade packages. RPM and YUM are also used to check the version, status, signature and dependencies using the RPM and YUM tools. A package consists of an archive of files and meta-data used to install and erase the archive files.</p>
+    <p>Red Hat Package Manager (RPM) and Yellowdog Updater, Modified (YUM) are open source, default package-management utility tools for Red Hat based operating systems like CentOS and Fedora. Using RPM and YUM, you can  install, reinstall, uninstall, update, and upgrade packages. RPM and YUM are also used to check the version, status, signature, and dependencies using the RPM and YUM tools. A package consists of an archive of files and metadata used to install and erase the archive files.</p>
 
-    <p>This article will guide you for package management using RPM and YUM respectively.</p>
+    <p>This article will help you understand package management using RPM and YUM respectively.</p>
     
-    <h2>RPM</h2>
-    <p>The RPM formerly known as <code>.rpm</code> file, includes compiled software programs and libraries needed by the packages. This utility only works with packages that are built on <code>.rpm</code> format.</p>
+<h2>RPM</h2>
+    <p>The RPM formerly known as <code>.rpm</code> file includes compiled software programs and libraries needed by the packages. This utility  works only with packages that are built on <code>.rpm</code> format.</p>
 
-    <table border="1">
+    <table>
+    <tr>
+          <th>Description</th>
+        <th>Command</th>
+      </tr>
       <tr>
         <td>Check the RPM signature package.</td>
         <td><code>rpm -checksig <em><u>http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm</u></em></code></td>
@@ -103,11 +107,11 @@ p.note {
         <td><code>sudo rpm -qpR <em><u>http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm </u></em></code><br/>
           Option description: <br/>
           -q: Query a package. <br/>
-          -p: List capabilities this package provides. <br/>
+          -p: List capabilities that this package provides. <br/>
           -R: List the package dependencies. </td>
       </tr>
       <tr>
-        <td>Install a RPM Package without dependencies.</td>
+        <td>Install a RPM package without dependencies.</td>
         <td><code>sudo rpm -ivh --nodeps <em><u>http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm</u></em></code></td>
       </tr>
       <tr>
@@ -147,20 +151,24 @@ p.note {
         <td><code>sudo rpm -Vp <em><u>ftp://rpmfind.net/linux/centos/6.7/os/x86_64/Packages/httpd-2.2.15-45.el6.centos.x86_64.rpm</u></em></code></td>
       </tr>
       <tr>
-        <td>Import the PGP keys to verify the packages using the following command:</td>
+        <td>Import the PGP keys to verify the packages.</td>
         <td><code>sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</code></td>
       </tr>
       <tr>
         <td>List all the imported GPG keys.</td>
         <td><code>sudo rpm -qa gpg-pubkey*</code></td>
       </tr>
-    </table>
+</table>
 	
 	
    <h2>YUM</h2>
-  <p>YUM is an automatic update and package management utility. YUM installs all the dependencies automatically.</p>
+  <p>YUM is an automatic update and package-management utility. YUM installs all the dependencies automatically.</p>
   
-  <table border ="1">
+  <table>
+  <tr>
+   <th>Description</th>
+   <th>Command</th>
+   </tr>
    <tr>
    <td>Update the RPM packages.</td>
    <td><code>sudo yum update</code></td>
@@ -174,7 +182,7 @@ p.note {
    <td><code>sudo yum install <em><u>httpd</u></em></code></td>
    </tr>
    <tr>
-   <td>Search a package from the <strong>yum</strong> repository.</td>
+   <td>Search a package from the yum repository.</td>
    <td><code>sudo yum search <em><u>nginx</u></em></code></td>
    </tr>
    <tr>
@@ -203,7 +211,7 @@ p.note {
    <td><code>yum provides <em><u>httpd</u></em></code></td>
    </tr>
    <tr>
-   <td>Find the list of RPM dependency.</td>
+   <td>Find the list of RPM dependencies.</td>
    <td><code>sudo yum deplist <em><u>package-name</u></em></code></td>
    </tr>
    <tr>
@@ -211,7 +219,7 @@ p.note {
    <td><code>sudo yum grouplist | more</code></td>
    </tr>
    <tr>
-   <td>Yum group install.</td>
+   <td>YUM group install.</td>
    <td><code>sudo yum groupinstall <em><u>'Development Tools'</u></em></code></td>
     </tr>
    <tr>
@@ -227,7 +235,7 @@ p.note {
    <td><code>sudo yum groupinfo <em><u>'Development Tools'</u></em></code></td>
    </tr>
    <tr>
-   <td>Print the list of installed package in paging.</td>
+   <td>Print the list of installed packages in paging.</td>
    <td><code>sudo yum list installed | more</code></td>
    </tr>
  
