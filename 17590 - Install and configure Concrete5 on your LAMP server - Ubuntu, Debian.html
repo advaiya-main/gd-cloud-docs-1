@@ -88,17 +88,20 @@ p.note {
 <div class="hacker">sudo apt-get install unzip </div>
 </li>
 <li>Install the PHP libraries for graphics and XML.
-<div class="hacker">sudo apt-get install php-gd php-xml</div>
+<div class="hacker">sudo apt-get install php5-gd </div>
 </li>
 <li>Restart the Apache services to make the changes effective.
-<div class="hacker">sudo service restart httpd</div>
+<div class="hacker">sudo service apache2 restart</div>
 </li>
 </ol>
 
 <h2>Basic configuration</h2>
 <ol>
 <li>Download the source of concrete5 from the official site:
-<div class="hacker">cd /srv/http </div>
+<p>Debian:</p>
+<div class="hacker">cd /var/www/ </div>
+<p>Ubuntu:</p>
+<div class="hacker">cd /var/www/html </div>
 <div class="hacker">sudo wget --trust-server-names http://www.concrete5.org/download_file/-/view/58379/8497/ -O concrete5.zip</div>
 </li>
 <li>Extract the downloaded source.
@@ -126,9 +129,11 @@ p.note {
 <ol>
 <li>Create a blank database for backend operation.
 <div class="hacker">mysql -u root -p</div>
+</li>
+<li>When prompted enter mysql password and create database.
 <div class="hacker">CREATE DATABASE <em><u>concrete5</u></em>;</div>
 </li>
-<li><p>Exit.</p></li>
+<li><div class="hacker">Exit.</div></li>
 <!--tester, is there a command or key combo to exit?-->
 </ol>
 
