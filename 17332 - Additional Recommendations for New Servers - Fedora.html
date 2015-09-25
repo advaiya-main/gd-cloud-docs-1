@@ -115,8 +115,8 @@ You'll use <code>firewall-cmd</code>  to configure your firewall policies. The <
 <li>
 (Fedora 20 only) If you receive the error <span class="hacker"><code>&quot;Failed to issue method call: Unit firewalld.service is masked</code>,&quot; then unmask </span> the firewall.<br/>
 <div class="hacker">sudo systemctl unmask firewalld</div>
-The following output  indicates that the firewall was successfully unmasked: <br/>
- <div class="hacker">'/etc/systemd/system/firewalld.service'</div> Turn on your firewall again. 
+Turn on your firewall again. 
+<div class="hacker">sudo systemctl start firewalld</div> 
 </li> </ol>
 
                                                          
@@ -159,7 +159,7 @@ This firewall is the strictest configuration, so every incoming connection is de
 
   <div class="hacker">sudo firewall-cmd --get-services  </div>If you want to add any of these services, you can use this command:
 
-  <div class="hacker">sudo firewall-cmd --permanent --add-service=<em><u>service</u></em></div></li></ul></li>
+  <div class="hacker">sudo firewall-cmd --permanent --add-service=<em><u>serviceName</u></em></div></li></ul></li>
 
 <li>To review your exceptions, run the <code>list-all</code> command.
  
