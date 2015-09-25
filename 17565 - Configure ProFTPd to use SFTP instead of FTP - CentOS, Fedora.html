@@ -109,10 +109,11 @@ p.note {
    <li>Change the <code>ServerName</code> to your FQDN or your public IP.
    <div class="hacker">ServerName		“<em><u>Your-public-ip</u></em>” </div>
    </li>
-   <li>Change the default server port to hide from public scan.
+   <li>
+      <p>Add the following code below the <code>DefaultServer</code> variable label: </p>
    <div class="hacker">Port		9011</div>
-   <p>Add the Port below the <code>DefaultServer</code> variable label.</p>
    </li>
+   <li>To save and exit press <strong>Esc</strong> key and type :wq </li>
    <li>Restart the ProFTPd services.
      <div class="hacker">sudo systemctl restart proftpd.service</div>
    </li>
@@ -123,7 +124,7 @@ p.note {
 </ol>
   
   <h2>Set up firewall rules</h2>
-  <p>Setting up the firewall rules is optional  for those who didn’t configure a firewall on the CentOS or Fedora server.</p>
+  <p>Setting up the firewall rules is <strong>optional</strong>  for those who didn’t configure a firewall on the CentOS or Fedora server. Make sure that <code>Firewall</code> is active.</p>
 <ol> 
 <li>Enable incoming requests.
    <div class="hacker">firewall-cmd --add-port=9011/tcp –permanent</div>
@@ -138,7 +139,7 @@ p.note {
      <div class="hacker">setsebool -P allow_ftpd_full_access=1</div>
    </li>
    <li>Restart  ProFTPd.
-     <div class="hacker">systemctl restart proftpd.service</div>
+     <div class="hacker">sudo systemctl restart proftpd.service</div>
    </li>
 </ol>
   
