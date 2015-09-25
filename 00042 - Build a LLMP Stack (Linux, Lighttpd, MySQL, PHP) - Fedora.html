@@ -4,9 +4,8 @@
 
 <head>
 
-<!--Article Number is 00042 (fill in blank)-->
+<!--Article Number is 00042-->
 
-<!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
 <title>Build a LLMP Stack (Linux, Lighttpd, MySQL, PHP) -Fedora</title>
@@ -70,16 +69,16 @@ p.note {
     <p>Install Lighttpd, MySQL, and PHP on a server running Fedora to serve web applications.</p>
     <h1>Build a LLMP (Linux, Lighttpd, MySQL, PHP) stack on a server running  Fedora</h1>
     <p>
-        <strong>Difficulty</strong>: 3
+        <strong>Difficulty</strong>: <em><u>3 </u></em>
         <br />
-        <strong>Time</strong>: 20 minutes
+        <strong>Time</strong>: <em><u>20 minutes</u></em>
     </p>
     <p>
         LLMP is an acronym used for the software suite that is used by developers and administrators to serve web applications quickly on a stable platform. In this article, you will learn how to build a LLMP stack on Fedora.
-    </p>Because we are already running Fedora Linux is already installed.
+    </p>
     <h2>Prerequisites</h2>
     <p>
-        You must have <a href="17322 - Initial Server Setup - Fedora.html">Initial Server Setup</a> done on your server.
+        You must have completed the <a href="17322 - Initial Server Setup - Fedora.html">initial server setup</a> for Fedora. Linux is installed with Fedora.
     </p>
     <h2>Install Lighttpd</h2>
     <ol>
@@ -101,9 +100,9 @@ p.note {
 
         </li>
         <li>
-            To verify that Lighttpd is installed, type this URL in a browser: <strong>http://<em><u>your IP address</u></em>.</strong>. You will see a test page like this: <br/>
-            <img src="images/00042/Build-LLMP-stack-on-Fedora.png" width="600" height="387" alt="Build a LLMP Stack (Linux, Lighttpd, MySQL, PHP) -Fedora" />    <br/>
-            If you do not know your IP address, you can use this procedure to <a href="/article/19041?prog_id=PROG_ID"> find your ip address</a>.
+            To verify that Lighttpd is installed, type this URL in a browser: <strong>http://<em><u>your IP address</u></em>.</strong> You will see a test page like this: <br />
+            <img src="images/00042/Build-LLMP-stack-on-Fedora.png" width="600" height="387" alt="Fedora confirmation page" />    <br />
+            If you do not know your IP address, you can <a href="/article/19041?prog_id=PROG_ID">look it up</a>.
 
         </li>
     </ol>
@@ -126,9 +125,9 @@ p.note {
             <div class="hacker">sudo /usr/bin/mysql_secure_installation</div>
         </li>
         <li>You will be asked for the root password. Because you didn't set it earlier, press <strong>Enter</strong> to set a password now. </li>
-        <li>Type "Y" to set the root password.</li>
+        <li>Type <strong>Y</strong> to set the root password.</li>
         <li>Enter and confirm the new password.</li>
-        <li>You will be asked more questions as part of security configuration. It is a best practice to respond "Y" to these system prompts.</li>
+        <li>You will be asked more questions as part of security configuration. It is a best practice to respond <strong>Y</strong> to these system prompts.</li>
 
     </ol>
     <h2>Install PHP</h2>
@@ -136,7 +135,7 @@ p.note {
         <li>
             To install PHP, open the terminal and type:
             <div class="hacker">sudo yum install php-fpm lighttpd-fastcgi php-mysql</div>
-            Enter "Y" to install.
+            Enter <strong>Y</strong> to install.
         </li>
         <li>Add lighttpd to the user and the group in the <code>www.conf</code>
         <div class="hacker">sudo vim /etc/php-fpm.d/www.conf</div>
@@ -151,11 +150,12 @@ user = apache
 ; RPM: Keep a group allowed to write in log dir.
 group = apache
 
-</pre>
-      Save and exit the file  </div>
-        Change <code>user=apache</code> to <code>user=lighttpd</code> and <code>group=apache</code> to <code>group=lighttpd</code>
-        </li>
-   <li>This step is recommended even though it's optional. Create a system startup link for PHP-FPM to start everytime the system boots up.
+</pre> </div></li>
+        
+        <li>Change <code>user=apache</code> to <code>user=lighttpd</code> and <code>group=apache</code> to <code>group=lighttpd</code>.</li>
+  
+        <li>Save and exit the file.</li>
+   <li>This step is recommended, even though it's optional. Create a system startup link for PHP-FPM to start every time the system boots up.
         <div class="hacker">sudo chkconfig --levels 235 php-fpm on</div>
         </li>
         <li>Start the service.
@@ -166,17 +166,18 @@ group = apache
         <li>
             Open the <code>php.ini</code> file. 
             <div class="hacker">sudo vim /etc/php.ini</div>
-            Uncomment the following line :
-            <div class="hacker"><pre>cgi.fix_pathinfo=1</pre></div>
-            Save and exit the file.
+            </li>
+            <li>Uncomment the following line :
+            <div class="hacker"><pre>cgi.fix_pathinfo=1</pre></div></li>
+            <li>Save and exit the file.
         </li>
         <li>
-            Now edit the <code>modules.conf</code> file.
+            Edit the <code>modules.conf</code> file.
             <div class="hacker">sudo vim /etc/lighttpd/modules.conf</div>
             Uncomment the following line :
             <div class="hacker"><pre>include "conf.d/fastcgi.conf"</pre></div>
         </li>
-        <li>And lastily you need to edit the <code>fastcgi.conf</code>file.
+        <li>Edit the <code>fastcgi.conf</code> file.
         <div class="hacker">sudo vim /etc/lighttpd/conf.d/fastcgi.conf</div>
          Enter the following block of code just after the <code>server.modules += ( "mod_fastcgi" )</code> line and before the PHP Example.
         <div class="hacker"><pre>fastcgi.server += ( ".php" =>
@@ -185,7 +186,7 @@ group = apache
                 "port" => "9000",
                 "broken-scriptfilename" => "enable"
         ))
-)</pre></div>
+)</pre></div></li><li>
         Save and exit the file.
         </li>
        <li>Restart Lighttpd.
@@ -201,11 +202,11 @@ group = apache
         </li>
         <li>
             When the file opens, type in the following code:
-            <div class="hacker"> &lt;?php <br /> phpinfo(); <br /> ?> </div>
-            Save and exit the file.</li>
+            <div class="hacker"> &lt;?php <br /> phpinfo(); <br /> ?> </div></li>
+            <li>Save and exit the file.</li>
         <li>
             To verify that it works, type this URL in your browser:
-            <strong>http://<em><u>your IP address</u></em>/info.php</strong>           
+            <strong>http://<em><u>your IP address</u></em>/info.php</strong>.            
             If it works, a page displays the PHP version, extensions, build date, and other information.
         </li>
 
