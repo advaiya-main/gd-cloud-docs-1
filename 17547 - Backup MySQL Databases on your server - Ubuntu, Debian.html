@@ -71,18 +71,18 @@ p.note {
 </head>
 
 <body>
-<p>Backup MySQL Databases on your server - Ubuntu, Debian, MySQL, Backups</p>
-    <h1>Backup MySQL databases on your server - Ubuntu, Debian</h1>
+<p>Back up MySQL databases on your server - Ubuntu, Debian, MySQL, backups</p>
+    <h1>Back Up MySQL Databases on Your Server - Debian, Ubuntu </h1>
     
-    <p><strong>Difficulty</strong>: <em>1</em><br/>
+<p><strong>Difficulty</strong>: <em>1</em><br/>
         <strong>Time</strong>: <em>30 minutes</em></p>
 
-    <p>MySQL is one of the most popular database engine for storing data in database. MySQL uses SQL ie. Structured Query Language to retrieve and manipulate data. It can be used to manage data from websites or applications.</p>
-    <p>Backup is useful to restore data against crashes of the system. In this article, you will learn ways to backup MySQL databases on your Ubuntu and Debian server. Before you begin, you need to install MySQL on the Ubuntu and Debian server. To know more about MySQL installation, you may visit <a href="17341">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu</a> and <a href="17346">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a>.You can choose any version of MySQL, because operational commands remain similar.</p>
+    <p>MySQL is one of the most popular database engines for storing data in a database. MySQL uses SQL, Structured Query Language, to retrieve and manipulate data. It can be used to manage data from websites or applications.</p>
+<p>Backing up is useful for restoring data after system crashes. In this article, you'll learn ways to back up MySQL databases on your  Debian  or Ubuntu   server. Before you begin, you need to install MySQL on the   server. To learn more about MySQL installation, visit <a href="17346">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a> or <a href="17341">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu</a>. You can choose any version of MySQL because operational commands remain similar.</p>
     
-    <h2>Backup Database</h2>
+    <h2>Back up the database</h2>
 <ul> 
-<li>Export the database using <code>mysqldump</code> command. 
+<li>Export the database using the <code>mysqldump</code> command. 
   <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
    </li>
    </ul>
@@ -91,84 +91,80 @@ p.note {
    <ol>
    <li>Create a database if not created already.  
    <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
-   </li>
-   <li>You will get a MySQL prompt, asking to create a new database to hold raw data.
+   A MySQL prompt asks to create a new database to hold raw data.
    <div class="hacker">CREATE DATABASE <em><u>database_name</u></em>;</div>
    </li>
-   <li>Exit or press ctrl+c.
-   </li>
-   <li>Import data in the newly created database.
-   <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p  <em><u>database_name</u></em> &lt; <em><u>back_database_date</u></em>.sql</div>
+   <li>Exit or press <strong>Ctrl</strong>+<strong>C</strong>. </li>
+   <li>Import data into the newly created database.
+     <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p  <em><u>database_name</u></em> &lt; <em><u>back_database_date</u></em>.sql</div>
    <p>The data will be restored or dumped into <code><em><u>database_name</u></em></code>. </p>
    </li>
    </ol>
    
-   <h2>Back up the table to a text file</h2>
+<h2>Back up the table to a text file</h2>
    <ul>
-   <li>Take the backup into the text file using the following command:
-   <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
+   <li>Take the backup into the text file.
+     <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
    <div class="hacker">USE <em><u>database_name</u></em>;</div>
    <div class="hacker">SELECT * INTO OUTFILE '<em><u>table_backup_file</u></em>' FROM <em><u>name_of_table</u></em>;</div>
-   <p class="note">Use <code><strong>USE</strong></code> command to select or change the database.</p>
-   <p class="note">Press <strong>CTLR+C</strong> to exit from <code>MySQL</code>.</p>
+   <p class="note">Use the <code><strong>USE</strong></code> command to select or change the database.</p>
+   <p class="note">Press <strong>CTLR+C</strong> to exit from MySQL.</p>
    </li>
   </ul>
   
-  <h2>Auto-backup MySQL information</h2>
-<ol> 
-<li>To automatically perform data backups at regular intervals, there is a tool in Ubuntu/Debian named <code>automybackup</code>. Install <code>automybackup</code> using the following command:
-   <div class="hacker">sudo apt-get install automysqlbackup</div>
+  <h2>Automatically back up MySQL information</h2>
+<p>To automatically perform data backups at regular intervals, there's a tool in Debian or Ubuntu named <code>automybackup</code>.
+<!--Testers, check name in this section: automybackup vs automysqlbackup vs automysqlback.  cj -->  </p>
+<ol>
+  <li> Install <code>automybackup</code>.
+    <div class="hacker">sudo apt-get install automysqlbackup</div>
    <div class="hacker">sudo automysqlbackup</div>
    </li>
-   <li>Open the configuration file for <code>automysqlback</code> using vim which is located at <code>/etc/default/automysqlbackup</code>.
+   <li>Open the configuration file for <code>automysqlback</code>.
       <div class="hacker">sudo vim /etc/default/automysqlbackup</div>
-	  <p class="note">To save and exit press <strong>Esc</strong> and type the following characters <strong>:wq!</strong></p>
+	  <p class="note">To save and exit, press <strong>Esc</strong> and type the following characters <strong>:wq!</strong></p>
+  After opening, you'll find that the <code>/etc/mysql/debian.conf </code>file has many variables. You can replace the file with your configuration file but, before proceeding, you should make a backup of the file.  </li>
+   <li>By default, the <code>automysqlback</code> command makes the backup in the <code>/var/lib/automysqlbackup </code> file. To check the structure of the backup, run the following command:
+     <div class="hacker">ls /var/lib/automysqlbackup</div>
    </li>
-   <li>After opening, you will find <code>/etc/mysql/debian.conf </code>file, has many variables. You can replace the file with your configuration file but before proceeding, you should take a backup of the file.
-   </li>
-   <li>By default, <code>automysqlback</code> command takes the backup in <code>/var/lib/automysqlbackup </code> file. To check the structure of the backup, run the following command into the terminal.
-   <div class="hacker">ls /var/lib/automysqlbackup</div>
-   </li>
-   <li>To verify the database backup, run the following command in the terminal:
-   <div class="hacker">ls -R /var/lib/automysqlbackup/</div>
+   <li>Verify the database backup.
+     <div class="hacker">ls -R /var/lib/automysqlbackup/</div>
    </li>
   </ol>
   
-  <h2>Backup using replication</h2>
-  <p>You may use MySQL replication to backup the data with the above techniques. While replication allows for data mirroring, however it might fail to save a specific point in time. This is because it is constantly replicates the changes in a dynamic environment. To avoid this problem, you can either disable replication temporarily or 
-create the backup machine in a read-only state temporarily</p>
+<h2>Back up using replication</h2>
+  <p>You may use MySQL replication to back up the data with the above techniques. While replication allows for data mirroring, it might fail to save a specific point in time. This is because it constantly replicates the changes in a dynamic environment. To avoid this problem, you can either disable replication temporarily or create the backup machine in a read-only state temporarily.</p>
     
-  <h2>Disable replication temporarily</h2>
-<ol> 
-<li>Disable replication for the slave temporarily by using the following command:
+  <h3>Disable replication temporarily</h3>
+<ul> 
+<li>Disable replication for the slave temporarily.
    <div class="hacker">mysqladmin -u <em><u>mysql_username</u></em>  -p stop-slave</div>
-  </li>
-   <li>Another option, that doesn't completely stop replication, but put pauses the replication can be accomplished, by typing:
-<div class="hacker">mysql -u <em><u>mysql_username</u></em> -p -e 'STOP SLAVE SQL_THREAD;'</div>
+  Another option, which doesn't completely stop replication but  pauses it, can be accomplished by typing:
+  <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p -e 'STOP SLAVE SQL_THREAD;'</div>
 </li>
-   </ol>
+   </ul>
    
    
-   <h2>Making the backup machine read-only temporarily</h2>
-   <p>You can ensure a consistent set of data within the server by making the data read-only temporarily. You can perform these steps on either the master or the slave systems.</p>
+   <h3>Make the backup machine read-only temporarily</h3>
+<p>You can ensure a consistent set of data within the server by making the data read-only temporarily. You can perform these steps on either the master or the slave systems.</p>
    <ol>
-   <li>Login into MySQL with enough privileges to manipulate the data.
-   <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
+   <li>Log into MySQL with enough privileges to manipulate the data.
+     <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
    </li>
-   <li>You can write all of the cached changes to the disk and set the system read-only, by typing:
-   <div class="hacker">FLUSH TABLES WITH READ LOCK; </div>
+   <li>Write all of the cached changes to the disk, and set the system read-only.
+     <div class="hacker">FLUSH TABLES WITH READ LOCK; </div>
    <div class="hacker">SET GLOBAL read_only = ON;</div>
    </li>
    <li>Perform the backup using <code>mysqldump</code>.
    </li>
-   <li>After the backup is completed, return the system to its original working state by typing:
-   <div class="hacker">SET GLOBAL read_only = OFF;</div>
+   <li>After the backup is complete, return the system to its original working state.
+     <div class="hacker">SET GLOBAL read_only = OFF;</div>
    <div class="hacker">UNLOCK TABLES;</div>
   </li>
 </ol>
   
     <h2>Conclusion</h2>
-    <p>In this, article you learned to backup MySQL Databases on your server – Ubuntu, Debian. </p>
+    <p>In this, article you learned to back up MySQL databases on your server. </p>
    
 </body>
 </html>
