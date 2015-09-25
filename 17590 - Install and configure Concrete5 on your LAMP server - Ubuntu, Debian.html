@@ -115,9 +115,9 @@ p.note {
 </li>
 <li>Update the Apache configuration before proceeding with the next step. Check if <code>mod_rewrite</code> is enabled or not, using the following command:
 <div class="hacker">apache2ctl -M</div>
-<p>If you find <code>rewrite_module</code> in the list, then <code>mod_rewrite</code> is enabled.</p> <!--tester, does that mean that you can skip the next step?-->
+<p>If you find <code>rewrite_module</code> in the list, then <code>mod_rewrite</code> is enabled.</p> <!--tester, does that mean that you can skip the next step?--><!--fixed-->
 </li>
-<li>Enable the rewrite module.
+<li>If you don't find, then enable the <code>rewrite</code> module.
 <div class="hacker">a2enmod rewrite</div>
 </li>
 <li>Restart the Apache server.
@@ -134,7 +134,7 @@ p.note {
 <div class="hacker">CREATE DATABASE <em><u>concrete5</u></em>;</div>
 </li>
 <li><div class="hacker">Exit.</div></li>
-<!--tester, is there a command or key combo to exit?-->
+<!--tester, is there a command or key combo to exit?--><!--fixed-->
 </ol>
 
 <h2>Install Concrete5</h2>
