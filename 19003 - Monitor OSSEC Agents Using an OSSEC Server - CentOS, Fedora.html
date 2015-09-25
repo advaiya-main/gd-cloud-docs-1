@@ -241,7 +241,7 @@ http://www.ossec.net/en/manual.html#ma
 		<li>
 			Start OSSEC.
 			<div class="hacker">
-				/var/ossec/bin/ossec-control start
+				sudo /var/ossec/bin/ossec-control start
 			</div>
 		</li>
 	</ol>
@@ -426,19 +426,9 @@ Added.
 		<li>
 			Restart both the servers.
 			<div class="hacker">
-				/var/ossec/bin/ossec-control restart
+				sudo /var/ossec/bin/ossec-control restart
 			</div></li>
 		
-		
-			<li>OSSEC agent can be started from server using the following command:
-			<div class="hacker">
-				/var/ossec/bin/agent_control -R <em><u>001</u></em>
-			</div> </li>
-			<li><strong>001</strong> is the agent ID. Following message will be displayed.
-			<div class="hacker">
-				<em><u>agent-name</u></em>-<em><u>ip_of_agent</u></em> is active.
-			</div>
-		</li>
 	</ol>
 	<h2>Next steps</h2>
 	<p>
