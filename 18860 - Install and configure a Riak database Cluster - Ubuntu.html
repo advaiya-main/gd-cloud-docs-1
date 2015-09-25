@@ -78,11 +78,11 @@ p.note {
 
 <ol> 
 <li>Add the Riak repository and key.
-   <div class="hacker">curl -s https://packagecloud.io/install/repositories/basho/riak/script.deb.sh | sudo bash</div>
+   <div class="hacker">sudo curl -s https://packagecloud.io/install/repositories/basho/riak/script.deb.sh | sudo bash</div>
    </li>
    <li>Install Riak, and update the <code>apt</code> repository.
-     <div class="hacker">apt-get update</div>
-      <div class="hacker">apt-get install riak</div>
+     <div class="hacker">sudo apt-get update</div>
+      <div class="hacker">sudo apt-get install riak</div>
    </li>
    </ol>
    
@@ -90,16 +90,20 @@ p.note {
    <p>Configure the first node in a Riak cluster with the following steps.</p>
    <ol>
    <li>Stop the Riak service if it was started earlier.
-     <div class="hacker">riak stop</div>
+     <div class="hacker">sudo riak stop</div>
+   </li>
+   <li>Open the configuration file of <code>riak</code>.
+   <div class ="hacker">sudo vim /etc/riak/riak.conf</div>
    </li>
    <li>Edit the Riak configuration file: Find and replace the following lines in the <code>/etc/riak/riak.conf</code> file.
      <div class="hacker">listener.protobuf.internal = <em><u>node_ip_address</u></em>:8087</div>
    <div class="hacker">listener.http.internal = <em><u>node_ ip_address</u></em>:8098</div>
    <div class="hacker">nodename = riak@<em><u>node_ip_address</u></em></div>
    </li>
+   <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
    <li>Start the Riak service. While starting, configure <code>ulimit</code> to a minimum of 65565.
      <div class="hacker">ulimit -u 65565</div>
-   <div class="hacker">riak start</div>
+   <div class="hacker">sudo riak start</div>
   <p>In the same way, you can configure all the other nodes that you want to include in the cluster.</p>
   </li>
   </ol>
@@ -107,20 +111,22 @@ p.note {
   <h2>Add a second node to the cluster</h2>
   <p>Perform all the steps  above to start Riak in a second node and to include these nodes in the cluster. </p>
 <ol> 
-<li>Inside the second node, execute the following command to join the first node:
-   <div class="hacker">riak-admin cluster join riak@<em><u>first_node_ip</u></em></div>
+<li>Inside the second node, start <code>riak</code> service and execute the following command to join the first node:
+<div class ="hacker">sudo riak start</div>
+   <div class="hacker">sudo riak-admin cluster join riak@<em><u>first_node_ip</u></em></div>
  </li>
    <li>Plan and commit the changes.
-     <div class="hacker">riak-admin cluster plan</div>
-   <div class="hacker">riak-admin cluster commit</div>
+     <div class="hacker">sudo riak-admin cluster plan</div>
+   <div class="hacker">sudo riak-admin cluster commit</div>
    </li>
    <li>View the complete ring cluster.
-     <div class="hacker">riak-admin status | grep ring_members</div>
+     <div class="hacker">sudo riak-admin status | grep ring_members</div>
    </li>
    <li>Create a file, <code>/etc/default/riak</code>, and add the following line to make the <code>ulimit</code> setting permanent:
-     <div class="hacker">vi /etc/default/riak</div>
+     <div class="hacker">sudo vim /etc/default/riak</div>
    <div class="hacker">ulimit -n 65536</div></li>
-   <li>Save and close the file.</li>
+    <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+  
     </ol>
   
   
