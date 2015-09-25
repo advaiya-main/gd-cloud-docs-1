@@ -82,18 +82,18 @@ p.note {
     <p>Red Hat Package Manager (RPM) and Yellowdog Updater, Modified (YUM) are open source, default package-management utility tools for Red Hat based operating systems like CentOS and Fedora. Using RPM and YUM, you can  install, reinstall, uninstall, update, and upgrade packages. RPM and YUM are also used to check the version, status, signature, and dependencies using the RPM and YUM tools. A package consists of an archive of files and metadata used to install and erase the archive files.</p>
 
     <p>This article will help you understand package management using RPM and YUM respectively.</p>
-    
+  <p class="note">The commands given in this article are not step by step procedures. These are just for your information.</p>  
 <h2>RPM</h2>
     <p>The RPM formerly known as <code>.rpm</code> file includes compiled software programs and libraries needed by the packages. This utility  works only with packages that are built on <code>.rpm</code> format.</p>
 
-    <table>
+    <table border="1">
     <tr>
           <th>Description</th>
         <th>Command</th>
       </tr>
       <tr>
         <td>Check the RPM signature package.</td>
-        <td><code>rpm -checksig <em><u>http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm</u></em></code></td>
+        <td><code>rpm --checksig <em><u>http://vault.centos.org/centos/7/extras/Source/SPackages/python-sqlalchemy-0.9.8-1.el7.src.rpm</u></em></code></td>
       </tr>
       <tr>
         <td>Install the RPM package.</td>
@@ -152,8 +152,9 @@ p.note {
       </tr>
       <tr>
         <td>Import the PGP keys to verify the packages.</td>
-        <td><code>sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</code></td>
-      </tr>
+        <td><code>sudo rpm --import /etc/pki/rpm-gpg/<em><u>RPM-GPG-KEY-CentOS-7</u></em></code><br />
+		Write here current version of OS that you are using.</td>
+		      </tr>
       <tr>
         <td>List all the imported GPG keys.</td>
         <td><code>sudo rpm -qa gpg-pubkey*</code></td>
@@ -164,7 +165,7 @@ p.note {
    <h2>YUM</h2>
   <p>YUM is an automatic update and package-management utility. YUM installs all the dependencies automatically.</p>
   
-  <table>
+  <table border="1">
   <tr>
    <th>Description</th>
    <th>Command</th>
