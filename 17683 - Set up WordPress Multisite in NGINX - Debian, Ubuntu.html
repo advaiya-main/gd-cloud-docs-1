@@ -190,7 +190,7 @@ You'll also need to set up the DNS for all your domains. Point them to the IP th
          
          
     <li>Run a config test.
-            <div class="hacker">sudo service nginx configtest</div</li>                  
+            <div class="hacker">sudo service nginx configtest</div></li>                  
             
             <li>If the config test returns OK, restart nginx. 
             <div class="hacker">sudo service nginx restart</div></li>   
@@ -253,31 +253,6 @@ This command creates a directory called "wordpress" in your home directory.</li>
 
 </ol>
 
-    <h2>Install WordPress</h2> 
-
-      <p>Now you can access the WordPress web interface.</p>
-     
-     <ol>
-     <li>  In your web browser, enter your primary domain name. In our example, that's 
-   <strong>http://coolexample.com</strong>.
-   (If the Nginx default page displays, append <code>/wp-admin/</code> to your URL.)<br/>
-   You may get an introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
-
-     <!--CT: Believe this is an extraneous step...<li>On the WordPress configuration page, fill out your information to create your administrator account. <br />
-<img src="images/17683/090815/install-wordpress-on-your-server-welcome-filledout-1.png" alt="Install WordPress Welcome screen" /> </li>...-->
-
-  <li>On the next screen, fill in your WordPress MySQL database credentials.
-You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. <br/>
-  
-<img src="images/17683/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" /></li>
-
-<li>Click <strong>Submit</strong>.
-  <br />
-  The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
-<img src="images/17683/090815/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
-</li>
-      </ol>
-      
 <h3>Create and modify the WordPress configuration file</h3> 
    
    <ol>
@@ -315,6 +290,33 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
       <li>Restart Nginx.
      <div class="hacker">sudo service nginx restart</div></li>
      </ol>
+
+    <h2>Install WordPress</h2> 
+
+      <p>Now you can access the WordPress web interface.</p>
+     
+     <ol>
+     <li>  In your web browser, enter your primary domain name. In our example, that's 
+   <strong>http://coolexample.com</strong>.
+   (If the Nginx default page displays, append <code>/wp-admin/</code> to your URL.)<br/>
+   You may get an introductory page. If so, click <strong>Let's go!</strong> to continue.</li>
+
+     <!--CT: Believe this is an extraneous step...<li>On the WordPress configuration page, fill out your information to create your administrator account. <br />
+<img src="images/17683/090815/install-wordpress-on-your-server-welcome-filledout-1.png" alt="Install WordPress Welcome screen" /> </li>...-->
+
+  <li>On the next screen, fill in your WordPress MySQL database credentials.
+You can leave the Database Host as is (localhost), since that's what we defined, and Table Prefix as wp_. <br/>
+  
+<img src="images/17683/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" /></li>
+
+<li>Click <strong>Submit</strong>.
+  <br />
+    You may get a &quot;run the install&quot; page or the following page displaying the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! In either case, STOP.&nbsp; To avoid being trapped in a single-site installation, you must create our <code>wp-config</code> file now.<br />
+<img src="images/17683/090815/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
+</li>
+      </ol>
+      
+
      
 <h3>Continue setup in WordPress web interface</h3>
       
@@ -357,9 +359,8 @@ define('BLOG_ID_CURRENT_SITE', 1);</pre></div>
              </li>
  
    <li>In your terminal, pull up your <code>wp-config</code> file.
-<div class="hacker">cd /usr/share/nginx/wordpress</div>
-   <div class="hacker">sudo vim wp-config.php</div>
-   
+<div class="hacker">sudo vim /usr/share/nginx/wordpress/wp-config.php</div>
+     
  </li>
    <li>Find the section torwards the end of the file you were modifying, and paste the code you copied right before <code>/* That's all, stop editing! Happy blogging. */</code>.</li>
     
