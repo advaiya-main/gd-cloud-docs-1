@@ -121,7 +121,7 @@ p.note {
   
   
   <h2>Automatically back up MySQL information</h2>
-<p>To automatically perform data backups at regular intervals, there's a tool in CentOS or Fedora named <code>automybackup</code>.</p>
+<p>To automatically perform data backups at regular intervals, there's a tool in CentOS or Fedora named <code>automybackup</code>.<!--Testers, check name in this section: automybackup vs automysqlback vs automysqlback.  cj --></p>
   <ol>
    <li>Install <code>automybackup</code>.
      <div class="hacker">cd ~ && wget "http://downloads.sourceforge.net/project/automysqlbackup/AutoMySQLBackup/AutoMySQLBackup%20VER%203.0/automysqlbackup-v3.0_rc6.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fautomysqlbackup%2F%3Fsource%3Dtyp_redirect&amp;ts=1440596561&amp;use_mirror=netassist" -O automysqlbackup-v3.0_rc6.tar.gz</div>
@@ -167,7 +167,7 @@ CONFIG_backup_dir = '<em><u>/var/backup/db</u></em>'</div>
    </ul>
    
    
-   <h3>Making the backup machine read-only temporarily</h3>
+   <h3>Make the backup machine read-only temporarily</h3>
 <p>You can ensure a consistent set of data within the server by making the data read-only temporarily. You can perform these steps on either the master or the slave systems.</p>
    <ol>
    <li>Log into MySQL with enough privileges to manipulate the data.
