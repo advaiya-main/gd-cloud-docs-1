@@ -86,16 +86,19 @@ p.note {
    </li>
    <li>Install <code>pgadmin3</code> for the administrator. This is an easy-to-access GUI for PostgreSQL, and is an optional installation.
    <div class="hacker">sudo pacman -S pgadmin3</div>
+   <p class ="note">Select the default option.</p>
    </li>
    <li>Check if <code>postgresql</code> is installed.
    <div class="hacker">sudo pacman -Si postgresql</div>
    </li>
-   <li>To initialize a database cluster, use the command <code>initdb</code>, which is installed with PostgreSQL. You must do this task as the <code>postgres </code> system user.
+   <li>Login as <code>postgres</code> system user and initialize a database cluster, use the command <code>initdb</code>, which is installed with PostgreSQL
    <div class="hacker">sudo -i -u postgres</div>
+  
+   
     <div class="hacker">initdb -D '/var/lib/postgres/data'</div>
    </li>
    <li>You can log out from the <code>postgres</code> system user, and fire up PostgreSQL.
-   <div class="hacker">Logout</div>
+   <div class="hacker">logout</div>
    <div class="hacker">sudo systemctl start postgresql</div>
    </li>
    <li>If you want PostgreSQL to start automatically every time your VPS boots up, use this command.
@@ -108,12 +111,13 @@ p.note {
 <li>Once PostgreSQL is installed completely, then the <code>Postgres</code> system user and database will be automatically created.
    </li>
    <li>Log in as the <code>Postgres</code> user.
-   <div class="hacker">sudo -u postgres psql</div>
+   <div class="hacker">sudo  -i -u postgres</div>
+   <div class="hacker">psql</cdiv
    </li>
    <li>You will see <code>Postgres=#</code> prompt. To exit from the prompt, type:
    <div class="hacker">\q</div>
    </li>
-   <li>Logout the <code>Postgres</code> system user.
+   <li>Logout the <code>postgres</code> system user.
    <div class="hacker">exit</div>
    </li>
   
