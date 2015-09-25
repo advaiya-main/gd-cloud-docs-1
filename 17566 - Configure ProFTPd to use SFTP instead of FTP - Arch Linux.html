@@ -80,7 +80,7 @@ p.note {
 	<h2>Install the essential library</h2>
 <ul> 
 <li>Install the C library and <code>make</code> command.
-  <div class="hacker">sudo pacman -S gcc make</div>
+  <div class="hacker">sudo pacman -Syu && sudo pacman -S gcc make</div>
 </li>
  </ul>  
  
@@ -123,12 +123,15 @@ DefaultRoot 	        /home/user !adm
   </li>
    <li>Change the <code>ServerName</code> to your FQDN or your public IP.
    <div class="hacker">ServerName		“<em><u>Your-public-ip</u></em>” </div>
-   <p>Add the port below the <code>DefaultServer</code> variable label.</p>
    </li>
-   <li>Change the default server port to hide from public scan.
+   <li>   <p>Add the following code below the <code>DefaultServer</code> variable label.</p>
    <div class="hacker">Port		2021</div>
    </li>
-   <li>Start the ProFTPd services.
+   <li>To save and exit press <strong>Esc</strong> key and type <strong>:wq </strong>
+
+   </li>
+   <li>Change the permission and start the ProFTPd services.
+   <div class="hacker">sudo chmod o-rwx /tmp/PFTEST/PFTEST.passwd</div>
      <p>For non-daemon:</p>
    <div class="hacker">sudo proftpd -n -d 5 -c /tmp/PFTEST/PFTEST.conf</div>
    <p>For daemon:</p>
