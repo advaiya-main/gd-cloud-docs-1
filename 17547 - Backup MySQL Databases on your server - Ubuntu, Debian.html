@@ -81,9 +81,11 @@ p.note {
 <p>Backing up is useful for restoring data after system crashes. In this article, you'll learn ways to back up MySQL databases on your  Debian  or Ubuntu   server. Before you begin, you need to install MySQL on the   server. To learn more about MySQL installation, visit <a href="17346">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian</a> or <a href="17341">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Ubuntu</a>. You can choose any version of MySQL because operational commands remain similar.</p>
     
     <h2>Back up the database</h2>
+	Assuming that the database already exists.
 <ul> 
 <li>Export the database using the <code>mysqldump</code> command. 
   <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
+  <p class="note">Default user for <code>MySQL</code> is <code><strong>root</strong></code>.</p>
    </li>
    </ul>
    
@@ -113,7 +115,7 @@ p.note {
   </ul>
   
   <h2>Automatically back up MySQL information</h2>
-<p>To automatically perform data backups at regular intervals, there's a tool in Debian or Ubuntu named <code>automybackup</code>.
+<p>To automatically perform data backups at regular intervals, there's a tool in Debian or Ubuntu named <code>automysqlbackup</code>.
 <!--Testers, check name in this section: automybackup vs automysqlbackup vs automysqlback.  cj -->  </p>
 <ol>
   <li> Install <code>automybackup</code>.
@@ -122,8 +124,8 @@ p.note {
    </li>
    <li>Open the configuration file for <code>automysqlback</code>.
       <div class="hacker">sudo vim /etc/default/automysqlbackup</div>
-	  <p class="note">To save and exit, press <strong>Esc</strong> and type the following characters <strong>:wq!</strong></p>
-  After opening, you'll find that the <code>/etc/mysql/debian.conf </code>file has many variables. You can replace the file with your configuration file but, before proceeding, you should make a backup of the file.  </li>
+	  
+  After opening, you'll find that the <code>/etc/mysql/debian.conf </code>file has many variables. You can replace the file with your configuration file but, before proceeding, you should make a backup of the file. <p class="note">To save and exit, press <strong>Esc</strong> and type the following characters <strong>:wq!</strong></p> </li>
    <li>By default, the <code>automysqlback</code> command makes the backup in the <code>/var/lib/automysqlbackup </code> file. To check the structure of the backup, run the following command:
      <div class="hacker">ls /var/lib/automysqlbackup</div>
    </li>
@@ -155,7 +157,8 @@ p.note {
      <div class="hacker">FLUSH TABLES WITH READ LOCK; </div>
    <div class="hacker">SET GLOBAL read_only = ON;</div>
    </li>
-   <li>Perform the backup using <code>mysqldump</code>.
+   <li>Perform the backup using <code>mysqldump</code> as shown below.
+   <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
    </li>
    <li>After the backup is complete, return the system to its original working state.
      <div class="hacker">SET GLOBAL read_only = OFF;</div>

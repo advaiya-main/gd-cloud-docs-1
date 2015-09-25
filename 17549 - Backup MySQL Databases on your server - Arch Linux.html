@@ -80,13 +80,16 @@ p.note {
 <p>Backing up is useful for restoring data after system crashes. In this article, you'll learn ways to back up MySQL databases on your Arch Linux server. Before you begin, you need to install MySQL on the Arch Linux server. To learn more about MySQL installation, visit <a href="17345">Build a LAMP stack (Linux, Apache, MySQL, PHP) - Arch Linux</a>. You can choose any version of MySQL, as operational commands remain the same in all versions.</p>
 
 <h2>Back up the database</h2>
+Assuming that the database already exists.
 <ul>
 <li>Export the database using the <code>mysqldump</code> command. 
   <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
+  <p class="note">Default user for <code>MySQL</code> is <code><strong>root</strong></code>.</p>
 </li>
 </ul>
 
 <h2>Restore the database</h2>
+
 <ol>
 <li>Create a database if not created already.  
 <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
@@ -172,7 +175,7 @@ Another option, which  doesn't completely stop replication but  pauses it, can b
   <div class="hacker">FLUSH TABLES WITH READ LOCK; </div>
 <div class="hacker">SET GLOBAL read_only = ON;</div>
 </li>
-<li>Perform the backup using <code>mysqldump</code>.</li>
+<li>Perform the backup using <code>mysqldump</code> as shown below.<div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div></li>
 <li>After the backup is complete, return the system to its original working state.
   <div class="hacker">SET GLOBAL read_only = OFF;</div>
 <div class="hacker">UNLOCK TABLES;</div>
