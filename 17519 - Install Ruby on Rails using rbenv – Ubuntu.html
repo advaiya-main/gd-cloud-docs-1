@@ -51,7 +51,7 @@
 
 <p><strong>Difficulty:</strong> <em>2</em></p>
 <p><strong>Time:</strong> <em>30 minutes</em></p>
-<p>Ruby is a pure object oriented language like PERL and Python while Rails is a web application development framework written in Ruby. This article will assist you to install Ruby on Rails on Ubuntu, with the help of rbenv. rbenv is a new lightweight Ruby version management tool.</p>
+<p>Ruby is a pure object oriented language like PERL and Python, while Rails is a web application development framework written in Ruby. This article will assist you to install Ruby on Rails on Ubuntu, with the help of rbenv. rbenv is a new, lightweight Ruby version management tool.</p>
 
 <p class="note">You need <code>sudo</code> privileges to run the  commands.</p>
 <p>To set up the Ubuntu server,  refer to <a href="17321"> Initial Server Setup - Ubuntu</a>. Optionally, you can also <a href="17366"> install Git</a>.</p> 
@@ -91,10 +91,10 @@
 <h2>Install Ruby</h2>
 
 <ol>
-<li>Install the dependency of Rails, before you install Ruby by typing:
+<li>Install the dependency of Rails, before you install Ruby, by typing:
 	<div class='hacker'>rbenv install  <em><u>latest_version of Ruby</u></em> -k</div>
 </li>    
-<li>This command will set the default version of Ruby that all of your shells will use.
+<li>Set the default version of Ruby that all of your shells will use.
  <div class='hacker'>rbenv global <em><u>latest_version of Ruby</u></em></div>
 </li> 
 <li>To check the version of Ruby installed, type:
@@ -104,7 +104,7 @@
     
 <h2>Install RubyGems</h2>
 <ol>
-<li>By default, when we install gems, documentation files will also get installed along with it. However, this takes time. So here you need to first stop the document installation by disabling them.
+<li>By default, when we install gems, documentation files will also get installed along with it. However, this takes time. You can stop the document installation by disabling them.
       <div class='hacker'>echo "gem: --no-document" > ~/.gemrc</div>
 </li>
 <li>After you have disabled the document installation, install the bundler gem. The Bundler gem is an essential tool for managing gems when developing and running Rails applications.
