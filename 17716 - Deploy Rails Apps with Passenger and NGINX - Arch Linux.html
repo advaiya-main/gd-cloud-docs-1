@@ -90,8 +90,9 @@ p.note {
         </li>
         <li>Provide the following permission to the home directory, and then install Nginx passenger.
             
-            <div class='hacker'>sudo chmod o+x "/home/<em><u>UserName</u></em>"</div>
+            <div class='hacker'>sudo chmod o+x "/home/<em><u>Logged_in_user</u></em>"</div>
       <div class='hacker'>rvmsudo  passenger-install-nginx-module</div>
+	  <p>Press <strong>Enter</strong> to continue.</p>
        </li>
         <li>For the language, select <strong>Ruby</strong>, and then press the <strong>Enter</strong> key.
           <div class='hacker'>Use &lt;space&gt; to select. If the menu doesn't display correctly, ensure that your terminal supports UTF-8.
@@ -108,6 +109,7 @@ p.note {
    The easiest way to get started. A stock Nginx 1.4.4 with Passenger support, but with no other additional third party modules, 
 will be installed for you to a directory of your choice.</pre>
           </div>
+		  <p>Press <strong>Enter</strong> to choose the default location.</p>
 
         </li></ol>
 <h2>Configure a test Rails application</h2>
@@ -131,6 +133,7 @@ will be installed for you to a directory of your choice.</pre>
         </li>
     <li>Test your application by running the following command in the application directory:
         <div class='hacker'>rails s --binding=<em><u>Your_server_ip</u></em></div>
+		<p>You can now access it on any browser by visiting <strong>http://your server's IP:3000</strong>. To terminate press <strong>CTRL+C</strong>.
         </li>
     </ol>
     
