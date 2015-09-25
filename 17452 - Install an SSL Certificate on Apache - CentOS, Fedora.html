@@ -77,6 +77,7 @@ p.note {
 </head>
 
 <body>
+<p>Install an SSL certificate on Apache, CentOS, Fedora</p>
 <h1>Install an SSL Certificate on Apache - CentOS, Fedora</h1>
 <p><strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>15 mins</u></em></p>
@@ -86,13 +87,15 @@ p.note {
   <p>If you don't have Apache installed on your server, see the Apache installation section in this article for help: <a href="/article/17342?prog_id =PROG_ID">Build a LAMP (Linux, Apache, MySQL, PHP) stack on a server running CentOS 6 or Fedora</a>. </p> 
 
 <h2>Check the OpenSSL client software</h2>
-   <ol><li>Make sure that the OpenSSL client software needed for a secure website is in place:
-    <div class="hacker">sudo yum install mod_ssl openssl</div></li><li>
-   Restart Apache:
-    <div class="hacker">sudo service httpd restart</div></li></ol>
+   <ol>
+    <li>Make sure that the OpenSSL client software needed for a secure website is in place.
+      <div class="hacker">sudo yum install mod_ssl openssl</div></li>
+    <li>
+   Restart Apache.
+     <div class="hacker">sudo service httpd restart</div></li></ol>
     <h2>Generate the CSR and key</h2>    
 
-   <p> CSR (Certificate Signing Request) contains information such as organization, country, state, common name, and email address to be included in the certificate. It also includes a public key. You will also generate a private key that is stored on your server.</p>
+   <p> A CSR (Certificate Signing Request) contains information such as organization, country, state, common name, and email address to be included in the certificate. It also includes a public key. You will also generate a private key that is stored on your server.</p>
     <ol>
       <li>
             Create the directory to store your certificate and key.
@@ -103,8 +106,8 @@ p.note {
             <div class="hacker">sudo openssl req -out CSR.csr -new -newkey rsa:2048 -nodes -keyout /etc/httpd/ssl/<em><u>certkey.key</u></em></div>
         To see the newly generated CSR, use the following command.
         <div class="hacker">cat CSR.csr</div>
-            Input the CSR into the certificate authority's web site when you generate the certificate. 
         </li>
+        <li>Input the CSR into the certificate authority's web site when you generate the certificate. </li>
 
         <li>
             When prompted, enter the information to be included in your certificate request such as country, state, common name, and email address. The <strong>Common Name</strong> field is the FQDN name of the server for which you are obtaining the certificate.<br />
@@ -113,18 +116,18 @@ p.note {
         <li>Point your domain name to your server's IP address.</li>
     </ol>
 
-    <h2>Install the certificate</h2>
-    Now that you have your CSR generated, you can go to your certificate authority and get the certificate bundle and follow their instructions on installing the certificate. If you're getting your certificate from COMPANY_NAME, check out <a href="https://www.godaddy.com/help/ssl-certificates">this</a> guide on how to install your certificate. Make sure that you you move the certificates to the directory you created in the previous section where you have you your key, in this case <em><u>ssl</u></em>
+<h2>Install the certificate</h2>
+    Now that you have your CSR generated, you can go to your certificate authority and get the certificate bundle and follow their instructions on installing the certificate. If you're getting your certificate from COMPANY_NAME, check out <a href="https://www.godaddy.com/help/ssl-certificates">this guide</a>  on how to install your certificate. Make sure that you  move the certificates to the directory you created in the previous section where you have  your key, in this case <em><u>ssl</u></em>.
 
     <h2>Configure Apache to use SSL</h2>
     <p>Finally, you need to edit your SSL configuration file to make sure that its SSL entries point to the right artifacts.</p>
     <ol>
         <li>
-            Open the <code>ssl.conf</code> file for editing:
+            Open the <code>ssl.conf</code> file for editing.
             <div class="hacker" >sudo vim /etc/httpd/conf.d/ssl.conf</div>
         </li>
         <li>
-            Make the following changes in the <code>Virtual host </code>section:
+            Make the following changes in the <code>Virtual host </code>section.
             <div class="hacker">
                 <pre>
     ServerName <em><u>yourdomainname.com</u></em>
@@ -139,11 +142,11 @@ p.note {
         </li>
         
         <li>
-            Restart Apache to load the new virtual host file:
-            <div class="hacker">sudo service httpd restart</div>
+            Restart Apache to load the new virtual host file.
+              <div class="hacker">sudo service httpd restart</div>
         </li>
         <li>
-            Optionally, test your setup by typing <strong>https://yourdomainname.com</strong> in your web browser. <br />
+            Optionally, test your setup by typing <strong>https://<em><u>yourdomainname.com</u></em></strong> in your web browser. <br />
         You can also use your server's public IP address instead of the domain name. </li>
     </ol>
     <h2>Conclusion</h2>
