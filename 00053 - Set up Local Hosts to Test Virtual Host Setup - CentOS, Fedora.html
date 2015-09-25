@@ -80,7 +80,16 @@ p.note {
     <p>Before starting, you need to install a web server (Apache) on your server. See <a href="17337">Configure Apache Virtual Hosts Setup - CentOS</a> or <a href="17338">Configure Apache Virtual Hosts Setup - Fedora</a>.</p>
 		
 <h2>Virtual hosts</h2>
-	<p>After  Apache is installed and configured, look for the configuration file  <code>/etc/httpd/conf/httpd.conf.</code></p>
+	<ol>
+	<li>Open the configuration file <code>/etc/httpd/conf/httpd.conf</code>
+	<div class="hacker">sudo vim /etc/httpd/conf/httpd.conf</div>
+	</li>
+	<li>Locate the following code:
+	<div class="hacker">
+	<pre>&lt;IfModule mime_magic_module&gt;
+...
+&lt;/IfModule&gt;</pre></div></li>
+	<li>Add the following code, just after the above code:
 	<div class="hacker">
 	&lt;VirtualHost *:80&gt;<br/>
     ServerAdmin <em><u>admin@coolexample.com</u></em><br/>
@@ -90,21 +99,25 @@ p.note {
     ErrorLog ${APACHE_LOG_DIR}/error.log<br/>
     CustomLog ${APACHE_LOG_DIR}/access.log combined<br/>
 &lt;/VirtualHost&gt;<br/>
-</div>	
-	 	 
+</div>	</li>
+<li>Save and close by pressing the  <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+</ol>	 	 
 <h2>Set up local hosts</h2>
 	<p>If you want to test your domain before completing the DNS propagation, then with the help of your computer’s <code>hosts</code> file, you can access your configured domain. </p>
 	<ol>
-	<li>If you are using a Linux computer,  edit the <code>hosts</code> file.
-<div class="hacker">/etc/hosts</div></li>
+	<li>If you are using a Linux computer, edit the <code>hosts</code> file.
+	<div class="hacker">sudo vim /etc/hosts</div></li>
  
-<li>Add appropriate entries for your server’s IP address followed by the domain name, as shown in the following:
-   <div class="hacker">127.0.0.1   <em><u>localhost</u></em></div>
-   <div class="hacker">111.1.11.2 <em><u>coolexample.com</u></em></div>
-   <p>The above code tells the local resolver to directly search for the domain in the server with IP address 111.1.11.2. Hence, you will get the contents without complete DNS propagation.</p>
+	<li>Add appropriate entries for your server’s IP address followed by the domain name at the end of the file, as shown in the following:
+   <div class="hacker"><pre>127.0.0.1                         localhost
+<em><u>Public_IP_Address_of_your_Server</u></em>  <em><u>coolexample.com</u></em></pre></div>
+   <p>The above code tells the local resolver to directly search for the domain in the server with Your Server's IP address. Hence, you will get the contents without complete DNS propagation.</p>
    </li>
+    <li>Save and close by pressing the  <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+	
    <li>Access the domain <em><u>http://coolexample.com</u></em> in your browser to display the page.
    </li>
+  
     </ol>
 	         
     <h2>Conclusion</h2>
