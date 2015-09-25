@@ -49,21 +49,31 @@ p.note {
                     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
                     <strong>Time</strong>: <em><u>1.50</u></em></p>
 
+                <p>SFTP uses the SSH  protocol to authenticate and establish a secure connection.  It's recommend you create SSH keys and transfer your public key to any system that you need to access.</p>
 
-<h2>How to Connect with SFTP</h2>
-            <p>SFTP uses the SSH protocol to authenticate and establish a secure connection. Because of this, the same authentication methods are available that are present in SSH.
-            Although passwords are easy to use and set up by default, we recommend you create SSH keys and transfer your public key to any system that you need to access. This is much more secure and can save you time in the long run with most or Linux disto.</p>
+<h2>Prerequisite</h2>
 
-    <ol>
-            <li>If you can connect to the machine using SSH, then you have completed all of the necessary requirements necessary to use SFTP to manage files. Test SSH access with the following command:
+            Use this article to <a href="17357 - Use SSH Keys with your Cloud Server (Linux and Mac OS X) - ALL DISTROS.html">set up SSH keys</a> in order to access your server if you have not done so already.
+        <ol>
+
+
+            <li>To test SSH access run the following command:
                     <div class="hacker">ssh username@remote_hostname_or_IP</div></li>
 
-            <li>If that works, exit back out by typing:
+            <li>If that works, exit back out by run the following command:
                     <div class="hacker">exit </div></li>
 
-            <li>We can establish an SSH connection and then open up an SFTP session using that connection by issuing the following command:
+        </ol>
+
+<h2>How to Connect with SFTP</h2>
+
+
+    <ol>
+
+
+            <li>To set up a SSH connection and then open up a SFTP session; run the following command:
                     <div class="hacker">sftp username@remote_hostname_or_IP</div>
-            You will connect the the remote system and your prompt will change to an SFTP prompt.</li>
+            You will connect the remote system and your prompt will change to an SFTP prompt.</li>
 
     </ol>
 
@@ -71,13 +81,13 @@ p.note {
 <h2>Getting Help in SFTP</h2>
 
 
-    <ol>    <li> The most useful command to learn first is the help command, You can call it by typing either of these in the prompt:
+    <ol>    <li>The <code>help</code> command a valuable tool for providing a list of the available commands for SFTP. To access <code>help</code> run one  of the following commands:
                     <div class="hacker">help</div>
-                    <div class="hacker">?</div></li>
+                    <div class="hacker">?</div>
 
 
 
-            <li>This will a list of the available commands:
+            Example Output:
                     <div class="hacker">
 <pre>Available commands:
 bye                                Quit sftp
@@ -99,21 +109,25 @@ lcd path                           Change local directory to 'path'</pre></div><
 <h2>Exploring SFTP</h2>
 
 
-            <p>We can make our way through the remote system's file hierarchy using a number of commands that function similarly to their shell counterparts.</p>
     <ol>
-            <li>Type this to find out which directory we are in currently on the remote system
+            <li>To find the remote system's current directory run the following command:
                     <div class="hacker">pwd</div>
-                    <div class"hacker">Remote working directory: /home/demouser</div>
+
+            Example Output:
+                    <div class="hacker">Remote working directory: /home/demouser</div>
                     <p class="note">Note: The filenames and home directories are examples used for this document.</p></li>
 
 
-            <li>We can view the contents of the current directory of the remote system with another familiar command:
+            <li>To view the contents of the current directory of the remote system run the following command:
                     <div class="hacker">ls</div>
-                    <div class="hacker">Summary.txt info.html temp.txt testDirectory</div></li>
+            Example Output:
 
-            <li>The commands within the SFTP interface are not the normal shell commands and are not as feature-rich, but they do implement some of the more important optional flags:
+                    <div class="hacker">Summary.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; testDirectory</div></li>
+
+            <li>The commands within the SFTP interface are not as feature-rich. However, they do implement some of the more important optional flags to view these flags run the following command:
                     <div class="hacker">ls -la</div>
-                    <div class="hacker">
+            Example Output:
+                <div class="hacker">
 <pre>drwxr-xr-x    5 demouser   demouser       4096 Aug 13 15:11 .
 drwxr-xr-x    3 root     root         4096 Aug 13 15:02 ..
 -rw-------    1 demouser   demouser          5 Aug 13 15:04 .bash_history
@@ -123,85 +137,111 @@ drwx------    2 demouser   demouser       4096 Aug 13 15:04 .cache
 -rw-r--r--    1 demouser   demouser        675 Aug 13 15:02 .profile
 . . .</pre></div></li>
 
-            <li>To get to another directory issue this command:
+            <li>To change to another directory run the following command:
                     <div class="hacker">cd testDirectory</div></li>
 
 
-            <li>Direct commands towards the local file system by preceding them with an "l" for local. All of the commands discussed so far have local equivalents. We can print the local working directory:
+            <li>Direct commands towards the local file system by preceding the command with an "l" for local. All of the commands discussed so far have local equivalents. To print the local working directory run the following command:
 
-                    <div class="hacker"> </div></li>
+                    <div class="hacker">lpwd</div>
+                      Example Output:
+                    <div class="hacker">Local working directory: /Users/demouser<br/>
+                    . . .</div></li>
 
-            <li>
-                    <div class="hacker"> </div></li>
 
+
+            <li>To list the contents of the current directory on the local machine run the following command:
+                    <div class="hacker">lls</div>
+                      Example Output:
+                    <div class="hacker">
+<pre>Desktop            local.txt       test.html
+Documents       analysis.rtf       zebra.html</pre>
+                    . . .</div></li>
+
+            <li>To change the directory to interact with on the local system run the following command:
+
+                    <div class="hacker">lcd Desktop</div></li>
     </ol>
 
 
+<h2>Transferring Files with SFTP</h2>
+<h3>Transferring Remote Files to the Local System</h3>
 
-            <li>
+    <ol>
+                <li>To download files from the remote host, run the following command:
+                    <div class="hacker">get remote File </div>
+                    Example Output:
+                    <div class="hacker">
+<pre> Fetching /home/demouser/remoteFile to remoteFile
+ /home/demouser/remoteFile                              100%    37KB    36.8KB/s    00:01</pre></div>
+ By default, the <code>get</code> command download's a remote file to a file with the same name on the local file system </li>
+
+                <li>Copy the remote file to a different name, specify the name afterwards:
+                    <div class="hacker">get remoteFile localFile</div></li>
+
+                <li>Specify the recursive option to copy a directory and all of its contents :
+                    <div class="hacker">get -r someDirectory</div> </li>
+
+                <li>To maintain the appropriate permissions and access times use the "-P" or "-p" flag:
+                    <div class="hacker">get -Pr someDirectory</div></li>
+    </ol>
+
+
+<h3>Transferring Local Files to the Remote System</h3>
+
+    <ol>
+                <li>To transfer files to the remote system, use the  <code>put</code> command:
+                    <div class="hacker">put localFile </div>
+                    Example Output:
+                    <div class="hacker">
+<pre>Uploading localFile to /home/demouser/localFile
+localFile                                     100% 7607     7.4KB/s   00:00</pre></div></li>
+
+
+                <li>
+                    <div class="hacker"> </div>
+                    Example Output:
                     <div class="hacker"> </div></li>
 
 
+                <li><code>put</code> utilizes the same flags as <code>put</code>. To copy an entire local directory run the following command:
+                        <div class="hacker">put -r localDirectory</div> </li>
+
+                 <li> <code>df</code> command reports filesystem disk space usage. To verify available disk space for transfers, run the following command:
+                        <div class="hacker">df -h </div>
+                    Example Output:
+                    <div class="hacker">
+<pre>   Size       Used        Avail (root)        %Capacity
+    19.9GB      1016MB      17.9GB 18.9GB           4%</pre> </div>
+                        <p class="note">Please note, that there is no local variation of this command, but we can get around that by issuing the "!" command</p></li>
+
+        <li> Use the "!" command  to drop into a local shell, to check disk usage run the following command:
+                    <div class="hacker"> ! <br />
+                                        df -h</div>
+                    Example Output:
+                    <div class="hacker">
+<pre>  Filesystem     Size    Used    Avail   Capacity    Mounted on
+ /dev/disk0s2   595Gi   52Gi    544Gi   9%      /
+ devfs          181Ki   181Ki   0Bi     100%    /dev
+ map -hosts     0Bi     0Bi     0Bi     100%    /net
+ map auto_home  0Bi     0Bi     0Bi     100%    /home</pre></div> </li>
+
+
+                <li>Any other local command will work as expected. To return to the SFTP session,run the following command:
+                       <div class="hacker">exit</div>
+
+
+                <p class="note">The SFTP prompt should return.</p> </li>
+
+
+    </ol>
+
+<h2>Conclusion</h2>
+
+         <p>SFTP is a simple tool, that provides file access, file transfer, and file management functionalities over secure data stream. It leverages the strengths of FTP or SCP. And is a helpful tool </p>
 
 
 
 
-
-    <p>Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
-    
-    <p>Include any of the following elements as needed:</p>
-
-    <div class="hacker">command (Put each command on a separate line.)</div>
-
-    <p class="note">note</p>   
-    <p class="warning">warning</p> 
-    
-	<table>
-		<tr>
-			<th>Table head</th>
-			<th>Table head</th>
-			<th>Table head</th>
-		</tr>
-		<tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-		</tr>
-		<tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-        </tr>
-        <tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-        </tr>
-        <tr>
-			<td>Content</td>
-			<td>Content</td>
-			<td>Content</td>
-        </tr>
-    </table>
-              
-	<p>Bulleted list:</p>
-    <ul>
-        <li>List item</li>
-        <li>List item</li>
-        <li>List item</li>
-        <li>List item</li>
-    </ul>       
-           
-    <p>Image (PNG only). See editorial guidelines for more information. </p> 
-   
-    <h2>Section 2 title ("To do such and such")</h2>
-    <p>Section 2 content.</p>
-             
-   <h2>Section 3 title ("To do such and such")</h2>
-   <p>Section 3 content.</p>
-             
-    <h2>Next steps</h2>
-    <p>A brief summary of what the user just accomplished. Direct the user to explore a related subject or to complete a related task. Add links to procedural articles if appropriate. For example, if the user just installed NGINX, you might include links to NGINX tuning articles.</p>
-   
 </body>
 </html>
