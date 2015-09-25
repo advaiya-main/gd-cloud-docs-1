@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
+
+<title>Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTROS</title>
+<style type="text/css">
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
+
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
+
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em .5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+</style>
+
+</head>
+
+<body>
+            <p>Describes how to transfer files securely using SFTP.</p>
+
+
+<h1>How To Use SFTP to Securely Transfer Files with a Remote Server</h1>
+    
+                    <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
+                    <strong>Time</strong>: <em><u>1.50</u></em></p>
+
+
+<h2>How to Connect with SFTP</h2>
+            <p>SFTP uses the SSH protocol to authenticate and establish a secure connection. Because of this, the same authentication methods are available that are present in SSH.
+            Although passwords are easy to use and set up by default, we recommend you create SSH keys and transfer your public key to any system that you need to access. This is much more secure and can save you time in the long run with most or Linux disto.</p>
+
+    <ol>
+            <li>If you can connect to the machine using SSH, then you have completed all of the necessary requirements necessary to use SFTP to manage files. Test SSH access with the following command:
+                    <div class="hacker">ssh username@remote_hostname_or_IP</div></li>
+
+            <li>If that works, exit back out by typing:
+                    <div class="hacker">exit </div></li>
+
+            <li>We can establish an SSH connection and then open up an SFTP session using that connection by issuing the following command:
+                    <div class="hacker">sftp username@remote_hostname_or_IP</div>
+            You will connect the the remote system and your prompt will change to an SFTP prompt.</li>
+
+    </ol>
+
+
+<h2>Getting Help in SFTP</h2>
+
+
+    <ol>    <li> The most useful command to learn first is the help command, You can call it by typing either of these in the prompt:
+                    <div class="hacker">help</div>
+                    <div class="hacker">?</div></li>
+
+
+
+            <li>This will a list of the available commands:
+                    <div class="hacker">
+<pre>Available commands:
+bye                                Quit sftp
+cd path                            Change remote directory to 'path'
+chgrp grp path                     Change group of file 'path' to 'grp'
+chmod mode path                    Change permissions of file 'path' to 'mode'
+chown own path                     Change owner of file 'path' to 'own'
+df [-hi] [path]                    Display statistics for current directory or
+                                   filesystem containing 'path'
+exit                               Quit sftp
+get [-Ppr] remote [local]          Download file
+help                               Display this help text
+lcd path                           Change local directory to 'path'</pre></div></li>
+
+
+    </ol>
+
+
+<h2>Exploring SFTP</h2>
+
+
+            <p>We can make our way through the remote system's file hierarchy using a number of commands that function similarly to their shell counterparts.</p>
+    <ol>
+            <li>Type this to find out which directory we are in currently on the remote system
+                    <div class="hacker">pwd</div>
+                    <div class"hacker">Remote working directory: /home/demouser</div>
+                    <p class="note">Note: The filenames and home directories are examples used for this document.</p></li>
+
+
+            <li>We can view the contents of the current directory of the remote system with another familiar command:
+                    <div class="hacker">ls</div>
+                    <div class="hacker">Summary.txt info.html temp.txt testDirectory</div></li>
+
+            <li>The commands within the SFTP interface are not the normal shell commands and are not as feature-rich, but they do implement some of the more important optional flags:
+                    <div class="hacker">ls -la</div>
+                    <div class="hacker">
+<pre>drwxr-xr-x    5 demouser   demouser       4096 Aug 13 15:11 .
+drwxr-xr-x    3 root     root         4096 Aug 13 15:02 ..
+-rw-------    1 demouser   demouser          5 Aug 13 15:04 .bash_history
+-rw-r--r--    1 demouser   demouser        220 Aug 13 15:02 .bash_logout
+-rw-r--r--    1 demouser   demouser       3486 Aug 13 15:02 .bashrc
+drwx------    2 demouser   demouser       4096 Aug 13 15:04 .cache
+-rw-r--r--    1 demouser   demouser        675 Aug 13 15:02 .profile
+. . .</pre></div></li>
+
+            <li>To get to another directory issue this command:
+                    <div class="hacker">cd testDirectory</div></li>
+
+
+            <li>Direct commands towards the local file system by preceding them with an "l" for local. All of the commands discussed so far have local equivalents. We can print the local working directory:
+
+                    <div class="hacker"> </div></li>
+
+            <li>
+                    <div class="hacker"> </div></li>
+
+    </ol>
+
+
+
+            <li>
+                    <div class="hacker"> </div></li>
+
+
+
+
+
+
+
+    <p>Format <code>code snippets like this</code>, <em><u>variables like this</u></em>, and <strong>interface items like this</strong>.</p>
+    
+    <p>Include any of the following elements as needed:</p>
+
+    <div class="hacker">command (Put each command on a separate line.)</div>
+
+    <p class="note">note</p>   
+    <p class="warning">warning</p> 
+    
+	<table>
+		<tr>
+			<th>Table head</th>
+			<th>Table head</th>
+			<th>Table head</th>
+		</tr>
+		<tr>
+			<td>Content</td>
+			<td>Content</td>
+			<td>Content</td>
+		</tr>
+		<tr>
+			<td>Content</td>
+			<td>Content</td>
+			<td>Content</td>
+        </tr>
+        <tr>
+			<td>Content</td>
+			<td>Content</td>
+			<td>Content</td>
+        </tr>
+        <tr>
+			<td>Content</td>
+			<td>Content</td>
+			<td>Content</td>
+        </tr>
+    </table>
+              
+	<p>Bulleted list:</p>
+    <ul>
+        <li>List item</li>
+        <li>List item</li>
+        <li>List item</li>
+        <li>List item</li>
+    </ul>       
+           
+    <p>Image (PNG only). See editorial guidelines for more information. </p> 
+   
+    <h2>Section 2 title ("To do such and such")</h2>
+    <p>Section 2 content.</p>
+             
+   <h2>Section 3 title ("To do such and such")</h2>
+   <p>Section 3 content.</p>
+             
+    <h2>Next steps</h2>
+    <p>A brief summary of what the user just accomplished. Direct the user to explore a related subject or to complete a related task. Add links to procedural articles if appropriate. For example, if the user just installed NGINX, you might include links to NGINX tuning articles.</p>
+   
+</body>
+</html>
