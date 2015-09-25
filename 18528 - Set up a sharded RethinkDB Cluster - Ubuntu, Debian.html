@@ -125,7 +125,7 @@ tcp6       0      0 :::29015    :::*     LISTEN      2181/rethinkdb
   
 <h2>Secure the RethinkDB cluster</h2>
 When RethinkDB is configured to listen on all network interfaces (<code>bind=all</code>), it is exposed to outside networks and presents a security threat. To make RethinkDB accessible only from authorized computers, the cluster ports need to be configured. For this, perform the following steps on both the RethinkDB servers.
-<!--Aren't there only two RethinkDB servers in our example? Also, does the user perform all steps on all servers--or only this step 1? Unclear. cj --><!--Modified this sentence to include "both"-->	
+<!--Aren't there only two RethinkDB servers in our example? Also, does the user perform all steps on all servers or only this step 1? Unclear. cj --><!--Modified this sentence to include "both"-->	
 <ol>
 	<li>Configure the ports for Web Management Console. 
 	 <div class="hacker">sudo iptables -A INPUT -i eth0 -p tcp --dport 8080 -j DROP</div>
@@ -216,7 +216,7 @@ When RethinkDB is configured to listen on all network interfaces (<code>bind=all
 	</li>
 	
 	<li>Update the cluster_instance configuration file on the <em><u>rethinkdb_server2</u></em> server, to enable connections with other servers.
-	<div class="hacker">sudo vi /etc/rethinkdb/instances.d/cluster_instance.conf</div>
+	<div class="hacker">sudo vi /etc/rethinkdb/instances.d/cluster_instance.conf</div></li>
 	
 	<li>Locate the join statement in the file.
 	<div class="hacker">join=<em><u>coolexample.com</u></em>:29015</div></li>
