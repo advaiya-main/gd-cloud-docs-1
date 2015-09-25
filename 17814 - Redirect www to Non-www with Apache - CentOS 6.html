@@ -4,10 +4,8 @@
 
 <head>
 
-<!--Article Number is 17814 -->
-
-
 <title>Redirect www to non-www with Apache - CentOS, Fedora</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -25,7 +23,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -37,7 +35,18 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
+
 
 
 <!--[if gte mso 9]><xml>
@@ -80,36 +89,31 @@ p.note {
         <strong>Time</strong>: <em><u>15</u></em>
     </p>
     <p>Let's assume that have a domain with and without the "www" prefix. <em><u>www.coolexample.com</u></em> and <em><u>coolexample.com</u></em>. Both of them display the same content. <em>A permanent redirect</em> or <em>301 Redirect</em> is the type of redirect where you would be redirecting your users from one domain to the other. </p>
-    <p>This guide walks you through the process of redirecting from a www URL to a non-www URL and vice-versa.</p>
+    <p>This guide walks you through the process of setting up redirects on a CentOS 6 system.</p>
 
     <h2>Prerequisite</h2>
     <p>
-        You must have <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17323 - Initial Server Setup - CentOS.html">Initial Server Setup</a> done on your server and installed Apache. If you haven't installed it yet, the following articles explain how to install it.  </p>
+        You must have <a href="17323 - Initial Server Setup - CentOS.html">Initial Server Setup</a> done on your server and installed Apache. If you haven't installed Apache yet, do the following to install it.
 
-    <ul>
-    <li> Install Apache
     <div class="hacker">sudo yum update</div>
         <div class="hacker">sudo yum install httpd</div>
-     </li>
-     </ul>
+   </p>
+
         <h2>Configure DNS Records</h2>
-        For this guide we will use GoDaddy domain. Assuming that you have a domain with GoDaddy, log into <a href="https://mya.godaddy.com/default.aspx">account manager</a> page.
+        For this guide we will use COMPANY_NAME domain. Assuming that you have a domain with COMPANY_NAME, log into <a href="https://mya.godaddy.com/default.aspx">account manager</a> page.
 
         <ol>
             <li>
                 After you log in, click <strong>Manage</strong>, in the <strong>Domains</strong> section.   <br/>
 
-                <img src="images/17813/091115/Manage_Domains.png" alt="Manage Domains" />       <br/>   <br/>
+                <img src="images/17814/091115/Manage_Domains.png" alt="Manage Domains" />       <br/>   <br/>
             </li>
-            <li>
-                This will take you to the list of domains you have with COMPANY_NAME. Click the drop-down button on the domain that you want to work with, and then click <strong>Manage DNS</strong>.  <br/>
-                <img src="images/17813/091115/DNS_Manage.png" alt="DNS Manage" /> <br/>         <br/>
+            <li> <p>This will take you to the list of domains you have with COMPANY_NAME. Click the drop down button on the domain that you want to work with and click on <strong>MANAGE DNS</strong>.</p>
+                <img src="images/17814/091115/DNS_Manage.png" alt="DNS Manage" /> <br/>         <br/>
             </li>
-            <li>
-                If you don't see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname <em>www</em> in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field. <br />
-                <br />
-                Here's how both the records will look:
-                <img src="images/17813/091115/A_CNAME_Record.png" alt="DNS Records" />       <br/>  <br/>
+            <li><p>If you don't see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field.</p> 
+                <p>Here's how both the records will look like:</p>
+                <img src="images/17814/091115/A_CNAME_Record.png" alt="DNS Records" />       <br/>  <br/>
                 You should now be able to access both the www and non-www domains of your server.
             </li>
 
@@ -211,7 +215,7 @@ RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
                 <pre>
 HTTP/1.1 301 Moved Permanently
 Date: Wed, 19 Aug 2015 21:20:33 GMT
-Server: Apache/2.4.7 (Ubuntu)
+Server: Apache/2.4.6 (CentOS) OpenSSL/1.0.1e-fips
 Location: http://<code>www.coolexample.com</code>/
 Content-Type: text/html; charset=iso-8859-1
 </pre>
@@ -224,7 +228,8 @@ Content-Type: text/html; charset=iso-8859-1
 
     <h2>Conclusion</h2>
 
-    With this guide, you have learned to create permanent redirect with Apache using the Rewrite module.
+<p>Congratulations! You have created permanent redirects with Apache using the Rewrite module. </p>
+
 
 </body>
 </html>
