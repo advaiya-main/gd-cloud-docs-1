@@ -98,12 +98,12 @@ p.note {
 	<h2>Create a Rails application</h2>
 <ol> 
 <li>Install Rails application on a separate directory, before adding a new Rails application. This is always recommended.
-   <div class="hacker">mkdir  <em><u>rails_applications</u></em></div>
+   <div class="hacker">cd ~ && mkdir  <em><u>rails_applications</u></em></div>
     <div class="hacker">cd <em><u>rails_applications</u></em></div>
    </li>
    <li>Start the RVM script from <code>~/.rvm/scripts/rvm</code>. Because you are using <code>sudo</code> users, RVM will be installed in user’s home directory. 
-   <div class="hacker">Source ~/.rvm/scripts/rvm</div>
-   <div class="hacker">rvm use ruby –default</div>
+   <div class="hacker">source ~/.rvm/scripts/rvm</div>
+   <div class="hacker"> rvm use ruby --default</div>
    </li>
    <li>Create a new application. For this example, you can name it <em><u>myapp</u></em>. 
    <div class="hacker">rails new <em><u>myapp</u></em></div>
@@ -116,12 +116,14 @@ p.note {
   <h2>Add the required gems to the gemfile</h2>
   <p>In this section, you will need Devise and OmniAuth gems. In addition, you also need separate gems for every OAuth service provider that you would like to add. In this example, you will log in through Facebook for which<code> omniauth-facebook</code> gem is required for Facebook authentication.</p>
 <ol> 
-<li>Add the following lines to the end of the file <code>~/rails_apps/<em><u>myapp</u></em>/Gemfile</code>:
+<li>Add the following lines to the end of the file <code>Gemfile</code>:
+<div class="hacker">vim Gemfile</div>
     <div class="hacker">gem 'therubyracer'</div>
     <div class="hacker">gem 'devise'</div>
     <div class="hacker">gem 'omniauth'</div>
 	<div class="hacker">gem 'omniauth-facebook'</div>
    </li>
+   <li>To save and exit press <strong>Esc</strong> and type the following characters <strong>:wq!</strong></li>
    <li>You can add additional gems. These are some of the most the popular authentication gems:
      <ul>
    <li>Twitter : omniauth-twitter
@@ -146,7 +148,7 @@ p.note {
    <div class="hacker">rails g scaffold Product name:string price:integer description:text</div>
    <div class="hacker">rake db:migrate</div>
    </li>
-   <li>Define the root of this application. To add the root of the application, edit the file <code>~/.rails_applications/<em><u>myapp</u></em>/config/routers.rb</code>, and then append the line <code>root 'products#index'</code>.
+   <li>Define the root of this application. To add the root of the application, edit the file <code>config/routers.rb</code>, and then append the line <code>root 'products#index'</code>.
    <div class="hacker">
    <pre>
 Rails.application.routes.draw do
@@ -160,12 +162,9 @@ end
    <div class="hacker">rails s </div>
    </li>
    <li>Access this application either by using <code>localhost (http://localhost:3000)</code> or through the IP address on which the application is binded to <code>(http://<em><u>ip_address</u></em>:3000)</code>.
-   <div class="hacker">rails s –bindings=<em><u>ip_address</u></em></div>
+   <div class="hacker">rails s --binding=<em><u>ip_address</u></em></div>
    </li>
-   <li>You can add new products, which will be saved in your application.<br />
-   <img src="images/18309/091115/products-page.png" alt="products-page"/>
-   </li>
-   <li>Run <strong>Ctrl + C</strong> to stop the development server.
+      <li>Run <strong>Ctrl + C</strong> to stop the rails server.
    </li>
   </ol>
   
@@ -182,7 +181,7 @@ end
    <pre>
 class ApplicationController &lt; ActionController::Base
   protect_from_forgery with: :exception
-  before_action :&lt;authenticate_user!&gt;
+  before_action :authenticate_user!
 end
 </pre></div>
    </li>
@@ -191,7 +190,7 @@ end
    <div class="hacker">http://localhost:3000</div>
    </li>
    <li>Enter the specific IP address, if required:
-   <div class="hacker">rails s –bindings=<em><u>ip_address</u></em></div>
+   <div class="hacker">rails s --binding=<em><u>ip_address</u></em></div>
      <div class="hacker">http://<em><u>ip_address</u></em>:3000</div>
    </li>
    <li>Log in or sign up using the <strong>Sign up</strong> link on this <strong>Log in</strong> page.<br />

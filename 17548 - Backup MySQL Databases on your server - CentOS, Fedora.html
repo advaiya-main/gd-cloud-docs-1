@@ -84,9 +84,11 @@ p.note {
 <p>You can choose any version of MySQL, as operational commands remain the same in all versions.</p>
 
    <h2>Back up the database</h2>
+   Assuming that the database already exists.
 <ul> 
 <li>Export the database using the <code>mysqldump</code>  command. 
    <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
+   <p class="note">Default user for <code>MySQL</code> is <code><strong>root</strong></code>.</p>
   </li>
 </ul>
    
@@ -177,7 +179,8 @@ CONFIG_backup_dir = '<em><u>/var/backup/db</u></em>'</div>
      <div class="hacker">FLUSH TABLES WITH READ LOCK; </div>
    <div class="hacker">SET GLOBAL read_only = ON;</div>
    </li>
-   <li>Perform the backup using <code>mysqldump</code>.
+   <li>Perform the backup using <code>mysqldump</code> as shown below.
+   <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
    </li>
    <li>After the backup is complete, return the system to its original working state.
      <div class="hacker">SET GLOBAL read_only = OFF;</div>
