@@ -115,23 +115,32 @@ p.note {
 <li>Run the following command to configure the user.
 <div class="hacker">sudo /usr/local/bin/authy-ssh enable <em><u>User_name</u></em> <em><u>email_id</u></em> <em><u>country_code</u></em></div>
 </li>
+<li>Open the <code>/etc/ssh/sshd_config</code> 
+<div class="hacker">sudo vim /etc/ssh/sshd_config</div>
+</li>
+<li>Go to the bottom of the file.
+If the <code>ForceCommand</code> is present at the bottom of the file, then press <strong>Enter</strong> before the <code>ForceCommand</code> to move it in the new line.
+In case the <code>ForceCommand</code> is not present, then manually enter it as the following:
+<div class="hacker">ForceCommand /usr/local/bin/authy-ssh login</div></li>
+
+<li>To save and exist press <strong>Esc</strong> and type the <strong>:wq!</strong></li>
 
 <li>Restart the SSH server.
-<div class="hacker">sudo service sshd restart</div>
+<div class="hacker">sudo service ssh restart</div>
+
 <p>Or</p>
-<div class="hacker">sudo /etc/init.d/sshd restart</div>
+<div class="hacker">sudo /etc/init.d/ssh restart</div>
 </li>
 
 <li>Make sure that the command is located at <code>your/etc/ssh/sshd_config</code> file.
 <div class="hacker">cat /etc/ssh/sshd_config | grep ForceCommand</div>
 </li>
 
-<li>If the command was not installed at <code>/etc/ssh/sshd_config</code> file, manually enter it, and restart the SSH service.
-<div class="hacker">ForceCommand /usr/local/bin/authy-ssh login</div>
-<div class="hacker">sudo service sshd restart</div>
-<p>Or</p>
-<div class="hacker">sudo /etc/init.d/sshd restart</div>
-</li>
+
+
+
+
+
 <li>Uninstall <code>authy-ssh</code>.
 <div class="hacker">sudo /usr/local/bin/authy-ssh uninstall</div>
 </li>
