@@ -123,24 +123,24 @@ p.note {
   
   
   <h2>Automatically back up MySQL information</h2>
-<p>To automatically perform data backups at regular intervals, there's a tool in CentOS or Fedora named <code>automybackup</code>.<!--Testers, check name in this section: automybackup vs automysqlback vs automysqlback.  cj --></p>
+<p>To automatically perform data backups at regular intervals, there's a tool in CentOS or Fedora named <code>automysqlbackup</code>.<!--Testers, check name in this section: automybackup vs automysqlback vs automysqlback.  cj --></p>
   <ol>
-   <li>Install <code>automybackup</code>.
+   <li>Download the <code>automysqlbackup</code> source using the following command.
      <div class="hacker">cd ~ && wget "http://downloads.sourceforge.net/project/automysqlbackup/AutoMySQLBackup/AutoMySQLBackup%20VER%203.0/automysqlbackup-v3.0_rc6.tar.gz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fautomysqlbackup%2F%3Fsource%3Dtyp_redirect&amp;ts=1440596561&amp;use_mirror=netassist" -O automysqlbackup-v3.0_rc6.tar.gz</div>
    </li>
-   <li>Rename the downloaded file if you like.
-   </li>
-   <li>Extract the file.
+   
+   <li>Extract the downloaded file.
    <div class="hacker">tar zxvf automysqlbackup-v3.0_rc6.tar.gz</div>
    </li>
    <li>Install <code>automybackup</code>.
      <div class="hacker">sudo ./install.sh</div>
-   Follow the steps in the installer<code>.</code></li>
-   <li>Open the configuration file for <code>automysqlback</code>.
+   Press enter on prompt messages by <code>installer</code> .</li>
+    <li>Create a backup directory.
+     <div class="hacker">sudo mkdir -p <em><u>/var/backup/db</u></em></div></li>
+   <li>Open the configuration file for <code>automysqlbackup</code>.
      <div class="hacker">sudo vim /etc/automysqlbackup/automysqlbackup.conf</div>
    </li>
-   <li>Create a backup directory.
-     <div class="hacker">sudo mkdir -p /var/backup/db</div></li>
+  
    <li>Uncomment the configuration variables, and add the necessary settings to access MySQL. 
      <div class="hacker">
 CONFIG_mysql_dump_username = '<em><u>mysql_username</u></em>' <br />
@@ -148,7 +148,8 @@ CONFIG_mysql_dump_password = '<em><u>password</u></em>'<br />
 CONFIG_mysql_dump_host_friendly='<em><u>localhost</u></em>' <br />
 CONFIG_backup_dir = '<em><u>/var/backup/db</u></em>'</div>
 </li>
-   <li>To execute the <code>automysqlbackup</code> command, change the directory where you extracted the file. Find the command and execute it.
+<li>To save and exit press <strong>Esc</strong> and type the following characters <strong>:wq!</strong></li>
+   <li>To execute the <code>automysqlbackup</code> command, change the directory where you extracted the file. 
      <div class="hacker">sudo ./automysqlbackup</div>
    </li>
    <li>To verify the database backup, run the following command in the terminal:
@@ -178,11 +179,15 @@ CONFIG_backup_dir = '<em><u>/var/backup/db</u></em>'</div>
    <li>Write all of the cached changes to the disk, and set the system read-only.
      <div class="hacker">FLUSH TABLES WITH READ LOCK; </div>
    <div class="hacker">SET GLOBAL read_only = ON;</div>
+   
    </li>
+   <li class="note">Exit from the <code>MySQL</code> console by pressing <code><strong>CTRL+C</strong></code> or type <code><strong>exit</strong></code>.</li>
    <li>Perform the backup using <code>mysqldump</code> as shown below.
    <div class="hacker">mysqldump -u <em><u>mysql_username</u></em> -p<em><u>mysql_user_password</u></em> <em><u>database_name</u></em> > <em><u>back_database_date</u></em>.sql</div>
    </li>
-   <li>After the backup is complete, return the system to its original working state.
+   
+   <li>After the backup is complete re-login to <code>MySQL</code> console and return the system to its original working state.
+   <div class="hacker">mysql -u <em><u>mysql_username</u></em> -p</div>
      <div class="hacker">SET GLOBAL read_only = OFF;</div>
    <div class="hacker">UNLOCK TABLES;</div>
   </li>
