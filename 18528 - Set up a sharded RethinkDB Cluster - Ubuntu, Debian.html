@@ -80,7 +80,7 @@ p.note {
     <p>RethinkDB cluster is a type of peer-to-peer network. The primary step in building a RethinkDB cluster is to install RethinkDB on every server included in this cluster.</p>
 	<ol>
 	
-	<li>On each server<!--Does the user perform all the steps on each server--or only step 1? cj -->, add the RethinkDB key and repository to <code>apt-get</code>.
+	<li>On each server<!--Does the user perform all the steps on each server or only step 1? cj -->, add the RethinkDB key and repository to <code>apt-get</code>.
 <div class="hacker">source /etc/lsb-release &amp;&amp; echo "deb http://download.rethinkdb.com/apt </div>
 		<div class="hacker">$DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list</div>
 		<div class="hacker">wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add –</div>
@@ -110,10 +110,8 @@ p.note {
 	</li>
 	<li>Save the configuration changes.</li>
 	<li>Start RethinkDB with a new build configuration.
-      <div class="hacker">
-
-sudo service rethinkdb start</div><div class="hacker">
-sudo netstat -tulnp | grep rethindb</div>
+      <div class="hacker">sudo service rethinkdb start</div>
+	  <div class="hacker">sudo netstat -tulnp | grep rethindb</div>
 The output looks like this:<br />
 <div class="hacker"><pre>
 tcp6       0      0 :::28016    :::*     LISTEN      2181/rethinkdb
@@ -147,8 +145,7 @@ When RethinkDB is configured to listen on all network interfaces (<code>bind=all
     </li>  
       <!--Is the following div supposed to be replaced with an image? Also, be aware that images should not be screen output. cj --><!--since this was screen output, so we removed the image-->
 	<li>At the  prompt, select <strong>yes</strong> to save ipv4 and ipv6 rules.</li>
-	</li>
-	</ol>
+		</ol>
 	
 	<h2>Set up a management user</h2>
 	<p>Set up SSH tunnels to access RethinkDB's web management console and the driver interface securely.</p>
@@ -230,10 +227,8 @@ When RethinkDB is configured to listen on all network interfaces (<code>bind=all
 	
 	<li>Save the configuration file, and then restart RethinkDB.
 	  <div class="hacker">sudo service rethinkdb restart</div>
-	</li>
 	<p class="note">The first node, <em><u>rethinkdb_server1</u></em> does not need a <code>join</code> statement as the other server is joined to <em><u>rethinkdb_server1</u></em>. </p>
-	
-	<br />
+		
 	After completing this step, you  have all servers joined to <em><u>rethinkdb_server1</u></em> and  have a fully functioning RethinkDB cluster.
 	<img src="images/18528/092415/servers-connected-to-the-cluster.png" alt="servers-connected-to-the-cluster.png"/> <!--For advaiya testers:The screenshots needs to be changed after we do the final testing-->
 	</li>
@@ -275,9 +270,9 @@ When RethinkDB is configured to listen on all network interfaces (<code>bind=all
 	  <div class="hacker">sudo apt-get install python-virtualenv</div>
 	</li>
 	
-	<li>Create a directory named <code>rethink</code> in user home directory.
-<div class="hacker">mkdir rethink</div>
-	<div class="hacker">cd rethink</div>
+	<li>Create a directory named <code><em><u>rethink</u></em></code> in user home directory.
+<div class="hacker">mkdir <em><u>rethink</u></em></div>
+	<div class="hacker">cd <em><u>rethink</u></em></div>
 	</li>
 	
 	<li>Create the new virtual environment structure.
@@ -396,13 +391,13 @@ r.db('rethinkdb').table('table_config').get(
 		</li>
 	
 	<li>Exit from the admin shell.
-	  <div class="hacker">Exit</div>
+	  <div class="hacker">exit</div>
 	You can safely stop RethinkDB on the server (<code><em><u>rethinkdb_server2</u></em></code>). </li>
 	<li>Execute this command in <code><em><u>rethinkdb_server2</u></em></code>:
 <div class="hacker">sudo service rethinkdb stop</div>
 	  </li>
     
-<li>After you remove this server (<code><em><u>rethinkdb_server2</u></em></code>), you will receive a warning message when accessing the RethinkDB web management console.  On the right-hand side of the  message is a <strong>Permanent remove</strong> button. You can click this button to remove this server (<code><em><u>rethinkdb_server2</u></em></code>) from the cluster. <!--Is this part of the procedure? If so, it should be a numbered step. --><!--fixed--></p>
+<li>After you remove this server (<code><em><u>rethinkdb_server2</u></em></code>), you will receive a warning message when accessing the RethinkDB web management console.  On the right-hand side of the  message is a <strong>Permanent remove</strong> button. You can click this button to remove this server (<code><em><u>rethinkdb_server2</u></em></code>) from the cluster. <!--Is this part of the procedure? If so, it should be a numbered step. --><!--fixed--></li>
 </ol>
 <h2>Conclusion</h2>
     <p>In this article, you learned the steps involved in setting up a sharded RethinkDB cluster on Ubuntu and Debian servers.</p>
