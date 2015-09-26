@@ -242,14 +242,14 @@ Edit the PostgreSQL hba file <code>pg_hba.conf</code> using the <code>vim</code>
   
   <div class='hacker'>rails new <em><u>HelloWorld</u></em></div>
 </li>
-<li>Go to the application directory,  and open <code>database.yml</code>.
+<li>Go to the application directory.
 	<div class='hacker'>cd /var/www/<em><u>HelloWorld</u></em></div>
 </li>
-<li>Go to the <code>config</code> directory, and open this file.
-  <div class='hacker'> cd config</div>
+<li>Go to the <code>config</code> directory, and open  <code>database.yml</code>.
+<div class='hacker'> cd config</div>
 <div class='hacker'>sudo vim database.yml</div>
 You'll see the database settings separated by environment names. Because an application needs to run using the production environment, edit the configuration file for that.</li>
-<li>Copy the environment variable at the end of the file and edit as required.
+<li>Copy the environment variable at the end of the file, and edit as required.
   <div class='hacker'>
     <pre>production:
   adapter: postgresql # set you database adapter
