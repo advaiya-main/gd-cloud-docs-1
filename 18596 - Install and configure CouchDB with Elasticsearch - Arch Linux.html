@@ -108,7 +108,7 @@ p.note {
 	<li>Open the config file <code>local.ini</code> for editing.
 	<div class='hacker'>sudo vim /etc/couchdb/local.ini</div>
 	</li>
-	<li>Uncomment the code by removing the <strong>;</strong>sign from beginning of the line, and then update the following lines:
+	<li>Uncomment the code by removing the semicolon (<strong>;</strong>) sign from beginning of the line, and then update the following lines:
 	<div class="hacker">port:5984</div>
 	<div class="hacker">bind_address = <em><u>YOUR_VALID_IP_HERE</u></em>;</div>
     </li>
@@ -136,11 +136,11 @@ p.note {
 
 <h2>Configure Elasticsearch </h2>
 	<ol>
-	<li>Open the configuration file <code>elasticsearch.yml</code> to make updates and enable access from the internet.
+	<li>Open the configuration file <code>elasticsearch.yml</code> to make updates and enable access from the Internet.
 	<div class='hacker'>cd /usr/share/elasticsearch</div>
 	<div class='hacker'>sudo vim config/elasticsearch.yml</div>
     </li>	
-	<li>Locate the following lines, uncomment it by removing the <strong>#</strong>, and enter the IP address of the server. It is usually under the section <code>Network And HTTP</code>.
+	<li>Locate the following lines, uncomment it by removing the hashtag (<strong>#</strong>), and then enter the IP address of the server. It is usually under the section <code>Network And HTTP</code>.
 	<div class="hacker">network.bind_host: <em><u>YOUR_VALID_IP_HERE</u></em></div>
 	</li>
 	
@@ -158,7 +158,7 @@ p.note {
 	<li>Restart the Elasticsearch service for the changes to take effect. 
 	<div class="hacker">./bin/elasticsearch</div>
 	
-	<p>A successful execution will display a <strong>Started</strong> and then <strong>Recovered</strong> message.</p>
+	<p>A successful execution will display a <strong>Started</strong>, and then <strong>Recovered</strong> message.</p>
 	</li>
 	
 	<li>Open a new terminal (or connect to the machine using another client), and test Elasticsearch using the following command: 
@@ -202,7 +202,7 @@ p.note {
 </div>
 	</li>
 
-	<li>Uncomment this line by removing the <strong>#</strong>, and then update it with the following:
+	<li>Uncomment this line by removing the hashtag (<strong>#</strong>), and then update it with the following:
 	<div class='hacker'>#Path to where plugins are installed:
 <br />#
 <br />path.plugins: /usr/share/elasticsearch/plugins
