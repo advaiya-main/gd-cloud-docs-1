@@ -131,17 +131,47 @@ Before starting, make sure to complete the <a href="https://blueprintcs.sharepoi
         
         <li>
             In the configuration block that corresponds to the DocumentRoot (in this case <code>/var/www/html</code>), replace <code>AllowOverride None</code> with <code>AllowOverride All</code>. <br />
-          The <code>Directory</code> section  resembles this:
+          The <code>Directory</code> section resembles this:
             <div class="hacker">
                 <pre>
 &lt;Directory /var/www/html>
     Options Indexes FollowSymLinks MultiViews
-    AllowOverride All
+    AllowOverride <em><u>All</u></em>
     Order allow,deny
     allow from all
  &lt;/Directory>
 </pre>
-      </div></li>
+      </div>
+
+<p>If your first configuration block doesn't include the <code>Options Indexes FollowSymLinks</code> line, it means that line is in its own separate section, and you'll need to change the <code>AllowOverride</code> for that block as well. </p>
+
+<p>Here's an example of how that might look:</p>
+
+            <div class="hacker">
+                <pre>
+&lt;Directory /var/www/html>
+    Options Indexes FollowSymLinks MultiViews
+    AllowOverride <em><u>All</u></em>
+       # Allow open access:
+    Require all granted
+ &lt;/Directory>
+...
+    # The Options directive is both complicated and important.  Please see
+    # http://httpd.apache.org/docs/2.4/mod/core.html#options
+    # for more information.
+    #
+    Options Indexes FollowSymLinks
+    #
+    # AllowOverride controls what directives may be placed in .htaccess files.
+    # It can be "All", "None", or any combination of the keywords:
+    #   Options FileInfo AuthConfig Limit
+    #
+    AllowOverride <em><u>All</u></em>
+...</pre></div>
+
+ </li>       
+
+
         <li>
             Save and exit the file.
       </li>
