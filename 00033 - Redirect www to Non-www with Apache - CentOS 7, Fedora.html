@@ -5,7 +5,8 @@
 <head>
 
 
-<title>Redirect www to Non-www with Apache - CentOS, Fedora</title>
+<title>Redirect www to Non-www with Apache - CentOS 7, Fedora</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -23,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -35,8 +36,17 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
-</style>
 
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
@@ -70,14 +80,16 @@ p.note {
 
 <body>
 
- <h1>Redirect www to Non-www with Apache - CentOS 7</h1>
+ <h1>Redirect www to Non-www with Apache - CentOS 7, Fedora</h1>
 
     <p>
         <strong>Difficulty</strong>: <em><u>2</u></em><br />
         <strong>Time</strong>: <em><u>15</u></em>
     </p>
     <p>Let's assume that you have a domain with and without the <code>www</code> prefix: <em><u>www.coolexample.com</u></em> and <em><u>coolexample.com</u></em>. Both display the same content. <strong>Permanent redirect</strong> or "301 Redirect" is the type of redirect in which you   redirect your users from one domain to the other.</p>
-    <p>This article walks you through the process of redirecting from a www URL to a non-www URL and vice versa.</p>
+    
+    <p>This article walks you through the process of setting up redirects on CentOS 7 and Fedora 20, 21.</p>
+    
     <p>
 Before starting, make sure to complete the <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">initial server setup</a>  on your server and to install Apache. </p>
     <p>To install Apache:</p>
@@ -90,17 +102,14 @@ Before starting, make sure to complete the <a href="https://blueprintcs.sharepoi
         <li>
       Assuming that you have a domain with COMPANY_NAME, log into the <a href="https://mya.godaddy.com/default.aspx">account manager</a> page.</li>
         <li>Click <strong>Manage</strong> in the <strong>Domains</strong> section. <br />
-        <img src="images/00033/091115/Manage_domains.png" width="522" height="64" alt="Manage Domains" />
-
-          <br />
-        The list of your domains with COMPANY_NAME displays. </li>
-        <li>Click the drop-down button on the domain that you want to work with, and click  <strong>MANAGE DNS</strong>. <br />
-         <img src="images/00033/091115/DNS_Manage.png" width="304" height="236" alt="DNS Manage" />       <br />
-      If you don't see a record for your domain, create one. Also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. </li>
-        <li>Make sure to type  the IP address of your server in the <strong>POINTS TO </strong> field. <br />
-          Both the records will look like this: <br />
-          <img src="images/00033/091115/A_CNAME_Record.png" width="479" height="156" alt="DNS Records"/>
-           <br />
+        <img src="images/00033/091115/Manage_Domains.png" alt="Manage Domains" />       <br/>   <br/>
+            </li>
+            <li> <p>This will take you to the list of domains you have with COMPANY_NAME. Click the drop down button on the domain that you want to work with and click on <strong>MANAGE DNS</strong>.</p>
+                <img src="images/00033/091115/DNS_Manage.png" alt="DNS Manage" /> <br/>         <br/>
+            </li>
+            <li><p>If you don't see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field.</p> 
+                <p>Here's how both the records will look like:</p>
+                <img src="images/00033/091115/A_CNAME_Record.png" alt="DNS Records" />       <br/>  <br/>
           You should now be able to access both the www and non-www domains of your server. </li>
 
 </ol>
