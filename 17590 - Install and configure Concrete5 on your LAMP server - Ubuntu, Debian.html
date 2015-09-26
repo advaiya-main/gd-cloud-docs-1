@@ -66,7 +66,7 @@ p.note {
 </head>
 
 <body>
-<p>Install and configure concrete5 on your LAMP server - Debian, Ubuntu, PHP, Applications </p>
+<!--<p>Install and configure concrete5 on your LAMP server - Debian, Ubuntu, PHP, Applications </p>   -->
 
 <h1>Install and configure concrete5 on your LAMP server - Debian, Ubuntu </h1>
 
@@ -113,11 +113,8 @@ p.note {
 <li>Change directory to <code>concrete5</code>.
 <div class="hacker">cd concrete5</div>
 </li>
-<li>Update the Apache configuration before proceeding with the next step. Check if <code>mod_rewrite</code> is enabled or not, using the following command:
-<div class="hacker">apache2ctl -M</div>
-<p>If you find <code>rewrite_module</code> in the list, then <code>mod_rewrite</code> is enabled.</p> <!--tester, does that mean that you can skip the next step?--><!--fixed-->
-</li>
-<li>If you don't find, then enable the <code>rewrite</code> module.
+
+<li>Enable the <code>rewrite</code> module.
 <div class="hacker">sudo a2enmod rewrite</div>
 </li>
 <li>Restart the Apache server.
@@ -127,13 +124,24 @@ p.note {
 
 <h2>Create database</h2>
 <ol>
-<li>Create a blank database for backend operation.
+<li>Create a blank database for backend operation. Log into MySQL.
 <div class="hacker">mysql -u root -p</div>
 </li>
 <li>When prompted enter mysql password and create database.
 <div class="hacker">CREATE DATABASE <em><u>concrete5</u></em>;</div>
 </li>
-<li><div class="hacker">exit</div></li>
+<li>Create the database administrator account, and set the user's credentials. We'll use "admin" as the example user name, and "adminpwd" as the password. 
+<div class="hacker">CREATE USER admin@localhost IDENTIFIED BY 'adminpwd';   </div>        </li>
+As a best security practice, create a strong password. Keep your user name and password handy, as you'll need them later. 
+<li>Give, or grant, your admin permissions to the database.      
+<div class = "hacker">GRANT ALL PRIVILEGES ON concrete5.* TO admin@localhost;    </div>     </li>
+<li>GRANT is one of the account management statements that the MySQL server notices and loads into memory right away. Therefore, a manual reload/restart should not be necessary. However, if you like, you can check the permissions using SHOW GRANTS: 
+<div class = "hacker"> SHOW GRANTS FOR 'admin'@'localhost';     </div> </li>
+<li>If the privileges don't take, flush the privileges to activate the user. FLUSH forces a reload of the cache. 
+<div class = "hacker"> FLUSH PRIVILEGES;    </div>   </li>
+<li> Exit MySQL to return to your normal command prompt. 
+<div class = "hacker">exit    </div>     </li>
+
 <!--tester, is there a command or key combo to exit?--><!--fixed-->
 </ol>
 
@@ -152,7 +160,7 @@ sudo chmod -R 775 packages/</pre></div>
 </li>
 <li>Open the browser, and then type public IP or URL of your concrete5 server as <strong>http://<em><u>server_ip</u></em>/concrete5</strong>, and then press the <strong>Enter</strong> key. </li>
  <li>On the installation page, click <strong>Continue to Installation</strong>.
-   <br/><img src="images/17590/091715/Install-concrete5.png" alt="Install-concrete5.png"/>
+   <br /><img src="images/17590/091715/Install-concrete5.png" alt="Install-concrete5.png"/>
    </li>
    <li>Enter the required information for <strong>Site</strong>, <strong>Database</strong>, and <strong>Administrator</strong>, and then click <strong>Install concrete5</strong>.
     <br /><img src="images/17590/091715/Site-database-information.png" alt="Site database information page"/>
@@ -168,7 +176,7 @@ sudo chmod -R 775 packages/</pre></div>
 
 <h2>Conclusion</h2>
 
-<p>In this article, you have learned to install and configure concrete5 on your LAMP server - Debian and Ubuntu.</p>
+<p>In this article, you have learned to install and configure concrete5 on your LAMP server.</p>
  
 </body>
 </html>
