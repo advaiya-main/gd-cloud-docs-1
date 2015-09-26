@@ -52,7 +52,6 @@
 	<p>
 		Monkeysphere is a utility suite that provides a framework for TSL/SSL communication authentication using simple tools like a web browser and secure shell. The Monkeysphere system uses GPG keys to validate the servers to users. In this article, you will install and configure Monkeysphere, which will allow you to have a trusted SSH login.
 	</p>
-	<h2>Prerequisites</h2>
 	<p>You should have 3 servers for configuring and testing purpose.</p>
 	<ul>
 	<li><strong>server.<em><u>coolexample</u></em>.com</strong>: The SSH server to which you connect.
@@ -64,7 +63,7 @@
 	<li>The SSH server should have domain name that is publically accessible.
 	</li>
 	</ul>
-	<h2>Set up GPG keys</h2>
+	<h2>Build GPG keys and authentication</h2>
 	<p>The GPG keys must be set up and configured on the client and admin servers. For this, follow the steps below on both the client and the admin server:</p>
 	<ol>
 	<li>
@@ -222,6 +221,7 @@ ssh fingerprint: 2048 35:77:0b:f6:9b:1e:7c:69:45:6a:20:54:ab:ef:84:33 (RSA)
 <div class = "hacker">gpg --send-key <em><u>58921230505B96E5D50A8968684414D33F68800A</u></em></div>
 </li>
 </ol>
+
 <h2>Verifying the identity of the SSH server from the client</h2>
 <ol>
 <li>On the client server, verify the identity of the SSH server.
@@ -276,7 +276,7 @@ uid           <em><u>ssh://server.coolexample.com</u></em>
 <div class = "hacker">
 <pre>pub   2048R/3F68800A 2015-09-06
 uid                  ssh://<em><u>server.coolexample.com</u></em>
-sig 3        3F68800A 2015-09-06  ssh<em><u>server.coolexample.com</u></em>
+sig 3        3F68800A 2015-09-06  ssh://<em><u>server.coolexample.com</u></em>
 sig          462908AF 2015-09-06  admin admin@<em><u>coolexample</u></em>.com
 </pre>
 </div>
@@ -309,9 +309,9 @@ ProxyCommand monkeysphere ssh-proxycommand %h %p
 	<div class = "hacker">ssh <em><u>server.coolexample.com</u></em></div>
 	<div class = "hacker"><em><u>user</u></em>@<em><u>server.coolexample.com</u></em>'s password:</div></li>
 	</ol>
-<h2>Next steps</h2>
-<p>This article is all about installing and configuring Monkeysphere in Debian or Ubuntu server to trust the SSH server. With this, if the administrator trusts 
-the server, then clients won't be asked to validate server for connection. After this, you can <a href="18804">use Monkeysphere to authenticate
+<h2>Next step</h2>
+<p>In this article, you learned on how to install and configure Monkeysphere in Debian or Ubuntu server to trust the SSH server. With this, if the administrator trusts 
+the server, then the clients will not be asked to validate the server for connection. After this, you can <a href="18804">use Monkeysphere to authenticate
  SSH users on Debian or Ubuntu server.</a></p>	
 	
 
