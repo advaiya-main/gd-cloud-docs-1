@@ -105,18 +105,18 @@ p.note {
 			<p>It will take some time to complete the key generation process. </p>
 			</li>
 	    
-			<li>View the key using following command:
-				<div class="hacker">
-				<pre>
-				gpg --list-keys
-				/home/user/.gnupg/pubring.gpg
-				----------------------------
-				pub   2048R/1258D8EF 2015-09-06
-				uid                  client &lt;client@coolexample.com&gt;
-				sub   2048R/FF569918 2015-09-06
-				</pre>
-				</div>
-				<p>Issue the above command in admin server and you will see the keys in both servers.</p>
+			<li>View the key using the following command:
+			<div class="hacker">
+<pre>
+gpg --list-keys
+/home/user/.gnupg/pubring.gpg
+----------------------------
+pub   2048R/1258D8EF 2015-09-06
+uid                  client &lt;client@coolexample.com&gt;
+sub   2048R/FF569918 2015-09-06
+</pre>
+			</div>
+			<p>Issue the above command in admin server and you will see the keys in both servers.</p>
 			</li>
 			
 			<li>Upload the keys to <code>key-server</code>.
@@ -130,22 +130,22 @@ p.note {
 		<li>Pull down the opposite key on each of the servers and then sign those keys. To do this, get the <code>fingerprint</code> in the client server.
 		<div class="hacker">gpg --with-colons --fingerprint client</div>
 		<div class="hacker">
-		<pre>
-		tru::1:1441518267:0:3:1:5
-		pub:u:2048:1:9E0613031258D8EF:2015-09-06:::u:client &lt;client@coolexample.com&gt;::scESC:
-		fpr:::::::::<em><u>BF867BD82FAF8559633336829E0613031258D8EF</u></em>:
-		sub:u:2048:1:E0150AD6FF569918:2015-09-06::::::e: 
-		</pre>
+<pre>
+tru::1:1441518267:0:3:1:5
+pub:u:2048:1:9E0613031258D8EF:2015-09-06:::u:client &lt;client@coolexample.com&gt;::scESC:
+fpr:::::::::<em><u>BF867BD82FAF8559633336829E0613031258D8EF</u></em>:
+sub:u:2048:1:E0150AD6FF569918:2015-09-06::::::e: 
+</pre>
 		</div>
 		</li>
    
 		<li>On admin server, download the key, sign and then upload it to the <code>key-server</code>.
 			<div class="hacker">
-			<pre>
-			gpg --recv-keys BF867BD82FAF8559633336829E0613031258D8EF
-			gpg --sign-key BF867BD82FAF8559633336829E0613031258D8EF
-			gpg --send-key BF867BD82FAF8559633336829E0613031258D8EF
-			</pre>
+<pre>
+gpg --recv-keys BF867BD82FAF8559633336829E0613031258D8EF
+gpg --sign-key BF867BD82FAF8559633336829E0613031258D8EF
+gpg --send-key BF867BD82FAF8559633336829E0613031258D8EF
+</pre>
 			</div>
 		</li>
 		
@@ -154,11 +154,11 @@ p.note {
 		
         <li>On the client server, download the key, sign and then upload it to the <code>key-server</code>.
 		<div class="hacker">
-		<pre>
-		gpg --recv-keys BF867BD82FAF8559633336829E0613031258D8EF
-		gpg --sign-key BF867BD82FAF8559633336829E0613031258D8EF
-		gpg --send-key BF867BD82FAF8559633336829E0613031258D8EF
-		</pre>
+<pre>
+gpg --recv-keys BF867BD82FAF8559633336829E0613031258D8EF
+gpg --sign-key BF867BD82FAF8559633336829E0613031258D8EF
+gpg --send-key BF867BD82FAF8559633336829E0613031258D8EF
+</pre>
 		</div>
 		</li>
    
@@ -179,11 +179,11 @@ p.note {
 
 	<li>Choose option <strong>4</strong> to trust fully. On successful execution, you will get the output as:
 	<div class="hacker">
-	<pre>
-	gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
-	gpg: depth: 0  valid:   1  signed:   1  trust: 0-, 0q, 0n, 0m, 0f, 1u
-	gpg: depth: 1  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 0u
-	</pre>
+<pre>
+gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
+gpg: depth: 0  valid:   1  signed:   1  trust: 0-, 0q, 0n, 0m, 0f, 1u
+gpg: depth: 1  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 0u
+</pre>
    </div>
    <p>The value <code>0 -</code>, shows that both the keys are trusted.</p>
    </li>
@@ -317,8 +317,8 @@ sig          462908AF 2015-09-06  admin admin@<em><u>coolexample</u></em>.com
  <p>This will perform all the verification process and you will only get a password prompt.</p>
  </li>
 	<li>Test the setup by cleaning up the <code>known_host</code> file and run the <code>ssh</code> command to connect to the server. This time there should be no warning message from server.
-   <div class="hacker">ssh server.coolexample.com</div>
-   <div class="hacker">user@server.coolexample.com's password:</div>
+   <div class="hacker">ssh <em><u>server.coolexample.com</u></em></div>
+   <div class="hacker"><em><u>user</u></em>@<em><u>server.coolexample.com</u></em>'s password:</div>
 	</li> 
 	</ol>
 	
