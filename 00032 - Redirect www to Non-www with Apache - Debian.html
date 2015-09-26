@@ -7,7 +7,9 @@
 <!--Use this template for articles that include steps for accomplishing a task or tasks (for example, installing). For articles that explain or describe something (such as an operating system), use the Informational template instead.  -->
 
 <title>Redirect www to Non-www with Apache - Debian</title>
-<style type="text/css">
+
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -24,7 +26,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -36,6 +38,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -77,32 +89,32 @@ p.note {
             <strong>Difficulty</strong>: <em><u>2</u></em><br />
             <strong>Time</strong>: <em><u>15</u></em>
         </p>
-    <p>Let's assume that have a domain with and without the "www" prefix. <em><u>www.coolexample.com</u></em> and <em><u>coolexample.com</u></em>. Both of them display the same content.<strong>Permanent redirect</strong> or "301 Redirect" is the type of redirect where you would be redirecting your users from one domain to the other. </p>
+    <p>Let's assume that have a domain with and without the "www" prefix. <em><u>www.coolexample.com</u></em> and <em><u>coolexample.com</u></em>. Both of them display the same content. A permanent redirect, or "301 Redirect," is the type of redirect where you would be redirecting your users from one domain to the other. </p>
+
+  <p>This article walks you through the process of setting up redirects on a Debian system.</p>
 
         <h2>Prerequisite</h2>
         <p>
-            You must have <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17325 - Initial Server Setup - Debian.html">Initial Server Setup</a> done on your server and installed Apache. If you haven't installed it yet, do the following to install it.  </p>
+            You must have <a href="17325 - Initial Server Setup - Debian.html">Initial Server Setup</a> done on your server and installed Apache. If you haven't installed it yet, do the following to install it.  </p>
             <div class="hacker">sudo apt-get update</div>
             <div class="hacker">sudo apt-get install apache2</div>
 
         <h2>Configure DNS Records</h2>
 
-        For this guide we will use COMPANY_NAME domain. Assuming that you have a domain with COMPANY_NAME, log into <a href="https://mya.godaddy.com/default.aspx">GoDaddy account manager</a>
+        <p>For this article we'll use a COMPANY_NAME domain. </p>
+    <ol>
+        <li>
+      Assuming that you have a domain with COMPANY_NAME, log into the <a href="https://mya.godaddy.com/default.aspx">account manager</a> page.</li>
+        <li>Click <strong>Manage</strong> in the <strong>Domains</strong> section. <br />
+        <img src="images/00032/091115/Manage_Domains.png" alt="Manage Domains" />       <br/>   <br/>
+            </li>
+            <li> <p>This will take you to the list of domains you have with COMPANY_NAME. Click the drop down button on the domain that you want to work with and click on <strong>MANAGE DNS</strong>.</p>
+                <img src="images/00032/091115/DNS_Manage.png" alt="DNS Manage" /> <br/>         <br/>
+            </li>
+            <li><p>If you don't see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field.</p> 
+                <p>Here's how both the records will look like:</p>
+                <img src="images/00032/091115/A_CNAME_Record.png" alt="DNS Records" />       <br/>  <br/>
 
-        <ol>
-            <li>
-                Once you log in, click <strong>Manage</strong> in the <strong>Domains</strong> section.
-                <img src="/images/17813/Manage_Domains.png" alt="Manage Domains" />
-            </li>
-            <li>
-                This will take you to the list of domains you have with COMPANY_NAME. Click the drop down button on the domain that you want to work with and click on <strong>MANAGE DNS</strong>.
-                <img src="/images/17813/DNS_Manage.png" alt="DNS Manage" />
-            </li>
-            <li>
-            </li>
-            <li>
-                If you dont see a record for your domain, create one. You should also create another <strong>A</strong> record or <strong>CNAME</strong> record with the hostname "www" in the <strong>HOST</strong> field. Make sure to type in the IP address of your server in the <strong>POINTS TO </strong> field. Here's how both the records will look like
-                <img src="/images/17813/A_CNAME_Record.png" alt="DNS Records" />
                 You should now be able to access both the www and non-www domains of your server.
             </li>
 
@@ -117,7 +129,9 @@ p.note {
             <li>Open the configuration file.
                 <div class="hacker">sudo vim /etc/apache2/sites-enabled/000-default</div>
             </li>
-            <li>In the configuration block that corresponds to the DocumentRoot which in this case is <code>/var/www/</code> replace <code>AllowOverride None</code> with <code>AllowOverride All</code>. The <code>Directory</code> section will look something like this:
+            <li><p>In the configuration block that corresponds to the DocumentRoot (in this case, that's <code>/var/www/</code>) replace <code>AllowOverride None</code> with <code>AllowOverride All</code>.</p>
+
+                The <code>Directory</code> section will look something like this:
                 <div class="hacker">
                     <pre>
 &lt;Directory /var/www/>
@@ -125,11 +139,27 @@ p.note {
     AllowOverride All
     Order allow,deny
     allow from all
- &lt;/Directory>
-</pre>
-                </div>
-            Save and exit the file.
-            </li>
+ &lt;/Directory></pre></div>
+
+
+            <p>If your <code>Options</code> line is in its own <code>Directory</code> block, be sure to change the <code>AllowOverride</code> for that as well. </p>
+
+
+<p>Here's an example of how that might look:</p>
+<div class="hacker"><pre>
+  DocumentRoot /var/www
+        &lt;Directory />
+                Options FollowSymLinks
+                AllowOverride <em><u>All</u></em>
+        &lt;/Directory>
+        &lt;Directory /var/www/>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride <em><u>All</u></em>
+                Order allow,deny
+                allow from all
+        &lt;/Directory></pre></div>
+
+<li>Save and exit the file. </li>
             <li>
                 Restart Apache for the changes to take effect.
                 <div class="hacker">sudo service apache2 restart</div>
@@ -208,12 +238,12 @@ Content-Type: text/html; charset=iso-8859-1
                 </div>
             </li>
             <li>
-                You can also verify this by navigating to <em><u>http://coolexample.com</u></em> on your browser and you will be redirected to<em><u>www.coolexample.com</u></em>
+                You can also verify this by navigating to <em><u>http://coolexample.com</u></em> on your browser and you will be redirected to <em><u>www.coolexample.com</u></em>
             </li>
         </ol>
 
         <h2>Next steps</h2>
 
- 
+ <p>Congratulations! You have succesfully created a permanent redirect with Apache on your Debian system.</p>
 </body>
 </html>
