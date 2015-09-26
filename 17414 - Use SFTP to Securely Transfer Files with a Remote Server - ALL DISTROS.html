@@ -45,11 +45,11 @@ p.note {
 
 
 <h1>How To Use SFTP to Securely Transfer Files with a Remote Server</h1>
-    
+
                     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
                     <strong>Time</strong>: <em><u>1.50</u></em></p>
 
-                <p>SFTP uses the SSH  protocol to authenticate and establish a secure connection.  It's recommend you create SSH keys and transfer your public key to any system that you need to access.</p>
+                <p>SFTP uses the SSH  protocol to authenticate and establish a secure connection.  It's recommended to  create SSH keys and transfer the public key to any system where access is needed.</p>
 
 <h2>Prerequisite</h2>
 
@@ -57,10 +57,10 @@ p.note {
         <ol>
 
 
-            <li>To test SSH access run the following command:
-                    <div class="hacker">ssh username@remote_hostname_or_IP</div></li>
+            <li>To test SSH access by running the command below:
+                    <div class="hacker">ssh yourusername@remote_hostname_or_IP</div></li>
 
-            <li>If that works, exit back out by run the following command:
+            <li>If that works, exit back out by running the command below:
                     <div class="hacker">exit </div></li>
 
         </ol>
@@ -71,8 +71,8 @@ p.note {
     <ol>
 
 
-            <li>To set up a SSH connection and then open up a SFTP session; run the following command:
-                    <div class="hacker">sftp username@remote_hostname_or_IP</div>
+            <li>To set up a SSH connection and then open up a SFTP session; run the command below:
+                    <div class="hacker">sftp yourusername@remote_hostname_or_IP</div>
             You will connect the remote system and your prompt will change to an SFTP prompt.</li>
 
     </ol>
@@ -110,55 +110,55 @@ lcd path                           Change local directory to 'path'</pre></div><
 
 
     <ol>
-            <li>To find the remote system's current directory run the following command:
+            <li>To find the remote system's current directory run the command below:
                     <div class="hacker">pwd</div>
 
             Example Output:
-                    <div class="hacker">Remote working directory: /home/demouser</div>
+                    <div class="hacker">Remote working directory: /home/newuser</div>
                     <p class="note">Note: The filenames and home directories are examples used for this document.</p></li>
 
 
-            <li>To view the contents of the current directory of the remote system run the following command:
+            <li>To view the contents of the current directory of the remote system run the command below:
                     <div class="hacker">ls</div>
             Example Output:
 
-                    <div class="hacker">Summary.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; testDirectory</div></li>
+                    <div class="hacker">example.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; faq.html&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; docu.txt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exampleDirectory</div></li>
 
-            <li>The commands within the SFTP interface are not as feature-rich. However, they do implement some of the more important optional flags to view these flags run the following command:
+            <li>The commands within the SFTP interface are not as feature-rich. However, they do implement some of the more important optional flags to view these flags run the command below:
                     <div class="hacker">ls -la</div>
             Example Output:
                 <div class="hacker">
-<pre>drwxr-xr-x    5 demouser   demouser       4096 Aug 13 15:11 .
+<pre>drwxr-xr-x    5 newuser   newuser       4096 Aug 13 15:11 .
 drwxr-xr-x    3 root     root         4096 Aug 13 15:02 ..
--rw-------    1 demouser   demouser          5 Aug 13 15:04 .bash_history
--rw-r--r--    1 demouser   demouser        220 Aug 13 15:02 .bash_logout
--rw-r--r--    1 demouser   demouser       3486 Aug 13 15:02 .bashrc
-drwx------    2 demouser   demouser       4096 Aug 13 15:04 .cache
--rw-r--r--    1 demouser   demouser        675 Aug 13 15:02 .profile
+-rw-------    1 newuser   newuser          3 May 15 15:04 .bash_history
+-rw-r--r--    1 newuser   newuser        175 May 15 15:02 .bash_logout
+-rw-r--r--    1 newuser   newuser       1591 May 15 15:02 .bashrc
+drwx------    2 newuser   newuser       2345 May 15 15:04 .cache
+-rw-r--r--    1 newuser   newuser        874 May 15 15:02 .profile
 . . .</pre></div></li>
 
-            <li>To change to another directory run the following command:
-                    <div class="hacker">cd testDirectory</div></li>
+            <li>To change to another directory run the command below:
+                    <div class="hacker">cd exampleDirectory</div></li>
 
 
-            <li>Direct commands towards the local file system by preceding the command with an "l" for local. All of the commands discussed so far have local equivalents. To print the local working directory run the following command:
+            <li>Direct commands towards the local file system by preceding the command with an "l" for local. All of the commands discussed so far have local equivalents. To print the local working directory run the command below:
 
                     <div class="hacker">lpwd</div>
                       Example Output:
-                    <div class="hacker">Local working directory: /Users/demouser<br/>
+                    <div class="hacker">Local working directory: /Users/newuser<br/>
                     . . .</div></li>
 
 
 
-            <li>To list the contents of the current directory on the local machine run the following command:
+            <li>To list the contents of the current directory on the local machine run the command below:
                     <div class="hacker">lls</div>
                       Example Output:
                     <div class="hacker">
 <pre>Desktop            local.txt       test.html
-Documents       analysis.rtf       zebra.html</pre>
+Documents       data.rtf       echo.html</pre>
                     . . .</div></li>
 
-            <li>To change the directory to interact with on the local system run the following command:
+            <li>To change the directory to interact with on the local system run the command below:
 
                     <div class="hacker">lcd Desktop</div></li>
     </ol>
@@ -168,12 +168,12 @@ Documents       analysis.rtf       zebra.html</pre>
 <h3>Transferring Remote Files to the Local System</h3>
 
     <ol>
-                <li>To download files from the remote host, run the following command:
+                <li>To download files from the remote host, run the command below:
                     <div class="hacker">get remote File </div>
                     Example Output:
                     <div class="hacker">
-<pre> Fetching /home/demouser/remoteFile to remoteFile
- /home/demouser/remoteFile                              100%    37KB    36.8KB/s    00:01</pre></div>
+<pre> Fetching /home/newuser/remoteFile to remoteFile
+ /home/newuser/remoteFile                              100%    29KB    42.8KB/s    00:01</pre></div>
  By default, the <code>get</code> command download's a remote file to a file with the same name on the local file system </li>
 
                 <li>Copy the remote file to a different name, specify the name afterwards:
@@ -194,8 +194,8 @@ Documents       analysis.rtf       zebra.html</pre>
                     <div class="hacker">put localFile </div>
                     Example Output:
                     <div class="hacker">
-<pre>Uploading localFile to /home/demouser/localFile
-localFile                                     100% 7607     7.4KB/s   00:00</pre></div></li>
+<pre>Uploading localFile to /home/newuser/localFile
+localFile                                     100% 7607     6.3KB/s   00:00</pre></div></li>
 
 
                 <li>
@@ -204,10 +204,10 @@ localFile                                     100% 7607     7.4KB/s   00:00</pre
                     <div class="hacker"> </div></li>
 
 
-                <li><code>put</code> utilizes the same flags as <code>put</code>. To copy an entire local directory run the following command:
+                <li><code>put</code> utilizes the same flags as <code>put</code>. To copy an entire local directory run the command below:
                         <div class="hacker">put -r localDirectory</div> </li>
 
-                 <li> <code>df</code> command reports filesystem disk space usage. To verify available disk space for transfers, run the following command:
+                 <li> <code>df</code> command reports filesystem disk space usage. To verify available disk space for transfers, run the command below:
                         <div class="hacker">df -h </div>
                     Example Output:
                     <div class="hacker">
@@ -215,23 +215,23 @@ localFile                                     100% 7607     7.4KB/s   00:00</pre
     19.9GB      1016MB      17.9GB 18.9GB           4%</pre> </div>
                         <p class="note">Please note, that there is no local variation of this command, but we can get around that by issuing the "!" command</p></li>
 
-        <li> Use the "!" command  to drop into a local shell, to check disk usage run the following command:
+        <li> Use the "!" command  to drop into a local shell, to check disk usage run the command below:
                     <div class="hacker"> ! <br />
                                         df -h</div>
                     Example Output:
                     <div class="hacker">
 <pre>  Filesystem     Size    Used    Avail   Capacity    Mounted on
- /dev/disk0s2   595Gi   52Gi    544Gi   9%      /
- devfs          181Ki   181Ki   0Bi     100%    /dev
+ /dev/disk0s2   425Gi   82Gi    644Gi   9%      /
+ devfs          155Ki   155Ki   0Bi     100%    /dev
  map -hosts     0Bi     0Bi     0Bi     100%    /net
  map auto_home  0Bi     0Bi     0Bi     100%    /home</pre></div> </li>
 
 
-                <li>Any other local command will work as expected. To return to the SFTP session,run the following command:
+                <li>Any other local command will work as expected. To return to the SFTP session,run the command below:
                        <div class="hacker">exit</div>
 
 
-                <p class="note">The SFTP prompt should return.</p> </li>
+                <p class="note">The SFTP prompt will return.</p> </li>
 
 
     </ol>
