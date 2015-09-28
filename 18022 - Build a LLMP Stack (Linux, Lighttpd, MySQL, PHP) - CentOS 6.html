@@ -151,7 +151,7 @@ td:nth-child(1) {font-weight:bold;}
         </li>
         <li>Add lighttpd to the user and the group in the <code>www.conf</code>.
         <div class="hacker">sudo vim /etc/php-fpm.d/www.conf</div>
-        Find the following block :
+        Find the following block:
         <div class="hacker">
         <pre>
 ; Unix user/group of processes
@@ -206,7 +206,30 @@ group = apache
        <li>Restart Lighttpd.
         <div class="hacker">sudo /etc/init.d/lighttpd restart</div></li>
 
-    </ol>
+        <li>If you get this error:
+<div class="hacker">(network.c.283) warning: please use server.use-ipv6 only for hostnames, not without server.bind / empty address; your config will break if the kernel default for IPV6_V6ONLY changes</div>
+
+            <p>You can remedy this error by making a few edits in your <code>lighttpd.conf</code> file.</p> 
+
+            <ul>
+                <li>First, open the file.
+ <div class="hacker">sudo vim /etc/lighttpd/lighttpd.conf</div></li>
+
+<li>In the Basic Configuration section, find <code>server.use-ipv6</code>. Change its value to "disable."
+<div class="hacker"><pre>## Use IPv6?
+##
+server.use-ipv6 = "<em><u>disable</u></em>"</pre></div>
+</li>
+
+<li>Find this line below and uncomment it.
+<div class="hacker">server.max-fds = 2048</div></li>
+
+<li>Save and exit the file.</li>
+</ul>
+
+<p>Now you should be able to restart Lighttpd without those error messages appearing.</p>
+
+   </ol>
    
     <h3>Test PHP processing on Lighttpd</h3>
     <ol>
@@ -228,7 +251,12 @@ group = apache
 
     </ol>
     <h2>Next steps</h2>
-    <p>You have successfully built a LLMP  stack on your server. If you are interested, you can learn more about <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18811 - Set Up Multiple SSL Certificates on One IP with Lighttpd - CentOS, Fedora.html">setting up multiple SSL certificates on one IP</a>. </p>
+    
+<p>Congratulations! You have successfully built a LLMP stack on your server. 
+
+        <!--CT: Commenting out because this article's not written yet...
+
+   If you are interested, you can learn more about <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18811 - Set Up Multiple SSL Certificates on One IP with Lighttpd - CentOS, Fedora.html">setting up multiple SSL certificates on one IP</a>. ...--></p>
 
 </body>
 </html>
