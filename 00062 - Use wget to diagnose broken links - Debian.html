@@ -73,7 +73,7 @@ p.note {
     
     <ul>
     <li>Two COMPANY_NAME cloud servers, one to use as a regular machine where you will be running <code>wget</code>, and one web server for hosting your website.</li>
-    <li>The <a href="17346 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian.html">LAMP stack installed</a> on your web server.</li>
+    <li>A <a href="17346 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Debian.html">LAMP stack installed</a> on your web server.</li>
     <li>Optionally, you can have your domain pointing to your web server, this way you can use your domain name instead of your server IP. </li>
   </ul>
   
@@ -124,9 +124,9 @@ p.note {
     
     <div class="hacker">
     sudo wget --spider -r -nd -nv -H -l 1 -w 2 -o test1.log http://<em><u>your server IP</u></em>/testwebpage.html
-    </div></li>
+    </div>
     
-    <li>Here's a description of the basic flags in the previous command:
+ <p>Here's a description of the basic flags in command:</p>
  <table>
     <tr>
     <th>Flags</th>
@@ -196,14 +196,14 @@ If needed, you can look up <a href="http://www.w3schools.com/tags/tag_table.asp"
     
     <h2>Find referrer pages</h2>
     
-    <p>Wget shows you the broken links in your pages, but it doesn't let you know to what page they are being referred.</p>
+    <p>Wget shows you the broken links in your pages, but it doesn't let you know to what pages referred them.</p>
     
     <p>To do this, you can check the web server's access log.</p>
     <ul>
     <li>On your web server, run the following command:
     
     <div class="hacker">
-    sudo grep wget /var/log/apache2/access.log | grep "HEAD /errorlink1"   
+    grep wget /var/log/apache2/access.log | grep "HEAD /errorlink1"   
     </div>
      </li></ul>
 <p>In this command, the first <code>grep</code> gets the requests performed by wget. The access request contains a <em><u>User Agent</u></em> string which is used by grep to identify the software agent performing the requests.</p>
@@ -216,7 +216,7 @@ The output of the execution of this command may look like this: <p />
     </div>
     
     <h2>Next steps</h2>
-    <p>In this article, you learned how to identify broken links on your website and how to identify what pages are refered those broken links.</p> 
+    <p>In this article, you learned how to identify broken links on your website and the referrer pages of those broken links.</p> 
     <p>With this information, you will be able to correct those references in your website.</p>
    
 </body>
