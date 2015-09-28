@@ -152,7 +152,7 @@ p.note {
 	<li>Locate the <code>production</code> section at the bottom of the file, and updated the username and password in the code highlighted below:
 	<div class='hacker'>username: <em><u>username</u></em>
 </div>
-<div class='hacker'>password: &lt;%= ENV['<em><u>Your_application_DATABASE_PASSWORD</u></em>'] %&gt;
+<div class='hacker'>password: &lt;%= ENV['<em><u>Your_application</u></em>_DATABASE_PASSWORD'] %&gt;
 </div>
     <p class="note">If your production username and the database user are not the same, then make the required changes to make them the same.
     </p>
@@ -194,7 +194,7 @@ p.note {
 <ol>
 <li>Create the production database for the Rails application and generate a scaffold controller to manage the database.
 	<div class='hacker'>RAILS_ENV=production rake db:create</div>
-	<div class ="hacker">RAILS_ENV=development rake db:create</div>
+		<div class='hacker'>RAILS_ENV=development rake db:create</div>
 		<div class='hacker'>rails generate scaffold Task title:string note:text</div>
 	</li>
 

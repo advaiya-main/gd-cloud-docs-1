@@ -102,30 +102,30 @@ To set database user password, run the following commands:
 </ol>
 <h3>Set up a database connection</h3>
 <ol>
-<li>To set up a database connection, you need move to your application directory.
+<li>To set up a database connection, you need to move to your application directory.
 <div class="hacker">cd /var/www/<em><u>Your_application</u></em> </div>
 <div class="hacker">sudo  vim config/database.yml </div>
 </li>
 <li>
-Add the following line in the default section of this file:
+Add the following line in the <code>default</code> section of this file:
 <div class="hacker">
 <pre>host: localhost</pre>
 </div>
 </li>
 <li>
-Locate the <code>production</code> section at the bottom of the file.
+Locate the <code>production</code> section at the bottom of the file, and update the highlighted section with appropriate values:
 <div class="hacker">
 <pre>username: <em><u>username</u></em>
-password: &lt;%= ENV['<em><u>Your_application_DATABASE_PASSWORD</u></em>'] %>
+password: &lt;%= ENV['<em><u>Your_application</u></em>_DATABASE_PASSWORD'] %>
 </pre>
 </div>
-<p>If our production username and the database user are not the same, then make the required changes to make them the same.</p>
+<p class="note">If our production username and the database user are not the same, then make the required changes to make them the same.</p>
 
 </li>
 <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
 </li>
 </ol>
-<h2>Set up rbenv plug ins</h2>
+<h2>Set up rbenv plug-ins</h2>
 
 <ol>
 <li>Install the plug in for rbenv-vars. 
@@ -145,42 +145,46 @@ password: &lt;%= ENV['<em><u>Your_application_DATABASE_PASSWORD</u></em>'] %>
 <div class="hacker">sudo vim .rbenv-vars</div>
 Add the following line in this file:
 <div class="hacker">
-<pre> 
-	SECRET_KEY_BASE=<em><u>your_generated_secret</u></em>
-	Your_application_DATABASE_PASSWORD=<em><u>prod_db_pass</u></em>
+<pre>SECRET_KEY_BASE=<em><u>your_generated_secret</u></em>
+Your_application_DATABASE_PASSWORD=<em><u>prod_db_pass</u></em>
 </pre>
 </div>
 </li>
-<li>Save and exit.
-<div class ="hacker">wq!</div>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+</li>
+<li>Export the secret key and the database password.
+	<div class='hacker'>rbenv vars
+</div>
 </li>
 </ol>
-<h3>Create the databases</h3>
+<h2>Create the databases</h2>
 <ol>
 <li>Create the sample databases for the Rails application and generate a scaffold controller to manage the database.
-<div class="hacker">RAILS_ENV=development rake db:migrate</div>
-<div class="hacker"> RAILS_ENV=production  rake db:migrate</div>
+<div class="hacker">RAILS_ENV=production rake db:create</div>
+<div class="hacker">RAILS_ENV=development rake db:create</div>
 <div class="hacker"> rails generate scaffold Task title:string note:text</div>
+</li>
+<li>Update the production database and run your application from the application directory. 
+	<div class='hacker'>RAILS_ENV=production  rake db:migrate</div>
+	<div class='hacker'>RAILS_ENV=development  rake db:migrate</div>
+	<div class='hacker'>rails server</div>
 </li>
 <li>Create a directory to hold the PID files.
 <div class="hacker"> mkdir pids</div>
 </li>
 <li>Enter the application directory and run the following command:
 <div class="hacker"> rails s</div>
-<p>To terminate a user, press <strong>Control/CTRL+C</strong>.</p>
+<p>To terminate a user, press <strong>Ctrl+C</strong>.</p>
 </li>
 <li>For binding to web browser, run the following command:
-<div class="hacker">rails server --binding=[<em><u>your server's IP</u></em>]</div>
+<div class="hacker">rails server --binding=<em><u>Public IP Address of your server</u></em></div>
 </li>
-<li>You can now access it on any browser by visiting: <strong>http://<em><u>your_droplet's_IP</u></em>:3000/tasks</strong>.
-</li>
-<li>Upload the source code using the following article:
-<a href="17414">Use SFTP to Securely Transfer Files with a Remote Server - ALL DISTROS</a>.
+<li>You can now access it on any browser by visiting: <strong>http://<em><u>Public IP Address of your server</u></em>:3000/tasks</strong>.
 </li>
 </ol>
 
  <h2>Configure  Unicorn and NGINX</h2>
- <h3>Configure Unicorn.</h3>
+ <h3>Configure Unicorn</h3>
  <ol><li>To configure Unicorn, move to the Rails application directory.
  <div class="hacker">cd /var/www/<em><u>Your_application</u></em></div>
  </li>
@@ -211,9 +215,8 @@ Add the following line in this file:
 	pid "#{shared_dir}/pids/unicorn.pid"
 </pre></div>
  </li>
- <li>Save and exit.
- <div class ="hacker">wq!</div>
- </li>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+</li>
  </ol>
  <h3>Connect Unicorn with Rails Application</h3>
  <ol>
@@ -296,8 +299,10 @@ Add the following line in this file:
 	esac
 
  </pre></div>
-<p>This script will allow to run <em><u>unicorn_Your_application</u></em> that will run and stop both the unicorn and Rails application.</p>
+<p>This script will allow to execute <em><u>unicorn_Your_application</u></em> that will run and stop both the unicorn and Rails application.</p>
  </li>
+ <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+</li>
  <li>Update the script's permissions and enable Unicorn to start on boot.
   <div class="hacker">	sudo chmod 755  -R /etc/init.d/<em><u>unicorn_Your_application</u></em> </div>
    <div class="hacker">sudo update-rc.d unicorn_appname defaults</div>
@@ -340,21 +345,19 @@ Add the following line in this file:
 
    </pre></div>
  </li>
- <li>Save and exit.
-<div class ="hacker">wq!</div>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
 </li>
  <li>Restart the NGINX service.
   <div class="hacker">sudo service nginx restart</div>
  </li>
+ <li>For binding to web browser, run the following command:
+<div class='hacker'>rails server --binding=<em><u>Public IP Address of your server</u></em></div>
+</li>
+<li>Test your server's IP address or the domain name associated to it. Go to <strong>http://<em><u>Your server's IP address</u></em>:3000/tasks</strong>.
+</li>
  </ol>
  
- <h2>Manage the servers</h2>
- <ol><li>After you configure both the servers, initiate the Unicorn, and then run it as a daemon by using the configuration file. Ensure that you are inside the application directory, and then run the following command:
-  <div class="hacker">unicorn_rails -c config/unicorn.rb –D</div>
-</li>
-<li>Test your server's IP address or the domain name associated to it. Go to <strong>http://<em><u>Your server's IP address</u></em>/tasks</strong>.
-</li>
-</ol>
+
 <h2>Conclusion</h2>
 <p>By using all the above steps, you will be able to deploy our Rails application with Unicorn and NGINX on Ubuntu.</p>
 </body>
