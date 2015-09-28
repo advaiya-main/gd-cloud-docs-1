@@ -7,7 +7,8 @@
 <!--Article Number is 18022 (fill in blank)-->
 
 <title>Build a LLMP stack (Linux, Lighttpd, MySQL, PHP) - CentOS 6</title>
-<style type="text/css">
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -24,7 +25,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -36,7 +37,18 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
+
 
 
 <!--[if gte mso 9]><xml>
@@ -76,7 +88,7 @@ p.note {
     </p>
     <h2>Prerequisites</h2>
     <p>
-        You must have <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17323 - Initial Server Setup - CentOS.html">the initial CentOS server setup</a> completed on your server. Linux is will be installed with CentOS.
+        You must have <a href="17323 - Initial Server Setup - CentOS.html">the initial CentOS server setup</a> completed on your server. Linux is will be installed with CentOS.
     </p>
     <h2>Install Lighttpd</h2>
     <p>Lighttpd is an open-source web server that is lightweight and optimized for high performance environments.</p>
@@ -174,7 +186,7 @@ group = apache
         <li>Edit the <code>modules.conf</code> file.
             <div class="hacker">sudo vim /etc/lighttpd/modules.conf</div>
             Uncomment the following line :
-            <div class="hacker">include "#conf.d/fastcgi.conf"</div>
+            <div class="hacker">include "conf.d/fastcgi.conf"</div>
         </li>
         <li>And lastily you need to edit the <code>fastcgi.conf</code>file. 
             <div class="hacker">sudo vim /etc/lighttpd/conf.d/fastcgi.conf</div>
