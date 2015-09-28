@@ -181,14 +181,14 @@ none            100M     0  100M   0% /run/user
 
 </li><li>Verify that the correct amount of space was reserved: 
 
-<div class="hacker">ls -lh swapfile   </div>
+<div class="hacker">ls -lh /swapfile   </div>
 
 This result shows that the file was added with the correct amount of space set aside:
 
-<div class="hacker">-rw------- 1 root root 4.0G Jul 08 10:52 swapfile </div>
+<div class="hacker">-rw------- 1 root root 4.0G Jul 08 10:52 /swapfile </div>
 
 If, on the other hand, your output shows "0" like the example below, it means the swapfile created has 0 GB:
-<div class="hacker">-rw------- 1 root root 0 Jul 08 10:52 swapfile </div>
+<div class="hacker">-rw------- 1 root root 0 Jul 08 10:52 /swapfile </div>
 If you get a failure message saying <code>fallocate failed: Operation not supported</code>, 
  your file system doesn't currently support <code>fallocate</code> (for example, ext3). Use the more traditional way with the <code>dd</code> command instead. (This situation should be rare.)
 </li></ol>
@@ -221,7 +221,7 @@ After a few seconds, the generated output looks like this:<br />
 
 <li>Verify that the file was created on the server:
 
-  <div class="hacker">ls -lh swapfile   </div>
+  <div class="hacker">ls -lh /swapfile   </div>
 
 The command returns something similar to this:<br />
 <div class="hacker">-rw-r--r-- 1 root root 1.0G Jul 08 10:30 swapfile   </div>
@@ -237,20 +237,20 @@ The system created the file by writing 1 GB of zeroes to the disk and, in this c
 <ol>
 <li> Lock the swap file's permissions so that only the root user can access it. By default, swap files are readable by the world when first created, so locking permissions prevents users from reading potentially sensitive information.
 
-  <div class="hacker">sudo chmod 600 swapfile </div>
+  <div class="hacker">sudo chmod 600 /swapfile </div>
 
 </li><li>Verify that the file has the correct permissions: 
 
-<div class="hacker">ls -lh swapfile  </div>
+<div class="hacker">ls -lh /swapfile  </div>
 The command returns something similar to this:<br />
 <div class="hacker">
--rw------- 1 root root 4.0G Jul 08 10:40 swapfile </div>     
+-rw------- 1 root root 4.0G Jul 08 10:40 /swapfile </div>     
 This confirms that only the root has read and write flags enabled.   
 </li>
 
 <li>Format that file to create a swap space:
 
-<div class="hacker">sudo mkswap swapfile </div>
+<div class="hacker">sudo mkswap /swapfile </div>
 The command returns something similar to this:
    
 <div class="hacker">Setting up swapspace version 1, size = 4194300 KiB   <br />
@@ -259,12 +259,12 @@ no label, UUID=e2f1e9cf-c0a9-4ed4-b8ab-714b8a7d6944                          </d
 
 <li>Mount/enable the swap space in the system:
 
-  <div class="hacker">sudo swapon swapfile    </div>   </li>
+  <div class="hacker">sudo swapon /swapfile    </div>   </li>
 
 
 <li>Verify that the swap space was enabled by checking the system reports:
 
-<div class="hacker">sudo swapon -s        </div>
+<div class="hacker">sudo /swapon -s        </div>
 
 
 The command returns something similar to this:
