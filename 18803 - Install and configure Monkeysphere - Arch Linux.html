@@ -131,9 +131,9 @@ p.note {
 			</li>
 	    
 			<li>View the key using the following command:
+				<div class="hacker">gpg1 --list-keys</div>
 				<div class="hacker">
 <pre>
-gpg1 --list-keys
 /home/user/.gnupg/pubring.gpg
 ----------------------------
 pub   2048R/1258D8EF 2015-09-06
@@ -220,7 +220,7 @@ gpg1: depth: 1  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 0u
    <p>Perform the following step on all the servers (Client, Admin and on SSH Server).</p>
    <ol>
    <li>Install Monkeysphere from AUR.  
-   <div class="hacker">cd /home/user/build</div>
+   <div class="hacker">cd <em><u>/home/user/build</u></em></div>
    <div class="hacker">wget https://aur.archlinux.org/cgit/aur.git/snapshot/monkeysphere.tar.gz</div>
    <div class="hacker">tar -xvzf monkeysphere.tar.gz</div>
    <div class="hacker">cd monkeysphere</div>
@@ -228,7 +228,7 @@ gpg1: depth: 1  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 0u
    <div class="hacker">sudo pacman -U monkeysphere-0.37-2-any.pkg.tar.xz</div>
    </li>
    <li>Generate the GPG key on SSH Server.
-   <div class="hacker">sudo monkeysphere-host import-key /etc/ssh/ssh_host_rsa_key ssh:// <em><u>junkdomain.com</u></em></div>
+   <div class="hacker">sudo monkeysphere-host import-key /etc/ssh/ssh_host_rsa_key ssh:// <em><u>server.coolexample.com</u></em></div>
    </li>
    <li>Upload the key to key-server.
    <div class="hacker">sudo monkeysphere-host publish-key</div>
@@ -262,30 +262,14 @@ ssh fingerprint: 2048 35:77:0b:f6:9b:1e:7c:69:45:6a:20:54:ab:ef:84:33 (RSA)
 </ol>
    <h2>Verifying identity/key of SSH server from client</h2>
    <ol>
-<li>On the client server, verify the identity of the SSH server.
+   <li>Download the key to the client.
+   <div class  ="hacker">gpg1 --recv-keys <em><u>58921230505B96E5D50A8968684414D33F68800A</u></em></div></li>
+<li>Execute the following command to verify the identity.
 <div class  ="hacker">ssh -oProxyCommand='monkeysphere ssh-proxycommand %h %p' <em><u>server.coolexample.com</u></em></div>
 </li>
-<li>Type <code>no</code> when prompted with the Monkeysphere warning. This warning states that although it has found an OpenPGP key, full validity is not available. Because it is not confirmed that you are connecting to the right server, the connection request must be denied at this point.
+<li>Check that the server key is found in your key list.
+<div class = "hacker">gpg1 --list-keys</div>
 <div class = "hacker">
-<pre>
--------------------- Monkeysphere warning -------------------
-Monkeysphere found OpenPGP keys for this hostname, but none had full validity.
-An OpenPGP key matching the ssh key offered by the host was found:
-pub   2048R/3F68800A 2015-09-06
-uid       [ unknown] ssh://server.<em><u>coolexample</u></em>.com
-sig!3        3F68800A 2015-09-06  ssh://server.<em><u>coolexample</u></em>.com
-RSA key fingerprint is 35:77:0b:f6:9b:1e:7c:69:45:6a:20:54:ab:ef:84:33.
--------------------- ssh continues below --------------------
-The authenticity of host 'server.<em><u>coolexample</u></em>.com (&lt;no hostip for proxy command&gt;)' can't be established.
-ECDSA key fingerprint is d5:46:6c:0f:eb:a9:d1:e1:02:c6:61:d0:37:ea:98:68.
-Are you sure you want to continue connecting (yes/no)?
-</pre>
-</div>
-</li>
-
-   <li>Check the list of available keys on the client machine.
-   <div class="hacker">gpg1 --list-keys</div>
-   <div class="hacker">
 <pre>
 /home/user/.gnupg/pubring.gpg
 ----------------------------
@@ -296,16 +280,18 @@ pub   2048R/462908AF 2015-09-05
 uid                  admin &lt;admin@<em><u>coolexample</u></em>.com&gt;
 sub   2048R/62F4D3E5 2015-09-05
 pub   2048R/3F68800A 2015-09-06
-uid           <em><u>ssh://server.coolexample.com</u></em>
+uid                  ssh://server.coolexample.com
 </pre>
-   </div></li>
+</div>
+</li>
    <li>Wait for some time and issue the the following command on all the servers to refresh the keys.
   <div class="hacker">gpg1 --refresh-keys</div> 
    <p>In the output, you will see <code>new signatures: 1</code>. This ensures that everything is proper.</p></li>
-   <li>Check the signature available on the key of SSH server:
+   
+   <li>Check the signature of the server from client to find both the admin and server keys:
 <div class = "hacker">gpg1 --list-sigs ssh://<em><u>server.coolexample.com</u></em></div>
-</li>
-<li>Successful propagation of the keys would show an output similar to the following:
+
+<p>Successful propagation of the keys would show an output similar to the following:</p>
 <div class = "hacker">
 <pre>pub   2048R/3F68800A 2015-09-06
 uid                  ssh://<em><u>server.coolexample.com</u></em>
@@ -323,9 +309,13 @@ sig          462908AF 2015-09-06  admin admin@<em><u>coolexample</u></em>.com
    <h2>Make client-server connection easier</h2>
    <ol>
 <li>Make the connecting procedure easier by adding the following command in client’s ssh configuration file.
-   <div class="hacker">sudo vi ~/.ssh/config</div>
-   <div class="hacker">Host *</div>
- <div class="hacker">ProxyCommand monkeysphere ssh-proxycommand %h %p  </div>
+   <div class="hacker">sudo vim ~/.ssh/config</div>
+   <div class="hacker">
+<pre>
+Host *
+ProxyCommand monkeysphere ssh-proxycommand %h %p
+</pre>
+</div>
  <p>This will perform all the verification process and you will only get a password prompt.</p>
  </li>
 	<li>Test the setup by cleaning up the <code>known_host</code> file and run the <code>ssh</code> command to connect to the server. This time there should be no warning message from server.

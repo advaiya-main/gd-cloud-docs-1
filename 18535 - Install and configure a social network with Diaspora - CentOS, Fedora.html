@@ -114,13 +114,13 @@ p.note {
    <div class="hacker">mysql -u root –p</div>
   </li>
    <li>Run the following queries after you  log in:
-     <div class="hacker">CREATE USER 'diaspora'@'localhost' IDENTIFIED BY '<em><u>password</u></em>';</div>
-   <div class="hacker">CREATE DATABASE IF NOT EXISTS `diaspora_production` DEFAULT CHARACTER SET `utf8mb4` COLLATE `utf8mb4_bin`;</div>
-   <div class="hacker">GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, LOCK TABLES ON `diaspora_production`.* TO 'diaspora'@'localhost';</div>
+     <div class="hacker">CREATE USER <em><u>'diaspora'@'localhost'</u></em> IDENTIFIED BY '<em><u>password</u></em>';</div>
+   <div class="hacker">CREATE DATABASE IF NOT EXISTS <em><u>`diaspora_production`</u></em> DEFAULT CHARACTER SET `utf8mb4` COLLATE `utf8mb4_bin`;</div>
+   <div class="hacker">GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, LOCK TABLES ON <em><u>`diaspora_production`</u></em>.* TO <em><u>'diaspora'@'localhost'</u></em>;</div>
    <div class="hacker">\q</div>
    </li>
    <li>To log into the database, type:
-     <div class="hacker">mysql -u diaspora -p -D diaspora_production</div>
+     <div class="hacker">mysql -u diaspora -p -D <em><u>diaspora_production</u></em></div>
    <div class="hacker">\q</div>
    </li>
 </ol>
@@ -140,10 +140,10 @@ p.note {
  <h2>Create a dedicated  Diaspora user and fetch source code</h2>
  <ol>
    <li>Create a user to run Diaspora. We'll use the user name  <em><u>diaspora</u></em>.
-     <div class="hacker">sudo useradd diaspora</div>
+     <div class="hacker">sudo useradd <em><u>diaspora</u></em></div>
    </li>
    <li>Switch to the <em><u>diaspora</u></em> user.
-   <div class="hacker">sudo su - diaspora</div>
+   <div class="hacker">sudo su - <em><u>diaspora</u></em></div>
    <div class="hacker">git clone -b master https://github.com/diaspora/diaspora.git</div>
    </li>
 </ol>
@@ -164,7 +164,7 @@ p.note {
 <pre>
 mysql: &amp;mysql
 adapter: mysql2
-host: "localhost"
+host: "<em><u>localhost</u></em>"
 port: 3306
 username: "<em><u>diaspora</u></em>"
 password: "<em><u>password</u></em>"
@@ -362,8 +362,8 @@ WantedBy=multi-user.target
 
 <h2>Set up the SSL certificates </h2>
 <ol> 
-<li>Create a directory at <code>/etc/ssl/diaspora</code>,  and move your certificates to this directory.
-   <div class="hacker">sudo mkdir /etc/ssl/diaspora</div>
+<li>Create a directory at <code><em><u>/etc/ssl/diaspora</u></em></code>, and move your certificates to this directory.
+   <div class="hacker">sudo mkdir <em><u>/etc/ssl/diaspora</u></em></div>
   </li>
    <li>Switch to the root user.
    <div class="hacker">sudo su -</div>

@@ -1,5 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 <head>
     <title>Install an SSL Certificate on Your Web Server via SSH - CentOS, Fedora</title>
@@ -38,7 +38,7 @@
 </xml><![endif]-->
 
 
-<style>
+<style type="text/css">
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -71,6 +71,7 @@ p.note {
 </head>
 
 <body>
+<p>Install an SSL Certificate on Your Web Server via SSH - CentOS, Fedora, SSL, Apache, NGINX, Security</p>
     <h1>Install an SSL Certificate on Your Web Server via SSH - CentOS, Fedora</h1>
    
     <p>
@@ -81,7 +82,8 @@ p.note {
    
     <p>After downloading your SSL certificate, you need to install it on your web server. This article guides you through installing an SSL certificate from a commercial Certificate Authority (CA) on CentOS or Fedora. </p>
 
-    <h2>Install SSL certificate in Nginx </h2>
+ Before you begin, you'll need to create an SSL certificate using the <a href= "17449">Install SSL Certificates on NGINX - ALL DISTROS</a> link.
+   <h2>Install SSL certificate in Nginx </h2>
     <ol>
         <li>
             Create a single chained certificate file that contains your certificate and the CA's intermediate certificates. <br />
@@ -121,7 +123,7 @@ Restarting loads the new configuration and enables TLS/SSL over HTTPS.
         <li> If one or more of the directives are commented out, uncomment them by removing the pound character (#) from the beginning of the line. 
            <p class="note">A directive is commented out if it begins with a pound character.</p></li>
                 
-                <li>Set the values of these directives to the absolute path and filename of the appropriate file, based on your version of Apache. (See tables below.)
+                <li>Set the values of these directives to the absolute path and filename of the appropriate file, based on your version of Apache. (See tables below.)</li>
                  <li>
             Save your configuration file, and restart Apache. <br />
             You'll need to install the httpd package. The httpd RPM (originally Red Hat Package Manager) installs the <code>/etc/init.d/httpd</code> script, which you can access using the <code>/sbin/service</code> command. If using managed servers with root access, here are the commands to restart, start, and stop from the command line. For detailed information about starting and stopping the Apache server, see the <a href="https://linux.web.cern.ch/linux/scientific4/docs/rhel-rg-en-4/s1-apache-startstop.html">Red Hat Enterprise Linux 4: Reference Guide</a>.
@@ -130,10 +132,8 @@ Restarting loads the new configuration and enables TLS/SSL over HTTPS.
                 <li>To start: <div class="hacker"> /sbin/service httpd start</div></li>
                 <li>To stop: <div class="hacker"> /sbin/service httpd stop</div></li>
             </ul>
-        </li>
-        
-           
-            <table style="margin: 15px 0px; color: rgb(51, 51, 51); border-collapse: collapse;">
+       
+             <table style="margin: 15px 0px; color: rgb(51, 51, 51); border-collapse: collapse;">
                 <tbody>
                     <tr>
                         <th style="padding: 5px; text-align: left; border-right-color: rgb(221, 221, 221); border-right-width: 1px; border-right-style: solid; background-color: rgb(221, 221, 221);" colspan="2">Apache Version &lt; 2.4.8</th>
@@ -183,7 +183,7 @@ Restarting loads the new configuration and enables TLS/SSL over HTTPS.
      
     </ol>
     <h2>Conclusion</h2>
-    <p>You have installed an SSL certificate. </p>
+    <p>In this article, you learned to install an SSL certificate. </p>
     
 </body>
 </html>

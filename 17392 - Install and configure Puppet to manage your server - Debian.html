@@ -218,8 +218,8 @@ ssl_client_verify_header = SSL_CLIENT_VERIFY <br />
 </div></li>
 <li>Remove the <code>templatedir</code> option, and then in the <code>master</code> section add the following:
 		<div class="hacker">
-			certname = puppet <br />
-            dns_alt_names = puppet,puppet.coolexample.com
+			certname = <em><u>puppet</u></em> <br />
+            dns_alt_names = <em><u>puppet</u></em>,<em><u>puppet.coolexample.com</u></em>
         </div>
 		</li>
 
@@ -327,7 +327,7 @@ Pin-Priority: 501<br />
 		<div class="hacker">
 
 [agent] <br />
-server = puppet.coolexample.com<br />
+server = <em><u>puppet.coolexample.com</u></em><br />
 </div>
 		</li>
 	<li>
@@ -351,7 +351,7 @@ server = puppet.coolexample.com<br />
 		</div>
 		If you have one agent node, then you will have one request. It contains the hostname of the agent node.
 		<div class="hacker">
-		"host1.coolexample.com" (SHA256) <br />B1:96:ED:1F:F7:1E:40:53:C1:D4:1B:3C:75:F4:7C:0B:A9:4C:1B:5D:95:2B:79:C0:08:DD:2B:F4:4A:36:EE:E3
+		"<em><u>host1.coolexample.com</u></em>" (SHA256) <br />B1:96:ED:1F:F7:1E:40:53:C1:D4:1B:3C:75:F4:7C:0B:A9:4C:1B:5D:95:2B:79:C0:08:DD:2B:F4:4A:36:EE:E3
 		</div>
 	</li>
 </ul>
@@ -367,7 +367,7 @@ server = puppet.coolexample.com<br />
 		</div>
 		View the following output:
 		<div class="hacker">
-		Notice: Removing file Puppet::SSL::CertificateRequest host1.coolexample.com at '/var/lib/puppet/ssl/ca/requests/<em><u>host1.coolexample.com</u></em>.pem'
+		Notice: Removing file Puppet::SSL::CertificateRequest <em><u>host1.coolexample.com</u></em> at '/var/lib/puppet/ssl/ca/requests/<em><u>host1.coolexample.com</u></em>.pem'
 		</div>
 		At this point, the Puppet master server can communicate and control agent nodes that are signed through certificates.
 	</li>
@@ -474,72 +474,7 @@ sudo puppet apply /etc/puppet/modules/test/init.pp
 	</li>
 </ol>
 
-<h3>Define a node</h3>
-<ol>
-	<li>You can define a specific node, by editing the file at <code>/etc/puppet/manifests/site.pp</code>.
-		<div class="hacker">
-			sudo vi /etc/puppet/manifests/site.pp
-		</div>
-	</li>
-	<li>
-		Add the following lines:
-		<div class="hacker">
-			node 'ns1', 'ns2' { <br />   
-			&nbsp;&nbsp;file {'/tmp/dns': <br />   
-			&nbsp;&nbsp;ensure => present, <br />
-			&nbsp;&nbsp;mode => 0644,<br />
-			&nbsp;&nbsp;content => "Only DNS servers get this file.\n",<br />
-			&nbsp;&nbsp;&nbsp;}<br />
-			&nbsp;}<br />
-			&nbsp;node default {}  <br />  
-					</div>
-	</li>
-	<li>
-		Save and exit the file.
-	</li>
-	<li>Execute the command <code>sudo puppet agent -test</code> or wait for the agent pull from the file <code>/tmp/dns</code>.</li>
-	</ol>
-	
-	
-<h3>Use modules</h3>
-Modules are used to group tasks together. You can get different modules in puppet community. Here you will install <code>puppetlabs-apache </code>module from <code>forgeapi</code>.
-<ol>
-	<li>
-		Execute the following command.
-		<div class="hacker">sudo puppet module install puppetlabs-apache
-		</div>
-	</li>
-	<li>
-		Edit the file.
-		<div class="hacker">
-		sudo vi /etc/puppet/manifest/site.pp
-		</div>
-	</li>
-	<li>Add the following lines:
-		<div class="hacker">
-			node 'host2' {<br />
-			&nbsp;&nbsp;class { 'apache': }  <br />           
-			&nbsp;&nbsp;apache::vhost { 'coolexample.com':<br />  
-			&nbsp;&nbsp;port    => '80',<br />
-			&nbsp;&nbsp;docroot => '/var/www/html'<br />
-			&nbsp;&nbsp;&nbsp;}<br />
-			&nbsp;}<br />
 
-			</div>
-	</li>
-	<li>
-		Save and exit the file.
-	</li>
-	<li>Above code will make <strong>host2</strong> to install the Apache package and will make it listening on port 80. To execute manually, run the following command:
-		<div class="hacker">
-		sudo puppet agent --test
-		</div>
-		Or
-		<div class="hacker">
-		sudo puppet agent -t
-		</div>
-	</li>
-</ol>
 
 <h2>Conclusion</h2>
 In this article, you have learned how to install and configure Puppet in an infrastructure. Puppet makes server administration tasks much easier.

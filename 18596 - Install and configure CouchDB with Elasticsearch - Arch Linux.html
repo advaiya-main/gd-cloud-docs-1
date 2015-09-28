@@ -86,9 +86,9 @@ p.note {
 	 </li>
 	
 	<li>Install Erlang. CouchDB is written in Erlang language.
-	<div class='hacker'>sudo pacman –S erlang </div>
+	<div class='hacker'>sudo pacman -S erlang</div>
 	</li>
-	<li>From the provided list of options for repository, choose <code>option 1, mesa-libgl</code>.
+	<li>From the provided list of options for repository, choose <code>option 1, mesa-libgl</code>, and when prompted for confirmation, press <strong>y</strong> to continue.
 	</li>
 	</ol>
 	
@@ -108,10 +108,12 @@ p.note {
 	<li>Open the config file <code>local.ini</code> for editing.
 	<div class='hacker'>sudo vim /etc/couchdb/local.ini</div>
 	</li>
-	<li>Uncomment the code by removing the semicolon (<strong>;</strong>) sign from beginning of the line, and then update the following lines:
+	<li>Uncomment the following code by removing the semicolon (<strong>;</strong>) sign from beginning of the line, and update the highlighted sections with appropriate values:
 	<div class="hacker">port:5984</div>
-	<div class="hacker">bind_address = <em><u>YOUR_VALID_IP_HERE</u></em>;</div>
+	<div class="hacker">bind_address = <em><u>PUBLIC_IP_ADDRESS_OF_YOUR_SERVER</u></em>;</div>
     </li>
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+	</li>
     <li>Restart the database server CouchDB.
 	<div class='hacker'>sudo systemctl start couchdb.service</div>
 	</li>
@@ -130,7 +132,7 @@ p.note {
 	<p class="note">These steps install version 1.7.1. For other versions, visit <strong>elasticsearch.org/download</strong>. </p>
 	<div class='hacker'>wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-<em><u>1.7.1</u></em>.tar.gz</div>
 	<div class='hacker'>sudo tar xzf elasticsearch-<em><u>1.7.1</u></em>.tar.gz</div>
-	<div class='hacker'>mv elasticsearch-<em><u>1.7.1</u></em> /usr/share/elasticsearch</div>
+	<div class='hacker'>sudo mv elasticsearch-<em><u>1.7.1</u></em> /usr/share/elasticsearch</div>
 	</li>
 	</ol>
 
@@ -141,10 +143,10 @@ p.note {
 	<div class='hacker'>sudo vim config/elasticsearch.yml</div>
     </li>	
 	<li>Locate the following lines, uncomment it by removing the hashtag (<strong>#</strong>), and then enter the IP address of the server. It is usually under the section <code>Network And HTTP</code>.
-	<div class="hacker">network.bind_host: <em><u>YOUR_VALID_IP_HERE</u></em></div>
+	<div class="hacker">network.bind_host: <em><u>PUBLIC_IP_ADDRESS_OF_YOUR_SERVER</u></em></div>
 	</li>
 	
-	<li>Locate, and then uncomment the code by removing the <strong>#</strong>.
+	<li>Locate, and uncomment the code by removing the <strong>#</strong>, and update the IP value as shown below:
 	<div class="hacker">network.publish_host: 127.0.0.1 </div>
 	</li>
 	
@@ -152,17 +154,17 @@ p.note {
 	<div class="hacker">script.disable_dynamic: true</div>
 	</li>
 	
-	<li>To save the file and exit, press the <strong>Esc</strong> key, and then enter <code>:wq</code>.
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
 	</li>
 	
 	<li>Restart the Elasticsearch service for the changes to take effect. 
-	<div class="hacker">./bin/elasticsearch</div>
+	<div class="hacker">sudo ./bin/elasticsearch</div>
 	
 	<p>A successful execution will display a <strong>Started</strong>, and then <strong>Recovered</strong> message.</p>
 	</li>
 	
 	<li>Open a new terminal (or connect to the machine using another client), and test Elasticsearch using the following command: 
-	<div class='hacker'>sudo curl http://<em><u>YOUR_VALID_IP_HERE</u></em>:9200</div>
+	<div class='hacker'>sudo curl http://<em><u>PUBLIC_IP_ADDRESS_OF_YOUR_SERVER</u></em>:9200</div>
    A successful execution will display the following output:
 	<div class='hacker'>
 	<pre>
@@ -211,13 +213,14 @@ p.note {
 	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 	<li>Install the <code>elasticsearch-river-couchdb</code> plug in.
 	<div class='hacker'>cd /usr/share/elasticsearch/bin</div>
-	<div class='hacker'>sh plugin install elasticsearch/elasticsearch-river-couchdb/2.6.0</div>
+	<div class='hacker'>sudo sh plugin install elasticsearch/elasticsearch-river-couchdb/2.6.0</div>
 	</li>
 	
 	
 	<li>Restart the Elasticsearch.
-	<div class='hacker'>./elasticsearch
-</div>
+	<div class='hacker'>sudo ./elasticsearch
+	</div>
+	A successful execution will display a Started, and then Recovered message.
 	</li></ol>
 <h2>Create a sample CouchDB database, and set up the Elasticsearch index</h2>
 <ol>
@@ -235,14 +238,14 @@ p.note {
 	
 	<li>Set up ElasticSearch with the CouchDB database by creating an index.
 	<div class='hacker'>
-	curl -X PUT '<em><u>YOUR_VALID_IP_HERE</u></em>:9200/_river/mydatabase/_meta' -d '{ "type" : "couchdb", "couchdb" : { "host" : "localhost", "port" : 5984, "db" : "mydatabase", "filter" : null }, "index" : { "index" : "mydatabase", "type" : "mydatabase", "bulk_size" : "100", "bulk_timeout" : "10ms" } }'
+	curl -X PUT '<em><u>PUBLIC_IP_ADDRESS_OF_YOUR_SERVER</u></em>:9200/_river/mydatabase/_meta' -d '{ "type" : "couchdb", "couchdb" : { "host" : "localhost", "port" : 5984, "db" : "mydatabase", "filter" : null }, "index" : { "index" : "mydatabase", "type" : "mydatabase", "bulk_size" : "100", "bulk_timeout" : "10ms" } }'
 
 	</div>
 	</li>
 	
 	<li>Test the index with the following query:
-	<div class='hacker'>curl http://<em><u>YOUR_VALID_IP_HERE</u></em>:9200/mydatabase/mydatabase/_search?pretty=true</div>
-	<p> Successful execution of query would result in the following output:</p>
+	<div class='hacker'>curl http://<em><u>PUBLIC_IP_ADDRESS_OF_YOUR_SERVER</u></em>:9200/mydatabase/mydatabase/_search?pretty=true</div>
+	<p> Successful execution of query would result in output similar to following:</p>
 	<div class='hacker'>
 	<pre>
 {

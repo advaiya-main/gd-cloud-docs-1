@@ -125,7 +125,7 @@ p.note {
    <li>Open the configuration file for <code>automysqlback</code>.
       <div class="hacker">sudo vim /etc/default/automysqlbackup</div>
 	  
-  After opening, you'll find that the <code>/etc/mysql/debian.conf </code>file has many variables. You can replace the file with your configuration file but, before proceeding, you should make a backup of the file. <p class="note">To save and exit, press <strong>Esc</strong> and type the following characters <strong>:wq!</strong></p> </li>
+  After opening, you'll find that the <code>/etc/mysql/debian.cnf </code>file has many variables. You can replace the file with your configuration file but, before proceeding, you should make a backup of the file. <p class="note">To save and exit, press <strong>Esc</strong> and type the following characters <strong>:wq!</strong></p> </li>
    <li>By default, the <code>automysqlback</code> command makes the backup in the <code>/var/lib/automysqlbackup </code> file. To check the structure of the backup, run the following command:
      <div class="hacker">ls /var/lib/automysqlbackup</div>
    </li>
@@ -135,7 +135,7 @@ p.note {
   </ol>
   
 <h2>Back up using replication</h2>
-  <p>You may use MySQL replication to back up the data with the above techniques. While replication allows for data mirroring, it might fail to save a specific point in time. This is because it constantly replicates the changes in a dynamic environment. To avoid this problem, you can either disable replication temporarily or create the backup machine in a read-only state temporarily.</p>
+  <p>The concepts of, and reasons for, <a href="http://dev.mysql.com/doc/refman/5.0/en/replication.html">using replication</a> are beyond the scope of this article.&nbsp; One aspect of replication is you may use it to back up your data. Since replication is essentially asynchronous data mirroring, it might fail to save a specific point in time. To avoid this situation when using replication as a backup strategy, you can either disable replication temporarily or create the backup machine in a read-only state temporarily.</p>
     
   <h3>Disable replication temporarily</h3>
 <ul> 

@@ -103,6 +103,7 @@
 
 <li>
 Open the terminal, and type the following command:
+  <div class="hacker"> sudo apt-get install libpq-dev </div>
   <div class="hacker"> sudo apt-get install postgresql postgresql-contrib </div>
 </li>
 <li>
@@ -151,9 +152,9 @@ Assign ownership to the Rails user.
 <ol>
 <li>
 Open the configuration file in the <code>vim</code> editor.
-  <div class="hacker">sudo vim /etc/postgresql/9.3/main/postgresql.conf </div>
+  <div class="hacker">sudo vim <em><u>/etc/postgresql/9.3/main/postgresql.conf</u></em> </div>
   </li>
-<li>Configure PostgreSQL to listen to connections from the IP address assigned to the server. To do this, find the following line: 
+<li>Configure PostgreSQL to listen to connections from the IP address assigned to the server. To do this, find the following line and uncomment it: 
   <div class="hacker">
 
 listen_addresses = 'localhost' 
@@ -175,17 +176,17 @@ Restart PostgrSQL to make the changes take effect.
 <h2>Configure the database with Rails</h2>
 <ol>
 <li>
+Create new application.
+  <div class="hacker"> rails new helloruby -d postgresql </div>
+</li>
+<li>
 Go to the application folder.
-  <div class="hacker"> cd /var/www/html/helloruby </div>
+  <div class="hacker"> cd ~/helloruby </div>
 </li>
 <li>
   Open the  <code>database.yml</code> file.
   <div class="hacker">vim config/database.yml </div>
 </li>
-<li>
- To save and exit, press the <strong>Esc</strong> key, <code></code>and type the following characters:
-<div class="hacker">:wq </div>
-Here, the database settings would be visible, separated by environment names. Because an application needs to run using the production environment, the configuration must be edited accordingly. </li>
 <li>
   Copy the environment variable at the end of the file, and edit as required.
     <div class="hacker">
@@ -203,6 +204,10 @@ production:
   </div>
   
 </li>
+<li>
+ To save and exit, press the <strong>Esc</strong> key, <code></code>and type the following characters:
+<div class="hacker">:wq </div>
+Here, the database settings would be visible, separated by environment names. Because an application needs to run using the production environment, the configuration must be edited accordingly. </li>
 <li>
 Open  <code>Gemfile</code>.
 	<div class="hacker"> vim Gemfile </div>
