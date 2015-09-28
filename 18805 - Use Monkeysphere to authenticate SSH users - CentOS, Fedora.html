@@ -94,7 +94,7 @@ sub:u:2048:1:D5542FF062F4D3E5:2015-09-05::::::e:
    </li>
    
    <li>Add the fingerprint in the SSH server. With this, Monkeysphere will get the GPG key from key server that will be added to its key ring.
-   <div class="hacker">monkeysphere-authentication add-identity-certifier <em><u>99981C07DC4177F646AFF531DEA69AE3462908AF</u></em></div>
+   <div class="hacker">sudo monkeysphere-authentication add-identity-certifier <em><u>99981C07DC4177F646AFF531DEA69AE3462908AF</u></em></div>
    </li>
   </ol>
   
@@ -118,13 +118,13 @@ sub:u:2048:1:D5542FF062F4D3E5:2015-09-05::::::e:
 <p>Monkeysphere uses some authentication files to generate actual authentication files for SSH server. Monkeysphere generates the authentication file in <code>/var/lib/monkeysphere/authorized_keys </code>location. To create the authentication file, perform the following steps on the <strong>SSH Server</strong>:</p>
 <ol> 
 <li>Create directory in the user home directory.
-   <div class="hacker">mkdir .monkeysphere</div>
+   <div class="hacker">mkdir <em><u>.monkeysphere</u></em></div>
    </li>
    <li>Grant the required permissions.
-   <div class="hacker">chmod 755 .monkeysphere</div>
-   <div class="hacker">cd .monkeysphere</div>
+   <div class="hacker">chmod 755 <em><u>.monkeysphere</u></em></div>
+   <div class="hacker">cd <em><u>.monkeysphere</u></em></div>
    </li>
-    <li>Create a new file named <code><em><u>authorized_user_ids</u></em></code>, and open it for editing.
+    <li>Create a new file named <code><em><u>authorized_user_ids</u></em></code>, and add the client and admin keys. You can find those keys by executing <code>gpg --list-keys <em><u>client@coolexample.com</u></em></code> or <code>gpg --list-keys <em><u>admin@coolexample.com</u></em></code> command in the respective servers.
    <div class="hacker">vim <em><u>authorized_user_ids</u></em> </div>
    </li>
    <li>On the <strong>client server</strong>, get the information about the client user (name and email).
@@ -137,9 +137,9 @@ sub:u:2048:1:D5542FF062F4D3E5:2015-09-05::::::e:
    <p>Repeat this step for all users.</p>
    </li>
    <li>Create an internal authentication file. This command should be executed after making changes to the user authentication.
-   <div class="hacker">monkeysphere-authentication update-users</div></li>
+   <div class="hacker">sudo monkeysphere-authentication update-users</div></li>
    <li>Update a specific user by using the following command:
-   <div class="hacker">monkeysphere-authentication update-users <em><u>user_name</u></em></div>
+   <div class="hacker">sudo monkeysphere-authentication update-users <em><u>user_name</u></em></div>
    </li>
    
    <li>Navigate to <code>/var/lib/monkeysphere/authorized_keys </code>directory.
@@ -149,18 +149,22 @@ sub:u:2048:1:D5542FF062F4D3E5:2015-09-05::::::e:
    </li>
    
 <li>Open the file, and view the key as a normal <code>authorized_keys </code>entry.
-   <div class="hacker">
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9R9BtcAFfd+qsGoaSqpDstif5UgM+CqVp46eNrfBsfXR9wT5vs1uPmdAiulM7GwB9Pl2J6IEobpceF516wv72OuUuH+Bg1Y8TIm6YI4MKALuCeBSP6uIT1uyN/Cdcnfk3LADphIBq8Un5xvB5taG8iVFnvYQ/E/wObJ7SLTGPsPzB2X7BEqFwAek6/VN8pzMr7djbEAOdoyD/GJ7iyZbWy2eLH65yl/2WiJa4cC6U/sfZlOLvp7XQX0oRV6iMJLOMCEWFOqekTHVsmOdszqHIRqe0n0zs8ZQtxkq7ODpNkn5XEG6Dq1Xz5Eqy06lNrjRM7UbxmKV7niFAJTQ7OcCX MonkeySphere2015-09-07T09:49:32 client client@junkdomain.com
+<div class="hacker">
+<pre>
+ssh-rsa
+AAAAB3NzaC1yc2EAAAADAQABAAABAQC9R9BtcAFfd+qsGoaSqpDstif5UgM+CqVp46eNrfBsfXR9wT5vs1uPmdAiulM7GwB9Pl2J6IEobpceF516wv72OuUuH+Bg1
+Y8TIm6YI4MKALuCeBSP6uIT1uyN/Cdcnfk3LADphIBq8Un5xvB5taG8iVFnvYQ/E/wObJ7SLTGPsPzB2X7BEqFwAek6/VN8pzMr7djbEAOdoyD/GJ7iyZbWy2eLH65yl/2WiJa4cC6U/
+sfZlOLvp7XQX0oRV6iMJLOMCEWFOqekTHVsmOdszqHIRqe0n0zs8ZQtxkq7ODpNkn5XEG6Dq1Xz5Eqy06lNrjRM7UbxmKV7niFAJTQ7OcCX MonkeySphere2015-09-07T09:49:32 client client@coolexample.com
 </div>
    </li>
    <li>Specify the authorized key location in <code>ssh </code>configuration.
-   <div class="hacker">sudo vi /etc/ssh/sshd_config</div></li>
+   <div class="hacker">sudo vim /etc/ssh/sshd_config</div></li>
 <li>Search for <code>AuthorizedKeysFile</code> parameter, and change it to:
    <div class="hacker">AuthorizedKeysFile /var/lib/monkeysphere/authorized_keys/%u</div></li>
 <li>Save and close the file .
    </li>
    <li>Restart the <code>ssh</code> service.
-   <div class="hacker">systemctl restart sshd.service</div>
+   <div class="hacker">service ssh restart</div>
    </li>
    </ol>
 
@@ -168,8 +172,8 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9R9BtcAFfd+qsGoaSqpDstif5UgM+CqVp46eNrfBs
 <h2>Configure client to send GPG key</h2>
 <ol> 
 <li>On the <strong>client server</strong>, execute the command below:
-   <div class="hacker">ssh-agent sh -c 'monkeysphere subkey-to-ssh-agent &amp;&amp; ssh server.example.com'</div>
-   <p>You will be asked to enter the key passphrase, but no user password will be prompted. After entering the key pass phrase, you will be logged in to the server server.</p><!--tester, I am assuming that "server server" is a server called "server" and not a repeated word.-->
+   <div class="hacker">ssh-agent sh -c 'monkeysphere subkey-to-ssh-agent &amp;&amp; ssh server.coolexample.com'</div>
+   <p>You will be asked to enter the key passphrase, but no user password will be prompted. After entering the key pass phrase, you will be logged in to the server.</p><!--tester, I am assuming that "server server" is a server called "server" and not a repeated word.--><!--fixed-->
    </li>
 <li>Set up an agent session.
    <div class="hacker">eval $(ssh-agent)</div>
