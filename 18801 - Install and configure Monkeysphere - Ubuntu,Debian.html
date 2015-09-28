@@ -102,28 +102,19 @@ sub   2048R/FF569918 2015-09-06
 	</li>
 	</ol>
 	<h2>GPG key authentication</h2>
-	<ol>
-	<li>Identify and note down the <code>key id</code> for both the servers.  The key id can be identified from the output of the previous command <code>gpg --list-keys</code>. In this case, the key was <strong>1258D8EF</strong>.
-	<div class ="hacker">
-	<pre>/home/user/.gnupg/pubring.gpg
-----------------------------
-pub   2048R/<em><u>1258D8EF</u></em> 2015-09-06
-uid                  client &lt;client@<em><u>coolexample</u></em>.com&gt;
-sub   2048R/FF569918 2015-09-06
-</pre></div>
-</li>
-	<li>Upload both the keys to key-server by performing the following steps on both client and admin servers:
+	<ul>
+	<li>Upload the keys to key-server by performing the following steps on both client and admin servers:
+	<p>You can find the key id from the above command. In this case key id is <code><em><u>1258D8EF</u></em></code>. </p>
 	<div class ="hacker">gpg --send-key <em><u>1258D8EF </u></em> </div>
 	<p>Uploading keys usually require few minutes, so you might have to wait for some time.</p>
 	</li>
-	</ol>
+	</ul>
 	<h2>Sign the client key with admin key</h2>
 	<ol>
 	<li>
 	On the <strong>client server</strong>, get the finger print of the GPG key for the client key by using the following command:
 	<div class ="hacker">gpg --with-colons --fingerprint <em><u>client</u></em></div>
-	</li>
-<li>Successful execution would result into the below output. In this, the long alpha-numeric string just after <code>fpr</code> is the fingerprint of the key. In this case, it is <em><u>BF867BD82FAF8559633336829E0613031258D8EF</u></em>
+	<p>Successful execution would result into the below output. In this, the long alpha-numeric string just after <code>fpr</code> is the fingerprint of the key. In this case, it is <em><u>BF867BD82FAF8559633336829E0613031258D8EF</u></em></p>
 	<div class ="hacker">
 	<pre>tru::1:1441518267:0:3:1:5
 pub:u:2048:1:9E0613031258D8EF:2015-09-06:::u:client &lt;client@junkdomain.com&gt;::scESC:
@@ -155,8 +146,8 @@ sub:u:2048:1:E0150AD6FF569918:2015-09-06::::::e:
 
 <li>Refresh both the server keys using the below command to ensure that the new key is accepted on that machine.
 <div class ="hacker">gpg --refresh-keys</div>
-</li>
-<li>Successful propagation of the keys will show the following confirmation message on refreshing:
+
+<p>Successful propagation of the keys will show the following confirmation message on refreshing:</p>
 <div class = "hacker">new signatures: 1</div>
 <p>If this confirmation message does not appear, you need to wait, and then run the <code>refresh</code> command again until the confirmation is received.</p>
 </li>
@@ -171,15 +162,15 @@ sub:u:2048:1:E0150AD6FF569918:2015-09-06::::::e:
 <li>Update the trust setting of client server.
 <div class ="hacker">gpg --update-trustdb</div>
 </li>
-<li>Choose option 4 to trust fully. </li>
-<li>On the successful execution, you will see the following output:
+<li>Choose option 4 to trust fully.
+<p>On the successful execution, you will see the following output:</p>
 <div  class = "hacker">
 <pre>gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
 gpg: depth: 0  valid:   1  signed:   1  trust: 0-, 0q, 0n, 0m, 0f, 1u
 gpg: depth: 1  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 0u
 </pre>
 </div>
-<p>In the <code>trust</code> section, the value <strong>0 - </strong> shows that the keys are trusted.</p>
+<p>In the <code>trust</code> section, the value <code>0 - </code> shows that the keys are trusted.</p>
 </li>
 
 	</ol>
@@ -201,8 +192,7 @@ gpg: depth: 1  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 0u
 	<ol>
 	<li>Get the GPG fingerprint on SSH server:
 	<div class ="hacker">sudo monkeysphere-host show-key</div>
-	</li>
-	<li>The OpenPGP fingerprint provided by the SSH server that is same as the GPG fingerprint. In this case, the OpenPGP key is <em><u>58921230505B96E5D50A8968684414D33F68800A</u></em>.
+	<p>The OpenPGP fingerprint provided by the SSH server that is same as the GPG fingerprint. In this case, the OpenPGP key is <em><u>58921230505B96E5D50A8968684414D33F68800A</u></em>.</p>
 	<div class = "hacker">
 	<pre>pub 2048R/3F68800A 2015-09-06
 uid ssh://server.coolexample.com
@@ -211,7 +201,7 @@ ssh fingerprint: 2048 35:77:0b:f6:9b:1e:7c:69:45:6a:20:54:ab:ef:84:33 (RSA)
 </pre>
 </div>
 </li>
-<li>On the <strong>admin server</strong>, execute the command below to receive the key:
+<li>On the <strong>admin server</strong>, execute the following command to receive the key:
 <div class = "hacker">gpg --recv-key  <em><u>58921230505B96E5D50A8968684414D33F68800A</u></em></div>
 </li>
 <li>Sign the key on the admin server.
@@ -248,9 +238,9 @@ Are you sure you want to continue connecting (yes/no)?
 <div class = "hacker">gpg --list-keys</div>
 </li>
 <li>Note that the SSH Server key is in the list.
-<div class = "hacker">/home/nik/.gnupg/pubring.gpg</div>
 <div class = "hacker">
 <pre>
+/home/user/.gnupg/pubring.gpg
 ----------------------------
 pub   2048R/1258D8EF 2015-09-06
 uid                  client &lt;client@<em><u>coolexample</u></em>.com&gt;
@@ -265,14 +255,12 @@ uid           <em><u>ssh://server.coolexample.com</u></em>
 </li>
 <li>Wait for few minutes, and then refresh the keys on the client server. 
 <div class = "hacker">gpg --refresh-keys</div>
-</li>
-<li>Successful propagation of the keys would show a confirmation message as below on refreshing:
+<p>Successful propagation of the keys would show a confirmation message as below on refreshing:</p>
 <div  class = "hacker">new signatures: 1</div>
 </li>
 <li>Check the signature available on the key of SSH server:
 <div class = "hacker">gpg --list-sigs ssh://<em><u>server.coolexample.com</u></em></div>
-</li>
-<li>Successful propagation of the keys would show an output similar to the following:
+<p>Successful propagation of the keys would show an output similar to the following:</p>
 <div class = "hacker">
 <pre>pub   2048R/3F68800A 2015-09-06
 uid                  ssh://<em><u>server.coolexample.com</u></em>
@@ -302,10 +290,7 @@ ProxyCommand monkeysphere ssh-proxycommand %h %p
 <li><p> Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key. </p>
 	<p>This will perform the verification process. You will only get a password prompt, where you will need to enter the password.</p>
 	</li>
-	<li>Test the setup by cleaning up the <code>known_host</code> file.
-	<div class ="hacker">rm ~/.ssh/known_hosts</div>
-	</li>
-	<li>Run the <strong>ssh</strong> command to connect to the server. This time there should be no warning message from server.
+	<li>Test the setup by cleaning up the <code>ssh known_hosts</code> file and try to <code>ssh</code>, you will not be prompetd to accept the hosts.
 	<div class = "hacker">ssh <em><u>server.coolexample.com</u></em></div>
 	<div class = "hacker"><em><u>user</u></em>@<em><u>server.coolexample.com</u></em>'s password:</div></li>
 	</ol>
