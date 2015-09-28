@@ -91,14 +91,14 @@ p.note {
 	<ul>
 	  <li>A GitHub account</li>
 	  <li><code>sudo</code> privileges</li>
-	  <li>Ruby on Rails using rbenv installed and running on the host machine. See <a href ="17526">Install Ruby on Rails with rbenv on CentOS</a> or <a href ="17525">Install Ruby on Rails with rbenv on Fedora</a>.</li>
+	  <li>Ruby on Rails using rvm installed and running on the host machine. See <a href ="17536">Install Ruby on Rails using rvm on CentOS</a> or <a href ="17535">Install Ruby on Rails using rvm on Fedora</a>.</li>
 </ul>
 <p class="note">Capistrano relies on Git for deployments.</p>
     <h2>Prepare the deployment server</h2>
 	<h3>Install  Passenger and Nginx</h3>
 	<ol>
 	<li>Download the <code>EPEL</code> repository.
-      <div class='hacker'>sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-	release-7-5.noarch.rpm</div>
+      <div class='hacker'>sudo wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm</div>
 		    <div class='hacker'>sudo rpm -ivh epel-release-7-5.noarch.rpm</div>
 	</li>
 <li>Install the development tool bundle, and update the operating system.
@@ -316,7 +316,7 @@ Open the Nginx configuration file.
 </ol>
 <h3>Create a Git repository</h3>
 		<ol><li>Install Git.
-		<div class='hacker'>sudo apt-get install git</div>
+		<div class='hacker'>sudo yum install git</div>
 		</li>
 		<li>Initiate the repository.
 		 <div class='hacker'> git init</div>
