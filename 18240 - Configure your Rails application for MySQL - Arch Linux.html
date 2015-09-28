@@ -151,6 +151,8 @@ After you have finished the previous command, a Welcome screen displays the foll
 <br />		bind-address   =  0.0.0.0
 		</div>
 		</li>
+		<li>Save and exit.<div class="hacker">:wq!</div></li>
+
 		<li>Restart MySQL Server to reflect the change.
 			<div class='hacker'>sudo systemctl start mysqld</div>
 		</li>
@@ -161,7 +163,7 @@ After you have finished the previous command, a Welcome screen displays the foll
             <div class="hacker">rails -v<br />#Rails 4.2.4</div>
 		</li>
         <li>Create a Rails application, and use the <code>-d mysql</code> option to set MySQL as the database.
-            <div class="hacker">rails new your-application -d mysql </div>
+            <div class="hacker">sudo rails new your-application -d mysql </div>
       </li>
         <li>Change the directory to the application directory.
           <div class='hacker'>cd your-application
@@ -172,7 +174,7 @@ After you have finished the previous command, a Welcome screen displays the foll
 		
 		<h2>Set up the database connection</h2>
        <ol> <li>Open your application database configuration file. 
-            <div class='hacker'>vi config/database.yml</div>
+            <div class='hacker'>sudo vim config/database.yml</div>
         </li>
         <li>Set the database credentials to connect with MySQL. The following is an example of database connection.
 <div class="hacker">
