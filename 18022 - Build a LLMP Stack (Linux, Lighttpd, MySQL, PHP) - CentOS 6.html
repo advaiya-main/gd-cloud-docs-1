@@ -188,7 +188,10 @@ group = apache
             Uncomment the following line :
             <div class="hacker">include "conf.d/fastcgi.conf"</div>
         </li>
-        <li>And lastily you need to edit the <code>fastcgi.conf</code>file. 
+
+<li>Save and exit the file.</li>
+
+        <li>And lastily you need to edit the <code>fastcgi.conf</code> file. 
             <div class="hacker">sudo vim /etc/lighttpd/conf.d/fastcgi.conf</div>
         Enter the following block of code just after the <code>server.modules += ( "mod_fastcgi" ) </code> line and before the PHP Example.
         <div class="hacker"><pre>fastcgi.server += ( ".php" =>
@@ -199,9 +202,7 @@ group = apache
         ))
 )</pre></div>
 </li>
-<li>
-        Save and exit the file.
-        </li>
+<li>Save and exit the file.</li>
        <li>Restart Lighttpd.
         <div class="hacker">sudo /etc/init.d/lighttpd restart</div></li>
 
