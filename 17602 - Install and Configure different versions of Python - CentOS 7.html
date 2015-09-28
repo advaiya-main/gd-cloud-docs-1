@@ -8,6 +8,7 @@
 
 
 <title>Install and configure different versions of Python - CentOS 7</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -25,7 +26,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -37,6 +38,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -76,14 +87,14 @@ p.note {
 </head>
 
 <body>
-            <p>Describes how to install and compile different versions of Python within the same CentOS 7 image..</p>
+            <p>Describes how to install and compile different versions of Python within the same CentOS 7 image.</p>
 <h1>Install and configure different versions of Python - CentOS 7 </h1>
 
 <h2>Introduction</h2>
 
 
                     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
-                    <strong>Time</strong>: <em><u>3 hours</u></em></p>
+                    <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
                 <p>When you install a new self-managed CentOS 6 server, you may notice that the Python version installed by default is Python <em><u>2.6.6</u></em>. If you're a Python application developer, you likely know that the current stable release of Python that is compatible with most applications in <em><u>2.7</u></em> or greater. </p>
 
