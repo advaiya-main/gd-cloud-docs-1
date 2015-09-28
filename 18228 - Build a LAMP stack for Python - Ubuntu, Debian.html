@@ -82,17 +82,17 @@ td:nth-child(1) {font-weight:bold;}
 </head>
 
 <body>
-        <p>Describes how to install Apache, MySQL, PHP (LAMP) stack on Debian and Ubuntu Linux</p>
-    <h1>Build a LAMP stack for Python -  Debian, Linux, Ubuntu</h1>
+        <p>Describes how to install Apache, MySQL, PHP (LAMP) stack on Debian and Ubuntu</p>
+    <h1>Build a LAMP stack for Python -  Debian, Ubuntu</h1>
     
         <p><strong>Difficulty</strong>: <em><u>3</u></em><br />
         <strong>Time</strong>: <em><u>4 minutes</u></em></p>
 
 
         <p>The LAMP (Linux, Apache, MySQL, and PHP) stack is a group of open source software used to get web servers up and running. Debian, Linux, and Ubuntu use the apt-get installer, which can update the system and install all of the required packages for each part of the LAMP stack. The steps in this article require the user to have root privileges.</p>
-      <p>If you have not installed Debian or Ubuntu, these articles explain how to do so:</p>     <ul>
-        <li><a href="17325 - Initial Server Setup - Debian">How to install Debian</a></li>
-        <li><a href="17321 - Initial Server Setup - Ubuntu">How to install Ubuntu</a></li>
+      <p>If you have not installed Debian or Ubuntu, these articles go over server setup:</p>     <ul>
+        <li><a href="17325 - Initial Server Setup - Debian.html">Initial Server Setup for Debian</a></li>
+        <li><a href="17321 - Initial Server Setup - Ubuntu.html">Initial Server Setup for Ubuntu</a></li>
         </ul>
    
 
@@ -107,9 +107,14 @@ sudo apt-get update
         <li>After the update is complete, install Apache.
         <div class="hacker">
 sudo apt-get install apache2                                                                                                               
-</div>  <br/>
-<img src="images/18228/09102015/apache-successfully-installed.png" alt="Apache successfuly installed screen" />
+</div> 
+
+<!--CT... Don't need an image of the test scren 9/28... <br/>
+<img src="images/18228/09102015/apache-successfully-installed.png" alt="Apache successfuly installed screen" />...-->
 </li>
+
+<li>To check if Apache is installed, type your public IP address into a browser, http://<em><u>server-IP-address</u></em>.
+ If Apache is installed, the Apache Test Page displays. </li>
  </ol>
 
 
@@ -133,7 +138,8 @@ sudo apt-get install apache2
 
         <div class="hacker">Enter current password for root (enter for none): <br /> <br />  OK, successfully used password, moving on... </div>  </li>
 
-        <li>The prompt will ask you if you want to change the root password. Go ahead and choose <strong>n</strong>, and then respond <strong>YES</strong> to the remaining options as seen below:
+
+        <li>The prompt will ask you if you want to change the root password. Go ahead and choose <strong>n</strong>, and then it's best practices to select <strong>Y</strong> to the remaining options. <!--CT: This huge table is overkill considering the action 9/29...as seen below:
 
 
         <table style="width: 100%">
@@ -182,7 +188,8 @@ sudo apt-get install apache2
                     <td style="vertical-align: top;"></td>
                 </tr>
 
-           </table>  </li>
+           </table> ...-->
+            </li>
 </ol>
         <p>All done!  If you've completed all of the above steps, your MariaDB installation should now be secure.</p>
 
