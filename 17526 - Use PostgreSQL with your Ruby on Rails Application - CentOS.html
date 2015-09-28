@@ -6,7 +6,7 @@
 
 
 
-<title>17526-Use PostgreSQL with your Ruby on Rails Application - CentOS</title>
+<title>17526-Use PostgreSQL with your Ruby on Rails Application - CentOS 7</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -67,8 +67,8 @@ p.note {
 </head>
 
 <body>
-<p>Setting up a Rails Application with PostgreSQL in CentOS, PostgreSQL, Ruby, Rails.</p>
-<h1>Use PostgreSQL with Ruby on Rails Application - CentOS</h1>
+<p>Setting up a Rails Application with PostgreSQL in CentOS 7, PostgreSQL, Ruby, Rails.</p>
+<h1>Use PostgreSQL with Ruby on Rails Application - CentOS 7</h1>
 
 <p><strong>Difficulty:</strong> <em>2</em></p>
 <p><strong>Time:</strong> <em>30 mins</em></p>
@@ -99,8 +99,10 @@ p.note {
 host    all             all             ::1/128                 ident</pre></div>
 
 </li>
-<li>Change <code>ident</code> to <code>md5</code>.</li>
-<li>Save and exit the file by pressing <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+<li>Change <code>ident</code> to <code>md5</code> so that it looks like this:
+<div class="hacker"><pre>host    all             all             127.0.0.1/32            md5
+host    all             all             ::1/128                 md5</pre></div>
+Save and exit the file.</li>
 <li>Run and enable the PostgreSQL service.
 	<div class="hacker">sudo systemctl start postgresql</div>
 	<div class="hacker">sudo systemctl enable postgresql</div>
@@ -116,8 +118,7 @@ host    all             all             ::1/128                 ident</pre></div
 	<div class="hacker">createuser -s <em><u>username</u></em></div>
 </li>
 <li>Set a password for the database user.
-	<div class="hacker">psql</div>
-    <div class="hacker">\password <em><u>username</u></em></div></li>
+	<div class="hacker">\password <em><u>username</u></em></div></li>
 <li>Enter the new password.</li>
 <li>Close the session.
 	<div class="hacker">\q</div>
@@ -131,28 +132,28 @@ host    all             all             ::1/128                 ident</pre></div
 <ol>
 <li>Move to the home directory to create a new Rails application, and  set PostgreSQL as the database.
   <div class="hacker">cd ~</div>
-<div class="hacker">rails new <em><u>Your_application</u></em> -d postgresql</div>
+<div class="hacker">rails new <em><u>your_application</u></em> -d postgresql</div>
 </li>
 <li>Move to the application directory.
-  <div class="hacker">cd <em><u>Your_application</u></em><u></u></div>
+  <div class="hacker">cd <em><u>your_application</u></em><u></u></div>
  </li>
 <li>Open the following file:
 <div class="hacker">sudo vim config/database.yml</div>
  </li>
 <li>Look for <code>pool: 5</code> in the file, and add the following lines beneath it. Enter the username and password for the <code>postgres</code> user.
-  <div class='hacker'>
-host: localhost<br />
-username: <em><u>username</u></em><br />
-password: <em><u>username_password</u></em><br /></div>
+  <div class='hacker'> <pre>      <!--adding pre here instead of line breaks to show the indentation -->
+  pool: 5  
+  host: localhost
+  username: <em><u>username</u></em>
+  password: <em><u>username_password</u></em> </pre></div>
 <p class ="note">When adding this code, you need to ensure proper alignment with the code "<code>pool: 5</code>". Also  spacing  with in the code added must be maintained as shown above.</p> 
         </li>
-<li>Save and exit the file by pressing <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+<li>Save and exit the file.</li>
 </ol>
 
 <h2>Create a database for the application</h2>
 <ul>
 <li>Create the application's databases in the application directory.
- <div class="hacker">bundle install</div>
   <div class="hacker">rake db:create</div>
 
 Two databases in the PostgreSQL server are created. For example, if the application's name is <code>HelloWorld</code>, the command creates databases named <code>HelloWorld _development</code> and <code>HelloWorld _test</code>. </li></ul>
@@ -164,6 +165,7 @@ Two databases in the PostgreSQL server are created. For example, if the applicat
   <div class="hacker">rails server</div>
 You can run the Rails application on your localhost on port 3000. You can also access the application from a web browser, if it is located on a remote server, by assigning a public IP address.
 <div class="hacker">rails server --binding=<em><u>server_public_IP</u></em></div>
+On your web browser navigate to <strong>http://<em><u>server_public_IP</u></em>:3000</strong> and you will see a page with <strong>"Welcome aboard. You’re riding Ruby on Rails!" </strong> on it.
 </li>
 </ul>
 
