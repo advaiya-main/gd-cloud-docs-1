@@ -101,18 +101,19 @@
 <h2>Create a database user</h2>
 <ol>
 <li>Log in with <code>postgres</code> system user, and create a user.
-		<div class='hacker'>sudo -u postgres createuser -s <em><u>username</u></em></div> <!-- change case to small :nt-->
+		<div class='hacker'>sudo -u postgres createuser -s <em><u>username</u></em></div> 
 </li>        
 <li>Set a password for the database user.
 		<div class='hacker'>sudo -u postgres psql</div>
-    		  <div class='hacker'>\password <em><u>username</u></em></div><!-- change case to small :nt-->
+    		  <div class='hacker'>\password <em><u>username</u></em></div>
 </li>              
 <li>Close the session.
 	<div class='hacker'>\q</div>
 </li>
 <li>Restart the PostgresSQL service.
-		<div class='hacker'>sudo  service postgresql restart</div>
-</li>        
+		<div class='hacker'>sudo service postgresql restart</div>
+Successful execution should show an <strong>OK</strong> message.
+		</li>        
 </ol>
 
 <h2>Set up the Rails application</h2>
@@ -147,13 +148,18 @@ Two databases in the PostgreSQL server are created. For example, if the applicat
 </ul>
 
 <h2>Test the configuration</h2>
-<ul>
+<ol>
 <li>Test  the Rails application.
-  <div class='hacker'>rails server</div> <!-- command corrected :nt -->
-  Now you can run the Rails application on your localhost on port 3000.  You can also access the application from a web browser if it's located on a remote server by assigning a public IP address.
-	<div class='hacker'>rails server --binding=<em><u>server_public_IP</u></em></div>
-</li>
-</ul>
+  <div class='hacker'>rails server</div>
+  This would run the Rails application on your localhost on port 3000.  
+  <p>To stop the server, press <strong>Ctrl+C</strong>
+  </li>
+	<li>You can bind the rails server to the public IP address of your server, to access your application from a web browser, if it's located on a remote server.
+	<div class="hacker">rails server --binding=<em><u>Public_IP_address of Your server</u></em>
+	</div>
+	Open the web browser on your local system, and for URL, type http://Public_IP_address of Your server:3000. A successful exection should show a <strong>Welcome aboard</strong> message by Rails.
+	</li>
+</ol>
 
 <h2>Next steps</h2>
 <p>In this article, we configured a PostgreSQL  server with a Rails application in Ubuntu. For further exploration, see <a href="17514"> Deploy a Rails App with Unicorn and Nginx - Ubuntu</a>.</p>
