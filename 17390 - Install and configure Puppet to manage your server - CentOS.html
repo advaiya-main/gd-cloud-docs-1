@@ -185,8 +185,8 @@ It will look like:
 <li>Add the following lines in this file:
 <div class="hacker">
 [master] <br />
-certname = puppet <br />
-dns_alt_names = puppet,<em><u>puppet.coolexample.com</u></em></div>
+certname = <em><u>puppet</u></em> <br />
+dns_alt_names = <em><u>puppet</u></em>,<em><u>puppet.coolexample.com</u></em></div>
 </li>
 
 <li>Generate a new certificate.
@@ -274,13 +274,13 @@ LoadModule passenger_module /usr/local/share/gems/gems/passenger-5.0.16/buildout
 </li>
 
 <li>Modify the file like this:
-<div class="hacker">sudo cat /etc/httpd/conf.d/puppetmaster.conf</div>
+<div class="hacker">sudo vi /etc/httpd/conf.d/puppetmaster.conf</div>
 <div class="hacker">
-&lt;IfModule mod_passenger.c> <br />
-LoadModule passenger_module /usr/local/share/gems/gems/passenger-5.0.16/buildout/apache2/mod_passenger.so <br />
+
+<em><u>LoadModule passenger_module /usr/local/share/gems/gems/passenger-5.0.16/buildout/apache2/mod_passenger.so <br />
 PassengerRoot /usr/local/share/gems/gems/passenger-5.0.16 <br />
-PassengerDefaultRuby /usr/bin/ruby <br />
-&lt;/IfModule> <br /> <br />
+PassengerDefaultRuby /usr/bin/ruby</u></em> <br />
+
 
 # you probably want to tune these settings<br />
 PassengerHighPerformance on <br />
@@ -288,9 +288,10 @@ PassengerMaxPoolSize 12 <br />
 PassengerPoolIdleTime 1500 <br />
 # PassengerMaxRequests 1000 <br />
 PassengerStatThrottleRate 120 <br />
+<em><u>
 #RackAutoDetect Off <br />
 #RailsAutoDetect Off <br />
-ServerName puppet.coolexample.com <br />
+ServerName puppet.coolexample.com</u></em> <br />
 Listen 8140 <br />
 &lt;VirtualHost *:8140> <br />
         SSLEngine on <br />
@@ -298,13 +299,13 @@ Listen 8140 <br />
         SSLCipherSuite          EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH:+CAMELLIA256:+AES256:+CAMELLIA128:+AES128:+SSLv3:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!IDEA:!ECDSA:kEDH:CAMELLIA256-SHA:AES256-SHA:
         			CAMELLIA128-SHA:AES128-SHA <br />
         SSLHonorCipherOrder     on <br />
-        SSLCertificateFile      /var/lib/puppet/ssl/certs/puppet.pem <br />
-        SSLCertificateKeyFile   /var/lib/puppet/ssl/private_keys/puppet.pem <br />
-        SSLCertificateChainFile /var/lib/puppet/ssl/ca/ca_crt.pem <br />
-        SSLCACertificateFile    /var/lib/puppet/ssl/ca/ca_crt.pem <br />
+        SSLCertificateFile      <em><u>/var/lib/puppet/ssl/certs/puppet.pem</u></em> <br />
+        SSLCertificateKeyFile   <em><u>/var/lib/puppet/ssl/private_keys/puppet.pem </u></em><br />
+        SSLCertificateChainFile <em><u>/var/lib/puppet</u></em>/ssl/ca/ca_crt.pem <br />
+        SSLCACertificateFile    <em><u>/var/lib/puppet</u></em>/ssl/ca/ca_crt.pem <br />
         # If Apache complains about invalid signatures on the CRL, you can try disabling <br />
         # CRL checking by commenting the next line, but this is not recommended. <br />
-        SSLCARevocationFile     /var/lib/puppet/ssl/ca/ca_crl.pem <br />
+        SSLCARevocationFile     <em><u>/var/lib/puppet</u></em>/ssl/ca/ca_crl.pem <br />
         # Apache 2.4 introduces the SSLCARevocationCheck directive and sets it to none <br />
         # which effectively disables CRL checking; if you are using Apache 2.4+ you must <br />
         # specify 'SSLCARevocationCheck chain' to actually use the CRL. <br />
@@ -318,9 +319,9 @@ Listen 8140 <br />
         RequestHeader set X-SSL-Subject %{SSL_CLIENT_S_DN}e <br />
         RequestHeader set X-Client-DN %{SSL_CLIENT_S_DN}e <br />
         RequestHeader set X-Client-Verify %{SSL_CLIENT_VERIFY}e <br />
-        DocumentRoot /usr/share/puppet/rack/puppetmasterd/public <br />
+        DocumentRoot <em><u>/usr/share/puppet/rack/puppetmasterd/public</u></em> <br />
         RackBaseURI / <br />
-        &lt;Directory /usr/share/puppet/rack/puppetmasterd/> <br />
+        &lt;Directory <em><u>/usr/share/puppet/rack/puppetmasterd/</u></em>> <br />
                 Options None <br />
                 AllowOverride None <br />
                 Order allow,deny <br />
@@ -332,15 +333,9 @@ Listen 8140 <br />
 <li>Make sure the configuration is correct.
 <div class="hacker">sudo apachectl -t</div>
 <div class="hacker">Syntax OK</div>
+<p>At this point Puppet will be disabled in server. Now start Puppet by starting Apache in server.</p>
 </li>
 
-<li>Disable the Puppet Master if it is enabled.
-<div class="hacker">
-systemctl list-unit-files | grep puppet <br />
-puppet.service                         disabled<br />
-puppetagent.service                    disabled<br />
-puppetmaster.service                   disabled</div>
-</li>
 
 <li>Start the <code>httpd</code> service:
 <div class="hacker">sudo systemctl enable httpd.service</div>
@@ -383,17 +378,16 @@ puppetmaster.service                   disabled</div>
 <li>Add the following statement to the section:
 <div class="hacker">
 [agent] <br />
-server = puppet.coolexample.com</div>
+server = <em><u>puppet.coolexample.com</u></em></div>
 </li>
 
 <li>Save and exit the file.</li>
 
 <li>Start the agent.
-<div class="hacker">systemctl list-unit-files | grep puppet</div>
 
 <div class="hacker">sudo puppet resource service puppet ensure=running enable=true</div>
 
-<div class="hacker">systemctl list-unit-files | grep puppet<br />
+<div class="hacker">sudo systemctl list-unit-files | grep puppet<br />
 puppet.service                         enabled <br />
 puppetagent.service                    disabled</div>
 </li>
@@ -411,7 +405,7 @@ puppetagent.service                    disabled</div>
 <div class="hacker">sudo puppet cert list</div>
 </li>
 <li>If you have one agent node, then you will have one request. It contains the hostname of the agent node.
-<div class="hacker">"host1.coolexample.com" (SHA256) B1:96:ED:1F:F7:1E:40:53:C1:D4:1B:3C:75:F4:7C:0B:A9:4C:1B:5D:95:2B:79:C0:08:DD:2B:F4:4A:36:EE:E3</div>
+<div class="hacker">"<em><u>host1.coolexample.com</u></em>" (SHA256) B1:96:ED:1F:F7:1E:40:53:C1:D4:1B:3C:75:F4:7C:0B:A9:4C:1B:5D:95:2B:79:C0:08:DD:2B:F4:4A:36:EE:E3</div>
 </li>
 </ol>
 
@@ -437,7 +431,7 @@ Notice: Removing file Puppet::SSL::CertificateRequest <em><u>host1.coolexample.c
 <h3>Revoke certificate</h3>
 <ol>
 <li>Remove or rebuild a host from the Puppet. Then you need to revoke the host certificate.
-<div class="hacker">sudo puppet cert clean hostname</div>
+<div class="hacker">sudo puppet cert clean <em><u>hostname</u></em></div>
 </li>
 <li>View all signed certificate.
 <div class="hacker">sudo puppet cert list --all</div>
@@ -507,56 +501,6 @@ File {'/tmp/<em><u>example-ip</u></em>':  <br />
 </li>
 </ol>
 
-<h3>Define a node</h3>
-
-<ol>
-<li>You can define a specific node, by editing the file at <code>/etc/puppet/manifests/site.pp</code>.
-<div class="hacker">sudo vi /etc/puppet/manifests/site.pp</div>
-</li>
-
-<li>Add the following lines:
-<div class="hacker">
-			node 'ns1', 'ns2' { <br />   
-			&nbsp;&nbsp;file {'/tmp/dns': <br />   
-			&nbsp;&nbsp;ensure => present, <br />
-			&nbsp;&nbsp;mode => 0644,<br />
-			&nbsp;&nbsp;content => "Only DNS servers get this file.\n",<br />
-			&nbsp;&nbsp;&nbsp;}<br />
-			&nbsp;}<br />
-			&nbsp;node default {}  <br />  
-					</div>  
-</li>
-<li><p>Save and exit the file.</p></li>
-<li><p>Execute command <code>sudo puppet agent -test</code> or wait for the agent pull from, the file <code>/tmp/dns</code> will be created.</p></li>
-</ol>
-
-<h3>Use modules</h3>
-<ol>
-<li>Modules are used to group tasks together. You can get different modules in puppet community. Here you will install <code>puppetlabs-apache</code> module from <code>forgeapi</code>.
-<div class="hacker">sudo puppet module install puppetlabs-apache</div>
-</li>
-<li>Edit the file.
-<div class="hacker">sudo vi /etc/puppet/manifest/site.pp</div>
-</li>
-<li>Add the following lines:
-<div class="hacker">
-			node 'host2' {<br />
-			&nbsp;&nbsp;class { 'apache': }  <br />           
-			&nbsp;&nbsp;apache::vhost { 'coolexample.com':<br />  
-			&nbsp;&nbsp;port    => '80',<br />
-			&nbsp;&nbsp;docroot => '/var/www/html'<br />
-			&nbsp;&nbsp;&nbsp;}<br />
-			&nbsp;}<br />
-
-			</div>
-</li>
-<li><p>Save and exit the file.</p></li>
-<li>Above code will make <strong>host2</strong> to install the Apache package and will make it listening on port 80. To execute manually, run the following command:
-<div class="hacker">sudo puppet agent -t</div>
-<p>or</p>
-<div class="hacker">sudo puppet agent --test</div>
-</li>
-</ol>
 
 <h2>Conclusion</h2>
 <p>In this article, you have learned to install and configure Puppet in an infrastructure. Puppet makes server administrators tasks much easier.</p>
