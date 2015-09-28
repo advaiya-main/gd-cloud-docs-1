@@ -88,7 +88,13 @@
 <p><strong>Difficulty:</strong> 4</p>
 <p><strong>Time:</strong> 30 minutes</p>
 
-<p>This article will help you to create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails (RoR) application. This article describes how you can combine a PostgreSQL database server with a RoR web server to build a robust and scalable application.</p> <p>
+<p>This article will help you to create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails (RoR) application. This article describes how you can combine a PostgreSQL database server with a RoR web server to build a robust and scalable application.</p> 
+<h2>Prerequisites</h2>
+<ul>
+    <li>Install Ruby on Rails. See <a href="17536"> Install Ruby on Rails using RVM – CentOS</a>
+	</li>
+</ul>
+<p>
 This article is a part of the three-part series. To visit the first two parts, see:
 </p>
 <ul>
@@ -107,7 +113,7 @@ This article is a part of the three-part series. To visit the first two parts, s
 <ol>
 
 <li>Install PostgreSQL and other dependencies.
-	<div class='hacker'>sudo yum install postgresql postgresql-contrib</div>
+	<div class='hacker'>sudo yum install postgresql postgresql-contrib  postgresql-devel</div>
 </li>
 <li>Install <code>pgadmin3</code> for the administrator.  This is an easy to access GUI for PostgresSQL and is an optional installation but useful when used on a desktop.
 	<div class='hacker'>sudo yum install pgadmin3</div>
@@ -124,7 +130,7 @@ This article is a part of the three-part series. To visit the first two parts, s
 	<div class='hacker'>sudo service postgresql start</div>
 </li>
 <li>Before you can do anything, you must initialize a database storage area (cluster) on the disk. In file system terms, a database cluster is a single directory under which all data is stored. It's completely up to you where you choose to store your data. There is no default location, although locations such as <code>/usr/local/pgsql/data</code> or <code>/var/lib/postgres/data</code> are popular.
-	<div class='hacker'>sudo  -p mkdir /var/lib/postgres/data</div>
+	<div class='hacker'>sudo mkdir -p /var/lib/postgres/data</div>
 </li>
 <li>Change the owner of the <code>/var/lib/postgres</code> directory and its contents to the <code>postgres</code> user (which is the default user when you install PostgreSQL).
 
@@ -139,7 +145,7 @@ This article is a part of the three-part series. To visit the first two parts, s
 <li>
 	Log out  the <code>postgres</code> user, and restart the PostgreSQL service.
 
-	<div class='hacker'>Logout</div>
+	<div class='hacker'>logout</div>
  	<div class='hacker'>sudo service postgresql restart</div>
 </li>
 </ol>
@@ -184,7 +190,7 @@ This article is a part of the three-part series. To visit the first two parts, s
 		<div class='hacker'>CREATE USER ruby_User WITH PASSWORD ‘StrongPass@word’;</div>
  </li>
 <li>Assign ownership to the Rails user.	
-		<div class='hacker'>CREATE DATABASE my_rail_database OWNER ruby_User;</div>
+		<div class='hacker'>CREATE DATABASE <em><u>my_rail_database</u></em> OWNER ruby_User;</div>
  </li>
 <li>Quit from the PostgreSQL command line.
 <div class="hacker"> \q </div></li>
@@ -196,7 +202,7 @@ This article is a part of the three-part series. To visit the first two parts, s
 <li>Open  the <span class="hacker"><code>postgresql.conf</code></span> file.
 	<div class='hacker'>sudo vim /var/lib/postgres/data/postgresql.conf</div>
 </li>
-<li>Configure PostgreSQL to listen to connections from the IP address assigned to the server.  To do this, find the following line: 
+<li>Configure PostgreSQL to listen to connections from the IP address assigned to the server.  To do this, find the following line and uncomment it: 
 
       <div class='hacker'>listen_addresses = 'localhost' </div>
 Replace with the following line:
@@ -239,7 +245,7 @@ Edit the PostgreSQL hba file <code>pg_hba.conf</code> using the <code>vim</code>
  Go to that directory, and create a Rails application.
 
    <div class='hacker'>	 cd /var/www</div>
-  
+  <div class='hacker'>	 sudo chmod -R 777 /var/www</div>
   <div class='hacker'>rails new <em><u>HelloWorld</u></em></div>
 </li>
 <li>Go to the application directory.
@@ -262,6 +268,10 @@ You'll see the database settings separated by environment names. Because an appl
   pool: 10 </pre>
   </div>
 </li>
+<li>Change directory to application root directory.
+
+  <div class="hacker">cd .. </div>
+</li> 
 <li>Open  <code>Gemfile</code> to add the <code>pg</code> gem.
 			<div class='hacker'>sudo vim Gemfile</div>
             </li>
