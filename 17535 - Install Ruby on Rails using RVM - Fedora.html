@@ -91,7 +91,7 @@ td:nth-child(1) {font-weight:bold;}
     <p><strong>Time</strong>: <em><u>30 minutes</u></em></p>
     <p>Ruby on Rails&trade; is a well-known framework for web application development. The Ruby Version Manager (RVM) allows developers to easily manage multiple Ruby application environments, and then switch between them efficiently. </p>
 
-<p>This article will assist you on how to install Ruby on Rails in Fedora using RVM, and assumes that you have <code>sudo</code> privileges to perform this task. You may want to visit the <a href="17322 - Initial Server Setup - Fedora.html">Initial Server Setup - Fedora</a> article to set up your Fedora server.</p>
+<p>This article will assist you on how to install Ruby on Rails on Fedora 20 or 21 using RVM, and assumes that you have <code>sudo</code> privileges to perform this task. You may want to visit the <a href="17322 - Initial Server Setup - Fedora.html">Initial Server Setup - Fedora</a> article to set up your Fedora server.</p>
 
 <h2>Prepare your system</h2>
 Before you install Ruby on Rails, prepare your system with the required system software.    
@@ -169,7 +169,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
       </li>
 	 <li>Move to the newly created directory, and grant all the required access using the following commands:
           <div class='hacker'>cd /usr/local/src/<em><u>your_rails_project_directory</u></em></div>
-		  <div class='hacker'>sudo chmod -R 777 /usr/local/src/<em><u>your_rails_project_directory</u></em></div></li>
+		  <div class='hacker'>sudo chmod -R 755 /usr/local/src/<em><u>your_rails_project_directory</u></em></div></li>
 
       <li>Create your first Rails application. We'll call it <em><u>your_rails_app</u></em>.
 		  <div class='hacker'>rails new <em><u>your_rails_app</u></em></div></li>
@@ -182,7 +182,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
       </li> 
 	 <li>You can bind your Rails app using the following command:
           <div class='hacker'>rails server --binding=<em><u>your public IP</u></em></div>
-		 <p> Your new app is ready and can be accessed by visiting <strong><u><em>your_public_ip_of your server_or_domain_name</em></u>:3000</strong>. 3000 is the default port. Press <strong>CTRL+C</strong> to terminate the process.</p>
+		 <p> Your new app is ready and can be accessed by visiting <strong><u><em>your_public_ip_of your server_or_domain_name</em></u>:3000</strong>. 3000 is the default port. Press <strong>CTRL+C</strong> to close out of this process in order to start a new one.</p>
       </li> 
 	  
     </ol>
