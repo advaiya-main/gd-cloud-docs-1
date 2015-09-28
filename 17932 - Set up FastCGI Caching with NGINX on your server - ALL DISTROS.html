@@ -176,9 +176,10 @@ td:nth-child(1) {font-weight:bold;}
             </li>
 
         
-   <li>Add the following directives to the location context of the <code>nginx.conf</code> file:
+   <li>Add the following directives to the location context of the <code>nginx.conf</code> file or the include file it references:
 <div class="hacker">  <pre>
-  # location context location / 
+  # location context 
+    location / 
 { fastcgi_pass http://yourFastCGIappserver; 
   fastcgi_cache yourcache; 
   } 
