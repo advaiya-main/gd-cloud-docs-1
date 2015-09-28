@@ -91,8 +91,8 @@ p.note {
 	<ul>
 	  <li>A GitHub account</li>
 	  <li> <code>sudo</code> privileges</li>
-	  <li> Ruby on Rails using rbenv installed and running on the host machine. See <a href ="17523">Install Ruby on Rails with rbenv on Debian</a>
-or <a href ="17519">Install Ruby on Rails with rbenv on Ubuntu</a> .</li>
+	  <li> Ruby on Rails using rbenv installed and running on the host machine. See <a href ="17538">Install Ruby on Rails with rbenv on Debian</a>
+or <a href ="17534">Install Ruby on Rails with rbenv on Ubuntu</a> .</li>
 </ul>
 <p class="note">Capistrano relies on Git for deployments.</p>
     <h2>Prepare the deployment server</h2>
@@ -319,7 +319,8 @@ Scroll down to the bottom of this  file, and find where root is defined. Add the
 		<ol><li>Install Git.
 		<div class='hacker'>sudo apt-get install git</div>
 		</li>
-		<li>Initiate the repository.
+		<li>Create git repository in <code>GitHub.com</code> same name as your application.</li></li>
+		<li>Switch to the server terminal and initiate the repository.
 		 <div class='hacker'> git init</div>
 		 <div class='hacker'> git add .</div>
 		 <div class='hacker'> git config --global user.name "<em><u>GitHub_UserName</u></em>"</div>
@@ -328,17 +329,19 @@ Scroll down to the bottom of this  file, and find where root is defined. Add the
 		<li>Commit the changes.
 	 <div class='hacker'>	git commit -m "first commit"</div>
 	</li>	
-	<li>Add your GitHub repository link.
+	<li>Add your GitHub repository link. (Use this command only once when you initialize repository.)
 	 <div class='hacker'>git remote add origin git@github.com:<em><u>GitHub_UserName</u></em>/<em><u>Your_application</u></em>.git
 </div>
 	</li>
-	<li>Create the RSA/SSH key.
+	<li>Create the RSA/SSH key. 
 	  <div class='hacker'>ssh-keygen -t rsa</div>
 	
 	<div class='hacker'>sudo cat /root/.ssh/id_rsa.pub</div>
 	  Or
-	    <div class='hacker'>sudo cat /home/<em><u>UserName</u></em>/.ssh/id_rsa.pub </div>
-		(for <code>sudo</code> user)</li>
+	<div class='hacker'>sudo cat /home/<em><u>UserName</u></em>/.ssh/id_rsa.pub </div>
+		(for <code>sudo</code> user)
+	<p>Copy the <code>ssh-rsa</code> and to the SSH Keys setting in <code>GitHub.com</code>.</p>
+	</li>
 <li>Push the project's source code to your GitHub account.
 	<div class='hacker'>git push -u origin master </div>
 	</li>
@@ -440,7 +443,7 @@ Scroll down to the bottom of this  file, and find where root is defined. Add the
 	</ol>
 <h3>Deploy to the production server</h3>
 	<ol><li>To deploy  to the production server, set the following permission:
-	<div class='hacker'>sudo chmod 0777 –R /var/www/<em><u>Your_application</u></em>/</div></li>
+	<div class='hacker'>sudo chmod 0777 -R /var/www/<em><u>Your_application</u></em>/</div></li>
 	<li>Type the following to deploy:
 	 <div class='hacker'>cap production deploy</div></li>
 	 </ol>
