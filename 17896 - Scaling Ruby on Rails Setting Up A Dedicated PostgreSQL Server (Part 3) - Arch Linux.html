@@ -88,6 +88,13 @@
 <p><strong>Time: </strong> 30 minutes</p>
 
 <p>In this article, you'll create a PostgreSQL server to use as a database layer for scaling a Ruby on Rails (RoR) application. You'll learn to combine a PostgreSQL database server with a RoR web server to build a robust and scalable application.</p>
+<h2>Prerequisites</h2>
+<ul>
+    <li>Install Ruby on Rails. See <a href="17537"> Install Ruby on Rails using RVM - Arch Linux</a>
+	</li>
+	
+</ul>
+
 <p>This article is third in a three-part series. To visit the first two parts, see:</p>
 <ul>
 <li><a href ="17954">Scaling Ruby on Rails Applications across Multiple Servers (Part 1) - Arch Linux</a></li>
@@ -104,14 +111,19 @@
 
 <li>
 Install the PostgreSQL package. 
-  <div class="hacker">sudo pacman –S postgresql  </div>
+  <div class="hacker">sudo pacman -S postgresql  </div>
+</li>
+<li>
+Run following command. 
+  <div class="hacker">sudo pacman -Syu </div>
 </li>
 <li>
 Install <code>pgadmin3</code> for the administrator. This is an easy-to-access GUI for PostgresSQL and is an optional installation but useful when used on a desktop.
 <div class="hacker"> sudo pacman -S pgadmin3 </div>
+<P>Enter 1 for default provider on prompt</p>
 </li>
 <li>Check if PostgreSQL has been installed.
-  <div class="hacker"> sudo paceman –Si postgresql </div>
+  <div class="hacker"> sudo pacman -Si postgresql </div>
 </li>
 <li>It is recommended to initialize the database cluster on a disk before performing any further tasks to store all the data. You can use the <code>/usr/local/pgsql/data</code> or <code>/var/lib/postgres/data</code> location to store data.
   <div class="hacker"> sudo mkdir -p /var/lib/postgres/data </div>
@@ -146,7 +158,7 @@ Set the desired password for the "<code>postgres</code>" database role.
 <p>If prompted, type your password again. </p>
 </li>
 <li>Exit from the PostgreSQL prompt.
-<div class ="hacker">wq!</div></li>
+<div class ="hacker">\q</div></li>
 </ol>
 <h2>Create the database and users </h2>
 <ol>
@@ -184,7 +196,7 @@ Open the configuration file.
 	<div class="hacker"> sudo vim /var/lib/postgres/data/postgresql.conf </div>
 
 </li>
-<li>Configure PostgreSQL to listen to connections from the IP address assigned to the server. To do this, find the following line: 
+<li>Configure PostgreSQL to listen to connections from the IP address assigned to the server. To do this, find the following line and uncomment it: 
 <div class="hacker"> listen_addresses = 'localhost'  </div>
 <p>Replace with <code>listen_addresses = '*'</code> or <code>listen_addresses = 'YourIP'</code></p>
 
@@ -211,10 +223,42 @@ After the comment block, append the following line:
 <div class ="hacker">wq!</div>
 </li>
 <li>Restart  the PostgreSQL service.
-  <div class="hacker"> sudo service postgresql restart </div> </li>
+  <div class="hacker"> sudo systemctl restart postgresql </div> </li>
 </ol>
 <h2>Configure  the database with Rails</h2>
 <ol>
+<li>Create the project directory for your Rail project.
+<div class="hacker">sudo mkdir -p  ~/<em><u>rail_project_directory</u></em>
+</div>
+</li>
+<li>Move to the directory just created, and grant all the required access.
+<div class="hacker">cd  ~/<em><u>rail_project_directory</u></em></div>
+<div class="hacker">sudo chmod -R 777 ~/<em><u>rail_project_directory</u></em></div>
+<div class="hacker">rails new <em><u>Your_application</u></em></div>
+<div class="hacker">cd <em><u>Your_application</u></em></div>
+<div class="hacker">bundle install</div>
+<div class="hacker">rails server</div>
+<p>Now, your Rails server should be running. Press <strong>CTRL+C</strong> to terminate the process.</p>
+</li>
+</ol>
+<ol>
+<h2>Create a database user</h2>
+	<ol>
+		<li>Log in with the <code>postgres</code> system user.
+			<div class="hacker">sudo -i -u postgres
+			</div>
+		</li>
+		<li>Create a  database user and set a password.
+			<div class="hacker">createuser -s <em><u>user_name</u></em>
+			</div>
+			<div class="hacker">psql
+			</div>
+			<p>The above command will start the postgres command prompt, where all further steps are to be performed.</p>
+			<div class="hacker"> \password <em><u>user_name</u></em>
+			</div>
+			</li>
+	</ol>
+
 <li>
 Go to application directory, and open <code>database.yml</code>.
 <div class="hacker"> cd /var/www/html/<em><u>HelloWorld</u></em> </div>
