@@ -83,18 +83,19 @@ p.note {
    <li>Edit the <code>/etc/apt/sources.list</code> file, and change the <code>main</code> section as shown below.
      <div class="hacker">deb http://ftp.us.debian.org/debian wheezy main</div>
    <div class="hacker">deb-src http://ftp.us.debian.org/debian wheezy main</div>
-   <p>After editing:</p>
+   <p>After editing append the following lines:</p>
    <div class="hacker">deb http://ftp.debian.org/debian/ sid main contrib non-free </div>
    <div class="hacker">deb-src http://ftp.debian.org/debian/ sid main contrib non-free</div>
    </li>
    <li>Upgrade all the packages in Debian.
-   <div class="hacker">apt-get update</div>
-   <div class="hacker">apt-get upgrade</div>
-   <div class="hacker">apt-get dist-upgrade</div>
+   <p class="note">While upgrading it will prompt many messages keep defaults for all.</p>
+   <div class="hacker">sudo apt-get update</div>
+   <div class="hacker">sudo apt-get upgrade</div>
+   <div class="hacker">sudo apt-get dist-upgrade</div>
    </li>
    <li>Install <code>libc6</code> using <code>sid</code>, after the upgrade is complete.
-   <div class="hacker">apt-get -t sid install libc6 libc6-dev libc6-dbg</div>
-   <div class="hacker">apt-get install -y apt-transport-https</div>
+   <div class="hacker">sudo apt-get -t sid install libc6 libc6-dev libc6-dbg</div>
+   <div class="hacker">sudo apt-get install -y apt-transport-https</div>
    </li>
 </ol>
   
@@ -119,14 +120,14 @@ curl "${PACKAGE_CLOUD_RIAK_DIR}/config_file.list?os=${OS}&amp;dist=${DIST}&amp;n
    
    <li>Give proper permissions, and execute the script to create the respective source list.
      <div class="hacker">chmod +x script.sh</div>
-   <div class="hacker">./script.sh</div>
+   <div class="hacker">sudo ./script.sh</div>
    <p>Running the above script will create a file named <code>/etc/apt/sources.list.d/basho.list</code> with the following contents:</p>
    <div class="hacker">deb https://packagecloud.io/basho/riak/ubuntu/ precise main</div>
     <div class="hacker">deb-src https://packagecloud.io/basho/riak/ubuntu/ precise main</div>
    </li>
    <li>Install Riak.
-     <div class="hacker">apt-get update	</div>
-    <div class="hacker">apt-get install riak</div>
+     <div class="hacker">sudo apt-get update	</div>
+    <div class="hacker">sudo apt-get install riak</div>
    </li>
 </ol>
   
@@ -134,16 +135,15 @@ curl "${PACKAGE_CLOUD_RIAK_DIR}/config_file.list?os=${OS}&amp;dist=${DIST}&amp;n
   <p>Configure the first node in a Riak cluster with the following steps.</p>
 <ol> 
 <li>Stop the Riak service, if it started earlier.
-   <div class="hacker">riak stop</div>
+   <div class="hacker">sudo riak stop</div>
    </li>
    <li>Find and change the following lines in <code>/etc/riak/riak.conf</code>.
      <div class="hacker">listener.protobuf.internal = <em><u>node_ip_address</u></em>:8087</div>
    <div class="hacker">listener.http.internal =<em><u>node_ ip_address</u></em>:8098</div>
    <div class="hacker">nodename = riak@<em><u>node_ip_address</u></em></div>
    </li>
-   <li>Start the Riak service. While starting, configure <code>ulimit</code> to minimum of 65565 .
-     <div class="hacker">ulimit -u 65565</div>
-   <div class="hacker">start riak</div>
+   <li>Start the Riak service. 
+   <div class="hacker">sudo riak start</div>
    <p>In the same way, you can configure all  other nodes that you want to include in the cluster.</p>
    </li>
    </ol>
@@ -152,19 +152,15 @@ curl "${PACKAGE_CLOUD_RIAK_DIR}/config_file.list?os=${OS}&amp;dist=${DIST}&amp;n
   <p> Perform all the steps  above to start Riak in a second node and to include these nodes in the cluster.</p>
 <ol> 
 <li>Inside the second node, execute the following command to join  the first node:
-   <div class="hacker">riak-admin cluster join riak@<em><u>first_node_ip</u></em></div>
+   <div class="hacker">sudo riak-admin cluster join riak@<em><u>first_node_ip</u></em></div>
 </li>
    <li>Plan and commit the changes:
-     <div class="hacker">riak-admin cluster plan</div>
-   <div class="hacker">riak-admin cluster commit</div>
+     <div class="hacker">sudo riak-admin cluster plan</div>
+   <div class="hacker">sudo riak-admin cluster commit</div>
    </li>
    <li>View the complete ring cluster.
-     <div class="hacker">riak-admin status | grep ring_members</div>
+     <div class="hacker">sudo riak-admin status | grep ring_members</div>
    </li>
-   <li>Create a file, <code>/etc/default/riak</code>, and add the following line to make the <code>ulimit</code> setting permanent.
-     <div class="hacker">vi /etc/default/riak</div>
-      <div class="hacker">ulimit -n 65536</div></li>
-   <li>Save and close the file.</li>
     </ol>
   
      
