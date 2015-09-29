@@ -128,10 +128,10 @@ Revise or ignore and move to &quot;Ready for editing&quot; status
         <div class="hacker">sudo yum update</div></li>
         <li>
            Download the package using the <code>wget</code> utility. 
-            <div class="hacker">wget http://nodejs.org/dist/<em><u>v0.12.7/node-v0.12.7-linux-x64.tar.gz</u></em></div>
+            <div class="hacker">wget http://nodejs.org/dist/node-latest.tar.gz</div>
         </li>
-        <li>Use the <code>tar</code> command to extract the package with the <code>-C</code> option to the target directory <code>/usr/local</code> in this case. The <code>--strip components</code> option helps to get around the versioned directory.
-        <div class="hacker">sudo tar --strip-components 1 -xzvf node-v* -C /usr/local</div>
+        <li>Use the <code>tar</code> command to extract the package with the <code>-C</code> option to the target directory <code>/usr/local</code> in this case. 
+        <div class="hacker">sudo tar zxf node-*.tar.gz node-v* -C /usr/local</div>
         </li>
         
         <li>
