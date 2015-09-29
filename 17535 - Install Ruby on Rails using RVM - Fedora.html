@@ -87,8 +87,11 @@ td:nth-child(1) {font-weight:bold;}
 <body>
  <p>Steps to install Ruby on Rails using Ruby Version Manager (RVM) in Fedora, Ruby, Rails</p>
     <h1>Install Ruby on Rails using RVM - Fedora</h1>
-    <p><strong>Difficulty</strong>: <em><u>1</u></em></p>
-    <p><strong>Time</strong>: <em><u>30 minutes</u></em></p>
+   
+ <strong>Difficulty</strong>: <em><u>3 </u></em>
+        <br />
+        <strong>Time</strong>: <em><u>20 minutes</u></em>
+   
     <p>Ruby on Rails&trade; is a well-known framework for web application development. The Ruby Version Manager (RVM) allows developers to easily manage multiple Ruby application environments, and then switch between them efficiently. </p>
 
 <p>This article will assist you on how to install Ruby on Rails on Fedora 20 or 21 using RVM, and assumes that you have <code>sudo</code> privileges to perform this task. You may want to visit the <a href="17322 - Initial Server Setup - Fedora.html">Initial Server Setup - Fedora</a> article to set up your Fedora server.</p>
@@ -162,30 +165,10 @@ Before you install Ruby on Rails, prepare your system with the required system s
           <div class='hacker'>gem install rails</div>
     To check the version, type:
       <div class='hacker'>rails -v</div>    
-	  </li>
-	  
-	  <li>Create the project directory for your Rail project. We'll refer to the directory as <em><u>your_rails_project_directory</u></em> for this tutorial:
-          <div class='hacker'>sudo mkdir -p /usr/local/src/<em><u>your_rails_project_directory</u></em></div>
-      </li>
-	 <li>Move to the newly created directory, and grant all the required access using the following commands:
-          <div class='hacker'>cd /usr/local/src/<em><u>your_rails_project_directory</u></em></div>
-		  <div class='hacker'>sudo chmod -R 755 /usr/local/src/<em><u>your_rails_project_directory</u></em></div></li>
-
-      <li>Create your first Rails application. We'll call it <em><u>your_rails_app</u></em>.
-		  <div class='hacker'>rails new <em><u>your_rails_app</u></em></div></li>
-		  
-<li>Start work on your new project by moving into your app and installing bundler.
-      <div class='hacker'>cd <em><u>your_rails_app</u></em></div>
-		  <div class='hacker'>bundle install</div>
-		   <div class='hacker'>rails server</div>
-		   <p>Now your Rails server should be running. Press <strong>CTRL+C</strong> to close out of this process in order to start a new one.</p>
-      </li> 
-	 <li>You can bind your Rails app using the following command:
-          <div class='hacker'>rails server --binding=<em><u>your public IP</u></em></div>
-		 <p> Your new app is ready and can be accessed by visiting <strong><u><em>your_public_ip_of your server_or_domain_name</em></u>:3000</strong>. 3000 is the default port. Press <strong>CTRL+C</strong> to close out of this process in order to start a new one.</p>
-      </li> 
+	  </li> 
 	  
     </ol>
+  
   <h2>Next steps</h2>
 <p>In this article, you learned the steps involved in setting up Ruby on Rails using RVM for your web application in a Fedora distribution. For more information on RVM, read the article: <a href="17912 - Use RVM to manage Ruby installations and Environments - ALL DISTROS.html">Use RVM to manage Ruby installations.</a></p>
 </body>
