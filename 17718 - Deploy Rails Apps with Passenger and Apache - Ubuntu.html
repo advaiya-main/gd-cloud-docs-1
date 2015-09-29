@@ -113,8 +113,9 @@ p.note {
         <li>Open the <code>apache2.conf</code> file. 
           <div class='hacker'>sudo vim /etc/apache2/apache2.conf</div>
         </li>
-	    <li>Update the <code>apache2.conf</code> file below the <code>LogFormat</code>.
-            <div class='hacker'>
+		<li>Copy the following contents that were generated after you have installed Passenger package for Apache and paste them in the <code>apache2.conf</code> file below the <code>LogFormat</code> section.
+		
+	    <div class='hacker'>
 			LoadModule passenger_module <em><u>/home/username/.rvm/gems/ruby-2.2.1</u></em>/gems/passenger-5.0.18/buildout/apache2/mod_passenger.so<br/>
    &lt;IfModule mod_passenger.c&gt;<br/>
      PassengerRoot <em><u>/home/username/.rvm/gems/ruby-2.2.1</u></em>/gems/passenger-5.0.18<br/>
@@ -169,6 +170,7 @@ p.note {
 		  <li>Make change correspond to code shown below:
             <div class='hacker'>
                <pre>&lt;VirtualHost *:80&gt;
+	RailsEnv development
 	DocumentRoot <em><u>/home/username/Your_application</u></em>/public
 	&lt;Directory <em><u>/home/username/Your_application</u></em>/public&gt;
 		AllowOverride all
