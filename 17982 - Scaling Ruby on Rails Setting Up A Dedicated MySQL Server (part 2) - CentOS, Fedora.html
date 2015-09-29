@@ -133,15 +133,14 @@ This article is a part 2 of the <em>Scaling Ruby on Rails series</em> of article
 <li>Download and install the MySQL database server.
       <div class="hacker"> sudo  yum install  mysql-server mysql-devel </div>
   If MySQL server doesn't work, then try MariaDB.
-  <div class="hacker"> sudo yum install MariaDB-server MariaDB-client </div>
+  <div class="hacker"> sudo yum install mariadb-server mariadb-client </div>
 </li>
 <li>Initiate the MySQL server daemon.
-  <div class="hacker"> sudo  service mysqld start </div>
-<p> Or</p>
-<div class="hacker"> sudo /etc/init.d/mysql start </div>
+  <div class="hacker"> sudo  service mariadb start </div>
+
 </li>
 <li>Run the MySQL installation process.
-  <div class="hacker"> sudo/usr/bin/mysql_secure_installation </div>
+  <div class="hacker"> sudo /usr/bin/mysql_secure_installation </div>
 </li>
 <li>After you have finished the above command, a Welcome screen will display the following:
   <div class="hacker">
@@ -217,7 +216,7 @@ bind-address   =  0.0.0.0
 <ol>
 <li>Install the gem for MySQL, and then update the gem.
   <div class="hacker">  gem install mysql2 </div>
-     <div class="hacker">  gem update -system </div>
+     <div class="hacker">  gem update --system </div>
 </li>
 <li>Install the Rails package.
   <div class="hacker">  gem install rails </div>
@@ -229,9 +228,9 @@ bind-address   =  0.0.0.0
   <div class="hacker"> cd <em><u>Your_application</u></em> </div>
 </li>
 
-<li>Go to <code>config</code> directory, and then open the <code>database.yml</code> file.
-<div class ="hacker">cd config/</div>
-  <div class="hacker"> sudo vim database.yml </div>
+<li>Open the <code>database.yml</code> file.
+
+  <div class="hacker"> sudo vim config/database.yml </div>
 </li>
 <li>Locate the <code>production</code> section, and then replace it with the following code:
 <div class="hacker">
@@ -241,8 +240,8 @@ production:
   encoding: utf8
   database: <em><u>rails_Database_name</u></em>
   username:<em><u>Your_application</u></em> 
-  password: <em><u>pwd</u></em>
-  host: 128.199.233.36
+  password: <em><u>Your_password</u></em>
+  host: <em><u>Your_server_IP</u></em>
   port: 3306
   pool: 10
 </pre>
@@ -255,7 +254,7 @@ production:
 <h2>Install MySQL dependencies</h2>
 <ol>
 <li>Open the <code>Gemfile</code>. 
-<div class="hacker"> sudo vim Gemfile </div>
+<div class="hacker"> vim Gemfile </div>
        <p>Add the following line:</p>
     <div class="hacker"> gem 'mysql' </div>
 
