@@ -120,109 +120,26 @@ p.note {
 	  will be installed for you to a directory of your choice.</pre>
 	  </div></li>
 	  <li><p>Press <strong>Enter</strong> to continue.</p></li>
+	  <li>To start the Nginx web service.
+            <div class='hacker'>sudo /opt/nginx/sbin/nginx </div>
+			<p class="note">To test Rails application open the browser and type <strong>http://your_server_ip</strong></p>
+        </li>
+		<li>To stop the Nginx web service.
+            <div class='hacker'> ps wax | grep nginx </div>
+			Above command will show you output as below.
+			<div class="hacker">
+				11862 ?        Ss     0:00 nginx: master process sbin/nginx<br/>
+				11863 ?        S      0:00 nginx: worker process<br/>
+				12131 pts/1    S+     0:00 grep --color=auto nginx<br/>
+			</div>
+			Kill nginx process using the following command.
+			<div class="hacker">sudo kill -9 <em><u>11862 11863</u></em></div>
+			<p class="note">Process ID is different then shown in example.</p>
+        </li>
 </ol>
-	
 
 
 
-<h3>Create the script for Nginx management</h3>
-
-<ol><li>Create a file.
-<div class='hacker'>sudo vim /etc/pam.d/nginx</div>
-</li>
-<li>Add the following line in this file.
-	<div class='hacker'>
-		  <pre> 
-			  #!/bin/sh
-			. /etc/pam.d/nginx
-			. /etc/sysconfig/network
-			[ "$NETWORKING" = "no" ] &amp;&amp; exit 0
-			nginx="/opt/nginx/sbin/nginx"
-			prog=$(basename $nginx)
-
-			NGINX_CONF_FILE="/opt/nginx/conf/nginx.conf"
-
-			lockfile=/var/lock/subsys/nginx
-
-			start() {
-				[ -x $nginx ] || exit 5
-				[ -f $NGINX_CONF_FILE ] || exit 6
-				echo -n $"Starting $prog: "
-				daemon $nginx -c $NGINX_CONF_FILE
-				retval=$?
-				echo
-				[ $retval -eq 0 ] &amp;&amp; touch $lockfile
-				return $retval
-			}
-
-			stop() {
-				echo -n $"Stopping $prog:"
-				killproc $prog -QUIT
-				retval=$?
-				echo
-				[ $retval -eq 0 ] &amp;&amp; rm -f $lockfile
-				return $retval
-			}
-			restart() {
-				configtest || return $?
-				stop
-				start
-			}
-			reload() {
-				configtest || return $?
-				echo -n $"Reloading $prog: "
-				killproc $nginx -HUP
-				RETVAL=$?
-				echo
-			}
-			force_reload() {
-				restart
-			}
-			configtest() {
-				$nginx -t -c $NGINX_CONF_FILE
-			}
-			rh_status() {
-				status $prog
-			}
-			rh_status_q() {
-				rh_status >/dev/null 2>&amp;1
-			}
-			case "$1" in
-			start)
-			rh_status_q &amp;&amp; exit 0
-			$1
-			;;
-			stop)
-			rh_status_q || exit 0
-			$1
-			;;
-			restart|configtest)
-			$1
-			;;
-			reload)
-			rh_status_q || exit 7
-			$1
-			;;
-			force-reload)
-			force_reload
-			;;
-			status)
-			rh_status
-			;;
-			condrestart|try-restart)
-			rh_status_q || exit 0
-			;;
-			*)
-			echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest}"
-			exit 2
-			esac
-		</pre>
-	</div>
-</li>
-<li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key. </li> 
-<li>Provide the following permission for this file:
-      <div class='hacker'>sudo chmod +x /etc/init.d/nginx</div>
-</li></ol>
 <h3>Configure Nginx</h3>
 <ol>
 <li>Open the Nginx configuration file.
@@ -257,15 +174,15 @@ p.note {
   <div class='hacker'>gem install capistrano</div>
 </li>
 <li>Create a system  user for deployment.
-  <div class='hacker'>sudo useradd <em><u>UserName</u></em></div>
-  <div class='hacker'>sudo passwd <em><u>UserName</u></em></div>
+  <div class='hacker'>sudo useradd <em><u>username</u></em></div>
+  <div class='hacker'>sudo passwd <em><u>username</u></em></div>
 </li>
 <li>Open the <code>/etc/sudoers</code> file.
   <div class='hacker'>sudo vim /etc/sudoers</div>
   </li>
   <li>
 Scroll down to the bottom of this  file, and find out the place where root is defined. Add the following line there:
-<div class='hacker'><pre>  <em><u>UserName</u></em> ALL=(ALL:ALL) ALL
+<div class='hacker'><pre>  <em><u>username</u></em> ALL=(ALL:ALL) ALL
 </pre></div></li>
 <li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key. </li> 
 </ol>
@@ -306,7 +223,9 @@ Scroll down to the bottom of this  file, and find out the place where root is de
 		</li>
 </ol>
 <h3>Create a Git repository</h3>
-		<ol><li>Install Git.
+		<ol>
+		<li><p>Login on git hub with your credentials and create a repository with same name as your rail application.</p></li>
+		<li>Install Git.
 		<div class='hacker'>sudo apt-get install git</div>
 		</li>
 		<li>Initiate the repository.
@@ -327,7 +246,7 @@ Scroll down to the bottom of this  file, and find out the place where root is de
 	
 	<div class='hacker'>sudo cat /root/.ssh/id_rsa.pub</div>
 	  <p>Or (for the <code>sudo</code> user):</p>
-	    <div class='hacker'>sudo cat /home/<em><u>UserName</u></em>/.ssh/id_rsa.pub </div></li>
+	    <div class='hacker'>sudo cat /home/<em><u>username</u></em>/.ssh/id_rsa.pub </div></li>
 		
 	<li>Push the project's source code to your GitHub account.
 	  <div class='hacker'>git push -u origin master </div>
@@ -350,7 +269,7 @@ Scroll down to the bottom of this  file, and find out the place where root is de
 	  <p>The  <code>deploy.rb</code> file contains arguments and settings relevant to the deployment server(s). Here, you'll tell Capistrano  which server(s) you would like to connect to, to complete the deployment, and how.</p>
 	  <div class='hacker'>sudo vim config/deploy.rb</div>
 	  </li>
-	  <li>Add the following lines, and modify it if you want:
+	  <li>Make corresponding changes in your file as shown:
 	    <div class='hacker'>
 	    <pre># Define the name of the application
 	set :application, '<em><u>Your_application</u></em>'
@@ -407,12 +326,12 @@ Scroll down to the bottom of this  file, and find out the place where root is de
 		  <div class='hacker'>
 		    <pre># Define roles, user and IP address of deployment server
 	# role :name, %{[user]@[IP adde.]}
-	role :app, %w{<em><u>UserName</u></em>@162.243.74.190} // YOUR PUBLIC IP
-	role :web, %w{<em><u>UserName</u></em>@162.243.74.190}
-	role :db,  %w{<em><u>UserName</u></em>@162.243.74.190}
+	role :app, %w{<em><u>username</u></em>@162.243.74.190} // YOUR PUBLIC IP
+	role :web, %w{<em><u>username</u></em>@162.243.74.190}
+	role :db,  %w{<em><u>username</u></em>@162.243.74.190}
 
 	# Define server(s)
-	server '162.243.74.190', user: '<em><u>UserName</u></em>', roles: %w{web}
+	server '162.243.74.190', user: '<em><u>username</u></em>', roles: %w{web}
 
 	# SSH Options
 	# See the example commented out section in the file
@@ -425,6 +344,7 @@ Scroll down to the bottom of this  file, and find out the place where root is de
 	}
   </pre>
 		  </div>
+		   <p class ="note">When copy and pasting code into Linux editor, make sure to remove any unwanted <strong>#</strong> characters from the beginning of every line, that might be added automatically by the editor.</p> 
 		</li>
 		<li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key. </li>
 	</ol>
