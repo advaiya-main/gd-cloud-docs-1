@@ -7,6 +7,7 @@
 <!--Article Number is 00043(fill in blank)-->
 
 <title>Build a LLMP stack (Linux, Lighttpd, MySQL, PHP) - CentOS 7</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -24,7 +25,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -36,6 +37,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -75,7 +86,7 @@ p.note {
         LLMP is an acronym used for the software suite that is used by developers and administrators to serve web applications quickly on a stable platform. In this article, you will learn how to build a LLMP stack on CentOS 7.</p>
     <h2>Prerequisites</h2>
 
-    <p>You must have the initial server set up with <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17323 - Initial Server Setup - CentOS.html">CentOS 07</a>. Linux will be installed with CentOS.</p>                                                                
+    <p>You must have the initial server set up with <a href="17323 - Initial Server Setup - CentOS.html">CentOS 07</a>. Linux will be installed with CentOS.</p>                                                                
     <h2>Install Lighttpd</h2>
      <p>Lighttpd is an open-source web server that is lightweight and optimized for high performance environments.</p>
     <ol>
@@ -143,19 +154,19 @@ p.note {
         <div class="hacker">sudo vim /etc/php-fpm.d/www.conf</div>
         Find the following block:
         <div class="hacker">
-        <pre>
-; Unix user/group of processes
+        <pre>; Unix user/group of processes
 ; Note: The user is mandatory. If the group is not set, the default user's group
 ;       will be used.
 ; RPM: apache Choosed to be able to access some dir as httpd
 user = apache
 ; RPM: Keep a group allowed to write in log dir.
-group = apache
-
-</pre>
+group = apache</pre>
         </div>
         Change <code>user=apache</code> to <code>user=lighttpd</code> and <code>group=apache</code> to <code>group=lighttpd</code>.
         </li>
+
+<li>Save and exit the file.</li>
+
         <li>Start the service.
         <div class="hacker">sudo systemctl start php-fpm.service </div></li>
         <li>To enable the PHP in Lighttpd, open the <code>php.ini</code> file.
@@ -163,16 +174,20 @@ group = apache
          Uncomment the following line:
          <div class="hacker"><pre>cgi.fix_pathinfo=1</pre></div>
         </li>
+
+ <li>Save and exit the file.</li>
+
         <li>Open <code>modules.conf</code>.
         <div class=" hacker">sudo vim /etc/lighttpd/modules.conf</div> 
         Uncomment the following line:
         <div class="hacker"><pre>include "conf.d/fastcgi.conf"</pre></div>
         </li>
+ <li>Save and exit the file.</li>
+
         <li>Open <code>fastcgi.conf</code>.
         <div class="hacker">sudo vim /etc/lighttpd/conf.d/fastcgi.conf</div>
         Add the block of code below after the <code>server.modules += ( "mod_fastcgi" ) </code> line, and before the PHP Example.
-        <div class="hacker"><pre>
-fastcgi.server += ( ".php" =>
+        <div class="hacker"><pre>fastcgi.server += ( ".php" =>
         ((
                 "host" => "127.0.0.1",
                 "port" => "9000",
@@ -180,6 +195,8 @@ fastcgi.server += ( ".php" =>
         ))
 )</pre></div>
         </li>
+
+         <li>Save and exit the file.</li>
 
         <li>
             Restart PHP-FPM and Lighttpd for the configuration changes to take effect.
@@ -209,7 +226,10 @@ fastcgi.server += ( ".php" =>
 
     </ol>
     <h2>Next steps</h2>
-    <p>You have successfully built a LLMP  stack on your server. If you are interested, you can learn more about <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18811 - Set Up Multiple SSL Certificates on One IP with Lighttpd - CentOS, Fedora.html">setting up multiple SSL certificates on one IP</a>. </p>
+   
+   <p>Congratulations! You have successfully built a LLMP stack on your server. 
+
+        <!--CT: Commenting out because this article's not written yet... If you are interested, you can learn more about <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18811 - Set Up Multiple SSL Certificates on One IP with Lighttpd - CentOS, Fedora.html">setting up multiple SSL certificates on one IP</a>. ...--> </p>
 
 
 </body>
