@@ -188,7 +188,10 @@ aboutus.coolexample.com<br/></td>
     server {  <br />
         listen       80 default_server;  <br />
         server_name <em>coolexample.com product.coolexample.com aboutus.coolexample.com;</em>  <br />
-        root         <em>/var/www/wordpress;</em></div></li></ol>   <br />
+        root         <em>/var/www/wordpress;</em></div></li>
+
+ <li>Save and close the file.</li>
+            </ol>  
                                  
 
 <h3>Modify the PHP configuration file</h3>
@@ -283,29 +286,8 @@ This command creates a directory called "wordpress" in your home directory.</li>
 
 </ol>  
 
-<h2>Install WordPress</h2> 
 
-<p>Now you can access the WordPress web interface.</p>
-     
-     <ol>
-     <li>  In your web browser, enter your primary domain name. In our example, that's 
-   <strong>http://coolexample.com</strong>.
-   (If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL.)</li>
-     <li>If  an introductory page displays, click <strong>Let's go!</strong> to continue.</li>
-
-     <li>On the next page, fill out your WordPress MySQL database credentials. 
-     You can leave  <strong>Database Host</strong> as is (localhost), since that's what we defined, and <strong>Table Prefix</strong> as wp_. <br/>
- 
-<img src="images/00037/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
-  </li>
-  
-   <li>Click <strong>Submit</strong>.<br />
-  The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
-<img src="images/00037/090815/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
-</li>
-</ol>
-      
-<h2>Create and modify the WordPress configuration file</h2> 
+  <h2>Create and modify the WordPress configuration file</h2> 
    
    <ol>
    
@@ -341,7 +323,28 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
       <li>Restart Nginx.
      <div class="hacker">sudo service nginx restart</div></li>
 </ol>
+    
+<h2>Install WordPress</h2> 
 
+<p>Now you can access the WordPress web interface.</p>
+     
+     <ol>
+     <li>  In your web browser, enter your primary domain name. In our example, that's 
+   <strong>http://coolexample.com</strong>.
+   (If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL.)</li>
+     <li>Work your way through the Wordpress installation, then log in with your Wordpress credentials.</li>
+
+     <li>On the next page, fill out your WordPress MySQL database credentials. 
+     You can leave  <strong>Database Host</strong> as is (localhost), since that's what we defined, and <strong>Table Prefix</strong> as wp_. <br/>
+ 
+<img src="images/00037/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
+  </li>
+  
+   <li>Click <strong>Submit</strong>.<br />
+  The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
+<img src="images/00037/090815/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
+</li>
+</ol>
      <h2>Continue setup in the WordPress web interface</h2>
       
       <ol>
