@@ -109,7 +109,7 @@ p.note {
 
     <h2>Configure the target server to accept remote connections</h2>
     <ol>
- <li>Open a session on DBServer</li>
+ <li>Log in to DBServer</li>
         <li>Use <code>find / -name my.cnf </code>to find the location of your <code>my.cnf</code> file.&nbsp; Usually it will be under <code>/etc</code> or&nbsp;<code>/etc/mysql</code>.</li>
         <li>Open <code>my.cnf</code> for editing. Ignoring all commented lines, it should look something like this: 
      <div class="hacker"><br />
@@ -145,14 +145,17 @@ bind-address = DBServer_IPAddress  <br />
   <h2>Backup your StackServer database and restore it to DBServer</h2> 
     
     <ol>
-        <li>Open a session on StackServer</li>
+        <li>Log in to StackServer</li>
         <li>Backup StackServer MyDB 
             <div class="hacker"> mysqldump --databases MyDB -u sqladmin -p  > MyDBdump.sql</div>
 </li>        
     <li>Copy the backup to DBServer 
-       <div class="hacker"> scp MyDBdump.sql randomcode@192.169.170.143:MyDBdump.sql</div>
-</li>
+       <div class="hacker"> scp MyDBdump.sql sqladmin@DBServer:MyDBdump.sql</div>
+This will create a file, MyDBdump.sql on DBserver.</li>
  <li>Open a session on DBServer</li>
+        <li>Verify the location of the file by finding it.
+            <div class="hacker"> sudo find / -name MyDBdump.sql </div>
+       Use the path to that file in the command below. </li>
  <li>Restore the MyDB backup to DBServer 
        <div class="hacker"> mysql -u sqladmin -p &lt; MyDBdump.sql </div>
 </li>
