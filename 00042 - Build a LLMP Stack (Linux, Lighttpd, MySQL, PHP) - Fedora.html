@@ -86,7 +86,7 @@ td:nth-child(1) {font-weight:bold;}
         <strong>Time</strong>: <em><u>20 minutes</u></em>
     </p>
     <p>
-        LLMP is an acronym used for the software suite that is used by developers and administrators to serve web applications quickly on a stable platform. In this article, you will learn how to build a LLMP stack on Fedora.
+        LLMP is an acronym used for the software suite that is used by developers and administrators to serve web applications quickly on a stable platform. In this article, you will learn how to build a LLMP stack on Fedora 20 and 21.
     </p>
     <h2>Prerequisites</h2>
     <p>
@@ -112,11 +112,11 @@ td:nth-child(1) {font-weight:bold;}
 
         </li>
         <li>
-            To verify that Lighttpd is installed, type this URL in a browser: <strong>http://<em><u>your IP address</u></em>.</strong> You will see a test page like this: <br />
-            <img src="images/00042/Build-LLMP-stack-on-Fedora.png" width="600" height="387" alt="Fedora confirmation page" />    <br />
-            If you do not know your IP address, you can <a href="/article/19041?prog_id=PROG_ID">look it up</a>.
+            To verify that Lighttpd is installed, type this URL in a browser: <strong>http://<em><u>your server address</u></em>.</strong> 
+            You will see a Lighttpd test page. If you do not know your IP address, you can <a href="/article/19041?prog_id=PROG_ID">look it up</a>.
 
         </li>
+        
     </ol>
 
 
@@ -153,19 +153,15 @@ td:nth-child(1) {font-weight:bold;}
         <div class="hacker">sudo vim /etc/php-fpm.d/www.conf</div>
         Find the following block :
         <div class="hacker">
-        <pre>
-; Unix user/group of processes
+        <pre>; Unix user/group of processes
 ; Note: The user is mandatory. If the group is not set, the default user's group
 ;       will be used.
 ; RPM: apache Choosed to be able to access some dir as httpd
 user = apache
 ; RPM: Keep a group allowed to write in log dir.
-group = apache
-
-</pre> </div></li>
+group = apache</pre> </div></li>
         
-        <li>Change <code>user=apache</code> to <code>user=lighttpd</code> and <code>group=apache</code> to <code>group=lighttpd</code>.</li>
-  
+          Change <code>user=apache</code> to <code>user=<em><u>lighttpd</u></em></code> and <code>group=apache</code> to <code>group=<em><u>lighttpd</u></em></code>.
         <li>Save and exit the file.</li>
    <li>This step is recommended, even though it's optional. Create a system startup link for PHP-FPM to start every time the system boots up.
         <div class="hacker">sudo chkconfig --levels 235 php-fpm on</div>
@@ -180,15 +176,18 @@ group = apache
             <div class="hacker">sudo vim /etc/php.ini</div>
             </li>
             <li>Uncomment the following line :
-            <div class="hacker"><pre>cgi.fix_pathinfo=1</pre></div></li>
+            <div class="hacker">cgi.fix_pathinfo=1</div></li>
             <li>Save and exit the file.
         </li>
         <li>
             Edit the <code>modules.conf</code> file.
             <div class="hacker">sudo vim /etc/lighttpd/modules.conf</div>
             Uncomment the following line :
-            <div class="hacker"><pre>include "conf.d/fastcgi.conf"</pre></div>
+            <div class="hacker">include "conf.d/fastcgi.conf"</div>
         </li>
+
+ <li>Save and exit the file.</li>
+
         <li>Edit the <code>fastcgi.conf</code> file.
         <div class="hacker">sudo vim /etc/lighttpd/conf.d/fastcgi.conf</div>
          Enter the following block of code just after the <code>server.modules += ( "mod_fastcgi" )</code> line and before the PHP Example.
@@ -225,8 +224,9 @@ group = apache
     </ol>
     
     <h2>Next steps</h2>
-    <p>You have successfully built a LLMP  stack on your server. If you are interested, you can take a look at <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18811 - Set Up Multiple SSL Certificates on One IP with Lighttpd - CentOS, Fedora.html">Setting up multiple SSL certificates on one IP</a> </p>
+  
+  <p>Congratulations! You have successfully built a LLMP stack on your server. 
 
-
+        <!--CT: Commenting out because this article's not written yet... If you are interested, you can learn more about <a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18811 - Set Up Multiple SSL Certificates on One IP with Lighttpd - CentOS, Fedora.html">setting up multiple SSL certificates on one IP</a>. ...--> </p>
 </body>
 </html>
