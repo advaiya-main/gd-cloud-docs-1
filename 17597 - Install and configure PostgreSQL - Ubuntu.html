@@ -104,9 +104,30 @@ PostgreSQL is an open-source relational database management system. PostgreSQL u
 <li>Log in with the <code>postgres</code> user.
    <div class="hacker">sudo su - postgres</div>
   </li>
+  <li>Create a  database user.
+  <div class ="hacker">createuser -s <em><u>username</u></em><div>
+  </li>
    <li>Log into the database.
      <div class="hacker">psql</div>
    </li>
+   <li>Set the password for database user.
+   <div class ="hacker">\password username</div>
+   </li>
+   <li>Create a database.
+   <div class ="hacker">createdb <em><u>databasename</u></em></div>
+    </li>
+<li>Remove or drop the database.
+<div class ="hacker">dropdb <em><u>databasename</u></em></div>
+</li>
+<li>Create a table in the database.
+<div class ="hacker"> CREATE TABLE <em><u>Table_name</u></em> (name varchar(80), location char(100));</div>
+</li>
+<li>List all the relations.
+<div class ="hacker">\d+</div>
+</li>
+<li>Drop a table.
+<div class ="hacker">DROP TABLE <em><u>Table_name</u></em>
+</li>
    <li>Exit from  the <code>postgres=#</code> prompt.
      <div class="hacker">\q</div>
    </li>
