@@ -122,12 +122,12 @@ Make sure that the text makes sense and that words are not left out.
 	<li>Login into the host machine.</li>
 	<li>Update the CentOS/Fedora server.
 		<div class='hacker'>
-			yum -y update --skip-broken
+			sudo yum -y update --skip-broken
 		</div>
 	</li>
 	<li>Install development tools.
 		<div class='hacker'>
-			yum groupinstall -y 'development tools'
+			sudo yum groupinstall -y 'development tools'
 		</div>
 	</li>
 	<li>Install the additional packages.
@@ -138,10 +138,10 @@ Make sure that the text makes sense and that words are not left out.
 			sudo su -c 'rpm -Uvh http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm'
 		</div>
 		<div class='hacker'>
-			yum install -y curl-devel nano sqlite-devel libyaml-devel
+			sudo yum install -y curl-devel nano sqlite-devel libyaml-devel
 		</div>
 		<div class='hacker'>
-			yum -y update --skip-broken
+			sudo yum -y update --skip-broken
 		</div>
 	</li>
 	</ol>
@@ -241,7 +241,7 @@ timeout 20</pre></div>
 <h2>Set up NGINX as Reverse-Proxy and Load-Balancer</h2>
 <ol>
 <li>Install NGINX.
-<div class='hacker'>yum install -y nginx</div>
+<div class='hacker'>sudo yum install -y nginx</div>
 
 </li>
 <li>Identify and note the Public IP.
@@ -253,7 +253,7 @@ timeout 20</pre></div>
 </li>
 
 <li>Open the NGINX configuration file for editing.
-<div class='hacker'>vim /etc/nginx/nginx.conf</div>
+<div class='hacker'>sudo vim /etc/nginx/nginx.conf</div>
 </li>
 <li>
 <p>Locate the line about inclusion of all <code>.conf files</code> inside the block <code>http {…}</code>, and comment out that line. </p>
@@ -298,7 +298,7 @@ server {
 <h2> Start NGINX </h2>
 <ol>
 <li>Start the NGINX daemon by typing the below command:
-<div class='hacker'>service nginx start</div>
+<div class='hacker'>sudo service nginx start</div>
 </li>
 <li>Check that NGINX server is running, by typing the public IP address directly into the web browser.
 <div class='hacker'>http://192.169.171. 138/</div></li>
