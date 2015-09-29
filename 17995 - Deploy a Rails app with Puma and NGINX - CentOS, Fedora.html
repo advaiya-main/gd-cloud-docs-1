@@ -91,53 +91,29 @@ p.note {
   
   
   
-	<h2>Change PostgreSQL configuration</h2>
-<ol>
-<li>Open the configuration file.
-<div class="hacker">sudo vim /var/lib/pgsql/9.4/data/pg_hba.conf
-</div>
-</li>
-<li>Look for the line <code>Database administrative</code> at the end of the file, and then replace the existing line with the following.
-<div class="hacker">
-<pre>
-# Database administrative login by Unix domain socket
-local   all             postgres                                peer
-# TYPE  DATABASE        USER            ADDRESS                 METHOD
-# "local" is for Unix domain socket connections only
-local   all             all                                     peer
-# IPv4 local connections:
-host    all             all             127.0.0.1/32            md5
-# IPv6 local connections:
-host    all             all             ::1/128                 md5
-# Allow replication connections from localhost, by a user with the
-# replication privilege.
-#local   replication     postgres                                peer
-#host    replication     postgres        127.0.0.1/32            md5
-#host    replication     postgres        ::1/128                 md5
-</pre>
-</div>
-</li>
+
+<!--<ol>
 <li>Disable SELinux.  
 <div class="hacker">setsebool -P httpd_can_network_connect 1</div>
 </li>
-</ol>
+</ol>-->
 
 <h2>Create a database user for production</h2>
 <ol>
 <li>Create a <code>postgres</code> username for the database. 
-<div class="hacker"> sudo -u postgres createuser -s myapp</div>
+<div class="hacker"> sudo -u postgres createuser -s <em><u>your_application</u></em></div>
 </li>
 <li>Provide a password to the database user.
 <div class="hacker">sudo -u postgres psql</div>
 </li>
 <li>Type the following command in the PostgreSQL prompt. 
-<div class="hacker">\password myapp</div>
+<div class="hacker">\password <em><u>your_application</u></em></div>
 </li>
 <li>When prompted for the password, enter a desired password, and then confirm it. Press <strong>\q</strong> to exit.
 <div class="hacker">\q # for exit</div>
 </li>
 <li>Make sure that you are in Rails application’s root directory. If not, then change the directory.
-<div class="hacker">cd /path/to/myapp</div>
+<div class="hacker">cd <em><u>/path/to/your_application</u></em></div>
 </li>
 <li>Open the database configuration file: <code>database.yml.</code>
 <div class="hacker">sudo vim config/database.yml</div>
@@ -155,9 +131,9 @@ host: localhost
 <pre>
 production:
   &lt;&lt;: *default
-  database: myapp_production
-  username: myapp
-  password: &lt;%= ENV['MYAPP_DATABASE_PASSWORD'] %&gt;
+  database: <em><u>your_application_production</u></em>
+  username: <em><u>your_application</u></em>
+  password: &lt;%= ENV['<em><u>YOUR_APPLICATION_DATABASE_PASSWORD</u></em>'] %&gt;
 
 &lt;&lt;: *default this line will add configuration from default section
 database section , type your database name here
@@ -178,16 +154,16 @@ database section , type your database name here
 <p class="note">Ensure that you’ve configured/installed rbenv in your machine correctly.</p>
 </li>
 <li>Set the environment variable by changing your directory to the application directory, and then generate the secret key.
-<div class="hacker">cd ~/myapp</div>
+<div class="hacker">cd <em><u>~/your_application</u></em></div>
 <div class="hacker">rake secret</div>
 </li>
 <li>Once you have generated the secret key, you will find a token key. Copy and replace that key. To do this, open <code>.rbenv-vars</code> file into your favorite editor and replace your key with your generated secret key.
 <div class="hacker">vim .rbenv-vars</div>
-<div class="hacker">SECRET_KEY_BASE=your_generated_secret </div>
+<div class="hacker">SECRET_KEY_BASE=<em><u>your_generated_secret</u></em> </div>
 <p class="note">Environment variable that you set in this file will be read by your Rails application.</p>
 </li>
 <li>Set the database password for connection.
-<div class="hacker">MYAPP_DATABASE_PASSWORD=production_database_password</div>
+<div class="hacker">YOUR_APPLICATION_DATABASE_PASSWORD=<em><u>production_database_password</u></em></div>
 </li>
 <li>Set your database environment variable similar to the one that is defined in the database configuration file, <code>database.yml.</code></li>
 <li>Save and Exit. </li>
@@ -212,7 +188,7 @@ database section , type your database name here
 <div class="hacker">RAILS_ENV=production rake assets:precompile</div>
 </li>
 <li>Test the application environments, where you can bind your public IP too.
-<div class="hacker">RAILS_ENV=production rails server --binding=server_public_IP</div>
+<div class="hacker">RAILS_ENV=production rails server --binding=<em><u>server_public_IP</u></em></div>
 </li>
 <li>Open the browser, and then in the address bar type the following text:
 <em>http://server_public_IP:3000/tasks</em></li>
@@ -249,48 +225,14 @@ The installation will take some time.</li>
 <div class="hacker">
 <pre>
 #!/usr/bin/env puma
-
-# app do |env|
-#   puts env
-#
-#   body = 'Hello, World!'
-#
-#   [200, { 'Content-Type' => 'text/plain', 'Content-Length' => body.length.to_s }, [body]]
-# end
-
 environment 'production'
 daemonize false
-
-pidfile '/home/imuser/myapp/tmp/pids/puma.pid'
-state_path '/home/imuser/myapp/tmp/pids/puma.state'
-
-# stdout_redirect 'log/puma.log', 'log/puma_err.log'
-
-# quiet
+pidfile '/home/imuser/your_application/tmp/pids/puma.pid'
+state_path '/home/imuser/your_application/tmp/pids/puma.state'
 threads 0, 16
-bind 'unix:///home/imuser/myapp/tmp/sockets/puma.sock'
-
-# ssl_bind '127.0.0.1', '9292', { key: path_to_key, cert: path_to_cert }
-
-# on_restart do
-#   puts 'On restart...'
-# end
-
-# restart_command '/u/app/lolcat/bin/restart_puma'
-
-
-# === Cluster mode ===
-
+bind 'unix:///home/imuser/your_application/tmp/sockets/puma.sock'
 workers 2 #change workers as per your cpu core
-
-
-# on_worker_boot do
-#   puts 'On worker boot...'
-# end
-
-# === Puma control rack application ===
-
-activate_control_app 'unix:///home/imuser/myapp/tmp/sockets/pumactl.sock'
+activate_control_app 'unix:///home/imuser/your_application/tmp/sockets/pumactl.sock'
 </pre>
 </div>
 </li>
@@ -305,16 +247,14 @@ Save your changes and exit.
 <p>Below are the commands to start, stop, and restart the Puma services.</p> 
 <ul>
   <li>Puma server must be running to execute rails application on browser using NGINX. 
-  <div class="hacker">cd ~/myapp</div>
+  <div class="hacker">cd <em><u>~/your_application</u></em></div>
   <div class="hacker">mkdir tmp/sockets tmp/pids</div>
     <ul>
       <li>To start:  
       <div class="hacker">
-      <pre>
 bundle exec puma -C config/puma.rb -d --pidfile=tmp/pids/puma.pid
--d is for Daemonizing...
-      </pre>
       </div>
+	  <p class="note"><code>-d</code> is for Daemonizing the process.</p>
       </li>
       <li>To stop:
         <div class="hacker">kill -s SIGTERM `cat tmp/pids/puma.pid`</div>
@@ -333,30 +273,34 @@ bundle exec puma -C config/puma.rb -d --pidfile=tmp/pids/puma.pid
 <li>Install NGINX using yum.
 <div class="hacker">sudo yum install nginx</div>
 </li>
+<li>Open the <code>/etc/nginx/nginx.conf</code> configuration file to change the web access permission.
+<div class="hacker">sudo vim /etc/nginx/nginx.conf</div>
+</li>
+<li>set the web access user for rails application.<div class="hacker">user <em><u>username</u></em>;</div></li>
+<li>To save and exit press <strong>Esc</strong> and type the following characters <strong>:wq!</strong></li>
 <li>Open the default server block with a text editor.
 <div class="hacker">
-<pre>
 cd /etc/nginx/conf.d/
-sudo rails_app.conf
-</pre>
 </div>
+<div class="hacker">sudo vim <em><u>rails_app.conf</u></em></div>
 </li>
+
 <li>Add the following text to the configuration file:
 <div class="hacker">
 <pre>
-upstream myapp {
-  server unix:///home/imuser/myapp/tmp/sockets/puma.sock fail_timeout=0;
+upstream <em><u>your_application</u></em> {
+  server unix:///<em><u>home/imuser/your_application</u></em>/tmp/sockets/puma.sock fail_timeout=0;
 }
 server {
   listen 80 deferred;
-  server_name coolexample.com www.coolexample.com;
-  root /home/imuser/myapp/myapp/public;
-  try_files $uri/index.html $uri @myapp;
-  location @myapp {
+  server_name <em><u>coolexample.com</u></em>;
+  root <em><u>/home/imuser/your_application</u></em>/public;
+  try_files $uri/index.html $uri @<em><u>your_application</u></em>;
+  location @<em><u>your_application</u></em> {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_redirect off;
-    proxy_pass http://myapp;
+    proxy_pass <em><u>http://your_application</u></em>;
   }
   error_page 500 504 /500.html;
   error_page 502 /502.html;
