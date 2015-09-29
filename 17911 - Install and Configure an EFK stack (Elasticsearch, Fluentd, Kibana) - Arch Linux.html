@@ -83,21 +83,22 @@
 <p>Using Elasticsearch, Fluentd, and  Kibana (also known as an <em>EFK stack</em>) is a common way to perform data analysis. This combination lets you collect, index, search, and  visualize log data. In this article, you'll  learn how to install an EFK stack on Arch Linux.</p>
 <p>This article assumes that you have <a href="17324 - Initial Server Setup - Arch Linux">completed the initial server setup</a> for your host machine and <span class="note">that you have <code>sudo</code> user privileges.</span></p>
 <h2>Install and configure ElasticSearch</h2>
+<h3>Install ElasticSearch</h3>
 <ol>
 	<li>Log into the Arch Linux machine.</li>
 	<li>Update the server.
 		<div class="hacker">
-		pacman  -Syu
+		sudo pacman  -Syu
 		</div>
 	</li>
 	<li>Install the required packages.
 	  <div class="hacker">
-	  pacman -S zip unzip unrar
+	  sudo pacman -S zip unzip unrar
 	  </div>
 	</li>
 	<li>Install Java.
 		<div class="hacker">
-		pacman -S jre8-openjdk
+		sudo pacman -S jre8-openjdk
 		</div>
 	To confirm a successful installation, check the Java version.
 	  <div class="hacker">
@@ -111,15 +112,18 @@
 	
 	
 	    <div class="hacker">
-			wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz
+			sudo wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz
 	    </div>
 		<div class="hacker">
 			sudo tar xzf elasticsearch-1.7.1.tar.gz
 		</div>
 		<div class="hacker">
-			mv  elasticsearch-1.7.1 /usr/share/elasticsearch
+			sudo mv  elasticsearch-1.7.1 /usr/share/elasticsearch
 		</div>
 	</li>
+	</ol>
+<h3>Configure ElasticSearch</h3>	
+	<ol>
 	<li>Open the Elasticsearch configuration file <code>elasticsearch.yml</code>.
     
 		  To make  Elasticsearch accessible from the public Internet, you need to disable its dynamic scripting so that it can be accessed by the Kibana dashboards.
@@ -130,20 +134,24 @@
 			sudo vim config/elasticsearch.yml
 		</div>
 	</li>
-	<li>Set the  variable <code>script.disable_dynamic</code> to <code>true</code> by appending the following code at  the end:
+	
+	<li>Set the  variable <code>script.disable_dynamic</code> to <code>true</code> by appending the following code at  the end of the file:
 		<div class="hacker">
 			script.disable_dynamic: true
 		</div>
 	</li>
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
 	<li>Start Elasticsearch.
 	  <div class="hacker">
-	   ./bin/elasticsearch
+	   sudo ./bin/elasticsearch
 	  </div>
-	  A successful startup shows an OK message.<br />
+	  A successful startup shows a <code>started</code> message.<br />
+	  To stop the server, press <strong>Ctrl+C</strong>
 	  
   </li>
 </ol>
 <h2>Install and configure Kibana</h2>
+<h3>Install Kibana</h3>
 <ol>
   <li>Move to the home directory for Kibana installation.
 		<div class="hacker">
@@ -161,30 +169,31 @@
 			sudo cp -r kibana-4.1.1* /usr/share/kibana-4.1.1
 		</div>
   </li>
+  </ol>
+<h3>Configure Kibana</h3>
+  <ol>
   <li>Open Kibana's configuration file to change the port from 9200 (the default)   to 80, which is used for interaction with Elasticsearch. 
 	<div class="hacker">
 		sudo vim /usr/share/kibana-4.1.1/config/kibana.yml
 	</div>
   </li>  
   <li>Locate the following code, which is related to the port setting:
-	<div class="hacker"> 
-	<pre>#default port value is 9200
-elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:<span class="style1">9200</span>&quot;,</pre>
-	</div>
+	<div class="hacker">elasticsearch_url: "http://localhost:9200"</div>
   </li>
   
   <li>Update the content as follows: 
-	  <div class="hacker"> 
-	  <pre>#Updated to port value 80
-elasticsearch: &quot;http://&quot;+window.location.hostname+&quot;:<span class="style1">80</span>&quot;,</pre>
-	  </div>
+	  <div class="hacker">elasticsearch_url: "http://localhost:<em><u>80</u></em>"</div>
   </li>
+  	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+  </ol>  
+<h3>Install and configure Nginx</h3>
+  <ol>
   <li>Install Nginx, which can be used as the proxy server. This enables access to the Kibana dashboards from the Internet.
 	  <div class="hacker"> 
 		sudo pacman -S nginx
 	  </div>
   </li>
-  <li>Create the Nginx configuration file.
+  <li>Create and open the Nginx configuration file.
 	  <div class="hacker"> 
 		sudo vim /etc/nginx/nginx.conf
 	  </div>
@@ -227,15 +236,13 @@ http
    
     server {
           listen       80;
-          server_name  localhost;
-   
+          server_name  <em><u>localhost</u></em>;
           #charset koi8-r;
-   
-          #access_log  logs/host.access.log  main;
+          access_log  <em><u>/var/log/nginx/kibana.log</u></em>;
    
           location /
 			{
-				root  /usr/share/kibana-4.1.1;
+				root  /usr/share/<em><u>kibana-4.1.1</u></em>;
 				index  index.html  index.htm;
 			}
    
@@ -272,12 +279,12 @@ http
 		  # Password protected end points
 		  location ~ ^/kibana-int/dashboard/.*$
 			{
-				proxy_pass http://127.0.0.1:9200;
+				proxy_pass http://192.169.170.193:9200;
 				proxy_read_timeout 90;
 				limit_except
 				GET
 				{
-					proxy_pass http://127.0.0.1:9200;
+					proxy_pass http://192.169.170.193:9200;
 					auth_basic &quot;Restricted&quot;;
 					auth_basic_user_file /etc/nginx/conf.d/kibana.myhost.org.htpasswd;
 				}
@@ -305,6 +312,7 @@ http
 }
 	</pre></div>
   </li>
+  	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
   <li>Restart Nginx.
 		<div class="hacker">
 			sudo systemctl restart nginx
@@ -438,7 +446,7 @@ In this section you'll install Fluentd via Ruby. First, you need to install the 
     &lt;/store&gt;
 &lt;/match&gt; </pre>
 	  </div></li>
-  <li>Save and close by pressing the <strong>ESC</strong> key and then typing <strong>:wq</strong>.</li>
+  	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 
   <li>Test  Fluentd.
 	<div class="hacker">
