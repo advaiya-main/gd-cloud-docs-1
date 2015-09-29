@@ -102,10 +102,10 @@ p.note {
                  <div class="hacker">cd /usr/local/src</div>
 			   </li>
                <li>Download the CouchDB source code.
-			     <div class="hacker">curl -O http://apache.mirrors.tds.net/couchdb/source/1.5.0/apache-couchdb-1.5.0.tar.gz</div>
+			     <div class="hacker">sudo curl -O http://apache.mirrors.tds.net/couchdb/source/1.5.0/apache-couchdb-1.5.0.tar.gz</div>
 			   </li>
                <li>Change the ownership permissions.
-			     <div class="hacker">chown -R username *</div>
+			     <div class="hacker">sudo chown -R username *</div>
 			   </li>
                <li>Unpack the downloaded source code.
 			     <div class="hacker">sudo tar xvzf apache-couchdb-1.5.0.tar.gz</div>
@@ -116,8 +116,7 @@ p.note {
 			   </li>
                <li>Install CouchDB.
 			     <div class="hacker">sudo ./configure</div>
-			    <div class="hacker">sudo rpm -Uvh </div>
-				 <div class="hacker">http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-5.noarch.rpm</div>
+			    <div class="hacker">sudo wget http://www.erlang.org/download/otp_src_R14B01.tar.gz</div>
 				 <div class="hacker">tar zxvf apache-couchdb-1.2.0.tar.gz</div>
 				 <div class="hacker">./configure --with-erlang=/usr/lib64/erlang/usr/include</div>
 			    <div class="hacker">sudo make </div>
