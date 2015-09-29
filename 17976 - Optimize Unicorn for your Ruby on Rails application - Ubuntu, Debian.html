@@ -122,7 +122,6 @@ td:nth-child(1) {font-weight:bold;}
 		<div class="hacker">rbenv install <em><u>2.2.3</u></em> -k</div>
 	</li>
 </ol>
-                             
 
 <h2>Fine-tune the configuration settings</h2>
 <p>To boost the performance of Unicorn, some configuration settings can be checked. These are available in the Unicorn basic configuration file <code>config/unicorn.rb</code>.
@@ -191,10 +190,9 @@ Here are the steps for using unicorn-worker-killer:
 		<div class="hacker">bundle install</div>
 	</li>	
 	<li> Open file <code>config.ru</code> located in the default project directory.
-
 		<div class="hacker">sudo vim config.ru</div>
 	</li>
-	<li>Add the following code to the configuration file, just before the code <code>require ::File.expand_path('../config/environment', __FILE__)</code>. You will need to update the variables <strong>max_requests_min</strong> and <strong>max_requests_max</strong> to the desired values.
+	<li>If not already there, add the following code to the configuration file, just before the code <code>require ::File.expand_path('../config/environment', __FILE__)</code>. You will need to update the variables <strong>max_requests_min</strong> and <strong>max_requests_max</strong> to the desired values.
 		<div class="hacker">
 		<pre>	
   # --- Start of unicorn worker killer code ---
