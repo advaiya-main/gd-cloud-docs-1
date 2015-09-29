@@ -162,17 +162,17 @@ user = apache
 ; RPM: Keep a group allowed to write in log dir.
 group = apache</pre>
         </div>
-        Change <code>user=apache</code> to <code>user=lighttpd</code> and <code>group=apache</code> to <code>group=lighttpd</code>.
+        Change <code>user=apache</code> to <code>user=<em><u>lighttpd</u></em></code> and <code>group=apache</code> to <code>group=<em><u>lighttpd</u></em></code>.
         </li>
 
 <li>Save and exit the file.</li>
 
         <li>Start the service.
         <div class="hacker">sudo systemctl start php-fpm.service </div></li>
-        <li>To enable the PHP in Lighttpd, open the <code>php.ini</code> file.
+        <li>To enable PHP in Lighttpd, open the <code>php.ini</code> file.
         <div class="hacker">sudo vim /etc/php.ini</div>
          Uncomment the following line:
-         <div class="hacker"><pre>cgi.fix_pathinfo=1</pre></div>
+         <div class="hacker">cgi.fix_pathinfo=1</div>
         </li>
 
  <li>Save and exit the file.</li>
@@ -180,13 +180,13 @@ group = apache</pre>
         <li>Open <code>modules.conf</code>.
         <div class=" hacker">sudo vim /etc/lighttpd/modules.conf</div> 
         Uncomment the following line:
-        <div class="hacker"><pre>include "conf.d/fastcgi.conf"</pre></div>
+        <div class="hacker">include "conf.d/fastcgi.conf"</div>
         </li>
  <li>Save and exit the file.</li>
 
         <li>Open <code>fastcgi.conf</code>.
         <div class="hacker">sudo vim /etc/lighttpd/conf.d/fastcgi.conf</div>
-        Add the block of code below after the <code>server.modules += ( "mod_fastcgi" ) </code> line, and before the PHP Example.
+        Add this block of code after the <code>server.modules += ( "mod_fastcgi" ) </code> line, and before the PHP Example.
         <div class="hacker"><pre>fastcgi.server += ( ".php" =>
         ((
                 "host" => "127.0.0.1",
