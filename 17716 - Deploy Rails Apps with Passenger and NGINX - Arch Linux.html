@@ -79,7 +79,7 @@ p.note {
     
 <h2>Prerequisites</h2>
 	 <p>To set up your Arch Linux server, refer to the article: <a href ="17324">Initial Server Setup - Arch Linux</a>. You need to ensure that the fully qualified domain name (FQDN) points to the server. </p> 
-<p>After you have set up the Arch Linux server, you will need to <a href ="17537">install Ruby on Rails using RVM - Arch Linux</a>. You may also refer to the article: <a href ="17720">Deploy Rails Apps with Passenger and Apache - Arch Linux</a> link.</p>
+<p>After you have set up the Arch Linux server, you will need to <a href ="17537">install Ruby on Rails using RVM - Arch Linux</a>. You may also refer to the article: <a href ="17721">Deploy Rails Apps with Passenger and Apache - Arch Linux</a> link.</p>
   
     <h2>Install Nginx and Passenger</h2>
     <ol>
@@ -157,7 +157,7 @@ will be installed for you to a directory of your choice.</pre>
 	</li>
         <li>Make corresponding changes in the file as shown in code.
           <div class='hacker'><pre> server { <br /> listen 80 default_server; <br /> server_name <em><u>www.coolexample.com</u></em>;  #Replace with your FQDN or Server IP <br />passenger_enabled on;
-       <br />rails_env    production; <br />root      <em><u>/var/www/Your_application</u></em>/public;#Rails application path
+       <br />rails_env    development; <br />root      <em><u>/var/www/Your_application</u></em>/public;#Rails application path
 
  # redirect server error pages to the static page /50x.html
  error_page   500 502 503 504  /50x.html;
