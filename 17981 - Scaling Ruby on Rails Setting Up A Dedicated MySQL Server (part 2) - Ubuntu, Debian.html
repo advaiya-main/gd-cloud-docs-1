@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" 
-xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 
 <head>
 
@@ -14,8 +13,7 @@ div.hacker {
 background-color:#666;
 border:1px solid #ccc;
 color:#fff;
-font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  
-margin-bottom:1.5em;  padding:10px; }
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
 
 p.note {
  background-color:#ffffe6;
@@ -45,16 +43,10 @@ p.note {
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
 <mso:ArticleKeywords msdt:dt="string">Ruby, Rails, MariaDB, MySQL, NoSQL, Scaling</mso:ArticleKeywords>
-<mso:Reference 
-msdt:dt="string">https://www.digitalocean.com/community/tutorials/scaling-ruby-on-rails-setting-up-a-dedic
-ated-mysql-server-part-2, 
-https://www.digitalocean.com/community/tutorials/scaling-ruby-on-rails-setting-up-a-dedicated-mysql-server
--part-2</mso:Reference>
+<mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/scaling-ruby-on-rails-setting-up-a-dedicated-mysql-server-part-2, https://www.digitalocean.com/community/tutorials/scaling-ruby-on-rails-setting-up-a-dedicated-mysql-server-part-2</mso:Reference>
 <mso:LinuxDistributions msdt:dt="string">;#Debian;#Ubuntu;#</mso:LinuxDistributions>
 <mso:ArticlePriority msdt:dt="string">3</mso:ArticlePriority>
-<mso:RequestNotes msdt:dt="string">Part 2 of series regarding setup and configuration of dedicated PGSQL 
-server. This will likely need to be built as a series, or if the content model allows - merging into one 
-comprehensive end-to-end guide.</mso:RequestNotes>
+<mso:RequestNotes msdt:dt="string">Part 2 of series regarding setup and configuration of dedicated PGSQL server. This will likely need to be built as a series, or if the content model allows - merging into one comprehensive end-to-end guide.</mso:RequestNotes>
 <mso:Difficulty msdt:dt="string">4</mso:Difficulty>
 <mso:ForkSplit msdt:dt="string"></mso:ForkSplit>
 <mso:ArticleID msdt:dt="string">17981</mso:ArticleID>
@@ -69,20 +61,15 @@ comprehensive end-to-end guide.</mso:RequestNotes>
 <mso:EditScore msdt:dt="string">C</mso:EditScore>
 <mso:PrereqOrdering msdt:dt="string">3</mso:PrereqOrdering>
 <mso:AssignedTo1 msdt:dt="string">12</mso:AssignedTo1>
-<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 
-msdt:dt="string">Tom 
-Taylor</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1 msdt:dt="string">Tom Taylor</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_AssignedTo1>
 <mso:Week msdt:dt="string">8.00000000000000</mso:Week>
 <mso:PercentResearch msdt:dt="string">0.200000000000000</mso:PercentResearch>
 <mso:PercentWriting msdt:dt="string">0.800000000000000</mso:PercentWriting>
-<mso:ReviewComments msdt:dt="string">8/13 - See comments inline.  Image linking needs to be fixed.  Long 
-procedures need to be broken into smaller chunks.
+<mso:ReviewComments msdt:dt="string">8/13 - See comments inline.  Image linking needs to be fixed.  Long procedures need to be broken into smaller chunks.
 8/22 - Original edits were lost.  See comments inline and in the google doc.</mso:ReviewComments>
 <mso:Dependencies msdt:dt="string"></mso:Dependencies>
 <mso:TestComments msdt:dt="string"></mso:TestComments>
-<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy 
-msdt:dt="string">Crystal 
-Smithwick</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
+<mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy msdt:dt="string">Crystal Smithwick</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0023_ReviewedBy>
 <mso:ReviewedBy msdt:dt="string">42</mso:ReviewedBy>
 <mso:HoursDraftingActual msdt:dt="string">3.00000000000000</mso:HoursDraftingActual>
 <mso:HoursEditingActual msdt:dt="string">1.50000000000000</mso:HoursEditingActual>
@@ -93,26 +80,20 @@ Smithwick</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office
 
 <body>
 
-<p>Setting up a dedicated MySQL server to host Ruby on Rails application servers, Ruby, Rails, 
-MariaDB,MySQL,NoSQL,Scaling.</p>
+<p>Setting up a dedicated MySQL server to host Ruby on Rails application servers, Ruby, Rails, MariaDB,MySQL,NoSQL,Scaling.</p>
 
 <h1>Scaling Ruby on Rails: Setting up a dedicated MySQL server (part 2) - Debian , Ubuntu</h1>
 <p><strong>Difficulty: </strong><em><u> 4</u></em></p>
 <p><strong>Time: </strong> <em><u>1 hour</u></em></p>
-<p>This article provides information about creating a database layer using MySQL to host application 
-servers running Ruby on Rails. </p>
+<p>This article provides information about creating a database layer using MySQL to host application servers running Ruby on Rails. </p>
 <h2>Architecture of database server layer - an overview</h2>
-<p>To make the database server centrally accessible, a load-balancer, two application servers, and a 
-database server to set-up the database server layer are required. The architecture will look like the 
-following diagram:</p>
+<p>To make the database server centrally accessible, a load-balancer, two application servers, and a database server to set-up the database server layer are required. The architecture will look like the following diagram:</p>
 
 <img src="images/17981.png" alt="17981" />
-<p> This article will assist you in setting up a dedicated MySQL server and scaling Ruby on Rails 
-applications between the servers in Debian or Ubuntu Linux distributions.</p>
+<p> This article will assist you in setting up a dedicated MySQL server and scaling Ruby on Rails applications between the servers in Debian or Ubuntu Linux distributions.</p>
 
 <h2>Prerequisites</h2>
-This article assumes that the host machine has Ruby on Rails using RVM installed and running. For more 
-details, see:
+This article assumes that the host machine has Ruby on Rails using RVM installed and running. For more details, see:
 <ul>
 <li>
 <a href ="17538">Install Ruby on Rails using RVM on Debian</a>
@@ -121,22 +102,19 @@ details, see:
 <a href ="17534">Install Ruby on Rails using RVM on Ubuntu</a>
 </li>
 </ul>
-This article is part 2 of the scaling Ruby on Rails series articles. To refer the first and third part, 
-visit:
+This article is part 2 of the scaling Ruby on Rails series articles. To refer the first and third part, visit:
 <ul>
 <li>
 <a href = "17952">Scale Ruby on Rails Applications across multiple Servers - Debian, Ubuntu</a>
 </li>
 <li>
-<a href = "17894">Scaling Ruby on Rails: Setting up a dedicated PostgreSQL server (Part 3) - Debian, 
-Ubuntu</a>
+<a href = "17894">Scaling Ruby on Rails: Setting up a dedicated PostgreSQL server (Part 3) - Debian, Ubuntu</a>
 </li>
 </ul>
 
 <p class="note">This article  assumes that you are logged in as a <code>sudo</code> user.</p>  
 
-<p>Based on your needs and application type, choose the database server to build a database layer for 
-your application development. Here are some popular databases:</p>
+<p>Based on your needs and application type, choose the database server to build a database layer for your application development. Here are some popular databases:</p>
 
 <h3>Relational database servers</h3>
 <ul>
@@ -156,20 +134,18 @@ your application development. Here are some popular databases:</p>
 <h2>Install MySQL and other dependencies</h2>
 
 <ol>
-<li>Update operating system  packages and install MySQL.
-
+<li>Update operating system  packages and install MySQL. 
 <div class="hacker"> sudo apt-get install mysql-server mysql-client libmysqlclient-dev </div>
-<p>When promted provide new password.</p>
-</li>
-<li>
+<p>When promted provide new password.
+</p>
+
 <div class= "hacker">sudo apt-get install build-essential </div>
 <div class ="hacker">sudo  apt-get -y update</div>
  </li>
 <li>Initiate the MySQL server daemon by typing:
 <div class="hacker"> sudo /etc/init.d/mysql start </div>
 </li>
-<li>Tell MySQL to create a database directory structure for storing MySQL database directory information 
-by typing:
+<li>Tell MySQL to create a database directory structure for storing MySQL database directory information by typing:
   <div class="hacker"> sudo mysql_install_db </div>
 </li>
 <li>Run the MySQL installation process by typing:
@@ -191,8 +167,7 @@ by typing:
     </pre>
 </div></li
 >
-<li>Enter the current password for root. If you have not created a root password, create it now using 
-the following command:
+<li>Enter the current password for root. If you have not created a root password, create it now using the following command:
 <div class="hacker">
 <pre>
    /usr/bin/mysqladmin -u root password '<em><u>new-password</u></em>'
@@ -214,8 +189,7 @@ Press <strong>Enter.</strong></li>
 </ol>
 <h2>Create a database, database user, and database connection</h2>
 <ol>
-<li>Establish a database connection using MySQL client, and then enter the password for root that was 
-previously set up.
+<li>Establish a database connection using MySQL client, and then enter the password for root that was previously set up.
 
   <div class="hacker"> sudo mysql -u root -p </div>
 </li>
@@ -225,8 +199,7 @@ previously set up.
 <div class="hacker"> create database <em><u>rails_Database_name</u></em>; </div>
 </li>
 <li>Create a new user for your database, and then grant remote and local access to this user.
-  <div class="hacker"> CREATE USER '<em><u>rails_UserName</u></em>'@'localhost' IDENTIFIED BY 'pwd'; 
-</div>
+  <div class="hacker"> CREATE USER '<em><u>rails_UserName</u></em>'@'localhost' IDENTIFIED BY 'pwd'; </div>
 
   <div class="hacker"> CREATE USER '<em><u>rails_UserName</u></em>'@'%' IDENTIFIED BY 'pwd'; </div>
 
@@ -234,7 +207,8 @@ previously set up.
 </li>
 <li>Grant access rights to any specific user by typing:
   <div class="hacker">
-  GRANT ALL ON rails_myapp.* TO '<em><u>rails_UserName</u></em>'@'localhost';
+  GRANT ALL ON rails_myapp.* TO '<em><u>rails_UserName</u></em>'@'localhost;</div>
+  <div class="hacker">
   GRANT ALL ON rails_myapp.* TO '<em><u>rails_UserName</u></em>'@'%';
 </div>
 
@@ -245,8 +219,7 @@ previously set up.
   <li>Exit from database.
     <div class="hacker"> Exit </div>
 </li>
-<li>Open the MySQL database configuration <code>my.cnf</code> to enable remote connections, and then 
-edit it using the <code>vim</code> text editor.
+<li>Open the MySQL database configuration <code>my.cnf</code> to enable remote connections, and then edit it using the <code>vim</code> text editor.
 <div class="hacker"> sudo vim  /etc/my.cnf </div>
                 Type the below mentioned line in this file:
 
@@ -259,8 +232,7 @@ bind-address   =  0.0.0.0
 </pre>
 </div>
 </li>
-<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then 
-pressing the <strong>Enter</strong> key.
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
 
 </li>
 <li>Start MySQL Daemon.
@@ -271,23 +243,23 @@ pressing the <strong>Enter</strong> key.
 <ol>
 <li>Install the gems for MySQL and updates.
   <div class="hacker">
-sudo gem install mysql2
+	gem install mysql2</div>
+	<div class="hacker">
       sudo gem update --system
 </div>
 </li>
 <li>Install Rails package with the following command:
-  <div class="hacker"> sudo gem install rails </div>
+  <div class="hacker"> gem install rails </div>
 </li>
 <li>Create a Rails application and use the <code>-d mysql</code> option to set MySQL as the database.
   <div class="hacker"> rails new <em><u>Your_application</u></em> -d mysql </div>
  </li>
 <li>Go to the application directory.
-  <div class="hacker"> cd rails new <em><u>Your_application</u></em> </div>
+  <div class="hacker">cd <em><u>Your_application</u></em></div>
 </li>
 <li>
  Go to <code>config</code> directory, then and open <code>database.yml</code> file.
-<div class ="hacker">cd config/</div>
-  <div class="hacker"> sudo vim database.yml </div>
+  <div class="hacker"> sudo vim config/database.yml </div>
 </li>
 <li>Replace with following code in production section:
 <div class="hacker">
@@ -297,16 +269,15 @@ production:
   encoding: utf8
   database: <em><u>rails_Database_name</u></em>
   username: <em><u>Your_application</u></em> 
-  password: pwd
-  host:<em><u>Your_IP_Address</u></em>
+  password:<em><u>Your_password</u></em>
+  host:<em><u>Your_Server_IP</u></em>
   port: 3306
   pool: 10
 </pre>
 </div>
 
 </li>
-<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then 
-pressing the <strong>Enter</strong> key.
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
 <div class = "hacker">wq!</div>
 </li>
 </ol>
@@ -318,15 +289,13 @@ pressing the <strong>Enter</strong> key.
       Add the following line:
        <div class="hacker"> gem 'mysql' </div>
 </li>
-<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then 
-pressing the <strong>Enter</strong> key.
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
 </li>
 <li>Install all the dependencies of <code>Gemfile</code>.
     <div class="hacker"> bundle install </div>
 </li>
 </ol>
 <h2>Conclusion</h2>
-<p>In this article, you learned to scale a Ruby on Rails application, and then set up a dedicated MySQL 
-Server on Debian or Ubuntu.</p>
+<p>In this article, you learned to scale a Ruby on Rails application, and then set up a dedicated MySQL Server on Debian or Ubuntu.</p>
 </body>
 </html>
