@@ -69,14 +69,14 @@ p.note {
 
 <body>
 <p>Install and configure CouchDB with Elasticsearch - CentOS, Fedora, NoSQL</p>
-    <h1>Install and configure CouchDB with Elasticsearch - CentOS, Fedora </h1>	
+    <h1>Install and Configure CouchDB with Elasticsearch - CentOS, Fedora </h1>	
     
     <p><strong>Difficulty</strong>: <em>2</em><br />
         <strong>Time</strong>: <em>1.5 hours</em></p>
 
     <p>CouchDB is often categorized as a <em>NoSQL</em> database, and it stores data in <em>JSON (JavaScript Object Notation)</em> format. It is a lightweight, data-interchange format that provides Master-Master replication. Elasticsearch is a popular search server, based on Lucene. It is developed in Java language.</p>
 <p>This article covers the steps to install and configure CouchDB with Elasticsearch on a CentOS or Fedora machine.</p>
-<p class="note">This article assumes that user is logged in with sudo user privileges.</p>
+<p class="note">This article assumes that you are logged in with <code>sudo</code> user privileges.</p>
 
 <h2>Prepare the system</h2>
    
@@ -87,7 +87,7 @@ p.note {
                <li>Install CouchDB dependencies.
 			   <div class="hacker">sudo yum install build-dep erlang</div>
 			   </li>
-               <li>Install Erlang. CouchDB is written in the Erlang language.
+               <li>Install Erlang. (CouchDB is written in the Erlang language).
 			   <div class="hacker">sudo yum install erlang</div>
 			   <div class="hacker">sudo yum install -y erlang-base erlang-dev erlang-nox erlang-eunit</div>
 			   </li>
@@ -131,7 +131,7 @@ p.note {
               <ol>
 			    <li>Create a CouchDB user and create a directory. 
 			      <div class="hacker">sudo mkdir -p /usr/local/var/lib/couchdb &amp;&amp; adduser --system --home /usr/local/var/lib/couchdb --no-create-home --shell /bin/bash --group --gecos "CouchDB" couchdb</div>
-			   <p>When asked for, provide the required information about the user, including full name, id phone and home etc. and press <strong>y</strong> to confirm.<!--There is no Yes key to press. Does the user select yes? Enter yes? Please clarify. cj --> </p> <!-- Updated accordingly-->
+			   <p>When prompted, provide the required information including your full name, ID phone, and so on, and press <strong>yes</strong> to confirm.</p>
 			   </li>
                <li>Change the ownership permission of CouchDB in different directory with recursive order.
 			   <div class="hacker">sudo mkdir -p /usr/local/var/lib/couchdb</div>
@@ -156,7 +156,7 @@ p.note {
 			   </li>
 			   <li>Test the default port of CouchDB. 
 			   <div class="hacker">netstat -an | grep 5984</div>
-			   <p>By default, CouchDB runs on port 5984, which the following output confirms:</p>
+			   <p>By default, CouchDB runs on port 5984, which is confirmed via the following output:</p>
 			   <div class="hacker">tcp   0    0 127.0.0.1:5984      0.0.0.0:*      LISTEN</div>
 			   </li>
                <li>Open the config file <code>local.ini</code> for editing.
@@ -164,7 +164,7 @@ p.note {
 			   </li>
                <li>Uncomment and update the following line:
 			   <div class="hacker">Port:5984</div>
-			   <div class="hacker">bind_address = <em><u>YOUR_VALID_IP_HERE</u></em>;</div><!--Does the default file actually say this, or is this a variable? If a variable, please use the correct formatting: <em><u> cj -->
+			   <div class="hacker">bind_address = <em><u>YOUR_VALID_IP_HERE</u></em>;</div>
 			   <!-- updated with <em> and <u> tags-->
 			   </li>
                <li>Restart the database server CouchDB.
@@ -180,7 +180,7 @@ p.note {
 		   
 		      <h2>Install Elasticsearch </h2>
               <ol>
-				<li>Install the latest java development kit with the <code>yum</code> command.<!--The apt-get command is not in the div. Please reconcile. cj -->
+				<li>Install the latest Java development kit with the <code>yum</code> command.
 <div class="hacker">sudo yum install java-1.7.0-openjdk</div>
 			   </li>
 			    <li>Download the Elasticsearch package with <code>wget</code> command.
@@ -236,7 +236,7 @@ p.note {
                <li>Stop Elasticsearch to avoid any conflicts. 
 			     <div class="hacker">sudo /etc/init.d/elasticsearch stop</div>
 			   </li>
-               <li>Create new directory for Elasticsearch Stores Indices.		<!--Missing or incorrect words. cj --><!-- Updated accorndigly-->	
+               <li>Create new directory for Elasticsearch Stores Indices.		
 			     <div class="hacker">sudo mkdir /var/data/</div>
 			   <div class="hacker">sudo mkdir /var/data/elasticsearch</div>
 			   </li>
@@ -262,7 +262,7 @@ p.note {
                </ol>
            
 		   
-		<h2>Create sample CouchDB database and set up Elasticsearch Index</h2>
+		<h2>Create sample CouchDB database, and set up the Elasticsearch Index</h2>
               <ol>
                <li>Open a new terminal (or connect to the machine using another client), and test Elasticsearch using the following command:
 			     <div class="hacker">curl -X PUT http://127.0.0.1:5984/mydatabse</div>
@@ -315,8 +315,8 @@ p.note {
                </ol>
 			             
     <h2>Conclusion</h2>
-	<p>In this article, you installed and configured CouchDB with Elasticsearch. With the combination of CouchDB, Elasticsearch can perform full text queries on data. This reduces the dependency on map-reduce. Also, when using Elasticsearch with CouchDB, the user need not know the document ID, which further enhances the efficiency.</p><!--This conclusion needs to follow the editorial guidelines: Provide a brief synopsis of what the user just completed; Provide direction for the user to complete a related task (For help determining an appropriate link for another task, use your discretion/expertise.) cj -->
-	<!-- Updated the conclusion acordingly. -->
+	<p>In this article, you installed and configured CouchDB with Elasticsearch. With the combination of CouchDB, Elasticsearch can perform full text queries on data. This reduces the dependency on map-reduce. Also, when using Elasticsearch with CouchDB, the user need not know the document ID, which further enhances the efficiency.</p>
+	
    
 </body>
 </html>
