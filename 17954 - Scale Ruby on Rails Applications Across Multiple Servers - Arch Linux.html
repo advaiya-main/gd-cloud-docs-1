@@ -78,7 +78,7 @@ p.note {
 
 <p>When it comes to building a scalable application server, two key elements are required:</p>
 <ul>
-    <li>Application servers - Unicorn or Rails</li>
+    <li>Application servers – Unicorn or Rails</li>
     <li>Webserver - NGINX</li>
 </ul>
 <p>Unicorn is often the preferred choice for the ease-of-debugging, process management and load balancing capabilities. NGINX is popular because of its light weight web server that will be used as a load-balancer with Unicorn based application for the following example. In this article, you will see ways to scale the Rails application that is configured with database servers like PostgreSQL and MySQL, and enable the app to distribute the load across multiple Arch Linux servers using Unicorn to handle multiple incoming requests.</p> 
@@ -88,10 +88,10 @@ p.note {
 
 <ol> 
 <li>Update your Arch Linux server.
-<div class='hacker'>pacman -Sy</div>
+<div class='hacker'>sudo pacman -Sy</div>
 </li>
 <li>Install curl. 
-<div class='hacker'>pacman -S curl</div>
+<div class='hacker'>sudo pacman -S curl</div>
 </li>
 </ol>
 
@@ -102,7 +102,7 @@ p.note {
 <div class='hacker'>gem install unicorn</div>
 </li>
 <li>Install node.js.
-<div class='hacker'>pacman -S nodejs npm</div>
+<div class='hacker'>sudo pacman -S nodejs npm</div>
 </li>
 </ol>
 
@@ -182,7 +182,7 @@ timeout 20</pre></div></li>
 <h2>Setup Nginx as reverse-proxy and load-balancer</h2>
 <ol>
 <li>Install Nginx.
-<div class='hacker'>pacman -S nginx</div>
+<div class='hacker'>sudo pacman -S nginx</div>
 </li>
 <li>Identify the public IP and note the public IP address of your server, before configuring the NGINX server. For this, <code>ifconfig</code> command can be used.
 <div class='hacker'>ifconfig</div>
@@ -190,7 +190,7 @@ timeout 20</pre></div></li>
 <p>The value provided under the head <code>inet addr</code> is the public IP address of the server.</p>
 </li>
 <li>Open the Nginx configuration file.
-<div class='hacker'>vim /etc/nginx/nginx.conf</div>
+<div class='hacker'>sudo vim /etc/nginx/nginx.conf</div>
 
 <p>Inside the block <code>http {...}</code>, insert the following code:</p>
 
@@ -226,7 +226,7 @@ server {
 <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 
 <li>Start the Nginx daemon by typing the below command:
-<div class='hacker'>systemctl start nginx</div>
+<div class='hacker'>sudo systemctl start nginx</div>
 <p>To check the Nginx server, you can type in the public IP address directly into the web browser: http://<em><u>public_ip</u></em>/. The welcome message by Nginx should be visible:</p>
 <img src="images/17954/091115/welcome-message.png" alt="welcome-message" />
 </li> 
