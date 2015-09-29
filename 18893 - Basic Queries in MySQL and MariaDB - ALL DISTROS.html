@@ -89,8 +89,29 @@ p.note {
 <li><a href="17349">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - CentOS</a>.</li>
 <li><a href="17350">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Arch Linux</a>.</li>
 <li><a href="17351">Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Debian</a>.</li>
-	<!-- LAMP/LEMP is not mandatory to install but MySQL or MariaDB is required only for Database Engine-->
+	
 	</ol>
+<h2>Login to MySQL/MariaDB</h2>
+Make sure that MySQL/MariaDB is installed on machine as well as database already exist.
+<ul><li>Login to MySQL/MariaDB terminal.
+<div class="hacker">mysql -u<em><u>mysql_username</u></em> -p<em><u>mysql_password</u></em></div>
+</li>
+</ul>
+
+
+<h2>Create sample database</h2>
+<ul><li>Create database using the following command if database is not exist.
+<div class="hacker">CREATE DATABASE <em><u>database_name</u></em>;</div>
+</li>
+</ul>
+
+<h2>Create sample table</h2>
+<ul><li>Create database using the following command if database is not exist.
+<div class="hacker">USE <em><u>database_name</u></em>;</div>
+<div class="hacker">CREATE TABLE <em><u>datatable (selected_fied1 VARCHAR(30) NOT NULL,selected_fied2 VARCHAR(30) NOT NULL);</u></em></div>
+</li>
+</ul>
+
 <h2>Fetch information</h2>
 <ul><li>You can tell the database server to fetch information from the <code>datatables</code> table by using the following query:
 <div class="hacker">SELECT <em><u>selected_fied1</u></em> FROM <em><u>datatables</u></em> WHERE <em><u>search_crietaria</u></em>;</div> </li>
