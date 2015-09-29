@@ -93,9 +93,9 @@ td:nth-child(1) {font-weight:bold;}
 
 <p><strong>Difficulty</strong>: 1</p>
 <p><strong>Time</strong>: 30 minutes</p>
-<p>Ruby on Rails&trade; is a well-known framework for web application development. The Ruby Version Manager (RVM) allows developers to easily manage multiple Ruby application environments and switch between them in a most efficient way. </p>
+<p>Ruby on Rails&trade; is a well-known framework for web application development. The Ruby Version Manager (RVM) allows developers to easily manage multiple Ruby application environments and switch between them efficiently. </p>
 
-<p>This article will assist you on how to install Ruby on Rails in CentOS using RVM, and assumes that you have <code>sudo</code> privileges to perform this task. You may want to visit the <a href="17323">Initial Server Setup - CentOS</a> article to setup your CentOS server.</p>
+<p>This article will walk through how to install Ruby on Rails on CentOS 6 or 7 using RVM, and assumes that you have <code>sudo</code> privileges. See <a href="17323 - Initial Server Setup - CentOS.html">Initial Server Setup - CentOS</a> for more on how to set up your server.</p>
 
 <h2>Prepare your system</h2>
 Before you install Ruby on Rails, prepare your system with the required system software.    
@@ -140,7 +140,10 @@ Before you install Ruby on Rails, prepare your system with the required system s
         <li>To check Ruby version, type:
           <div class='hacker'>ruby -v</div>
       </li>
-        <li>Rail asset pipeline needs JavaScript runtime to compile code. On CentOS, <code>nodejs</code> (a server-side JavaScript environment) is preferred. To install Node.js, type the following command:
+       
+        <li><p>The Asset Pipeline in Rails needs JavaScript runtime to compile code. On CentOS, it's best to use Node.js (a server-side JavaScript environment). </p>
+
+  Before installing nodejs, first add it to your PPA repository:
           <div class='hacker'>sudo yum install nodejs</div>
       </li>
 	  
