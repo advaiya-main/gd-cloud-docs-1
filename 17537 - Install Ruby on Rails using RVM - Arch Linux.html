@@ -95,7 +95,7 @@ td:nth-child(1) {font-weight:bold;}
 
 <p>Ruby on Rails&trade; is a well-known framework for web application development. The Ruby Version Manager (RVM) allows developers to easily manage multiple Ruby application environments and switch between them in an efficient way. </p>
 
-<p>This article walks through how to install Ruby on Rails on Debian using RVM, and assumes that you have <code>sudo</code> privileges. See <a href="17324 - Initial Server Setup - Arch Linux.html">Initial Server Setup - Arch Linux</a> for more on how to set up your server.</p>
+<p>This article walks through how to install Ruby on Rails on Arch Linux using RVM, and assumes that you have <code>sudo</code> privileges. See <a href="17324 - Initial Server Setup - Arch Linux.html">Initial Server Setup - Arch Linux</a> for more on how to set up your server.</p>
     <h2>Prepare your system</h2>
 Before you install Ruby on Rails, prepare your system with the required system software.    
     <ol>
@@ -152,7 +152,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
 	 To check ruby version, type:
 	 <div class = "hacker">ruby -v</div>
     </li>
-       <li>The Asset Pipeline in Rails needs JavaScript runtime to compile code. On Arch Linux, it's best to use Node.js (a server-side JavaScript environment).
+       <li>The Asset Pipeline in Rails needs JavaScript runtime to compile code. We'll use the widely-accepted Node.js (a server-side JavaScript environment). Install it now.
      <div class='hacker'>sudo pacman -S nodejs</div>
     </li>
 </ol>
