@@ -134,11 +134,12 @@ Before you install Ruby on Rails, prepare your system with the required system s
 </li>
 
 
-<li>Update all package of operating system and prevent any dependencies of Rails libraries, install <code>nodejs</code> by typing: 
+<li>Update all package managers and prevent any dependencies of Rails libraries:
 <div class="hacker">sudo apt-get update</div>
 
-  <div class="hacker">sudo add-apt-repository ppa:chris-lea/node.js</div>
+  <div class="hacker">sudo add-apt-repository ppa:chris-lea/node.js</div></li>
 
+<li>Rail asset pipeline needs JavaScript runtime to compile code. On Ubuntu, it's best to use nodejs (a server-side JavaScript environment). Install it using apt-get.
 <div class="hacker">sudo apt-get install nodejs</div>
 </li>
 </ol>
@@ -158,7 +159,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
     </ol>
 <h2>Install Rails</h2>
 <ol>
-<li>Use gem to install Rails. This will take some time to install. 
+<li>Use gem to install the most recent stable release of Rails. 
 
   <div class="hacker">gem  install rails </div>
   To check the version, type:
