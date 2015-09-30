@@ -102,7 +102,7 @@ td:nth-child(1) {font-weight:bold;}
 <li>Open your WordPress <code>/etc/nginx/sites-available/wordpress</code> file to edit.
 <div class="hacker">sudo vim /etc/nginx/sites-available/wordpress</div></li>
 
-<li>In the server block, find try_files and modify the line so it looks like this.
+<li>In the default location context, find the try_files statement and modify the line so it looks like this.
 <div class="hacker">try_files $uri $uri/ /index.php?q=$ur&amp;$args;</div>
 
   So, the entire section may look like this (truncated in this example):

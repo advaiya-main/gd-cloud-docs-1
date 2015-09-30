@@ -7,7 +7,7 @@
 <!--Article Number is 17550 -->
 
 
-<title>Create temporary and oermanpnt redirects with Apache and Nginx - ALL DISTROS</title>
+<title>Create temporary and permanent redirects with Apache and Nginx - ALL DISTROS</title>
 <style type="text/css">
 div.hacker {
 background-color:#666;
@@ -37,6 +37,13 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 ;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
 </style>
 
 
@@ -69,11 +76,15 @@ p.note {
 <p>Setting up permanent and temporary redirects, Apache, Nginx</p>
     <h1>Create temporary and permanent redirects with Apache and Nginx - ALL DISTROS</h1>
     
-    <p><strong>Difficulty</strong>: <em>2</em><br/>
+    <p><strong>Difficulty</strong>: <em>2</em><br />
         <strong>Time</strong>: <em>45 minutes</em></p>
 
     <p>Redirects are required when you are moving to a new domain, expanding your domain, or forcing SSL. This article explains how to create redirects with Apache and Nginx.</p>
 	<p class="note">You will need <code>sudo</code> privileges to complete these steps. </p>
+  
+  <h2>Prerequisite</h2>
+  <p>You need to either have Apache or Nginx installed. </p>
+ Point your server to domain name. If you are using COMPNAY_NAME 
 
      <h2>Methods for redirects</h2>
 <ul> 
@@ -91,7 +102,7 @@ p.note {
    <p>This directive is included in the <code>mod_alias</code> module and is used for simple, single-page redirects. It takes two arguments - old and new URLs.</p>
 <ol> 
    <li>Open the appropriate file, depending on your distribution, in any editor.
-   <table border ="1">
+   <table >
    <tr>
    <td>Ubuntu</td>
    <td><code>/etc/apache2/sites-available/000-default.conf</code></td>
@@ -155,7 +166,7 @@ RedirectMatch ^/ <em><u>customers</u></em>/(.*)$ http://<em><u>customers.coolexa
   <h2>Redirect in Nginx</h2>
 <ol> 
 <li>If you want to redirect requests from <code>coolexample.com</code> to <code>coolexample.net,</code> open the appropriate file based on your distribution in any editor.
-<table border = "1">
+<table >
 <tr>
 <td>Ubuntu</td>
 <td><code>/etc/nginx/sites-available/default</code></td>

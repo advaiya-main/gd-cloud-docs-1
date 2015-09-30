@@ -107,18 +107,18 @@
 	</li>
 	<li>Install the Elasticsearch deb packages.
 
-	<p class="note">These commands are  for version 1.7.1. To obtain the latest version, visit the <a href="http://www.elasticsearch.org/download/" target="_top"> Elasticsearch download page</a>.</p>
+	<p class="note">These commands are  for version <em><u>1.7.1</u></em>. To obtain the latest version, visit the <a href="http://www.elasticsearch.org/download/" target="_top"> Elasticsearch download page</a>.</p>
 	
 	
 	
 	    <div class="hacker">
-			sudo wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz
+			sudo wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-<em><u>1.7.1</u></em>.tar.gz
 	    </div>
 		<div class="hacker">
-			sudo tar xzf elasticsearch-1.7.1.tar.gz
+			sudo tar xzf elasticsearch-<em><u>1.7.1</u></em>.tar.gz
 		</div>
 		<div class="hacker">
-			sudo mv  elasticsearch-1.7.1 /usr/share/elasticsearch
+			sudo mv  elasticsearch-<em><u>1.7.1</u></em> /usr/share/elasticsearch
 		</div>
 	</li>
 	</ol>
@@ -140,7 +140,7 @@
 			script.disable_dynamic: true
 		</div>
 	</li>
-	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
 	<li>Start Elasticsearch.
 	  <div class="hacker">
 	   sudo ./bin/elasticsearch
@@ -184,7 +184,7 @@
   <li>Update the content as follows: 
 	  <div class="hacker">elasticsearch_url: "http://localhost:<em><u>80</u></em>"</div>
   </li>
-  	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+  	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
   </ol>  
 <h3>Install and configure Nginx</h3>
   <ol>
@@ -312,7 +312,7 @@ http
 }
 	</pre></div>
   </li>
-  	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+  	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
   <li>Restart Nginx.
 		<div class="hacker">
 			sudo systemctl restart nginx

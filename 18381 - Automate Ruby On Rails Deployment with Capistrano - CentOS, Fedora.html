@@ -136,97 +136,98 @@ p.note {
 <div class='hacker'>sudo vim /etc/rc.d/init.d/nginx</div>
 </li>
 <li>Add the following lines in this file:
-<div class='hacker'><pre>    #!/bin/sh
-	. /etc/rc.d/init.d/functions
-	. /etc/sysconfig/network
-	[ "$NETWORKING" = "no" ] &amp;amp;&amp;amp; exit 0
+<div class='hacker'><pre>
+	#!/bin/sh
+        . /etc/rc.d/init.d/functions
+        . /etc/sysconfig/network
+        [ "$NETWORKING" = "no" ] && exit 0
 
-	nginx="/opt/nginx/sbin/nginx"
-	prog=$(basename $nginx)
+        nginx="/opt/nginx/sbin/nginx"
+        prog=$(basename $nginx)
 
-	NGINX_CONF_FILE="/opt/nginx/conf/nginx.conf"
+        NGINX_CONF_FILE="/opt/nginx/conf/nginx.conf"
 
-	lockfile=/var/lock/subsys/nginx
+        lockfile=/var/lock/subsys/nginx
 
-	start() {
-  	  [ -x $nginx ] || exit 5
-  	  [ -f $NGINX_CONF_FILE ] || exit 6
-  	  echo -n $"Starting $prog: "
- 	  daemon $nginx -c $NGINX_CONF_FILE
-   	 retval=$?
-  	  echo
-    	[ $retval -eq 0 ] &amp;amp;&amp;amp; touch $lockfile
-    	return $retval
-	}
+        start() {
+          [ -x $nginx ] || exit 5
+          [ -f $NGINX_CONF_FILE ] || exit 6
+          echo -n $"Starting $prog: "
+          daemon $nginx -c $NGINX_CONF_FILE
+         retval=$?
+          echo
+        [ $retval -eq 0 ] && touch $lockfile
+        return $retval
+        }
 
-	stop() {
-    	echo -n $"Stopping $prog: "
-    	killproc $prog -QUIT
-   	 retval=$?
-   	echo
-    	[ $retval -eq 0 ] &amp;amp;&amp;amp; rm -f $lockfile
-   	 return $retval
-	}
+        stop() {
+        echo -n $"Stopping $prog: "
+        killproc $prog -QUIT
+         retval=$?
+        echo
+        [ $retval -eq 0 ] && rm -f $lockfile
+         return $retval
+        }
 
-	restart() {
-    	configtest || return $?
-   	 stop
-  	  start
-	}
+        restart() {
+        configtest || return $?
+         stop
+          start
+        }
+		reload() {
+          configtest || return $?
+         echo -n $”Reloading $prog: ”
+           killproc $nginx -HUP
+         RETVAL=$?
+         echo
+        }
 
-	reload() {
-  	  configtest || return $?
-   	 echo -n $”Reloading $prog: ”
- 	   killproc $nginx -HUP
-   	 RETVAL=$?
-   	 echo
-	}
+        force_reload() {
+        restart
+        }
 
-	force_reload() {
-    	restart
-	}
+        configtest() {
+        $nginx -t -c $NGINX_CONF_FILE
+        }
 
-	configtest() {
-    	$nginx -t -c $NGINX_CONF_FILE
-	}
+        rh_status() {
+         status $prog
+        }
+		  rh_status_q() {
+        rh_status>/dev/null 2>1
+        }
 
-	rh_status() {
-   	 status $prog
-	}
+        case "$1" in
+        start)
+        rh_status_q && exit 0
+        $1
+        ;;
+        stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+        restart|configtest)
+        $1
+        ;;
+        reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+        force-reload)
+        force_reload
+        ;;
+        status)
+        rh_status
+        ;;
+        condrestart|try-restart)
+        rh_status_q || exit 0
+        ;;
+        *)
+        echo $"Usage: $0 {start|stop|status|restart|condrestart|try-    restart|reload|force-reload|configtest}"
+        exit 2
+        esac
 
-	rh_status_q() {
-    	rh_status >/dev/null 2>&amp;amp;1
-	}
 
-	case "$1" in
-	start)
-	rh_status_q &amp;&amp; exit 0
-	$1
-	;;
-	stop)
-	rh_status_q || exit 0
-	$1
-	;;
-	restart|configtest)
-	$1
-	;;
-	reload)
-	rh_status_q || exit 7
-	$1
-	;;
-	force-reload)
-	force_reload
-	;;
-	status)
-	rh_status
-	;;
-	condrestart|try-restart)
-	rh_status_q || exit 0
-	;;
-	*)
-	echo $"Usage: $0 {start|stop|status|restart|condrestart|try-	restart|reload|force-reload|configtest}"
-	exit 2
-	esac
 </pre></div>
 </li>
 <li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key. </li> 
@@ -258,8 +259,8 @@ Open the Nginx configuration file.
 </li>
 <li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key. </li> 
 <li>Start and check the status of the Nginx service.
-  <div class='hacker'>sudo /etc/init.d/nginx restart</div>
-<div class='hacker'>sudo /etc/init.d/nginx status</div>
+  <div class='hacker'>sudo /etc/rc.d/init.d/nginx restart</div>
+<div class='hacker'>sudo /etc/rc.d/init.d/nginx status</div>
 </li>
 </ol>
 <h3>Set up Capistrano</h3>
@@ -268,14 +269,14 @@ Open the Nginx configuration file.
 <div class='hacker'>gem install capistrano</div>
 </li>
 <li>Create a system  user for deployment.
-<div class='hacker'>sudo adduser <em><u>UserName</u></em></div>
-<div class='hacker'>sudo passwd <em><u>UserName</u></em></div>
+<div class='hacker'>sudo adduser <em><u>username</u></em></div>
+<div class='hacker'>sudo passwd <em><u>username</u></em></div>
 </li>
 <li>Open the <code>/etc/sudoers</code> file.
   <div class='hacker'>sudo vim /etc/sudoers</div></li>
 
 <li>Scroll down to the bottom of this  file, and find where root is defined. Add the following line:
-  <div class='hacker'><pre>  <em><u>UserName</u></em> ALL=(ALL) ALL
+  <div class='hacker'><pre>  <em><u>username</u></em> ALL=(ALL) ALL
 </pre></div></li>
 <li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key. </li> 
 </ol>
@@ -304,18 +305,20 @@ Open the Nginx configuration file.
 		</li>
 		<li>Test your application by running the following command in the application directory:
 
-		  <div class='hacker'> rails s</div>
+		  <div class='hacker'> rails server</div>
 		</li>
 		<li>For binding to a web browser, run the following command:
 
 		  <div class='hacker'> rails server --binding=[<em><u>your server's IP</u></em>]</div>
-		You should now be able to access it on any browser by typing:
+		You should now be able to access it on any browser by typing: <strong>http://your_server's_IP:3000</strong>.
 
-		  <div class='hacker'> visiting: http://<em><u>your server's IP</u></em>:3000</div>
+		 
 		</li>
 </ol>
 <h3>Create a Git repository</h3>
-		<ol><li>Install Git.
+		<ol>
+		<li><p>Login on git hub with your credentials and create a repository with same name as your rail application.</p></li>
+		<li>Install Git.
 		<div class='hacker'>sudo yum install git</div>
 		</li>
 		<li>Initiate the repository.
@@ -336,7 +339,7 @@ Open the Nginx configuration file.
 	
 	<div class='hacker'>sudo cat /root/.ssh/id_rsa.pub</div>
 	  Or
-      <div class='hacker'>sudo cat /home/<em><u>UserName</u></em>/.ssh/id_rsa.pub </div>
+      <div class='hacker'>sudo cat /home/<em><u>username</u></em>/.ssh/id_rsa.pub </div>
 		(for <code>sudo</code> user)</li>
 	<li>Push the project's source code to your GitHub account.
 	  <div class='hacker'>git push -u origin master </div>
@@ -359,7 +362,7 @@ Open the Nginx configuration file.
 	  <p>The  <code>deploy.rb</code> file contains arguments and settings relevant to the deployment server(s). Here, you will tell Capistrano  which server(s) you would like to connect to, to complete the deployment, and how.</p>
 	  <div class='hacker'>sudo vim config/deploy.rb</div>
 	  </li>
-	  <li>Add the following lines, and modify it if you want:
+	  <li>Make corresponding changes in your file as shown:
 	    <div class='hacker'>
 	    <pre># Define the name of the application
 	set :application, '<em><u>Your_application</u></em>'
@@ -367,10 +370,10 @@ Open the Nginx configuration file.
 	# Define where can Capistrano access the source repository
 	# set :repo_url, 'https://github.com/[user name]/[application 	name].git'
 	set :scm, :git
-	set :repo_url, 'https://github.com/<em><u>GitHub_UserName</u></em>/<em><u>Your_application</u></em>/<em><u>Your_application</u></em>.git'
+	set :repo_url, 'https://github.com/<em><u>GitHub_UserName</u></em>/<em><u>Your_application</u></em>.git'
 
 	# Define where to put your application code
-	set :deploy_to, "/var/www/<em><u>Your_application</u></em>" // rail application path
+	set :deploy_to, "/var/www/<em><u>Your_application</u></em>" 
 
 	set :pty, true
 
@@ -415,25 +418,26 @@ Open the Nginx configuration file.
 		<li>Enter the following server setting in this file:
 		  <div class='hacker'>
 		    <pre># Define roles, user and IP address of deployment server
-	# role :name, %{[user]@[IP adde.]}
-	role :app, %w{<em><u>UserName</u></em>@162.243.74.190} // YOUR PUBLIC IP
-	role :web, %w{<em><u>UserName</u></em>@162.243.74.190}
-	role :db,  %w{<em><u>UserName</u></em>@162.243.74.190}
+# role :name, %{[user]@[IP adde.]}
+role :app, %w{username@162.243.74.190}
+role :web, %w{username@162.243.74.190}
+role :db,  %w{username@162.243.74.190}
 
-	# Define server(s)
-	server '162.243.74.190', user: '<em><u>UserName</u></em>', roles: %w{web}
+# Define server(s)
+server '162.243.74.190', user: 'username', roles: %w{web}
 
-	# SSH Options
-	# See the example commented out section in the file
-	# for more options.
-	set :ssh_options, {
-    	forward_agent: false,
-    	auth_methods: %w(password),
-    	password: 'System_User_Password’,
-  	  user: '<em><u>UserName</u></em>',
-	}
+# SSH Options
+# See the example commented out section in the file
+# for more options.
+set :ssh_options, {
+    forward_agent: false,
+    auth_methods: %w(password),
+    password: 'username_password',
+    user: 'username',
+}
   </pre>
 		  </div>
+		  <p class ="note">When copy and pasting code into Linux editor, make sure to remove any unwanted <strong>#</strong> characters from the beginning of every line, that might be added automatically by the editor.</p> 
 		</li>
 		<li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key. </li>
 	</ol>

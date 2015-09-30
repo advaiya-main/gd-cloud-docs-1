@@ -119,10 +119,13 @@ p.note {
 			<div class="hacker">psql
 			</div>
 			<p>The above command will start the postgres command prompt, where all further steps are to be performed.</p>
+		</li>
+		<li>Setup password for the user.	
 			<div class="hacker"> \password <em><u>user_name</u></em>
 			</div>
+			<p>When prompted, enter the new password.</p>
 		</li>
-		<li>Modify the template. (To drop a template, first you need to modify it.)
+		<li>Modify the database template. (To drop a template, first you need to modify it.)
 			<div class="hacker">UPDATE pg_database SET datistemplate = FALSE WHERE datname = 'template1';
 			</div>
 		</li>

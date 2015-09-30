@@ -100,7 +100,7 @@
 		<div class="hacker">
 		sudo apt-get install  default-jre
 		</div>
-		
+	</li>	
 	<li>	To confirm the successful installation, check the Java version.
 
 	  <div class="hacker">
@@ -123,12 +123,12 @@
 		sudo vim /etc/elasticsearch/elasticsearch.yml
 		</div>
   </li>
-  <li>Append the following code at the end of the file to set <code>script.disable_dynamic</code> to <code>true</code>: <!-- Updated the content as per the feedback from tester-->
+  <li>Append the following code at the end of the file to set <code>script.disable_dynamic</code> to <code>true</code>:
 <div class="hacker">
 		script.disable_dynamic: true
 	</div>
   </li>
-    <li>Save and close by pressing the  <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.<br /> <!-- Added new line to close the file as per the feedback from tester-->
+    <li>Save and close by pressing the  <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.<br /> 
   </li> 
 	<li>Start Elasticsearch.
 	  <div class="hacker">
@@ -171,7 +171,7 @@
 elasticsearch_url: "http://localhost:80"</pre>
 	  </div>
   </li>
-        <li>Save and close by pressing the  <strong>ESC</strong> key and then entering <code>:wq</code>.<br />	  <!-- Added new line to close the file as per the feedback from tester-->
+        <li>Save and close by pressing the  <strong>ESC</strong> key and then entering <code>:wq</code>.<br />
 		</li>
   <li>Install Nginx, which can be used as the proxy server. This enable access to the Kibana dashboards from the Internet.
       <div class="hacker"> 
@@ -263,13 +263,12 @@ server {
 }</pre>
   	  </div>
   </li>
-    	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.
+    	<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
   <li>Restart Nginx.
 		<div class="hacker">
 			sudo service nginx restart
 		</div>
-  		<p>A successful  restart displays an OK message:<br />
-      <img src="17909-Install and Configure an EFK stack (Elasticsearch, Fluentd, Kibana) - Ubuntu, Debian_clip_image004.jpg" alt="Restarting Elasticsearch engine" width="624" height="53" /></p>
+  		<p>A successful  restart displays an OK message:<br /></p>
   </li>
 </ol>
 <h2>Install and configure Fluentd</h2>

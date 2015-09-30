@@ -108,11 +108,11 @@ p.note {
 <h2>Start RethinkDB</h2>
 <ol>
 <li>Start RethinkDB to access it through web interface.
-  <div class="hacker">rethinkdb --bind all</div>
+  <div class="hacker">rethinkdb -- all</div>
 </li>
 <li>Access your server at <strong><u><em>http://public_IP_of_your_server_or_domain</em></u>:8080</strong><br />
 <p><img src="images/18527-1.png" alt="18527"  /></p>
-Using this Web interface, you can manage creating database, tables, and can configure RethinkDB cluster to manage table replication. 
+Using this Web interface, you can manage creating database, tables, and can configure RethinkDB cluster to manage table replication. To shutdown the rethinkDB use <code>Ctrl+c</code>
 
 </li>
 </ol>
@@ -120,6 +120,27 @@ Using this Web interface, you can manage creating database, tables, and can conf
 
 <p>In most cases, you will be managing databases using the programming language. The following commands will help you perform these tasks:</p>
 <ol>
+<li>
+Create new configuration file.
+<div class="hacker">
+sudo cp /etc/rethinkdb/instances.d/default.conf /etc/rethinkdb/instances.d/cluster_instance.conf<br />
+sudo vim /etc/rethinkdb/instances.d/cluster_instance.conf<br />
+</div>
+</li>
+<li>
+	Search for <code>bind=127.0.0.1</code>. This line is commented. Add following line beneath it.
+	<div class="hacker">
+		bind=all
+	</div>
+</li>
+<li>
+	Save and close the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followd by the <strong>Enter</strong> key.
+</li>
+<li>
+Enable and start new configuration.
+<div class="hacker">sudo systemctl enable rethinkdb@cluster_instance</div>
+<div class="hacker">sudo systemctl start rethinkdb@cluster_instance</div>
+</li>
 <li>Activate the virtual environment for Python. 
 <div class="hacker">cd ~/rethink</div>
 <div class="hacker">source venv/bin/activate</div>

@@ -158,7 +158,9 @@ aboutus.coolexample.com<br/></td>
            <li>In the file, make these changes:
              <ul>
              <li>Make <code>server_name</code> point to your domains.  
-                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div></li>
+                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div>
+
+                 Make sure each domain is separated by a space only, no commas.</li>
             
             <li>Make sure that <code>index.php</code> is added to the index line in the <code>http {</code> section towards the middle of the file (as already done from your LEMP installation).</li>
 
@@ -187,8 +189,14 @@ aboutus.coolexample.com<br/></td>
                <br />
     server {  <br />
         listen       80 default_server;  <br />
-        server_name <em>coolexample.com product.coolexample.com aboutus.coolexample.com;</em>  <br />
-        root         <em>/var/www/wordpress;</em></div></li></ol>   <br />
+        server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com</u></em>;  <br />
+        root         <em><u>/var/www/wordpress</u></em>;</div></li>
+
+<p class="note">Make sure each line you've modified in this <code>nginx.conf</code> file ends with a semicolon ;</p>  
+
+
+ <li>Save and close the file.</li>
+            </ol>  
                                  
 
 <h3>Modify the PHP configuration file</h3>
@@ -206,14 +214,14 @@ aboutus.coolexample.com<br/></td>
 
                     <div class="hacker">
                     <pre>
-          # pass the PHP scripts to FastCGI server listening on the php-fpm s$
-                   location ~ \.php$ {
-                   <em><u>root /var/www/wordpress;</u></em>
-                   try_files $uri =404;
-                   fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
-                   fastcgi_index index.php;
-                   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                   include fastcgi_params;
+# pass the PHP scripts to FastCGI server listening on the php-fpm s$
+location ~ \.php$ {
+<em><u>root /var/www/wordpress;</u></em>
+try_files $uri =404;
+fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
+fastcgi_index index.php;
+fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+include fastcgi_params;
                            }
 </pre></div>
 
@@ -255,7 +263,7 @@ aboutus.coolexample.com<br/></td>
   <div class="hacker">exit</div> </li>
 </ol>
 
-<p>You're finished! </p>
+<p>Now that you've set up a MySQL database, let's move on to installing WordPress. </p>
 
 <h2>Download WordPress</h2>
      
@@ -283,29 +291,8 @@ This command creates a directory called "wordpress" in your home directory.</li>
 
 </ol>  
 
-<h2>Install WordPress</h2> 
 
-<p>Now you can access the WordPress web interface.</p>
-     
-     <ol>
-     <li>  In your web browser, enter your primary domain name. In our example, that's 
-   <strong>http://coolexample.com</strong>.
-   (If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL.)</li>
-     <li>If  an introductory page displays, click <strong>Let's go!</strong> to continue.</li>
-
-     <li>On the next page, fill out your WordPress MySQL database credentials. 
-     You can leave  <strong>Database Host</strong> as is (localhost), since that's what we defined, and <strong>Table Prefix</strong> as wp_. <br/>
- 
-<img src="images/00037/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
-  </li>
-  
-   <li>Click <strong>Submit</strong>.<br />
-  The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
-<img src="images/00037/090815/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
-</li>
-</ol>
-      
-<h2>Create and modify the WordPress configuration file</h2> 
+  <h2>Create and modify the WordPress configuration file</h2> 
    
    <ol>
    
@@ -341,7 +328,28 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
       <li>Restart Nginx.
      <div class="hacker">sudo service nginx restart</div></li>
 </ol>
+    
+<h2>Install WordPress</h2> 
 
+<p>Now you can access the WordPress web interface.</p>
+     
+     <ol>
+     <li>  In your web browser, enter your primary domain name. In our example, that's 
+   <strong>http://coolexample.com</strong>.
+   (If the Nginx default page displays, append <code>/wp-admin.php</code>to your URL.)</li>
+     <li>Work your way through the Wordpress installation, then log in with your Wordpress credentials.</li>
+
+    <!--CT... <li>On the next page, fill out your WordPress MySQL database credentials. 
+     You can leave  <strong>Database Host</strong> as is (localhost), since that's what we defined, and <strong>Table Prefix</strong> as wp_. <br/>
+ 
+<img src="images/00037/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
+  </li>
+  
+   <li>Click <strong>Submit</strong>.<br />
+  The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
+<img src="images/00037/090815/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
+</li>
+</ol>
      <h2>Continue setup in the WordPress web interface</h2>
       
       <ol>
@@ -351,11 +359,14 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 <img src="images/00037/090815/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
         <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
         <li>Click <strong>Install WordPress</strong>.</li>
+     
+ ...-->
       </ol>
+
       
 <p class="note">During web installation, if you get an error such as a 404 or 504 page, reload the <code>wp-admin</code> page (<code>http://coolexample.com/wp-admin/</code>).</p>  
 
-    <h2>Enable multisite</h2>
+    <h3>Enable multisite</h3>
    
    <ol>
    

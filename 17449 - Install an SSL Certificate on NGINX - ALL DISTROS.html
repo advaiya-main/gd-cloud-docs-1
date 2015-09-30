@@ -127,11 +127,9 @@ Most web sites are capable of generating self-signed certificates.These are not 
 <h2>Set up NGINX</h2>
 
    <ol> 
-   <li>Navigate to the <code>/etc/nginx/conf.d</code> directory.
-    <div class="hacker">cd /etx/nginx/conf.d</div></li>
-    <li>Make a copy of the default configuration file as a safety. Do not use "conf" in the file name of your safety.
-    <div class="hacker">sudo cp default.conf mydefaultsafety</div></li>
-    <li>Edit the default.conf file so that the section of the server context above the location context looks like this for a self-signed certificate:
+   <li>Navigate to your nginx configuration file, nginx.conf and find the secure server section.  This may be located in an include file.  If you look for "443" you should be able to find it.&nbsp; If it does not exist, you can create it. 
+    <div class="hacker">sudo vim /etx/nginx/nginx.conf</div></li>
+     <li>Edit the configuration file so that the section of the secure server context above the location context looks like this for a self-signed certificate:
     <div class="hacker"><pre>server { listen 443 ssl;
         server_name yourservername.com;
         ssl_certificate /etc/nginx/server.crt; 
@@ -140,7 +138,7 @@ Most web sites are capable of generating self-signed certificates.These are not 
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
        
         ssl_ciphers HIGH:!aNULL:!MD5;</pre></div></li>
-    <li>For a commercial certificate, edit the default.conf file as above, but with the name of your certificate instead of <code>server</code>.
+    <li>For a commercial certificate, edit the configuration file as above, but with the name of your certificate instead of <code>server</code>.
     <div class="hacker"><pre>server { listen 443 ssl; 
         server_name yourservername.com;
        
@@ -155,7 +153,7 @@ Most web sites are capable of generating self-signed certificates.These are not 
         
     <h2>Set up multiples certificates on one IP</h2>
     
-    <p>If you have multiple server blocks set up on a single IP, you can generate as many certificates as you need by following the steps above. Instead of configuring them in the default.conf file, edit each server block individually.</p>
+    <p>If you have multiple server blocks set up on a single IP, you can generate as many certificates as you need by following the steps above (edit each server block individually).</p>
     <div class="hacker"><pre>server { listen 443 ssl;
         server_name yourserverblockname.com;
       

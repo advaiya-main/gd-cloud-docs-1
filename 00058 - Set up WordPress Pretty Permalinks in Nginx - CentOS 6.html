@@ -96,30 +96,26 @@ td:nth-child(1) {font-weight:bold;}
 
 <h2>Enable URL rewrites</h2>
   
-<p>Modify your Nginx config file to enable permalinks.</p>
+<p>In your command line, modify your Nginx config file to enable permalinks.</p>
 
 <ol>
-<li>Open your <code>nginx.conf</code> file to edit.
+<li>Open your <code>default.conf</code> file to edit.
 <div class="hacker">sudo vim /etc/nginx/conf.d/default.conf</div></li>
 
-<li>In your file, find your WordPress block and add this <code>try_files</code> line in the location context:
-  <div class="hacker">try_files $uri $uri/ /index.php?q=$ur&amp;$args;</div>
+<li>In your file, find your WordPress block and add this <code>try_files</code> line in the location context, right about the index line.
+  <div class="hacker">try_files $uri $uri/ /index.php$is_args$args;</div>
 
   The entire section may look like this:
   <div class="hacker"><pre>server {
     listen       80 default_server;
     server_name coolexample.com;
-
-    #charset koi8-r;
-
-    #access_log  logs/host.access.log  main;
-
+    ...
     # Load configuration files for the default server block.
     include /etc/nginx/default.d/*.conf;
 
     location / {
         root   /var/www/wordpress;
-       <em><u>try_files $uri $uri/ /index.php?q=$uri&amp;$args;</u></em>
+        <em><u>try_files $uri $uri/ /index.php$is_args$args;</u></em>       
         index index.php  index.html index.htm;
     }</pre></div>
 

@@ -194,7 +194,8 @@ td:nth-child(1) {font-weight:bold;}
       <li>Configure the <code>php.ini</code> file.<br />
          
 In the <code>/etc/php.ini</code> file, find the <code>cgi.fix_pathinfo</code> directive. Most of the file is commented out and it will be about halfway through the file, under a section called <code>Paths and Directories</code>. Uncomment the line and set it as follows: 
-         <div class="hacker">cgi.fix_pathinfo=0</div></li> 
+         <div class="hacker">cgi.fix_pathinfo=0</div>
+         Save and close the file.</li> 
 
 <li>Configure <code>www.conf listen</code> directive.<br />
     Open <code>/etc/php-fpm.d/www.conf</code>. Find the <code>listen</code> directive and verify/edit it as follows:

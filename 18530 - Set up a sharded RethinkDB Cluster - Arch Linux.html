@@ -73,7 +73,7 @@ p.note {
 <p><strong>Difficulty:</strong> <em>3</em></p>
 <p><strong>Time:</strong> <em>20 minutes</em></p>
 <p>RethinkDB, a NoSQL database, is the first open-source, scalable JSON database built from the ground up for  real-time web applications. It's designed specifically to push data to applications in real time, dramatically reducing the time and effort necessary to build scalable real-time applications. In this article, we'll help you build a RethinkDB cluster, import a database onto it, and make it secure.	</p>
-<p>For these tasks, you'll need two servers running Arch Linux, named <em><u>rethinkdb_server1</u></em> and <em><u>rethinkdb_server2</u></em>.  For optimal  security, set up a <code>sudo</code> user for each RethinkDB server. Before setting up a RethinkDB cluster, you should be familiar with <a href="18527">installing and configuring a RethinkDB cluster on an Arch Linux server</a>.</p>
+<p>For these tasks, you'll need two servers running Arch Linux, named <em><u>rethinkdb_server1</u></em> and <em><u>rethinkdb_server2</u></em>.  For optimal  security, set up a <code>sudo</code> user for each RethinkDB server. </p>
 
 <h2>Set up a RethinkDB node</h2>
 <p>RethinkDB cluster is a type of peer-to-peer network. The primary step in building a RethinkDB cluster is to install RethinkDB on every server included in this cluster. </p>
@@ -92,15 +92,16 @@ p.note {
 <li>Change the server name as follows:
        <p>Search for:</p>
 <div class="hacker">server-name=server </div>
-<p>Change it to:</p>
+<p>This line is commented, Add following line beneath it.</p>
    <div class="hacker">Server-name=<em><u>rethinkdb_server1</u></em>	</div>
+   For other servers use rethinkdb_server2, rethinkdb_server3 and so on.
 </li>
 <li>Set up the bind address.  <br />
 	  By default the bind address is accessible only on the localhost (127.0.0.1). Change this address to <code>all</code> to make it listen on all network interfaces.
 <p>Search for:</p>
 		<div class="hacker">bind=127.0.0.1 </div>
-		<p>Change it to:</p>
-		<div class="hacker">Bind=all</div>
+		<p>This line is commented, Add following line beneath it.</p>
+		<div class="hacker">bind=all</div>
 	</li>
 	
 
@@ -114,18 +115,10 @@ p.note {
 <p class="note">The @ sign means that they are instances of a template unit. In Arch Linux, you need to start RethinkDB with its respective instance. This is how RethinkDB looks in the <code>systemd</code> service.</p>
 
 <div class="hacker">ls -l /usr/lib/systemd/system | grep rethinkdb</div>
+It will display:
 <div class="hacker">-rw-r--r-- 1 root root  260 Aug 19 23:07 rethinkdb@.service</div>
 
 <p>Here, the @ sign specifies that RethinkDB has a template unit as its instance. Generally, while installing RethinkDB, it creates a default configuration file <code>/etc/rethinkdb/instance.d/default.conf</code> in the <code>instance.d</code> directory. </p>
-</li>
-<li>If you wish to start RethinkDB with the default configuration template, you can start it as follows:
-  <div class="hacker">sudo systemctl enable rethinkdb@default</div>
-<div class="hacker">sudo systemctl start rethinkdb@default</div>
-</li>
-<li>Because you are creating a cluster instance, you have created a separate custom configuration template named <code>/etc/rethinkdb/instances.d/cluster_instance.conf</code>. Here you need to start RethinkDB as follows:
-	<div class="hacker">sudo systemctl enable rethinkdb@cluster_instance</div>
-You'll get the following message:
-<div class="hacker">Created symlink from /etc/systemd/system/multiuser.target.wants/rethinkdb@ cluster_instance.service to /usr/lib/systemd/system/rethinkdb@.service.</div>
 </li>
 <li>Start the RethinkDB service.
   <div class="hacker">sudo systemctl start rethinkdb@cluster_instance</div>
@@ -136,6 +129,9 @@ You'll get the following message:
 tcp6  0      0 :::8080    :::*        LISTEN      484/rethinkdb
 tcp6  0      0 :::29015   :::*        LISTEN      484/rethinkdb</pre></div>
 </li>
+<li>
+	Access your server at <em><u>http://public_ip_of_your_server_or_domain_name</u></em>:8080.
+</li>
 </ol>
 
 <h2>Secure the RethinkDB cluster</h2>
@@ -144,15 +140,15 @@ When RethinkDB is configured to listen on all network interfaces (<code>bind=all
 	<ol>
 	<li>Configure the ports for the web management console. 
 	  <div class="hacker">sudo iptables -A INPUT -i eth0 -p tcp --dport 8080 -j DROP</div>
-	<div class="hacker">sudo iptables -I INPUT -i eth0 -s 127.0.0.1 -p tcp --dport 8080 -j ACCEPT</div>
+	<div class="hacker">sudo iptables -I INPUT -i eth0 -s <em><u>127.0.0.1</u></em> -p tcp --dport 8080 -j ACCEPT</div>
 	</li>
 	<li>Configure the driver port.
 	  <div class="hacker">sudo iptables -A INPUT -i eth0 -p tcp --dport 28015 -j DROP</div>
-	<div class="hacker">sudo iptables -I INPUT -i eth0 -s 127.0.0.1 -p tcp --dport 28015 -j ACCEPT</div></li>
+	<div class="hacker">sudo iptables -I INPUT -i eth0 -s <em><u>127.0.0.1</u></em> -p tcp --dport 28015 -j ACCEPT</div></li>
 	
 	<li>Configure the cluster port.
 	  <div class="hacker">sudo iptables -A INPUT -i eth0 -p tcp --dport 29015 -j DROP</div>
-	<div class="hacker">sudo iptables -I INPUT -i eth0 -s 127.0.0.1 -p tcp --dport 29015 -j ACCEPT</div>
+	<div class="hacker">sudo iptables -I INPUT -i eth0 -s <em><u>127.0.0.1</u></em> -p tcp --dport 29015 -j ACCEPT</div>
 	</li>
 	
 <li>Save <code>iptables</code> rules. In Arch Linux, <code>iptables</code> is managed as a system service. To start iptables, the <code>/etc/iptables/iptables.rules</code> file is mandatory. This file is not  created by default, so to save the <code>iptables</code> rules, perform the following steps:
@@ -169,55 +165,63 @@ When RethinkDB is configured to listen on all network interfaces (<code>bind=all
 
 
 <h2>Set up a management user</h2>
-	<p>Set up SSH tunnels to access RethinkDB's web management console and the driver interface securely.</p>
-	<ol>
-	  <li> Create a management user for SSH tunnel in <em><u>rethinkdb_server1</u></em>.
-	    <div class="hacker">sudo adduser <em><u>sshuser</u></em></div>
-	</li>
-	
-	<li>Set up the authorized keys file for a new user.
-	<div class="hacker">sudo mkdir /home/<em><u>sshuser</u></em>/.ssh</div>
-	<div class="hacker">sudo touch /home/<em><u>sshuser</u></em>/.ssh/authorized_keys</div>
-	</li>
-	
-	<li>Import the public key from a local computer, from where you'll access the RethinkDB web management console. You can either copy the public key directly from your computer, or you can use the <code>ssh-copy-id</code> command.
-	</li>
-	<li>Copy the user public key.</li>
-	<li>Open  <code>authorized_keys</code> for editing.
-	  <div class="hacker">sudo vi /home/<em><u>sshuser</u></em>/.ssh/authorized_keys</div>
-	  </li>
-	<li>Paste the user public key into this file. </li>
-	<li>Repeat the above steps to create <em><u>rethinkdb_server2</u></em> nodes.</li>
-	</ol>
-	
-<h2>Import or create a new database</h2>
-<p>If you already have a database on this or another server, you need to import those databases into your cluster. If there is no database,  RethinkDB automatically creates an empty database by default.</p>
-	<h3>If you don't have an existing database:</h3>
-	<ol>
-	  <li>If the database that you want to import is not already present on <em><u>rethinkdb_server1</u></em>, then you need to copy it. To do this, locate the path of your current RethinkDB database. (If you used the <code>rethinkdb</code> command to start your old database, then the directory path <code><em><u>rethinkdb_data</u></em></code> will be auto-generated.) Use the <code>scp </code>command to copy the path to <em><u>rethinkdb_server1</u></em>.
-	    <div class="hacker">sudo scp -rpC <em><u>user_name</u></em>@<em><u>public_ip</u></em>:/<em><u>rethinkdb_data</u></em>/* /var/lib/rethinkdb/cluster_instance/data</div>
-		<p>If you have created a virtual environment for running Python, then the same data will be in <code>/home/user/virtual_env_name/<em><u>rethinkdb_data</u></em></code>.
-</p>	
-	</li>
-
-
-<li>Restart RethinkDB.
-<div class="hacker">sudo systemctl restart rethinkdb@cluster_instance</div>
-</li>
-</ol>
-	<h3>If you have an existing database:</h3>
-	<ol>
-	<li>Open the configuration file on <em><u>rethinkdb_server1</u></em>.
-	  <div class="hacker">sudo vi /etc/rethinkdb/instances.d/cluster_instance.conf</div>
-	</li>
-<li>Find the path of the RethinkDB database that you want to import. If you used the <code>rethinkdb</code> command to start your old database, the directory <code>rethinkdb_data</code> will be auto-generated. Add this path into the configuration file.
-	  <div class="hacker">directory=<em><u>/home/user/rethink/rethinkdb_data/</u></em></div>
-	</li>
-	
-<li>Save the changes, and then restart RethinkDB.
-  <div class="hacker">sudo systemctl restart rethinkdb@cluster_instance</div>
-</li>
-</ol>
+		<p>Set up SSH tunnels to access RethinkDB's web management console and the driver interface securely.</p>
+		<ol>
+			<li> Create a management user for SSH tunnel in <em><u>rethinkdb_server1 </u></em>.
+			<div class="hacker">sudo useradd <em><u>sshuser</u></em></div>
+			</li>
+			<li>Set password.
+			<div class="hacker">sudo passwd <em><u>sshuser</u></em></div>
+			</li>
+			<li>Edit sudoers.
+			<div class="hacker">sudo visudo</div>
+			</li>
+			<li>Search for following line.
+			<div class="hacker">root 	ALL=(ALL)	ALL</div>
+			</li>
+			<li>Add the following line beneath it.
+			<div class="hacker">sshuser 	ALL=(ALL)	ALL</div>
+			</li>
+			<li>
+				Save and close the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followd by the <strong>Enter</strong> key.
+			</li>
+			<li>
+				Switch to the <code>sshuser</code>.
+				<div class="hacker">sudo -su sshuser</div>
+			</li>
+			
+			<li>Set up the authorized keys file for a new user.
+			<div class="hacker">
+			cd /home/</div>
+			<div class="hacker">
+			sudo mkdir sshuser</div>
+			<div class="hacker">
+			sudo mkdir /home/<em><u>sshuser</u></em>/.ssh</div>
+			<div class="hacker">
+			sudo chown -R sshuser:sshuser /home/sshuser/</div>
+			<div class="hacker">
+			sudo touch /home/<em><u>sshuser</u></em>/.ssh/authorized_keys</div>
+			</li>
+			<li>
+				Generate public key:
+				<div class="hacker">
+				cd /home/sshuser/.ssh<br />
+				ssh-keygen
+				</div>
+				when prompted for location of the file, enter <code>/home/sshuser/.ssh/id_rsa</code>
+			</li>
+			<li>Copy the user public key.
+				<div class="hacker">
+					sudo vim /home/sshuser/.ssh/id_rsa.pub
+				</div>
+				Copy the public key and close the file.
+			</li>
+			<li>Open  <code>authorized_keys</code> for editing.
+			<div class="hacker">sudo vim /home/<em><u>sshuser</u></em>/.ssh/authorized_keys</div>
+			Paste the user public key into this file. 
+			</li>
+			<li>Repeat the above steps to create <em><u>rethinkdb_server2</u></em> nodes.</li>
+		</ol>
 
 <h2>Create a cluster</h2>
 <p>To create a cluster, you need to allow all cluster machines to be accessed through each other’s firewall. The following steps would allow interaction among different nodes through the server firewalls.</p>
@@ -231,7 +235,7 @@ When RethinkDB is configured to listen on all network interfaces (<code>bind=all
 </li>
 <li>Repeat these steps for your other server.</li>
 <li>Once ports are opened and servers are able to communicate to one another, you can connect the other server to create a cluster. For that, first access the <em><u>rethinkdb_server2</u></em> server and install RethinkDB on the server. You can verify the steps  in <strong>Step 1</strong><!--Testers, this step will need clarification. What does "Step 1" refer to? cj --> to perform installation. Now to edit the configuration file, perform the following steps:
-  <div class="hacker">sudo cp /etc/rethinkdb/instances.d/default.conf /etc/rethinkdb/instances.d/cluster_instance.conf</div>
+  
 <div class="hacker">sudo vim /etc/rethinkdb/instances.d/cluster_instance.conf</div>
 </li>
 <li>Locate the <code>join</code> statement in the file.
@@ -253,37 +257,6 @@ After completing this step, you  have all servers joined to <em><u>rethinkdb_ser
 <img src="images/18530/092515/servers-connected-to-the-cluster.png" alt="servers-connected-to-the-cluster.png"/> <!--For advaiya testers:The screenshots needs to be changed after we do the final testing--></li>
 </ol>
 
-<h2>Connect to the web management console</h2>
-<p>You can use the RethinkDB web management console  to perform basic functions on RethinkDB such as creating databases and tables, changing basic table settings, and running RethinkDB commands.</p>
-	
-	<ul>
-	<li>Enable security on the web management console by using SSH tunnel to connect to  the web management console. 
-	  <div class="hacker">ssh -L 8080:localhost:8080 <em><u>sshuser@rethinkdb_server1_IP</u></em></div>
-	Because you have already completed the SSH key transfer, you can directly execute the above command. If you receive an error (such as &quot;<code>address already in use</code>&quot;), then change the port number and connect to <em><u>rethinkdb_server1</u></em> with the same command.
-	<div class="hacker">Eg: ssh -L 8081:localhost:8080 <em><u>sshuser@rethinkdb_server1_IP</u></em></div>
-	</li>
-</ul> 
-
-
-<h2>Connect to the cluster using Python driver</h2>
-	In this section you'll use an SSH tunnel to establish a connection with the driver port. Because you already have secured the connection to the cluster nodes, no one from outside the network can access the cluster port.
-	<ol>
-	<li>Create an SSH tunnel from one of the servers (<em><u>rethinkdb_server2</u></em>), so that they can establish a secure connection to the cluster port (29018). To do this, perform the following steps in <em><u>rethinkdb_server2</u></em> to generate an SSH key.	
-	  <div class="hacker">ssh-keygen -t rsa</div>
-	</li>
-	
-	<li>Copy the public key (<code>id_rsa.pub</code>) to <em><u>rethinkdb_server1</u></em> server (Cluster Node), and add in <code>authorized_keys</code>.
-<div class="hacker">sudo vi  /home/<em><u>sshuser</u></em>/.ssh/authorized_keys
-	</div>
-	</li>
-
-	<li>Use SSH tunneling to access the driver port from the sever.
-	  <div class="hacker">ssh -L 28015:localhost:28015 <em><u>sshuser</u></em>@cluster_node_ip -f -N</div>
-	If you get a &quot;bind: Address already in use&quot; error, you can change the port.
-	<div class="hacker">Eg: ssh -L 28016:localhost:28015 <em><u>sshuser</u></em>@cluster_node_ip -f –N</div>
-	</li>
-	</ol>
-	
 
 <h2>Install Python driver and RethinkDB module</h2>
 <ol>
@@ -292,6 +265,7 @@ After completing this step, you  have all servers joined to <em><u>rethinkdb_ser
 <div class="hacker">sudo pacman -S python2-pip</div>
 </li>
 <li>Create a directory named <em><u>rethink</u></em> in the user home directory.
+ <div class="hacker">cd</div>
   <div class="hacker">mkdir <em><u>rethink</u></em></div>
 <div class="hacker">cd <em><u>rethink</u></em></div>
 </li>
@@ -309,14 +283,27 @@ After completing this step, you  have all servers joined to <em><u>rethinkdb_ser
 </li>
 <li>Connect to the cluster server database. Make sure to provide the correct port, which you  used earlier to connect to the SSH tunnel.
   <div class="hacker">import rethinkdb as r</div>
-<div class="hacker">r.connect("<em><u>localhost</u></em>", 28016).repl()</div>
+<div class="hacker">r.connect("<em><u>localhost</u></em>", 28015).repl()</div>
 </li>
-<li>Create a database (<em><u>article</u></em> ) and table (<em><u>posts</u></em>).
-  <div class="hacker">r.db_create("<em><u>article</u></em> ").run()</div>
-<div class="hacker">r.db("<em><u>article</u></em> ").table_create("<em><u>posts</u></em>").run()</div>
-</li>
-<li>Insert data into the table <em><u>posts</u></em>.
-<div class="hacker">r.db("<em><u>article</u></em> ").table("<em><u>posts</u></em>").insert({"hello":"world"}).run()</div>
+<li>Create the database named <em><u>article</u></em> and table named  <em><u>posts</u></em>.
+	  <div class="hacker">r.db_create("<em><u>article</u></em>").run()</div>
+	<div class="hacker">r.db("<em><u>article</u></em>").table_create("<em><u>posts</u></em>").run()</div>
+	</li>
+	
+	<li>Insert data into the table <em><u>posts</u></em>.
+	<div class="hacker">r.db("<em><u>article</u></em>").table("<em><u>posts</u></em>").insert({"hello":"world"}).run()</div>
+	<p>After you insert values, you can view the complete table in the RethinkDB web management console. </p>
+	</li>
+	<li>Print the contents in a table.
+<div class="hacker"><pre>c = r.db("<em><u>article</u></em>").table("<em><u>posts</u></em>").run()
+for x in c:
+    print x</pre></div>
+    </li>
+<li>
+Exit the python shell.
+<div class="hacker">
+exit()
+</div>
 </li>
 </ol>
 
@@ -386,32 +373,7 @@ r.db('rethinkdb').table('table_config').get(
 	</li>
 	</ul>
 		
-	<h2>Remove a server</h2>
-	<p>Removing a server from the cluster must be performed carefully. When a document is divided over multiple servers, one server  always keeps its primary index.  If the server holding the primary index of the document is taken offline, then the document is lost. Therefore, before removing a server, you need to migrate all its primary shards away from it. </p>
-	<p>Here we'll migrate data off  the node <code><em><u>rethinkdb_server2</u></em></code> to make <code><em><u>rethinkdb_server1</u></em></code>  the sole node. Then we can remove the <code><em><u>rethinkdb_server2</u></em></code> node safely.</p>
-		<ol>
-	<li>Enter  the RethinkDB admin shell on <code><em><u>rethinkdb_server2</u></em>.</code>
-	  <div class="hacker">rethinkdb admin</div>
-	</li>
 	
-	<li>List the shards (groups of documents) that <code><em><u>rethinkdb_server2</u></em></code> holds.
-	<div class="hacker">ls <em><u>rethinkdb_server2</u></em></div>
-	</li>
-	
-	<li>Move the shards from one server (<code><em><u>rethinkdb_server2</u></em></code>) to another (<code><em><u>rethinkdb_server1</u></em></code>).
-	  <div class="hacker">pin shard TABLE SHARD-RANGE --master MACHINE-NAME</div>
-	<div class="hacker">Eg : pin shard food.foodshards -inf-+inf --master <em><u>rethinkdb_server1</u></em></div>
-		</li>
-	
-	<li>Exit from the admin shell.
-	  <div class="hacker">exit</div>
-	You can safely stop RethinkDB on the server (<code><em><u>rethinkdb_server2</u></em></code>). </li>
-	<li>Execute this command in <code><em><u>rethinkdb_server2</u></em></code>:
-<div class="hacker">sudo systemctl enable rethinkdb@cluster_instance</div>
-	  After you remove this server (<code><em><u>rethinkdb_server2</u></em></code>), you will receive a warning message when accessing the RethinkDB web management console.  On the right-hand side of the  message is a <strong>Permanent remove</strong> button. You can click this button to remove this server (<code><em><u>rethinkdb_server2</u></em></code>) from the cluster. </li>
-</ol>
-
-
 
 <h2>Conclusion</h2>
 <p>In this article, you learned the configuration of a sharded RethinkDB cluster on Arch Linux servers.</p>

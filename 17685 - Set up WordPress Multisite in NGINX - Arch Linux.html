@@ -150,7 +150,7 @@ aboutus.coolexample.com</td>
             You may have made some of these changes when you installed your LEMP stack.  </p>
  
  
-<p>After your changes, your file may look something like the following example. Use this file to double-check the config in your <em>server</em> block. Note that this example below is truncated:</p>
+<p>After your changes, your file may look something like the following example. Use this file to double-check the config in your server block. Note that this example below is truncated:</p>
 
 <div class="hacker"><pre>
 #user html;
@@ -161,9 +161,7 @@ worker_processes  1;
 #error_log  logs/error.log  info;
 
 #pid        logs/nginx.pid;
-
 ...
-
 #gzip  on;
 
     server {
@@ -199,10 +197,10 @@ worker_processes  1;
 <div class="hacker">sudo nano /etc/php/php.ini</div></li>
 
 
-<li>Locate this line: 
+<li>Find this line and comment it out.
 <div class="hacker">open_basedir = /srv/http/:/home/:/tmp/:/usr/share/pear/:/usr/share/webapps/</div></li>
 
-<li>Comment the line out. This restricts file access to certain directories defined in <strong>php.ini</strong>.</li>
+<li>This line restricts file access to certain directories defined in <strong>php.ini</strong>.</li>
 
  <li>Save and close.</li>
   
@@ -266,35 +264,12 @@ This command creates a directory called <em>wordpress</em> in your home director
 
  
  <li>Change ownership of the directory and grant read-write permissions to the group. This way, you'll be able to work with WordPress uploads, plug ins, and themes.
-<div class="hacker">sudo chown http:http /var/www</div>
-<div class="hacker">sudo chmod g+w /var/www</div>
+<div class="hacker">sudo -R chown nginx:nginx /var/www</div>
+<div class="hacker">sudo -R chmod g+w /var/www</div>
 </li>
-
 </ol>  
 
-  <h2>Install WordPress</h2> 
-
-      <p>Now you can access the WordPress web interface.</p>             
-     <ol>
-     <li>  In your web browser, enter your primary domain name. In our example, that's 
-   <strong>http://coolexample.com</strong>.
-   <ul>
-   <li>If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL and try again.</li>
-    <li>If you get an introductory page, click <strong>Let's go!</strong> to continue.</li>
-    </ul>
-    </li>
-
-     <li>On the next page, fill out your WordPress MySQL database credentials. 
-     You can leave the <strong>Database Host</strong> as is (<em>localhost</em>), since that's what we defined, and <strong>Table Prefix</strong> as <em>wp_</em>. </li>
-  <li>Click <strong>Submit</strong>.<br />
-<img src="images/17685/090215/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" />
-  <br />
-  The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
-<img src="images/17685/090215/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
-</li>
-      </ol>
-      
-<h3>Create and modify the WordPress configuration file</h3> 
+<h2>Create and modify the WordPress configuration file</h2> 
    
    <ol>
    
@@ -331,24 +306,32 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
      <div class="hacker">sudo service nginx restart</div></li>
      </ol>
 
+  <h2>Install WordPress</h2> 
+
+     <h2>Install WordPress</h2> 
+
+<p>Now you can access the WordPress web interface.</p>
+     
+     <ol>
+     <li>  In your web browser, enter your primary domain name. In our example, that's 
+   <strong>http://coolexample.com</strong>.
+   (If the Nginx default page displays, append <code>/wp-admin.php</code>to your URL.)</li>
+     <li>Work your way through the Wordpress installation, then log in with your Wordpress credentials.</li>
+
      <h3>Continue setup in WordPress web interface</h3>
       
       <ol>
         <li>Return to your browser and click <strong>Run the Install</strong> on the screen you were just on to continue the WordPress web installation. You should be taken to the WordPress 5-minute install screen.
-        
-<br />
-<img src="images/17685/090215/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
-        <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
-        <li>Click <strong>Install WordPress</strong>.</li>
-      </ol>
-      
-<p class="note">If at any point during web installation you get an error such as a <strong>404</strong> or <strong>504</strong> page, reload the wp-admin page (<code>http://coolexample.com/wp-admin/</code>).</p>  
+        </ol>
 
-    <h2>Enable multisite</h2>
+      
+<p class="note">During web installation, if you get an error such as a 404 or 504 page, reload the <code>wp-admin</code> page (<code>http://coolexample.com/wp-admin/</code>).</p>  
+
+    <h3>Enable multisite</h3>
    
    <ol>
    
-  <li>In your browser, continue the WordPress web installation. Click on <strong>Tools</strong> on the left-hand panel, then <strong>Network Setup</strong>.
+  <li>In your browser, continue the WordPress web installation. Click  <strong>Tools</strong> on the left-hand panel, and then click <strong>Network Setup</strong>.
   </li>
   
   <li>Because we're working with sub-domains, choose <strong>sub-domains</strong>

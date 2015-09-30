@@ -98,7 +98,7 @@ td:nth-child(1) {font-weight:bold;}
 
 <p>This article walks through how to install Ruby on Rails on Ubuntu using RVM, and assumes that you have <code>sudo</code> privileges. See <a href="17321 - Initial Server Setup - Ubuntu.html">Initial Server Setup - Ubuntu</a> for more on how to set up your Ubuntu server.</p>
 
-<h2>Prepare your system</h2>
+<h2>Prerequisites</h2>
 Before you install Ruby on Rails, prepare your system with the required system software.    
     <ol>
         <li>Update your package manager.
@@ -121,7 +121,7 @@ Before you install Ruby on Rails, prepare your system with the required system s
 <div class="hacker">sudo curl -sSL https://rvm.io/mpapis.asc | gpg --import -</div>
 <div class="hacker">sudo curl -L https://get.rvm.io | bash -s stable</div>
 </li>
-<li>To apply RVM, you need to execute the following command:
+<li>Apply RVM.
 <div class="hacker">source ~/.rvm/scripts/rvm</div>
 </li>
 <li>Install Ruby, and then check the Ruby version.

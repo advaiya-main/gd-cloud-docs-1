@@ -81,6 +81,7 @@ p.note {
 <p>Before starting, make sure to complete the initial server setup for your host machine. See <a href="17323">Initial Server Setup - CentOS</a>.</p>
 <p class="note">These tasks assume that you have <code>sudo</code> user privileges.</p>
 <h2>Install and configure Elasticsearch</h2>
+<h3>Install ElasticSearch</h3>
 <ol>
 	<li>Log into the CentOS machine.</li>
 	<li>Update the server.
@@ -109,7 +110,7 @@ p.note {
  <p class="note">These commands are for version <em><u>1.7.1</u></em>. To obtain the latest version, visit the <a href="http://www.elasticsearch.org/download/" target="_top"> Elasticsearch download page</a>.</p>
 
 	  <div class="hacker">
-	    wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-<em><u>1.7.1</u></em>.tar.gz 
+	    sudo wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-<em><u>1.7.1</u></em>.tar.gz 
 	  </div>
 	  <div class="hacker">
 	    sudo tar xzf elasticsearch-<em><u>1.7.1</u></em>.tar.gz 
@@ -120,7 +121,7 @@ p.note {
   </li>
   </ol>
   
-<h2>Configure Elasticsearch</h2>
+<h3>Configure Elasticsearch</h3>
 	<ol>
 	<li>Open  the <code>elasticsearch.yml</code> file.<br />
 	  To make Elasticsearch accessible from the public Internet, you need to disable its dynamic scripting, so that the Kibana dashboards can access it.
@@ -146,6 +147,7 @@ p.note {
 	</li>
 </ol>
 <h2>Install and configure Kibana</h2>
+<h3>Install Kibana</h3>
 <ol>
   <li> Move to the home directory.
     <div class="hacker">
@@ -161,6 +163,9 @@ p.note {
   		sudo cp -r kibana-<em><u>4.1.1</u></em>* /usr/share/kibana-<em><u>4.1.1</u></em>
 	</div>
   </li>
+   </ol>
+<h3>Configure Kibana</h3>
+  <ol>
   <li>Open the Kibana configuration file to change the port from the default value <code>9200</code> to <code>80</code>, which is used for interaction with Elasticsearch. 
 	<div class="hacker">
 		sudo vim /usr/share/kibana-<em><u>4.1.1</u></em>/config/kibana.yml
@@ -180,7 +185,9 @@ elasticsearch_url: "http://localhost:80"</pre>
   </li>
     <li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
 	</li> 
-	
+  </ol>  
+<h3>Install and configure Nginx</h3>
+  <ol>	
   <li>Install Nginx, which can be used as the proxy server. This enable access to the Kibana dashboards from the Internet.
       <div class="hacker"> 
 	  sudo yum -y install nginx

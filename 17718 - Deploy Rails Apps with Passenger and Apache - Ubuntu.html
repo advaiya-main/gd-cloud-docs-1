@@ -108,22 +108,21 @@ p.note {
         </li>
         <li>Install the Passenger package for Apache.
             <div class='hacker'>rvmsudo passenger-install-apache2-module</div>
-           This installation takes  a while.
-        </li>
-        <li>Open the <code>apache2.conf</code> file. 
-          <div class='hacker'>sudo vim /etc/apache2/apache2.conf</div>
-        </li>
-	    <li>Update the <code>apache2.conf</code> file below the <code>LogFormat</code>.
-            <div class='hacker'>
+           This installation takes  a while. After the installation is complete, it will generate the following block of code:
+		   <div class='hacker'>
 			LoadModule passenger_module <em><u>/home/username/.rvm/gems/ruby-2.2.1</u></em>/gems/passenger-5.0.18/buildout/apache2/mod_passenger.so<br/>
    &lt;IfModule mod_passenger.c&gt;<br/>
      PassengerRoot <em><u>/home/username/.rvm/gems/ruby-2.2.1</u></em>/gems/passenger-5.0.18<br/>
      PassengerDefaultRuby <em><u>/home/username/.rvm/gems/ruby-2.2.1</u></em>/wrappers/ruby<br/>
    &lt;/IfModule&gt;
 			</div>
+			Copy the above code. </li>
+        <li>Open the <code>apache2.conf</code> file and and paste the code that you've copied, in the <code>apache2.conf</code> file just below the <code>LogFormat</code> section.
+        
+          <div class='hacker'>sudo vim /etc/apache2/apache2.conf</div>
         </li>
-		<li>Save and exit.
-		<div class ="hacker">wq!</div> 
+		
+		<li>Save and exit by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>,followed by  the <strong>Enter</strong> key.
 		</li>
         <li>Restart the Apache service.
             <div class='hacker'>sudo /etc/init.d/apache2 restart</div>
@@ -136,13 +135,13 @@ p.note {
         <li>Install the SQLite development package to store data in the database.
             
 		<li>Go to the <code>home</code> directory or your Rails project directory.
-            <div class='hacker'>cd <em><u>~</u></em> </div>
+            <div class='hacker'>cd </div>
         </li>
 		<li>Create a Rails application, and go to the application directory.
             <div class='hacker'>rails new <em><u>Your_application</u></em> </div>
 			<div class='hacker'>cd <em><u>Your_application</u></em> </div>
 		</li>
-		<li>By default, Ubuntudoesn't have JavaScript execution environment installed. So to manually install it, open <code>Gemfile</code> in your favourite editor. 
+		<li>By default, Ubuntu doesn't have JavaScript execution environment installed. So to manually install it, open <code>Gemfile</code> in your favourite editor. 
           <div class='hacker'>sudo vim Gemfile </div>
         </li>
 		
@@ -150,8 +149,7 @@ p.note {
             <div class='hacker'>gem 'therubyracer'</div>
 			
         </li>
-		<li>Save and exit.
-		<div class ="hacker">wq!</div>
+		<li>Save and exit by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>,followed by  the <strong>Enter</strong> key.
 		</li>
 		<li>Install  the dependencies of <code>Gemfile</code>.
           <div class='hacker'>bundle install</div>
@@ -166,9 +164,10 @@ p.note {
             <div class='hacker'>sudo vim /etc/apache2/sites-enabled/000-default.conf</div>
          </li>
 		 
-		  <li>Make change correspond to code shown below:
+		  <li>Add the following block of code in the configuration file and make the necessary changes according to your environment as shown below:
             <div class='hacker'>
                <pre>&lt;VirtualHost *:80&gt;
+	RailsEnv development
 	DocumentRoot <em><u>/home/username/Your_application</u></em>/public
 	&lt;Directory <em><u>/home/username/Your_application</u></em>/public&gt;
 		AllowOverride all
@@ -180,14 +179,14 @@ p.note {
 </pre>
             </div>
 			</li>
-       <li>To save and exit the file by pressing the <strong>Esc</strong> key and then type the following character.
-		<div class ="hacker">:wq!</div></li>
+       <li>Save and exit by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>,followed by  the <strong>Enter</strong> key.
+		</li>
 		
         <li>Restart the Apache server.
             <div class='hacker'>sudo /etc/init.d/apache2 restart</div>
             <p>Or</p>
             <div class='hacker'>sudo service apache2 restart</div>
-			<p class="note">			To test Rails application open the browser and type <strong>http://your_server_ip</strong></p>
+			<p class="note">To test Rails application open the browser and type <strong>http://your_server_ip:3000</strong></p>
         </li>
     </ol>
 	<h2>Conclusion</h2>

@@ -91,8 +91,8 @@ p.note {
 	<ul>
 	  <li>A GitHub account</li>
 	  <li> <code>sudo</code> privileges</li>
-	  <li> Ruby on Rails using rbenv installed and running on the host machine. See <a href ="17538">Install Ruby on Rails with rbenv on Debian</a>
-or <a href ="17534">Install Ruby on Rails with rbenv on Ubuntu</a> .</li>
+	  <li> Ruby on Rails using rbenv installed and running on the host machine. See <a href ="17538">Install Ruby on Rails with rvm on Debian</a>
+or <a href ="17534">Install Ruby on Rails with rvm on Ubuntu</a> .</li>
 </ul>
 <p class="note">Capistrano relies on Git for deployments.</p>
     <h2>Prepare the deployment server</h2>
@@ -267,8 +267,8 @@ or <a href ="17534">Install Ruby on Rails with rbenv on Ubuntu</a> .</li>
 <div class='hacker'>gem install capistrano</div>
 </li>
 <li>Create a system  user for deployment.
-<div class='hacker'>sudo adduser <em><u>UserName</u></em></div>
-<div class='hacker'>sudo passwd <em><u>UserName</u></em></div>
+<div class='hacker'>sudo adduser <em><u>username</u></em></div>
+<div class='hacker'>sudo passwd <em><u>username</u></em></div>
 </li>
 <li>Open the <code>/etc/sudoers</code> file.
   <div class='hacker'>sudo vim /etc/sudoers</div></li>
@@ -276,7 +276,7 @@ or <a href ="17534">Install Ruby on Rails with rbenv on Ubuntu</a> .</li>
 
 <li>
 Scroll down to the bottom of this  file, and find where root is defined. Add the following line there: 
-<div class='hacker'>  <em><u>UserName</u></em> ALL=(ALL:ALL) ALL
+<div class='hacker'>  <em><u>username</u></em> ALL=(ALL:ALL) ALL
 </div></li>
 <li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed  by pressing the <strong>Enter</strong> key. </li> 
 </ol>
@@ -310,13 +310,13 @@ Scroll down to the bottom of this  file, and find where root is defined. Add the
 		<li>For binding to the web browser, run the following command:
 
 		  <div class='hacker'> rails server --binding=[<em><u>your server's IP</u></em>]</div>
-		You should now be able to access it on any browser by typing:
+		<p>You should now be able to access it on any browser by typing:<strong>http://your server's IP:3000</strong></p>
 
-		  <div class='hacker'> visiting: http://<em><u>your server's IP</u></em>:3000</div>
 		</li>
 </ol>
 <h3>Create a Git repository</h3>
-		<ol><li>Install Git.
+		<ol><li><p>Login on git hub with your credentials and create a repository with same name as your rail application.</p></li>
+		<li>Install Git.
 		<div class='hacker'>sudo apt-get install git</div>
 		</li>
 		<li>Create git repository in <code>GitHub.com</code> same name as your application.</li></li>
@@ -338,7 +338,7 @@ Scroll down to the bottom of this  file, and find where root is defined. Add the
 	
 	<div class='hacker'>sudo cat /root/.ssh/id_rsa.pub</div>
 	  Or
-	<div class='hacker'>sudo cat /home/<em><u>UserName</u></em>/.ssh/id_rsa.pub </div>
+	<div class='hacker'>sudo cat /home/<em><u>Logged_in_user</u></em>/.ssh/id_rsa.pub </div>
 		(for <code>sudo</code> user)
 	<p>Copy the <code>ssh-rsa</code> and to the SSH Keys setting in <code>GitHub.com</code>.</p>
 	</li>
@@ -363,7 +363,7 @@ Scroll down to the bottom of this  file, and find where root is defined. Add the
 	  <p>The  <code>deploy.rb</code> file contains arguments and settings relevant to the deployment server(s). Here, you'll tell Capistrano  which server(s) you'd like to connect to, to complete the deployment, and how.</p>
 	  <div class='hacker'>sudo vim config/deploy.rb</div>
 	  </li>
-	  <li>Add the following lines, and modify it if you want:
+	  <li>Make corresponding changes in your file as shown:
 	    <div class='hacker'>
 	    <pre># Define the name of the application
 	set :application, '<em><u>Your_application</u></em>'
@@ -420,12 +420,12 @@ Scroll down to the bottom of this  file, and find where root is defined. Add the
 		  <div class='hacker'>
 		    <pre># Define roles, user and IP address of deployment server
 	# role :name, %{[user]@[IP adde.]}
-	role :app, %w{<em><u>UserName</u></em>@162.243.74.190} // YOUR PUBLIC IP
-	role :web, %w{<em><u>UserName</u></em>@162.243.74.190}
-	role :db,  %w{<em><u>UserName</u></em>@162.243.74.190}
+	role :app, %w{<em><u>username</u></em>@162.243.74.190}  # YOUR PUBLIC IP
+	role :web, %w{<em><u>username</u></em>@162.243.74.190}
+	role :db,  %w{<em><u>username</u></em>@162.243.74.190}
 
 	# Define server(s)
-	server '162.243.74.190', user: '<em><u>UserName</u></em>', roles: %w{web}
+	server '162.243.74.190', user: '<em><u>username</u></em>', roles: %w{web}
 
 	# SSH Options
 	# See the example commented out section in the file
@@ -433,11 +433,12 @@ Scroll down to the bottom of this  file, and find where root is defined. Add the
 	set :ssh_options, {
     	forward_agent: false,
     	auth_methods: %w(password),
-    	password: 'System_User_Password’,
-  	  user: '<em><u>UserName</u></em>',
+    	password: 'username_Password’,
+  	  user: '<em><u>username</u></em>',
 	}
   </pre>
 		  </div>
+		    <p class ="note">When copy and pasting code into Linux editor, make sure to remove any unwanted <strong>#</strong> characters from the beginning of every line, that might be added automatically by the editor.</p> 
 		</li>
 		<li>Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key. </li>
 	</ol>
