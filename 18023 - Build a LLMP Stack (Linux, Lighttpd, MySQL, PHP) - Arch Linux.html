@@ -10,7 +10,8 @@
 
 
 <title>Build a LLMP Stack (Linux, Lighttpd, MySQL, PHP) - Arch Linux</title>
-<style>
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -27,7 +28,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -39,6 +40,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -91,7 +102,6 @@ p.note {
         <li>
             Install Lighttpd.
             <div class="hacker">sudo pacman -S lighttpd</div>
-
         </li>
 
         <li>
@@ -102,14 +112,12 @@ p.note {
             Type the following in when the file opens:
 
             <div class="hacker">
-                <pre>
-&lt;html&gt;
+<pre>&lt;html&gt;
         &lt;title&gt; Welcome &lt;/title&gt;
         &lt;body&gt;
         &lt;h2&gt;Welcome to the test page!&lt;/h2&gt;
         &lt;/body&gt;
-        &lt;/html&gt;
-            </pre>
+&lt;/html&gt;</pre>
             </div>
         </li>
         <li>
@@ -173,9 +181,8 @@ p.note {
             <div class="hacker">sudo vim /etc/lighttpd/conf.d/fastcgi.conf</div>
         </li>
         <li>
-            Include the following block:
-            <div class="hacker"><pre>                                   
-server.modules += ("mod_fastcgi")
+            Include the following block:                                             
+ <div class="hacker"><pre> server.modules += ("mod_fastcgi")
 # FCGI server
 # ===========
 #
@@ -188,14 +195,12 @@ fastcgi.server = (
         "socket" => "/run/php-fpm/php-fpm.sock",
         "broken-scriptfilename" => "enable"
       ))
-)
-
-</pre></div>
+)</pre></div>
         </li>
         <li>Make Lighttpd use the new configuration file that you created in the previous step. Open the lighttpd configuration file.
         <div class="hacker">sudo vim /etc/lighttpd/lighttpd.conf</div>
         Add the following line towards the end of the file:
-        <div class="hacker"><pre>include "conf.d/fastcgi.conf"</pre></div>
+        <div class="hacker">include "conf.d/fastcgi.conf"</div>
         </li>
         <li>Reload the lighttpd service and start the php-fpm service.
         <div class="hacker">sudo systemctl reload lighttpd</div>
@@ -214,12 +219,9 @@ fastcgi.server = (
         </li>
         <li>
             When the file opens, type in the following code:
-            <div class="hacker">
-<pre> 
-&lt;?php 
+<div class="hacker"><pre>&lt;?php 
 phpinfo();
-?> </pre>
-            </div>
+?> </pre></div>
         </li>
         <li>Save and exit the file.</li>
         <li>
