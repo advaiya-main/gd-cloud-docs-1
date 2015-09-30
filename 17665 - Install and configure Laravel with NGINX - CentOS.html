@@ -10,6 +10,7 @@
 
 
 <title>Install and configure Laravel with NGINX - CentOS</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -27,7 +28,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -39,8 +40,17 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
-    </style>
 
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
@@ -110,7 +120,7 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
                    </div>
                </li>
                <li>Start Nginx
-                   <div class="hacker">sudo service restart nginx<br />
+                   <div class="hacker">sudo service nginx restart<br />
                        </div>
                </li>
            </ol>
@@ -124,25 +134,25 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
       </li>
        <li>Verify / modify the file such that the index directive and a server-level include reference is specified in the http context.
            The end result should look something like this:
-                  <div class="hacker">
-         <pre>        http
-          {
-          ...
-          index index.php index.html index.htm;
-          include /etc/nginx/conf.d/*.conf;
-          server {
-          ...</pre></div>
+<div class="hacker"><pre>http
+{
+...
+index index.php index.html index.htm;
+include /etc/nginx/conf.d/*.conf;
+server {
+...</pre></div>
       </li>
+
+
          <li>Modify the&nbsp; php configuration section of the file to look like this:
-        <div class="hacker"><pre>location ~ \.php$ {
-       try_files $uri /index.php =404;
+    <div class="hacker"><pre>location ~ \.php$ {
+    try_files $uri /index.php =404;
     fastcgi_split_path_info ^(.+\.php)(/.+)$;
-       <b><i>fastcgi_pass unix:/run/php-fpm/php-fpm.sock;</i></b>
-        <b><i>fastcgi_index index.php</i></b>;
-       <b><i> fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  </i></b>
-       <b><b> include fastcgi_params;</b></b>
-    }
-</pre></div></li>
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  
+    include fastcgi_params;
+    }</pre></div></li>
         <li>      Save and close the file.&nbsp; </li> 
          <li>Create a new server block for Laravel.
                   <div class="hacker">sudo vim /etc/nginx/conf.d/laravel.conf</div> 
@@ -177,7 +187,7 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
        </li>
       
 <li>Start Nginx
-  <div class="hacker">  sudo service restart nginx</div>
+  <div class="hacker">  sudo service nginx restart</div>
        </li>
         </ol>
 
@@ -197,15 +207,17 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
                 Install Laravel</h2>
     <ol>
                <li>Use composer to retrieve and install Laravel into the directory we created earlier
-                   <div class="hacker">sudo /usr/local/bin/composer create-project laravel/laravel /var/www/laravel 4.2</div>
+                   <div class="hacker">sudo composer create-project laravel/laravel /var/www/laravel 4.2
+</div>
                </li>
  <li>Change the owner to &quot;nginx&quot;.
-                   <div class="hacker">sudo chown -R :nginx /var/www/laravelx /var/www/laravel</div>
+                   <div class="hacker">sudo chown -R :nginx /var/www/laravel</div>
                </li>
 <li> Change the permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
                </li>
               <li>Verify success by navigating to yourcloudserver
-                                    <div class="hacker">http://your server IP address.com:81</div>
+ <div class="hacker">http://<em><u>your server IP address.com</u></em>:81</div>
+               </li>
                </li>
            </ol>
     <h2>Next steps</h2>
