@@ -145,61 +145,66 @@ Now that we have a backup copy, let's start editing the configuration file.</li>
                      <div class="hacker">root     /var/www/html;</div>
             </li>
                 
-                <li>Make <code>server_name</code> point to your domains.
-                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div></li>
+                <li>Point <code>server_name</code> to your domains.
+                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div>
+                 
+                 Double-check that each domain is separated by a space only, no commas.</li>
+
+
+               </li>
 
                 <li>Make sure that all the lines in this <code>location ~ \.php$ {</code> block are uncommented.</li>
             </ul>
             
             <p class="note">You may  already have made some of these changes  when you installed your LEMP stack.</p>
             After your changes, the file resembles this:  
+           
+<div class="hacker"><pre># The default server       
+#            
+server {     
+ listen  80 default_server;           
+ server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com</u></em>;
+ # Load configuration files for the default server block.     
+ include /etc/nginx/default.d/*.conf;           
+      
+ location / {       
+     root    <em><u>/var/www/html</u></em>;
+     index  <em><u>index.php</u></em> index.html index.htm;   
+ }    
+      
+ error_page  404/404.html;        
+ location = /404.html {           
+     root   /usr/share/nginx/html;
+ }    
+      
+ # redirect server error pages to the static page /50x.html   
+ #    
+ error_page   500 502 503 504  /50x.html;       
+ location = /50x.html {           
+     root   /usr/share/nginx/html;
+ }    
+ ...  
+      
+ # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000     
+ #    
+ location ~ \.php$ {
+     root   <em><u>/var/www/html</u></em> ;
+     fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;        
+     fastcgi_index  index.php;    
+     fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;            
+     include        fastcgi_params;             
+}     
+      
+ # deny access to .htaccess files, if Apache's document root  
+ # concurs with nginx's one       
+ #    
+ #location ~ /\.ht {
+ #    deny  all;    
+ #}  
+  }</pre></div>
+</li>
 
-                 <div class="hacker">               <br />
-           # The default server                     <br />
-           #                                        <br />
-           server {                                 <br />
-               listen  80 default_server;           <br />
-               server_name <em><u>coolexample.com product.coolexample.com aboutus.coolexample.com;</u></em>  <br />
-               # Load configuration files for the default server block.     <br />
-               include /etc/nginx/default.d/*.conf;                         <br />
-                                                                            <br />
-               location / {                                                 <br />
-                   root    <em><u>/var/www/html;</u></em>              <br />
-                   index  <em><u>index.php</u></em> index.html index.htm;   <br />
-               }                                                            <br />
-                                                                            <br />
-               error_page  404              /404.html;                      <br />
-               location = /404.html {                                       <br />
-                   root   /usr/share/nginx/html;                            <br />
-               }                                                            <br />
-                                                                            <br />
-               # redirect server error pages to the static page /50x.html   <br />
-               #                                                            <br />
-               error_page   500 502 503 504  /50x.html;                     <br />
-               location = /50x.html {                                       <br />
-                   root   /usr/share/nginx/html;                            <br />
-               }                                                            <br />
-               ...                                                          <br />
-                                                                            <br />
-               # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000     <br />
-               #                                                            <br />
-               location ~ \.php$ {                                          <br />
-                   root   <em><u>/var/www/html;</u></em>               <br />
-                   fastcgi_pass  unix:/var/run/php-fpm/php-fpm.sock;        <br />
-                   fastcgi_index  index.php;                                <br />
-                   fastcgi_param  SCRIPT_FILENAME                           <br />
-               $document_root$fastcgi_script_name;                          <br />
-                   include        fastcgi_params;                           <br />
-              }                                                             <br />
-                                                                            <br />
-               # deny access to .htaccess files, if Apache's document root  <br />
-               # concurs with nginx's one                                   <br />
-               #                                                            <br />
-               #location ~ /\.ht {                                          <br />
-               #    deny  all;                                              <br />
-                #}                                                          <br />
-                }</div></li>
-
+<p class="note">Make sure each line you've modified in this <code>nginx.conf</code> file ends with a semicolon ;</p> 
 
        <li>Save and close.</li>
 
@@ -281,30 +286,8 @@ This command creates a directory called "wordpress" in your home directory.</li>
 <li>Give your user permissions to modify the content.
 <div class="hacker">sudo usermod -a -G nginx wordpress_user</div>    </li>
 
-
 </ol>
 
-    <h2>Install WordPress</h2> 
-
-      <p>Now you can access the WordPress web interface.</p>
-     
-     <ol>
-     <li>  In your web browser, enter your primary domain name. In our example, that's 
-   <strong>http://coolexample.com</strong>.
-   (If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL.)</li>
-     <li>If an introductory page displays, click <strong>Let's go!</strong> to continue.</li>
-
-     <li>On the next page, fill out your WordPress MySQL database credentials. You can leave  <strong>Database Host</strong> as is (localhost), since that's what we defined, and <strong>Table Prefix</strong> as wp_. <br/>
-
-<img src="images/00036/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" /></li>
- 
-   <li>Click <strong>Submit</strong>.<br />
-
-  The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
-<img src="images/00036/090815/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
-</li>
-      </ol>
-      
 <h2>Create and modify the WordPress configuration file</h2> 
    
    <ol>
@@ -342,6 +325,30 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
       <li>Restart Nginx.
      <div class="hacker">sudo service nginx restart</div></li>
      </ol>
+
+
+    <h2>Install WordPress</h2> 
+
+      <p>Now you can access the WordPress web interface.</p>
+     
+     <ol>
+     <li>  In your web browser, enter your primary domain name. In our example, that's 
+   <strong>http://coolexample.com</strong>.
+   (If the Nginx default page displays, append <code>/wp-admin/ </code>to your URL.)</li>
+     <li>Work your way through the Wordpress installation, then log in with your Wordpress credentials.</li>
+
+<!--CT...
+<img src="images/00036/090815/install-wordpress-multisite-initial-setup-credentials-screen2.png" alt="install wordpress multisite initial setup credentials" /></li>
+ 
+   <li>Click <strong>Submit</strong>.<br />
+
+  The following page displays the error message &quot;Sorry, but I can't write the wp-config.php file.&quot; Not to worry! Let's create our <code>wp-config</code> file now.<br />
+<img src="images/00036/090815/install-wordpress-multisite-error-page-with-wpconfig-code-screen2.5.png" alt="install wordpress multisite error page with wpconfig code" />
+</li>
+  
+      </ol>
+    
+
      
 <h2>Continue setup in the WordPress web interface</h2>
       
@@ -351,6 +358,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 <img src="images/00036/090815/install-wordpress-multisite-signin-screen3.png" alt="install wordpress multisite signin" /></li>
         <li>Choose a user name and password. Use the password supplied if you like; just be sure to save it somewhere handy.</li>
         <li>Click <strong>Install WordPress</strong>.</li>
+    ...-->
       </ol>
       
 <p class="note">During web installation, if you get an error such as a  404 or 504 page, reload the wp-admin page (<code>http://coolexample.com/wp-admin/</code>). </p>  
