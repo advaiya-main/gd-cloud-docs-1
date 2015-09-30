@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
 
@@ -149,7 +149,7 @@
        <ol>
 	    <li>To use <strong>https</strong>, enter the following commands to enable SSL modules and the default SSL web site.
             <div class='hacker'>sudo yum install mod_ssl openssl</div>
-			<div class='hacker'>sudo vi /etc/httpd/conf.d/ssl.conf</div>
+			<div class='hacker'>sudo vim /etc/httpd/conf.d/ssl.conf</div>
 		 </li>
         <li>Modify or Add the following configuration in Apache-SSL file to enable SVN on a <strong>https</strong> protocol.
 		<div class='hacker'>
@@ -174,7 +174,7 @@
 			
         </li>
 		<li>Check out the repository.
-		<div class='hacker'>svn checkout --username <em><u>svnuser</u></em> https://<em><u>your_ip_address</u></em>/svn/test/ <em><u>/home/somedir</u></em></div>
+		<div class='hacker'>sudo svn checkout --username <em><u>svnuser</u></em> https://<em><u>your_ip_address</u></em>/svn/test/ <em><u>/home/somedir</u></em></div>
 		</li>
 </ol>
 	<h2>Conclusion</h2>
