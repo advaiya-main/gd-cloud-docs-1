@@ -89,7 +89,7 @@ p.note {
  <ol>
 	<li><a href ="17321">Initial Server Setup - Ubuntu</a></li>
 	<li><a href="17534">Install Ruby on Rails using RVM</a></li>
-	<li>Fully Qualified Domain Name (FQDN) should point to the server. If you are using COMPANY_NAME server, here's how you can do it.</li>
+	<li>Fully Qualified Domain Name (FQDN) should point to the server. If you are using COMPANY_NAME server, see how to <a href="https://www.godaddy.com/help/point-your-domain-name-to-a-server-19116">point your domain name to a server</a>.</li>
  </ol>
  
     <h2>Install NGINX and Passenger</h2>
@@ -128,15 +128,15 @@ sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger tr
 		<h2>Configure a Test Rails Application</h2>
 		<ol>
   <li>Change directory to the <code>home</code>  directory, and create a Rails application.
-    <div class="hacker">  cd  <em><u>~</u></em></div>
-    <div class="hacker">rails new <em><u>Your_application</u></em></div>
-	  <div class="hacker">  cd <em><u>Your_application</u></em></div>
+    <div class="hacker">  cd  ~</div>
+    <div class="hacker">rails new <em><u>your_application</u></em></div>
+	  <div class="hacker">  cd <em><u>your_application</u></em></div>
 	</li>
   <li>Create sample resources.
   <div class="hacker"> rails generate scaffold Task title:string note:text </div>
   <div class="hacker">rake db:migrate RAILS_ENV=development</div></li>
   <li>Test <em><u>Your_application</u></em> application by running the following command in the application directory:
-  <div class='hacker'>rails s --bind=<em><u>Your-Public-IP</u></em></div>
+  <div class='hacker'>rails s --bind=<em><u>your-public-IP</u></em></div>
   To test Rails application open the browser and type <strong>http://your_server_ip:3000</strong>
 </li>
 </ol>
@@ -167,7 +167,7 @@ Uncomment or Insert the following line in the <code>http {</code> section:
         listen 80 default_server;
         
 
-	root        <em><u>/home/username/Your_application</u></em>/public; # Your rails application's path
+	root        <em><u>/home/username/your_application</u></em>/public; # Your rails application's path
         passenger_enabled on;
         rails_env    development;
 	server_name <em><u>www.coolexample.com</u></em>; # Replace coolexample.com with FQDN or Your-Public-IP
