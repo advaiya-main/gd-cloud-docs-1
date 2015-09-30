@@ -128,7 +128,7 @@ Most web sites are capable of generating self-signed certificates.These are not 
 
    <ol> 
    <li>Navigate to your nginx configuration file, nginx.conf and find the secure server section.  This may be located in an include file.  If you look for "443" you should be able to find it.&nbsp; If it does not exist, you can create it. 
-    <div class="hacker">sudo vim /etx/nginx/nginx.conf</div></li>
+    <div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
      <li>Edit the configuration file so that the section of the secure server context above the location context looks like this for a self-signed certificate:
     <div class="hacker"><pre>server { listen 443 ssl;
         server_name yourservername.com;
