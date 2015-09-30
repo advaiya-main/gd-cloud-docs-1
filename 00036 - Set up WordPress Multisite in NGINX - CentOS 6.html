@@ -134,30 +134,25 @@ Now that we have a backup copy, let's start editing the configuration file.</li>
                 <div class="hacker">sudo vim /etc/nginx/conf.d/default.conf</div>
                 
   </li>
-          <li> In the file, make these changes: 
+          <li> In the server context, point <code>server_name</code> to your domains.
+                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div>                 
+                 Double-check that each domain is separated by a space only, no commas.</li>
+               </li>
 
-            <ul>
-    <li>In the first <code>location</code> section toward the top (probably right under the <code>server {</code> section):
-          <ul>
-               <li>Find the line that begins with <code>root</code> and point root to <code>/var/www/html;</code></li>
-               <li>Make sure that <code>index.php</code> is added to the index line right underneath that (it should be).</li></ul></li>
+            <li>In the first <code>location</code>, point root to <code>/var/www/html;</code></li>
+
+               <li>Make sure that <code>index.php</code> is added to the index line right underneath (it should be).</li></ul></li>
+
             <li>In the <code>location ~ \.php$ {</code> section (toward the bottom of the file), make sure that the <code>root</code> line is uncommented, and make it point to <code>/var/www/html;</code>. The change looks like this:
                      <div class="hacker">root     /var/www/html;</div>
             </li>
-                
-                <li>Point <code>server_name</code> to your domains.
-                 <div class="hacker">server_name coolexample.com product.coolexample.com aboutus.coolexample.com;</div>
-                 
-                 Double-check that each domain is separated by a space only, no commas.</li>
-
-
-               </li>
-
+             
                 <li>Make sure that all the lines in this <code>location ~ \.php$ {</code> block are uncommented.</li>
             </ul>
             
-            <p class="note">You may already have made some of these changes  when you installed your LEMP stack.</p>
-            After your changes, the file resembles this:  
+            <p>You may already have made some of these changes  when you installed your LEMP stack.</p>
+
+            After your changes, the file may look something like this (this example is truncated):  
            
 <div class="hacker"><pre># The default server       
 #            
@@ -170,21 +165,8 @@ server {
  location / {       
      root    <em><u>/var/www/html</u></em>;
      index  <em><u>index.php</u></em> index.html index.htm;   
- }    
-      
- error_page  404/404.html;        
- location = /404.html {           
-     root   /usr/share/nginx/html;
- }    
-      
- # redirect server error pages to the static page /50x.html   
- #    
- error_page   500 502 503 504  /50x.html;       
- location = /50x.html {           
-     root   /usr/share/nginx/html;
- }    
- ...  
-      
+ } 
+  ...        
  # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000     
  #    
  location ~ \.php$ {
@@ -193,14 +175,8 @@ server {
      fastcgi_index  index.php;    
      fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;            
      include        fastcgi_params;             
-}     
-      
- # deny access to .htaccess files, if Apache's document root  
- # concurs with nginx's one       
- #    
- #location ~ /\.ht {
- #    deny  all;    
- #}  
+}   
+  ...
   }</pre></div>
 </li>
 
@@ -363,11 +339,11 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
       
 <p class="note">During web installation, if you get an error such as a  404 or 504 page, reload the wp-admin page (<code>http://coolexample.com/wp-admin/</code>). </p>  
 
- <h2>Enable multisite</h2>
+ <h3>Enable multisite</h3>
    
    <ol>
    
-  <li>In your browser, continue the WordPress web installation. Click  <strong>Tools</strong> on the left-hand panel, and then click <strong>Network Setup</strong>.
+  <li>In your browser, continue the WordPress web installation. Click  <strong>Tools</strong> on the left-hand panel, then click <strong>Network Setup</strong>.
   </li>
   
   <li>Because we're working with sub-domains, choose <strong>sub-domains</strong> and change your Network Title if you like. Click <strong>Install</strong>.
