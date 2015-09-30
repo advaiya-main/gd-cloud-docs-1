@@ -93,27 +93,27 @@ p.note {
 <h2>Create a Rails application</h2>
 <ol>
 <li>Create a Rails application to connect to the <strong>PostgreSQL</strong> database.
-<div class="hacker">rails new myapp -d postgresql</div>
+<div class="hacker">rails new <em><u>myapp</u></em> -d postgresql</div>
 </li>
 <li>Move to the application directory.
-<div class="hacker">cd myapp</div>
+<div class="hacker">cd <em><u>myapp</u></em></div>
 </li>
 </ol>
 
 <h2>Create a database user for production</h2>
 <ol>
 <li>Create a <code>postgres</code> username and provide the password.  
-<div class="hacker"> sudo -u postgres createuser -s myapp</div>
+<div class="hacker"> sudo -u postgres createuser -s <em><u>myapp</u></em></div>
 <div class="hacker">sudo -u postgres psql</div>
 </li>
 <li>Type the following command in the PostgreSQL prompt. 
-<div class="hacker">\password myapp</div>
+<div class="hacker">\password <em><u>myapp</u></em></div>
 </li>
 <li>It will prompt you to enter and confirm password. Type your desired password and exit.
-<div class="hacker">\q # for exit</div>
+<div class="hacker">\q </div>
 </li>
 <li>Make sure that you are in Rails application’s root directory. If not, then change the directory to Rails application directory.
-<div class="hacker">cd /path/to/myapp</div>
+<div class="hacker">cd <em><u>~/myapp</u></em></div>
 </li>                                                        
 <li>Open the database configuration file.
 <div class="hacker">sudo vim config/database.yml</div>
@@ -154,7 +154,7 @@ database section , type your database name here
 <div class="hacker">git clone https://github.com/sstephenson/rbenv-vars.git</div>
 </li>
 <li>Set the environment variable by changing your directory to application directory and generate the secret key.
-<div class="hacker">cd ~/myapp</div>
+<div class="hacker">cd <em><u>~/myapp</u></em></div>
 <div class="hacker">rake secret</div>
 </li>
 <li>After you have generated the secret key, you will find a token key. Copy that token or key. To do this, open <code>.rbenv-vars</code> file into your favorite editor and add your key with <code><em><u>your_generated_secret</u></em></code> key.
@@ -239,36 +239,17 @@ database section , type your database name here
 environment 'production'
 daemonize false
 
-pidfile '/home/imuser/myapp/tmp/pids/puma.pid'
-state_path '/home/imuser/myapp/tmp/pids/puma.state'
+pidfile '<em><u>/home/imuser/myapp/tmp/pids/puma.pid</u></em>'
+state_path '<em><u>/home/imuser/myapp/tmp/pids/puma.state</u></em>'
 
-# stdout_redirect 'log/puma.log', 'log/puma_err.log'
-
-# quiet
 threads 0, 16
-bind 'unix:///home/imuser/myapp/tmp/sockets/puma.sock'
+bind '<em><u>unix:///home/imuser/myapp/tmp/sockets/puma.sock</u></em>'
 
-# ssl_bind '127.0.0.1', '9292', { key: path_to_key, cert: path_to_cert }
-
-# on_restart do
-#   puts 'On restart...'
-# end
-
-# restart_command '/u/app/lolcat/bin/restart_puma'
+workers <em><u>2</u></em> 
 
 
-# === Cluster mode ===
 
-workers 2 #change workers as per your cpu core
-
-
-# on_worker_boot do
-#   puts 'On worker boot...'
-# end
-
-# === Puma control rack application ===
-
-activate_control_app 'unix:///home/user/myapp/tmp/sockets/pumactl.sock'
+activate_control_app 'unix://<em><u>/home/imuser/myapp/tmp/sockets/pumactl.sock</u></em>'
 </pre>
 </div>
 </li>
@@ -292,8 +273,8 @@ wget https://raw.githubusercontent.com/puma/puma/master/tools/jungle/upstart/pum
 <div class="hacker">vim puma.conf</div>
 </li>
 <li>Look for the variable <code>setuid</code> and replace <code>apps</code> with the name of your Rails application, and the group created for Rails application.
-<div class="hacker">setuid app #replace to your user  </div>
-<div class="hacker">setgid app #replace to your group</div>
+<div class="hacker">setuid <em><u>app</u></em> #replace to your user  </div>
+<div class="hacker">setgid <em><u>app</u></em> #replace to your group</div>
 </li>
 <li>Save and exit.
 </li>
@@ -303,10 +284,20 @@ wget https://raw.githubusercontent.com/puma/puma/master/tools/jungle/upstart/pum
 <li>Create an empty file in <code>/etc</code>.
 <div class="hacker">sudo touch /etc/puma.conf</div>
 </li>
-<li>To start, stop and restart services, you can use the following service commands: 
-<div class="hacker">sudo service puma start app=/home/imuser/myapp</div>
-<div class="hacker">sudo service puma stop app=/home/imuser/myapp</div>
-<div class="hacker">sudo service puma restart app=/home/imuser/myapp</div>
+<li>To start, stop and restart services, you can use the following service commands:
+<p><strong>Ubuntu:</strong></p>
+<div class="hacker">sudo service puma start app=<em><u>/home/imuser/myapp</u></em></div>
+<div class="hacker">sudo service puma stop app=<em><u>/home/imuser/myapp</u></em></div>
+<div class="hacker">sudo service puma restart app=<em><u>/home/imuser/myapp</u></em></div>
+<p><strong>Debian:</strong></p>
+<div class="hacker">mkdir -p tmp/pids tmp/sockets </div>
+<p>To start the service.</p>
+<div class="hacker">bundle exec puma -C config/puma.rb -d --pidfile=tmp/pids/puma.pid</u></em></div>
+<p>To stop the service.</p> 
+<div class="hacker">kill -s SIGTERM `cat tmp/pids/puma.pid`</div>
+<p>To restart the service.</p> 
+<div class="hacker">kill -s SIGUSR2 `cat tmp/pids/puma.pid`</div>
+
 </li>
 </ol>
 
@@ -317,29 +308,29 @@ wget https://raw.githubusercontent.com/puma/puma/master/tools/jungle/upstart/pum
 <div class="hacker">sudo apt-get install nginx</div>
 </li>
 <li>Move to the application directory, and then open the configuration file with a text editor.
-<div class="hacker">cd /path/to/myapp</div>
-<div class="hacker">sudo vi config/nginx.conf</div>
+<div class="hacker">cd <em><u>~/myapp</u></em></div>
+<div class="hacker">sudo vim /etc/nginx/sites-available/default</div>
 </li>
-<li>Add the following text to the configuration file:
+<li>Add the following configuration at end of the file:
 <div class="hacker">
 <pre>
-upstream myapp {
-  server unix:///home/imuser/myapp/tmp/sockets/puma.sock fail_timeout=0;
+upstream <em><u>myapp</u></em> {
+  server unix://<em><u>/home/imuser/myapp/tmp/sockets/puma.sock</u></em> fail_timeout=0;
 }
 
 server {
   # listen 80 deferred;
-  server_name coolexample.com www.coolexample.com; #replace with your domain or static IP
-  root /home/imuser/myapp/public;
+  server_name <em><u>coolexample.com</u></em>;
+  root <em><u>/home/imuser/myapp/</u></em>public;
 
-  try_files $uri/index.html $uri @myapp;
+  try_files $uri/index.html $uri @<em><u>myapp</u></em>;
 
-  location @myapp {
+  location @<em><u>myapp</u></em> {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
     proxy_redirect off;
 
-    proxy_pass http://myapp;
+    proxy_pass http://<em><u>myapp</u></em>;
   }
 
   error_page 500 504 /500.html;
@@ -353,16 +344,6 @@ server {
 </div>
 </li>
 <li>Save and exit. This configures NGINX as a reverse proxy, so HTTP requests get forwarded to the Puma application server via a Unix socket. 
-</li>
-<li>Link the configuration file to NGINX to enable sites.
-<div class="hacker">
-<pre>
-cd /etc/nginx/sites-available/
-ln -s /home/imuser/myapp/config/nginx.conf cooldomain
-cd /etc/nginx/sites-enabled/
-ln -s ../sites-available/ cooldomain
-</pre>
-</div>
 </li>
 <li>Restart the NGINX service.
 <div class="hacker">sudo service nginx restart</div>

@@ -115,7 +115,7 @@ p.note {
 	    sudo tar xzf elasticsearch-<em><u>1.7.1</u></em>.tar.gz 
       </div>
 	  <div class="hacker">
-	    mv elasticsearch-<em><u>1.7.1</u></em> /usr/share/elasticsearch 
+	    sudo mv elasticsearch-<em><u>1.7.1</u></em> /usr/share/elasticsearch 
       </div>
   </li>
   </ol>
@@ -138,7 +138,7 @@ p.note {
   </li>
 	<li>Start Elasticsearch.
 	  <div class="hacker">
-	  ./bin/elasticsearch
+	  sudo ./bin/elasticsearch
 	  </div>
 	  A successful startup displays a <strong>started</strong> message.<br />
 	</li>
@@ -287,13 +287,13 @@ location ~ ^/kibana-int/dashboard/.*$
 <ol>
   <li>Install Fluentd.
   	  <div class="hacker">
-		curl -L https://td-toolbelt.herokuapp.com/sh/install-redhat-td-agent2.sh | sh
+		sudo curl -L https://td-toolbelt.herokuapp.com/sh/install-redhat-td-agent2.sh | sh
 	  </div>
   </li>
   <li>Install the additional plug-ins required to integrate Elasticsearch with Fluentd. 
 
 	  <div class="hacker">  
-		  sudo yum -y install make libcurl4-gnutls-dev
+		  sudo yum -y install make libcurl-devel
 	  </div>
 	  <div class="hacker">  
 		  sudo /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch
