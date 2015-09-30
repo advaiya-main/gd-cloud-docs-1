@@ -6,7 +6,8 @@
 
 
 <title>Configure ProFTPd to use SFTP instead of FTP - Debian, Ubuntu</title>
-<style type="text/css">
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -23,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -35,6 +36,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -79,9 +90,10 @@ p.note {
 <ol> 
 <li>Update all the system packages, and install the <code>proftpd</code> package.
    <div class="hacker">sudo  apt-get  -y  update</div>
-   <div class="hacker">sudo apt-get install proftpd</div>
-   <p class="note">Choose the <code>standalone</code> option, when promted for type of proftpd.</p>
-   </li>
+   <div class="hacker">sudo apt-get install proftpd</div></li>
+ 
+ <li>In the ProFTPd configuration screen that appears, choose the <strong>standalone</strong> option, when prompted for type of proftpd.</li>
+
    <li>Open the ProFTPd configuration file.
      <div class="hacker">sudo vim /etc/proftpd/proftpd.conf</div>
    </li>
@@ -89,22 +101,20 @@ p.note {
    <div class="hacker">serverName      "<em><u>your_Domain_Or_IP_Address</u></em>"</div>
    </li>
    <li>Uncomment the following line:
-   <div class="hacker">DefaultRoot     ~</div>
+   <div class="hacker">DefaultRoot         ~</div>
    </li>
-   <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key.
+   <li>Save and close.
    </li>
   </ol>
   
   <h2>Configure SFTP access with ProFTPd</h2>
 <ol> 
 <li>Create a blank file in  the <code>/etc/proftpd/conf.d/ </code>directory to configure SFTP.
-   <div class="hacker">sudo vim /etc/proftpd/conf.d/<em><u>sftp.conf</u></em></div>
+   <div class="hacker">sudo vim /etc/proftpd/conf.d/sftp.conf</div>
    </li>
    <li>Add the following lines into  the file:
-   <div class="hacker">
-<pre>
-&lt;IfModule mod_sftp.c&gt;
-
+  
+ <div class="hacker"><pre>&lt;IfModule mod_sftp.c&gt;
         SFTPEngine on
         Port 2222
         SFTPLog /var/log/proftpd/sftp.log
@@ -121,11 +131,9 @@ p.note {
         # Enable compression
         SFTPCompression delayed
 &lt;/IfModule&gt;
-</pre>
-   </div>
+</pre> </div>
    </li>
-  <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key.
-   </li>
+  <li>Save and close.</li>
   </ol>
   
   <h2>Configure key based authentication</h2>
@@ -154,13 +162,13 @@ p.note {
   
   <h2>Disable SFTP access on the SSH port</h2>
 <ol> 
-<li>Open the SSHD configuration file   to enable SFTP.  
+<li>Open the SSHD configuration file to enable SFTP.  
    <div class="hacker">sudo vim /etc/ssh/sshd_config</div>
    </li>
-   <li>Comment the following line using <code>#</code> (hash):
+   <li>Comment out the following line:
 <div class="hacker">Subsystem sftp /usr/lib/openssh/sftp-server</div>
    </li>
-   <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key.
+   <li>Save and close.
    </li>
   
    <li>Restart the SSH server services.
