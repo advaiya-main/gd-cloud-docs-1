@@ -84,7 +84,7 @@ td:nth-child(1) {font-weight:bold;}
    
     <p>ProFTPd is a File Transfer Protocol (FTP) server and  open source software compatible with Linux/Unix systems and Microsoft Windows. SFTP (which stands for SSH File Transfer Protocol or Secure File Transfer Protocol) is a separate protocol packaged with SSH that works in a similar way over a secure connection.</p>
     
-    <p>In this article, you will learn to configure ProFTPd to use SFTP on Debian or Ubuntu, using FileZilla as our FTP client. FileZilla is free and available on all major operating systems. You can download it from 
+    <p>In this article, you will learn to configure ProFTPd to use SFTP on Debian or Ubuntu, using FileZilla as your FTP client. FileZilla is free and available on all major operating systems. You can download it from 
 <a href="https://filezilla-project.org/">http://filezilla-project.org</a>.</p>
 
   <h2>Install ProFTPd</h2>
@@ -220,8 +220,10 @@ Choose a password and confirm it at the prompts.</li>
    <li>Back at your command line, restart the ProFTPd service.
    <div class="hacker">sudo service proftpd restart</div>
    </li>
-   <li>Return to FileZilla and enter your FTP user credentials created earlier and 22 for the port: <strong>Host</strong> (or SFTP://IP address), <strong>Username</strong>, <strong>Password</strong>, and <strong>Port (22)</strong> number, and click  <strong>Quickconnect</strong>. FileZilla connects automatically using your SSH keys.
-   <p><img src="filezilla-login-top-nav-quickconnect" alt="filezilla quickconnect login"/></p>
+   <li>Return to FileZilla and enter the IP of your server as well as your FTP user credentials created earlier. Enter 22 for the Port, then click <strong>Quickconnect</strong>. <!--CT...<strong>Host</strong> (or SFTP://IP address), <strong>Username</strong>, <strong>Password</strong>, and <strong>Port (22)</strong> number, and click  <strong>Quickconnect</strong>. ...--> 
+   <p><img src="images/17564/091615/filezilla-login-top-nav-quickconnect.png" alt="filezilla quickconnect login"/></p>
+
+   FileZilla connects automatically using your SSH keys.
    <!--CT...<br/><img src="images/17564/091615/Quickconnect.png" alt="Quickconnect.png"/>...-->
    </li>
   </ol>
