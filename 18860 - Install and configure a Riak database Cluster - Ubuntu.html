@@ -6,7 +6,8 @@
 
 
 <title>Install and configure a Riak database Cluster - Ubuntu</title>
-<style type="text/css">
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -23,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -35,6 +36,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -70,7 +81,7 @@ p.note {
     <p><strong>Difficulty</strong>: <em>2</em><br/>
         <strong>Time</strong>: <em>15 minutes</em></p>
 
-    <p>In this article, you will learn  to install a Riak database cluster on an Ubuntu server. Riak is a distributed database system that is designed for high availability of data. To ensure better performance, Ubuntu servers with at least 4 GB RAM are preferred.</p>
+    <p>In this article, you will learn to install a Riak database cluster on an Ubuntu server. Riak is a distributed NoSQL database that is designed for high availability of data. To ensure better performance, Ubuntu servers with at least 4 GB RAM are preferred.</p>
     <p> In this article, you need to perform all the installations as a <code>sudo</code> user.</p>
     
   <h2>Install Riak</h2>
@@ -97,17 +108,53 @@ p.note {
    </li>
    <li>Edit the Riak configuration file: Find and replace the following lines in the <code>/etc/riak/riak.conf</code> file.
      <div class="hacker">listener.protobuf.internal = <em><u>node_ip_address</u></em>:8087</div>
-   <div class="hacker">listener.http.internal = <em><u>node_ ip_address</u></em>:8098</div>
+   <div class="hacker">listener.http.internal = <em><u>node_ip_address</u></em>:8098</div>
    <div class="hacker">nodename = riak@<em><u>node_ip_address</u></em></div>
    </li>
-   <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
-   <li>Start the Riak service. While starting, configure <code>ulimit</code> to a minimum of 65565.
-     <div class="hacker">ulimit -u 65565</div>
-   <div class="hacker">sudo riak start</div>
-  <p>In the same way, you can configure all the other nodes that you want to include in the cluster.</p>
-  </li>
+   <li>Save and close.</li>
+   
   </ol>
-  
+
+  <h2>Raise the ulimit</h2>
+  <ol>
+    <li>Find your current <code>ulimit</code>.
+       <div class="hacker">ulimit -n</div>
+
+   <li>Find out the maximum <code>ulimit</code> value allowed.
+ <div class="hacker">sysctl fs.file-max</div>
+
+In this example, the output is: 
+ <div class="hacker">fs.file-max = 400145</div>
+
+This is the system-level max.</li>
+
+<li><p>Let's raise the limits of the riak user by adding new bounds to the limits.conf file.</p>
+
+  Open the limits.conf file for editing.
+
+ <div class="hacker">sudo vim /etc/security/limits.conf</div>
+</li>
+
+<li>Add these two lines anywhere in the file.
+ <div class="hacker">riak soft nofile 4096<br/>
+riak hard nofile 60000</div></li>
+
+<li>Save and close.</li>
+
+<li>Log out of your server.
+<div class="hacker">exit</div></li>
+
+<li>Log back in to your server and create this file.
+   <div class="hacker">sudo touch /etc/default/riak</div>
+ </li>
+
+<li>Now raise your <code>ulimit</code> to a number below your max. In this case, we'll raise it to 40000.
+   <div class="hacker">ulimit -n 40000</div>
+</li>
+</ol>
+
+<p>You can configure all the other nodes that you want to include in the cluster in this way.</p>
+
   <h2>Add a second node to the cluster</h2>
   <p>Perform all the steps  above to start Riak in a second node and to include these nodes in the cluster. </p>
 <ol> 
@@ -124,8 +171,8 @@ p.note {
    </li>
    <li>Create a file, <code>/etc/default/riak</code>, and add the following line to make the <code>ulimit</code> setting permanent:
      <div class="hacker">sudo vim /etc/default/riak</div>
-   <div class="hacker">ulimit -n 65536</div></li>
-    <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.</li>
+   <div class="hacker">ulimit -n 40000</div></li>
+    <li>Save and close.</li>
   
     </ol>
   
