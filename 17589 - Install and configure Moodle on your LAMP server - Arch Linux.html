@@ -120,10 +120,10 @@ extension=zip.so
     
    </li>
    <li>Moodle needs a folder for its temporary operations. It shouldn’t be accessed from the web, so move the folder outside of the server web root. To create it in the home directory, use the following command:
-   <div class="hacker">sudo mkdir /srv/<em><u>moodledata</u></em></div>
+   <div class="hacker">sudo mkdir <em><u>/moodledata</u></em></div>
    </li>
    <li>Make it writeable by the machine.
-   <div class="hacker">chown http:http /srv/<em><u>moodledata</u></em></div>
+   <div class="hacker">sudo chown http:http <em><u>/moodledata</u></em></div>
    </li>
   </ol>
   
@@ -157,18 +157,11 @@ extension=zip.so
    <li>Enter the database credentials to connect with the database, and then click <strong>Next</strong>.
    <br /> <img src="images/17589/091515/Database-settings.png" alt="Database settings page"/>
    </li>
-   <li>Go to  the Moodle server, and create the <code>config.php</code> file, and paste the code that you see in your browser into the file.
-   <div class="hacker">cd /var/www/html/moodle</div>
-      <div class="hacker">sudo vim config.php</div>
-	  <p>Copy and paste the raw/text into the file. The browser output will look similar to the following screenshot:</p>
-	   <img src="images/17589/091515/Configuration-completed.png" alt="Configuration completed page"/>
-   </li>
-   <li>Save and exit the file by pressing the <strong>Esc</strong> key, typing <code>:wq</code>, and then pressing the <strong>Enter</strong> key.
-   </li>
+    <li>If the configuration fails, you will be asked to copy a certain block of text to the config file. This happens mostly because of the lack of ownership to the moodle directory. Make sure you have provided that and you can avoid making changes in the <code>config.php</code> file.</li>
     <li>After the configuration is complete you will see <strong>Server Checks</strong> and <strong>Installation</strong> page click on <strong>Continue</strong> button on both page. </li>
   </ol>
   
-  <h2>Update the site profile</h2>
+  <h3>Update the site profile</h3>
 <ol> 
 <li>Update the profile for your site, fill the mandatory information fields, and then click <strong>Update profile</strong>.
     <br /><img src="images/17589/091515/Site-profile.png" alt="Site profile page"/>
