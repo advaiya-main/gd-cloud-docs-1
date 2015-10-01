@@ -123,7 +123,7 @@ p.note {
 		 <h2>Configure CouchDB</h2>
               <ol>
 			    <li>Create a CouchDB user and create a directory. 
-			   <div class="hacker">sudo mkdir -p /usr/local/var/lib/couchdb &amp;&amp; adduser --system --home /usr/local/var/lib/couchdb --no-create-home --shell /bin/bash --group --gecos "CouchDB" couchdb</div>
+			   <div class="hacker">sudo mkdir -p /usr/local/var/lib/couchdb &amp;&amp; sudo adduser --system --home /usr/local/var/lib/couchdb --no-create-home --shell /bin/bash --group --gecos "CouchDB" couchdb</div>
 			   </li>
                <li>Change the ownership permission of CouchDB in different directory with recursive order.
 			   <div class="hacker">sudo mkdir -p /usr/local/var/log/couchdb</div>
@@ -135,7 +135,7 @@ p.note {
 			   <div class="hacker">sudo cp -v /usr/local/etc/init.d/couchdb /etc/init.d/couchdb</div>
 			   </li>
                <li>Disallow manual restart by setting up CouchDB as a service.  
-               <div class="hacker">update-rc.d couchdb defaults</div>
+               <div class="hacker">sudo update-rc.d couchdb defaults</div>
 			   </li>
 			   </ol>
          
@@ -171,7 +171,8 @@ p.note {
   
               <ol>
        <li>Install the latest java development kit with the <code>apt-get</code> command.
-			   <div class="hacker">sudo apt-get install openjdk-7-jre-headless</div>
+			<div class="hacker">cd ~</div>
+			   <div class="hacker">sudo apt-get install -y openjdk-7-jre-headless</div>
 			   </li>
 			    <li>Download the Elasticsearch package with <code>wget</code> command.
 			   <div class="hacker">wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.8.deb</div>
@@ -191,7 +192,7 @@ p.note {
          <li>Insert following line anywhere in the file:
 			   <div class="hacker">script.disable_dynamic: true</div>
 			   </li>
-               <li>Save this file and exit, by pressing <strong>Esc</strong> key, and then typing  <strong>:wq</strong>.
+               <li>Save this file and exit, by pressing <strong>Esc</strong> key, and then typing  <strong>:wq!</strong>.
 			   </li>
 			    <li>Restart the Elasticsearch service for the changes to take effect.
 			   <div class="hacker">sudo service elasticsearch restart</div>
@@ -238,10 +239,10 @@ p.note {
 			   <div class="hacker">sudo vim /etc/default/elasticsearch</div>
 			   </li>
 			   <li>Add the following line anywhere in the file:
-			   <div class="hacker">DATA_DIR= /var/data/elasticsearch</div>
+			   <div class="hacker">DATA_DIR=/var/data/elasticsearch</div>
 			   </li>
 			   <li>
-			   Save and exit the file by presssing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, following by the <strong>Enter</strong> key.
+			   Save and exit the file by presssing the <strong>Esc</strong> key, and then typing <strong>:wq!</strong>, following by the <strong>Enter</strong> key.
 			   </li>
 			   <li>Navigate to the <code>Elasticsearch</code> directory.
 			   <div class="hacker">cd /usr/share/elasticsearch/</div>
@@ -289,18 +290,18 @@ p.note {
     "total" : 4,
     "max_score" : 1.0,
     "hits" : [ {
-      "_index" : "testdb",
-      "_type" : "testdb",
+      "_index" : "mydatabase",
+      "_type" : "mydatabase",
       "_id" : "4",
       "_score" : 1.0, "_source" : {"_rev":"1-7e9376fc8bfa6b8c8788b0f408154584","_id":"4","name":"My Name 4"}
     }, {
-      "_index" : "testdb",
-      "_type" : "testdb",
+      "_index" : "mydatabase",
+      "_type" : "mydatabase",
       "_id" : "1",
       "_score" : 1.0, "_source" : {"_rev":"1-025ca2e8a48b91d98530daf5c29babe4","_id":"1","name":"My Name 1"}
     }, {
-      "_index" : "testdb",
-      "_type" : "testdb",
+      "_index" : "mydatabase",
+      "_type" : "mydatabase",
       "_id" : "2",
       "_score" : 1.0, "_source" : {"_rev":"1-194582c1e02d84ae36e59f568a459633","_id":"2","name":"My Name 2"}
     }, 
