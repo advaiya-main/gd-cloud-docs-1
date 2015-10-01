@@ -97,7 +97,7 @@ p.note {
 </li>
 <li>Activate the environment. 
   <div class="hacker">source venv/bin/activate</div>
-<p>You can use <code>deactivate</code> to deactivate the current environment.</p>
+
 </li>
 <li>Install the RethinkDB driver using <code>pip</code>.
   <div class="hacker">pip install rethinkdb</div>
@@ -108,12 +108,21 @@ p.note {
 <h2>Start RethinkDB</h2>
 <ol>
 <li>Start RethinkDB to access it through web interface.
-  <div class="hacker">rethinkdb -- all</div>
+  <div class="hacker">rethinkdb --bind all</div>
 </li>
 <li>Access your server at <strong><u><em>http://public_IP_of_your_server_or_domain</em></u>:8080</strong><br />
 <p><img src="images/18527-1.png" alt="18527"  /></p>
-Using this Web interface, you can manage creating database, tables, and can configure RethinkDB cluster to manage table replication. To shutdown the rethinkDB use <code>Ctrl+c</code>
+Using this Web interface, you can manage creating database, tables, and can configure RethinkDB cluster to manage table replication.
 
+</li>
+<li>
+	To come back on command prompt and shut down the rethinkDB, press <strong>Ctrl+C</strong>:
+</li>
+<li>
+	To come out the python virtual environment type:
+	<div class="hacker">
+		deactivate
+	</div>
 </li>
 </ol>
 <h2>Interact with RethinkDB from Python</h2>
@@ -174,6 +183,12 @@ Exit the python shell.
 <div class="hacker">
 exit()
 </div>
+</li>
+<li>
+	Come out of python virtual environment.
+	<div class="hacker">
+		deactivate
+	</div>
 </li>
 </ol>
 <h2>Next steps</h2>
