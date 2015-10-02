@@ -9,7 +9,7 @@
 <!--Use this template for articles that explain or describe something (such as an operating system). For articles that include steps for accomplishing a task (for example, installing), use the Informational template instead.  -->
 
 
-<title>Install and configure Laravel with NGINX - CentOS</title>
+<title>Install and configure Laravel with NGINX - CentOS 7</title>
 
 <style type='text/css'>
 div.hacker {
@@ -96,13 +96,13 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
 </head>
 
 <body>
-<p>Instructions to install and configure Laravel in a Nginx / CentOS environment.</p>
-    <h1>Install and configure Laravel with NGINX - CentOS</h1>
+<p>Instructions to install and configure Laravel in an Nginx / CentOS 7 environment.</p>
+    <h1>Install and configure Laravel with NGINX - CentOS 7</h1>
 
    <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-    <p>Laravel is a framework used to create web applications.&nbsp; It is assumed you have installed git, curl, a <a href="17349 - Build a LEMP stack (Linux, NGINX, MySQL, PHP) - CentOS 7.html"> CentOS 7 LEMP</a> and have created a <a href="17328 - Add Memory Swap - CentOS, Fedora.html">swap file</a>.</p>
+    <p>Laravel is a framework used to create web applications.&nbsp; It is assumed you have installed git, curl, a <a href="17349 - Build a LEMP stack (Linux, NGINX, MySQL, PHP) - CentOS 7.html"> CentOS 7 LEMP stack</a> and have created a <a href="17328 - Add Memory Swap - CentOS, Fedora.html">swap file</a>.</p>
 
     <h2>Install Dependencies</h2>
            <ol>
@@ -121,7 +121,7 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
                    </div>
                </li>
                <li>Start Nginx
-                   <div class="hacker">sudo service restart nginx<br />
+                   <div class="hacker">sudo service nginx restart<br />
                        </div>
                </li>
            </ol>
@@ -144,12 +144,12 @@ server {
 ...</pre></div>
       </li>
 
- <li>      Save and close the file.&nbsp; </li> 
-         <li>      Open the default server block configurartion file 
+ <li>      Save and close the file.</li> 
+         <li>      Open the default server block configuration file 
               <div class="hacker">sudo vim /etc/nginx/default.d/default.conf </div>
          </li> 
         
-         <li>Modify the&nbsp; php configuration section of the file to look like this:
+         <li>Modify the php configuration section of the file to look like this:
         <div class="hacker"><pre>location ~ \.php$ {
        try_files $uri /index.php =404;
        fastcgi_split_path_info ^(.+\.php)(/.+)$;
@@ -193,7 +193,7 @@ location = /50x.html {
        </li>
       
 <li>Start Nginx
-  <div class="hacker">  sudo service restart nginx</div>
+  <div class="hacker">  sudo service nginx restart</div>
        </li>
         </ol>
 
@@ -216,7 +216,7 @@ location = /50x.html {
                    <div class="hacker">sudo /usr/local/bin/composer create-project laravel/laravel /var/www/laravel 4.2</div>
                </li>
  <li>Change the owner to &quot;nginx&quot;.
-                   <div class="hacker">sudo chown -R :nginx /var/www/laravelx /var/www/laravel</div>
+                   <div class="hacker">sudo chown -R :nginx /var/www/laravel</div>
                </li>
 <li> Change the permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
                </li>
