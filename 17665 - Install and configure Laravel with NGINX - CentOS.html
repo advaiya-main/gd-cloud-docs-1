@@ -133,6 +133,11 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
           server {
           ...</pre></div>
       </li>
+ <li>      Save and close the file.&nbsp; </li> 
+         <li>      Open the default server block configurartion file 
+              <div class="hacker">sudo vim /etc/nginx/default.d/default.conf </div>
+         </li> 
+        
          <li>Modify the&nbsp; php configuration section of the file to look like this:
         <div class="hacker"><pre>location ~ \.php$ {
        try_files $uri /index.php =404;
@@ -193,8 +198,8 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
                <li>Change the name of the newly-created composer.phar file to &quot;composer&quot;
                    <div class="hacker">sudo mv composer.phar /usr/local/bin/composer</div>
                </li>
-
-                Install Laravel</h2>
+</ol>
+              <h2>  Install Laravel</h2>
     <ol>
                <li>Use composer to retrieve and install Laravel into the directory we created earlier
                    <div class="hacker">sudo /usr/local/bin/composer create-project laravel/laravel /var/www/laravel 4.2</div>
