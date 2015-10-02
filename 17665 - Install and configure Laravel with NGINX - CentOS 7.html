@@ -117,10 +117,14 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
                <li>Additional items
                    <div class="hacker">
                        sudo yum install php-fpm php55w-fpm php55w-mysql mariadb-server php55w-mcrypt php55w-dom php55w-mbstring
-
                    </div>
+
+If you have issues upgrading your PHP to the required version, do the following:
+ <div class="hacker">sudo yum install yum-plugin-replace</div>
+ <div class="hacker">sudo yum replace php-common --replace-with=php54w-common</div>
                </li>
-               <li>Start Nginx
+
+               <li>Start Nginx.
                    <div class="hacker">sudo service nginx restart<br />
                        </div>
                </li>
