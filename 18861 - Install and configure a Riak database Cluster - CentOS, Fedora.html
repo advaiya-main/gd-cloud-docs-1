@@ -7,7 +7,8 @@
 
 
 <title>Install and configure a Riak database Cluster - CentOS, Fedora</title>
-<style type="text/css">
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -24,7 +25,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -36,6 +37,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -70,7 +81,7 @@ p.note {
     <h1>Install and Configure a Riak Database Cluster - CentOS, Fedora</h1>
     
     <p><strong>Difficulty</strong>: <em>2</em><br/>
-        <strong>Time</strong>: <em>1 hour</em></p>
+        <strong>Time</strong>: <em>15 minutes</em></p>
 
     <p>In this article, you'll learn to install a Riak database cluster on a CentOS or Fedora server by compiling from the source. Riak is a distributed database system that is designed for high availability of data. To ensure better performance, CentOS or Fedora servers with 4 GB RAM are preferred. In this article, you'll perform all the installations as a <code>sudo</code> user.</p>
     
@@ -82,8 +93,9 @@ p.note {
    </li>
    <li>Download Erlang from the source, and then compile it. 
      <div class="hacker">wget http://s3.amazonaws.com/downloads.basho.com/erlang/otp_src_R16B02-basho8.tar.gz</div>
+   
    <div class="hacker">tar zxvf otp_src_R16B02-basho8.tar.gz</div>
-   <div class="hacker">cd OTP_R16B02_basho8</div>
+      <div class="hacker">cd OTP_R16B02_basho8</div>
     <div class="hacker">sudo ./otp_build autoconf</div>
 	 <div class="hacker">CFLAGS="-DOPENSSL_NO_EC=1" ./configure &amp;&amp; make &amp;&amp; sudo make install</div> 
    </li>
@@ -97,8 +109,10 @@ p.note {
 <ul> 
 <li>Download Riak from the source, and then compile it. 
    <div class="hacker">wget http://s3.amazonaws.com/downloads.basho.com/riak/2.1/2.1.1/riak-2.1.1.tar.gz</div>
-   <div class="hacker">tar zxvf riak-2.1.1.tar.gz</div>
-    <div class="hacker">cd riak-2.1.1</div>
+
+  <div class="hacker">tar zxvf riak-2.1.1.tar.gz</div>
+    
+     <div class="hacker">cd riak-2.1.1</div>
 	<div class="hacker">make locked-deps</div>
 	<div class="hacker">make rel</div>
 	Because you  compiled Riak from the source, you need to understand the file locations before proceeding. The file locations are as follows:
