@@ -105,23 +105,27 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
            <ol>
                <li>Update your installation package
                    <div class="hacker">sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm</div>
-sudo yum remove epel-release
-sudo wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-sudo yum install php56w
 
                </li>
                <li>Install Webtatic
                    <div class="hacker">
-                       sudo rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</div>
+                    sudo rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm</div>
                </li>
                <li>Additional items
                    <div class="hacker">
-                       sudo yum install php-fpm php55w-fpm php55w-mysql mariadb-server php55w-mcrypt php55w-dom php55w-mbstring
+                       sudo yum install php56w-fpm php56w-mysql mariadb-server php56w-mcrypt php56w-dom php56w-mbstring
                    </div>
 
 If you have issues upgrading your PHP to the required version, do the following:
  <div class="hacker">sudo yum install yum-plugin-replace</div>
- <div class="hacker">sudo yum replace php-common --replace-with=php54w-common</div>
+ <div class="hacker">sudo yum replace php-common --replace-with=php56w-common</div>
+
+*****
+<div class="hacker">sudo yum remove epel-release</div>
+<div class="hacker">sudo wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm</div>
+<div class="hacker">sudo yum install php56w</div>
+*****
+
                </li>
 
                <li>Start Nginx.
@@ -142,13 +146,34 @@ If you have issues upgrading your PHP to the required version, do the following:
 
 <ol>
   <li>Open your main Nginx config file to edit. 
-      <div class="hacker">sudo nano /etc/nginx/nginx.conf</div> </li>
+      <div class="hacker">sudo vim /etc/nginx/nginx.conf</div> </li>
 
 <li>Add these lines to the end of the http {} block:
 <div class="hacker">include /etc/nginx/sites-enabled/*.conf;<br/>
 server_names_hash_bucket_size 64;</div> </li>
 
- <li>      Save and close the file. </li> 
+ <li>Save and close the file. </li> 
+
+</ol>
+
+<h2>Configure your Laravel server block</h2>
+
+<ol>
+  <li>Make a copy of your default.conf file to use for your Laravel server block. 
+<div class="hacker">sudo cp /etc/nginx/conf.d/default.conf /etc/nginx/sites-available/laravel.conf</div></li>
+
+<li>Open your Laravel file to edit. 
+<div class="hacker">sudo vim /etc/nginx/sites-available/laravel.conf</div> </li>
+
+<li>In the file, change the Listen directive to 81.</li>
+
+<li>Point your root to <code>/var/www/laravel/public;</code>
+<div class="hacker">root <em><u>/var/www/laravel/public;</u></em></div></li>
+
+<li>And add this <code>try_files</code> line underneath it.
+<div class="hacker">try_files $uri $uri/ =404;</div></li>
+
+ <li>Save and close the file.</li> 
 
 <li>Create a symlink from <code>sites-available</code> to <code>sites-enabled</code> to activate the server block. 
 <div class="hacker">sudo ln -s /etc/nginx/sites-available/laravel.conf /etc/nginx/sites-enabled/laravel.conf</div> </li>
