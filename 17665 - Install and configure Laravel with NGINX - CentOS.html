@@ -10,6 +10,7 @@
 
 
 <title>Install and configure Laravel with NGINX - CentOS</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -27,7 +28,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -39,7 +40,17 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
-    </style>
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
 
 
 <!--[if gte mso 9]><xml>
@@ -91,7 +102,7 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
    <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-    <p>Laravel is a framework used to create web applications.&nbsp; It is assumed you have installed git, curl, a<a href="http://17349%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20CentOS%207.html"> CentOS 7 LEMP</a> and have created a <a href="http://17328%20-%20Add%20Memory%20Swap%20-%20CentOS,%20Fedora.html">swap file</a>.</p>
+    <p>Laravel is a framework used to create web applications.&nbsp; It is assumed you have installed git, curl, a <a href="17349 - Build a LEMP stack (Linux, NGINX, MySQL, PHP) - CentOS 7.html"> CentOS 7 LEMP</a> and have created a <a href="17328 - Add Memory Swap - CentOS, Fedora.html">swap file</a>.</p>
 
     <h2>Install Dependencies</h2>
            <ol>
@@ -124,15 +135,15 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
       </li>
        <li>Verify / modify the file such that the index directive and a server-level include reference is specified in the http context.
            The end result should look something like this:
-                  <div class="hacker">
-         <pre>        http
-          {
-          ...
-          index index.php index.html index.htm;
-          include /etc/nginx/conf.d/*.conf;
-          server {
-          ...</pre></div>
+<div class="hacker"><pre>http
+{
+...
+index index.php index.html index.htm;
+include /etc/nginx/conf.d/*.conf;
+server {
+...</pre></div>
       </li>
+
  <li>      Save and close the file.&nbsp; </li> 
          <li>      Open the default server block configurartion file 
               <div class="hacker">sudo vim /etc/nginx/default.d/default.conf </div>
@@ -141,42 +152,42 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
          <li>Modify the&nbsp; php configuration section of the file to look like this:
         <div class="hacker"><pre>location ~ \.php$ {
        try_files $uri /index.php =404;
-    fastcgi_split_path_info ^(.+\.php)(/.+)$;
-       <b><i>fastcgi_pass unix:/run/php-fpm/php-fpm.sock;</i></b>
-        <b><i>fastcgi_index index.php</i></b>;
-       <b><i> fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;  </i></b>
-       <b><b> include fastcgi_params;</b></b>
-    }
-</pre></div></li>
-        <li>      Save and close the file.&nbsp; </li> 
+       fastcgi_split_path_info ^(.+\.php)(/.+)$;
+       <em><u>fastcgi_pass unix:/run/php-fpm/php-fpm.sock;</u></em>
+       <em><u>fastcgi_index index.php;</u></em>
+       <em><u>fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; </u></em>
+       <em><u>include fastcgi_params;</u></em>
+    }</pre></div></li>
+
+        <li>      Save and close the file. </li> 
          <li>Create a new server block for Laravel.
                   <div class="hacker">sudo vim /etc/nginx/conf.d/laravel.conf</div> 
       </li>
   <li>Add the following contents:
-    <div class="hacker"><pre># server context
-                server {
-        listen       81;
-        server_name  localhost;
-        root /var/www/laravel/public;
-        index   index.php index.html index.htm;
-        
-        include /etc/nginx/default.d/*.conf;
+<div class="hacker"><pre># server context
+server {
+listen       81;
+server_name  localhost;
+root /var/www/laravel/public;
+index   index.php index.html index.htm;
 
-        location / {
-        }
+include /etc/nginx/default.d/*.conf;
 
-        # redirect server error pages to the static page /40x.html
-        #
-        error_page  404              /404.html;
-        location = /40x.html {
-        }
+location / {
+}
 
-        # redirect server error pages to the static page /50x.html
-        #
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-        }
-     }</pre></div>
+# redirect server error pages to the static page /40x.html
+#
+error_page  404      /404.html;
+location = /40x.html {
+}
+
+# redirect server error pages to the static page /50x.html
+#
+error_page   500 502 503 504  /50x.html;
+location = /50x.html {
+     }
+}</pre></div>
      </li> 
         <li>Save and close the file.
        </li>
@@ -209,8 +220,8 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
                </li>
 <li> Change the permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
                </li>
-              <li>Verify success by navigating to yourcloudserver
-                                    <div class="hacker">http://your server IP address.com:81</div>
+              <li>Verify success by navigating to your cloudserver.
+                                    <div class="hacker">http://<em><u>your server IP address</u></em>.com:81</div>
                </li>
            </ol>
     <h2>Next steps</h2>
