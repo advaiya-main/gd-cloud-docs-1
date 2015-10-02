@@ -6,7 +6,8 @@
 
 
 <title>Configure ProFTPd to use SFTP instead of FTP - Debian, Ubuntu</title>
-<style type="text/css">
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -23,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -35,6 +36,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -73,40 +84,60 @@ p.note {
    
     <p>ProFTPd is a File Transfer Protocol (FTP) server and  open source software compatible with Linux/Unix systems and Microsoft Windows. SFTP (which stands for SSH File Transfer Protocol or Secure File Transfer Protocol) is a separate protocol packaged with SSH that works in a similar way over a secure connection.</p>
     
-    <p>In this article, you will learn to configure ProFTPd to use SFTP on Debian or Ubuntu.</p>
- <p class ="note">You need <code>sudo</code> privileges to run the commands.</p>
+    <p>In this article, you will learn to configure ProFTPd to use SFTP on Debian or Ubuntu, using FileZilla as your FTP client. FileZilla is free and available on all major operating systems. You can download it from 
+<a href="https://filezilla-project.org/">http://filezilla-project.org</a>.</p>
+
   <h2>Install ProFTPd</h2>
 <ol> 
 <li>Update all the system packages, and install the <code>proftpd</code> package.
    <div class="hacker">sudo  apt-get  -y  update</div>
-   <div class="hacker">sudo apt-get install proftpd</div>
-   <p class="note">Choose the <code>standalone</code> option, when promted for type of proftpd.</p>
-   </li>
+   <div class="hacker">sudo apt-get install proftpd</div></li>
+ 
+ <li>In the ProFTPd configuration screen that appears, choose the <strong>standalone</strong> option when prompted for type of proftpd. <strong>Tab</strong> on your keyboard to continue to <strong>Ok</strong>, then press <strong>Enter</strong>.</li>
+
    <li>Open the ProFTPd configuration file.
      <div class="hacker">sudo vim /etc/proftpd/proftpd.conf</div>
    </li>
    <li>Change the <code>ServerName</code> parameter to match your domain name or IP address.
-   <div class="hacker">serverName      "<em><u>your_Domain_Or_IP_Address</u></em>"</div>
+   <div class="hacker">ServerName      "<em><u>your_Domain_Or_IP_Address</u></em>"</div>
    </li>
    <li>Uncomment the following line:
-   <div class="hacker">DefaultRoot     ~</div>
+   <div class="hacker">DefaultRoot         ~</div>
    </li>
-   <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key.
+   <li>Save and close.
    </li>
   </ol>
   
+<h2>Create your FTP user</h2>
+
+<p>If you don't already have an FTP user, create one now in your command line.</p>
+
+<ol>
+<li>Create your user.
+<div class="hacker">sudo useradd <em><u>yourFTPuser</u></em></div></li>
+
+<li>Set a password for your user.
+<div class="hacker">sudo passwd <em><u>yourFTPuser</u></em></div>
+Choose a password and confirm it at the prompts.</li>
+
+<li>Assuming you want your default FTP directory to be /var/www/<em><u>yourFTPuser</u></em>, give your user permissions.
+<div class="hacker">sudo usermod -m -d /var/www/<em><u>yourFTPuser</u></em> <em><u>yourFTPuser</u></em></div></li>
+
+<li>Restart ProFTPd to make your changes take. 
+<div class="hacker">sudo service proftpd restart</div></li>
+
+</ol>
+
   <h2>Configure SFTP access with ProFTPd</h2>
 <ol> 
 <li>Create a blank file in  the <code>/etc/proftpd/conf.d/ </code>directory to configure SFTP.
-   <div class="hacker">sudo vim /etc/proftpd/conf.d/<em><u>sftp.conf</u></em></div>
+   <div class="hacker">sudo vim /etc/proftpd/conf.d/sftp.conf</div>
    </li>
    <li>Add the following lines into  the file:
-   <div class="hacker">
-<pre>
-&lt;IfModule mod_sftp.c&gt;
-
+  
+ <div class="hacker"><pre>&lt;IfModule mod_sftp.c&gt;
         SFTPEngine on
-        Port 2222
+        Port 22
         SFTPLog /var/log/proftpd/sftp.log
 
         # Configure both the RSA and DSA host keys, using the same host key
@@ -121,11 +152,9 @@ p.note {
         # Enable compression
         SFTPCompression delayed
 &lt;/IfModule&gt;
-</pre>
-   </div>
+</pre> </div>
    </li>
-  <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key.
-   </li>
+  <li>Save and close.</li>
   </ol>
   
   <h2>Configure key based authentication</h2>
@@ -133,20 +162,40 @@ p.note {
 <li>Generate an authorized key to create a secure connection.
    <div class="hacker">ssh-keygen</div>
    </li>
+
+<li>You'll get a prompt like this:
+   <div class="hacker">Generating public/private rsa key pair.<br/>
+    Enter file in which to save the key (/home/<em><u>UserName</u></em>/.ssh/id_rsa):</div>
+
+   <p>Press <strong>Enter</strong> to choose the default.</p></li>
+
+<li>Set a passphrase and confirm it at the next two prompts.</li>
+
+
    <li>Go to the <code>/home/<em><u>UserName</u></em>/.ssh</code> directory.
      <div class="hacker">cd /home/<em><u>UserName</u></em>/.ssh/</div>
-   </li>
-   <li>View the content of the following file:
+
+<li>See the text of your private key.
+<div class="hacker">sudo cat id_rsa</div></li>
+
+   <li>When the results of your key displays, you can copy the text and save it into a .txt (using NotePad, for example) file on your local desktop with a<code>.ppk</code> extension. We'll call ours <code>testkey.ppk</code>.
+ </li>
+
+ <!--CT: replacing this...
+   <li>If you want to view the contents of your key file:
      <div class="hacker">sudo cat id_rsa</div>
    </li>
-   <li>Copy all the content from this file, and save it into a new file on your local desktop with a<code>.ppk</code> extension. For this article, <code>test.ppk</code> is used.
+   <li>Copy all the content from this file, and save it into a new file on your local desktop with a<code>.ppk</code> extension. For this article, we'll call it <code>test.ppk</code> is used.
  </li>
    <li>Create a directory to hold the authorized private key.
    <div class="hacker">sudo mkdir /etc/proftpd/<em><u>authorized_keys</u></em></div>
    </li>
+   
+
    <li>Convert the authorized private keys that are currently used to log into the server.
    <div class="hacker">sudo ssh-keygen -e -f /home/<em><u>UserName</u></em>/.ssh/id_rsa.pub | sudo tee /etc/proftpd/authorized_keys/<em><u>UserName</u></em></div>
    </li>
+   ...-->
    <li>Restart the ProFTPd service.
    <div class="hacker">sudo service proftpd restart</div>
    </li>
@@ -154,13 +203,13 @@ p.note {
   
   <h2>Disable SFTP access on the SSH port</h2>
 <ol> 
-<li>Open the SSHD configuration file   to enable SFTP.  
+<li>Open the SSHD configuration file to enable SFTP.  
    <div class="hacker">sudo vim /etc/ssh/sshd_config</div>
    </li>
-   <li>Comment the following line using <code>#</code> (hash):
+   <li>Comment out the following line:
 <div class="hacker">Subsystem sftp /usr/lib/openssh/sftp-server</div>
    </li>
-   <li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key.
+   <li>Save and close.
    </li>
   
    <li>Restart the SSH server services.
@@ -171,19 +220,22 @@ p.note {
   
   <h2>Connect with a client</h2>
 <ol> 
-<li>Open FileZilla's preferences, and go to <strong>Edit</strong> &gt; <strong>Settings</strong> &gt; <strong>SFTP</strong>.
+<li>Open FileZilla. In the top navigation bar, go to <strong>Edit</strong> &gt; <strong>Settings</strong> &gt; <strong>SFTP</strong>.
    </li>
    <li>Click  <strong>Add key file</strong>  to add the private key.
-  <br/> <img src="images/17564/091615/Settings.png" alt="Settings.png"/>
+  <!--CT...<p><img src="images/17564/091615/Settings.png" alt="Settings.png"/></p>...-->
    </li>
-  <li>Browse to <code>test.ppk,</code> the private file saved on the local desktop. </li>
+  <li>Browse to <code>testkey.ppk,</code> the private file saved on the local desktop. </li>
    <li>Click <strong>OK</strong> to save on FileZilla, after adding the private key.
    </li>
-   <li>Restart the ProFTPd service.
+   <li>Back at your command line, restart the ProFTPd service.
    <div class="hacker">sudo service proftpd restart</div>
    </li>
-   <li>Enter <strong>Host</strong> (or SFTP://IP address), <strong>Username</strong>, <strong>Password</strong>, and <strong>Port(2222)</strong> number, and click  <strong>Quickconnect</strong>. FileZilla  connects automatically using your SSH keys.
-   <br/><img src="images/17564/091615/Quickconnect.png" alt="Quickconnect.png"/>
+   <li>Return to FileZilla and enter the IP of your server as well as your FTP user credentials created earlier. Enter 22 for the Port, then click <strong>Quickconnect</strong>. <!--CT...<strong>Host</strong> (or SFTP://IP address), <strong>Username</strong>, <strong>Password</strong>, and <strong>Port (22)</strong> number, and click  <strong>Quickconnect</strong>. ...--> 
+   <p><img src="images/17564/091615/filezilla-login-top-nav-quickconnect.png" alt="filezilla quickconnect login"/></p>
+
+   FileZilla connects automatically using your SSH keys.
+   <!--CT...<br/><img src="images/17564/091615/Quickconnect.png" alt="Quickconnect.png"/>...-->
    </li>
   </ol>
   

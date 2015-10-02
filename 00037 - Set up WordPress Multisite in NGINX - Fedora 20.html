@@ -271,8 +271,8 @@ include fastcgi_params;
      Your system is now ready to install WordPress into your directory. WordPress is available in a <code>tar.gz</code> or <code>zip</code> format. We'll  get the <code>tar.gz</code> file.
      <ol>
   <li>Download the WordPress files from the official site using <code>wget</code>.
-    <div class="hacker">cd ~</div>
-<div class="hacker">wget http://wordpress.org/latest.tar.gz    </div>  
+    <!--CT:...<div class="hacker">cd ~</div>...-->
+<div class="hacker">wget cd ~ http://wordpress.org/latest.tar.gz    </div>  
  This URL always links to a compressed file of the latest stable version of WordPress.   </li>
          
 <li>Extract, or untar, the application directory.
@@ -337,7 +337,7 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
      <ol>
      <li>  In your web browser, enter your primary domain name. In our example, that's 
    <strong>http://coolexample.com</strong>.
-   (If the Nginx default page displays, append <code>/wp-admin.php</code>to your URL.)</li>
+   (If the Nginx default page displays, append <code>/wp-admin.php</code> to your URL.)</li>
      <li>Work your way through the Wordpress installation, then log in with your Wordpress credentials.</li>
 
     <!--CT... <li>On the next page, fill out your WordPress MySQL database credentials. 
@@ -379,8 +379,10 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
 </li> 
 
  <li>Go to the <strong>Network Setup / Settings</strong> screen which should look like this:&nbsp; <br/> 
- <img src="images/00037/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup" /><br/>
-     Copy the <code>wp-config</code> code in the first section. You'll  paste this code into your configuration file.
+ <p><img src="images/00037/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup" /><p></li>
+
+ <li>    Copy the <code>wp-config</code> code in the first section. You'll  paste this code into your configuration file.
+  
    <p class="note">For Nginx, there's no <code>htaccess</code> file. We'll ignore the <code>.htaccess</code> code.</p>
   
  The code resembles this:

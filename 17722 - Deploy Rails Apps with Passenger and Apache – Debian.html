@@ -84,15 +84,18 @@
   
    <h2>Install Apache</h2>
 	<ol>
-        <li>Update the system and install Apache.
-            <div class='hacker'>sudo apt-get -y update</div>
-            <div class='hacker'>sudo apt-get install apache2</div>
-            <div class='hacker'>sudo apt-get -y install  libcurl4-openssl-dev  libapr1-dev  libaprutil1-dev
+        <li>Install Apache and Apache passenger dependenciesss.
+
+			 <div class='hacker'>sudo apt-get -y install  libcurl4-openssl-dev  libapr1-dev  libaprutil1-dev
 
 </div>
+<div class="hacker"> sudo apt-get install libcurl4-openssl-dev</div>
+<div class= "hacker"> sudo  apt-get install apache2-threaded-dev</div>
+            <div class='hacker'>sudo apt-get install apache2</div>
+           
         </li>
         <li>To check the version of Ruby installed, type:
-            <div class='hacker'>ruby -v</div> <!--Corrected code here-->
+            <div class='hacker'>ruby -v</div>
         </li>
         </ol>
         
@@ -100,23 +103,26 @@
         <ol>
         <li>To install Passenger, type:
             <div class='hacker'>sudo apt-get install gem</div>
-            <div class='hacker'>gem install rails passenger</div><!--Corrected code here-->
+            <div class='hacker'>gem install rails passenger</div>
         </li>
         <li>Install the Passenger package for Apache.
-            <div class='hacker'>rvmsudo passenger-install-apache2-module</div><!--Corrected code here-->
-            <p>The installation will take some time to complete.</p>
+            <div class='hacker'>rvmsudo passenger-install-apache2-module</div>
+            <p>This installation takes a while. After the installation is complete, it will generate the following block of code:</p>
         </li>
-		<li>After executing the previous command, you will need to locate and copy the following lines from the displayed output:
+		<li>
 		<div class = "hacker"><pre>
-LoadModule passenger_module /home/<em><u>Logged_in_User</u></em>/.rvm/gems/<em><u>Installed_ruby_Version</u></em>/gems/passenger-5.0.15/buildout/apache2/mod_passenger.so
-&lt;IfModule mod_passenger.c&gt;
-PassengerRoot /home/<em><u>Logged_in_User</u></em>/.rvm/gems/<em><u>Installed_ruby_Version</u></em>/gems/passenger-5.0.15
-PassengerDefaultRuby /home/<em><u>Logged_in_User</u></em>/.rvm/gems/><em><u>Installed_ruby_Version</u></em>/wrappers/ruby
-&lt;/IfModule&gt;
+LoadModule passenger_module /home/<em><u>Logged_in_user</u></em>/.rvm/gems/<u><em>Installed_ruby_version</em></u>@global/gems/passenger-5.0.20/buildout/apache2/mod_passenger.so
+   &lt;IfModule mod_passenger.c&gt;
+     PassengerRoot /home/<em><u>Logged_in_user</u></em>/.rvm/gems/<u><em>Installed_ruby_version</em></u>@global/gems/passenger-5.0.20
+     PassengerDefaultRuby /home/<em><u>Logged_in_user</u></em>/.rvm/gems/<u><em>Installed_ruby_version</em></u>@global/wrappers/ruby
+   &lt;IfModule&gt;
+
 </pre>
-</div></li>
+</div>
+<p>Copy the above code.</p>
+</li>
 	
-        <li>Create a new <code>passenger.conf</code> file. Paste the code which is copied in the above step:
+        <li>Create the following file and paste the code that you've copied.
             <div class='hacker'>sudo vim /etc/apache2/conf.d/passenger.conf</div>
          </li>
        
@@ -171,7 +177,7 @@ PassengerDefaultRuby /home/<em><u>Logged_in_User</u></em>/.rvm/gems/><em><u>Inst
 	<div class='hacker'>sudo vim /etc/apache2/sites-available/default</div>
 </li>
 
-<li>At the end of this file, add a virtual host.
+<li>Replace all the content with following code in this file:
 <div class='hacker'>
     	<pre>
 &lt;VirtualHost *:80>
@@ -185,8 +191,7 @@ PassengerDefaultRuby /home/<em><u>Logged_in_User</u></em>/.rvm/gems/><em><u>Inst
  </pre>
        </div>
 </li>
-<li>Save and exit.
-<div class ="hacker">wq!</div></li>
+<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by the <strong>Enter</strong> key.		</li>
 <li>Restart the Apache service with one of these commands:
 	<div class='hacker'>sudo /etc/init.d/apache2 restart</div>
 	<p>- OR -</p>
