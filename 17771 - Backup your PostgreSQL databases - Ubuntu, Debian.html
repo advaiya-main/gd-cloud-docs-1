@@ -73,36 +73,68 @@ p.note {
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>15 mins</em></p>
 
-<p>In this article, we will make a backup of a PostgreSQL database that can be used to scale a Ruby on Rails (RoR) application. These instructions assume that you have <code>sudo</code> privileges.</p>
+<p>In this article, we will make a backup of a PostgreSQL database.&nbsp; These instructions assume that you have <code>sudo</code> privileges and have already created a databse called <em><u>database_name</u></em>.</p>
 <p>Before starting, make sure that you visit <a href="17534">Ruby on Rails is installed</a> and that <a href="17524">PostgreSQL is installed</a>.</p>
 
 <h2>Back up a PostgreSQL database </h2>
-<p>Back up a PostgreSQL database using any of the following methods.  <code>Pg_dump</code> is the utility used to dump database information into a file for backup purposes.</p>
-<ul>
-  <li> Log in with the <code>postgres</code>  user, and create a database <em><u>backup file</u></em>.
-    <div class="hacker">sudo su - postgres</div>
-
-	<div class="hacker">pg_dump <em><u>database_name</u></em> >  <em><u>backup_file</u></em>  </div>  
+<p>&nbsp;<code>Pg_dump</code> is the utility used to dump database information into a file for backup purposes.</p>
+<ol>
+  <li> Log in with the <code>postgres</code>  user.
+    <div class="hacker">sudo su - postgres</div></li>
+<li>Create a database <em><u>backup file</u></em>
+	<div class="hacker">pg_dump <em><u>database_name</u></em> >  <em><u>backup_file</u></em>.sql  </div> 
+    </li> 
+    <li>Verify the database backup exists
+	<div class="hacker">ls </div> 
+        You will see <em><u>backup_file</u></em>.sql
+    </li>
   <li>If you want  to perform the backup on a remote system, pass the <code>-h</code> flag to specify the remote host, and the <code>-p</code> flag to specify the remote port.
 
   <div class="hacker">pg_dump -h remote_host -p remote_port <em><u>database_name</u></em> > 	<em><u>backup_file</u></em></div></li>
   <li>If you want to specify a different user, use <code>-U</code>.
 	<div class="hacker">pg_dump -U user_name -h remote_host -p remote_port <em><u>database_name</u></em> ><em><u>backup_file</u></em></div>
   </li>
-</ul>
+</ol>
 
 <h2>Restore data dumps </h2>
 <ol>
 <li>Create an empty database to store the <code><em><u>backup_file</u></em>.</code>
 	<div class="hacker">createdb -T template0 <em><u>restored_database_name</u></em></div>
-</li>    
-<li>Restore a backup created by <code>pg_dump.</code>
-	<div class="hacker">psql  <em><u>restored_database_name</u></em> < <em><u>backup_file</u></em></div>
-</li>    
-<li>If the <em><u>test_user</u></em> owns a table in the database, then create a <em><u>test_user</u></em> before restorating the system.
+</li>  
+    <li>If the <em><u>test_user</u></em> owns a table in the database, then create a <em><u>test_user</u></em> before restoring the system.
 	<div class="hacker">createuser <em><u>test_user</u></em></div>
+</li>   
+<li>Restore the backup using <code>pg_dump.</code>
 	<div class="hacker">psql  <em><u>restored_database_name</u></em> < <em><u>backup_file</u></em></div>
-</li>    
+</li> 
+    <li>Log in to Postgres
+<div class="hacker">psql</div>
+    </li> 
+        <li>List the databases
+<div class="hacker">\l</div>
+            The output will look something like this:
+            <div class="hacker"><pre>
+                                                    List of databases
+          Name          |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges
+------------------------+----------+----------+-------------+-------------+-----------------------
+ database_name          | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ postgres               | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ restored_database_name | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ template0              | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+                        |          |          |             |             | postgres=CTc/postgres
+ template1              | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+                        |          |          |             |             | postgres=CTc/postgres
+</pre></div>
+    </li> 
+        <li>Connect to <em><u>restored_database_name</u></em>.
+<div class="hacker">\connect restored_database_name</div>
+    </li> 
+    <li>List all the objects.
+<div class ="hacker">\d+</div>
+        The list will contain all of the objects you created 
+        in <em><u>database_name</u></em>.
+</li>  
+   
 </ol> 
    
 <h2>Handle restoration errors</h2>
