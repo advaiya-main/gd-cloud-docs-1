@@ -139,6 +139,19 @@ If you have issues upgrading your PHP to the required version, do the following:
       </li>
        <li>Verify / modify the file such that the index directive and a server-level include reference is specified in the http context.
            The end result should look something like this:
+<<<<<<< HEAD:17665 - Install and configure Laravel with NGINX - CentOS.html
+                  <div class="hacker">
+         <pre>        http
+          {
+          ...
+          index index.php index.html index.htm;
+          include /etc/nginx/conf.d/*.conf;
+          server {
+          ...</pre></div>
+      Save and close the file.&nbsp; </li> 
+         <li>      Open the default server block configurartion file: 
+              <div class="hacker">sudo vim /etc/nginx/default.d/default.conf lt.d/default.conf </div>
+=======
 <div class="hacker"><pre>http
 {
 ...
@@ -151,6 +164,7 @@ server {
  <li>      Save and close the file.</li> 
          <li>      Open the default server block configuration file 
               <div class="hacker">sudo vim /etc/nginx/default.d/default.conf </div>
+>>>>>>> origin/master:17665 - Install and configure Laravel with NGINX - CentOS 7.html
          </li> 
         
          <li>Modify the php configuration section of the file to look like this:
