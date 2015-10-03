@@ -114,19 +114,22 @@ PostgreSQL is an open-source relational database management system. PostgreSQL u
    <div class ="hacker">\password username</div>
    </li>
    <li>Create a database.
-   <div class ="hacker">createdb <em><u>databasename</u></em>;</div>
+   <div class ="hacker">create database <em><u>databasename</u></em>;</div>
     </li>
-<li>Remove or drop the database.
-<div class ="hacker">dropdb <em><u>databasename</u></em>;</div>
+<li>Switch to the database you just created.
+<div class ="hacker">\connect <em><u>databasename</u></em>;</div>
 </li>
 <li>Create a table in the database.
 <div class ="hacker"> CREATE TABLE <em><u>Table_name</u></em> (name varchar(80), location char(100));</div>
 </li>
-<li>List all the relations.
+<li>List all the objects.
 <div class ="hacker">\d+</div>
 </li>
 <li>Drop a table.
 <div class ="hacker">DROP TABLE <em><u>Table_name</u></em>;</div>
+</li>
+    <li>Remove or drop the database.
+<div class ="hacker">drop database <em><u>databasename</u></em>;</div>
 </li>
    <li>Exit from  the <code>postgres=#</code> prompt.
      <div class="hacker">\q</div>
