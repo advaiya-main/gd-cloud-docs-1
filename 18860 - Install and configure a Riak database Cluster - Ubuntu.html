@@ -121,7 +121,7 @@ td:nth-child(1) {font-weight:bold;}
        <div class="hacker">ulimit -n</div>
 
    <li>Find out the maximum <code>ulimit</code> value allowed.
- <div class="hacker">sysctl fs.file-max</div>
+ <div class="hacker">sudo sysctl fs.file-max</div>
 
 In this example, the output is: 
  <div class="hacker">fs.file-max = 400145</div>
@@ -151,6 +151,7 @@ riak hard nofile 60000</div></li>
 <li>Now raise your <code>ulimit</code> to a number below your max. In this case, we'll raise it to 40000.
    <div class="hacker">ulimit -n 40000</div>
 </li>
+<li>Save and close.</li>
 </ol>
 
 <p>You can configure all the other nodes that you want to include in the cluster in this way.</p>
