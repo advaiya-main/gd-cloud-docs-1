@@ -139,19 +139,7 @@ If you have issues upgrading your PHP to the required version, do the following:
       </li>
        <li>Verify / modify the file such that the index directive and a server-level include reference is specified in the http context.
            The end result should look something like this:
-<<<<<<< HEAD:17665 - Install and configure Laravel with NGINX - CentOS.html
-                  <div class="hacker">
-         <pre>        http
-          {
-          ...
-          index index.php index.html index.htm;
-          include /etc/nginx/conf.d/*.conf;
-          server {
-          ...</pre></div>
-      Save and close the file.&nbsp; </li> 
-         <li>      Open the default server block configurartion file: 
-              <div class="hacker">sudo vim /etc/nginx/default.d/default.conf lt.d/default.conf </div>
-=======
+                  
 <div class="hacker"><pre>http
 {
 ...
@@ -236,7 +224,7 @@ location = /50x.html {
  <li>Change the owner to &quot;nginx&quot;.
                    <div class="hacker">sudo chown -R :nginx /var/www/laravel</div>
                </li>
-<li> Change the permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
+<li> Change the permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/storage</div>
                </li>
               <li>Verify success by navigating to your cloudserver.
                                     <div class="hacker">http://<em><u>your server IP address</u></em>.com:81</div>
