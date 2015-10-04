@@ -175,26 +175,32 @@ server_names_hash_bucket_size 64;</div> </li>
 <li>Open your Laravel file to edit. 
 <div class="hacker">sudo vim /etc/nginx/sites-available/laravel.conf</div> </li>
 
-<li>In the file, change the Listen directive to list to Port 81.
+<li>In the file, in the top server block, change the Listen directive to list to Port 81.
 <div class="hacker">Listen  <em><u>81;</u></em></div></li>
 
-<li>Point your root to <code>/var/www/laravel;</code>
-<div class="hacker">root <em><u>/var/www/laravel;</u></em></div></li>
+<li>Right below that line, add these two lines.
+  <div class="hacker">server_name  localhost;<br/>
+    root /var/www/laravel;</div>
+</li>
 
-<li>And add this <code>try_files</code> line underneath it.
+<li>A little lower, you'll find the first Listen block. Point your root to <code>/var/www/laravel/public;</code>
+<div class="hacker">root <em><u>/var/www/laravel/public;</u></em></div></li>
+
+<li>And add this <code>try_files</code> directive underneath the index line.
 <div class="hacker">try_files $uri $uri/ /index.php?$query_string;</div></li>
 
 <li>Modify the php configuration section of the file to look like this:
 <div class="hacker"><pre>location ~ \.php$ {
-try_files $uri /index.php =404;
-fastcgi_split_path_info ^(.+\.php)(/.+)$;
+<em><u>#</u></em> root   /usr/share/nginx/html;
+<em><u>try_files $uri /index.php =404;</u></em>
+<em><u>fastcgi_split_path_info ^(.+\.php)(/.+)$;</u></em>
 fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
 fastcgi_index index.php;
 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; 
 include fastcgi_params;
  }</pre></div>
 
-You'll most likely be adding the try_files and fastcgi_split_path lines.
+You'll most likely be commenting out the root directive and adding the try_files and fastcgi_split_path lines.
 
 <div class="hacker">try_files $uri /index.php =404;<br/>
 fastcgi_split_path_info ^(.+\.php)(/.+)$;</div>
@@ -232,11 +238,11 @@ fastcgi_split_path_info ^(.+\.php)(/.+)$;</div>
 
 <h2>  Install Laravel</h2>
     <ol>
-               <li>Use composer to retrieve and install Laravel into the directory we created earlier
+               <li>Use composer to retrieve and install Laravel into /var/www. This might take a few minutes.
                    <div class="hacker">sudo /usr/local/bin/composer create-project laravel/laravel /var/www/laravel 4.2</div>
                </li>
  <li>Change the owner to &quot;nginx&quot;.
-                   <div class="hacker">sudo chown -R :nginx /var/www/laravel</div>
+                   <div class="hacker">sudo chown -R :nginx /var/www</div>
                </li>
 <li> Grant permissions to your Laravel directory.
   <div class="hacker">sudo chmod -R 755 /var/www/laravel</div></li>
@@ -244,7 +250,7 @@ fastcgi_split_path_info ^(.+\.php)(/.+)$;</div>
 <li> Grant permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
                </li>
               <li>In your web browser, verify success by navigating to your server, appended by :81.
-                                    <div class="hacker"><em><u>your server IP address</u></em>:81</div></li>
+<div class="hacker"><em><u>your server IP address</u></em>:81</div></li>
            </ol>
     <h2>Next steps</h2>
     <p>You have arrived.&nbsp; Now you can use the Laravel framework to make beautiful apps.</p>
