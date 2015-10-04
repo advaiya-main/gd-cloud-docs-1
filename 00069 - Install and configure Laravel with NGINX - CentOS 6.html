@@ -141,13 +141,16 @@ If you have issues upgrading your PHP to the required version, do the following:
 
          <h2>Create a new server block file for Laravel</h2>
     
-   <ul> 
+   <ol>
+    <li>First, create a physical space to house Laravel.
+        <div class="hacker">sudo mkdir -p /var/www/laravel</div>
+      </li>
 
     <li>Create a <code>sites-available</code> and <code>sites-enabled</code> directory.
 
    <div class="hacker">sudo mkdir /etc/nginx/sites-available</div>              
    <div class="hacker">sudo mkdir /etc/nginx/sites-enabled</div> 
-</li></ul>
+</li></ol>
 
 <p>    This directory layout is in Debian distributions. We're borrowing this setup for the flexibility in managing our server blocks.</p>
 
@@ -178,9 +181,9 @@ server_names_hash_bucket_size 64;</div> </li>
 <li>In the file, in the top server block, change the Listen directive to list to Port 81.
 <div class="hacker">Listen  <em><u>81;</u></em></div></li>
 
-<li>Right below that line, add these two lines.
-  <div class="hacker">server_name  localhost;<br/>
-    root /var/www/laravel;</div>
+<li>Right below that, add these two lines.
+  <div class="hacker">root /var/www/laravel;<br/>
+  index index.php index.html index.htm;</div>
 </li>
 
 <li>A little lower, you'll find the first Listen block. Point your root to <code>/var/www/laravel/public;</code>
@@ -189,7 +192,7 @@ server_names_hash_bucket_size 64;</div> </li>
 <li>And add this <code>try_files</code> directive underneath the index line.
 <div class="hacker">try_files $uri $uri/ /index.php?$query_string;</div></li>
 
-<li>Modify the php configuration section of the file to look like this:
+<li>Towards the end of the file is the php configuration section. Modify it to look like this:
 <div class="hacker"><pre>location ~ \.php$ {
 <em><u>#</u></em> root   /usr/share/nginx/html;
 <em><u>try_files $uri /index.php =404;</u></em>
