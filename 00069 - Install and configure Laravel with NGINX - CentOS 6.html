@@ -99,19 +99,21 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
    <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-    <p>Laravel is a framework used to create web applications.&nbsp; It is assumed you have installed git, curl, a <a href="19186 - Build a LEMP stack (Linux, NGINX, MySQL, PHP) - CentOS 6.html"> CentOS 6 LEMP stack</a> and have created a <a href="17328 - Add Memory Swap - CentOS, Fedora.html">swap file</a>.</p>
+    <p>Laravel is a framework used to create web applications. Be sure you have a <a href="19186 - Build a LEMP stack (Linux, NGINX, MySQL, PHP) - CentOS 6.html"> CentOS 6 LEMP stack</a> installed.</p>
+
+    <p>If your server is 512 MB or smaller, it's recommended to <a href="17328 - Add Memory Swap - CentOS, Fedora.html">add swap</a> for Laravel to install correctly.</p>
 
     <h2>Install Dependencies</h2>
            <ol>
-               <li>Update your installation package
+               <li>Update your installation package.
                    <div class="hacker">sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm</div>
 
                </li>
-               <li>Install Webtatic
+               <li>Install Webtatic.
                    <div class="hacker">
                     sudo rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm</div>
                </li>
-               <li>Additional items
+               <li>Install your PHP extensions.
                    <div class="hacker">
                        sudo yum install php56w-fpm php56w-mysql mariadb-server php56w-mcrypt php56w-dom php56w-mbstring
                    </div>
@@ -119,28 +121,35 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
 If you have issues upgrading your PHP to the required version, do the following:
  <div class="hacker">sudo yum install yum-plugin-replace</div>
  <div class="hacker">sudo yum replace php-common --replace-with=php56w-common</div>
-
+ <div class="hacker">sudo yum install php56w-mcrypt</div>
 <!--CT...
 <div class="hacker">sudo yum remove epel-release</div>
 <div class="hacker">sudo wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm</div>
 <div class="hacker">sudo yum install php56w</div>
 ...-->
-
                </li>
 
-               <li>Start Nginx.
-                   <div class="hacker">sudo service nginx restart<br />
-                       </div>
-               </li>
+<li>Install git and curl.              
+ <div class="hacker">sudo yum install -y curl git</div></li>
+
+
+<li>Restart Nginx.
+<div class="hacker">sudo service nginx restart</div>
+</li>
+
            </ol>
+
          <h2>Create a new server block file for Laravel</h2>
     
-    <p>Create a <code>sites-available</code> and <code>sites-enabled</code> directory.</p>
+   <ul> 
+
+    <li>Create a <code>sites-available</code> and <code>sites-enabled</code> directory.
 
    <div class="hacker">sudo mkdir /etc/nginx/sites-available</div>              
    <div class="hacker">sudo mkdir /etc/nginx/sites-enabled</div> 
+</li></ul>
 
-     <p> This directory layout is in Debian distributions. We're borrowing this setup for the flexibility in managing our server blocks.</p>
+<p>    This directory layout is in Debian distributions. We're borrowing this setup for the flexibility in managing our server blocks.</p>
 
 <h2>Edit your Nginx configuration file</h2>
 
@@ -150,13 +159,14 @@ If you have issues upgrading your PHP to the required version, do the following:
 
 <li>Add these lines to the end of the http {} block:
 <div class="hacker">include /etc/nginx/sites-enabled/*.conf;<br/>
+include /etc/nginx/sites-enabled/*;<br/>
 server_names_hash_bucket_size 64;</div> </li>
 
  <li>Save and close the file. </li> 
 
 </ol>
 
-<h2>Configure your Laravel server block</h2>
+<h3>Configure your Laravel server block</h3>
 
 <ol>
   <li>Make a copy of your default.conf file to use for your Laravel server block. 
@@ -165,22 +175,43 @@ server_names_hash_bucket_size 64;</div> </li>
 <li>Open your Laravel file to edit. 
 <div class="hacker">sudo vim /etc/nginx/sites-available/laravel.conf</div> </li>
 
-<li>In the file, change the Listen directive to 81.</li>
+<li>In the file, change the Listen directive to list to Port 81.
+<div class="hacker">Listen  <em><u>81;</u></em></div></li>
 
-<li>Point your root to <code>/var/www/laravel/public;</code>
-<div class="hacker">root <em><u>/var/www/laravel/public;</u></em></div></li>
+<li>Point your root to <code>/var/www/laravel;</code>
+<div class="hacker">root <em><u>/var/www/laravel;</u></em></div></li>
 
 <li>And add this <code>try_files</code> line underneath it.
-<div class="hacker">try_files $uri $uri/ =404;</div></li>
+<div class="hacker">try_files $uri $uri/ /index.php?$query_string;</div></li>
+
+<li>Modify the php configuration section of the file to look like this:
+<div class="hacker"><pre>location ~ \.php$ {
+try_files $uri /index.php =404;
+fastcgi_split_path_info ^(.+\.php)(/.+)$;
+fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
+fastcgi_index index.php;
+fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; 
+include fastcgi_params;
+ }</pre></div>
+
+You'll most likely be adding the try_files and fastcgi_split_path lines.
+
+<div class="hacker">try_files $uri /index.php =404;<br/>
+fastcgi_split_path_info ^(.+\.php)(/.+)$;</div>
+ </li>
 
  <li>Save and close the file.</li> 
 
 <li>Create a symlink from <code>sites-available</code> to <code>sites-enabled</code> to activate the server block. 
 <div class="hacker">sudo ln -s /etc/nginx/sites-available/laravel.conf /etc/nginx/sites-enabled/laravel.conf</div> </li>
       
-<li>Restart Nginx
+<li>Restart Nginx.
   <div class="hacker">  sudo service nginx restart</div>
        </li>
+
+<li>Restart PHP.
+<div class="hacker">sudo service php-fpm restart</div></li>
+
 
         </ol>
 
@@ -197,7 +228,9 @@ server_names_hash_bucket_size 64;</div> </li>
                    <div class="hacker">sudo mv composer.phar /usr/local/bin/composer</div>
                </li>
 </ol>
-              <h2>  Install Laravel</h2>
+
+
+<h2>  Install Laravel</h2>
     <ol>
                <li>Use composer to retrieve and install Laravel into the directory we created earlier
                    <div class="hacker">sudo /usr/local/bin/composer create-project laravel/laravel /var/www/laravel 4.2</div>
@@ -205,11 +238,13 @@ server_names_hash_bucket_size 64;</div> </li>
  <li>Change the owner to &quot;nginx&quot;.
                    <div class="hacker">sudo chown -R :nginx /var/www/laravel</div>
                </li>
-<li> Change the permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
+<li> Grant permissions to your Laravel directory.
+  <div class="hacker">sudo chmod -R 755 /var/www/laravel</div></li>
+
+<li> Grant permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
                </li>
-              <li>Verify success by navigating to your cloudserver.
-                                    <div class="hacker">http://<em><u>your server IP address</u></em>.com:81</div>
-               </li>
+              <li>In your web browser, verify success by navigating to your server, appended by :81.
+                                    <div class="hacker"><em><u>your server IP address</u></em>:81</div></li>
            </ol>
     <h2>Next steps</h2>
     <p>You have arrived.&nbsp; Now you can use the Laravel framework to make beautiful apps.</p>
