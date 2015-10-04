@@ -152,7 +152,6 @@ server {
  <li>      Save and close the file.</li> 
          <li>      Open the default server block configuration file 
               <div class="hacker">sudo vim /etc/nginx/default.d/default.conf </div>
->>>>>>> origin/master:17665 - Install and configure Laravel with NGINX - CentOS 7.html
          </li> 
         
          <li>Modify the php configuration section of the file to look like this:
@@ -224,10 +223,13 @@ location = /50x.html {
  <li>Change the owner to &quot;nginx&quot;.
                    <div class="hacker">sudo chown -R :nginx /var/www/laravel</div>
                </li>
+<li> Grant permissions to your Laravel directory.
+  <div class="hacker">sudo chmod -R 755 /var/www/laravel</div>
+
 <li> Change the permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/storage</div>
                </li>
               <li>Verify success by navigating to your cloudserver.
-                                    <div class="hacker">http://<em><u>your server IP address</u></em>.com:81</div>
+                                    <div class="hacker">http://<em><u>your server IP address</u></em>:81</div>
                </li>
            </ol>
     <h2>Next steps</h2>
