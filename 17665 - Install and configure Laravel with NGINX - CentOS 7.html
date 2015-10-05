@@ -121,12 +121,12 @@ Failed to issue method call: Unit nginx.service failed to load: No such file or 
 
 If you have issues upgrading your PHP to the required version, do the following:
  <div class="hacker">sudo yum install yum-plugin-replace</div>
- <div class="hacker">sudo yum replace php-common --replace-with=php54w-common</div>
-  <div class="hacker">sudo yum install php552-fpm php55w-mcrypt</div>
+ <div class="hacker">sudo yum replace php-common --replace-with=php55w-common</div>
+  <div class="hacker">sudo yum install php55w-fpm php55w-mcrypt</div>
                </li>
 
                <li>Start Nginx.
-                   <div class="hacker">sudo service nginx restart<br />
+                   <div class="hacker">sudo systemctl restart nginx<br />
                        </div>
                </li>
            </ol>
@@ -140,6 +140,9 @@ If you have issues upgrading your PHP to the required version, do the following:
 
    <div class="hacker">sudo mkdir /etc/nginx/sites-available</div>              
    <div class="hacker">sudo mkdir /etc/nginx/sites-enabled</div> 
+
+<p>    This directory layout is in Debian distributions. We're borrowing this setup for the flexibility in managing our server blocks.</p>
+
 </li></ol>
 
 
@@ -147,7 +150,7 @@ If you have issues upgrading your PHP to the required version, do the following:
 
 <ol>
   <li>Let's first make a backup copy of our main nginx.conf file just in case.
-<div class="hacker">sudo cp /etc/nginx/nginx.conf /etc/nginx/sites-available/laravel.conf</div></li>
+<div class="hacker">sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.bak</div></li>
 
   <li>Now let's use that file as the basis for our Laravel server block. 
 <div class="hacker">sudo cp /etc/nginx/nginx.conf /etc/nginx/sites-available/laravel.conf</div></li>
@@ -204,13 +207,13 @@ fastcgi_split_path_info ^(.+\.php)(/.+)$;</div>
         <li>Open your main Nginx config file to edit. 
       <div class="hacker">sudo vim /etc/nginx/nginx.conf</div> </li>
 
-<li>Add these lines to the end of the http {} block:
+<li>Add these lines after the first include reference right before the server block:
 <div class="hacker">include /etc/nginx/sites-enabled/*.conf;<br/>
 include /etc/nginx/sites-enabled/*;<br/>
 server_names_hash_bucket_size 64;</div> </li>
 
 <li>Restart Nginx.
-  <div class="hacker">  sudo service nginx restart</div>
+  <div class="hacker">  sudo systemctl restart nginx</div>
        </li>
 
 <li>Restart PHP.
