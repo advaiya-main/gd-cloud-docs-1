@@ -37,6 +37,15 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}  
+td:nth-child(1) {font-weight:bold;}
 </style>
 
 
@@ -142,7 +151,7 @@ p.note {
        </li>
        <li>Save and close.</li>
       <li>Open the <code>/etc/php-fpm.d/www.conf</code>. file.
-<div class="hacker">sudo vim /etc/php-fpm.d/www.conf.</div>
+<div class="hacker">sudo vim /etc/php-fpm.d/www.conf</div>
       </li> 
       <li>Find the <code>listen</code> directive, and set it as follows:
          <div class="hacker">listen = /run/php-fpm/php-fpm.sock</div></li>
@@ -202,10 +211,11 @@ p.note {
     location ~ \.php$ {
     try_files $uri =404;
     fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
-    fastcgi_index index.php     
+    fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     include fastcgi_params;
-                      }</pre> </div>
+    }                 
+    </pre> </div>
  <p>As long as the <code>fastcgi_pass</code> in the<code> nginx.conf</code> file matches the <code>listen</code> directive in the PHP configuration file, Nginx
   should be able to pass requests on to PHP.  </p>
       </li> 
