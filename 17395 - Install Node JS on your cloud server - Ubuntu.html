@@ -76,17 +76,17 @@ td:nth-child(1) {font-weight:bold;}
 </xml><![endif]-->
 </head>
 <body>
-<p>Installation of Node.js </p>
-    <h1>Install Node JS on your cloud server - Ubuntu, Debian</h1>
+<p>Installation of Node.js on Ubuntu </p>
+    <h1>Install Node JS on your cloud server - Ubuntu</h1>
     
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
         <strong>Time</strong>: <em><u>10 mins</u></em></p>
 
-    <p>Node.js is a web platform based entirely in Javascript that can be used to rapidly deploy scalable sites and site networks. With the advent of the Chrome JavaScript V8 runtime engine, Javascript can now be run server-side for deploying web applications. Because JavaScript uses event-driven and non-blocking I/O, Node.js is able to deliver high performance websites with the capability to handle a large amount of concurrent connections with a low resource impact. This article walks through installing Node in 3 ways.</p>
+    <p>Node.js is a web platform based entirely in Javascript that can be used to rapidly deploy scalable sites and site networks. With the advent of the Chrome JavaScript V8 runtime engine, Javascript can now be run server-side for deploying web applications. Because JavaScript uses event-driven and non-blocking I/O, Node.js is able to deliver high performance websites with the capability to handle a large amount of concurrent connections with a low resource impact. This article walks through installing Node three ways.</p>
 
     
     <h2>Basic installation </h2>
-    <p>This is the distro-stable version you will be installing. By default, Ubuntu 14.04 and Debian 7 contain the version 0.10.25 of Node.js in its repositories.</p>
+    <p>This is the distro-stable version you will be installing. At the time of this writing, Ubuntu 14.04 by default contains the version 0.10.40 of Node.js in its repositories.</p>
     <ol>
         <li>As is best practice run <code>update</code> to update the installed packages.
         <div class=" hacker">sudo apt-get update</div>
@@ -104,8 +104,10 @@ td:nth-child(1) {font-weight:bold;}
         </li>
     </ol>
     <h2>PPA Installation</h2>
-    <ol>
-        You can also install Node.js using a PPA (Personal Package Archive). Compared to the default repositories, this has more up-to date versions of Node.js.
+
+<p>        You can also install Node.js using a PPA (Personal Package Archive). Compared to the default repositories, this has more up-to date versions of Node.js.</p>
+
+<ol>
         <li>Update the installed packages.
         <div class="hacker">sudo apt-get update</div></li>
         <li>
@@ -157,7 +159,7 @@ td:nth-child(1) {font-weight:bold;}
         <div class="hacker">node -v</div></li>
         <li>If you have several versions of Node.js installed, you can check the installed version with :
         <div class="hacker">nvm ls</div></li>
-        <li>In case you have several versions, you can default one of those by :
+        <li>In case you have several versions, you can default one of those by running this command:
         <div class="hacker">nvm alias default <em><u>0.12.7</u></em></div>
         You can also reference it by :
         <div class="hacker">nvm use default</div></li>
