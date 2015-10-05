@@ -96,7 +96,9 @@ td:nth-child(1) {font-weight:bold;}
     <p><strong>Difficulty</strong>: <em><u>3</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-    <p>Laravel is a framework used to create web applications.&nbsp; You will learn how to install Laravel.&nbsp; This article assumes you have <a href="17347 - Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Ubuntu.html">installed a LEMP stack</a> and have created a <a href="17326 - Add Memory Swap - Debian, Ubuntu.html">swap file</a>.</p>
+    <p>Laravel is a framework used to create web applications.</p>
+
+      <p>Before you start, be sure you have a <a href="17347 - Build a LEMP stack (Linux, NGINX, MySQL, PHP) - Ubuntu.html"> CentOS 6 LEMP stack</a> installed. And if your server is 512 MB or smaller, it's recommended to <a href="17326 - Add Memory Swap - Debian, Ubuntu.html">add swap</a> for Laravel to install correctly.</p>
 
     <h2>Install dependencies</h2>
            <ol>
@@ -138,6 +140,7 @@ server {
 ...</pre></div> 
       </li>
              <li>      Save and close the file.&nbsp; </li>      
+       
        <li>Create a new server block for Laravel.
                   <div class="hacker">sudo vim /etc/nginx/conf.d/laravel.conf</div> 
       </li>
@@ -202,8 +205,8 @@ include fastcgi_params;
                <li>Change the permissions to allow www-data to write to the <code>app/storage</code> directory.
                <div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
                </li>   
-             <li>Verify success by navigating to your server.
-                <div class="hacker">http://<em><u>your server IP address.com</u></em>:81</div>
+             <li>In your web browser, verify success by navigating to your server, appended by :81.
+              <div class="hacker"><em><u>your server IP address</u></em>:81</div></li>
                </li>
            </ol>
 
