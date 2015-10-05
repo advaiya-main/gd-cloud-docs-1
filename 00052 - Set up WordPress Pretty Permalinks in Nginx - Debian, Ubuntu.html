@@ -103,7 +103,7 @@ td:nth-child(1) {font-weight:bold;}
 <div class="hacker">sudo vim /etc/nginx/sites-available/wordpress</div></li>
 
 <li>In the default location context, find the try_files statement and modify the line so it looks like this.
-<div class="hacker">try_files $uri $uri/ /index.php?q=$ur&amp;$args;</div>
+<div class="hacker">try_files $uri $uri/ /index.php?$args;</div>
 
   So, the entire section may look like this (truncated in this example):
   <div class="hacker"><pre>server {
@@ -119,7 +119,7 @@ td:nth-child(1) {font-weight:bold;}
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                <em><u>try_files $uri $uri/ /index.php?q=$uri&amp;$args;</u></em>
+                <em><u>try_files $uri $uri/ /index.php?$args;</u></em>
                 # Uncomment to enable naxsi on this location
                 # include /etc/nginx/naxsi.rules
         }
