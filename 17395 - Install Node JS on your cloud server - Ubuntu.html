@@ -4,42 +4,46 @@
 <head>
     <!--Article Number is 17352 -->
     <title>Set up Node.js application for production - Ubuntu</title>
-    <style>
-        div.hacker {
-            background-color: #666;
-            border: 1px solid #ccc;
-            color: #fff;
-            font-family: "Lucida Console","Courier New",Courier,fixed;
-            font-size: 95%;
-            line-height: 160%;
-            margin-bottom: 1.5em;
-            padding: 10px;
-        }
+    <style type='text/css'>
+div.hacker {
+background-color:#666;
+border:1px solid #ccc;
+color:#fff;
+font-family:"Lucida Console","Courier New",Courier,fixed;  font-size:95%;  line-height:160%;  margin-bottom:1.5em;  padding:10px; }
 
-        p.note {
-            background-color: #ffffe6;
-            border: 1px solid #eee;
-            color: #666;
-            padding: .8em 1.6em;
-            margin: 15px 0;
-        }
+p.note {
+ background-color:#ffffe6;
+ border:1px solid #eee;
+ color:#666;
+ padding:.8em 1.6em;
+ margin:15px 0;
+}
 
-        .warning {
-            border: 1px #d25100 solid;
-            padding: .5em 1em .5em 4em;
-            margin: 10px 20px 15px 20px;
-            background-image: url('@{help-img-path}/img_warning.gif');
-            background-repeat: no-repeat;
-            background-position: left top;
-            background-color: #ededed;
-            -moz-border-radius: 0.8em;
-            -webkit-border-radius: 0.8em;
-            /* -moz-border-bottom-radius: 0;9 */
-            -webkit-border-bottom-radius: 0;
-            padding-top: 14px;
-            padding-bottom: 15px;
-        }
-    </style>
+.warning {
+ border: 1px #d25100 solid;
+ padding: .5em 1em 5em 4em;
+ margin: 10px 20px 15px 20px;
+ background-image: url('@{help-img-path}/img_warning.gif');
+ background-repeat: no-repeat;
+ background-position: left top;
+ background-color: #ededed;-moz-border-radius:
+0.8em;-webkit-border-radius: 0.8em;
+ /* -moz-border-bottom-radius: 0;9 */
+ -webkit-border-bottom-radius: 0;
+ padding-top:14px;
+ padding-bottom:15px;
+}
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
 
 
 <!--[if gte mso 9]><xml>
@@ -160,7 +164,7 @@
         <li>You can use NPM to install the packages to Node.js project's <code>./node_modules</code> directory. For example we will install the <code>express</code> package. Express is a minimal but flexible HTTP server framework.
         <div class="hacker">npm install express</div>
         </li>
-        <li>To install it globally so that other projects using the same verson of Node.js, use the <code>-g</code>option.
+        <li>To install it globally so that other projects using the same verson of Node.js, use the <code>-g</code> option.
         <div class="hacker">npm install -g express</div>
         The package will be installed in <code>~/.nvm/versions/node/v0.12.7/lib/node_modules/express</code> </li>
         <li>Now that you have installed it globally, you will be able to run the commands from the command line. Before you do that you need to link the package into your local sphere.
@@ -171,16 +175,17 @@
         
              
     <h2>Next steps</h2>
-    You've just installed Node.js with its NPM system. From here, you have all kinds of options to:
+    Congratulations! You've just installed Node.js with its NPM system. <!--CT: Commenting out links as the articles don't exist yet 10/5/15... From here, you have all kinds of options to:
    
         <ul>
-            <li><a href="17352 - Set up Node JS application for production - Ubuntu">Set up Node.js application for production</a></li>
-            <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18415 - Configure a Node JS development environment for your team - Ubuntu, Debian">Configure a Node.js development environment for your team</a></li>
+
+            <li><a href="17352 - Set up Node JS application for production - Ubuntu.html">Set up Node.js application for production</a></li>
+            <li><a href="18415 - Configure a Node JS development environment for your team - Ubuntu, Debian.html">Configure a Node.js development environment for your team</a></li>
             <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18027 - Install and configure Sails JS on your Node JS server - Ubuntu, Debian">Install and configure Sails.js on your Node.js server</a></li>
             <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18059 - Connect Node JS to a MongoDB Database - Ubuntu, Debian">Connect Node.js to a MongoDB Database</a></li>
             <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18170 - Deploy your Node JS Application with Systemd and NGINX - Ubuntu, Debian">Deploy your Node.js Application with Upstart and NGINX</a></li>
         </ul>
-   
+   ...-->
 
    
 </body>
