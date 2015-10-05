@@ -194,13 +194,16 @@ worker_processes  1;
 
 <ol>
 <li>Open your <code>php.ini</code> file.
-<div class="hacker">sudo nano /etc/php/php.ini</div></li>
+<div class="hacker">sudo vim /etc/php/php.ini</div></li>
 
 
 <li>Find this line and comment it out.
 <div class="hacker">open_basedir = /srv/http/:/home/:/tmp/:/usr/share/pear/:/usr/share/webapps/</div></li>
 
 <li>This line restricts file access to certain directories defined in <strong>php.ini</strong>.</li>
+
+    <li>Find this line under the <code>Dynamic Extensions</code> section and uncomment it.
+<div class="hacker">extension=mysql.so</div></li>
 
  <li>Save and close.</li>
   
@@ -264,8 +267,8 @@ This command creates a directory called <em>wordpress</em> in your home director
 
  
  <li>Change ownership of the directory and grant read-write permissions to the group. This way, you'll be able to work with WordPress uploads, plug ins, and themes.
-<div class="hacker">sudo -R chown nginx:nginx /var/www</div>
-<div class="hacker">sudo -R chmod g+w /var/www</div>
+<div class="hacker">sudo chown -R http:http /var/www</div>
+<div class="hacker">sudo chmod -R g+w /var/www</div>
 </li>
 </ol>  
 
@@ -303,10 +306,8 @@ define( 'WP_ALLOW_MULTISITE', true );</div></li>
     <li>Save and close the file.</li>
     
       <li>Restart Nginx.
-     <div class="hacker">sudo service nginx restart</div></li>
+     <div class="hacker">sudo systemctl restart nginx</div></li>
      </ol>
-
-  <h2>Install WordPress</h2> 
 
      <h2>Install WordPress</h2> 
 
