@@ -150,6 +150,10 @@ td:nth-child(1) {font-weight:bold;}
 <li>Uncomment the line and set it as follows:
          <div class="hacker">cgi.fix_pathinfo=0</div>
        </li>
+    <li>Locate the <b><i>open_basedir</i></b> directive.</li>  
+<li>Comment out the line:
+         <div class="hacker">;open_basedir ...</div>
+       </li>
        <li>Save and close.</li>
       <li>Open the <code>/etc/php/php-fpm.conf</code>. file.
 <div class="hacker">sudo vim /etc/php/php-fpm.conf</div>
