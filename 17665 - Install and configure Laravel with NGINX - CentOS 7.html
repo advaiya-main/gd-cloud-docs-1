@@ -138,14 +138,7 @@ If you have issues upgrading your PHP to the required version, do the following:
       <li>Create a physical location for the Laravel server.
                  <div class="hacker">sudo mkdir -p /var/www/laravel</div></li>
      
-  <li>Create a <code>sites-available</code> and <code>sites-enabled</code> directory.
-
-   <div class="hacker">sudo mkdir /etc/nginx/sites-available</div>              
-   <div class="hacker">sudo mkdir /etc/nginx/sites-enabled</div> 
-
-<p>    This directory layout is in Debian distributions. We're borrowing this setup for the flexibility in managing our server blocks.</p>
-
-</li></ol>
+ </ol>
 
 
       <h2>Configure Laravel</h2>
@@ -154,31 +147,36 @@ If you have issues upgrading your PHP to the required version, do the following:
   <li>Let's first make a backup copy of our main nginx.conf file just in case.
 <div class="hacker">sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.bak</div></li>
 
-  <li>Now let's use that file as the basis for our Laravel server block. 
-<div class="hacker">sudo cp /etc/nginx/nginx.conf /etc/nginx/sites-available/laravel.conf</div></li>
+ <li>Create a new Laravel configuration file. 
+<dsudo vim /etc/nginx/conf.d/laravel.conf</div> </li>
 
-<li>Open your Laravel file to edit. 
-<div class="hacker">sudo vim /etc/nginx/sites-available/laravel.conf</div> </li>
+<li>Add the following contents to the newly-created file:
+<div class="hacker"><pre> server {
+listen       81;
+root /var/www/laravel/public;
+index index.php index.html index.htm;ex.html index.htm;
+server_name localhost;
+try_files $uri $uri/ /index.php?$query_string;
 
-<li>In the file, in the top server block, change the Listen directive to list to Port 81.
-<div class="hacker">Listen  <em><u>81;</u></em></div></li>
+# Load configuration files for the default server block.
+include /etc/nginx/default.d/*.conf;
 
-<li>Right below that, add these two lines.
-  <div class="hacker">root /var/www/laravel;<br/>
-  index index.php index.html index.htm;</div>
-</li>
+location / {
+        }
 
-<li>A little lower, you'll find the first Listen block. Point your root to <code>/var/www/laravel/public;</code>
-<div class="hacker">root <em><u>/var/www/laravel/public;</u></em></div></li>
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
 
-<li>And add this <code>try_files</code> directive underneath the index line.
-<div class="hacker">try_files $uri $uri/ /index.php?$query_string;</div></li>
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+
+</pre></div></li>
 
  <li>Save and close the file.</li> 
 
-<li>Create a symlink from <code>sites-available</code> to <code>sites-enabled</code> to activate the server block. 
-<div class="hacker">sudo ln -s /etc/nginx/sites-available/laravel.conf /etc/nginx/sites-enabled/laravel.conf</div> </li>
-      
 <li>Open your <code>default.conf</code> file to edit your php location.
 <div class="hacker">sudo vim /etc/nginx/default.d/default.conf</div></li>
 
@@ -191,30 +189,20 @@ fastcgi_index index.php;
 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; 
 include fastcgi_params;
  }</pre></div>
-
-You'll most likely be adding the try_files and fastcgi_split_path lines.
-
-<div class="hacker">try_files $uri /index.php =404;<br/>
-fastcgi_split_path_info ^(.+\.php)(/.+)$;</div>
  </li>
 
- <li>Save and close the file.</li> 
-</ol>
-
-
-
-<h2>Make your main Nginx config file to read your Laravel server block</h2>
+     <li>Save and close the file.</li> 
+ </ol><h2>Make your main Nginx config file read your Laravel server block</h2>
 
 <ol>
         <li>Open your main Nginx config file to edit. 
+         to edit. 
       <div class="hacker">sudo vim /etc/nginx/nginx.conf</div> </li>
 
-<li>Add these lines after the first include reference right before the server block:
-<div class="hacker">include /etc/nginx/sites-enabled/*.conf;<br/>
-include /etc/nginx/sites-enabled/*;<br/>
-server_names_hash_bucket_size 64;</div> </li>
+<li>Add / verify these lines after the first include reference right before the server block:<div class="hacker"><pre>include /etc/nginx/conf.d/*.conf;
+server_names_hash_bucket_size 64;</pre></div> </li>
 
-<li>Restart Nginx.
+  <li>Restart Nginx.
   <div class="hacker">  sudo systemctl restart nginx</div>
        </li>
 
@@ -243,9 +231,10 @@ server_names_hash_bucket_size 64;</div> </li>
                    <div class="hacker">sudo /usr/local/bin/composer create-project laravel/laravel /var/www/laravel 4.2</div>
                </li>
  <li>Change the owner to &quot;nginx&quot;.
-                   <div class="hacker">sudo chown -R :nginx /var/www</div>
+                sudo chown -R :nginx /var/www/laravel</div>
                </li>
 <li> Grant permissions to your Laravel directory.
+   Laravel directory.
   <div class="hacker">sudo chmod -R 755 /var/www/laravel</div></li>
 
 <li> Grant permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
