@@ -214,7 +214,7 @@ To activate the new configuration, you need to run:
 
    We will be restarting Apache after this step.</li>
   <li>Make a copy of your virtual host config file just in case. We'll use the default Apache one.
-<div class="hacker">sudo cp 000-default 000-default.bak</div></li>
+<div class="hacker">sudo cp /etc/apache2/sites-enabled/000-default /etc/apache2/sites-enabled/000-default.bak</div></li>
                                     
    <li>Open your original file, so we can modify it. 
 <div class="hacker"> sudo vim /etc/apache2/sites-enabled/000-default</div></li>
@@ -276,7 +276,7 @@ Choose a user name and password. Use the password supplied if you like; just be 
  
 </li> 
 
- <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file.<br/>
+ <li>In the next Network Setup screen, copy the <code>wp-config</code> code in the first section. We'll  paste this into our configuration file <code> /var/www/wp-config.php </code>.<br />
 <img src="images/00048/090815/install-wordpress-multisite-network-setup-screen6.png" alt="install wordpress multisite network setup screen wpconfig code" />
 <br />
  
