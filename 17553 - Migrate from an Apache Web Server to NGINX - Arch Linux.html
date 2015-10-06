@@ -37,6 +37,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+
+
+td:nth-child(1) {font-weight:bold;}
 </style>
 
 
@@ -134,7 +144,7 @@ p.note {
 <h3>Configure the php.ini file</h3>
 <ol>
 <li>Open <code>/etc/php.ini</code>. 
- <div class="hacker">sudo vim /etc/php.ini</div>
+ <div class="hacker">sudo vim /etc/php/php.ini</div>
 </li>
 <li>Locate the <b><i>cgi.fix_pathinfo</i></b> directive.  Most of the file is commented out. It will be about halfway through the file, under a section called <code>Paths and Directories</code>.</li>  
 <li>Uncomment the line and set it as follows:
@@ -184,15 +194,13 @@ p.note {
              listen 81; 
              ...           
           </pre>   </div> </li>
-       <li>Save and close.</li>
-        <li>Navigate to <code>/etc/nginx/default.d/php.conf</code> and edit it so it looks like the example below:<div class="hacker"><pre># pass the PHP scripts to FastCGI server listening on the php-fpm socket
+       <li>In the same file modify the server block to  so it looks like the example below:
+       <div class="hacker"><pre># pass the PHP scripts to FastCGI server listening on the php-fpm socket
     location ~ \.php$ {
-    try_files $uri =404;
-    fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;
-    fastcgi_index index.php     
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    include fastcgi_params;
-                      }</pre> </div>
+     fastcgi_pass   unix:/run/php-fpm/php-fpm.sock;
+     fastcgi_index  index.php;
+     include        fastcgi.conf;
+              }       </pre> </div>
       </li> 
   
  <li>Save and close.</li>
