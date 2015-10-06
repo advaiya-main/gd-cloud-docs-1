@@ -150,6 +150,11 @@ td:nth-child(1) {font-weight:bold;}
 <li>Uncomment the line and set it as follows:
          <div class="hacker">cgi.fix_pathinfo=0</div>
        </li>
+       <li>Find the <code>open_basedir</code> directive.  It will look something like this:  
+ <div class="hacker"> open_basedir = /srv/http/:/home/:/tmp/:/usr/share/pear/:/usr/share/webapps/ </div></li>
+      <li>Add the document root to it so it looks like this: 
+          <div class="hacker">open_basedir = /srv/http/:/home/:/tmp/:/usr/share/pear/:/usr/share/webapps/<em><u>:/usr/share/nginx</u></em> </div></li>
+     
        <li>Save and close.</li>
       <li>Open the <code>/etc/php/php-fpm.conf</code>. file.
 <div class="hacker">sudo vim /etc/php/php-fpm.conf</div>
