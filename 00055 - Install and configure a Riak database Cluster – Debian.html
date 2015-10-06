@@ -153,12 +153,41 @@ curl "${PACKAGE_CLOUD_RIAK_DIR}/config_file.list?os=${OS}&amp;dist=${DIST}&amp;n
    <div class="hacker">nodename = riak@<em><u>node_ip_address</u></em></div>
    </li>
    <li>Save and close.</li>
-   <li>Start the Riak service. 
-   <div class="hacker">sudo riak start</div>
-   <p>In the same way, you can configure all  other nodes that you want to include in the cluster.</p>
-   </li>
+   
    </ol>
-  
+  <h2>Raise the ulimit</h2>
+   <ol>
+    <li>Find your current <code>ulimit</code>.
+       <div class="hacker">ulimit -n</div>
+</li>
+   
+<li>Set up user limits according to <code>user</code>. Open the file <code>/etc/pam.d/su</code>.
+<div class="hacker">sudo vim /etc/pam.d/su</div>
+Uncomment the following line in the file. <div class="hacker">session required pam_limits.so</div>
+</li>
+
+<li>Save and close.</li>
+<li><p>Raise the limits of the <code>riak</code> user by adding new bounds to the <code>limits.conf</code> file.</p>
+
+  Open the <code>limits.conf</code> file for editing.
+
+ <div class="hacker">sudo vim /etc/security/limits.conf</div>
+ Add these two lines anywhere in the file.
+ <div class="hacker">riak soft nofile 65536<br/>
+riak hard nofile 65536
+</div>
+</li>
+
+
+
+<li>Save and close.</li>
+
+<li>Log out of your server.
+<div class="hacker">exit</div></li>
+
+<li>Log back in to your server.</li>
+</ol>
+
   <h2>Add a second node to the cluster</h2>
   <p> Perform all the steps  above to start Riak in a second node and to include these nodes in the cluster.</p>
 <ol> 
