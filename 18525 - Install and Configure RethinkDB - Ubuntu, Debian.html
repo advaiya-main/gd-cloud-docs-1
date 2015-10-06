@@ -129,9 +129,16 @@ echo "deb http://download.rethinkdb.com/apt `lsb_release -cs` main" | sudo tee /
 
 <h2>Start RethinkDB</h2>
 <ol>
-<li>Start RethinkDB to access it through web interface.
+<li>Start RethinkDB to access it through the web interface.
 <div class="hacker">rethinkdb --bind all</div>
+
+<p class="note">To stop the process, press <strong>CTRL</strong>-<strong>C</strong>.</p> 
+
+To start RethinkDB in the background:
+<div class="hacker">rethinkdb --bind all &</div>
+The "&" sign starts up the process in the background, allowing you to continue working in your terminal.
 </li>
+
 <li>
 Access your server at <strong><u><em>http://public_IP_of_your_server_or_domain</em></u>:8080</strong>
 
@@ -173,32 +180,36 @@ Using this Web interface, you can manage creating database, tables, and can conf
 <div class="hacker">cd ~/rethink</div>
 <div class="hacker">source venv/bin/activate</div>
 </li>
-<li>Start Python interpreter.
+<li>Start the Python interpreter.
 <div class="hacker">sudo python</div>
 </li>
 
-<li>Import the client driver into the environment.
+<li>In the Python interpreter, import the client driver into the environment.
 <div class="hacker">import rethinkdb as r</div>
 </li>
 <li>Connect with the local database.
 <div class="hacker">r.connect("localhost",28015).repl()</div>
 </li>
-<li>Create the database.
-<div class="hacker">r.db_create("<em><u>article</u></em>").run()</div>
+<li>Create a database.
+<div class="hacker">r.db_create("<em><u>your_rethink_database</u></em>").run()</div>
 </li>
-<li>Create table posts.
-<div class="hacker">r.db("<em><u>article</u></em>").table_create("<em><u>posts</u></em>").run()</div>
+<li>Create a table called "posts."
+<div class="hacker">r.db("<em><u>your_rethink_database</u></em>").table_create("<em><u>posts</u></em>").run()</div>
 </li>
-<li>Insert values to table posts.
-<div class="hacker">r.db("<em><u>article</u></em>").table("<em><u>posts</u></em>").insert({"hello":"world"}).run()</div>
+<li>Insert some test values into the "posts" table.
+<div class="hacker">r.db("<em><u>your_rethink_database</u></em>").table("<em><u>posts</u></em>").insert({"hello":"world"}).run()</div>
 </li>
 <li>Print the contents in a table.
-<div class="hacker"><pre>c = r.db("<em><u>article</u></em>").table("<em><u>posts</u></em>").run()
+<div class="hacker"><pre>c = r.db("<em><u>your_rethink_database</u></em>").table("<em><u>posts</u></em>").run()
 for x in c:
     print x</pre></div>
     </li>
+
+You might have to press <strong>Enter</strong> twice to see your return values. The output should look something like this:
+<div class="hacker">{u'hello': u'world', u'id': u'1afa0da6-6d28-4136-b601-e104e4c1339a'}</div>
+
 <li>
-Exit the python shell.
+Exit the Python shell.
 <div class="hacker">
 exit()
 </div>
