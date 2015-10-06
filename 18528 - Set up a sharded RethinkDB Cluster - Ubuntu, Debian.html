@@ -87,7 +87,7 @@ td:nth-child(1) {font-weight:bold;}
 
 <h2>Prerequisites</h2>
 
-<p>You'll need two RethinkDB servers, referred to as <em><u>rethinkdb_server1</u></em> and <em><u>rethinkdb_server2</u></em>. See <a href="18525 - Install and Configure RethinkDB - Ubuntu, Debian.html">Install and Configure RethinkDB - Ubuntu, Debian</a> for instructions on installing and configuring single RethinkDB servers. This tutorial is for a <code>sudo</code> user. </p>
+<p>You'll need two RethinkDB servers, referred to as <em><u>rethinkdb_server1</u></em> and <em><u>rethinkdb_server2</u></em>. For a guide on the basics of RethinkDB, see <a href="18525 - Install and Configure RethinkDB - Ubuntu, Debian.html">Install and Configure RethinkDB - Ubuntu, Debian</a>. This tutorial is for a <code>sudo</code> user. </p>
 	
 
 <h2>Set up a RethinkDB node</h2>
@@ -95,7 +95,7 @@ td:nth-child(1) {font-weight:bold;}
     <p>RethinkDB cluster is a type of peer-to-peer network. The primary step in building a RethinkDB cluster is to install RethinkDB on every server (which you've done in the prerequisites) included in this cluster.</p>
 	<ol>
 	
-	<!--CT: This is a prereq covered in 18525 10/5/15...
+
 	<li>On each server, add the RethinkDB key and repository to <code>apt-get</code>.
 <div class="hacker">source /etc/lsb-release &amp;&amp; echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list <br/>wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add - </div>
 			</li>
@@ -108,21 +108,23 @@ td:nth-child(1) {font-weight:bold;}
 		<div class="hacker">sudo cp /etc/rethinkdb/default.conf.sample /etc/rethinkdb/instances.d/<em><u>cluster_instance</u></em>.conf</div>
 		<div class="hacker">sudo vim /etc/rethinkdb/instances.d/<em><u>cluster_instance</u></em>.conf</div>
 	</li>
-	<li>Change the server name as follows:
-	  <p>Search for:</p>
+	<li><p>Change the server name.</p>
+	  Search for:
 		<div class="hacker">server-name=server </div>
-		<p>This line is commented, Add following line beneath it.</p>
-		<div class="hacker">Server-name=<em><u>rethinkdb_server1</u></em></div>
+		Add the following line beneath it.
+		<div class="hacker">server-name=<em><u>rethinkdb_server1</u></em></div>
 	</li>
-	<li>Set up the bind address.  <br />
-	  By default the bind address is accessible only on the localhost (127.0.0.1). Change this address to <code>all</code> to make it listen on all network interfaces.
-<p>Search for:</p>
+	<li><p>Set up the bind address.  
+	  By default, the bind address is accessible only on the localhost (127.0.0.1). Change this address to <code>all</code> to make it listen on all network interfaces.</p>
+
+Search for:
 		<div class="hacker">bind=127.0.0.1 </div>
-		<p>This line is commented, Add following line beneath it.</p>
-		<div class="hacker">Bind=all</div>
+		
+		And add the following line beneath it.
+		<div class="hacker">bind=all</div>
 	</li>
-	<li>Save the configuration changes.</li>
--->
+	<li>Save and close.</li>
+
 
 	<li>After your RethinkDB servers have been set up, start it up.
       <div class="hacker">sudo service rethinkdb start</div>
@@ -163,58 +165,76 @@ When RethinkDB is configured to listen on all network interfaces (<code>bind=all
 <div class="hacker">sudo apt-get install iptables-persistent</div>
     </li>  
      
-	<li>At the prompt, select <strong>yes</strong> to save ipv4 and ipv6 rules.</li>
+	<li>A terminal will appear. At the following prompts, select <strong>yes</strong> to save ipv4 and ipv6 rules.</li>
 		</ol>
 	
 <h2>Set up a management user</h2>
 		<p>Set up SSH tunnels to access RethinkDB's web management console and the driver interface securely.</p>
 		<ol>
-			<li> Create a management user for SSH tunnel in <em><u>rethinkdb_server1 </u></em>.
-			<div class="hacker">sudo adduser <em><u>sshuser</u></em></div>
-			</li>
-			<li>Edit sudoers.
-			<div class="hacker">sudo visudo</div>
-			</li>
-			<li>Search for following line.
-			<div class="hacker">root 	ALL=(ALL)	ALL</div>
-			</li>
-			<li>Add the following line beneath it.
-			<div class="hacker">sshuser 	ALL=(ALL)	ALL</div>
-			</li>
-			<li>
-				Save and close the file.
-			</li>
-			<li>
-				Switch to the <code>sshuser</code>.
-				<div class="hacker">sudo login sshuser</div>
-			</li>
-			
-			<li>Set up the authorized keys file for a new user.
-			<div class="hacker">
-			cd ~<br />
-			mkdir /home/<em><u>sshuser</u></em>/.ssh</div>
-			<div class="hacker">touch /home/<em><u>sshuser</u></em>/.ssh/authorized_keys</div>
-			</li>
-			<li>
-				Generate public key:
-				<div class="hacker">
-				cd /home/sshuser/.ssh<br />
-				ssh-keygen
-				</div>
-				when prompted for location of the file, enter <code>/home/sshuser/.ssh/id_rsa</code>
-			</li>
-			<li>Copy the user public key.
-				<div class="hacker">
-					sudo vim /home/sshuser/.ssh/id_rsa.pub
-				</div>
-				Copy the public key and close the file.
-			</li>
-			<li>Open  <code>authorized_keys</code> for editing.
-			<div class="hacker">sudo vim /home/<em><u>sshuser</u></em>/.ssh/authorized_keys</div>
-			Paste the user public key into this file. 
-			</li>
-			<li>Repeat the above steps to create <em><u>rethinkdb_server2</u></em> nodes.</li>
-		</ol>
+			<li> Create a management user for SSH tunnel in <em><u>rethinkdb_server1</u></em>.
+<div class="hacker">sudo adduser <em><u>sshuser</u></em></div>
+</li>
+
+<li>At the prompts, create and confirm a UNIX password.</li>
+
+<li>Fill in your user details or press <strong>Enter</strong> at each prompt to bypass.</li>
+
+<li>Edit sudoers.
+<div class="hacker">sudo visudo</div>
+</li>
+
+
+
+<li>Search for following line.
+<div class="hacker">root 	ALL=(ALL)	ALL</div>
+</li>
+<li>Add the following line beneath it.
+<div class="hacker">sshuser 	ALL=(ALL)	ALL</div>
+</li>
+<li>
+	Save and close the file.
+</li>
+<li>
+	Switch to the <code>sshuser</code>.
+	<div class="hacker">sudo login sshuser</div>
+</li>
+
+<li>Enter your password you'd just created to access.</li>
+
+<li>Set up the authorized keys file for a new user.
+<div class="hacker">
+cd ~<br />
+mkdir /home/<em><u>sshuser</u></em>/.ssh</div>
+<div class="hacker">touch /home/<em><u>sshuser</u></em>/.ssh/authorized_keys</div>
+</li>
+	<div class="hacker">cd /home/sshuser/.ssh	</div>
+	<div class="hacker">ssh-keygen	</div></li>
+
+<li>At the next two prompts, press <strong>Enter</strong> to accept the default location of where to save the key and the file to name it as. <!--CT:... to save the key in <code>/home/sshuser/.ssh/id_rsa</code> ...--> 
+</li>
+
+<li><p>The following prompts will have you create a passphrase and confirm it.</p>
+
+Your key will generate and will be displayed on-screen.</li>
+
+<li>Copy the user public key.
+	<div class="hacker">
+		sudo vim /home/sshuser/.ssh/id_rsa.pub
+	</div>
+	Copy the public key and close the file.
+</li>
+<li>Open  <code>authorized_keys</code> for editing.
+<div class="hacker">sudo vim /home/<em><u>sshuser</u></em>/.ssh/authorized_keys</div>
+Paste the user public key into this file. 
+</li>
+
+<li>Save and close.</li>
+
+</ol>
+
+<h3>Create additional RethinkDB servers</h3>
+
+<p>Repeat all above steps to create <em><u>rethinkdb_server2</u></em> nodes.</p>
 	
 <h2>Import or create a new database</h2>
 	<p>If you already have a database on this or another server, you need to import those databases into your cluster. If there is no database,  RethinkDB automatically creates an empty database by default.</p>
