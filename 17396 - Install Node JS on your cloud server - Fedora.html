@@ -10,7 +10,8 @@
 
 
 <title>Install Node.js on your cloud server - Fedora</title>
-<style>
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -27,7 +28,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -39,8 +40,17 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
-</style>
 
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
+</style>
 
 <!--[if gte mso 9]><xml>
 <mso:CustomDocumentProperties>
@@ -73,23 +83,29 @@ p.note {
 </head>
 
 <body>
-<p>Installation of Node.js </p>
+<p>Installation of Node.js on Fedora</p>
     <h1>Install Node JS on your cloud server - Fedora</h1>
     
     <p><strong>Difficulty</strong>: <em><u>1</u></em><br/>
         <strong>Time</strong>: <em><u>10 mins</u></em></p>
 
-    <p>Node.js is a web platform based entirely in Javascript that can be used to rapidly deploy scalable sites and site networks. With the advent of the Chrome JavaScript V8 runtime engine, Javascript can now be run server-side for deploying web applications. Because JavaScript uses event-driven and non-blocking I/O, Node.js is able to deliver high performance websites with the capability to handle a large amount of concurrent connections with a low resource impact. This article walks through installing Node in 3 ways.</p>
+    <p>Node.js is a web platform based entirely in Javascript that can be used to rapidly deploy scalable sites and site networks. With the advent of the Chrome JavaScript V8 runtime engine, Javascript can now be run server-side for deploying web applications. Because JavaScript uses event-driven and non-blocking I/O, Node.js is able to deliver high performance websites with the capability to handle a large amount of concurrent connections with a low resource impact. This article walks through installing Node three ways on Fedora 20 and 21.</p>
 
     
     <h2>Basic installation </h2>
-    <p>To install <code>node.js</code>, you will have to install the EPEL repository. The EPEL( Extra Packages for Enterprise Linux) contains additional packages that are not included in the the default CentOS repositories.</p>
+    <p>To install <code>node.js</code>, you will have to install the EPEL repository. The EPEL ( Extra Packages for Enterprise Linux) contains additional packages that are not included in the the default RHEL repositories.</p>
     <ol>
         <li>As is best practice run <code>update</code> to update the installed packages.
         <div class=" hacker">sudo yum update</div>
         </li>
         <li>Install EPEL package.           
             <div class="hacker">sudo yum install epel-release</div>
+
+            <p>If you get an output saying "No package epel-release available," download the newest EPEL version manually. You can check for the latest version at <a href="http://fedoraproject.org/wiki/EPEL">http://fedoraproject.org/wiki/EPEL</a>.</p>
+
+            For instance, to install EPEL7:
+              <div class="hacker">sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</div>
+
         </li>
 
         <li>Install Node.js
@@ -103,8 +119,8 @@ p.note {
             <div class="hacker">node --version</div>
         </li>
     </ol>
-    <h2>Installation from Node site</h2>
-    <p>Another option is to download install tthe packages from the Node.js site itself. You can find the list of releases <a href="https://nodejs.org/download/release/">here</a>. In this guide we will install the latest version.  </p>
+    <h2>Installation from source / Node site</h2>
+    <p>Another option is to download install the packages from the Node.js site itself. You can find the list of releases <a href="https://nodejs.org/download/release/">here</a>. In this guide we will install the latest version.  </p>
     <ol>
        
         <li>Update the installed packages.
@@ -117,8 +133,11 @@ p.note {
             <div class="hacker">sudo tar zxf node-*.tar.gz node-v* -C /usr/local</div>
         </li>
         
+        <li>Install Node.js and NPM.
+           <div class="hacker"> sudo yum install nodejs npm</div>
+
         <li>
-            You can verify the the current verion of Node.js that got installed by :
+            You can verify the the current verion of Node.js that got installed by running the following command:
             <div class="hacker">node --version</div>
         </li>
        
@@ -133,7 +152,7 @@ p.note {
         
         <li>Install nvm installation script from the <a href="https://github.com/creationix/nvm">Github</a> page
             <div class="hacker">curl https://raw.githubusercontent.com/creationix/nvm/<em><u>v0.26.1</u></em>/install.sh | sh</div>
-        <p class="note">In this guide we are installing version 26. You can choose to install any version instead of it.</p>
+        <p class="note">In this guide we are installing version 26. You can choose to install any version instead.</p>
         <p>This will install it to a subdirectory of your home directory at <code>~/.nvm</code> along with adding code to <code>~./profile</code></p>
         </li>
         <li>Source the <code>~/.profile</code> for your session to accept the changes, so that you now can access the NVM functionality.
@@ -164,7 +183,7 @@ p.note {
         
              
     <h2>Next steps</h2>
-    You've just installed Node.js with its NPM system. From here, you have all kinds of options to:
+  Congratulations! You've just installed Node.js with its NPM system. <!--CT: Commenting out links as the articles don't exist yet 10/5/15... From here, you have all kinds of options to:
    
         <ul>
             <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/17354 - Set up Node JS application for production - CentOS">Set up Node.js application for production</a></li>
@@ -173,7 +192,7 @@ p.note {
             <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18060 - Connect Node JS to a MongoDB Database - CentOS, Fedora">Connect Node.js to a MongoDB Database</a></li>
             <li><a href="https://blueprintcs.sharepoint.com/sites/gdcmp/Articles/18171 - Deploy your Node JS Application with Systemd and NGINX - CentOS, Fedora">Deploy your Node.js Application with Upstart and NGINX</a></li>
         </ul>   
-
+...-->
    
 </body>
 </html>
