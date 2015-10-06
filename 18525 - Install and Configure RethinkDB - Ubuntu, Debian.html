@@ -8,7 +8,8 @@
 
 
 <title>18525 - Install and configure RethinkDB - Ubuntu, Debian</title>
-<style type="text/css">
+
+<style type='text/css'>
 div.hacker {
 background-color:#666;
 border:1px solid #ccc;
@@ -25,7 +26,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -37,6 +38,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -70,13 +81,15 @@ p.note {
 <p>Configuring RethinkDB on Ubuntu and Debian, NoSQL</p>
 <h1>Install and Configure RethinkDB - Ubuntu, Debian</h1>
 
-<p><strong>Difficulty</strong>: <em>2</em></p>
-<p><strong>Time</strong>: <em>15 minutes</em></p>
+    <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
+        <strong>Time</strong>: <em><u>15 minutes</u></em></p>
 
-<p> RethinkDB belongs to the NoSQL database family. It is designed specifically to push data to applications in real-time. This provides a base for creating real-time, scalable, database-oriented web applications. It has a very simple API to interact with the databases. This article explains installing and configuring RethinkDB on Ubuntu or Debian. </p>
+<p> RethinkDB belongs to the NoSQL database family. It is designed specifically to push data to applications in real-time. This provides a base for creating real-time, scalable, database-oriented web applications. It has a very simple API to interact with the databases.</p>
 
 <p>Installing RethinkBD includes two main components: the database itself, and the client driver, which interacts with the database from your programming language.</p>
-<p class="note">You need sudo privileges to complete these steps.</p>
+
+ <p>This article will cover installing and configuring RethinkDB on Ubuntu or Debian. You'll need sudo privileges to complete this tutorial.</p>
+
 <h2>Install RethinkDB Software</h2>
 <ol>
 <li>Add RethinkDB repositories to the list of your repositories based on your distribution:<br />
@@ -93,7 +106,7 @@ echo "deb http://download.rethinkdb.com/apt `lsb_release -cs` main" | sudo tee /
 </li>
 </ol>
 
-<h2>Install the Python Client driver</h2>
+<h2>Install the Python client driver</h2>
 <p>In this article we will be installing python client driver. You can use pip (Python Package Manager) to install the client driver for RethinkDB. It is a best practice to run Python applications in an isolated environment.</p>
 <ol>
 <li>Install the virtual environment.
@@ -108,7 +121,7 @@ echo "deb http://download.rethinkdb.com/apt `lsb_release -cs` main" | sudo tee /
 <div class="hacker">source venv/bin/activate</div>
 <p>You can use the command <code>deactivate</code> to deactivate the current environment.</p>
 </li>
-<li>Install the RethinkDB driver using pip.
+<li>Install the RethinkDB driver using <code>pip</code>.
 <div class="hacker">sudo pip install rethinkdb</div>
 <p>This step will install Python client drivers for RethinkDB.</p>
 </li>
@@ -120,26 +133,32 @@ echo "deb http://download.rethinkdb.com/apt `lsb_release -cs` main" | sudo tee /
 <div class="hacker">rethinkdb --bind all</div>
 </li>
 <li>
-Access your server at <strong><u><em>http://public_IP_of_your_server_or_domain</em></u>:8080</strong><br />
-<img src="images/18525 - 1.png" alt="RethinkDB Dashboard"/>  <br />
+Access your server at <strong><u><em>http://public_IP_of_your_server_or_domain</em></u>:8080</strong>
+
+<p><img src="images/18525 - 1.png" alt="RethinkDB Dashboard"/>  </p>
+
 Using this Web interface, you can manage creating database, tables, and can configure RethinkDB cluster to manage table replication. 
 </li>
 
 </ol>
 <h2>Configure RethinkDB</h2>
 <ol>
-<li>Open configuration file.
+<li>Open the Rethink configuration file.
 <div class="hacker">sudo cp /etc/rethinkdb/default.conf.sample /etc/rethinkdb/instances.d/instance.conf</div>
 <div class="hacker">sudo vi /etc/rethinkdb/instances.d/instance.conf</div>
 </li>
-<li>
-locate <code>server-name</code> and type following line beneath it to give your server name.
-<div class="hacker">server-name=<em><u>rethinkdb</u></em>	</div>
+<li>Locate the line starting with <code>server-name</code> (most likely the last line in the file). Uncomment this line and give your server a name.
+	<div class="hacker">server-name=<em><u>rethinkdb</u></em>	</div>
 </li>
-<li> To make it listen on all network. locate <code>bind=127.0.0.1</code> and type following line beneath it.
+<li> To make Rethink listen on all networks, find this line.
+		<div class="hacker">bind=127.0.0.1</div>
+		
+		And directly underneath it, add this.
 <div class="hacker">bind=all</div>
 </li>
-<li>Save the configuration changes made, and then start RethinkDB with new build configuration.
+<li>Save the configuration changes made and close the file.</li> 
+
+<li>Restart RethinkDB with new build configuration.
 <div class="hacker">sudo service rethinkdb restart</div>
 
 </li>
@@ -148,7 +167,7 @@ locate <code>server-name</code> and type following line beneath it to give your 
  
 <h2>Interact with RethinkDB from Python</h2>
 
-<p>In most cases, you will be managing databases using the programming language. The following commands will help you perform these tasks:</p>
+<p>In most cases, you will be managing databases using Python. The following commands will help you perform these tasks:</p>
 <ol>
 <li>Activate the virtual environment for Python. 
 <div class="hacker">cd ~/rethink</div>
@@ -186,8 +205,8 @@ exit()
 </li>
 </ol>
 
-<h2>Next step</h2>
-<p>In this article, you reviewed the steps to install and configure RethinkDB on Debian and Ubuntu servers. For more information on how to configure RethinkDB cluster on Ubuntu and Debian servers, see the article: <a href="18528">Set up a sharded RethinkDB Cluster - Debian, Ubuntu</a></p>
+<h2>Next steps</h2>
+<p>Congratulations! You've installed and configured RethinkDB. For even more information on how to configure a RethinkDB cluster on Ubuntu or Debian, see <a href="18528 - Set up a sharded RethinkDB Cluster - Ubuntu, Debian.html">Set up a sharded RethinkDB Cluster - Debian, Ubuntu</a></p>
 
 
 </body>
