@@ -127,47 +127,51 @@ td:nth-child(1) {font-weight:bold;}
                 
 </ol>
 
- <h2>Configure Laravel</h2>
+ <h2>Configure NGINX for Laravel</h2>
 
 <ol>
-  <li>Using the <code>sites-available</code> default virtual hosts file, create a copy to use for our Laravel server block. 
-<div class="hacker">sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/laravel
-</div></li>
+ <li>Create a new Laravel configuration file. 
+<div class="hacker">sudo vim /etc/nginx/conf.d/laravel.conf</div> </li>
 
-<li>Open your Laravel file to edit. 
-<div class="hacker">sudo vim /etc/nginx/sites-available/laravel.conf</div> </li>
+<li>Add the following contents to the newly-created file:
+<div class="hacker"><pre> server {
+listen       81;
+root /var/www/laravel/public;
+index index.php index.html index.htm;ex.html index.htm;
+server_name localhost;
+try_files $uri $uri/ /index.php?$query_string;
 
-<li>In the file, in the server block, change the Listen directive to list to Port 81.
-<div class="hacker">Listen  <em><u>81;</u></em></div></li>
+# Load configuration files for the default server block.
+include /etc/nginx/default.d/*.conf;
 
-<li>Change root to <code>/var/www/laravel/public</code>.
-  <div class="hacker">root /var/www/laravel/public;<br/>
-  
-  <!--CT:... index index.php index.html index.htm;</div> ...-->
-</li>
+location / {
+        }
 
-<!--CT:... <li>A little lower, you'll find the first Listen block. Point your root to <code>/var/www/laravel/public;</code>
-<div class="hacker">root <em><u>/var/www/laravel/public;</u></em></div></li>
-...-->
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
 
-<li>And add this <code>try_files</code> directive underneath the index line.
-<div class="hacker">try_files $uri $uri/ /index.php?$query_string;</div></li>
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
 
-     
-<li>Make sure your php location looks like this:
-<div class="hacker"><pre>location ~ \.php$ {
+location ~ \.php$ {
 try_files $uri /index.php =404;
 fastcgi_split_path_info ^(.+\.php)(/.+)$;
 fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
 fastcgi_index index.php;
 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; 
 include fastcgi_params;
- }</pre></div>
-</li>
+ }
+
+
+    }
+
+</pre></div></li>
 
  <li>Save and close the file.</li> 
 
-<li>Create a symlink from <code>sites-available</code> to <code>sites-enabled</code> to activate the server block. 
+<li>If ine does not already exist, create a symlink from <code>sites-available</code> to <code>sites-enabled</code> to activate the server block. 
 <div class="hacker">sudo ln -s /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/laravel</div> </li>
 
 </ol>
@@ -180,10 +184,10 @@ include fastcgi_params;
         <li>Open your main Nginx config file to edit. 
       <div class="hacker">sudo vim /etc/nginx/nginx.conf</div> </li>
 
-<li>Make sure this Include line is present (it should be, towards the end of the file):
-<div class="hacker">include /etc/nginx/sites-enabled/*.conf;<br/>
-include /etc/nginx/sites-enabled/*;<br/>
-<!--CT:... server_names_hash_bucket_size 64;...--></div> </li>
+<li>Make sure these includes line are present.  They should be under a heading, <code> # Virtual Host Configs</code>. 
+<div class="hacker"><pre>include /etc/nginx/conf.d/*.conf;
+include /etc/nginx/sites-enabled/*;
+server_names_hash_bucket_size 64;</pre></div> </li>
 
 <li>Restart Nginx.
   <div class="hacker">  sudo systemctl restart nginx</div>
