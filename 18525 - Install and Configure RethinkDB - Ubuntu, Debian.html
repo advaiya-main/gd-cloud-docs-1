@@ -132,7 +132,7 @@ echo "deb http://download.rethinkdb.com/apt `lsb_release -cs` main" | sudo tee /
 <li>Start RethinkDB to access it through the web interface.
 <div class="hacker">rethinkdb --bind all</div>
 
-<p class="note">To stop the process, press <strong>CTRL</strong>-<strong>C</strong>.</p> 
+<p>To stop the process, press <strong>CTRL</strong>-<strong>C</strong>.</p> 
 
 To start RethinkDB in the background:
 <div class="hacker">rethinkdb --bind all &</div>
@@ -140,7 +140,7 @@ The "&" sign starts up the process in the background, allowing you to continue w
 </li>
 
 <li>
-Access your server at <strong><u><em>http://public_IP_of_your_server_or_domain</em></u>:8080</strong>
+Access your server at <strong>http://<u><em>public_IP_of_your_server_or_domain</em></u>:8080</strong.
 
 <p><img src="images/18525 - 1.png" alt="RethinkDB Dashboard"/>  </p>
 
@@ -155,7 +155,7 @@ Using this Web interface, you can manage creating database, tables, and can conf
 <div class="hacker">sudo vi /etc/rethinkdb/instances.d/instance.conf</div>
 </li>
 <li>Locate the line starting with <code>server-name</code> (most likely the last line in the file). Uncomment this line and give your server a name.
-	<div class="hacker">server-name=<em><u>rethinkdb</u></em>	</div>
+	<div class="hacker">server-name=<em><u>your_rethinkdb_server</u></em>	</div>
 </li>
 <li> To make Rethink listen on all networks, find this line.
 		<div class="hacker">bind=127.0.0.1</div>
