@@ -92,12 +92,8 @@ td:nth-child(1) {font-weight:bold;}
 
 <h2>Install RethinkDB Software</h2>
 <ol>
-<li>Add RethinkDB repositories to the list of your repositories:
+<li>Add the RethinkDB repository to the list of your repositories:
 <div class="hacker">source /etc/lsb-release &amp;&amp; echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list <br/>wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add - </div>
-For Debian:
-<div class="hacker">
-echo "deb http://download.rethinkdb.com/apt `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list <br /> wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -
-</div>
 </li>
 <li>Update and install RethinkDB.
 <div class="hacker">sudo apt-get update</div>
