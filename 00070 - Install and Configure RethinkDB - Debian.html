@@ -5,7 +5,7 @@
 <head>
 
 
-<title>18525 - Install and configure RethinkDB - Ubuntu, Debian</title>
+<title>00070 - Install and configure RethinkDB - Debian</title>
 
 <style type='text/css'>
 div.hacker {
@@ -53,7 +53,7 @@ td:nth-child(1) {font-weight:bold;}
 <mso:CustomDocumentProperties>
 <mso:ArticleKeywords msdt:dt="string">NoSQL</mso:ArticleKeywords>
 <mso:Reference msdt:dt="string">https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-rethinkdb-on-an-ubuntu-12-04-vps, https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-rethinkdb-on-an-ubuntu-12-04-vps</mso:Reference>
-<mso:LinuxDistributions msdt:dt="string">;#Ubuntu;#Debian;#</mso:LinuxDistributions>
+<mso:LinuxDistributions msdt:dt="string">;;#Debian;#</mso:LinuxDistributions>
 <mso:ArticlePriority msdt:dt="string">6</mso:ArticlePriority>
 <mso:RequestNotes msdt:dt="string"></mso:RequestNotes>
 <mso:Difficulty msdt:dt="string">2</mso:Difficulty>
@@ -77,7 +77,7 @@ td:nth-child(1) {font-weight:bold;}
 
 <body>
 <p>Configuring RethinkDB on  Debian, NoSQL</p>
-<h1>Install and Configure RethinkDB - Ubuntu, Debian</h1>
+<h1>Install and Configure RethinkDB - Debian</h1>
 
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>15 minutes</u></em></p>
@@ -129,15 +129,11 @@ echo "deb http://download.rethinkdb.com/apt `lsb_release -cs` main" | sudo tee /
 <li>Start RethinkDB to access it through the web interface.
 <div class="hacker">rethinkdb --bind all</div>
 
-<p>To stop the process, press <strong>CTRL</strong>-<strong>C</strong>.</p> 
-
-To start RethinkDB in the background:
-<div class="hacker">rethinkdb --bind all &</div>
-The "&" sign starts up the process in the background, allowing you to continue working in your terminal.
+To stop the process and continue working in your terminal, press <strong>CTRL</strong>-<strong>C</strong>.
 </li>
 
 <li>
-Access your server at <strong>http://<u><em>public_IP_of_your_server_or_domain</em></u>:8080</strong.
+Access your server at <strong>http://<u><em>public_IP_of_your_server_or_domain</em></u>:8080</strong>.
 
 <p><img src="images/18525 - 1.png" alt="RethinkDB Dashboard"/>  </p>
 
