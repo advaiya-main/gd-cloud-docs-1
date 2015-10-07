@@ -143,7 +143,7 @@ td:nth-child(1) {font-weight:bold;}
 
 <h3>Configure the php.ini file</h3>
 <ol>
-<li>Open <code>/etc/php.ini</code>. 
+<li>Open <code>php.ini</code>.  
  <div class="hacker">sudo vim /etc/php/php.ini</div>
 </li>
 <li>Locate the <b><i>cgi.fix_pathinfo</i></b> directive.  Most of the file is commented out. It will be about halfway through the file, under a section called <code>Paths and Directories</code>.</li>  
@@ -158,12 +158,12 @@ td:nth-child(1) {font-weight:bold;}
 =======
        <li>Find the <code>open_basedir</code> directive.  It will look something like this:  
  <div class="hacker"> open_basedir = /srv/http/:/home/:/tmp/:/usr/share/pear/:/usr/share/webapps/ </div></li>
-      <li>Add the document root to it so it looks like this: 
+      <li>Add the NGINX document root parent to it so it looks like this: 
           <div class="hacker">open_basedir = /srv/http/:/home/:/tmp/:/usr/share/pear/:/usr/share/webapps/<em><u>:/usr/share/nginx</u></em> </div></li>
      
 >>>>>>> origin/master
        <li>Save and close.</li>
-      <li>Open the <code>/etc/php/php-fpm.conf</code>. file.
+      <li>Open the <code>/etc/php-fpm.conf</code>. file.
 <div class="hacker">sudo vim /etc/php/php-fpm.conf</div>
       </li> 
       <li>Find the <code>listen</code> directives and set it as follows:
@@ -184,38 +184,34 @@ td:nth-child(1) {font-weight:bold;}
 
   </li>    
         <li> Verify or modify it to include the following lines in the <code>http</code> context: 
-         <div class="hacker">index index.php index.html index.htm;<br />
+         <div class="hacker"><pre>index index.php index.html index.htm;
+root   /usr/share/nginx/html;</pre>
+
              </div>
-            </li>
- <li>Include the following line in the <code>server</code> context: 
-         <div class="hacker">include /etc/nginx/default.d/*.conf;<br />
-             </div>
-            <p>This line requests that any file with a <code>conf</code> extension be referenced at this point in the <code>nginx.conf</code> file.  In the unlikely event this line does not exist, add it.</p>
-            <p>The configuration file will look something like this:</p>
+            Comment out the same lines in the <code>location</code> context: 
+  <p>The resulting configuration file will look something like this:</p>
          <div class="hacker"><pre>http {
    ... 
    index  index.php index.html index.htm;
+   root /usr/share/nginx/html;
      server {
         listen 80; 
-        root /usr/share/nginx/html;
-        server_name localhost;
-        include /etc/nginx/default.d/*.conf;</pre>   </div>
+          server_name localhost;
+...
+ location / {
+#           root   /usr/share/nginx/html;
+#           index  index.html index.htm;
+        }
+
+   </pre>   </div>
         </li>
-            <li>Since Apache is using port 80, for now we will configure using port 81.&nbsp; Edit the <code>index</code> and <code>server_name</code> parameters to look like this:  
+            <li>Since Apache is using port 80, for now we will configure using port 81.&nbsp;   
                       <div class="hacker"><pre>server {
              listen 81; 
              ...           
           </pre>   </div> </li>
-       <li>In the same file modify the server block to  so it looks like the example below:
-<<<<<<< HEAD
-       <div class="hacker"><pre># pass the PHP scripts to FastCGI server listening on the php-fpm socket
-    location ~ \.php$ {
-     fastcgi_pass   unix:/run/php-fpm/php-fpm.sock;
-     fastcgi_index  index.php;
-     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-     include        fastcgi.conf;
-              }       </pre> </div>
-=======
+       <li>In the same file modify the php location block (there should be a commented out one already existing)  so it looks like the example below:
+
        <div class="hacker"><pre>location ~\.php
           {
    try_files $uri =404;
@@ -224,7 +220,7 @@ td:nth-child(1) {font-weight:bold;}
    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
    include fastcgi_params;
  }     </pre> </div>
->>>>>>> origin/master
+
       </li> 
   
  <li>Save and close.</li>
@@ -272,7 +268,9 @@ phpinfo();<br />
                <li>Start Nginx.
                    <div class="hacker">sudo service nginx restart</div>
                </li>
-                                
+    <li>To verify your cutover, open a browser, and type:
+            <strong>http://<em><u>IP address or domain name of your server</u></em>/info.php</strong> (no port 81 specification).
+     A page full of statistics with a PHP logo in the upper right hand corner will be displayed. </li>                               
             </ol>
    <p class="warning">If you want to continue to use Apache for some requests, and Nginx for others, you <strong>must</strong> make sure they are listening on different ports. </p> 
                   
