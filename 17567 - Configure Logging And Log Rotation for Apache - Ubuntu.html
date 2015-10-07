@@ -80,7 +80,7 @@ p.note {
 
 <h2>Prerequisites</h2>
 <ul>
-    <li>Install Apache. See <a href="17346"> Build a LAMP (Linux, Apache, MySQL, PHP) stack on a server running Debian</a>
+    <li>Install Apache. See <a href="17346"> Build a LAMP (Linux, Apache, MySQL, PHP) stack on a server running Ubuntu</a>
 	</li>
 	
 </ul>
@@ -208,8 +208,8 @@ CustomLog ${APACHE_LOG_DIR}/access.log combined<br />
 
 <h3>Manually rotate logs</h3>
 <ul>
-<li>Manually rotate logs:
-  <div class="hacker">sudo mv <em><u>error_log</u></em> <em><u>error_log.old</u></em></div>
+<li>By default, you will find the Apache error logs under <code>/var/log/apache2/</code>.
+  <div class="hacker">sudo mv /var/log/apache2/error.log /var/log/apache2/<em><u>error.log.old</u></em></div>
 <div class="hacker">sudo apachectl graceful</div>
 <div class="hacker">sleep <em><u>600</u></em></div>
 <p>This command will move the files, reload the file, and then wait for 600 seconds.</p>
