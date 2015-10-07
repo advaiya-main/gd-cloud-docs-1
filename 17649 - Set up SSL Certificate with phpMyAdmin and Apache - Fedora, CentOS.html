@@ -5,8 +5,8 @@
 <head>
 
 
-
 <title>Set up SSL Certificate with phpMyAdmin and Apache - Fedora, CentOS</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -24,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -36,6 +36,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -86,9 +96,10 @@ p.note {
 <h2>Prerequisites</h2>
     You need to have the following installed on your server:
     <ul>
-        <li>A LAMP stack. See the instructions for <a href="17342 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Fedora.html">Fedora</a>, <a href="17343 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 6.html">CentOS 6</a>, or <a href="17344 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 7.html">CentOS 7</a>.</li>
-        <li> phpMyAdmin. See the instructions for <a href="17639 - Install and secure phpMyAdmin with Apache - Fedora">Fedora</a>, <a href="Articles/00027 - Install and secure phpMyAdmin with Apache - CentOS 6">CentOS 6</a>, or <a href="17640 - Install and secure phpMyAdmin with Apache - CentOS 7">CentOS 7</a>.</li>
-        <li> <a href="17452 - Install an SSL Certificate on Apache – CentOS, Fedora">An SSL certificate</a>.</li>
+        <li>A LAMP stack. See the instructions for <a href="17342 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - Centos6, Fedora.html">CentOS 6 or Fedora</a> or <a href="17344 - Build a LAMP stack (Linux, Apache, MySQL, PHP) - CentOS 7.html">CentOS 7</a>.</li>
+
+        <li> phpMyAdmin. See the instructions for <a href="17639 - Install and secure phpMyAdmin with Apache - Fedora.html">Fedora</a>, <a href="00027 - Install and secure phpMyAdmin with Apache - CentOS 6.html">CentOS 6</a>, or <a href="17640 - Install and secure phpMyAdmin with Apache - CentOS.html 7">CentOS 7</a>.</li>
+        <li> <a href="17452 - Install an SSL Certificate on Apache – CentOS, Fedora.html">An SSL certificate</a>.</li>
     </ul>
 <h2>Force phpMyAdmin to your SSL server</h2>
     <p>Once you have all the prerequisites in place, the only thing to do is to force phpMyAdmin to use SSL instead of HTTP.</p>
