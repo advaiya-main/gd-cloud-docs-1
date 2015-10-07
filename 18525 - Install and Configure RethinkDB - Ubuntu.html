@@ -7,7 +7,7 @@
 <!--Article Number is 18525-->
 
 
-<title>18525 - Install and configure RethinkDB - Ubuntu</title>
+<title>Install and configure RethinkDB - Ubuntu</title>
 
 <style type='text/css'>
 div.hacker {
@@ -127,14 +127,15 @@ td:nth-child(1) {font-weight:bold;}
 <li>Start RethinkDB to access it through the web interface.
 <div class="hacker">rethinkdb --bind all</div>
 
-To stop the process and continue working in your terminal, press <strong>CTRL</strong>-<strong>C</strong>.
+To stop the process and continue working in your command line, press <strong>CTRL</strong>-<strong>C</strong>.
 
 </li>
 
 <li>
 Access your server at <strong>http://<u><em>public_IP_of_your_server_or_domain</em></u>:8080</strong>.
 
-<p><img src="images/18525 - 1.png" alt="RethinkDB Dashboard"/>  </p>
+<p><img src="images/18525/100715/rethinkDB-web-dashboard.png" alt="RethinkDB Dashboard" />  </p>
+
 
 Using this Web interface, you can manage creating database, tables, and can configure RethinkDB cluster to manage table replication. 
 </li>
@@ -142,9 +143,11 @@ Using this Web interface, you can manage creating database, tables, and can conf
 </ol>
 <h2>Configure RethinkDB</h2>
 <ol>
-<li>Open the Rethink configuration file.
-<div class="hacker">sudo cp /etc/rethinkdb/default.conf.sample /etc/rethinkdb/instances.d/instance.conf</div>
-<div class="hacker">sudo vi /etc/rethinkdb/instances.d/instance.conf</div>
+<li>First, make a copy of the RethinkDB configuration file using the default.
+<div class="hacker">sudo cp /etc/rethinkdb/default.conf.sample /etc/rethinkdb/instances.d/instance.conf</div></li>
+
+<li>Open the RethinkDB configuration file.
+<div class="hacker">sudo vim /etc/rethinkdb/instances.d/instance.conf</div>
 </li>
 <li>Locate the line starting with <code>server-name</code> (most likely the last line in the file). Uncomment this line and give your server a name.
 	<div class="hacker">server-name=<em><u>your_rethinkdb_server</u></em>	</div>
@@ -157,7 +160,7 @@ Using this Web interface, you can manage creating database, tables, and can conf
 </li>
 <li>Save the configuration changes made and close the file.</li> 
 
-<li>Restart RethinkDB with new build configuration.
+<li>Restart RethinkDB with the new build configuration.
 <div class="hacker">sudo service rethinkdb restart</div>
 
 </li>
