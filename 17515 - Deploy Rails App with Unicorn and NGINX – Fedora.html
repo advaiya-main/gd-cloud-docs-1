@@ -128,10 +128,11 @@
         </li>
 		
 		<li>Create a sample database, and then generate a scaffold controller to manage the production database.
+		<div class='hacker'>rails generate scaffold Task title:string note:text/</div>
             <div class='hacker'>  RAILS_ENV=development rake db:migrate</div>
 		<div class ="hacker">RAILS_ENV=production  rake db:migrate
 		</div>
-		       <div class='hacker'>rails generate scaffold Task title:string note:text/</div>
+		       
         </li>
 		<li>Create a directory to hold the PID files.
             <div class='hacker'>mkdir pids</div>
@@ -141,16 +142,17 @@
 			<p>To terminate the user, press <strong>CTRL+C</strong>.</p>
         </li>
 	  <li>For binding to a web browser, run the following command:
-        <div class='hacker'>rails server --binding=[<em><u>your server's IP</u></em>]</div>        
-            You can now access it on any browser by visiting <strong>http://<em><u>your server's IP</u></em>:3000/tasks</strong>.<br />
-        <br />
-        Refer to the following article to upload the source code: <a href="17414 ">Use SFTP to Securely Transfer Files with a Remote Server on ALL DISTROS</a>.       </li>
+        <div class='hacker'>rails server --binding=[<em><u>your server's IP</u></em>]</div>
+        </li>
+		<li>You can now access it on any browser by visiting:
+		  <div class='hacker'>http://[<em><u>your server's IP</u></em>]:3000/tasks</div>
+      </li>
 		
 </ol>
 		
-<h2>Configure the server</h2>
+<h2>Configure server</h2>
        <ol> <li>To configure Unicorn, move to the Rails application directory.
-            <div class='hacker'>Cd /var/www/<em><u>Your_application</u></em></div>
+            <div class='hacker'>cd /var/www/<em><u>Your_application</u></em></div>
         </li>
         <li>Create a blank <code>unicorn.rb</code>. 
             <div class='hacker'>sudo vim config/unicorn.rb</div>
@@ -191,7 +193,7 @@ timeout 30
             <div class='hacker'>sudo vim /etc/nginx/nginx.conf.default</div>
         </li>
 		<li>Replace the file's content with the following lines:
-            <div class='hacker'><pre>
+           <div class='hacker'><pre>
 upstream app {
 # Path to Unicorn SOCK file, as defined previously
    	 server unix:/tmp/unicorn.<em><u>Your_application</u></em>.sock fail_timeout=0;
@@ -203,7 +205,7 @@ upstream app {
    	 server_name localhost;
 
    	 # Application root, as defined previously
-  	  root /root/<em><u>Your_application</u></em>/public;
+  	  root /var/www/<em><u>Your_application</u></em>/public;
 
   	 try_files $uri/index.html $uri @app;
 
@@ -222,7 +224,7 @@ upstream app {
 </div>
 	
         </li>
-		<li> Save and exit the file by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key. 
+		<li>Save and exit the file by pressing the <strong>Esc</strong> key, and then typing <strong>;wq</strong>, followed by  the <strong>Enter</strong> key.
 		</li>
 </ol>
 		
@@ -234,6 +236,9 @@ upstream app {
             <div class='hacker'>sudo service nginx restart
 		     </div>
 			 </li>
+			  <li>For binding to web browser, run the following command:
+            <div class='hacker'>rails server --binding=[<em><u>your server's IP</u></em>]</div>
+        </li>
         <li>Test your server's IP address or the domain name associated to it.
             <div class='hacker'>http://<em><u>Your server's IP address</u></em>/tasks</div>
           
