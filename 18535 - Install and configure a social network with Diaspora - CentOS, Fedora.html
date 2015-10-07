@@ -213,7 +213,7 @@ collation: utf8mb4_bin
    <div class="hacker">bundle config build.nokogiri --use-system-libraries</div>
    </li>
    <li>Install Gems.
-   <div class="hacker">RAILS_ENV=production bin/bundle install --without test development –deployment</div>
+   <div class="hacker">RAILS_ENV=production bin/bundle install --without test development --deployment</div>
    </li>
    <li>Configure the database.
    <div class="hacker">RAILS_ENV=production bin/rake db:create db:schema:load</div>
@@ -260,7 +260,9 @@ collation: utf8mb4_bin
    </li>
    <li>Save and close the file by pressing the <strong>Esc</strong> key, and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key.
    </li>
-   <li>Log in as <code>sudo</code> user, and create a <code>unicorn.service</code> file.
+   <li>Log in as <code>sudo</code> user and exit from the current user.
+   <div class="hacker">exit</div></li>
+   <li>Create a <code>unicorn.service</code> file.
      <div class="hacker">sudo vim /etc/systemd/system/diaspora-unicorn.service</div>
    </li>
    <li>Add the following entries:
