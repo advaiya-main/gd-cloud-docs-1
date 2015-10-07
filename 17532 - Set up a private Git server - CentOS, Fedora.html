@@ -73,13 +73,13 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>10 minutes</u></em></p>
 
-    <p>Even in the open-source world, sometimes you need a little privacy.&nbsp; Or maybe you don&#39;t want to expose your code tot the world until you have cleaned it up a bit.&nbsp; In these cases, it may be prefereable to set up a private Git server.</p>
+    <p>Even in the open-source world, sometimes you need a little privacy.&nbsp; Or maybe you don&#39;t want to expose your code to the world until you have cleaned it up a bit.&nbsp; In these cases, it may be prefereable to set up a private Git server.</p>
 
     <h2>Preparation </h2>
      <ol>
-               <li>Create a public/private RSA key pair.
+               <li>Create a public/private RSA key pair. For this article, the user is named "example_user". 
                    <div class="hacker">ssh-keygen -C "<em><u>your email address</u></em>"</div>
-                   Follow the directions to create a key.  We will name the key "<em><u>mygitkey</u></em>".
+                   Follow the directions to create a key.  When asked for a  file location, if you press <strong>Return</strong> on your keyboard, it gets saved to the user's home. The public key is in <code>/<em><u>example_user</u></em>/.ssh/id_rsa.pub </code>, and the private key (identification) is now located in <code>/<em><u>example_user</u></em>/.ssh/id_rsa </code>. 
                </li>
                <li>Add a git user
                    <div class="hacker">sudo useradd git </div>
@@ -98,7 +98,7 @@ p.note {
                    <div class="hacker">sudo mkdir -p /home/git/.ssh</div>
                </li>
                <li>Copy your rsa public key to an authorized key file.
-                   <div class="hacker"> sudo cp <em><u>mygitkey</u></em>.pub /home/git/.ssh/authorized_keys</div>
+                   <div class="hacker"> sudo cp /home/<em><u>example_user</u></em>/.ssh/id_rsa.pub /home/git/.ssh/authorized_keys</div>
                </li>
                <li>Create a directory for your git project(s).
                    <div class="hacker">sudo mkdir -p /usr/gitprojects</div>
@@ -107,7 +107,7 @@ p.note {
                    <div class="hacker">cd /usr/gitprojects</div>
                </li>
                <li>Create a new project
-                   <div class="hacker">git init --bare my-cool-project.git</div>
+                   <div class="hacker">sudo git init --bare my-cool-project.git</div>
                </li>
      </ol>
 
