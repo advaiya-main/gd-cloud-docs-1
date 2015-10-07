@@ -76,12 +76,21 @@ p.note {
 <p><strong>Difficulty:</strong> <em>1</em></p>
 <p><strong>Time:</strong> <em>15 mins</em></p>
 
-<p>In this article, we'll make a backup of a PostgreSQL database that can be used to scale a Ruby on Rails (RoR) application. These instructions assume that you have <code>sudo</code> privileges.</p>
+<p>In this article, we'll make a backup of a PostgreSQL database that can be used to scale a Ruby on Rails (RoR) application. These instructions assume that you have <code>sudo</code> privileges and have already created a databse called <em><u>database_name</u></em>.</p>
 
-<p>Before starting, make sure that  <a href="17536">Ruby on Rails is installed</a> and that <a href="17526">PostgreSQL is installed</a>.</p>
+<p>Before starting, make sure that you visit the following links:</p>
+<ul>
+<li><a href="17536">Install Ruby on Rails using RVM - CentOS</a></li>
+<li><a href="17535">Install Ruby on Rails using RVM - Fedora</a></li>
+<li><a href="17599">Install and configure PostgreSQL - CentOS 6</a></li>
+<li><a href="17600">Install and configure PostgreSQL - CentOS 7</a></li>
+<li><a href="17598">Install and configure PostgreSQL - Fedora</a></li>
+<li><a href="17526">Use PostgreSQL with your Ruby on Rails Application - CentOS</a></li>
+<li><a href="17525">Use PostgreSQL with your Ruby on Rails Application - Fedora</a></li>
+</ul>
 <h2>Back up a PostgreSQL database </h2>
 <p>Back up a PostgreSQL database using any of the following methods.<code> Pg_dump</code> is the utility used to dump database information into a file for backup purposes.</p>
-<ul>
+<ol>
   <li> Log in with the <code>postgres</code>  user, and create a database <em><u>backup file</u></em>.
     <div class="hacker">sudo su - postgres</div>
 
@@ -92,7 +101,7 @@ p.note {
   <li>If you want to specify a different user, use <code>-U</code>.
 	<div class="hacker">pg_dump -U user_name -h remote_host -p remote_port <em><u>database_name</u></em> ><em><u>backup_file</u></em></div>
   </li>
-</ul>
+</ol>
 
 <h2>Restore data dumps </h2>
 <ol>
