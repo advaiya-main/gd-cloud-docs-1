@@ -252,6 +252,8 @@ fastcgi_split_path_info ^(.+\.php)(/.+)$;</div>
 
 <li> Grant permissions to allow nginx to write to the app/storage directory<div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
                </li>
+<li>Restart PHP.
+<div class="hacker">sudo service php-fpm restart</div></li>
               <li>In your web browser, verify success by navigating to your server, appended by :81.
 <div class="hacker"><em><u>your server IP address</u></em>:81</div></li>
            </ol>
