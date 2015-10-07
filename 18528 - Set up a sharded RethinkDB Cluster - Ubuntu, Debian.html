@@ -228,13 +228,12 @@ Your key will generate and will be displayed on-screen.</li>
 Paste the user public key into this file. 
 </li>
 
-<li>Save and close.</li>
 
+<li>Save and close by pressing the <strong>Esc</strong> key and then typing <strong>:wq</strong>, followed by pressing the <strong>Enter</strong> key.</li>
+<li>Repeat above steps in this section on <em><u>rethinkdb_server2</u></em> server node.</li>
 </ol>
 
-<h3>Create additional RethinkDB servers</h3>
 
-<p>Repeat all above steps to create <em><u>rethinkdb_server2</u></em> nodes.</p>
 	
 <h2>Import or create a new database</h2>
 	<p>If you already have a database on this or another server, you need to import those databases into your cluster. If there is no database,  RethinkDB automatically creates an empty database by default.</p>
@@ -260,7 +259,7 @@ Paste the user public key into this file.
 	</li>
 	
 	<li>Restart RethinkDB. 
-	  <div class="hacker">sudo service rethinkdb start</div>
+	  <div class="hacker">sudo service rethinkdb restart</div>
 	</li>
 	</ol>
 	<h3>If you have an existing database:</h3>
