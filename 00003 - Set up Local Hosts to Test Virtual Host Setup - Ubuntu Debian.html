@@ -95,15 +95,15 @@ p.note {
 </div>	
 	 
 	 
-<h2>Set up local hosts</h2>
-	<p>If you want to test your domain before completing the DNS propagation, then with the help of your computer’s <code>hosts</code> file, you can access your configured domain. </p>
+<h2>Set up your local hosts file</h2>
+	<p>If you want to test your domain before completing the DNS propagation, then with the help of your computer’s <code>hosts</code> file, you can access your configured domain.&nbsp; The location of the file will vary depending on the client machine but the principle of bypassing DNS by listing the IP address and domain name as a value pair in a file remains the same.&nbsp; On Windows clients the hosts file is found under <code>Windows\System32\drivers\etc</code>.  </p>
 	<ol>
 	<li>If you are using a Linux computer,  edit the <code>hosts</code> file.
       <div class="hacker">vim /etc/hosts</div></li>
 <li>Add appropriate entries for your server’s IP address followed by the domain name, as shown in the following:
    <div class="hacker">127.0.0.1   <em><u>localhost</u></em></div>
    <div class="hacker">111.1.11.1 <em><u>coolexample.com</u></em></div>
-   <p>The above code tells your local resolver to directly search for the domain in the server with the IP address - 111.1.11.1. Hence, you will get the contents without complete DNS propagation.</p>
+   <p>The above code tells your local resolver to directly search for the domain in the server with the IP address - 111.1.11.1. Hence, you will get immediate routing to the IP address without any DNS propagation whatsoever.</p>
    </li>
    <li>Access the domain <em><u>http://coolexample.com</u></em> in your browser to display the page.
    </li>

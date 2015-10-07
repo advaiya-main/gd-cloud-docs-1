@@ -68,7 +68,7 @@ p.note {
     <ol>
             <li>Download the <strong>WordPress Domain mapping</strong> plug-in. <br />
 
-<div class="hacker">cd ~ wget http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip</div>   </li> 
+<div class="hacker">wget http://downloads.wordpress.org/plugin/wordpress-mu-domain-mapping.latest-stable.zip</div>   </li> 
 
 
             <li>Unzip the plug-in.
@@ -77,11 +77,10 @@ p.note {
                     If prompted, enter <strong>y</strong> to continue installation. </li>
 
             <li>Move the files to the WordPress <code>/wp-content/plugins/directory</code> directory. <br />
-                    <div class="hacker">sudo mv wordpress-mu-domain-mapping <br />
-                     /srv/http/wp-content/plugins/</div>   </li>
+                    <div class="hacker">sudo mv wordpress-mu-domain-mapping /srv/http/wp-content/plugins/</div>   </li>
 
             <li>Copy the <code>sunrise.php</code> into your WordPress document root.
-                    <div class="hacker">sudo cp /srv/http/wp-content/plugins/wordpress-mu-domain-mapping/sunrise.php    <br />
+                    <div class="hacker">sudo cp /srv/http/wp-content/plugins/wordpress-mu-domain-mapping/sunrise.php    
                     /srv/http/wp-content/</div>   </li>
 
     </ol>
@@ -91,11 +90,8 @@ p.note {
 
     <ol>
 
-            <li>Let's go to your WordPress document root.
-            <div class="hacker">cd /srv/http/</div> </li>
-
             <li>Open your <code>wp-config</code> file.
-            <div class="hacker">sudo vim wp-config.php</div></li>
+            <div class="hacker">sudo vim /srv/http/wp-config.php</div></li>
 
              <li>Add this line before <code>/* That's all, stop editing! Happy blogging. */</code>. 
             <div class="hacker">define('SUNRISE', 'on'); </div> </li>
