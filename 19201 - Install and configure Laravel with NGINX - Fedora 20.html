@@ -99,7 +99,7 @@ p.note {
                    <div class="hacker">sudo yum install git</div>
                </li>
                <li>Install PHP and related items.
-                   <div class="hacker">sudo yum install php php-fpm php-cli php-mcrypt</div>
+                   <div class="hacker">sudo yum install php php-fpm php-cli php-mcrypt php-zip</div>
                </li>
            </ol>
 
@@ -108,10 +108,10 @@ p.note {
      <li>Create a physical location for the Laravel server.
                  <div class="hacker">sudo mkdir -p /var/www/laravel</div>
       </li> 
-  <li>Create a directory for server-level include files.
+  <li>If it does not already exist, create a directory for server-level include files.
                  <div class="hacker">sudo mkdir /etc/nginx/default.d</div>
       </li> 
-      <li>Create a directory for location-level include files.
+      <li>If it does not already exist, create a directory for location-level include files.
                  <div class="hacker">sudo mkdir /etc/nginx/conf.d</div>
       </li>     
       
@@ -210,12 +210,17 @@ Use it: php composer.phar </pre>
                    <div class="hacker">sudo /usr/local/bin/composer create-project laravel/laravel /var/www/laravel 4.2</div>
                </li>              
                <li>Change the owner to &quot;nginx&quot;.
-                   <div class="hacker">sudo chown -R :nginx /var/www/laravel</div>
+                   <div class="hacker">sudo chown -R :nginx /var/www</div>
                </li> 
                              
                <li>Change the permissions to allow nginx to write to the <code>app/storage</code> directory.
                  <div class="hacker">sudo chmod -R 755 /var/www/laravel/app/storage</div>
-               </li>   
+               </li>  
+        <li>Restart PHP.
+  <div class="hacker">sudo systemctl restart php-fpm</div>
+    or
+<div class="hacker">sudo service php-fpm restart</div>
+      </li>  
               <li>Verify success by navigating to your server.
                 <div class="hacker">http://your server IP address.com:81</div>
                </li>
