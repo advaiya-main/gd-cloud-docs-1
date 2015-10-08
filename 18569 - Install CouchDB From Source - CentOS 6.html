@@ -110,7 +110,7 @@ Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile su
 </ol>
 <h2>Install Erlang</h2>
 <ol>
-	<li>Create a new directory.
+	<li>Create a  couchdb directory.
 		<div class="hacker">sudo mkdir Install_couchDB</div>
 	</li>
 	<li>Go to that directory and compile Erlang from source.
@@ -119,6 +119,7 @@ Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile su
 		<div class="hacker">cd otp_src_R14B01</div>
 		<div class="hacker">sudo ./configure</div>
 		<div class="hacker">sudo  make &amp;&amp; make install</div>
+		<div class ="hacker">cd /home/<em><u>Logged_in_user</u></em>/Install_couchDB</div>
 	</li>
 </ol>
 <h2>Install Mozilla SpiderMonkey</h2>
@@ -131,6 +132,7 @@ Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile su
 		<div class="hacker">cd mozjs17.0.0/js/src/</div>
 		<div class="hacker">sudo ./configure</div>
 		<div class="hacker">sudo  make &amp;&amp; make install</div>
+		<div class ="hacker">cd /home/<em><u>Logged_in_user</u></em>/Install_couchDB</div>
 	</li>	
 </ol>
 <h2>Install CouchDB</h2>
@@ -143,14 +145,22 @@ Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile su
 	<li>Export the path of Erlang using the following commands:
 	<div class="hacker"> export ERL_TOP='pwd'</div>
 		<div class="hacker">export PATH=$ERL_TOP/bin:$PATH</div>
+		
 	</li><li>Install all erlang  dependencies.
 	<div class ="hacker">sudo yum install erlang</div>
+	<p>If you get an error after running the above command, then you will need to first remove <code>epel-release</code> repository  and then re-install the <code>epel-release</code> repository using the following command:
+	</p>
+	<div class="hacker">sudo yum remove epel-release</div>
+	<div class= "hacker">sudo rm -rf /var/cache/yum/x86_64/6/epel</div>
+	<div class= "hacker">sudo yum -y install epel-release</div>
+	<p>Now, install all erlang dependencies.</p>
+	<div class="hacker">sudo yum install erlang</div>	
 	</li>
 	<li>Install <code>jsapi</code> header file which is required by spider Monkey.
 	<div class ="hacker">sudo yum install js-devel</div>
 	</li>
 	<li>Compile the CouchDB.
-	<div class="hacker"> sudo ./configure --with-erlang=/usr/lib64/erlang/erts-5.10.4/include</div>
+	<div class="hacker"> sudo ./configure --with-erlang=/usr/lib64/erlang/<em><u>ERL_Version</u></em>/include</div>
 		<div class="hacker">sudo make &amp;&amp; make install</div>
 	</li>
 </ol>
@@ -182,10 +192,9 @@ Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile su
 	<li>To test that CouchDB is running successfully, go to any browser, and type:
 	<strong>http://<em><u>Your public Ip</u></em>:5984</strong>.
 	</li>
-	<li>After the server is up and running, you can access it in your browser at <strong>http://<em><u>Your public IP</u></em>:5984/utils/</strong>.
-	</li>
+	
 </ol>
 <h2>Conclusion</h2>
-<p>In this article, we reviewed the steps involved with the installation of CouchDB on CentOS and Fedora.</p>
+<p>In this article, we reviewed the steps involved with the installation of CouchDB on CentOS 6.</p>
 </body>
 </html>
