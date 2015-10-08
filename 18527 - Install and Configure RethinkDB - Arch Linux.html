@@ -125,8 +125,7 @@ Using this Web interface, you can manage creating database, tables, and can conf
 	</div>
 </li>
 </ol>
-<h2>Interact with RethinkDB from Python</h2>
-
+<h2>Start the Python virtual environment</h2>
 <p>In most cases, you will be managing databases using the programming language. The following commands will help you perform these tasks:</p>
 <ol>
 <li>
@@ -154,7 +153,10 @@ Enable and start new configuration.
 <div class="hacker">cd ~/rethink</div>
 <div class="hacker">source venv/bin/activate</div>
 </li>
-<li>Start Python interpreter.
+</ol>
+<h2>Interact with RethinkDB from Python</h2>
+<ol>
+<li>Start Python interpreter. Your prompt will change to "&gt;&gt;&gt;" indicating you are now issuing commands within the python interpreter.
 <div class="hacker">sudo python</div>
 </li>
 
@@ -177,6 +179,7 @@ Enable and start new configuration.
 <div class="hacker"><pre>c = r.db("<em><u>article</u></em>").table("<em><u>posts</u></em>").run()
 for x in c:
     print x</pre></div>
+	Press <strong>Enter</strong> twice to display the values in variable <strong>x</strong>.
     </li>
 <li>
 Exit the python shell.

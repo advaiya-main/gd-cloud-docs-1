@@ -122,16 +122,12 @@ td:nth-child(1) {font-weight:bold;}
 
     </ol>
     <h2>Set up a test Rails application</h2>
-       <ol><li>Create a directory 
-            <div class='hacker'>sudo mkdir -p  /var/www</div>
-        </li>
-        <li>Provide all required permissions, and then go to that directory.
-          <div class="hacker">sudo chmod -R 755 /var/www/</div>
-		  <div class='hacker'>cd /var/www</div>
-		  </li>
-		  <li>Create a Rails app, which we'll call <em><u>your_rails_app</u></em>, and move into its directory.
-      <div class='hacker'>rails  new <em><u>your_rails_app</u></em></div>
-      <div class='hacker'>cd <em><u>your_rails_app</u></em></div>
+
+       <ol>
+       
+		  <li>Create a Rails application, and then go to <code>application</code> directory.
+      <div class='hacker'>rails new <em><u>~/your_ruby_app</u></em></div>
+
         </li>                                               
     <li>Create a sample database, and then generate a scaffold controller to manage the production database.
 	<div class='hacker'>rails generate scaffold Task title:string note:text</div>
@@ -139,7 +135,7 @@ td:nth-child(1) {font-weight:bold;}
 		<div class ="hacker">RAILS_ENV=production  rake db:migrate</div>
 			
         </li>
-    <li>Test  your application by running the following command in the application directory:
+    <li>Test your application by running the following command in the application directory:
         <div class='hacker'>rails server --binding=<em><u>Your-server-ip</u></em></div>
         </li>
     </ol>
@@ -169,16 +165,13 @@ td:nth-child(1) {font-weight:bold;}
             <div class='hacker'>
       server {
        <br /> listen 80 default_server;
-<<<<<<< HEAD
         <br />#listen [::]:80 default_server ipv6only=on;
-=======
-       
->>>>>>> origin/master
     
         <br />server_name <em><u>www.coolexample.com</u></em>;
         <br />passenger_enabled on;
        <br /> rails_env    development;
-        <br />root <em><u>/var/www/your_rails_app</u></em>/public;  #Rails applicastion's absolute path
+
+        <br />root <em><u>/home/<em><u>UserName/your_rails_app</u></em>/public;  #Rails applicastion's absolute path
 <br />
        <br /> # redirect server error pages to the static page /50x.html
         <br />error_page   500 502 503 504  /50x.html;
@@ -194,7 +187,7 @@ td:nth-child(1) {font-weight:bold;}
 		</li>
         <li>To start the Nginx web service.
             <div class='hacker'> sudo /opt/nginx/sbin/nginx </div>
-			<p class="note">			To test Rails application open the browser and type <strong>http://your_server_ip</strong></p>
+			<p class="note">			To test your Rails app, open the browser and type <strong>http://your_server_ip</strong></p>
         </li>
 		<li>To stop the Nginx web service.
             <div class='hacker'> ps wax | grep nginx </div>
@@ -209,6 +202,6 @@ td:nth-child(1) {font-weight:bold;}
 			<p class="note">Process ID is different then shown in example.</p>
         </li></ol>
     <h2>Conclusion</h2>
-    In this article, we reviewed the steps involved in installing Ruby on Rails using RVM, installed NGINX and Passenger, and finally compiled and configured it to deploy our Rails application on NGINX web server.    
+    <p>In this article, we reviewed the steps involved in installing Ruby on Rails using RVM, installed NGINX and Passenger, and finally compiled and configured it to deploy our Rails app on NGINX.    </p>
 </body>
 </html>

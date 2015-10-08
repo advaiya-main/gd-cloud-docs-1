@@ -83,14 +83,14 @@ Taylor</mso:display_urn_x003a_schemas-microsoft-com_x003a_office_x003a_office_x0
 <p><strong>Time:</strong> <em>15 mins</em></p>
 
 <p>In this article, we'll make a backup of a PostgreSQL database that can be used to scale a Ruby on 
-Rails (RoR) application. These instructions assume that you have <code>sudo</code> privileges.</p>
+Rails (RoR) application. These instructions assume that you have <code>sudo</code> privileges and have already created a database called <em><u>database_name</u></em>.</p>
 
-<p>Before starting, make sure that you visit <a href="17537">Ruby on Rails is installed</a> and than <a 
-href="17527">PostgreSQL is installed</a>.</p>
+<p>Before starting, make sure that you visit <a href="17460">Install and configure PostgreSQL - Arch Linux</a></p>
+
 <h2>Back up a PostgreSQL database </h2>
 <p>Back up a PostgreSQL database using any of the following methods.  <code>Pg_dump</code> is the 
 utility used to dump database information into a file for backup purposes.</p>
-<ul>
+<ol>
   <li> Log in with the <code>postgres</code>  user, and create a database <em><u>backup file</u></em>.
 
 	<div class="hacker">sudo su - postgres</div>
@@ -108,7 +108,7 @@ the remote host, and the <code>-p</code> flag to specify the remote port.
 	<div class="hacker">pg_dump -U   <em><u>user_name</u></em> -h   <em><u>remote_host</u></em> -p   <em><u>remote_port</u></em> <em><u>database_name</u></em> 
 ><em><u>backup_file</u></em></div>
   </li>
-</ul>
+</ol>
 
 <h2>Restore data dumps </h2>
 
