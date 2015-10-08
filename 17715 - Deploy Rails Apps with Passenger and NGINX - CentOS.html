@@ -7,6 +7,7 @@
 <!--Article Number is 17715-->
 
 <title>Deploy Rails Apps with Passenger and NGINX - CentOS</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -24,7 +25,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -36,6 +37,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -90,7 +101,7 @@ p.note {
 	  <li>Install NGINX passenger.
       <div class='hacker'>rvmsudo  passenger-install-nginx-module</div>
         </li>
-        <li>For  language, select <code>Ruby</code>, and then press the <strong>Enter</strong> key.
+        <li>For language, select <code>Ruby</code>, and then press the <strong>Enter</strong> key.
           <div class='hacker'>Use &lt;space&gt; to select. If the menu doesn't display correctly, ensure that your terminal supports UTF-8.
       <ul>
         <li>Ruby</li>
@@ -102,23 +113,27 @@ p.note {
            </li>
         <li>Select  <code>1</code> and press the <strong>Enter</strong> key to continue. This action downloads, compiles, and installs the NGINX files with Passenger support.
           <div class='hacker'>1. Yes: download, compile and install Nginx for me.(recommended)
-       <br /> 
+      <!--CT: <br /> 
        The easiest way to get started. A stock NGINX 1.4.4 with Passenger support, but with no other additional third party modules, will be installed for you to a directory of your choice.</div>
+       ...-->
         </li>
+
+<li>Press <strong>Enter</strong> to agree to the defaults. The installation of Nginx will take a few minutes.</li>
+
     </ol>
     <h2>Set up a test Rails application</h2>
        <ol><li>Create a directory 
             <div class='hacker'>sudo mkdir -p  /var/www</div>
         </li>
         <li>Provide all required permissions, and then go to that directory.
-          <div class="hacker">sudo chmod -R 0777 /var/www/</div>
+          <div class="hacker">sudo chmod -R 755 /var/www/</div>
 		  <div class='hacker'>cd /var/www</div>
 		  </li>
-		  <li>Create a Rail application, and then go to <code>application</code> directory.
-      <div class='hacker'>rails  new <em><u>Your_application</u></em></div>
-      <div class='hacker'>cd <em><u>Your_application</u></em></div>
+		  <li>Create a Rails app, which we'll call <em><u>your_rails_app</u></em>, and move into its directory.
+      <div class='hacker'>rails  new <em><u>your_rails_app</u></em></div>
+      <div class='hacker'>cd <em><u>your_rails_app</u></em></div>
         </li>                                               
-    <li>Create a sample databases, and then generate a scaffold controller to manage the production database.
+    <li>Create a sample database, and then generate a scaffold controller to manage the production database.
 	<div class='hacker'>rails generate scaffold Task title:string note:text</div>
             <div class='hacker'>  RAILS_ENV=development rake db:migrate</div>
 		<div class ="hacker">RAILS_ENV=production  rake db:migrate</div>
@@ -163,7 +178,7 @@ p.note {
         <br />server_name <em><u>www.coolexample.com</u></em>;
         <br />passenger_enabled on;
        <br /> rails_env    development;
-        <br />root <em><u>/var/www/Your_application</u></em>/public;  #Rails applicastion's absolute path
+        <br />root <em><u>/var/www/your_rails_app</u></em>/public;  #Rails applicastion's absolute path
 <br />
        <br /> # redirect server error pages to the static page /50x.html
         <br />error_page   500 502 503 504  /50x.html;
