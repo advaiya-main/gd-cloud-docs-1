@@ -113,15 +113,9 @@ will be installed for you to a directory of your choice.</pre>
 
         </li></ol>
 <h2>Configure a test Rails application</h2>
-       <ol> <li>Create a directory. 
-            <div class='hacker'>sudo mkdir -p  /var/www</div>
-        </li>
-        <li>Provide all of the required permissions, and then go to that directory.
-          <div class="hacker">sudo chmod -R 0777 /var/www/</div>
-		  <div class='hacker'>cd /var/www</div>
-		  </li>
+       <ol> 
 		  <li>Create a Rail application and go to the application directory.
-      <div class='hacker'>rails  new <em><u>Your_application</u></em></div>
+      <div class='hacker'>rails  new <em><u>~/Your_application</u></em></div>
       <div class='hacker'>cd <em><u>Your_application</u></em></div>
         </li>
     <li>Create a sample database and generate a scaffold controller to manage the development database.
@@ -157,7 +151,7 @@ will be installed for you to a directory of your choice.</pre>
 	</li>
         <li>Make corresponding changes in the file as shown in code.
           <div class='hacker'><pre> server { <br /> listen 80 default_server; <br /> server_name <em><u>www.coolexample.com</u></em>;  #Replace with your FQDN or Server IP <br />passenger_enabled on;
-       <br />rails_env    development; <br />root      <em><u>/var/www/Your_application</u></em>/public;#Rails application path
+       <br />rails_env    development; <br />root      <em><u>/home/UserName/Your_application</u></em>/public;#Rails application path
 
  # redirect server error pages to the static page /50x.html
  error_page   500 502 503 504  /50x.html;
