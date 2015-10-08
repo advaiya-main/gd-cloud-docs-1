@@ -107,15 +107,10 @@ p.note {
         </li>
     </ol>
     <h2>Set up a test Rails application</h2>
-       <ol><li>Create a directory 
-            <div class='hacker'>sudo mkdir -p  /var/www</div>
-        </li>
-        <li>Provide all required permissions, and then go to that directory.
-          <div class="hacker">sudo chmod -R 0777 /var/www/</div>
-		  <div class='hacker'>cd /var/www</div>
-		  </li>
+       <ol>
+        
 		  <li>Create a Rail application, and then go to <code>application</code> directory.
-      <div class='hacker'>rails  new <em><u>Your_application</u></em></div>
+      <div class='hacker'>rails  new <em><u>~/Your_application</u></em></div>
       <div class='hacker'>cd <em><u>Your_application</u></em></div>
         </li>                                               
     <li>Create a sample databases, and then generate a scaffold controller to manage the production database.
@@ -154,16 +149,12 @@ p.note {
             <div class='hacker'>
       server {
        <br /> listen 80 default_server;
-<<<<<<< HEAD
         <br />#listen [::]:80 default_server ipv6only=on;
-=======
-       
->>>>>>> origin/master
     
         <br />server_name <em><u>www.coolexample.com</u></em>;
         <br />passenger_enabled on;
        <br /> rails_env    development;
-        <br />root <em><u>/var/www/Your_application</u></em>/public;  #Rails applicastion's absolute path
+        <br />root <em><u>/home/UserName/Your_application</u></em>/public;  #Rails applicastion's absolute path
 <br />
        <br /> # redirect server error pages to the static page /50x.html
         <br />error_page   500 502 503 504  /50x.html;
