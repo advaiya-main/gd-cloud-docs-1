@@ -6,7 +6,7 @@
 
 <!--Article Number is 17912-->
 
-<title>17912 - Use RVM to manage Ruby installations and environments - ALL DISTROS</title>
+<title>Use RVM to manage Ruby installations and environments - ALL DISTROS</title>
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -185,23 +185,23 @@ p.note {
                </tr>
                <tr>
     <td>Create a gemset</td>
-       <td><code>rvm gemset create <em><u>gem_test</u></em></code></td>
+       <td><code>rvm gemset create <em><u>your_gemset_project</u></em></code></td>
           </tr>
                <tr>
     <td>Copy a current gemset to a new gemset</td>
-       <td><code>rvm gemset copy default <em><u>gem_test</u></em></code></td>
+       <td><code>rvm gemset copy default <em><u>your_gemset_project</u></em></code></td>
                </tr>
 			   <tr>
 	<td>Use a particular gemset</td>
-		<td><code>rvm gemset use <em><u>gem_test</u></em></code></td>
+		<td><code>rvm gemset use <em><u>your_gemset_project</u></em></code></td>
 		       </tr>
 		       <tr>
 		<td>Set default version for Ruby, when you have more than one gemset installed</td>
-		<td><code>rvm --default use <em><u>ruby_version@gem_test</u></em></code></td>
+		<td><code>rvm --default use <em><u>ruby_version@your_gemset_project</u></em></code></td>
 		       </tr>
 			   <tr>		
 	<td>Delete a gemset</td>
-	    <td><code>rvm gemset delete <em><u>gem_test</u></em></code></td>
+	    <td><code>rvm gemset delete <em><u>your_gemset_project</u></em></code></td>
 	           </tr>
 			   <tr>
 	<td>Create project specific configurations to specify which Ruby version and gemset to use in a <code>.rvmrc </code>file</td>
@@ -211,7 +211,7 @@ p.note {
 
 	<h2>Configurations</h2>
 	<ul>
-	<li>RVM has its default configuration file in:
+	<li>RVM's default configuration file is:
 	<div class="hacker">~/.rvm/config/db</div>
 	<p>If RVM is upgraded, then the customizations made to the configuration file will be lost forever. Therefore, make custom configurations in <code>'~/.rvm/user/db'</code>, so that the settings will be retained.</p></li>
 	</ul>
