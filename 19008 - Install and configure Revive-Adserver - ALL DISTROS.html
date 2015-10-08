@@ -6,6 +6,7 @@
 
 
 <title>Install and configure revive-adserver - ALL DISTROS</title>
+
 <style type='text/css'>
 div.hacker {
 background-color:#666;
@@ -23,7 +24,7 @@ p.note {
 
 .warning {
  border: 1px #d25100 solid;
- padding: .5em 1em .5em 4em;
+ padding: .5em 1em 5em 4em;
  margin: 10px 20px 15px 20px;
  background-image: url('@{help-img-path}/img_warning.gif');
  background-repeat: no-repeat;
@@ -35,6 +36,16 @@ p.note {
  padding-top:14px;
  padding-bottom:15px;
 }
+
+table {border-collapse: collapse; color: #333; margin: 1.2rem 0;}
+tr:nth-child(odd) {background-color: #f7f7f7 
+;}
+tr:nth-child(1) {background-color:#ddd;}
+th{ border-right: 1px solid #ddd; padding: 5px; text-align:left;}
+td{border: 1px solid #b2b2b2 
+;padding: 5px;vertical-align:top;}
+td:nth-child(1) {font-weight:bold;}
+
 </style>
 
 
@@ -79,7 +90,7 @@ p.note {
     <p><strong>Difficulty</strong>: <em><u>2</u></em><br/>
         <strong>Time</strong>: <em><u>20 minutes</u></em></p>
 
-    <p>Revive Adserver is a PHP-based advertisement server that allows you to track and manage ad campaigns.  This article assumes you have <code>tar</code> and a LEMP stack installed appropriate to your Linux distribution:</p>
+    <p>Revive Adserver (formerly OpenX Source) is a PHP-based advertisement server that allows you to track and manage ad campaigns. This article assumes you have <code>tar</code> and a LEMP stack installed appropriate to your Linux distribution:</p>
        <ul>
                <li><a href="http://17350%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20Arch%20Linux.html">Arch Linux</a></li> 
                <li><a href="http://19186%20-%20Build%20a%20LEMP%20stack%20(Linux,%20NGINX,%20MySQL,%20PHP)%20-%20CentOS%206.html">Centos 6</a></li>
@@ -102,7 +113,7 @@ p.note {
                    <div class="hacker">sudo tar xf revive-adserver-3.2.1.tar.gz&nbsp; </div>
                </li>
                 <li>Move it to <code>revive-adserver</code>.
-                   <div class="hacker">mv revive-adserver-3.2.1/* /usr/share/nginx/html/revive-adserver/</div>
+                   <div class="hacker">sudo mv revive-adserver-3.2.1/* /usr/share/nginx/html/revive-adserver/</div>
                </li>
               </ol>
     
