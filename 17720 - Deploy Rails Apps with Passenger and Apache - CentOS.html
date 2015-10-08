@@ -139,14 +139,10 @@
 		<li>Install the sqlite's development package to store data in the database.
 			<div class='hacker'>sudo yum install sqlite-devel</div>
 		</li>
-		<li>Go to Apache’s web root folder.
-			<div class='hacker'>cd /var/www/html </div>
-			Change the permission of <code>/var/www/html</code>
-			<div class='hacker'>sudo chmod -R 0777 /var/www/html</div>
-		</li>
+		
 		<li>Create a Rails App, and then go to application directory using following commands:
 		
-		<div class ="hacker">rails new <em><u>Your_application</u></em></div> 
+		<div class ="hacker">rails new <em><u>~/Your_application</u></em></div> 
 			<div class='hacker'>cd <em><u>Your_application</u></em> </div>
 		</li>
 		<li>By default, CentOS doesn’t have JavaScript execution environment installed. To manually install it, type: 
@@ -177,8 +173,8 @@
 <pre>&lt;VirtualHost *:80&gt;
 	#Replace www.coolexample.com with your FQDN or YOur-server-ip
 	ServerName <em><u>www.coolexample.com</u></em>
-	DocumentRoot /var/www/html/Your_application/public 
-	&lt;Directory /var/www/html/Your_application/public&gt;
+	DocumentRoot <em><u>/home/username/Your_application</u></em>/public 
+	&lt;Directory <em><u>/home/username/Your_application</u></em>/public&gt;
 		AllowOverride all
 		Options -MultiViews
 	&lt;/Directory&gt;
