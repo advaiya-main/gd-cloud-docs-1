@@ -128,15 +128,10 @@ PassengerDefaultRuby /home/<em><u>Logged_in_User</u></em>/.rvm/gems/<em>><u>Inst
 		<li>Install the sqlite's  development package.
 		<div class ="hacker">sudo pacman -S sqlite</div>
 		</li>
-		<li>Move the test app to the Apache web root folder.
-		<div class ="hacker">cd /var/www/html</div>
-		</li>
-		<li>Give the following permission:
-		<div class ="hacker">sudo chmod 0777 -R /var/www/html/</div>
-		</li>
+		
 		<li>In this folder, test application code is generated under the <code>HelloWorld</code> folder.
-		<div class ="hacker">rails new <em><u>HelloWorld</u></em></div>
-		<div class ="hacker">cd <em><u>HelloWorld</u></em></div>
+		<div class ="hacker">rails new <em><u>~/Your_application</u></em></div>
+		<div class ="hacker">cd <em><u>Your_application</u></em></div>
 
 		</li>
 		<li>You can also initiate the development database using the migration tool.
@@ -158,9 +153,9 @@ Include conf/extra/httpd-vhosts.conf
 		<li>At the end of this file, add the virtual host.
 		<div class ="hacker"><pre>
 &lt;VirtualHost *:80&gt;
-       ServerName <em><u>www.mydomain.com</u></em>//<em><u>your server name</u></em>>
-	 DocumentRoot /var/www/html/<em><u>HelloWorld</u></em>/public //your rail application path
-   &lt;Directory /var/www/html/<em><u>HelloWorld</u></em>/public&gt;
+       ServerName <em><u>www.coolexample.com</u></em>
+	 DocumentRoot <em><u>/home/Logged_in_User/Your_application</u></em>/public 
+   &lt;Directory <em><u>/home/Logged_in_User/Your_application</u></em>/public&gt;
       AllowOverride all
       Options -MultiViews
    &lt;/Directory&gt;
