@@ -107,7 +107,7 @@ Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile su
 </ol>
 <h2>Install Erlang</h2>
 <ol>
-    <li>Create a new directory.
+    <li>Create a CouchDB directory.
         <div class="hacker">sudo mkdir Install_couchDB</div>
     </li>
     <li>Go to that directory and compile Erlang from source.
@@ -116,6 +116,7 @@ Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile su
         <div class="hacker">cd otp_src_R14B01</div>
         <div class="hacker">sudo ./configure</div>
         <div class="hacker">sudo  make &amp;&amp; make install</div>
+		<div class="hacker">cd /home/<em><u>Logged_in_user</u></em>/Install_couchDB</div>
     </li>
 </ol>
 <h2>Install Mozilla SpiderMonkey</h2>
@@ -128,6 +129,7 @@ Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile su
         <div class="hacker">cd mozjs17.0.0/js/src/</div>
         <div class="hacker">sudo ./configure</div>
         <div class="hacker">sudo  make &amp;&amp; make install</div>
+		<div class="hacker">cd /home/<em><u>Logged_in_user</u></em>/Install_couchDB</div>
     </li>   
 </ol>
 <h2>Install CouchDB</h2>
@@ -179,10 +181,9 @@ Whereas, CouchDB requires Mozilla's SpiderMonkey JavaScript Engine to compile su
     <li>To test that CouchDB is running successfully, go to any browser, and type:
     <strong>http://<em><u>Your public Ip</u></em>:5984</strong>.
     </li>
-    <li>After the server is up and running, you can access it in your browser at <strong>http://<em><u>Your public IP</u></em>:5984/utils/</strong>.
-    </li>
+   
 </ol>
 <h2>Conclusion</h2>
-<p>In this article, we reviewed the steps involved with the installation of CouchDB on CentOS and Fedora.</p>
+<p>In this article, we reviewed the steps involved with the installation of CouchDB on CentOS 7 and Fedora.</p>
 </body>
 </html>
