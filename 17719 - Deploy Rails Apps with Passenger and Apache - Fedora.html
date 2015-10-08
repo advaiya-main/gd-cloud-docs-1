@@ -138,12 +138,9 @@ p.note {
 	  <ol>
         <li>Install the SQLite development package to store data in database.
             <div class='hacker'>sudo yum install sqlite-devel</div></li>
-		<li>Move the test app to Apache's web root folder.
-            <div class='hacker'>cd /var/www/html </div>
-			<div class='hacker'>sudo chmod -R 0777 /var/www/html </div>
-        </li>
+		
 		<li>Create a Rails application and go to the application directory.
-            <div class='hacker'>rails new <em><u>your-application</u></em></div> <!-- Error from -->
+            <div class='hacker'>rails new <em><u>~/your-application</u></em></div>
 			<div class='hacker'>cd <em><u>your-application</u></em> </div>
 		</li>
 		<li>By default, Fedora doesn't have a JavaScript execution environment installed. So, to install it manually, open <code>Gemfile</code> in your favorite editor.
@@ -174,8 +171,8 @@ p.note {
 	#Replace www.coolexample.com to your FQDN or Your-server-IP
 	ServerName <em><u>www.coolexample.com</u></em> 
 	#Your rail application path
-	DocumentRoot /var/www/html/<em><u>your_application</u></em>/public 
-	&lt;Directory /var/www/html/<em><u>your_application</u></em>/public&gt;
+	DocumentRoot /home/username/<em><u>your_application</u></em>/public 
+	&lt;Directory /home/username/<em><u>your_application</u></em>/public&gt;
 		AllowOverride all
 		Options -MultiViews
 	&lt;/Directory&gt;
