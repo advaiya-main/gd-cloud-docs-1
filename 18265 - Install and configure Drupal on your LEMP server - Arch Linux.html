@@ -139,15 +139,14 @@ td:nth-child(1) {font-weight:bold;}
 <h2>Configure Nginx</h2>
           <ol>      
 <li>Open the Nginx configuration file. 
-    <div class="hacker">sudo vim /etc/nginx/nginx.conf</div>
-</li><li>Verify the <code>include</code> references in the <code>http</code> context contain the statement below.  If it does not exist, add it.  
-    <div class="hacker">include /etc/nginx/conf.d/*.conf;
-   </div>
+    <div class="hacker">sudo vim /etc/nginx/nginx.conf</div></li>
+<li>Add this <code>include</code> reference in the <code>http</code> context before the first server block.
+    <div class="hacker">include /etc/nginx/*.conf;</div>
 </li>
 <li>Save, if necessary, and close the file. 
 </li>
               <li>Create a new file <code>drupal.conf</code>. 
-    <div class="hacker">sudo vim /etc/nginx/conf.d/drupal.conf</div>
+    <div class="hacker">sudo vim /etc/nginx/drupal.conf</div>
 </li>
 <li>Edit the file with the following contents: 
     <div class="hacker"><pre>
